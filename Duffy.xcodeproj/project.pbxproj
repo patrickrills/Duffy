@@ -1,0 +1,556 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		09323C711D22C39700961822 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09323C701D22C39700961822 /* AppDelegate.swift */; };
+		09323C731D22C39700961822 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09323C721D22C39700961822 /* ViewController.swift */; };
+		09323C761D22C39700961822 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09323C741D22C39700961822 /* Main.storyboard */; };
+		09323C781D22C39700961822 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09323C771D22C39700961822 /* Assets.xcassets */; };
+		09323C7B1D22C39700961822 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09323C791D22C39700961822 /* LaunchScreen.storyboard */; };
+		09323C801D22C39700961822 /* Duffy WatchKit App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 09323C7F1D22C39700961822 /* Duffy WatchKit App.app */; };
+		09323C861D22C39700961822 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09323C841D22C39700961822 /* Interface.storyboard */; };
+		09323C881D22C39700961822 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09323C871D22C39700961822 /* Assets.xcassets */; };
+		09323C8F1D22C39700961822 /* Duffy WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 09323C8E1D22C39700961822 /* Duffy WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		09323C941D22C39700961822 /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09323C931D22C39700961822 /* InterfaceController.swift */; };
+		09323C961D22C39700961822 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09323C951D22C39700961822 /* ExtensionDelegate.swift */; };
+		09323C981D22C39700961822 /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09323C971D22C39700961822 /* ComplicationController.swift */; };
+		09323C9A1D22C39700961822 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09323C991D22C39700961822 /* Assets.xcassets */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		09323C811D22C39700961822 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 09323C651D22C39700961822 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 09323C7E1D22C39700961822;
+			remoteInfo = "Duffy WatchKit App";
+		};
+		09323C901D22C39700961822 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 09323C651D22C39700961822 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 09323C8D1D22C39700961822;
+			remoteInfo = "Duffy WatchKit Extension";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		09323CA11D22C39700961822 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				09323C8F1D22C39700961822 /* Duffy WatchKit Extension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		09323CA51D22C39700961822 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				09323C801D22C39700961822 /* Duffy WatchKit App.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		09323C6D1D22C39700961822 /* Duffy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Duffy.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		09323C701D22C39700961822 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		09323C721D22C39700961822 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		09323C751D22C39700961822 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		09323C771D22C39700961822 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		09323C7A1D22C39700961822 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		09323C7C1D22C39700961822 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		09323C7F1D22C39700961822 /* Duffy WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Duffy WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		09323C851D22C39700961822 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
+		09323C871D22C39700961822 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		09323C891D22C39700961822 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		09323C8E1D22C39700961822 /* Duffy WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Duffy WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		09323C931D22C39700961822 /* InterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceController.swift; sourceTree = "<group>"; };
+		09323C951D22C39700961822 /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
+		09323C971D22C39700961822 /* ComplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplicationController.swift; sourceTree = "<group>"; };
+		09323C991D22C39700961822 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		09323C9B1D22C39700961822 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		09323C6A1D22C39700961822 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		09323C8B1D22C39700961822 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		09323C641D22C39700961822 = {
+			isa = PBXGroup;
+			children = (
+				09323C6F1D22C39700961822 /* Duffy */,
+				09323C831D22C39700961822 /* Duffy WatchKit App */,
+				09323C921D22C39700961822 /* Duffy WatchKit Extension */,
+				09323C6E1D22C39700961822 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		09323C6E1D22C39700961822 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				09323C6D1D22C39700961822 /* Duffy.app */,
+				09323C7F1D22C39700961822 /* Duffy WatchKit App.app */,
+				09323C8E1D22C39700961822 /* Duffy WatchKit Extension.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		09323C6F1D22C39700961822 /* Duffy */ = {
+			isa = PBXGroup;
+			children = (
+				09323C701D22C39700961822 /* AppDelegate.swift */,
+				09323C721D22C39700961822 /* ViewController.swift */,
+				09323C741D22C39700961822 /* Main.storyboard */,
+				09323C771D22C39700961822 /* Assets.xcassets */,
+				09323C791D22C39700961822 /* LaunchScreen.storyboard */,
+				09323C7C1D22C39700961822 /* Info.plist */,
+			);
+			path = Duffy;
+			sourceTree = "<group>";
+		};
+		09323C831D22C39700961822 /* Duffy WatchKit App */ = {
+			isa = PBXGroup;
+			children = (
+				09323C841D22C39700961822 /* Interface.storyboard */,
+				09323C871D22C39700961822 /* Assets.xcassets */,
+				09323C891D22C39700961822 /* Info.plist */,
+			);
+			path = "Duffy WatchKit App";
+			sourceTree = "<group>";
+		};
+		09323C921D22C39700961822 /* Duffy WatchKit Extension */ = {
+			isa = PBXGroup;
+			children = (
+				09323C931D22C39700961822 /* InterfaceController.swift */,
+				09323C951D22C39700961822 /* ExtensionDelegate.swift */,
+				09323C971D22C39700961822 /* ComplicationController.swift */,
+				09323C991D22C39700961822 /* Assets.xcassets */,
+				09323C9B1D22C39700961822 /* Info.plist */,
+			);
+			path = "Duffy WatchKit Extension";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		09323C6C1D22C39700961822 /* Duffy */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 09323CA61D22C39700961822 /* Build configuration list for PBXNativeTarget "Duffy" */;
+			buildPhases = (
+				09323C691D22C39700961822 /* Sources */,
+				09323C6A1D22C39700961822 /* Frameworks */,
+				09323C6B1D22C39700961822 /* Resources */,
+				09323CA51D22C39700961822 /* Embed Watch Content */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				09323C821D22C39700961822 /* PBXTargetDependency */,
+			);
+			name = Duffy;
+			productName = Duffy;
+			productReference = 09323C6D1D22C39700961822 /* Duffy.app */;
+			productType = "com.apple.product-type.application";
+		};
+		09323C7E1D22C39700961822 /* Duffy WatchKit App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 09323CA21D22C39700961822 /* Build configuration list for PBXNativeTarget "Duffy WatchKit App" */;
+			buildPhases = (
+				09323C7D1D22C39700961822 /* Resources */,
+				09323CA11D22C39700961822 /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				09323C911D22C39700961822 /* PBXTargetDependency */,
+			);
+			name = "Duffy WatchKit App";
+			productName = "Duffy WatchKit App";
+			productReference = 09323C7F1D22C39700961822 /* Duffy WatchKit App.app */;
+			productType = "com.apple.product-type.application.watchapp2";
+		};
+		09323C8D1D22C39700961822 /* Duffy WatchKit Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 09323C9E1D22C39700961822 /* Build configuration list for PBXNativeTarget "Duffy WatchKit Extension" */;
+			buildPhases = (
+				09323C8A1D22C39700961822 /* Sources */,
+				09323C8B1D22C39700961822 /* Frameworks */,
+				09323C8C1D22C39700961822 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Duffy WatchKit Extension";
+			productName = "Duffy WatchKit Extension";
+			productReference = 09323C8E1D22C39700961822 /* Duffy WatchKit Extension.appex */;
+			productType = "com.apple.product-type.watchkit2-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		09323C651D22C39700961822 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0730;
+				LastUpgradeCheck = 0730;
+				ORGANIZATIONNAME = "Big Blue Fly";
+				TargetAttributes = {
+					09323C6C1D22C39700961822 = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+					09323C7E1D22C39700961822 = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+					09323C8D1D22C39700961822 = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+				};
+			};
+			buildConfigurationList = 09323C681D22C39700961822 /* Build configuration list for PBXProject "Duffy" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 09323C641D22C39700961822;
+			productRefGroup = 09323C6E1D22C39700961822 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				09323C6C1D22C39700961822 /* Duffy */,
+				09323C7E1D22C39700961822 /* Duffy WatchKit App */,
+				09323C8D1D22C39700961822 /* Duffy WatchKit Extension */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		09323C6B1D22C39700961822 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				09323C7B1D22C39700961822 /* LaunchScreen.storyboard in Resources */,
+				09323C781D22C39700961822 /* Assets.xcassets in Resources */,
+				09323C761D22C39700961822 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		09323C7D1D22C39700961822 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				09323C881D22C39700961822 /* Assets.xcassets in Resources */,
+				09323C861D22C39700961822 /* Interface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		09323C8C1D22C39700961822 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				09323C9A1D22C39700961822 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		09323C691D22C39700961822 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				09323C731D22C39700961822 /* ViewController.swift in Sources */,
+				09323C711D22C39700961822 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		09323C8A1D22C39700961822 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				09323C961D22C39700961822 /* ExtensionDelegate.swift in Sources */,
+				09323C941D22C39700961822 /* InterfaceController.swift in Sources */,
+				09323C981D22C39700961822 /* ComplicationController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		09323C821D22C39700961822 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 09323C7E1D22C39700961822 /* Duffy WatchKit App */;
+			targetProxy = 09323C811D22C39700961822 /* PBXContainerItemProxy */;
+		};
+		09323C911D22C39700961822 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 09323C8D1D22C39700961822 /* Duffy WatchKit Extension */;
+			targetProxy = 09323C901D22C39700961822 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		09323C741D22C39700961822 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				09323C751D22C39700961822 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		09323C791D22C39700961822 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				09323C7A1D22C39700961822 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		09323C841D22C39700961822 /* Interface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				09323C851D22C39700961822 /* Base */,
+			);
+			name = Interface.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		09323C9C1D22C39700961822 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		09323C9D1D22C39700961822 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		09323C9F1D22C39700961822 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				INFOPLIST_FILE = "Duffy WatchKit Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.bigbluefly.Duffy.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 2.2;
+			};
+			name = Debug;
+		};
+		09323CA01D22C39700961822 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				INFOPLIST_FILE = "Duffy WatchKit Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.bigbluefly.Duffy.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 2.2;
+			};
+			name = Release;
+		};
+		09323CA31D22C39700961822 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				IBSC_MODULE = Duffy_WatchKit_Extension;
+				INFOPLIST_FILE = "Duffy WatchKit App/Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = com.bigbluefly.Duffy.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 2.2;
+			};
+			name = Debug;
+		};
+		09323CA41D22C39700961822 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
+				IBSC_MODULE = Duffy_WatchKit_Extension;
+				INFOPLIST_FILE = "Duffy WatchKit App/Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = com.bigbluefly.Duffy.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 2.2;
+			};
+			name = Release;
+		};
+		09323CA71D22C39700961822 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = Duffy/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.bigbluefly.Duffy;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		09323CA81D22C39700961822 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = Duffy/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.bigbluefly.Duffy;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		09323C681D22C39700961822 /* Build configuration list for PBXProject "Duffy" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				09323C9C1D22C39700961822 /* Debug */,
+				09323C9D1D22C39700961822 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		09323C9E1D22C39700961822 /* Build configuration list for PBXNativeTarget "Duffy WatchKit Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				09323C9F1D22C39700961822 /* Debug */,
+				09323CA01D22C39700961822 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		09323CA21D22C39700961822 /* Build configuration list for PBXNativeTarget "Duffy WatchKit App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				09323CA31D22C39700961822 /* Debug */,
+				09323CA41D22C39700961822 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		09323CA61D22C39700961822 /* Build configuration list for PBXNativeTarget "Duffy" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				09323CA71D22C39700961822 /* Debug */,
+				09323CA81D22C39700961822 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 09323C651D22C39700961822 /* Project object */;
+}
