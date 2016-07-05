@@ -19,6 +19,26 @@
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>DuffyCommon.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>3</integer>
+		</dict>
+		<key>DuffyCommonWatch.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>4</integer>
+		</dict>
+		<key>DuffyFramework.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>5</integer>
+		</dict>
+		<key>DuffyWatchFramework.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>6</integer>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
@@ -28,6 +48,31 @@
 			<true/>
 		</dict>
 		<key>09323C7E1D22C39700961822</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>09323CC81D22C96B00961822</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>09323CD91D23009400961822</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>09323CE61D23015C00961822</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>09323D021D2303BC00961822</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>09323D131D2303DE00961822</key>
 		<dict>
 			<key>primary</key>
 			<true/>

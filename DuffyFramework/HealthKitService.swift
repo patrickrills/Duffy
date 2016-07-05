@@ -1,0 +1,115 @@
+//
+//  HealthKitService.swift
+//  Duffy
+//
+//  Created by Patrick Rills on 6/28/16.
+//  Copyright © 2016 Big Blue Fly. All rights reserved.
+//
+
+import Foundation
+import HealthKit
+
+public class HealthKitService
+{
+    private static let instance: HealthKitService = HealthKitService()
+    private var healthStore: HKHealthStore?
+
+    init()
+    {
+        if (HKHealthStore.isHealthDataAvailable())
+        {
+            healthStore = HKHealthStore()
+        }
+    }
+
+    public class func getInstance() -> HealthKitService
+    {
+        return instance
+    }
+
+    public func getSteps(forDate: NSDate, onRetrieve: ((Int, NSDate) -> Void)?, onFailure:  ((NSError?) -> Void)?)
+    {
+        guard HKHealthStore.isHealthDataAvailable() && healthStore != nil else { return }
+
+        let calendar = NSCalendar.currentCalendar()
+        let components = calendar.components([.Era, .Year, .Month, .Day], fromDate: forDate)
+        components.calendar = calendar
+        let startDate = calendar.dateFromComponents(components)
+
+        guard startDate != nil else { return }
+
+        let forSpecificDay = HKQuery.predicateForSamplesWithStartDate(startDate!, endDate: calendar.dateByAddingUnit(.Day, value: 1, toDate: startDate!, options: NSCalendarOptions(rawValue: 0)), options: .StrictStartDate)
+        let interval = NSDateComponents()
+        interval.day = 1
+
+        if let store = healthStore, stepType = HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierStepCount)
+        {
+            let query = HKStatisticsCollectionQuery(quantityType: stepType,
+                    quantitySamplePredicate: forSpecificDay,
+                    options: .CumulativeSum,
+                    anchorDate: startDate!,
+                    intervalComponents: interval)
+
+            query.initialResultsHandler = {
+                (query: HKStatisticsCollectionQuery, results: HKStatisticsCollection?, error: NSError?) in
+
+                if let r = results where error == nil
+                {
+                    var steps: Int = 0
+                    var sampleDate = NSDate()
+
+                    r.enumerateStatisticsFromDate(query.anchorDate, toDate: query.anchorDate) {
+                        statistics, stop in
+
+                        if let quantity = statistics.sumQuantity() {
+                            sampleDate = statistics.startDate
+                            steps += Int(quantity.doubleValueForUnit(HKUnit.countUnit()))
+                        }
+                    }
+
+                    if let successBlock = onRetrieve
+                    {
+                        successBlock(steps, sampleDate)
+                    }
+                }
+                else
+                {
+                    if let failBlock = onFailure
+                    {
+                        failBlock(error)
+                    }
+                }
+            }
+
+            store.executeQuery(query)
+        }
+    }
+
+    public func authorizeForSteps(onAuthorized: (() -> (Void))?, onFailure: (() -> (Void))?)
+    {
+        if let store = healthStore, stepType = HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierStepCount) where HKHealthStore.isHealthDataAvailable()
+        {
+            store.requestAuthorizationToShareTypes(nil, readTypes: [stepType], completion: {
+                (success: Bool, error: NSError?) in
+                if let successBlock = onAuthorized where success
+                {
+                    successBlock()
+                }
+                else
+                {
+                    if let failBlock = onFailure
+                    {
+                        failBlock()
+                    }
+                }
+            })
+        }
+        else
+        {
+            if let failBlock = onFailure
+            {
+                failBlock()
+            }
+        }
+    }
+}
