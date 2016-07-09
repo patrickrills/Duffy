@@ -30,6 +30,8 @@
 		09323D1C1D2303DE00961822 /* DuffyWatchFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 09323D141D2303DE00961822 /* DuffyWatchFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		09323D221D23040100961822 /* HealthKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09323D211D23040100961822 /* HealthKitService.swift */; };
 		09323D231D23040100961822 /* HealthKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09323D211D23040100961822 /* HealthKitService.swift */; };
+		09AACE271D318A390058A814 /* HealthCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09AACE261D318A390058A814 /* HealthCache.swift */; };
+		09AACE281D318A390058A814 /* HealthCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09AACE261D318A390058A814 /* HealthCache.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -138,6 +140,7 @@
 		09323D141D2303DE00961822 /* DuffyWatchFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DuffyWatchFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		09323D161D2303DE00961822 /* DuffyWatchFramework.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DuffyWatchFramework.h; path = ../DuffyWatchFramework/DuffyWatchFramework.h; sourceTree = "<group>"; };
 		09323D211D23040100961822 /* HealthKitService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthKitService.swift; sourceTree = "<group>"; };
+		09AACE261D318A390058A814 /* HealthCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthCache.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -245,6 +248,7 @@
 				09323D051D2303BC00961822 /* DuffyFramework.h */,
 				09323D071D2303BC00961822 /* Info.plist */,
 				09323D211D23040100961822 /* HealthKitService.swift */,
+				09AACE261D318A390058A814 /* HealthCache.swift */,
 			);
 			path = DuffyFramework;
 			sourceTree = "<group>";
@@ -496,6 +500,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09AACE271D318A390058A814 /* HealthCache.swift in Sources */,
 				09323D221D23040100961822 /* HealthKitService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -504,6 +509,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09AACE281D318A390058A814 /* HealthCache.swift in Sources */,
 				09323D231D23040100961822 /* HealthKitService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -857,6 +863,7 @@
 				09323CA01D22C39700961822 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		09323CA21D22C39700961822 /* Build configuration list for PBXNativeTarget "Duffy WatchKit App" */ = {
 			isa = XCConfigurationList;
@@ -865,6 +872,7 @@
 				09323CA41D22C39700961822 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		09323CA61D22C39700961822 /* Build configuration list for PBXNativeTarget "Duffy" */ = {
 			isa = XCConfigurationList;
@@ -873,6 +881,7 @@
 				09323CA81D22C39700961822 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		09323D0C1D2303BC00961822 /* Build configuration list for PBXNativeTarget "DuffyFramework" */ = {
 			isa = XCConfigurationList;
@@ -881,6 +890,7 @@
 				09323D0E1D2303BC00961822 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		09323D1D1D2303DE00961822 /* Build configuration list for PBXNativeTarget "DuffyWatchFramework" */ = {
 			isa = XCConfigurationList;
@@ -889,6 +899,7 @@
 				09323D1F1D2303DE00961822 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

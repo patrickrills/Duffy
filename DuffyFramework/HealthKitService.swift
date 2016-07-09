@@ -13,12 +13,14 @@ public class HealthKitService
 {
     private static let instance: HealthKitService = HealthKitService()
     private var healthStore: HKHealthStore?
+    private var observerQueries: [String : HKObserverQuery]?
 
     init()
     {
         if (HKHealthStore.isHealthDataAvailable())
         {
             healthStore = HKHealthStore()
+            observerQueries = [String : HKObserverQuery]()
         }
     }
 
@@ -109,6 +111,47 @@ public class HealthKitService
             if let failBlock = onFailure
             {
                 failBlock()
+            }
+        }
+    }
+    
+    public func initializeBackgroundQueries()
+    {
+        if let store = healthStore where observerQueries != nil
+        {
+            let stepsIdenitifier = HKQuantityTypeIdentifierStepCount
+            let stepsType = HKQuantityType.quantityTypeForIdentifier(stepsIdenitifier)
+            
+            if let sampleType = stepsType
+            {
+                if let stepsQuery = observerQueries![stepsIdenitifier]
+                {
+                    store.stopQuery(stepsQuery)
+                    observerQueries!.removeValueForKey(stepsIdenitifier)
+                }
+                
+                let query = HKObserverQuery(sampleType: sampleType, predicate: nil, updateHandler: {
+                    [weak self] (updateQuery: HKObserverQuery, handler: HKObserverQueryCompletionHandler, updateError: NSError?) in
+                    
+                    self?.getSteps(NSDate(),
+                        onRetrieve: {
+                            (steps: Int, forDay: NSDate) in
+                            
+                            if (HealthCache.saveStepsToCache(steps, forDay: forDay))
+                            {
+                                NSLog(String(format: "Update complication with %d steps", steps))
+                            }
+                            
+                        },
+                        onFailure: nil)
+                    
+                    
+                    handler()
+                    
+                })
+                
+                observerQueries![stepsIdenitifier] = query
+                store.executeQuery(query)
             }
         }
     }
