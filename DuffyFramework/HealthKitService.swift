@@ -140,6 +140,7 @@ public class HealthKitService
                             if (HealthCache.saveStepsToCache(steps, forDay: forDay))
                             {
                                 NSLog(String(format: "Update complication with %d steps", steps))
+                                WCSessionService.getInstance().updateWatchFaceComplication(["stepsdataresponse" : HealthCache.getStepsDataFromCache()])
                             }
                             
                         },

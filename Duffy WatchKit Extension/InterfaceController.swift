@@ -93,4 +93,23 @@ class InterfaceController: WKInterfaceController
     {
         setTitle("Duffy")
     }
+    
+    @IBAction func infoPressed()
+    {
+        let cancel = WKAlertAction(title: "Cancel", style: WKAlertActionStyle.Cancel, handler: { () in })
+        let cacheData = HealthCache.getStepsDataFromCache()
+        var date = "Unknown"
+        var steps = -1
+        if let savedDay = cacheData["stepsCacheDay"] as? String
+        {
+            date = savedDay
+        }
+        if let savedVal = cacheData["stepsCacheValue"] as? Int
+        {
+            steps = savedVal
+        }
+        
+        let message = String(format: "Saved in cache:\n Steps: %d\n For day: %@", steps, date)
+        presentAlertControllerWithTitle("Info", message: message, preferredStyle: WKAlertControllerStyle.Alert, actions: [cancel])
+    }
 }

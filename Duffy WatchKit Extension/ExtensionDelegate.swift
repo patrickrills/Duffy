@@ -9,8 +9,14 @@
 import WatchKit
 import DuffyWatchFramework
 
-class ExtensionDelegate: NSObject, WKExtensionDelegate {
-
+class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
+{
+    override init()
+    {
+        super.init()
+        WCSessionService.getInstance().initialize(self)
+    }
+    
     func applicationDidFinishLaunching() {
         // Perform any final initialization of your application.
         HealthKitService.getInstance().initializeBackgroundQueries()
@@ -25,4 +31,8 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate {
         // Use this method to pause ongoing tasks, disable timers, etc.
     }
 
+    func complicationUpdateRequested(complicationData : [String : AnyObject])
+    {
+        ComplicationController.refreshComplication()
+    }
 }

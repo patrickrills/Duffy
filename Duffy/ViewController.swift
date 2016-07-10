@@ -105,5 +105,26 @@ class ViewController: UIViewController
     {
         askForHealthKitPermission()
     }
+    
+    @IBAction func infoPressed()
+    {
+        let cacheData = HealthCache.getStepsDataFromCache()
+        var date = "Unknown"
+        var steps = -1
+        if let savedDay = cacheData["stepsCacheDay"] as? String
+        {
+            date = savedDay
+        }
+        if let savedVal = cacheData["stepsCacheValue"] as? Int
+        {
+            steps = savedVal
+        }
+        
+        let message = String(format: "Saved in cache:\n Steps: %d\n For day: %@", steps, date)
+        let title = "Info"
+        let alertContoller = UIAlertController(title: title, message: message, preferredStyle: .Alert);
+        alertContoller.addAction(UIAlertAction(title: "Dismiss", style: .Cancel, handler: nil))
+        presentViewController(alertContoller, animated: true, completion: nil)
+    }
 }
 

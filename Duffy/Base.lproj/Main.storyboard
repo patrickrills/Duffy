@@ -56,6 +56,16 @@
                                     <constraint firstItem="6kJ-cn-z4O" firstAttribute="centerY" secondItem="Loo-Nw-9vV" secondAttribute="centerY" id="eOa-ag-OCH"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoDark" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L3S-tP-tQd">
+                                <rect key="frame" x="514" y="534" width="22" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="22" id="IeZ-Y5-KzL"/>
+                                    <constraint firstAttribute="height" constant="22" id="knf-mP-8l8"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="infoPressed" destination="BYZ-38-t0r" eventType="touchUpInside" id="MqR-Xk-TmJ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -63,9 +73,11 @@
                             <constraint firstItem="Loo-Nw-9vV" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="28z-VL-DK2"/>
                             <constraint firstItem="YJw-cx-VES" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="5MU-IV-ALM"/>
                             <constraint firstItem="UT6-Ng-ijM" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="782-41-Baw"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="L3S-tP-tQd" secondAttribute="bottom" constant="44" id="7HS-nA-Fe8"/>
                             <constraint firstItem="YJw-cx-VES" firstAttribute="top" secondItem="UT6-Ng-ijM" secondAttribute="bottom" constant="4" id="E28-LO-GTZ"/>
                             <constraint firstItem="UT6-Ng-ijM" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="erO-qd-CE1"/>
                             <constraint firstItem="Loo-Nw-9vV" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="f5b-XA-eaI"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="L3S-tP-tQd" secondAttribute="trailing" constant="44" id="nVh-yu-9vm"/>
                             <constraint firstAttribute="trailingMargin" secondItem="UT6-Ng-ijM" secondAttribute="trailing" constant="10" id="pRP-rd-uQc"/>
                         </constraints>
                         <variation key="default">

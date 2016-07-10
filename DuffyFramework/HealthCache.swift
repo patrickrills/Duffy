@@ -8,7 +8,7 @@
 
 import Foundation
 
-class HealthCache
+public class HealthCache
 {
     class func saveStepsToCache(stepCount: Int, forDay: NSDate) -> Bool
     {
@@ -35,7 +35,23 @@ class HealthCache
         return false
     }
     
-    class func getStepsFromCache(forDay: NSDate) -> Int
+    public class func saveStepsDataToCache(data : [String : AnyObject]) -> Bool
+    {
+        if let dayKey = data["stepsCacheDay"] as? String
+        {
+            if (dayKey == convertDayToKey(NSDate()))
+            {
+                if let stepsCount = data["stepsCacheValue"] as? Int
+                {
+                    return saveStepsToCache(stepsCount, forDay: NSDate())
+                }
+            }
+        }
+        
+        return false
+    }
+    
+    public class func getStepsFromCache(forDay: NSDate) -> Int
     {
         var previousValueForDay: Int = 0
         
@@ -54,6 +70,16 @@ class HealthCache
         }
         
         return previousValueForDay
+    }
+    
+    public class func getStepsDataFromCache() -> [String : AnyObject]
+    {
+        if let stepsDict = NSUserDefaults.standardUserDefaults().objectForKey("stepsCache") as? [String : AnyObject]
+        {
+            return stepsDict
+        }
+        
+        return ["stepsCacheDay" : convertDayToKey(NSDate()), "stepsCacheValue" : Int(0)]
     }
     
     private class func convertDayToKey(day: NSDate) -> String

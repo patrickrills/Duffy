@@ -16,8 +16,14 @@
                                     <fontDescription key="font" type="system" weight="medium" pointSize="40"/>
                                 </label>
                                 <label alignment="center" verticalAlignment="center" text="STEPS TODAY" minimumScaleFactor="0.75" id="p5D-H6-XOj">
+                                    <color key="textColor" red="0.33725490200000002" green="0.59999999999999998" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
                                     <fontDescription key="font" type="system" weight="light" pointSize="16"/>
                                 </label>
+                                <button width="1" alignment="center" verticalAlignment="center" title="Info" id="Y1p-Ns-rIT">
+                                    <connections>
+                                        <action selector="infoPressed" destination="AgC-eL-Hgc" id="OLD-ew-VFE"/>
+                                    </connections>
+                                </button>
                             </items>
                         </group>
                     </items>
@@ -28,5 +34,5 @@
             </objects>
         </scene>
     </scenes>
-    <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+    <color key="tintColor" red="0.33725490196078434" green="0.59999999999999998" blue="0.87450980392156863" alpha="1" colorSpace="calibratedRGB"/>
 </document>
