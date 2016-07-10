@@ -15,6 +15,9 @@ class ViewController: UIViewController
     @IBOutlet weak var stepsTextLabel : UILabel?
     @IBOutlet weak var loadingContainer : UIView?
     @IBOutlet weak var loadingSpinner : UIActivityIndicatorView?
+    @IBOutlet weak var infoButton : UIButton?
+    
+    let primaryColor = UIColor(red: 0.0, green: 61.0/255.0, blue: 165.0/255.0, alpha: 1.0)
 
     override func viewDidLoad()
     {
@@ -24,6 +27,8 @@ class ViewController: UIViewController
 
         loadingContainer?.layer.cornerRadius = 8.0
         loadingContainer?.backgroundColor = UIColor(red: 0, green: 0, blue: 1, alpha: 0.85)
+        stepsTextLabel?.textColor = primaryColor
+        infoButton?.tintColor = primaryColor
     }
 
     override func viewWillAppear(animated: Bool)
@@ -123,6 +128,7 @@ class ViewController: UIViewController
         let message = String(format: "Saved in cache:\n Steps: %d\n For day: %@", steps, date)
         let title = "Info"
         let alertContoller = UIAlertController(title: title, message: message, preferredStyle: .Alert);
+        alertContoller.view.tintColor = primaryColor
         alertContoller.addAction(UIAlertAction(title: "Dismiss", style: .Cancel, handler: nil))
         presentViewController(alertContoller, animated: true, completion: nil)
     }

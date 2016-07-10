@@ -87,6 +87,7 @@
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="infoButton" destination="L3S-tP-tQd" id="Yif-ck-aFk"/>
                         <outlet property="loadingContainer" destination="Loo-Nw-9vV" id="2K3-FC-W1d"/>
                         <outlet property="loadingSpinner" destination="6kJ-cn-z4O" id="IFf-sD-bzg"/>
                         <outlet property="stepsTextLabel" destination="YJw-cx-VES" id="eaR-lB-81a"/>
