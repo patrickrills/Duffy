@@ -153,6 +153,16 @@ public class HealthKitService
                 
                 observerQueries![stepsIdenitifier] = query
                 store.executeQuery(query)
+                
+                #if os(iOS)
+                    store.enableBackgroundDeliveryForType(sampleType, frequency: .Immediate, withCompletion: {
+                        (success: Bool, error: NSError?) in
+                        if (success)
+                        {
+                            NSLog("Background updates enabled for steps")
+                        }
+                    })
+                #endif
             }
         }
     }
