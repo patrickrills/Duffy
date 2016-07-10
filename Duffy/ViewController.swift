@@ -16,6 +16,8 @@ class ViewController: UIViewController
     @IBOutlet weak var loadingContainer : UIView?
     @IBOutlet weak var loadingSpinner : UIActivityIndicatorView?
     @IBOutlet weak var infoButton : UIButton?
+    @IBOutlet weak var titleLabel : UILabel?
+    @IBOutlet weak var subTitleLabel : UILabel?
     
     let primaryColor = UIColor(red: 0.0, green: 61.0/255.0, blue: 165.0/255.0, alpha: 1.0)
 
@@ -29,6 +31,8 @@ class ViewController: UIViewController
         loadingContainer?.backgroundColor = UIColor(red: 0, green: 0, blue: 1, alpha: 0.85)
         stepsTextLabel?.textColor = primaryColor
         infoButton?.tintColor = primaryColor
+        titleLabel?.textColor = primaryColor
+        subTitleLabel?.textColor = primaryColor
     }
 
     override func viewWillAppear(animated: Bool)
