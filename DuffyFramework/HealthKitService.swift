@@ -13,7 +13,7 @@ public class HealthKitService
 {
     private static let instance: HealthKitService = HealthKitService()
     private var healthStore: HKHealthStore?
-    private var observerQueries: [String : HKObserverQuery]?
+    public var observerQueries: [String : HKObserverQuery]?
 
     init()
     {
@@ -133,6 +133,8 @@ public class HealthKitService
                 let query = HKObserverQuery(sampleType: sampleType, predicate: nil, updateHandler: {
                     [weak self] (updateQuery: HKObserverQuery, handler: HKObserverQueryCompletionHandler, updateError: NSError?) in
                     
+                    NSLog("Observer query fired")
+                    
                     self?.getSteps(NSDate(),
                         onRetrieve: {
                             (steps: Int, forDay: NSDate) in
@@ -151,11 +153,13 @@ public class HealthKitService
                     
                 })
                 
+                NSLog("Observer query fired")
+                
                 observerQueries![stepsIdenitifier] = query
                 store.executeQuery(query)
                 
                 #if os(iOS)
-                    store.enableBackgroundDeliveryForType(sampleType, frequency: .Immediate, withCompletion: {
+                    store.enableBackgroundDeliveryForType(sampleType, frequency: .Hourly, withCompletion: {
                         (success: Bool, error: NSError?) in
                         if (success)
                         {
