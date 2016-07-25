@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		092B0E8A1D45841F00085F99 /* CoreMotionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092B0E891D45841F00085F99 /* CoreMotionService.swift */; };
+		092B0E8B1D45841F00085F99 /* CoreMotionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092B0E891D45841F00085F99 /* CoreMotionService.swift */; };
 		09323C711D22C39700961822 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09323C701D22C39700961822 /* AppDelegate.swift */; };
 		09323C731D22C39700961822 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09323C721D22C39700961822 /* ViewController.swift */; };
 		09323C761D22C39700961822 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09323C741D22C39700961822 /* Main.storyboard */; };
@@ -115,6 +117,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		092B0E891D45841F00085F99 /* CoreMotionService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreMotionService.swift; sourceTree = "<group>"; };
 		09323C6D1D22C39700961822 /* Duffy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Duffy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		09323C701D22C39700961822 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		09323C721D22C39700961822 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -253,6 +256,7 @@
 				09323D211D23040100961822 /* HealthKitService.swift */,
 				09AACE261D318A390058A814 /* HealthCache.swift */,
 				09AACE291D318E5D0058A814 /* WCSessionService.swift */,
+				092B0E891D45841F00085F99 /* CoreMotionService.swift */,
 			);
 			path = DuffyFramework;
 			sourceTree = "<group>";
@@ -506,6 +510,7 @@
 			files = (
 				09AACE271D318A390058A814 /* HealthCache.swift in Sources */,
 				09AACE2A1D318E5D0058A814 /* WCSessionService.swift in Sources */,
+				092B0E8A1D45841F00085F99 /* CoreMotionService.swift in Sources */,
 				09323D221D23040100961822 /* HealthKitService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -516,6 +521,7 @@
 			files = (
 				09AACE281D318A390058A814 /* HealthCache.swift in Sources */,
 				09AACE2B1D318E5D0058A814 /* WCSessionService.swift in Sources */,
+				092B0E8B1D45841F00085F99 /* CoreMotionService.swift in Sources */,
 				09323D231D23040100961822 /* HealthKitService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
