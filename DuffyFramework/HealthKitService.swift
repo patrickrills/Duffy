@@ -170,4 +170,36 @@ public class HealthKitService
             }
         }
     }
+    
+    public func cacheTodaysStepsAndUpdateComplication(onComplete: ((success: Bool) -> (Void))?)
+    {
+        getSteps(NSDate(),
+            onRetrieve: {
+                (steps: Int, forDay: NSDate) in
+                        
+                if (HealthCache.saveStepsToCache(steps, forDay: forDay))
+                {
+                    NSLog(String(format: "Fetch - update complication with %d steps", steps))
+                    WCSessionService.getInstance().updateWatchFaceComplication(["stepsdataresponse" : HealthCache.getStepsDataFromCache()])
+                }
+                
+                if let c = onComplete
+                {
+                    c(success: true)
+                }
+                
+            },
+            onFailure: {
+                (error: NSError?) in
+                if let e = error
+                {
+                    NSLog(String(format: "Fetch - error getting steps: %@", e.localizedDescription))
+                }
+                
+                if let c = onComplete
+                {
+                    c(success: false)
+                }
+        })
+    }
 }

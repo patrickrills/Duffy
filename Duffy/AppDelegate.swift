@@ -17,6 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        application.setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalMinimum)
         WCSessionService.getInstance()
         HealthKitService.getInstance().initializeBackgroundQueries()
         //CoreMotionService.getInstance().initializeBackgroundUpdates()
@@ -55,9 +56,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         NSLog("Application will TERMINATE")
-        CoreMotionService.getInstance().stopBackgroundUpdates()
+        //CoreMotionService.getInstance().stopBackgroundUpdates()
     }
 
-
+    func application(application: UIApplication, performFetchWithCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void)
+    {
+        NSLog("Background fetch")
+        
+        HealthKitService.getInstance().cacheTodaysStepsAndUpdateComplication({
+            (success: Bool) in
+            completionHandler(success ? .NewData : .NoData)
+        })
+    }
 }
 
