@@ -16,6 +16,7 @@ class ViewController: UIViewController
     @IBOutlet weak var loadingContainer : UIView?
     @IBOutlet weak var loadingSpinner : UIActivityIndicatorView?
     @IBOutlet weak var infoButton : UIButton?
+    @IBOutlet weak var refreshButton : UIButton?
     @IBOutlet weak var titleLabel : UILabel?
     @IBOutlet weak var subTitleLabel : UILabel?
     
@@ -31,6 +32,7 @@ class ViewController: UIViewController
         loadingContainer?.backgroundColor = UIColor(red: 0, green: 0, blue: 1, alpha: 0.85)
         stepsTextLabel?.textColor = primaryColor
         infoButton?.tintColor = primaryColor
+        refreshButton?.setTitleColor(primaryColor, forState: .Normal)
         titleLabel?.textColor = primaryColor
         subTitleLabel?.textColor = primaryColor
     }
@@ -113,6 +115,11 @@ class ViewController: UIViewController
     func refresh()
     {
         askForHealthKitPermission()
+    }
+    
+    @IBAction func refreshPressed()
+    {
+        refresh()
     }
     
     @IBAction func infoPressed()

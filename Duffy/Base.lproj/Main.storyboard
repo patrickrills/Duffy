@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -93,11 +93,26 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XPI-lG-xX0">
+                                <rect key="frame" x="64" y="534" width="74" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="74" id="FRI-GE-xaS"/>
+                                    <constraint firstAttribute="height" constant="22" id="Hnt-tw-1gX"/>
+                                </constraints>
+                                <state key="normal" title="Refresh">
+                                    <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="refreshPressed" destination="BYZ-38-t0r" eventType="touchUpInside" id="eNl-c4-4mE"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="XPI-lG-xX0" secondAttribute="bottom" constant="44" id="1WD-5l-e0o"/>
                             <constraint firstItem="UT6-Ng-ijM" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="10" id="23h-u5-KUp"/>
                             <constraint firstItem="Loo-Nw-9vV" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="28z-VL-DK2"/>
+                            <constraint firstItem="XPI-lG-xX0" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="44" id="2dq-uk-GeC"/>
                             <constraint firstItem="MnP-mW-klB" firstAttribute="top" secondItem="bIo-Gn-aak" secondAttribute="bottom" id="4rb-XD-gfc"/>
                             <constraint firstItem="YJw-cx-VES" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="5MU-IV-ALM"/>
                             <constraint firstItem="UT6-Ng-ijM" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="782-41-Baw"/>
@@ -123,6 +138,7 @@
                         <outlet property="infoButton" destination="L3S-tP-tQd" id="Yif-ck-aFk"/>
                         <outlet property="loadingContainer" destination="Loo-Nw-9vV" id="2K3-FC-W1d"/>
                         <outlet property="loadingSpinner" destination="6kJ-cn-z4O" id="IFf-sD-bzg"/>
+                        <outlet property="refreshButton" destination="XPI-lG-xX0" id="U8H-m4-Kdi"/>
                         <outlet property="stepsTextLabel" destination="YJw-cx-VES" id="eaR-lB-81a"/>
                         <outlet property="stepsValueLabel" destination="UT6-Ng-ijM" id="vDE-kp-YQG"/>
                         <outlet property="subTitleLabel" destination="ygj-Mt-fX2" id="I8f-mC-PaF"/>
