@@ -86,6 +86,73 @@ public class HealthKitService
             store.executeQuery(query)
         }
     }
+    
+    public func getSteps(fromStartDate: NSDate, toEndDate: NSDate, onRetrieve: (([NSDate : Int]) -> Void)?, onFailure:  ((NSError?) -> Void)?)
+    {
+        guard HKHealthStore.isHealthDataAvailable() && healthStore != nil else { return }
+        
+        let calendar = NSCalendar.currentCalendar()
+        let startDateComponents = calendar.components([.Era, .Year, .Month, .Day], fromDate: fromStartDate)
+        startDateComponents.calendar = calendar
+        let endDateComponents = calendar.components([.Era, .Year, .Month, .Day], fromDate: toEndDate)
+        endDateComponents.calendar = calendar
+        let startDate = calendar.dateFromComponents(startDateComponents)
+        let endDate = calendar.dateFromComponents(endDateComponents)
+        
+        guard startDate != nil && endDate != nil else { return }
+        
+        let dateRangePredicate = HKQuery.predicateForSamplesWithStartDate(startDate!, endDate: calendar.dateByAddingUnit(.Day, value: 1, toDate: endDate!, options: NSCalendarOptions(rawValue: 0)), options: .StrictEndDate)
+        let interval = NSDateComponents()
+        interval.day = 1
+        
+        if let store = healthStore, stepType = HKQuantityType.quantityTypeForIdentifier(HKQuantityTypeIdentifierStepCount)
+        {
+            let query = HKStatisticsCollectionQuery(quantityType: stepType,
+                                                    quantitySamplePredicate: dateRangePredicate,
+                                                    options: .CumulativeSum,
+                                                    anchorDate: startDate!,
+                                                    intervalComponents: interval)
+            
+            query.initialResultsHandler = {
+                (query: HKStatisticsCollectionQuery, results: HKStatisticsCollection?, error: NSError?) in
+                
+                if let r = results where error == nil
+                {
+                    var stepsCollection = [NSDate : Int]()
+                    
+                    r.enumerateStatisticsFromDate(startDate!, toDate: endDate!) {
+                        statistics, stop in
+                        
+                        if let quantity = statistics.sumQuantity() {
+                            
+                            var steps: Int = 0
+                            if let prev = stepsCollection[statistics.startDate]
+                            {
+                                steps = prev
+                            }
+                            
+                            steps += Int(quantity.doubleValueForUnit(HKUnit.countUnit()))
+                            stepsCollection[statistics.startDate] = steps
+                        }
+                    }
+                    
+                    if let successBlock = onRetrieve
+                    {
+                        successBlock(stepsCollection)
+                    }
+                }
+                else
+                {
+                    if let failBlock = onFailure
+                    {
+                        failBlock(error)
+                    }
+                }
+            }
+            
+            store.executeQuery(query)
+        }
+    }
 
     public func authorizeForSteps(onAuthorized: (() -> (Void))?, onFailure: (() -> (Void))?)
     {
