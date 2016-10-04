@@ -32,22 +32,22 @@ class ViewController: UIViewController
         loadingContainer?.backgroundColor = UIColor(red: 0, green: 0, blue: 1, alpha: 0.85)
         stepsTextLabel?.textColor = primaryColor
         infoButton?.tintColor = primaryColor
-        refreshButton?.setTitleColor(primaryColor, forState: .Normal)
+        refreshButton?.setTitleColor(primaryColor, for: UIControlState())
         titleLabel?.textColor = primaryColor
         subTitleLabel?.textColor = primaryColor
     }
 
-    override func viewWillAppear(animated: Bool)
+    override func viewWillAppear(_ animated: Bool)
     {
         super.viewWillAppear(animated)
         refresh()
     }
     
-    private func askForHealthKitPermission()
+    fileprivate func askForHealthKitPermission()
     {
         HealthKitService.getInstance().authorizeForSteps({
 
-            dispatch_async(dispatch_get_main_queue(),{
+            DispatchQueue.main.async(execute: {
                 [weak self] (_) in
                 self?.displayTodaysStepsFromHealth()
             })
@@ -58,38 +58,38 @@ class ViewController: UIViewController
         })
     }
 
-    private func displayTodaysStepsFromHealth()
+    fileprivate func displayTodaysStepsFromHealth()
     {
         showLoading()
 
-        HealthKitService.getInstance().getSteps(NSDate(),
+        HealthKitService.getInstance().getSteps(Date(),
             onRetrieve: {
-                (stepsCount: Int, forDate: NSDate) in
+                (stepsCount: Int, forDate: Date) in
 
-                dispatch_async(dispatch_get_main_queue(),{
+                DispatchQueue.main.async(execute: {
                     [weak self] (_) in
                     if let weakSelf = self
                     {
                         weakSelf.hideLoading()
 
-                        let numberFormatter = NSNumberFormatter()
-                        numberFormatter.numberStyle = NSNumberFormatterStyle.DecimalStyle
-                        numberFormatter.locale = NSLocale.currentLocale()
+                        let numberFormatter = NumberFormatter()
+                        numberFormatter.numberStyle = NumberFormatter.Style.decimal
+                        numberFormatter.locale = Locale.current
                         numberFormatter.maximumFractionDigits = 0
 
-                        weakSelf.stepsValueLabel?.text = numberFormatter.stringFromNumber(stepsCount)
+                        weakSelf.stepsValueLabel?.text = numberFormatter.string(from: NSNumber(value: stepsCount))
                     }
                 })
             },
             onFailure:  {
-                [weak self] (error: NSError?) in
+                [weak self] (error: Error?) in
 
                 if let e = error
                 {
                     NSLog(String(format:"ERROR: %@", e.localizedDescription))
                 }
 
-                dispatch_async(dispatch_get_main_queue(),{
+                DispatchQueue.main.async(execute: {
                     [weak self] (_) in
                     if let weakSelf = self
                     {
@@ -100,16 +100,16 @@ class ViewController: UIViewController
         })
     }
 
-    private func showLoading()
+    fileprivate func showLoading()
     {
-        loadingContainer?.hidden = false
+        loadingContainer?.isHidden = false
         loadingSpinner?.startAnimating()
     }
 
-    private func hideLoading()
+    fileprivate func hideLoading()
     {
         loadingSpinner?.stopAnimating()
-        loadingContainer?.hidden = true
+        loadingContainer?.isHidden = true
     }
 
     func refresh()
@@ -138,10 +138,10 @@ class ViewController: UIViewController
         
         let message = String(format: "Saved in cache:\n Steps: %d\n For day: %@", steps, date)
         let title = "Info"
-        let alertContoller = UIAlertController(title: title, message: message, preferredStyle: .Alert);
+        let alertContoller = UIAlertController(title: title, message: message, preferredStyle: .alert);
         alertContoller.view.tintColor = primaryColor
-        alertContoller.addAction(UIAlertAction(title: "Dismiss", style: .Cancel, handler: nil))
-        presentViewController(alertContoller, animated: true, completion: nil)
+        alertContoller.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
+        present(alertContoller, animated: true, completion: nil)
     }
 }
 

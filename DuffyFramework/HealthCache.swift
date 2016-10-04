@@ -8,9 +8,9 @@
 
 import Foundation
 
-public class HealthCache
+open class HealthCache
 {
-    class func saveStepsToCache(stepCount: Int, forDay: NSDate) -> Bool
+    class func saveStepsToCache(_ stepCount: Int, forDay: Date) -> Bool
     {
         let todaysKey = convertDayToKey(forDay)
         let previousValueForDay = getStepsFromCache(forDay)
@@ -18,16 +18,16 @@ public class HealthCache
         if (stepCount > previousValueForDay)
         {
             var latestValues = [String : AnyObject]()
-            latestValues["stepsCacheDay"] = todaysKey
-            latestValues["stepsCacheValue"] = stepCount
+            latestValues["stepsCacheDay"] = todaysKey as AnyObject?
+            latestValues["stepsCacheValue"] = stepCount as AnyObject?
             
-            if let _ = NSUserDefaults.standardUserDefaults().objectForKey("stepsCache")
+            if let _ = UserDefaults.standard.object(forKey: "stepsCache")
             {
-                NSUserDefaults.standardUserDefaults().removeObjectForKey("stepsCache")
+                UserDefaults.standard.removeObject(forKey: "stepsCache")
             }
             
-            NSUserDefaults.standardUserDefaults().setObject(latestValues, forKey: "stepsCache")
-            NSUserDefaults.standardUserDefaults().synchronize()
+            UserDefaults.standard.set(latestValues, forKey: "stepsCache")
+            UserDefaults.standard.synchronize()
             
             return true
         }
@@ -35,15 +35,15 @@ public class HealthCache
         return false
     }
     
-    public class func saveStepsDataToCache(data : [String : AnyObject]) -> Bool
+    open class func saveStepsDataToCache(_ data : [String : AnyObject]) -> Bool
     {
         if let dayKey = data["stepsCacheDay"] as? String
         {
-            if (dayKey == convertDayToKey(NSDate()))
+            if (dayKey == convertDayToKey(Date()))
             {
                 if let stepsCount = data["stepsCacheValue"] as? Int
                 {
-                    return saveStepsToCache(stepsCount, forDay: NSDate())
+                    return saveStepsToCache(stepsCount, forDay: Date())
                 }
             }
         }
@@ -51,11 +51,11 @@ public class HealthCache
         return false
     }
     
-    public class func getStepsFromCache(forDay: NSDate) -> Int
+    open class func getStepsFromCache(_ forDay: Date) -> Int
     {
         var previousValueForDay: Int = 0
         
-        if let stepsDict = NSUserDefaults.standardUserDefaults().objectForKey("stepsCache") as? [String : AnyObject]
+        if let stepsDict = UserDefaults.standard.object(forKey: "stepsCache") as? [String : AnyObject]
         {
             if let previousDay = stepsDict["stepsCacheDay"] as? String
             {
@@ -72,20 +72,20 @@ public class HealthCache
         return previousValueForDay
     }
     
-    public class func getStepsDataFromCache() -> [String : AnyObject]
+    open class func getStepsDataFromCache() -> [String : AnyObject]
     {
-        if let stepsDict = NSUserDefaults.standardUserDefaults().objectForKey("stepsCache") as? [String : AnyObject]
+        if let stepsDict = UserDefaults.standard.object(forKey: "stepsCache") as? [String : AnyObject]
         {
             return stepsDict
         }
         
-        return ["stepsCacheDay" : convertDayToKey(NSDate()), "stepsCacheValue" : Int(0)]
+        return ["stepsCacheDay" : convertDayToKey(Date()) as AnyObject, "stepsCacheValue" : Int(0) as AnyObject]
     }
     
-    private class func convertDayToKey(day: NSDate) -> String
+    fileprivate class func convertDayToKey(_ day: Date) -> String
     {
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy_MM_dd"
-        return dateFormatter.stringFromDate(day)
+        return dateFormatter.string(from: day)
     }
 }

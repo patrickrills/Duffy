@@ -14,9 +14,9 @@ class InterfaceController: WKInterfaceController
 {
     @IBOutlet weak var stepsValueLabel : WKInterfaceLabel?
 
-    override func awakeWithContext(context: AnyObject?)
+    override func awake(withContext context: Any?)
     {
-        super.awakeWithContext(context)
+        super.awake(withContext: context)
         
         // Configure interface objects here.
         
@@ -29,11 +29,11 @@ class InterfaceController: WKInterfaceController
         askForHealthKitPermission()
     }
     
-    private func askForHealthKitPermission()
+    fileprivate func askForHealthKitPermission()
     {
         HealthKitService.getInstance().authorizeForSteps({
             
-            dispatch_async(dispatch_get_main_queue(),{
+            DispatchQueue.main.async(execute: {
                 [weak self] (_) in
                 self?.displayTodaysStepsFromHealth()
                 })
@@ -48,33 +48,33 @@ class InterfaceController: WKInterfaceController
     {
         showLoading()
         
-        HealthKitService.getInstance().getSteps(NSDate(),
+        HealthKitService.getInstance().getSteps(Date(),
             onRetrieve: {
-                (stepsCount: Int, forDate: NSDate) in
+                (stepsCount: Int, forDate: Date) in
                 
-                dispatch_async(dispatch_get_main_queue(),{
+                DispatchQueue.main.async(execute: {
                     [weak self] (_) in
                     if let weakSelf = self
                     {
                         weakSelf.hideLoading()
                         
-                        let numberFormatter = NSNumberFormatter()
-                        numberFormatter.numberStyle = NSNumberFormatterStyle.DecimalStyle
-                        numberFormatter.locale = NSLocale.currentLocale()
+                        let numberFormatter = NumberFormatter()
+                        numberFormatter.numberStyle = NumberFormatter.Style.decimal
+                        numberFormatter.locale = Locale.current
                         numberFormatter.maximumFractionDigits = 0
                         
-                        weakSelf.stepsValueLabel?.setText(numberFormatter.stringFromNumber(stepsCount))
+                        weakSelf.stepsValueLabel?.setText(numberFormatter.string(from: NSNumber(value: stepsCount)))
                     }
                 })
             },
             onFailure:  {
-                (error: NSError?) in
+                (error: Error?) in
                 if let e = error
                 {
                     NSLog(String(format:"ERROR: %@", e.localizedDescription))
                 }
                 
-                dispatch_async(dispatch_get_main_queue(),{
+                DispatchQueue.main.async(execute: {
                     [weak self] (_) in
                     if let weakSelf = self
                     {
@@ -97,7 +97,7 @@ class InterfaceController: WKInterfaceController
     
     @IBAction func infoPressed()
     {
-        let cancel = WKAlertAction(title: "Cancel", style: WKAlertActionStyle.Cancel, handler: { () in })
+        let cancel = WKAlertAction(title: "Cancel", style: WKAlertActionStyle.cancel, handler: { () in })
         let cacheData = HealthCache.getStepsDataFromCache()
         var date = "Unknown"
         var steps = -1
@@ -111,6 +111,6 @@ class InterfaceController: WKInterfaceController
         }
         
         let message = String(format: "Saved in cache:\n Steps: %d\n For day: %@", steps, date)
-        presentAlertControllerWithTitle("Info", message: message, preferredStyle: WKAlertControllerStyle.Alert, actions: [cancel])
+        presentAlert(withTitle: "Info", message: message, preferredStyle: WKAlertControllerStyle.alert, actions: [cancel])
     }
 }

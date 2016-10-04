@@ -31,7 +31,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
         // Use this method to pause ongoing tasks, disable timers, etc.
     }
 
-    func complicationUpdateRequested(complicationData : [String : AnyObject])
+    func complicationUpdateRequested(_ complicationData : [String : AnyObject])
     {
         ComplicationController.refreshComplication()
     }

@@ -15,8 +15,8 @@ class WeekInterfaceController: WKInterfaceController
 {
     @IBOutlet weak var scoresTable: WKInterfaceTable?
     
-    override func awakeWithContext(context: AnyObject?) {
-        super.awakeWithContext(context)
+    override func awake(withContext context: Any?) {
+        super.awake(withContext: context)
         
         // Configure interface objects here.
     }
@@ -34,17 +34,17 @@ class WeekInterfaceController: WKInterfaceController
 
     func bindTableToWeek()
     {
-        let startDate = NSCalendar.currentCalendar().dateByAddingUnit(.Day, value: -7, toDate: NSDate(), options: NSCalendarOptions(rawValue: 0))
+        let startDate = (Calendar.current as NSCalendar).date(byAdding: .day, value: -7, to: Date(), options: NSCalendar.Options(rawValue: 0))
         
-        HealthKitService.getInstance().getSteps(startDate!, toEndDate: NSDate(), onRetrieve: {
-            (stepsCollection: [NSDate : Int]) in
+        HealthKitService.getInstance().getSteps(startDate!, toEndDate: Date(), onRetrieve: {
+            (stepsCollection: [Date : Int]) in
             
-            dispatch_async(dispatch_get_main_queue(),{
+            DispatchQueue.main.async(execute: {
                 [weak self] (_) in
                 if let weakSelf = self
                 {
-                    let sortedKeys = stepsCollection.keys.sort({
-                        (date1: NSDate, date2: NSDate) in
+                    let sortedKeys = stepsCollection.keys.sorted(by: {
+                        (date1: Date, date2: Date) in
                         return date1.timeIntervalSince1970 > date2.timeIntervalSince1970
                     })
                     
@@ -58,22 +58,22 @@ class WeekInterfaceController: WKInterfaceController
                     
                     var idx = 0
                     
-                    let dateFormatter = NSDateFormatter()
+                    let dateFormatter = DateFormatter()
                     dateFormatter.dateFormat = "eee"
                     
-                    let numFormatter = NSNumberFormatter()
-                    numFormatter.numberStyle = .DecimalStyle
-                    numFormatter.locale = NSLocale.currentLocale()
+                    let numFormatter = NumberFormatter()
+                    numFormatter.numberStyle = .decimal
+                    numFormatter.locale = Locale.current
                     
                     for key in sortedKeys
                     {
-                        let stepRow = weakSelf.scoresTable?.rowControllerAtIndex(idx) as! WeekRowController
-                        stepRow.dateLabel?.setText(dateFormatter.stringFromDate(key).uppercaseString)
+                        let stepRow = weakSelf.scoresTable?.rowController(at: idx) as! WeekRowController
+                        stepRow.dateLabel?.setText(dateFormatter.string(from: key).uppercased())
                         stepRow.stepsLabel?.setText("0")
                         
                         if let steps = stepsCollection[key]
                         {
-                            stepRow.stepsLabel?.setText(numFormatter.stringFromNumber(steps))
+                            stepRow.stepsLabel?.setText(numFormatter.string(from: NSNumber(value: steps)))
                         }
                         
                         idx += 1
@@ -83,7 +83,7 @@ class WeekInterfaceController: WKInterfaceController
             })
             },
             onFailure: {
-                (err: NSError?) in
+                (err: Error?) in
                 NSLog("Fail")
         })
     }

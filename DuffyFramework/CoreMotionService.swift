@@ -8,7 +8,7 @@
 
 import CoreMotion
 
-public class CoreMotionService
+open class CoreMotionService
 {
     static let instance = CoreMotionService()
     var pedometer: CMPedometer?
@@ -21,29 +21,29 @@ public class CoreMotionService
         }
     }
     
-    public class func getInstance() -> CoreMotionService
+    open class func getInstance() -> CoreMotionService
     {
         return instance
     }
     
-    public func initializeBackgroundUpdates()
+    open func initializeBackgroundUpdates()
     {
         if let ped = pedometer
         {
-            ped.startPedometerUpdatesFromDate(NSDate(), withHandler: {
+            ped.startUpdates(from: Date(), withHandler: {
                 data, error in
                 if let stepData = data {
                     
                     NSLog("CMPedometer - Steps Taken: \(stepData.numberOfSteps)")
                     
-                    HealthKitService.getInstance().getSteps(NSDate(),
+                    HealthKitService.getInstance().getSteps(Date(),
                         onRetrieve: {
-                            (steps: Int, forDay: NSDate) in
+                            (steps: Int, forDay: Date) in
                             
                             if (HealthCache.saveStepsToCache(steps, forDay: forDay))
                             {
                                 NSLog(String(format: "Update complication from CMPedometer with %d steps", steps))
-                                WCSessionService.getInstance().updateWatchFaceComplication(["stepsdataresponse" : HealthCache.getStepsDataFromCache()])
+                                WCSessionService.getInstance().updateWatchFaceComplication(["stepsdataresponse" : HealthCache.getStepsDataFromCache() as AnyObject])
                             }
                             
                         },
@@ -53,11 +53,11 @@ public class CoreMotionService
         }
     }
     
-    public func stopBackgroundUpdates()
+    open func stopBackgroundUpdates()
     {
         if let ped = pedometer
         {
-            ped.stopPedometerUpdates()
+            ped.stopUpdates()
         }
     }
 }

@@ -13,14 +13,14 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     
     // MARK: - Timeline Configuration
     
-    func getPrivacyBehaviorForComplication(complication: CLKComplication, withHandler handler: (CLKComplicationPrivacyBehavior) -> Void)
+    func getPrivacyBehavior(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationPrivacyBehavior) -> Void)
     {
-        handler(.ShowOnLockScreen)
+        handler(.showOnLockScreen)
     }
     
-    func getSupportedTimeTravelDirectionsForComplication(complication: CLKComplication, withHandler handler: (CLKComplicationTimeTravelDirections) -> Void)
+    func getSupportedTimeTravelDirections(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTimeTravelDirections) -> Void)
     {
-        handler([.None])
+        handler(CLKComplicationTimeTravelDirections())
     }
     
     func requestedUpdateDidBegin()
@@ -30,31 +30,31 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     
     // MARK: - Timeline Population
     
-    func getCurrentTimelineEntryForComplication(complication: CLKComplication, withHandler handler: ((CLKComplicationTimelineEntry?) -> Void))
+    func getCurrentTimelineEntry(for complication: CLKComplication, withHandler handler: (@escaping (CLKComplicationTimelineEntry?) -> Void))
     {
         // Call the handler with the current timeline entry
         var entry: CLKComplicationTimelineEntry?
-        let steps = HealthCache.getStepsFromCache(NSDate())
+        let steps = HealthCache.getStepsFromCache(Date())
         
-        if (complication.family == .ModularSmall)
+        if (complication.family == .modularSmall)
         {
-            entry = getEntryForModularSmall(NSNumber(integer: steps))
+            entry = getEntryForModularSmall(NSNumber(value: steps as Int))
         }
-        else if (complication.family == .ModularLarge)
+        else if (complication.family == .modularLarge)
         {
-            entry = getEntryForModularLarge(NSNumber(integer: steps))
+            entry = getEntryForModularLarge(NSNumber(value: steps as Int))
         }
-        else if (complication.family == .CircularSmall)
+        else if (complication.family == .circularSmall)
         {
-            entry = getEntryForCircularSmall(NSNumber(integer: steps))
+            entry = getEntryForCircularSmall(NSNumber(value: steps as Int))
         }
-        else if (complication.family == .UtilitarianLarge)
+        else if (complication.family == .utilitarianLarge)
         {
-            entry = getEntryForUtilitarianLarge(NSNumber(integer: steps))
+            entry = getEntryForUtilitarianLarge(NSNumber(value: steps as Int))
         }
-        else if (complication.family == .UtilitarianSmall)
+        else if (complication.family == .utilitarianSmall)
         {
-            entry = getEntryForUtilitarianSmall(NSNumber(integer: steps))
+            entry = getEntryForUtilitarianSmall(NSNumber(value: steps as Int))
         }
         
         handler(entry)
@@ -62,36 +62,36 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     
     // MARK: - Update Scheduling
     
-    func getNextRequestedUpdateDateWithHandler(handler: (NSDate?) -> Void)
+    func getNextRequestedUpdateDate(handler: @escaping (Date?) -> Void)
     {
-        handler(NSDate(timeIntervalSinceNow: 60*30))
+        handler(Date(timeIntervalSinceNow: 60*30))
     }
     
     // MARK: - Placeholder Templates
     
-    func getPlaceholderTemplateForComplication(complication: CLKComplication, withHandler handler: (CLKComplicationTemplate?) -> Void)
+    func getPlaceholderTemplate(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTemplate?) -> Void)
     {
         // This method will be called once per supported complication, and the results will be cached
         var template: CLKComplicationTemplate?
-        if (complication.family == .ModularSmall)
+        if (complication.family == .modularSmall)
         {
-            template = getTemplateForModularSmall(NSNumber(integer: 0))
+            template = getTemplateForModularSmall(NSNumber(value: 0 as Int))
         }
-        else if (complication.family == .ModularLarge)
+        else if (complication.family == .modularLarge)
         {
-            template = getTemplateForModularLarge(NSNumber(integer: 0))
+            template = getTemplateForModularLarge(NSNumber(value: 0 as Int))
         }
-        else if (complication.family == .CircularSmall)
+        else if (complication.family == .circularSmall)
         {
-            template = getTemplateForCircularSmall(NSNumber(integer: 0))
+            template = getTemplateForCircularSmall(NSNumber(value: 0 as Int))
         }
-        else if (complication.family == .UtilitarianLarge)
+        else if (complication.family == .utilitarianLarge)
         {
-            template = getTemplateForUtilitarianLarge(NSNumber(integer: 0))
+            template = getTemplateForUtilitarianLarge(NSNumber(value: 0 as Int))
         }
-        else if (complication.family == .UtilitarianSmall)
+        else if (complication.family == .utilitarianSmall)
         {
-            template = getTemplateForUtilitarianSmall(NSNumber(integer: 0))
+            template = getTemplateForUtilitarianSmall(NSNumber(value: 0 as Int))
         }
         
         handler(template)
@@ -99,20 +99,20 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     
     //MARK: - templates for various complication types
     
-    func getEntryForModularSmall(totalSteps: NSNumber) -> CLKComplicationTimelineEntry
+    func getEntryForModularSmall(_ totalSteps: NSNumber) -> CLKComplicationTimelineEntry
     {
         let small = getTemplateForModularSmall(totalSteps)
-        return CLKComplicationTimelineEntry(date: NSDate(), complicationTemplate: small)
+        return CLKComplicationTimelineEntry(date: Date(), complicationTemplate: small)
     }
     
-    func getTemplateForModularSmall(totalSteps: NSNumber) -> CLKComplicationTemplateModularSmallStackText
+    func getTemplateForModularSmall(_ totalSteps: NSNumber) -> CLKComplicationTemplateModularSmallStackText
     {
         let smallStack = CLKComplicationTemplateModularSmallStackText()
         
         let line1 = CLKSimpleTextProvider()
         line1.text = String(format: "%@", formatStepsForSmall(totalSteps))
         line1.shortText = line1.text
-        line1.tintColor = UIColor.whiteColor()
+        line1.tintColor = UIColor.white
         smallStack.line1TextProvider = line1
         
         let line2 = CLKSimpleTextProvider()
@@ -124,13 +124,13 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         return smallStack
     }
     
-    func getEntryForModularLarge(totalSteps: NSNumber) -> CLKComplicationTimelineEntry
+    func getEntryForModularLarge(_ totalSteps: NSNumber) -> CLKComplicationTimelineEntry
     {
         let large = getTemplateForModularLarge(totalSteps)
-        return CLKComplicationTimelineEntry(date: NSDate(), complicationTemplate: large)
+        return CLKComplicationTimelineEntry(date: Date(), complicationTemplate: large)
     }
     
-    func getTemplateForModularLarge(totalSteps: NSNumber) -> CLKComplicationTemplateModularLargeTallBody
+    func getTemplateForModularLarge(_ totalSteps: NSNumber) -> CLKComplicationTemplateModularLargeTallBody
     {
         let tall = CLKComplicationTemplateModularLargeTallBody()
         
@@ -143,26 +143,26 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         let body = CLKSimpleTextProvider()
         body.text = String(format: "%@", formatStepsForLarge(totalSteps))
         body.shortText = body.text
-        body.tintColor = UIColor.whiteColor()
+        body.tintColor = UIColor.white
         tall.bodyTextProvider = body
         
         return tall
     }
     
-    func getEntryForCircularSmall(totalSteps: NSNumber) -> CLKComplicationTimelineEntry
+    func getEntryForCircularSmall(_ totalSteps: NSNumber) -> CLKComplicationTimelineEntry
     {
         let circular = getTemplateForCircularSmall(totalSteps)
-        return CLKComplicationTimelineEntry(date: NSDate(), complicationTemplate: circular)
+        return CLKComplicationTimelineEntry(date: Date(), complicationTemplate: circular)
     }
     
-    func getTemplateForCircularSmall(totalSteps: NSNumber) -> CLKComplicationTemplateCircularSmallStackText
+    func getTemplateForCircularSmall(_ totalSteps: NSNumber) -> CLKComplicationTemplateCircularSmallStackText
     {
         let circularStack = CLKComplicationTemplateCircularSmallStackText()
         
         let line1 = CLKSimpleTextProvider()
         line1.text = String(format: "%@", formatStepsForSmall(totalSteps))
         line1.shortText = line1.text
-        line1.tintColor = UIColor.whiteColor()
+        line1.tintColor = UIColor.white
         circularStack.line1TextProvider = line1
         
         let line2 = CLKSimpleTextProvider()
@@ -174,13 +174,13 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         return circularStack
     }
     
-    func getEntryForUtilitarianLarge(totalSteps: NSNumber) -> CLKComplicationTimelineEntry
+    func getEntryForUtilitarianLarge(_ totalSteps: NSNumber) -> CLKComplicationTimelineEntry
     {
         let large = getTemplateForUtilitarianLarge(totalSteps)
-        return CLKComplicationTimelineEntry(date: NSDate(), complicationTemplate: large)
+        return CLKComplicationTimelineEntry(date: Date(), complicationTemplate: large)
     }
     
-    func getTemplateForUtilitarianLarge(totalSteps: NSNumber) -> CLKComplicationTemplateUtilitarianLargeFlat
+    func getTemplateForUtilitarianLarge(_ totalSteps: NSNumber) -> CLKComplicationTemplateUtilitarianLargeFlat
     {
         let flat = CLKComplicationTemplateUtilitarianLargeFlat()
         let formattedStepsLong = formatStepsForLarge(totalSteps)
@@ -189,37 +189,37 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         let text = CLKSimpleTextProvider()
         text.text = String(format: "%@ STEPS", formattedStepsLong)
         text.shortText = String(format: "%@ STEPS", formattedStepsShort)
-        text.tintColor = UIColor.whiteColor()
+        text.tintColor = UIColor.white
         flat.textProvider = text
         
         return flat
     }
     
-    func getEntryForUtilitarianSmall(totalSteps: NSNumber) -> CLKComplicationTimelineEntry
+    func getEntryForUtilitarianSmall(_ totalSteps: NSNumber) -> CLKComplicationTimelineEntry
     {
         let small = getTemplateForUtilitarianSmall(totalSteps)
-        return CLKComplicationTimelineEntry(date: NSDate(), complicationTemplate: small)
+        return CLKComplicationTimelineEntry(date: Date(), complicationTemplate: small)
     }
     
-    func getTemplateForUtilitarianSmall(totalSteps: NSNumber) -> CLKComplicationTemplateUtilitarianSmallFlat
+    func getTemplateForUtilitarianSmall(_ totalSteps: NSNumber) -> CLKComplicationTemplateUtilitarianSmallFlat
     {
         let flat = CLKComplicationTemplateUtilitarianSmallFlat()
         
         let text = CLKSimpleTextProvider()
         text.text = String(format: "%@ STEPS", formatStepsForSmall(totalSteps))
         text.shortText = text.text
-        text.tintColor = UIColor.whiteColor()
+        text.tintColor = UIColor.white
         flat.textProvider = text
         
         return flat
     }
     
-    func formatStepsForLarge(totalSteps: NSNumber) -> String
+    func formatStepsForLarge(_ totalSteps: NSNumber) -> String
     {
-        let numberFormatter = NSNumberFormatter()
-        numberFormatter.numberStyle = NSNumberFormatterStyle.DecimalStyle
-        numberFormatter.locale = NSLocale.currentLocale()
-        if let format = numberFormatter.stringFromNumber(totalSteps)
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = NumberFormatter.Style.decimal
+        numberFormatter.locale = Locale.current
+        if let format = numberFormatter.string(from: totalSteps)
         {
             return format
         }
@@ -227,16 +227,16 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         return "0"
     }
     
-    func formatStepsForSmall(totalSteps: NSNumber) -> String
+    func formatStepsForSmall(_ totalSteps: NSNumber) -> String
     {
-        if (totalSteps.integerValue >= 1000)
+        if (totalSteps.intValue >= 1000)
         {
-            let totalStepsReduced = NSNumber(double: totalSteps.doubleValue / 1000.0)
-            let numberFormatter = NSNumberFormatter()
-            numberFormatter.numberStyle = NSNumberFormatterStyle.DecimalStyle
-            numberFormatter.locale = NSLocale.currentLocale()
+            let totalStepsReduced = NSNumber(value: totalSteps.doubleValue / 1000.0 as Double)
+            let numberFormatter = NumberFormatter()
+            numberFormatter.numberStyle = NumberFormatter.Style.decimal
+            numberFormatter.locale = Locale.current
             numberFormatter.maximumFractionDigits = 1
-            if let format = numberFormatter.stringFromNumber(totalStepsReduced)
+            if let format = numberFormatter.string(from: totalStepsReduced)
             {
                 return String(format: "%@k", format)
             }
@@ -253,7 +253,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         {
             for complication in allComplications
             {
-                server.reloadTimelineForComplication(complication)
+                server.reloadTimeline(for: complication)
             }
         }
     }

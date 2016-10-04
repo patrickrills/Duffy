@@ -12,11 +12,11 @@ import Foundation
 
 class LoaderInterfaceController: WKInterfaceController {
 
-    override func awakeWithContext(context: AnyObject?) {
-        super.awakeWithContext(context)
+    override func awake(withContext context: Any?) {
+        super.awake(withContext: context)
         
         // Configure interface objects here.
-        WKInterfaceController.reloadRootControllersWithNames(["mainInterfaceController", "weekInterfaceController"], contexts: nil)
+        WKInterfaceController.reloadRootControllers(withNames: ["mainInterfaceController", "weekInterfaceController"], contexts: nil)
     }
 
     override func willActivate() {

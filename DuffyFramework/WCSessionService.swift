@@ -11,13 +11,35 @@ import WatchConnectivity
 
 public protocol WCSessionServiceDelegate
 {
-    func complicationUpdateRequested(complicationData : [String : AnyObject])
+    func complicationUpdateRequested(_ complicationData : [String : AnyObject])
 }
 
-public class WCSessionService : NSObject, WCSessionDelegate
+open class WCSessionService : NSObject, WCSessionDelegate
 {
-    private static let instance: WCSessionService = WCSessionService()
-    private var delegate: WCSessionServiceDelegate?
+    #if os(iOS)
+    /** Called when all delegate callbacks for the previously selected watch has occurred. The session can be re-activated for the now selected watch using activateSession. */
+    @available(iOS 9.3, *)
+    public func sessionDidDeactivate(_ session: WCSession) {
+        
+        
+    
+   }
+    
+    /** Called when the session can no longer be used to modify or add any new transfers and, all interactive messages will be cancelled, but delegate callbacks for background transfers can still occur. This will happen when the selected watch is being changed. */
+    @available(iOS 9.3, *)
+    public func sessionDidBecomeInactive(_ session: WCSession) {
+        
+    }
+    #endif
+   
+   /** Called when the session has completed activation. If session state is WCSessionActivationStateNotActivated there will be an error with more details. */
+    @available(watchOS 2.2, *)
+    public func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+        
+    }
+    
+    fileprivate static let instance: WCSessionService = WCSessionService()
+    fileprivate var delegate: WCSessionServiceDelegate?
     
     override init()
     {
@@ -25,22 +47,22 @@ public class WCSessionService : NSObject, WCSessionDelegate
         
         if (WCSession.isSupported())
         {
-            WCSession.defaultSession().delegate = self
-            WCSession.defaultSession().activateSession()
+            WCSession.default().delegate = self
+            WCSession.default().activate()
         }
     }
     
-    public class func getInstance() -> WCSessionService
+    open class func getInstance() -> WCSessionService
     {
         return instance
     }
     
-    public func initialize(withDelegate: WCSessionServiceDelegate)
+    open func initialize(_ withDelegate: WCSessionServiceDelegate)
     {
         delegate = withDelegate
     }
     
-    public func updateWatchFaceComplication(complicationData : [String : AnyObject])
+    open func updateWatchFaceComplication(_ complicationData : [String : AnyObject])
     {
         #if os(iOS)
             sendComplicationDataToWatch(complicationData)
@@ -52,21 +74,21 @@ public class WCSessionService : NSObject, WCSessionDelegate
         #endif
     }
     
-    private func sendComplicationDataToWatch(complicationData : [String : AnyObject])
+    fileprivate func sendComplicationDataToWatch(_ complicationData : [String : AnyObject])
     {
         #if os(iOS)
             if (WCSession.isSupported())
             {
-                if (WCSession.defaultSession().activationState == .Activated
-                    && WCSession.defaultSession().complicationEnabled)
+                if (WCSession.default().activationState == .activated
+                    && WCSession.default().isComplicationEnabled)
                 {
-                    WCSession.defaultSession().transferCurrentComplicationUserInfo(complicationData)
+                    WCSession.default().transferCurrentComplicationUserInfo(complicationData)
                 }
             }
         #endif
     }
     
-    public func session(session: WCSession, didReceiveUserInfo userInfo: [String : AnyObject])
+    open func session(_ session: WCSession, didReceiveUserInfo userInfo: [String : Any])
     {
         for (key, value) in userInfo
         {
