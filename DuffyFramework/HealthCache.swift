@@ -10,7 +10,7 @@ import Foundation
 
 open class HealthCache
 {
-    class func saveStepsToCache(_ stepCount: Int, forDay: Date) -> Bool
+    open class func saveStepsToCache(_ stepCount: Int, forDay: Date) -> Bool
     {
         let todaysKey = convertDayToKey(forDay)
         let previousValueForDay = getStepsFromCache(forDay)

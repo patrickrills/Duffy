@@ -23,10 +23,12 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         handler(CLKComplicationTimeTravelDirections())
     }
     
+    /*
     func requestedUpdateDidBegin()
     {
         ComplicationController.refreshComplication()
     }
+ */
     
     // MARK: - Timeline Population
     
@@ -61,11 +63,12 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     }
     
     // MARK: - Update Scheduling
-    
+    /*
     func getNextRequestedUpdateDate(handler: @escaping (Date?) -> Void)
     {
         handler(Date(timeIntervalSinceNow: 60*30))
     }
+ */
     
     // MARK: - Placeholder Templates
     

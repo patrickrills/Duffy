@@ -48,6 +48,8 @@ class WeekInterfaceController: WKInterfaceController
                         return date1.timeIntervalSince1970 > date2.timeIntervalSince1970
                     })
                     
+                    if (sortedKeys.count == 0) { return }
+                    
                     var rowTypes = [String]()
                     for _ in 1...sortedKeys.count
                     {

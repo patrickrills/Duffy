@@ -35,7 +35,7 @@ class InterfaceController: WKInterfaceController
             
             DispatchQueue.main.async(execute: {
                 [weak self] (_) in
-                self?.displayTodaysStepsFromHealth()
+                    self?.refresh()
                 })
             
             
@@ -44,10 +44,19 @@ class InterfaceController: WKInterfaceController
         })
     }
     
-    func displayTodaysStepsFromHealth()
+    fileprivate func refresh()
     {
         showLoading()
-        
+        displayTodaysStepsFromHealth()
+        if let d = WKExtension.shared().delegate as? ExtensionDelegate
+        {
+            d.scheduleNextBackgroundRefresh()
+            d.scheduleSnapshotNow()
+        }
+    }
+    
+    func displayTodaysStepsFromHealth()
+    {
         HealthKitService.getInstance().getSteps(Date(),
             onRetrieve: {
                 (stepsCount: Int, forDate: Date) in

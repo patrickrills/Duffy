@@ -89,7 +89,13 @@ open class HealthKitService
     
     open func getSteps(_ fromStartDate: Date, toEndDate: Date, onRetrieve: (([Date : Int]) -> Void)?, onFailure:  ((Error?) -> Void)?)
     {
-        guard HKHealthStore.isHealthDataAvailable() && healthStore != nil else { return }
+        guard HKHealthStore.isHealthDataAvailable() && healthStore != nil else {
+            if let failBlock = onFailure
+            {
+                failBlock(nil)
+            }
+            return
+        }
         
         let calendar = Calendar.current
         let startDateComponents = (calendar as NSCalendar).components([.era, .year, .month, .day], from: fromStartDate)
