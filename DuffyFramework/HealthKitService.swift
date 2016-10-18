@@ -8,6 +8,7 @@
 
 import Foundation
 import HealthKit
+import os.log
 
 open class HealthKitService
 {
@@ -208,6 +209,14 @@ open class HealthKitService
                     
                     NSLog("Observer query fired")
                     
+                    #if os(watchOS)
+                        if #available(watchOSApplicationExtension 3.0, *) {
+                            os_log("Observer query fired on watch")
+                        } else {
+                            // Fallback on earlier versions
+                        }
+                    #endif
+                    
                     self?.getSteps(Date(),
                         onRetrieve: {
                             (steps: Int, forDay: Date) in
@@ -215,6 +224,15 @@ open class HealthKitService
                             if (HealthCache.saveStepsToCache(steps, forDay: forDay))
                             {
                                 NSLog(String(format: "Update complication with %d steps", steps))
+                                
+                                #if os(watchOS)
+                                    if #available(watchOSApplicationExtension 3.0, *) {
+                                        os_log("Update complication from watch with %d steps", steps)
+                                    } else {
+                                        // Fallback on earlier versions
+                                    }
+                                #endif
+                                
                                 WCSessionService.getInstance().updateWatchFaceComplication(["stepsdataresponse" : HealthCache.getStepsDataFromCache() as AnyObject])
                             }
                             
@@ -225,8 +243,6 @@ open class HealthKitService
                     handler()
                     
                 })
-                
-                NSLog("Observer query fired")
                 
                 observerQueries!["steps"] = query
                 store.execute(query)

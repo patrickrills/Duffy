@@ -8,6 +8,7 @@
 
 import WatchKit
 import DuffyWatchFramework
+import os.log
 
 class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
 {
@@ -60,6 +61,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
                     if let c = WKExtension.shared().rootInterfaceController as? InterfaceController
                     {
                         NSLog(String(format: "snapshot root: %@", c.description))
+                        os_log("snapshot root: %@", c.description)
                         c.displayTodaysStepsFromHealth()
                     }
                     
@@ -69,6 +71,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
                 else
                 {
                     NSLog(String(format: "task class: %@", t.description))
+                    os_log("task class: %@", t.description)
                     
                     HealthKitService.getInstance().getSteps(Date(), onRetrieve: {
                             [weak self] (steps: Int, forDay: Date) in
@@ -77,7 +80,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
                         
                             if (HealthCache.saveStepsToCache(steps, forDay: forDay))
                             {
-                                NSLog(String(format: "Update complication from bg task with %d steps", steps))
+                                os_log("Update complication from bg task with %d steps", steps)
                                 ComplicationController.refreshComplication()
                             }
                         
@@ -89,9 +92,9 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
                             [weak self] (error: Error?) in
                             
                             if let e = error {
-                                NSLog(String(format: "Error getting steps in bg task: %@", e.localizedDescription))
+                                os_log("Error getting steps in bg task: %@", e.localizedDescription)
                             } else {
-                                NSLog(String(format: "Error getting steps in bg task with unknown error"))
+                                os_log("Error getting steps in bg task with unknown error")
                             }
                             
                             self?.scheduleNextBackgroundRefresh()
@@ -112,9 +115,9 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
             WKExtension.shared().scheduleBackgroundRefresh(withPreferredDate: refreshDate, userInfo: userInfo, scheduledCompletion: {
                 (err: Error?) in
                 if err != nil {
-                    NSLog("error requesting bg refresh")
+                    os_log("error requesting bg refresh")
                 } else {
-                    NSLog("background refresh requested")
+                    os_log("background refresh requested")
                 }
             })
         } else {
@@ -128,9 +131,9 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
             WKExtension.shared().scheduleSnapshotRefresh(withPreferredDate: Date(), userInfo: nil, scheduledCompletion: {
                 (err: Error?) in
                 if err != nil {
-                    NSLog("error requesting snapshot refresh")
+                    os_log("error requesting snapshot refresh")
                 } else {
-                    NSLog("snapshot refresh requested")
+                    os_log("snapshot refresh requested")
                 }
             })
         }
