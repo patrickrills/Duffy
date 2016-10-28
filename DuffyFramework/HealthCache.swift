@@ -15,7 +15,7 @@ open class HealthCache
         let todaysKey = convertDayToKey(forDay)
         let previousValueForDay = getStepsFromCache(forDay)
         
-        if (stepCount > previousValueForDay)
+        if (stepCount > previousValueForDay || cacheIsForADifferentDay(forDay))
         {
             var latestValues = [String : AnyObject]()
             latestValues["stepsCacheDay"] = todaysKey as AnyObject?
@@ -80,6 +80,19 @@ open class HealthCache
         }
         
         return ["stepsCacheDay" : convertDayToKey(Date()) as AnyObject, "stepsCacheValue" : Int(0) as AnyObject]
+    }
+    
+    open class func cacheIsForADifferentDay(_ currentDay: Date) -> Bool
+    {
+        if let stepsDict = UserDefaults.standard.object(forKey: "stepsCache") as? [String : AnyObject]
+        {
+            if let previousDay = stepsDict["stepsCacheDay"] as? String
+            {
+                return (previousDay != convertDayToKey(currentDay))
+            }
+        }
+        
+        return true
     }
     
     fileprivate class func convertDayToKey(_ day: Date) -> String

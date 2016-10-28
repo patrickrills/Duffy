@@ -75,6 +75,14 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
                     NSLog(String(format: "task class: %@", t.description))
                     os_log("task class: %@", t.description)
                     
+                    //At least turn over the complication to zero if it is a new day - if the lock is locked we can't get the steps
+                    if (HealthCache.cacheIsForADifferentDay(Date()))
+                    {
+                        if (HealthCache.saveStepsToCache(0, forDay: Date())) {
+                            ComplicationController.refreshComplication()
+                        }
+                    }
+                    
                     HealthKitService.getInstance().getSteps(Date(), onRetrieve: {
                             [weak self] (steps: Int, forDay: Date) in
                         

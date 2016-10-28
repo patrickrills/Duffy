@@ -23,12 +23,10 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         handler(CLKComplicationTimeTravelDirections())
     }
     
-    /*
     func requestedUpdateDidBegin()
     {
         ComplicationController.refreshComplication()
     }
- */
     
     // MARK: - Timeline Population
     
@@ -63,12 +61,10 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     }
     
     // MARK: - Update Scheduling
-    /*
     func getNextRequestedUpdateDate(handler: @escaping (Date?) -> Void)
     {
         handler(Date(timeIntervalSinceNow: 60*30))
     }
- */
     
     // MARK: - Placeholder Templates
     
@@ -242,6 +238,17 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
             if let format = numberFormatter.string(from: totalStepsReduced)
             {
                 return String(format: "%@k", format)
+            }
+        }
+        else
+        {
+            let numberFormatter = NumberFormatter()
+            numberFormatter.numberStyle = NumberFormatter.Style.decimal
+            numberFormatter.locale = Locale.current
+            numberFormatter.maximumFractionDigits = 0
+            if let format = numberFormatter.string(from: totalSteps)
+            {
+                return String(format: "%@", format)
             }
         }
         
