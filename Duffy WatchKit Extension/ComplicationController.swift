@@ -205,7 +205,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         let flat = CLKComplicationTemplateUtilitarianSmallFlat()
         
         let text = CLKSimpleTextProvider()
-        text.text = String(format: "%@ STEPS", formatStepsForSmall(totalSteps))
+        text.text = String(format: "%@", formatStepsForSmall(totalSteps))
         text.shortText = text.text
         text.tintColor = UIColor.white
         flat.textProvider = text
@@ -253,6 +253,34 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         }
         
         return "0"
+    }
+    
+    func getLocalizableSampleTemplate(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTemplate?) -> Swift.Void)
+    {
+        let sampleDisplaySteps = NSNumber(value: 12500 as Int)
+        var template: CLKComplicationTemplate?
+        if (complication.family == .modularSmall)
+        {
+            template = getTemplateForModularSmall(sampleDisplaySteps)
+        }
+        else if (complication.family == .modularLarge)
+        {
+            template = getTemplateForModularLarge(sampleDisplaySteps)
+        }
+        else if (complication.family == .circularSmall)
+        {
+            template = getTemplateForCircularSmall(sampleDisplaySteps)
+        }
+        else if (complication.family == .utilitarianLarge)
+        {
+            template = getTemplateForUtilitarianLarge(sampleDisplaySteps)
+        }
+        else if (complication.family == .utilitarianSmall)
+        {
+            template = getTemplateForUtilitarianSmall(sampleDisplaySteps)
+        }
+        
+        handler(template)
     }
     
     

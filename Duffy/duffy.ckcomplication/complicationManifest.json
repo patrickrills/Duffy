@@ -1,0 +1,10 @@
+{
+  "supported complication families" : {
+    "3" : "8E8EFDAE-454D-4800-BEE9-4B3B9F919F03.json",
+    "1" : "A077B0D2-CCAE-44CB-ACC7-EBF75197555E.json",
+    "4" : "76CE64D5-8007-4C9A-B68C-8D2EACD103CA.json",
+    "2" : "7052C46B-E38E-4C41-9885-F2B930D52A8A.json",
+    "0" : "59381B4A-3DF5-47FC-91C5-CA14C80A5147.json"
+  },
+  "client ID" : "com.bigbluefly.Duffy.watchkitapp.watchkitextension"
+}

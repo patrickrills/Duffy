@@ -1,0 +1,15 @@
+{
+  "textProvider" : {
+    "tintColor" : {
+      "green" : 1,
+      "red" : 1,
+      "alpha" : 1,
+      "blue" : 1
+    },
+    "class" : "CLKSimpleTextProvider",
+    "text" : "12,500 STEPS",
+    "shortText" : "12.5k STEPS"
+  },
+  "class" : "CLKComplicationTemplateUtilitarianLargeFlat",
+  "version" : 30000
+}
