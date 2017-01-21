@@ -21,6 +21,7 @@ class ViewController: UIViewController
     @IBOutlet weak var subTitleLabel : UILabel?
     
     let primaryColor = UIColor(red: 0.0, green: 61.0/255.0, blue: 165.0/255.0, alpha: 1.0)
+    let secondaryColor = UIColor(red: 76.0/255.0, green: 142.0/255.0, blue: 218.0/255.0, alpha: 1.0)
 
     override func viewDidLoad()
     {
@@ -31,10 +32,12 @@ class ViewController: UIViewController
         loadingContainer?.layer.cornerRadius = 8.0
         loadingContainer?.backgroundColor = UIColor(red: 0, green: 0, blue: 1, alpha: 0.85)
         stepsTextLabel?.textColor = primaryColor
-        infoButton?.tintColor = primaryColor
-        refreshButton?.setTitleColor(primaryColor, for: UIControlState())
+        infoButton?.tintColor = secondaryColor
+        refreshButton?.setTitleColor(secondaryColor, for: UIControlState())
         titleLabel?.textColor = primaryColor
         subTitleLabel?.textColor = primaryColor
+        
+        infoButton?.isHidden = !Constants.isDebugMode
     }
 
     override func viewWillAppear(_ animated: Bool)

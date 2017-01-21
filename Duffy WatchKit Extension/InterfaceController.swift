@@ -13,6 +13,7 @@ import DuffyWatchFramework
 class InterfaceController: WKInterfaceController
 {
     @IBOutlet weak var stepsValueLabel : WKInterfaceLabel?
+    @IBOutlet weak var infoButton: WKInterfaceButton?
 
     override func awake(withContext context: Any?)
     {
@@ -26,6 +27,7 @@ class InterfaceController: WKInterfaceController
     {
         // This method is called when watch view controller is about to be visible to user
         super.willActivate()
+        infoButton?.setHidden(!Constants.isDebugMode)
         askForHealthKitPermission()
     }
     
@@ -104,6 +106,11 @@ class InterfaceController: WKInterfaceController
     func hideLoading()
     {
         setTitle("Duffy")
+    }
+    
+    @IBAction func refreshPressed()
+    {
+        refresh()
     }
     
     @IBAction func infoPressed()

@@ -1,8 +1,12 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="jDe-kN-uGL">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="jDe-kN-uGL">
+    <device id="watch38" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="10032"/>
+        <deployment identifier="watchOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="11508"/>
     </dependencies>
     <scenes>
         <!--Duffy-->
@@ -23,9 +27,14 @@
                                     <fontDescription key="font" type="system" weight="medium" pointSize="40"/>
                                 </label>
                                 <label alignment="center" verticalAlignment="center" text="STEPS TODAY" minimumScaleFactor="0.75" id="p5D-H6-XOj">
-                                    <color key="textColor" red="0.33725490200000002" green="0.59999999999999998" blue="0.87450980389999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="textColor" red="0.33725490200000002" green="0.59999999999999998" blue="0.87450980389999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <fontDescription key="font" type="system" weight="light" pointSize="16"/>
                                 </label>
+                                <button width="1" alignment="center" verticalAlignment="center" title="Refresh" id="3Ll-z1-8Id">
+                                    <connections>
+                                        <action selector="refreshPressed" destination="AgC-eL-Hgc" id="us0-f1-NpC"/>
+                                    </connections>
+                                </button>
                                 <button width="1" alignment="center" verticalAlignment="center" title="Info" id="Y1p-Ns-rIT">
                                     <connections>
                                         <action selector="infoPressed" destination="AgC-eL-Hgc" id="OLD-ew-VFE"/>
@@ -35,6 +44,7 @@
                         </group>
                     </items>
                     <connections>
+                        <outlet property="infoButton" destination="Y1p-Ns-rIT" id="wxL-kg-1VK"/>
                         <outlet property="stepsValueLabel" destination="G6E-Dy-R0M" id="K2a-Ej-vfL"/>
                     </connections>
                 </controller>
@@ -75,5 +85,5 @@
             <point key="canvasLocation" x="565" y="840"/>
         </scene>
     </scenes>
-    <color key="tintColor" red="0.33725490196078434" green="0.59999999999999998" blue="0.87450980392156863" alpha="1" colorSpace="calibratedRGB"/>
+    <color key="tintColor" red="0.33725490196078434" green="0.59999999999999998" blue="0.87450980392156863" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

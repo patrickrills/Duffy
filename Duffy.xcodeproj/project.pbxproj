@@ -39,6 +39,8 @@
 		09AACE281D318A390058A814 /* HealthCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09AACE261D318A390058A814 /* HealthCache.swift */; };
 		09AACE2A1D318E5D0058A814 /* WCSessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09AACE291D318E5D0058A814 /* WCSessionService.swift */; };
 		09AACE2B1D318E5D0058A814 /* WCSessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09AACE291D318E5D0058A814 /* WCSessionService.swift */; };
+		09D7F1241E340EA7008FF0CC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7F1231E340EA7008FF0CC /* Constants.swift */; };
+		09D7F1251E340EA7008FF0CC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7F1231E340EA7008FF0CC /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -153,6 +155,7 @@
 		099C13121DA336D50007C72F /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS3.0.sdk/System/Library/Frameworks/HealthKit.framework; sourceTree = DEVELOPER_DIR; };
 		09AACE261D318A390058A814 /* HealthCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthCache.swift; sourceTree = "<group>"; };
 		09AACE291D318E5D0058A814 /* WCSessionService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WCSessionService.swift; sourceTree = "<group>"; };
+		09D7F1231E340EA7008FF0CC /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -265,6 +268,7 @@
 				09AACE261D318A390058A814 /* HealthCache.swift */,
 				09AACE291D318E5D0058A814 /* WCSessionService.swift */,
 				092B0E891D45841F00085F99 /* CoreMotionService.swift */,
+				09D7F1231E340EA7008FF0CC /* Constants.swift */,
 			);
 			path = DuffyFramework;
 			sourceTree = "<group>";
@@ -536,6 +540,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09D7F1241E340EA7008FF0CC /* Constants.swift in Sources */,
 				09AACE271D318A390058A814 /* HealthCache.swift in Sources */,
 				09AACE2A1D318E5D0058A814 /* WCSessionService.swift in Sources */,
 				092B0E8A1D45841F00085F99 /* CoreMotionService.swift in Sources */,
@@ -547,6 +552,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09D7F1251E340EA7008FF0CC /* Constants.swift in Sources */,
 				09AACE281D318A390058A814 /* HealthCache.swift in Sources */,
 				09AACE2B1D318E5D0058A814 /* WCSessionService.swift in Sources */,
 				092B0E8B1D45841F00085F99 /* CoreMotionService.swift in Sources */,
