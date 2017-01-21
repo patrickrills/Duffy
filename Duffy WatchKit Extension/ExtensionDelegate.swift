@@ -62,8 +62,8 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
                 {
                     if let c = WKExtension.shared().rootInterfaceController as? InterfaceController
                     {
-                        NSLog(String(format: "snapshot root: %@", c.description))
-                        os_log("snapshot root: %@", c.description)
+                        //NSLog(String(format: "snapshot root: %@", c.description))
+                        //os_log("snapshot root: %@", c.description)
                         c.displayTodaysStepsFromHealth()
                     }
                     
@@ -72,8 +72,8 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
                 }
                 else
                 {
-                    NSLog(String(format: "task class: %@", t.description))
-                    os_log("task class: %@", t.description)
+                    //NSLog(String(format: "task class: %@", t.description))
+                    //os_log("task class: %@", t.description)
                     
                     //At least turn over the complication to zero if it is a new day - if the lock is locked we can't get the steps
                     if (HealthCache.cacheIsForADifferentDay(Date()))
@@ -90,7 +90,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
                         
                             if (HealthCache.saveStepsToCache(steps, forDay: forDay))
                             {
-                                os_log("Update complication from bg task with %d steps", steps)
+                                //os_log("Update complication from bg task with %d steps", steps)
                                 ComplicationController.refreshComplication()
                             }
                         
@@ -101,11 +101,13 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
                         onFailure: {
                             [weak self] (error: Error?) in
                             
+                            /*
                             if let e = error {
                                 os_log("Error getting steps in bg task: %@", e.localizedDescription)
                             } else {
                                 os_log("Error getting steps in bg task with unknown error")
                             }
+                            */
                             
                             self?.scheduleNextBackgroundRefresh()
                             let _ = self?.currentBackgroundTasks.removeValue(forKey: dictKey)
@@ -124,11 +126,15 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
         if #available(watchOSApplicationExtension 3.0, *) {
             WKExtension.shared().scheduleBackgroundRefresh(withPreferredDate: refreshDate, userInfo: userInfo, scheduledCompletion: {
                 (err: Error?) in
+                
+                /*
                 if err != nil {
                     os_log("error requesting bg refresh")
                 } else {
                     os_log("background refresh requested")
                 }
+                */
+                
             })
         } else {
             // Fallback on earlier versions
@@ -140,11 +146,14 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
         if #available(watchOSApplicationExtension 3.0, *) {
             WKExtension.shared().scheduleSnapshotRefresh(withPreferredDate: Date(), userInfo: nil, scheduledCompletion: {
                 (err: Error?) in
+                
+                /*
                 if err != nil {
                     os_log("error requesting snapshot refresh")
                 } else {
                     os_log("snapshot refresh requested")
                 }
+                */
             })
         }
     }

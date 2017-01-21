@@ -40,7 +40,7 @@ class InterfaceController: WKInterfaceController
             
             
             }, onFailure: {
-                NSLog("Did not authorize")
+                //NSLog("Did not authorize")
         })
     }
     
@@ -78,10 +78,12 @@ class InterfaceController: WKInterfaceController
             },
             onFailure:  {
                 (error: Error?) in
+                /*
                 if let e = error
                 {
                     NSLog(String(format:"ERROR: %@", e.localizedDescription))
                 }
+                */
                 
                 DispatchQueue.main.async(execute: {
                     [weak self] (_) in

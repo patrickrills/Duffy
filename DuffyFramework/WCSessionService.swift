@@ -94,7 +94,7 @@ open class WCSessionService : NSObject, WCSessionDelegate
         {
             if (key == "stepsdataresponse")
             {
-                NSLog("Received steps from phone")
+                //NSLog("Received steps from phone")
                 
                 if let dict = value as? [String: AnyObject]
                 {

@@ -86,7 +86,7 @@ class WeekInterfaceController: WKInterfaceController
             },
             onFailure: {
                 (err: Error?) in
-                NSLog("Fail")
+                //NSLog("Fail")
         })
     }
     

@@ -207,8 +207,8 @@ open class HealthKitService
                 let query = HKObserverQuery(sampleType: sampleType, predicate: nil, updateHandler: {
                     [weak self] (updateQuery: HKObserverQuery, handler: HKObserverQueryCompletionHandler, updateError: Error?) in
                     
-                    NSLog("Observer query fired")
-                    
+                    //NSLog("Observer query fired")
+                    /*
                     #if os(watchOS)
                         if #available(watchOSApplicationExtension 3.0, *) {
                             os_log("Observer query fired on watch")
@@ -216,6 +216,7 @@ open class HealthKitService
                             // Fallback on earlier versions
                         }
                     #endif
+                    */
                     
                     self?.getSteps(Date(),
                         onRetrieve: {
@@ -223,8 +224,8 @@ open class HealthKitService
                             
                             if (HealthCache.saveStepsToCache(steps, forDay: forDay))
                             {
-                                NSLog(String(format: "Update complication with %d steps", steps))
-                                
+                                //NSLog(String(format: "Update complication with %d steps", steps))
+                                /*
                                 #if os(watchOS)
                                     if #available(watchOSApplicationExtension 3.0, *) {
                                         os_log("Update complication from watch with %d steps", steps)
@@ -232,6 +233,7 @@ open class HealthKitService
                                         // Fallback on earlier versions
                                     }
                                 #endif
+                                */
                                 
                                 WCSessionService.getInstance().updateWatchFaceComplication(["stepsdataresponse" : HealthCache.getStepsDataFromCache() as AnyObject])
                             }
@@ -252,7 +254,7 @@ open class HealthKitService
                         (success: Bool, error: Error?) in
                         if (success)
                         {
-                            NSLog("Background updates enabled for steps")
+                            //NSLog("Background updates enabled for steps")
                         }
                     })
                 #endif
@@ -268,7 +270,7 @@ open class HealthKitService
                         
                 if (HealthCache.saveStepsToCache(steps, forDay: forDay))
                 {
-                    NSLog(String(format: "Fetch - update complication with %d steps", steps))
+                    //NSLog(String(format: "Fetch - update complication with %d steps", steps))
                     WCSessionService.getInstance().updateWatchFaceComplication(["stepsdataresponse" : HealthCache.getStepsDataFromCache() as AnyObject])
                 }
                 
@@ -280,10 +282,12 @@ open class HealthKitService
             },
             onFailure: {
                 (error: Error?) in
+                /*
                 if let e = error
                 {
                     NSLog(String(format: "Fetch - error getting steps: %@", e.localizedDescription))
                 }
+                */
                 
                 if let c = onComplete
                 {

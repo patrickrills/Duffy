@@ -54,7 +54,7 @@ class ViewController: UIViewController
 
 
         }, onFailure: {
-            NSLog("Did not authorize")
+            //NSLog("Did not authorize")
         })
     }
 
@@ -83,11 +83,12 @@ class ViewController: UIViewController
             },
             onFailure:  {
                 [weak self] (error: Error?) in
-
+                /*
                 if let e = error
                 {
                     NSLog(String(format:"ERROR: %@", e.localizedDescription))
                 }
+                */
 
                 DispatchQueue.main.async(execute: {
                     [weak self] (_) in
