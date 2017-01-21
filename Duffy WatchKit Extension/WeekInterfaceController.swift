@@ -31,9 +31,21 @@ class WeekInterfaceController: WKInterfaceController
         // This method is called when watch view controller is no longer visible
         super.didDeactivate()
     }
+    
+    func showLoading()
+    {
+        setTitle("Getting...")
+    }
+    
+    func hideLoading()
+    {
+        setTitle("Past Week")
+    }
 
     func bindTableToWeek()
     {
+        showLoading()
+        
         let startDate = (Calendar.current as NSCalendar).date(byAdding: .day, value: -7, to: Date(), options: NSCalendar.Options(rawValue: 0))
         
         HealthKitService.getInstance().getSteps(startDate!, toEndDate: Date(), onRetrieve: {
@@ -81,12 +93,15 @@ class WeekInterfaceController: WKInterfaceController
                         idx += 1
                     }
                     
+                    weakSelf.hideLoading()
                 }
             })
             },
             onFailure: {
-                (err: Error?) in
-                //NSLog("Fail")
+                [weak self] (err: Error?) in
+                DispatchQueue.main.async {
+                    self?.hideLoading()
+                }
         })
     }
     
