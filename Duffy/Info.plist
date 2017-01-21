@@ -23,7 +23,7 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSHealthShareUsageDescription</key>
-	<string>Need to read yo steps to show yo steps. You can trust me, trust me.</string>
+	<string>Need to read yo steps to show yo steps.</string>
 	<key>NSHealthUpdateUsageDescription</key>
 	<string>Need to write steps.</string>
 	<key>UIBackgroundModes</key>
