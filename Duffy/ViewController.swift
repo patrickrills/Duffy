@@ -20,7 +20,7 @@ class ViewController: UIViewController
     @IBOutlet weak var titleLabel : UILabel?
     @IBOutlet weak var subTitleLabel : UILabel?
     
-    let primaryColor = UIColor(red: 0.0, green: 61.0/255.0, blue: 165.0/255.0, alpha: 1.0)
+    open static let primaryColor = UIColor(red: 0.0, green: 61.0/255.0, blue: 165.0/255.0, alpha: 1.0)
     let secondaryColor = UIColor(red: 76.0/255.0, green: 142.0/255.0, blue: 218.0/255.0, alpha: 1.0)
 
     override func viewDidLoad()
@@ -31,11 +31,11 @@ class ViewController: UIViewController
 
         loadingContainer?.layer.cornerRadius = 8.0
         loadingContainer?.backgroundColor = UIColor(red: 0, green: 0, blue: 1, alpha: 0.85)
-        stepsTextLabel?.textColor = primaryColor
+        stepsTextLabel?.textColor = ViewController.primaryColor
         infoButton?.tintColor = secondaryColor
         refreshButton?.setTitleColor(secondaryColor, for: UIControlState())
-        titleLabel?.textColor = primaryColor
-        subTitleLabel?.textColor = primaryColor
+        titleLabel?.textColor = ViewController.primaryColor
+        subTitleLabel?.textColor = ViewController.primaryColor
         
         infoButton?.isHidden = !Constants.isDebugMode
     }
@@ -126,6 +126,14 @@ class ViewController: UIViewController
         refresh()
     }
     
+    @IBAction func pastWeekPressed()
+    {
+        let weekVC = WeekViewController()
+        let modalNav = UINavigationController(rootViewController: weekVC)
+        modalNav.navigationBar.tintColor = secondaryColor
+        present(modalNav, animated: true, completion: nil)
+    }
+    
     @IBAction func infoPressed()
     {
         let cacheData = HealthCache.getStepsDataFromCache()
@@ -143,7 +151,7 @@ class ViewController: UIViewController
         let message = String(format: "Saved in cache:\n Steps: %d\n For day: %@", steps, date)
         let title = "Info"
         let alertContoller = UIAlertController(title: title, message: message, preferredStyle: .alert);
-        alertContoller.view.tintColor = primaryColor
+        alertContoller.view.tintColor = ViewController.primaryColor
         alertContoller.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
         present(alertContoller, animated: true, completion: nil)
     }
