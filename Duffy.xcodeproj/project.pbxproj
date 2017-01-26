@@ -42,6 +42,10 @@
 		09AACE2B1D318E5D0058A814 /* WCSessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09AACE291D318E5D0058A814 /* WCSessionService.swift */; };
 		09CE42C11E353E7100A6E587 /* WeekViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CE42C01E353E7100A6E587 /* WeekViewController.swift */; };
 		09CE42C31E354D5200A6E587 /* PastWeekButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CE42C21E354D5200A6E587 /* PastWeekButton.swift */; };
+		09CE42CA1E35525200A6E587 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09CE42C91E35525200A6E587 /* NotificationCenter.framework */; };
+		09CE42CD1E35525200A6E587 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CE42CC1E35525200A6E587 /* TodayViewController.swift */; };
+		09CE42D01E35525200A6E587 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09CE42CE1E35525200A6E587 /* MainInterface.storyboard */; };
+		09CE42D41E35525200A6E587 /* DuffyToday.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 09CE42C81E35525200A6E587 /* DuffyToday.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		09D7F1241E340EA7008FF0CC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7F1231E340EA7008FF0CC /* Constants.swift */; };
 		09D7F1251E340EA7008FF0CC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7F1231E340EA7008FF0CC /* Constants.swift */; };
 /* End PBXBuildFile section */
@@ -74,6 +78,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 09323D131D2303DE00961822;
 			remoteInfo = DuffyWatchFramework;
+		};
+		09CE42D21E35525200A6E587 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 09323C651D22C39700961822 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 09CE42C71E35525200A6E587;
+			remoteInfo = DuffyToday;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -122,6 +133,17 @@
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		09CE42D81E35525200A6E587 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				09CE42D41E35525200A6E587 /* DuffyToday.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -161,6 +183,12 @@
 		09AACE291D318E5D0058A814 /* WCSessionService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WCSessionService.swift; sourceTree = "<group>"; };
 		09CE42C01E353E7100A6E587 /* WeekViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeekViewController.swift; sourceTree = "<group>"; };
 		09CE42C21E354D5200A6E587 /* PastWeekButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PastWeekButton.swift; sourceTree = "<group>"; };
+		09CE42C81E35525200A6E587 /* DuffyToday.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = DuffyToday.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		09CE42C91E35525200A6E587 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
+		09CE42CC1E35525200A6E587 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
+		09CE42CF1E35525200A6E587 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		09CE42D11E35525200A6E587 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		09CE42D91E35640E00A6E587 /* DuffyToday.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DuffyToday.entitlements; sourceTree = "<group>"; };
 		09D7F1231E340EA7008FF0CC /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -197,6 +225,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		09CE42C51E35525200A6E587 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				09CE42CA1E35525200A6E587 /* NotificationCenter.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -207,6 +243,7 @@
 				09323C831D22C39700961822 /* Duffy WatchKit App */,
 				09323C921D22C39700961822 /* Duffy WatchKit Extension */,
 				09323D041D2303BC00961822 /* DuffyFramework */,
+				09CE42CB1E35525200A6E587 /* DuffyToday */,
 				09323C6E1D22C39700961822 /* Products */,
 				099C130F1DA336C80007C72F /* Frameworks */,
 			);
@@ -220,6 +257,7 @@
 				09323C8E1D22C39700961822 /* Duffy WatchKit Extension.appex */,
 				09323D031D2303BC00961822 /* DuffyFramework.framework */,
 				09323D141D2303DE00961822 /* DuffyWatchFramework.framework */,
+				09CE42C81E35525200A6E587 /* DuffyToday.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -287,8 +325,20 @@
 			children = (
 				099C13121DA336D50007C72F /* HealthKit.framework */,
 				099C13101DA336C80007C72F /* HealthKit.framework */,
+				09CE42C91E35525200A6E587 /* NotificationCenter.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		09CE42CB1E35525200A6E587 /* DuffyToday */ = {
+			isa = PBXGroup;
+			children = (
+				09CE42D91E35640E00A6E587 /* DuffyToday.entitlements */,
+				09CE42CC1E35525200A6E587 /* TodayViewController.swift */,
+				09CE42CE1E35525200A6E587 /* MainInterface.storyboard */,
+				09CE42D11E35525200A6E587 /* Info.plist */,
+			);
+			path = DuffyToday;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -322,12 +372,14 @@
 				09323C6B1D22C39700961822 /* Resources */,
 				09323CA51D22C39700961822 /* Embed Watch Content */,
 				09323CD51D22C96B00961822 /* Embed Frameworks */,
+				09CE42D81E35525200A6E587 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				09323C821D22C39700961822 /* PBXTargetDependency */,
 				09323D091D2303BC00961822 /* PBXTargetDependency */,
+				09CE42D31E35525200A6E587 /* PBXTargetDependency */,
 			);
 			name = Duffy;
 			productName = Duffy;
@@ -406,13 +458,30 @@
 			productReference = 09323D141D2303DE00961822 /* DuffyWatchFramework.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		09CE42C71E35525200A6E587 /* DuffyToday */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 09CE42D51E35525200A6E587 /* Build configuration list for PBXNativeTarget "DuffyToday" */;
+			buildPhases = (
+				09CE42C41E35525200A6E587 /* Sources */,
+				09CE42C51E35525200A6E587 /* Frameworks */,
+				09CE42C61E35525200A6E587 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DuffyToday;
+			productName = DuffyToday;
+			productReference = 09CE42C81E35525200A6E587 /* DuffyToday.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		09323C651D22C39700961822 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0730;
+				LastSwiftUpdateCheck = 0820;
 				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "Big Blue Fly";
 				TargetAttributes = {
@@ -421,8 +490,11 @@
 						DevelopmentTeam = 2ZMUDMBY38;
 						LastSwiftMigration = 0800;
 						SystemCapabilities = {
-							com.apple.BackgroundModes = {
+							com.apple.ApplicationGroups.iOS = {
 								enabled = 1;
+							};
+							com.apple.BackgroundModes = {
+								enabled = 0;
 							};
 							com.apple.HealthKit = {
 								enabled = 1;
@@ -454,6 +526,16 @@
 						DevelopmentTeam = 2ZMUDMBY38;
 						LastSwiftMigration = 0800;
 					};
+					09CE42C71E35525200A6E587 = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = 2ZMUDMBY38;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+						};
+					};
 				};
 			};
 			buildConfigurationList = 09323C681D22C39700961822 /* Build configuration list for PBXProject "Duffy" */;
@@ -474,6 +556,7 @@
 				09323C8D1D22C39700961822 /* Duffy WatchKit Extension */,
 				09323D021D2303BC00961822 /* DuffyFramework */,
 				09323D131D2303DE00961822 /* DuffyWatchFramework */,
+				09CE42C71E35525200A6E587 /* DuffyToday */,
 			);
 		};
 /* End PBXProject section */
@@ -518,6 +601,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		09CE42C61E35525200A6E587 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				09CE42D01E35525200A6E587 /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -572,6 +663,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		09CE42C41E35525200A6E587 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				09CE42CD1E35525200A6E587 /* TodayViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -594,6 +693,11 @@
 			isa = PBXTargetDependency;
 			target = 09323D131D2303DE00961822 /* DuffyWatchFramework */;
 			targetProxy = 09323D191D2303DE00961822 /* PBXContainerItemProxy */;
+		};
+		09CE42D31E35525200A6E587 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 09CE42C71E35525200A6E587 /* DuffyToday */;
+			targetProxy = 09CE42D21E35525200A6E587 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -620,6 +724,14 @@
 				09323C851D22C39700961822 /* Base */,
 			);
 			name = Interface.storyboard;
+			sourceTree = "<group>";
+		};
+		09CE42CE1E35525200A6E587 /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				09CE42CF1E35525200A6E587 /* Base */,
+			);
+			name = MainInterface.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -921,6 +1033,43 @@
 			};
 			name = Release;
 		};
+		09CE42D61E35525200A6E587 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = NO;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_ENTITLEMENTS = DuffyToday/DuffyToday.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = 2ZMUDMBY38;
+				INFOPLIST_FILE = DuffyToday/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.bigbluefly.Duffy.DuffyToday;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		09CE42D71E35525200A6E587 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = NO;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_ENTITLEMENTS = DuffyToday/DuffyToday.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = 2ZMUDMBY38;
+				INFOPLIST_FILE = DuffyToday/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.bigbluefly.Duffy.DuffyToday;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -977,6 +1126,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		09CE42D51E35525200A6E587 /* Build configuration list for PBXNativeTarget "DuffyToday" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				09CE42D61E35525200A6E587 /* Debug */,
+				09CE42D71E35525200A6E587 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};

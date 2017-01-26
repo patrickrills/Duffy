@@ -12,12 +12,12 @@
 		<key>Duffy WatchKit App (Complication).xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>3</integer>
+			<integer>2</integer>
 		</dict>
 		<key>Duffy WatchKit App.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>2</integer>
+			<integer>1</integer>
 		</dict>
 		<key>Duffy.xcscheme</key>
 		<dict>
@@ -38,6 +38,11 @@
 		<dict>
 			<key>orderHint</key>
 			<integer>6</integer>
+		</dict>
+		<key>DuffyToday.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>3</integer>
 		</dict>
 		<key>DuffyWatchFramework.xcscheme</key>
 		<dict>
@@ -78,6 +83,11 @@
 			<true/>
 		</dict>
 		<key>09323D131D2303DE00961822</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>09CE42C71E35525200A6E587</key>
 		<dict>
 			<key>primary</key>
 			<true/>
