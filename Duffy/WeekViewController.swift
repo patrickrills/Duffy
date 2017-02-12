@@ -51,9 +51,9 @@ class WeekViewController: UIViewController, UITableViewDataSource, UITableViewDe
         title = "Getting..."
     }
     
-    func hideLoading()
+    func hideLoading(_ hasData: Bool)
     {
-        title = "Past Week"
+        title = hasData ? "Past Week" : "No Data"
     }
     
     func bindTableToWeek()
@@ -74,52 +74,21 @@ class WeekViewController: UIViewController, UITableViewDataSource, UITableViewDe
                         return date1.timeIntervalSince1970 > date2.timeIntervalSince1970
                     })
                     
-                    if (weakSelf.sortedDates!.count == 0) { return }
+                    if (weakSelf.sortedDates!.count == 0) {
+                        weakSelf.hideLoading(false)
+                        return
+                    }
                     
                     weakSelf.pastWeekSteps = stepsCollection
                     weakSelf.tableView?.reloadData()
-                    
-                    /*
-                    var rowTypes = [String]()
-                    for _ in 1...sortedKeys.count
-                    {
-                        rowTypes.append("WeekRowController")
-                    }
-                    
-                    weakSelf.scoresTable?.setRowTypes(rowTypes)
-                    
-                    var idx = 0
-                    
-                    let dateFormatter = DateFormatter()
-                    dateFormatter.dateFormat = "eee"
-                    
-                    let numFormatter = NumberFormatter()
-                    numFormatter.numberStyle = .decimal
-                    numFormatter.locale = Locale.current
-                    
-                    for key in sortedKeys
-                    {
-                        let stepRow = weakSelf.scoresTable?.rowController(at: idx) as! WeekRowController
-                        stepRow.dateLabel?.setText(dateFormatter.string(from: key).uppercased())
-                        stepRow.stepsLabel?.setText("0")
-                        
-                        if let steps = stepsCollection[key]
-                        {
-                            stepRow.stepsLabel?.setText(numFormatter.string(from: NSNumber(value: steps)))
-                        }
-                        
-                        idx += 1
-                    }
-                    */
-                    
-                    weakSelf.hideLoading()
+                    weakSelf.hideLoading(true)
                 }
             })
         },
             onFailure: {
             [weak self] (err: Error?) in
                 DispatchQueue.main.async {
-                    self?.hideLoading()
+                    self?.hideLoading(false)
                 }
         })
     }
