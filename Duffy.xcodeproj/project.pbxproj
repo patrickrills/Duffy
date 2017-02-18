@@ -34,6 +34,7 @@
 		0947AA9C1D4EB1D80040E1DD /* WeekInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0947AA9B1D4EB1D80040E1DD /* WeekInterfaceController.swift */; };
 		0947AA9E1D4EB24A0040E1DD /* WeekRowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0947AA9D1D4EB24A0040E1DD /* WeekRowController.swift */; };
 		0947AAA01D4EB5490040E1DD /* LoaderInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0947AA9F1D4EB5490040E1DD /* LoaderInterfaceController.swift */; };
+		096A4EE61E58D39900CE3D5B /* DuffyFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09323D031D2303BC00961822 /* DuffyFramework.framework */; };
 		099C13111DA336C80007C72F /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 099C13101DA336C80007C72F /* HealthKit.framework */; };
 		099C13131DA336D50007C72F /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 099C13121DA336D50007C72F /* HealthKit.framework */; };
 		09AACE271D318A390058A814 /* HealthCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09AACE261D318A390058A814 /* HealthCache.swift */; };
@@ -229,6 +230,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				096A4EE61E58D39900CE3D5B /* DuffyFramework.framework in Frameworks */,
 				09CE42CA1E35525200A6E587 /* NotificationCenter.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1134,6 +1136,7 @@
 				09CE42D71E35525200A6E587 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
