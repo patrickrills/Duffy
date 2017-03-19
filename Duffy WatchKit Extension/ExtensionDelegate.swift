@@ -10,7 +10,7 @@ import WatchKit
 import DuffyWatchFramework
 import os.log
 
-class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
+class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate, HealthEventDelegate
 {
     var currentBackgroundTasks: [String : AnyObject] = [:]
     
@@ -23,6 +23,8 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
     func applicationDidFinishLaunching() {
         // Perform any final initialization of your application.
         HealthKitService.getInstance().initializeBackgroundQueries()
+        HealthKitService.getInstance().setEventDelegate(self)
+        NotificationService.maybeAskForNotificationPermission()
     }
 
     func applicationDidBecomeActive() {
@@ -156,5 +158,10 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
                 */
             })
         }
+    }
+    
+    func dailyStepsGoalWasReached()
+    {
+        NSLog("Steps goals reached")
     }
 }

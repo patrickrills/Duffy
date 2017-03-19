@@ -10,7 +10,8 @@ import UIKit
 import DuffyFramework
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate
+{
 
     var window: UIWindow?
 
@@ -21,6 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let _ = WCSessionService.getInstance()
         HealthKitService.getInstance().initializeBackgroundQueries()
         //CoreMotionService.getInstance().initializeBackgroundUpdates()
+        NotificationService.maybeAskForNotificationPermission()
         return true
     }
 

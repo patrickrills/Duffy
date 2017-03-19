@@ -149,4 +149,10 @@ open class HealthCache
         
         return previousValueForDay
     }
+    
+    open class func getStepsDailyGoal() -> Int
+    {
+        //TODO: return from user defaults when user has UI that allows them to choose
+        return Constants.stepsGoalTest
+    }
 }

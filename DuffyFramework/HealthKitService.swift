@@ -14,6 +14,7 @@ open class HealthKitService
 {
     fileprivate static let instance: HealthKitService = HealthKitService()
     fileprivate var healthStore: HKHealthStore?
+    fileprivate var eventDelegate: HealthEventDelegate?
     open var observerQueries: [String : HKObserverQuery]?
 
     init()
@@ -28,6 +29,11 @@ open class HealthKitService
     open class func getInstance() -> HealthKitService
     {
         return instance
+    }
+    
+    open func setEventDelegate(_ delegate: HealthEventDelegate)
+    {
+        eventDelegate = delegate
     }
 
     open func getSteps(_ forDate: Date, onRetrieve: ((Int, Date) -> Void)?, onFailure:  ((Error?) -> Void)?)
