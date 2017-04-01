@@ -136,6 +136,8 @@ class ViewController: UIViewController
     
     @IBAction func infoPressed()
     {
+        refresh()
+        
         let cacheData = HealthCache.getStepsDataFromCache()
         var date = "Unknown"
         var steps = -1

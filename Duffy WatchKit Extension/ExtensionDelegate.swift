@@ -9,6 +9,7 @@
 import WatchKit
 import DuffyWatchFramework
 import os.log
+import UserNotifications
 
 class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate, HealthEventDelegate
 {
@@ -163,5 +164,19 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
     func dailyStepsGoalWasReached()
     {
         NSLog("Steps goals reached")
+        //TODO: if app is not open
+        NotificationService.sendDailyStepsGoalNotification()
+        /*
+        if #available(watchOSApplicationExtension 3.0, *) {
+            UNUserNotificationCenter.current().getPendingNotificationRequests(completionHandler: {
+                (notifications: [UNNotificationRequest]) in
+                for n in notifications
+                {
+                    NSLog(n.identifier)
+                }
+            })
+        } else {
+            // Fallback on earlier versions
+        }*/
     }
 }

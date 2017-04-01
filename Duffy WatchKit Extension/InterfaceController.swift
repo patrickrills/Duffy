@@ -115,6 +115,8 @@ class InterfaceController: WKInterfaceController
     
     @IBAction func infoPressed()
     {
+        refresh()
+        
         let cancel = WKAlertAction(title: "Cancel", style: WKAlertActionStyle.cancel, handler: { () in })
         let cacheData = HealthCache.getStepsDataFromCache()
         var date = "Unknown"

@@ -60,7 +60,7 @@ open class HealthKitService
                     intervalComponents: interval)
 
             query.initialResultsHandler = {
-                (query: HKStatisticsCollectionQuery, results: HKStatisticsCollection?, error: Error?) in
+                [weak self] (query: HKStatisticsCollectionQuery, results: HKStatisticsCollection?, error: Error?) in
 
                 if let r = results , error == nil
                 {
@@ -73,6 +73,14 @@ open class HealthKitService
                         if let quantity = statistics.sumQuantity() {
                             sampleDate = statistics.startDate
                             steps += Int(quantity.doubleValue(for: HKUnit.count()))
+                        }
+                    }
+                    
+                    if steps >= HealthCache.getStepsDailyGoal()
+                    {
+                        if let del = self?.eventDelegate
+                        {
+                            del.dailyStepsGoalWasReached()
                         }
                     }
 
