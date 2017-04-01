@@ -157,5 +157,32 @@ class ViewController: UIViewController
         alertContoller.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
         present(alertContoller, animated: true, completion: nil)
     }
+    
+    @IBAction func versionPressed()
+    {
+        let message = String(format: "Version: %@.%@", valueFromBundle(forKey: "CFBundleShortVersionString"), valueFromBundle(forKey: "CFBundleVersion"))
+        let title = "About"
+        let alertContoller = UIAlertController(title: title, message: message, preferredStyle: .alert);
+        alertContoller.view.tintColor = ViewController.primaryColor
+        alertContoller.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
+        present(alertContoller, animated: true, completion: nil)
+    }
+    
+    private func valueFromBundle(forKey: String) -> String
+    {
+        if let localvals = Bundle.main.localizedInfoDictionary {
+            if let v = localvals[forKey] as? String {
+                return v
+            }
+        }
+        
+        if let infovals = Bundle.main.infoDictionary {
+            if let v = infovals[forKey] as? String {
+                return v
+            }
+        }
+        
+        return ""
+    }
 }
 

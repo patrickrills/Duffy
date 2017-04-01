@@ -120,6 +120,16 @@
                                     <action selector="pastWeekPressed" destination="BYZ-38-t0r" eventType="touchUpInside" id="jlL-3b-LWC"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zlb-gx-k2l">
+                                <rect key="frame" x="107" y="110" width="162" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="162" id="W9P-a7-FeL"/>
+                                    <constraint firstAttribute="height" constant="50" id="YUY-Cb-udE"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="versionPressed" destination="BYZ-38-t0r" eventType="touchUpInside" id="9sB-ht-3B7"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -135,6 +145,7 @@
                             <constraint firstItem="XPI-lG-xX0" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Mgt-py-zve"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="FRp-DN-rH1" secondAttribute="bottom" constant="33" id="QAh-ut-kpB"/>
                             <constraint firstItem="bIo-Gn-aak" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="T5j-7z-kn9"/>
+                            <constraint firstItem="zlb-gx-k2l" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Yad-Nr-Ouy"/>
                             <constraint firstItem="bIo-Gn-aak" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="bQo-Wt-Mji"/>
                             <constraint firstItem="UT6-Ng-ijM" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="erO-qd-CE1"/>
                             <constraint firstItem="Loo-Nw-9vV" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="f5b-XA-eaI"/>
@@ -143,6 +154,7 @@
                             <constraint firstAttribute="trailingMargin" secondItem="L3S-tP-tQd" secondAttribute="trailing" constant="10" id="nVh-yu-9vm"/>
                             <constraint firstAttribute="trailingMargin" secondItem="UT6-Ng-ijM" secondAttribute="trailing" constant="10" id="pRP-rd-uQc"/>
                             <constraint firstItem="FRp-DN-rH1" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="pxv-F2-1TX"/>
+                            <constraint firstItem="zlb-gx-k2l" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="90" id="wry-gK-TeM"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
