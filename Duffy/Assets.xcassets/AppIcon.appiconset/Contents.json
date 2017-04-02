@@ -3,49 +3,49 @@
     {
       "size" : "20x20",
       "idiom" : "iphone",
-      "filename" : "duffy2-40.png",
+      "filename" : "duffy3-40-phone.png",
       "scale" : "2x"
     },
     {
       "size" : "20x20",
       "idiom" : "iphone",
-      "filename" : "duffy2-60.png",
+      "filename" : "duffy3-60-phone.png",
       "scale" : "3x"
     },
     {
       "size" : "29x29",
       "idiom" : "iphone",
-      "filename" : "duffy2-58.png",
+      "filename" : "duffy3-58-phone.png",
       "scale" : "2x"
     },
     {
       "size" : "29x29",
       "idiom" : "iphone",
-      "filename" : "duffy2-87.png",
+      "filename" : "duffy3-87-phone.png",
       "scale" : "3x"
     },
     {
       "size" : "40x40",
       "idiom" : "iphone",
-      "filename" : "duffy2-80.png",
+      "filename" : "duffy3-80-phone.png",
       "scale" : "2x"
     },
     {
       "size" : "40x40",
       "idiom" : "iphone",
-      "filename" : "duffy2-120.png",
+      "filename" : "duffy3-120-3.png",
       "scale" : "3x"
     },
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "duffy2-121.png",
+      "filename" : "duffy3-120-2.png",
       "scale" : "2x"
     },
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "duffy2-180.png",
+      "filename" : "duffy3-180-2.png",
       "scale" : "3x"
     }
   ],
