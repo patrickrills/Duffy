@@ -88,6 +88,17 @@ open class WCSessionService : NSObject, WCSessionDelegate
         #endif
     }
     
+    open func notifyOtherDeviceOfGoalNotificaton()
+    {
+        if WCSession.isSupported()
+        {
+            if WCSession.default().activationState == .activated
+            {
+                WCSession.default().transferUserInfo(["goalNotificationSent" : NotificationService.convertDayToKey(Date()) as AnyObject])
+            }
+        }
+    }
+    
     open func session(_ session: WCSession, didReceiveUserInfo userInfo: [String : Any])
     {
         for (key, value) in userInfo
@@ -107,6 +118,24 @@ open class WCSessionService : NSObject, WCSessionDelegate
                     }
                 }
             }
+            else if (key == "goalNotificationSent")
+            {
+                NSLog("goalNotificationSent was transferred")
+                
+                if let dayKey = value as? String
+                {
+                    NotificationService.markNotificationSentByOtherDevice(forKey: dayKey)
+                }
+            }
+            /*else if (key == "stepsdailygoal")
+            {
+                NSLog("Goal was transferred")
+                
+                if let goalVal = value as? Int
+                {
+                    HealthCache.saveStepsGoalToCache(goalVal)
+                }
+            }*/
         }
     }
 }

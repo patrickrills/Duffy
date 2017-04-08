@@ -74,8 +74,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, HealthEventDelegate
     
     func dailyStepsGoalWasReached()
     {
-        NSLog("Phone steps was reached")
-        //TODO: if app is not open
         NotificationService.sendDailyStepsGoalNotification()
     }
 }

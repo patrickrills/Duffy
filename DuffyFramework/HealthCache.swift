@@ -155,4 +155,10 @@ open class HealthCache
         //TODO: return from user defaults when user has UI that allows them to choose
         return Constants.stepsGoalTest
     }
+    
+    open class func saveStepsGoalToCache(_ stepGoal: Int)
+    {
+        UserDefaults.standard.set(stepGoal, forKey: "stepsDailyGoal")
+        UserDefaults.standard.synchronize()
+    }
 }

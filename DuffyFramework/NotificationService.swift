@@ -46,7 +46,6 @@ open class NotificationService
         let request = UNNotificationRequest(identifier: String(format: "DailyStepsGoal-%@", convertDayToKey(Date())), content: content, trigger: trigger)
         UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
         
-        
         setDailyStepsGoalNotificationSent()
         
         NSLog("Notification queued")
@@ -83,15 +82,28 @@ open class NotificationService
     
     fileprivate class func setDailyStepsGoalNotificationSent()
     {
-        //TODO: transfer to phone and vice versa (so its not sent twice, from phone and from watch)
+        cacheLastDaySent()
+        WCSessionService.getInstance().notifyOtherDeviceOfGoalNotificaton()
+    }
+    
+    fileprivate class func cacheLastDaySent()
+    {
         UserDefaults.standard.set(convertDayToKey(Date()), forKey: "lastGoalNotificationSent")
         UserDefaults.standard.synchronize()
     }
     
-    fileprivate class func convertDayToKey(_ day: Date) -> String
+    open class func convertDayToKey(_ day: Date) -> String
     {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy_MM_dd"
         return dateFormatter.string(from: day)
+    }
+    
+    open class func markNotificationSentByOtherDevice(forKey: String)
+    {
+        if (forKey == convertDayToKey(Date()))
+        {
+            cacheLastDaySent()
+        }
     }
 }
