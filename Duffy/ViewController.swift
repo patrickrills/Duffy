@@ -19,15 +19,19 @@ class ViewController: UIViewController
     @IBOutlet weak var refreshButton : UIButton?
     @IBOutlet weak var titleLabel : UILabel?
     @IBOutlet weak var subTitleLabel : UILabel?
+    @IBOutlet weak var goalLabel : UILabel?
     
     open static let primaryColor = UIColor(red: 0.0, green: 61.0/255.0, blue: 165.0/255.0, alpha: 1.0)
     let secondaryColor = UIColor(red: 76.0/255.0, green: 142.0/255.0, blue: 218.0/255.0, alpha: 1.0)
+    let numberFormatter = NumberFormatter()
 
     override func viewDidLoad()
     {
         super.viewDidLoad()
-
-        //TODO: colors
+        
+        numberFormatter.numberStyle = NumberFormatter.Style.decimal
+        numberFormatter.locale = Locale.current
+        numberFormatter.maximumFractionDigits = 0
 
         loadingContainer?.layer.cornerRadius = 8.0
         loadingContainer?.backgroundColor = UIColor(red: 0, green: 0, blue: 1, alpha: 0.85)
@@ -36,6 +40,7 @@ class ViewController: UIViewController
         refreshButton?.setTitleColor(secondaryColor, for: UIControlState())
         titleLabel?.textColor = ViewController.primaryColor
         subTitleLabel?.textColor = ViewController.primaryColor
+        updateGoalDisplay()
         
         infoButton?.isHidden = !Constants.isDebugMode
     }
@@ -63,6 +68,7 @@ class ViewController: UIViewController
 
     fileprivate func displayTodaysStepsFromHealth()
     {
+        updateGoalDisplay()
         showLoading()
 
         HealthKitService.getInstance().getSteps(Date(),
@@ -74,13 +80,7 @@ class ViewController: UIViewController
                     if let weakSelf = self
                     {
                         weakSelf.hideLoading()
-
-                        let numberFormatter = NumberFormatter()
-                        numberFormatter.numberStyle = NumberFormatter.Style.decimal
-                        numberFormatter.locale = Locale.current
-                        numberFormatter.maximumFractionDigits = 0
-
-                        weakSelf.stepsValueLabel?.text = numberFormatter.string(from: NSNumber(value: stepsCount))
+                        weakSelf.stepsValueLabel?.text = weakSelf.numberFormatter.string(from: NSNumber(value: stepsCount))
                     }
                 })
             },
@@ -183,6 +183,19 @@ class ViewController: UIViewController
         }
         
         return ""
+    }
+    
+    private func updateGoalDisplay()
+    {
+        if let lbl = goalLabel
+        {
+            let goalValue = HealthCache.getStepsDailyGoal()
+            if goalValue > 0, let formattedValue = numberFormatter.string(from: NSNumber(value: goalValue)) {
+                lbl.text = String(format: "of %@", formattedValue)
+            } else {
+                lbl.text = ""
+            }
+        }
     }
 }
 
