@@ -40,7 +40,7 @@ class ViewController: UIViewController
         refreshButton?.setTitleColor(secondaryColor, for: UIControlState())
         titleLabel?.textColor = ViewController.primaryColor
         subTitleLabel?.textColor = ViewController.primaryColor
-        updateGoalDisplay()
+        updateGoalDisplay(stepsForDay: 0)
         
         infoButton?.isHidden = !Constants.isDebugMode
     }
@@ -68,7 +68,7 @@ class ViewController: UIViewController
 
     fileprivate func displayTodaysStepsFromHealth()
     {
-        updateGoalDisplay()
+        updateGoalDisplay(stepsForDay: 0)
         showLoading()
 
         HealthKitService.getInstance().getSteps(Date(),
@@ -81,6 +81,7 @@ class ViewController: UIViewController
                     {
                         weakSelf.hideLoading()
                         weakSelf.stepsValueLabel?.text = weakSelf.numberFormatter.string(from: NSNumber(value: stepsCount))
+                        weakSelf.updateGoalDisplay(stepsForDay: stepsCount)
                     }
                 })
             },
@@ -185,13 +186,13 @@ class ViewController: UIViewController
         return ""
     }
     
-    private func updateGoalDisplay()
+    private func updateGoalDisplay(stepsForDay: Int)
     {
         if let lbl = goalLabel
         {
             let goalValue = HealthCache.getStepsDailyGoal()
             if goalValue > 0, let formattedValue = numberFormatter.string(from: NSNumber(value: goalValue)) {
-                lbl.text = String(format: "of %@", formattedValue)
+                lbl.text = String(format: "of %@ %@", formattedValue, HealthKitService.getInstance().getAdornment(for: stepsForDay))
             } else {
                 lbl.text = ""
             }

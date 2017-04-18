@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="jDe-kN-uGL">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="jDe-kN-uGL">
     <device id="watch38" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="watchOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="11508"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="12029"/>
     </dependencies>
     <scenes>
         <!--Duffy-->
@@ -21,10 +21,13 @@
             <objects>
                 <controller identifier="mainInterfaceController" title="Duffy" id="AgC-eL-Hgc" customClass="InterfaceController" customModule="Duffy_WatchKit_App" customModuleProvider="target">
                     <items>
-                        <group width="1" height="1" alignment="center" verticalAlignment="center" layout="vertical" id="JsD-K4-SSk">
+                        <group width="1" alignment="center" verticalAlignment="center" layout="vertical" id="JsD-K4-SSk">
                             <items>
                                 <label alignment="center" verticalAlignment="center" text="N/A" minimumScaleFactor="0.5" id="G6E-Dy-R0M">
                                     <fontDescription key="font" type="system" weight="medium" pointSize="40"/>
+                                </label>
+                                <label width="1" alignment="left" verticalAlignment="center" text="of XXXXX" textAlignment="center" id="npA-ct-HjH">
+                                    <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
                                 </label>
                                 <label alignment="center" verticalAlignment="center" text="STEPS TODAY" minimumScaleFactor="0.75" id="p5D-H6-XOj">
                                     <color key="textColor" red="0.33725490200000002" green="0.59999999999999998" blue="0.87450980389999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -45,6 +48,7 @@
                     </items>
                     <connections>
                         <outlet property="infoButton" destination="Y1p-Ns-rIT" id="wxL-kg-1VK"/>
+                        <outlet property="stepsGoalLabel" destination="npA-ct-HjH" id="PtN-ob-TDp"/>
                         <outlet property="stepsValueLabel" destination="G6E-Dy-R0M" id="K2a-Ej-vfL"/>
                     </connections>
                 </controller>
@@ -64,12 +68,16 @@
                                             <label alignment="left" verticalAlignment="bottom" text="XXX" id="tNq-At-nqT">
                                                 <fontDescription key="font" type="system" weight="thin" pointSize="18"/>
                                             </label>
+                                            <label alignment="right" verticalAlignment="center" text="x" textAlignment="right" id="1Cv-hI-uyl">
+                                                <fontDescription key="font" type="system" pointSize="12"/>
+                                            </label>
                                             <label alignment="right" verticalAlignment="bottom" text="00,000" textAlignment="right" id="fxo-fl-i6s">
-                                                <fontDescription key="font" type="system" weight="medium" pointSize="28"/>
+                                                <fontDescription key="font" type="system" weight="medium" pointSize="26"/>
                                             </label>
                                         </items>
                                     </group>
                                     <connections>
+                                        <outlet property="adornmentLabel" destination="1Cv-hI-uyl" id="cxJ-Br-9pd"/>
                                         <outlet property="dateLabel" destination="tNq-At-nqT" id="MQn-Qf-25a"/>
                                         <outlet property="stepsLabel" destination="fxo-fl-i6s" id="dwe-AM-kS5"/>
                                     </connections>

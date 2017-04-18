@@ -88,6 +88,7 @@ class WeekInterfaceController: WKInterfaceController
                         if let steps = stepsCollection[key]
                         {
                             stepRow.stepsLabel?.setText(numFormatter.string(from: NSNumber(value: steps)))
+                            stepRow.adornmentLabel?.setText(HealthKitService.getInstance().getAdornment(for: steps))
                         }
                         
                         idx += 1

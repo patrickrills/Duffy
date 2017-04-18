@@ -16,6 +16,7 @@ class WeekViewController: UIViewController, UITableViewDataSource, UITableViewDe
     var sortedDates: [Date]?
     let dateFormatter = DateFormatter()
     let numFormatter = NumberFormatter()
+    let stepGoal = HealthCache.getStepsDailyGoal()
     
     override func loadView()
     {
@@ -127,9 +128,17 @@ class WeekViewController: UIViewController, UITableViewDataSource, UITableViewDe
             let currentKey = keys[indexPath.row]
             if let stepsForDay = steps[currentKey]
             {
-                cell.textLabel?.text = numFormatter.string(from: NSNumber(value: stepsForDay))
                 cell.detailTextLabel?.text = dateFormatter.string(from: currentKey)
                 cell.detailTextLabel?.textColor = ViewController.primaryColor
+                
+                if stepGoal > 0, stepsForDay >= stepGoal {
+                    cell.textLabel?.text = String(format: "%@ %@", numFormatter.string(from: NSNumber(value: stepsForDay))!, HealthKitService.getInstance().getAdornment(for: stepsForDay))
+                    cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 17.0)
+                }
+                else {
+                    cell.textLabel?.text = numFormatter.string(from: NSNumber(value: stepsForDay))
+                    cell.textLabel?.font = UIFont.systemFont(ofSize: 17.0)
+                }
             }
         }
         
