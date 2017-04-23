@@ -46,6 +46,15 @@
                             </items>
                         </group>
                     </items>
+                    <menu key="menu" id="XKt-9c-iyP">
+                        <items>
+                            <menuItem title="Change Daily Steps Goal" icon="resume" id="736-fc-wZC">
+                                <connections>
+                                    <action selector="changeGoalMenuItemPressed" destination="AgC-eL-Hgc" id="COs-lf-9cK"/>
+                                </connections>
+                            </menuItem>
+                        </items>
+                    </menu>
                     <connections>
                         <outlet property="infoButton" destination="Y1p-Ns-rIT" id="wxL-kg-1VK"/>
                         <outlet property="stepsGoalLabel" destination="npA-ct-HjH" id="PtN-ob-TDp"/>
@@ -54,6 +63,29 @@
                 </controller>
             </objects>
             <point key="canvasLocation" x="351" y="840"/>
+        </scene>
+        <!--Cancel-->
+        <scene sceneID="xdF-XR-FCq">
+            <objects>
+                <controller identifier="editGoalInterfaceController" title="Cancel" id="NnG-6h-E9i" customClass="EditGoalInterfaceController" customModule="Duffy_WatchKit_Extension">
+                    <items>
+                        <picker height="90" alignment="center" verticalAlignment="center" focusStyle="stack" id="Vgb-3m-FEt">
+                            <connections>
+                                <action selector="pickerChangedWithValue:" destination="NnG-6h-E9i" id="eyR-2Z-uCq"/>
+                            </connections>
+                        </picker>
+                        <button width="1" alignment="left" verticalAlignment="center" title="Set Goal" id="jWh-lg-j16">
+                            <connections>
+                                <action selector="savePressed" destination="NnG-6h-E9i" id="qQ0-Tw-fZU"/>
+                            </connections>
+                        </button>
+                    </items>
+                    <connections>
+                        <outlet property="goalOptionsList" destination="Vgb-3m-FEt" id="f2T-tu-Tm4"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="345" y="1120"/>
         </scene>
         <!--Past Week-->
         <scene sceneID="LZl-Pd-feh">

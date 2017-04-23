@@ -99,6 +99,39 @@ open class WCSessionService : NSObject, WCSessionDelegate
         }
     }
     
+    open func sendStepsGoal(goal: Int)
+    {
+        if WCSession.isSupported()
+        {
+            if WCSession.default().activationState == .activated
+            {
+                WCSession.default().sendMessage(["stepsGoal" : goal], replyHandler: nil, errorHandler: {
+                    (err: Error?) in
+                    if let e = err
+                    {
+                        print("send error:" + e.localizedDescription)
+                    }
+                })
+            }
+        }
+    }
+    
+    open func session(_ session: WCSession, didReceiveMessage message: [String : Any])
+    {
+        for (key, value) in message
+        {
+            if (key == "stepsGoal")
+            {
+                NSLog("Goal was transferred via sendMessage")
+                
+                if let goalVal = value as? Int
+                {
+                    HealthCache.saveStepsGoalToCache(goalVal)
+                }
+            }
+        }
+    }
+    
     open func session(_ session: WCSession, didReceiveUserInfo userInfo: [String : Any])
     {
         for (key, value) in userInfo
@@ -127,15 +160,6 @@ open class WCSessionService : NSObject, WCSessionDelegate
                     NotificationService.markNotificationSentByOtherDevice(forKey: dayKey)
                 }
             }
-            /*else if (key == "stepsdailygoal")
-            {
-                NSLog("Goal was transferred")
-                
-                if let goalVal = value as? Int
-                {
-                    HealthCache.saveStepsGoalToCache(goalVal)
-                }
-            }*/
         }
     }
 }

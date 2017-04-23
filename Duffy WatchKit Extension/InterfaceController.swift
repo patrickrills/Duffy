@@ -71,7 +71,7 @@ class InterfaceController: WKInterfaceController
                     {
                         weakSelf.hideLoading()
                         
-                        weakSelf.stepsValueLabel?.setText(weakSelf.getNumberFormatter().string(from: NSNumber(value: stepsCount)))
+                        weakSelf.stepsValueLabel?.setText(InterfaceController.getNumberFormatter().string(from: NSNumber(value: stepsCount)))
                         weakSelf.updateGoalDisplay(stepsForDay: stepsCount)
                     }
                 })
@@ -111,7 +111,7 @@ class InterfaceController: WKInterfaceController
         if let lbl = stepsGoalLabel
         {
             let goalValue = HealthCache.getStepsDailyGoal()
-            if goalValue > 0, let formattedValue = getNumberFormatter().string(from: NSNumber(value: goalValue)) {
+            if goalValue > 0, let formattedValue = InterfaceController.getNumberFormatter().string(from: NSNumber(value: goalValue)) {
                 lbl.setHidden(false)
                 lbl.setText(String(format: "of %@ %@", formattedValue, HealthKitService.getInstance().getAdornment(for: stepsForDay)))
             } else {
@@ -120,7 +120,7 @@ class InterfaceController: WKInterfaceController
         }
     }
     
-    private func getNumberFormatter() -> NumberFormatter
+    open class func getNumberFormatter() -> NumberFormatter
     {
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = NumberFormatter.Style.decimal
@@ -153,5 +153,10 @@ class InterfaceController: WKInterfaceController
         
         let message = String(format: "Saved in cache:\n Steps: %d\n For day: %@", steps, date)
         presentAlert(withTitle: "Info", message: message, preferredStyle: WKAlertControllerStyle.alert, actions: [cancel])
+    }
+    
+    @IBAction func changeGoalMenuItemPressed()
+    {
+        presentController(withName: "editGoalInterfaceController", context: nil)
     }
 }

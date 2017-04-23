@@ -152,13 +152,25 @@ open class HealthCache
     
     open class func getStepsDailyGoal() -> Int
     {
-        //TODO: return from user defaults when user has UI that allows them to choose
-        return Constants.stepsGoalTest
+        if let stepsGoal = UserDefaults.standard.object(forKey: "stepsDailyGoal") as? Int
+        {
+            return stepsGoal
+        }
+        else
+        {
+            saveStepsGoalToCache(Constants.stepsGoalDefault)
+            return Constants.stepsGoalDefault
+        }
     }
     
     open class func saveStepsGoalToCache(_ stepGoal: Int)
     {
         UserDefaults.standard.set(stepGoal, forKey: "stepsDailyGoal")
         UserDefaults.standard.synchronize()
+        
+        //if watchos, send to phone
+        #if os(watchOS)
+            WCSessionService.getInstance().sendStepsGoal(goal: stepGoal)
+        #endif
     }
 }
