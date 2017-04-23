@@ -76,7 +76,8 @@ open class HealthKitService
                         }
                     }
                     
-                    if steps >= HealthCache.getStepsDailyGoal()
+                    if steps >= HealthCache.getStepsDailyGoal(),
+                        NotificationService.convertDayToKey(sampleDate) == NotificationService.convertDayToKey(Date())
                     {
                         if let del = self?.eventDelegate
                         {

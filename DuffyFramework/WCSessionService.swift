@@ -94,7 +94,7 @@ open class WCSessionService : NSObject, WCSessionDelegate
         {
             if WCSession.default().activationState == .activated
             {
-                WCSession.default().transferUserInfo(["goalNotificationSent" : NotificationService.convertDayToKey(Date()) as AnyObject])
+                WCSession.default().sendMessage(["goalNotificationSent" : NotificationService.convertDayToKey(Date()) as AnyObject], replyHandler: nil, errorHandler: nil)
             }
         }
     }
@@ -129,6 +129,15 @@ open class WCSessionService : NSObject, WCSessionDelegate
                     HealthCache.saveStepsGoalToCache(goalVal)
                 }
             }
+            else if (key == "goalNotificationSent")
+            {
+                NSLog("goalNotificationSent was transferred via sendMessage")
+                
+                if let dayKey = value as? String
+                {
+                    NotificationService.markNotificationSentByOtherDevice(forKey: dayKey)
+                }
+            }
         }
     }
     
@@ -149,15 +158,6 @@ open class WCSessionService : NSObject, WCSessionDelegate
                             del.complicationUpdateRequested(dict)
                         }
                     }
-                }
-            }
-            else if (key == "goalNotificationSent")
-            {
-                NSLog("goalNotificationSent was transferred")
-                
-                if let dayKey = value as? String
-                {
-                    NotificationService.markNotificationSentByOtherDevice(forKey: dayKey)
                 }
             }
         }

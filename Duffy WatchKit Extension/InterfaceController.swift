@@ -151,7 +151,10 @@ class InterfaceController: WKInterfaceController
             steps = savedVal
         }
         
-        let message = String(format: "Saved in cache:\n Steps: %d\n For day: %@", steps, date)
+        let wasSentToday = NotificationService.dailyStepsGoalNotificationWasAlreadySent()
+        let wasSentString = wasSentToday ? "today" : "n/a"
+        
+        let message = String(format: "Saved in cache:\n Steps: %d\n For day: %@\n Last note sent: %@", steps, date, wasSentString)
         presentAlert(withTitle: "Info", message: message, preferredStyle: WKAlertControllerStyle.alert, actions: [cancel])
     }
     

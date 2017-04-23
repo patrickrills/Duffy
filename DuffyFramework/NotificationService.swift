@@ -67,7 +67,7 @@ open class NotificationService
         }
     }
     
-    fileprivate class func dailyStepsGoalNotificationWasAlreadySent() -> Bool
+    open class func dailyStepsGoalNotificationWasAlreadySent() -> Bool
     {
         if let lastSent = UserDefaults.standard.object(forKey: "lastGoalNotificationSent") as? String
         {

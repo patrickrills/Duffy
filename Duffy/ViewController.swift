@@ -151,7 +151,10 @@ class ViewController: UIViewController
             steps = savedVal
         }
         
-        let message = String(format: "Saved in cache:\n Steps: %d\n For day: %@", steps, date)
+        let wasSentToday = NotificationService.dailyStepsGoalNotificationWasAlreadySent()
+        let wasSentString = wasSentToday ? "today" : "n/a"
+        
+        let message = String(format: "Saved in cache:\n Steps: %d\n For day: %@\n Last note sent: %@", steps, date, wasSentString)
         let title = "Info"
         let alertContoller = UIAlertController(title: title, message: message, preferredStyle: .alert);
         alertContoller.view.tintColor = ViewController.primaryColor
