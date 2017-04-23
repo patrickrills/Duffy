@@ -48,7 +48,7 @@
                     </items>
                     <menu key="menu" id="XKt-9c-iyP">
                         <items>
-                            <menuItem title="Change Daily Steps Goal" icon="resume" id="736-fc-wZC">
+                            <menuItem title="Change Daily Goal" image="GoalMenu" id="736-fc-wZC">
                                 <connections>
                                     <action selector="changeGoalMenuItemPressed" destination="AgC-eL-Hgc" id="COs-lf-9cK"/>
                                 </connections>
