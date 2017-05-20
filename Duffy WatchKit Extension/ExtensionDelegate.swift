@@ -163,8 +163,6 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
     
     func dailyStepsGoalWasReached()
     {
-        NSLog("Steps goals reached")
-        //TODO: if app is not open
         NotificationService.sendDailyStepsGoalNotification()
         /*
         if #available(watchOSApplicationExtension 3.0, *) {

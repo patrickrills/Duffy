@@ -17,6 +17,10 @@ open class NotificationService
             return
         }
         
+        #if os(iOS)
+            return
+        #endif
+        
         if (!Constants.isDebugMode) {
             return
         }
@@ -25,10 +29,6 @@ open class NotificationService
             return
         }
         
-        var platformTemp: String = "watch"
-        #if os(iOS)
-            platformTemp = "phone"
-        #endif
         
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = NumberFormatter.Style.decimal
@@ -37,7 +37,7 @@ open class NotificationService
         
         let content = UNMutableNotificationContent()
         content.title = "Way to go!"
-        content.body = String(format: "You've reached your goal of %@ steps. (%@)", numberFormatter.string(from: NSNumber(value: HealthCache.getStepsDailyGoal()))!, platformTemp)
+        content.body = String(format: "You've reached your goal of %@ steps.", numberFormatter.string(from: NSNumber(value: HealthCache.getStepsDailyGoal()))!)
         content.sound = UNNotificationSound.default()
         content.setValue("YES", forKeyPath: "shouldAlwaysAlertWhileAppIsForeground") 
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(Constants.notificationDelayInSeconds), repeats: false)

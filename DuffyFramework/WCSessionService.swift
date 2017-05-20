@@ -82,6 +82,7 @@ open class WCSessionService : NSObject, WCSessionDelegate
                 if (WCSession.default().activationState == .activated
                     && WCSession.default().isComplicationEnabled)
                 {
+                    NSLog("transferring compilcation data...")
                     WCSession.default().transferCurrentComplicationUserInfo(complicationData)
                 }
             }
@@ -122,7 +123,7 @@ open class WCSessionService : NSObject, WCSessionDelegate
         {
             if (key == "stepsGoal")
             {
-                NSLog("Goal was transferred via sendMessage")
+                //NSLog("Goal was transferred via sendMessage")
                 
                 if let goalVal = value as? Int
                 {
@@ -131,7 +132,7 @@ open class WCSessionService : NSObject, WCSessionDelegate
             }
             else if (key == "goalNotificationSent")
             {
-                NSLog("goalNotificationSent was transferred via sendMessage")
+                //NSLog("goalNotificationSent was transferred via sendMessage")
                 
                 if let dayKey = value as? String
                 {
@@ -156,6 +157,15 @@ open class WCSessionService : NSObject, WCSessionDelegate
                         if let del = delegate
                         {
                             del.complicationUpdateRequested(dict)
+                        }
+                        
+                        //NSLog("Updated complication from steps from phone")
+                        
+                        if HealthCache.getStepsFromCache(Date()) >= HealthCache.getStepsDailyGoal()
+                        {
+                            //NSLog("Sent notification from steps from phone")
+                            
+                            NotificationService.sendDailyStepsGoalNotification()
                         }
                     }
                 }
