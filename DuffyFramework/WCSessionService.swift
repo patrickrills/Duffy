@@ -82,7 +82,7 @@ open class WCSessionService : NSObject, WCSessionDelegate
                 if (WCSession.default().activationState == .activated
                     && WCSession.default().isComplicationEnabled)
                 {
-                    NSLog("transferring compilcation data...")
+                    //NSLog("transferring compilcation data...")
                     WCSession.default().transferCurrentComplicationUserInfo(complicationData)
                 }
             }
