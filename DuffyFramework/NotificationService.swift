@@ -21,14 +21,9 @@ open class NotificationService
             return
         #endif
         
-        if (!Constants.isDebugMode) {
-            return
-        }
-        
         if (dailyStepsGoalNotificationWasAlreadySent()) {
             return
         }
-        
         
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = NumberFormatter.Style.decimal
@@ -48,7 +43,7 @@ open class NotificationService
         
         setDailyStepsGoalNotificationSent()
         
-        NSLog("Notification queued")
+        //NSLog("Notification queued")
     }
     
     open class func maybeAskForNotificationPermission()
@@ -60,9 +55,9 @@ open class NotificationService
         let center = UNUserNotificationCenter.current()
         center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in
             if granted {
-                NSLog("Notification permission granted")
+                //NSLog("Notification permission granted")
             } else {
-                NSLog("Notification permission DENIED")
+                //NSLog("Notification permission DENIED")
             }
         }
     }
