@@ -10,7 +10,7 @@ import UIKit
 import DuffyFramework
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, HealthEventDelegate
+class AppDelegate: UIResponder, UIApplicationDelegate //, HealthEventDelegate
 {
 
     var window: UIWindow?
@@ -21,9 +21,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, HealthEventDelegate
         application.setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalMinimum)
         let _ = WCSessionService.getInstance()
         HealthKitService.getInstance().initializeBackgroundQueries()
-        HealthKitService.getInstance().setEventDelegate(self)
+        //HealthKitService.getInstance().setEventDelegate(self)
         //CoreMotionService.getInstance().initializeBackgroundUpdates()
-        NotificationService.maybeAskForNotificationPermission()
+        //NotificationService.maybeAskForNotificationPermission()
         return true
     }
 
@@ -72,9 +72,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, HealthEventDelegate
         })
     }
     
-    func dailyStepsGoalWasReached()
-    {
-        NotificationService.sendDailyStepsGoalNotification()
-    }
+    //func dailyStepsGoalWasReached()
+    //{
+    //    NotificationService.sendDailyStepsGoalNotification()
+    //}
 }
 
