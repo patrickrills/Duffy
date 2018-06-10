@@ -47,8 +47,8 @@ open class WCSessionService : NSObject, WCSessionDelegate
         
         if (WCSession.isSupported())
         {
-            WCSession.default().delegate = self
-            WCSession.default().activate()
+            WCSession.default.delegate = self
+            WCSession.default.activate()
         }
     }
     
@@ -79,11 +79,11 @@ open class WCSessionService : NSObject, WCSessionDelegate
         #if os(iOS)
             if (WCSession.isSupported())
             {
-                if (WCSession.default().activationState == .activated
-                    && WCSession.default().isComplicationEnabled)
+                if (WCSession.default.activationState == .activated
+                    && WCSession.default.isComplicationEnabled)
                 {
                     //NSLog("transferring compilcation data...")
-                    WCSession.default().transferCurrentComplicationUserInfo(complicationData)
+                    WCSession.default.transferCurrentComplicationUserInfo(complicationData)
                 }
             }
         #endif
@@ -93,9 +93,9 @@ open class WCSessionService : NSObject, WCSessionDelegate
     {
         if WCSession.isSupported()
         {
-            if WCSession.default().activationState == .activated
+            if WCSession.default.activationState == .activated
             {
-                WCSession.default().sendMessage(["goalNotificationSent" : NotificationService.convertDayToKey(Date()) as AnyObject], replyHandler: nil, errorHandler: nil)
+                WCSession.default.sendMessage(["goalNotificationSent" : NotificationService.convertDayToKey(Date()) as AnyObject], replyHandler: nil, errorHandler: nil)
             }
         }
     }
@@ -104,9 +104,9 @@ open class WCSessionService : NSObject, WCSessionDelegate
     {
         if WCSession.isSupported()
         {
-            if WCSession.default().activationState == .activated
+            if WCSession.default.activationState == .activated
             {
-                WCSession.default().sendMessage(["stepsGoal" : goal], replyHandler: nil, errorHandler: {
+                WCSession.default.sendMessage(["stepsGoal" : goal], replyHandler: nil, errorHandler: {
                     (err: Error?) in
                     if let e = err
                     {

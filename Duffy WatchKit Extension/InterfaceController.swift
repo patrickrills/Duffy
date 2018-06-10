@@ -38,7 +38,7 @@ class InterfaceController: WKInterfaceController
         HealthKitService.getInstance().authorizeForSteps({
             
             DispatchQueue.main.async(execute: {
-                [weak self] (_) in
+                [weak self] in
                     self?.refresh()
                 })
             
@@ -66,7 +66,7 @@ class InterfaceController: WKInterfaceController
                 (stepsCount: Int, forDate: Date) in
                 
                 DispatchQueue.main.async(execute: {
-                    [weak self] (_) in
+                    [weak self] in
                     if let weakSelf = self
                     {
                         weakSelf.hideLoading()
@@ -86,7 +86,7 @@ class InterfaceController: WKInterfaceController
                 */
                 
                 DispatchQueue.main.async(execute: {
-                    [weak self] (_) in
+                    [weak self] in
                     if let weakSelf = self
                     {
                         weakSelf.hideLoading()

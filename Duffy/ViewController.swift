@@ -56,7 +56,7 @@ class ViewController: UIViewController
         HealthKitService.getInstance().authorizeForSteps({
 
             DispatchQueue.main.async(execute: {
-                [weak self] (_) in
+                [weak self] in
                 self?.displayTodaysStepsFromHealth()
             })
 
@@ -76,7 +76,7 @@ class ViewController: UIViewController
                 (stepsCount: Int, forDate: Date) in
 
                 DispatchQueue.main.async(execute: {
-                    [weak self] (_) in
+                    [weak self] in
                     if let weakSelf = self
                     {
                         weakSelf.hideLoading()
@@ -95,7 +95,7 @@ class ViewController: UIViewController
                 */
 
                 DispatchQueue.main.async(execute: {
-                    [weak self] (_) in
+                    [weak self] in
                     if let weakSelf = self
                     {
                         weakSelf.hideLoading()

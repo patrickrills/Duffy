@@ -52,7 +52,7 @@ class WeekInterfaceController: WKInterfaceController
             (stepsCollection: [Date : Int]) in
             
             DispatchQueue.main.async(execute: {
-                [weak self] (_) in
+                [weak self] in
                 if let weakSelf = self
                 {
                     let sortedKeys = stepsCollection.keys.sorted(by: {

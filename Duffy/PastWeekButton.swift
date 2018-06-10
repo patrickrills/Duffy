@@ -163,7 +163,7 @@ class PastWeekButton: UIButton
         let textStyle = NSMutableParagraphStyle()
         textStyle.alignment = .center
         
-        let textFontAttributes = [NSFontAttributeName: UIFont.systemFont(ofSize: 15), NSForegroundColorAttributeName: fillColor, NSParagraphStyleAttributeName: textStyle]
+        let textFontAttributes = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 15), NSAttributedStringKey.foregroundColor: fillColor, NSAttributedStringKey.paragraphStyle: textStyle]
         
         let textTextHeight: CGFloat = textTextContent.boundingRect(with: CGSize(width: textRect.width, height: CGFloat.infinity), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: textFontAttributes, context: nil).size.height
         context!.saveGState()

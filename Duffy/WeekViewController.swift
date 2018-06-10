@@ -67,7 +67,7 @@ class WeekViewController: UIViewController, UITableViewDataSource, UITableViewDe
             (stepsCollection: [Date : Int]) in
             
             DispatchQueue.main.async(execute: {
-                [weak self] (_) in
+                [weak self] in
                 if let weakSelf = self
                 {
                     weakSelf.sortedDates = stepsCollection.keys.sorted(by: {
