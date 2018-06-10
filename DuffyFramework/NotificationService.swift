@@ -19,31 +19,28 @@ open class NotificationService
         
         #if os(iOS)
             return
+        #else
+            if (dailyStepsGoalNotificationWasAlreadySent()) {
+                return
+            }
+        
+            let numberFormatter = NumberFormatter()
+            numberFormatter.numberStyle = NumberFormatter.Style.decimal
+            numberFormatter.locale = Locale.current
+            numberFormatter.maximumFractionDigits = 1
+        
+            let content = UNMutableNotificationContent()
+            content.title = "Way to go!"
+            content.body = String(format: "You've reached your goal of %@ steps.", numberFormatter.string(from: NSNumber(value: HealthCache.getStepsDailyGoal()))!)
+            content.sound = UNNotificationSound.default()
+            content.setValue("YES", forKeyPath: "shouldAlwaysAlertWhileAppIsForeground")
+            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(Constants.notificationDelayInSeconds), repeats: false)
+        
+            let request = UNNotificationRequest(identifier: String(format: "DailyStepsGoal-%@", convertDayToKey(Date())), content: content, trigger: trigger)
+            UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+        
+            setDailyStepsGoalNotificationSent()
         #endif
-        
-        if (dailyStepsGoalNotificationWasAlreadySent()) {
-            return
-        }
-        
-        let numberFormatter = NumberFormatter()
-        numberFormatter.numberStyle = NumberFormatter.Style.decimal
-        numberFormatter.locale = Locale.current
-        numberFormatter.maximumFractionDigits = 1
-        
-        let content = UNMutableNotificationContent()
-        content.title = "Way to go!"
-        content.body = String(format: "You've reached your goal of %@ steps.", numberFormatter.string(from: NSNumber(value: HealthCache.getStepsDailyGoal()))!)
-        content.sound = UNNotificationSound.default()
-        content.setValue("YES", forKeyPath: "shouldAlwaysAlertWhileAppIsForeground") 
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(Constants.notificationDelayInSeconds), repeats: false)
-        
-        // Create the request object.
-        let request = UNNotificationRequest(identifier: String(format: "DailyStepsGoal-%@", convertDayToKey(Date())), content: content, trigger: trigger)
-        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
-        
-        setDailyStepsGoalNotificationSent()
-        
-        //NSLog("Notification queued")
     }
     
     open class func maybeAskForNotificationPermission()
