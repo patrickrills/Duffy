@@ -23,11 +23,6 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         handler(CLKComplicationTimeTravelDirections())
     }
     
-    func requestedUpdateDidBegin()
-    {
-        ComplicationController.refreshComplication()
-    }
-    
     // MARK: - Timeline Population
     
     func getCurrentTimelineEntry(for complication: CLKComplication, withHandler handler: (@escaping (CLKComplicationTimelineEntry?) -> Void))
@@ -58,12 +53,6 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         }
         
         handler(entry)
-    }
-    
-    // MARK: - Update Scheduling
-    func getNextRequestedUpdateDate(handler: @escaping (Date?) -> Void)
-    {
-        handler(Date(timeIntervalSinceNow: 60*30))
     }
     
     // MARK: - Placeholder Templates
@@ -282,7 +271,6 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         
         handler(template)
     }
-    
     
     class func refreshComplication()
     {
