@@ -82,7 +82,6 @@ open class WCSessionService : NSObject, WCSessionDelegate
                 if (WCSession.default.activationState == .activated
                     && WCSession.default.isComplicationEnabled)
                 {
-                    //NSLog("transferring compilcation data...")
                     WCSession.default.transferCurrentComplicationUserInfo(complicationData)
                 }
             }
@@ -123,8 +122,6 @@ open class WCSessionService : NSObject, WCSessionDelegate
         {
             if (key == "stepsGoal")
             {
-                //NSLog("Goal was transferred via sendMessage")
-                
                 if let goalVal = value as? Int
                 {
                     HealthCache.saveStepsGoalToCache(goalVal)
@@ -132,8 +129,6 @@ open class WCSessionService : NSObject, WCSessionDelegate
             }
             else if (key == "goalNotificationSent")
             {
-                //NSLog("goalNotificationSent was transferred via sendMessage")
-                
                 if let dayKey = value as? String
                 {
                     NotificationService.markNotificationSentByOtherDevice(forKey: dayKey)
@@ -148,8 +143,6 @@ open class WCSessionService : NSObject, WCSessionDelegate
         {
             if (key == "stepsdataresponse")
             {
-                //NSLog("Received steps from phone")
-                
                 if let dict = value as? [String: AnyObject]
                 {
                     if (HealthCache.saveStepsDataToCache(dict))
@@ -159,12 +152,8 @@ open class WCSessionService : NSObject, WCSessionDelegate
                             del.complicationUpdateRequested(dict)
                         }
                         
-                        //NSLog("Updated complication from steps from phone")
-                        
                         if HealthCache.getStepsFromCache(Date()) >= HealthCache.getStepsDailyGoal()
                         {
-                            //NSLog("Sent notification from steps from phone")
-                            
                             NotificationService.sendDailyStepsGoalNotification()
                         }
                     }

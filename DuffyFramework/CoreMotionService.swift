@@ -42,7 +42,6 @@ open class CoreMotionService
                             
                             if (HealthCache.saveStepsToCache(steps, forDay: forDay))
                             {
-                                //NSLog(String(format: "Update complication from CMPedometer with %d steps", steps))
                                 WCSessionService.getInstance().updateWatchFaceComplication(["stepsdataresponse" : HealthCache.getStepsDataFromCache() as AnyObject])
                             }
                             
