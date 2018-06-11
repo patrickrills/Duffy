@@ -13,10 +13,6 @@ open class NotificationService
 {
     open class func sendDailyStepsGoalNotification()
     {
-        guard #available(iOS 10.0, watchOSApplicationExtension 3.0, *) else {
-            return
-        }
-        
         #if os(iOS)
             return
         #else
@@ -45,18 +41,9 @@ open class NotificationService
     
     open class func maybeAskForNotificationPermission()
     {
-        guard #available(iOS 10.0, watchOSApplicationExtension 3.0, *) else {
-            return
-        }
-        
+
         let center = UNUserNotificationCenter.current()
-        center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in
-            if granted {
-                //NSLog("Notification permission granted")
-            } else {
-                //NSLog("Notification permission DENIED")
-            }
-        }
+        center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in }
     }
     
     open class func dailyStepsGoalNotificationWasAlreadySent() -> Bool

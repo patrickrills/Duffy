@@ -222,40 +222,17 @@ open class HealthKitService
                 let query = HKObserverQuery(sampleType: sampleType, predicate: nil, updateHandler: {
                     [weak self] (updateQuery: HKObserverQuery, handler: HKObserverQueryCompletionHandler, updateError: Error?) in
                     
-                    //NSLog("Observer query fired")
-                    /*
-                    #if os(watchOS)
-                        if #available(watchOSApplicationExtension 3.0, *) {
-                            os_log("Observer query fired on watch")
-                        } else {
-                            // Fallback on earlier versions
-                        }
-                    #endif
-                    */
-                    
                     self?.getSteps(Date(),
                         onRetrieve: {
                             (steps: Int, forDay: Date) in
                             
                             if (HealthCache.saveStepsToCache(steps, forDay: forDay))
                             {
-                                //NSLog(String(format: "Update complication with %d steps", steps))
-                                /*
-                                #if os(watchOS)
-                                    if #available(watchOSApplicationExtension 3.0, *) {
-                                        os_log("Update complication from watch with %d steps", steps)
-                                    } else {
-                                        // Fallback on earlier versions
-                                    }
-                                #endif
-                                */
-                                
                                 WCSessionService.getInstance().updateWatchFaceComplication(["stepsdataresponse" : HealthCache.getStepsDataFromCache() as AnyObject])
                             }
                             
                         },
                         onFailure: nil)
-                    
                     
                     handler()
                     
