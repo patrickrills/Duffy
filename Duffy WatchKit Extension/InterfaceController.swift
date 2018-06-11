@@ -70,7 +70,6 @@ class InterfaceController: WKInterfaceController
                     if let weakSelf = self
                     {
                         weakSelf.hideLoading()
-                        
                         weakSelf.stepsValueLabel?.setText(InterfaceController.getNumberFormatter().string(from: NSNumber(value: stepsCount)))
                         weakSelf.updateGoalDisplay(stepsForDay: stepsCount)
                     }
@@ -78,22 +77,41 @@ class InterfaceController: WKInterfaceController
             },
             onFailure:  {
                 (error: Error?) in
-                /*
-                if let e = error
-                {
-                    NSLog(String(format:"ERROR: %@", e.localizedDescription))
-                }
-                */
                 
                 DispatchQueue.main.async(execute: {
                     [weak self] in
                     if let weakSelf = self
                     {
                         weakSelf.hideLoading()
-                        weakSelf.stepsValueLabel?.setText("ERR")
+                        weakSelf.displayTodaysStepsFromCache()
                     }
                 })
             })
+    }
+    
+    func displayTodaysStepsFromCache()
+    {
+        DispatchQueue.main.async(execute: {
+            [weak self] in
+            
+            if let weakSelf = self
+            {
+                var steps = 0
+                
+                if (!HealthCache.cacheIsForADifferentDay(Date()))
+                {
+                    let cacheData = HealthCache.getStepsDataFromCache()
+                    if let savedVal = cacheData["stepsCacheValue"] as? Int
+                    {
+                        steps = savedVal
+                    }
+                }
+                
+                weakSelf.hideLoading()
+                weakSelf.stepsValueLabel?.setText(InterfaceController.getNumberFormatter().string(from: NSNumber(value: steps)))
+                weakSelf.updateGoalDisplay(stepsForDay: steps)
+            }
+        })
     }
     
     func showLoading()

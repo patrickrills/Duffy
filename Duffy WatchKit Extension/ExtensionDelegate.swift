@@ -57,11 +57,10 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
                 {
                     if let c = WKExtension.shared().rootInterfaceController as? InterfaceController
                     {
-                        c.displayTodaysStepsFromHealth()
+                        c.displayTodaysStepsFromCache()
                     }
                     
-                    currentBackgroundTasks.removeValue(forKey: dictKey)
-                    (t as! WKSnapshotRefreshBackgroundTask).setTaskCompleted(restoredDefaultState: false, estimatedSnapshotExpiration: Date.init(timeIntervalSinceNow: 60*30), userInfo: nil)
+                    complete(task: t)
                 }
                 else
                 {
@@ -83,18 +82,36 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
                                 ComplicationController.refreshComplication()
                             }
                         
-                            self?.scheduleNextBackgroundRefresh()
-                            let _ = self?.currentBackgroundTasks.removeValue(forKey: dictKey)
-                            t.setTaskCompleted()
+                            self?.complete(task: t)
                         },
                         onFailure: {
                             [weak self] (error: Error?) in
     
-                            self?.scheduleNextBackgroundRefresh()
-                            let _ = self?.currentBackgroundTasks.removeValue(forKey: dictKey)
-                            t.setTaskCompleted()
+                            self?.complete(task: t)
                     })
                 }
+            }
+        }
+    }
+    
+    func complete(task: WKRefreshBackgroundTask)
+    {
+        let dictKey = String(describing: type(of: task))
+        currentBackgroundTasks.removeValue(forKey: dictKey)
+        
+        if #available(watchOSApplicationExtension 4.0, *)
+        {
+            task.setTaskCompletedWithSnapshot(true)
+        }
+        else
+        {
+            if task is WKSnapshotRefreshBackgroundTask
+            {
+                (task as! WKSnapshotRefreshBackgroundTask).setTaskCompleted(restoredDefaultState: true, estimatedSnapshotExpiration: Date.init(timeIntervalSinceNow: 60*30), userInfo: nil)
+            }
+            else
+            {
+                task.setTaskCompleted()
             }
         }
     }
