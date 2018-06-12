@@ -22,7 +22,8 @@ class EditGoalInterfaceController: WKInterfaceController
         if let picker = goalOptionsList
         {
             var items: [WKPickerItem] = []
-            for i in stride(from: 5000, to: 20250, by: 250) {
+            for i in stride(from: 5000, to: 20250, by: 250)
+            {
                 let opt = WKPickerItem()
                 opt.title = InterfaceController.getNumberFormatter().string(from: NSNumber(value: i))
                 items.append(opt)
@@ -38,13 +39,15 @@ class EditGoalInterfaceController: WKInterfaceController
         super.willActivate()
         
         stepsGoal = HealthCache.getStepsDailyGoal()
+        
         if let i = options.index(of: stepsGoal)
         {
             goalOptionsList?.setSelectedItemIndex(i)
         }
     }
     
-    @IBAction func pickerChanged(value: Int) {
+    @IBAction func pickerChanged(value: Int)
+    {
         stepsGoal = options[value]
     }
 

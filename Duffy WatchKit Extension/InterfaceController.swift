@@ -20,15 +20,13 @@ class InterfaceController: WKInterfaceController
     {
         super.awake(withContext: context)
         
-        // Configure interface objects here.
-        
-    }
-
-    override func willActivate()
-    {
-        // This method is called when watch view controller is about to be visible to user
-        super.willActivate()
         infoButton?.setHidden(!Constants.isDebugMode)
+    }
+    
+    override func didAppear()
+    {
+        super.didAppear()
+        
         askForHealthKitPermission()
     }
     
@@ -42,10 +40,7 @@ class InterfaceController: WKInterfaceController
                     self?.refresh()
                 })
             
-            
-            }, onFailure: {
-                //NSLog("Did not authorize")
-        })
+            }, onFailure: { })
     }
     
     fileprivate func refresh()
@@ -67,24 +62,15 @@ class InterfaceController: WKInterfaceController
                 
                 DispatchQueue.main.async(execute: {
                     [weak self] in
-                    if let weakSelf = self
-                    {
-                        weakSelf.hideLoading()
-                        weakSelf.stepsValueLabel?.setText(InterfaceController.getNumberFormatter().string(from: NSNumber(value: stepsCount)))
-                        weakSelf.updateGoalDisplay(stepsForDay: stepsCount)
-                    }
+                    self?.display(steps: stepsCount)
                 })
             },
-            onFailure:  {
+            onFailure: {
                 (error: Error?) in
                 
                 DispatchQueue.main.async(execute: {
                     [weak self] in
-                    if let weakSelf = self
-                    {
-                        weakSelf.hideLoading()
-                        weakSelf.displayTodaysStepsFromCache()
-                    }
+                    self?.displayTodaysStepsFromCache()
                 })
             })
     }
@@ -107,9 +93,7 @@ class InterfaceController: WKInterfaceController
                     }
                 }
                 
-                weakSelf.hideLoading()
-                weakSelf.stepsValueLabel?.setText(InterfaceController.getNumberFormatter().string(from: NSNumber(value: steps)))
-                weakSelf.updateGoalDisplay(stepsForDay: steps)
+                weakSelf.display(steps: steps)
             }
         })
     }
@@ -124,27 +108,28 @@ class InterfaceController: WKInterfaceController
         setTitle("Duffy")
     }
     
+    private func display(steps: Int)
+    {
+        hideLoading()
+        stepsValueLabel?.setText(InterfaceController.getNumberFormatter().string(from: NSNumber(value: steps)))
+        updateGoalDisplay(stepsForDay: steps)
+    }
+    
     private func updateGoalDisplay(stepsForDay: Int)
     {
         if let lbl = stepsGoalLabel
         {
             let goalValue = HealthCache.getStepsDailyGoal()
-            if goalValue > 0, let formattedValue = InterfaceController.getNumberFormatter().string(from: NSNumber(value: goalValue)) {
+            if goalValue > 0, let formattedValue = InterfaceController.getNumberFormatter().string(from: NSNumber(value: goalValue))
+            {
                 lbl.setHidden(false)
                 lbl.setText(String(format: "of %@ %@", formattedValue, HealthKitService.getInstance().getAdornment(for: stepsForDay)))
-            } else {
+            }
+            else
+            {
                 lbl.setHidden(true)
             }
         }
-    }
-    
-    open class func getNumberFormatter() -> NumberFormatter
-    {
-        let numberFormatter = NumberFormatter()
-        numberFormatter.numberStyle = NumberFormatter.Style.decimal
-        numberFormatter.locale = Locale.current
-        numberFormatter.maximumFractionDigits = 0
-        return numberFormatter
     }
     
     @IBAction func refreshPressed()
@@ -179,5 +164,14 @@ class InterfaceController: WKInterfaceController
     @IBAction func changeGoalMenuItemPressed()
     {
         presentController(withName: "editGoalInterfaceController", context: nil)
+    }
+    
+    open class func getNumberFormatter() -> NumberFormatter
+    {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = NumberFormatter.Style.decimal
+        numberFormatter.locale = Locale.current
+        numberFormatter.maximumFractionDigits = 0
+        return numberFormatter
     }
 }

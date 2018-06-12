@@ -15,21 +15,11 @@ class WeekInterfaceController: WKInterfaceController
 {
     @IBOutlet weak var scoresTable: WKInterfaceTable?
     
-    override func awake(withContext context: Any?) {
-        super.awake(withContext: context)
+    override func didAppear()
+    {
+        super.didAppear()
         
-        // Configure interface objects here.
-    }
-
-    override func willActivate() {
-        // This method is called when watch view controller is about to be visible to user
-        super.willActivate()
         bindTableToWeek()
-    }
-
-    override func didDeactivate() {
-        // This method is called when watch view controller is no longer visible
-        super.didDeactivate()
     }
     
     func showLoading()
@@ -51,7 +41,7 @@ class WeekInterfaceController: WKInterfaceController
         HealthKitService.getInstance().getSteps(startDate!, toEndDate: Date(), onRetrieve: {
             (stepsCollection: [Date : Int]) in
             
-            DispatchQueue.main.async(execute: {
+            DispatchQueue.main.async {
                 [weak self] in
                 if let weakSelf = self
                 {
@@ -96,7 +86,7 @@ class WeekInterfaceController: WKInterfaceController
                     
                     weakSelf.hideLoading()
                 }
-            })
+                }
             },
             onFailure: {
                 [weak self] (err: Error?) in
