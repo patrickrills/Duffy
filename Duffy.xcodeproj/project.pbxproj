@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0911A8DD1E34239000EA4F6E /* duffy.ckcomplication in Resources */ = {isa = PBXBuildFile; fileRef = 0911A8DC1E34239000EA4F6E /* duffy.ckcomplication */; };
 		092B0E8A1D45841F00085F99 /* CoreMotionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092B0E891D45841F00085F99 /* CoreMotionService.swift */; };
 		092B0E8B1D45841F00085F99 /* CoreMotionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092B0E891D45841F00085F99 /* CoreMotionService.swift */; };
 		09323C711D22C39700961822 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09323C701D22C39700961822 /* AppDelegate.swift */; };
@@ -46,6 +45,7 @@
 		09AACE281D318A390058A814 /* HealthCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09AACE261D318A390058A814 /* HealthCache.swift */; };
 		09AACE2A1D318E5D0058A814 /* WCSessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09AACE291D318E5D0058A814 /* WCSessionService.swift */; };
 		09AACE2B1D318E5D0058A814 /* WCSessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09AACE291D318E5D0058A814 /* WCSessionService.swift */; };
+		09CB871220D0A5460026B6CF /* duffy.ckcomplication in Resources */ = {isa = PBXBuildFile; fileRef = 09CB871120D0A5460026B6CF /* duffy.ckcomplication */; };
 		09CE42C11E353E7100A6E587 /* WeekViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CE42C01E353E7100A6E587 /* WeekViewController.swift */; };
 		09CE42C31E354D5200A6E587 /* PastWeekButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CE42C21E354D5200A6E587 /* PastWeekButton.swift */; };
 		09CE42CA1E35525200A6E587 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09CE42C91E35525200A6E587 /* NotificationCenter.framework */; };
@@ -153,7 +153,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0911A8DC1E34239000EA4F6E /* duffy.ckcomplication */ = {isa = PBXFileReference; lastKnownFileType = folder; path = duffy.ckcomplication; sourceTree = "<group>"; };
 		092B0E891D45841F00085F99 /* CoreMotionService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreMotionService.swift; sourceTree = "<group>"; };
 		09323C6D1D22C39700961822 /* Duffy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Duffy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		09323C701D22C39700961822 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -190,6 +189,7 @@
 		099C13121DA336D50007C72F /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS3.0.sdk/System/Library/Frameworks/HealthKit.framework; sourceTree = DEVELOPER_DIR; };
 		09AACE261D318A390058A814 /* HealthCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthCache.swift; sourceTree = "<group>"; };
 		09AACE291D318E5D0058A814 /* WCSessionService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WCSessionService.swift; sourceTree = "<group>"; };
+		09CB871120D0A5460026B6CF /* duffy.ckcomplication */ = {isa = PBXFileReference; lastKnownFileType = folder; path = duffy.ckcomplication; sourceTree = "<group>"; };
 		09CE42C01E353E7100A6E587 /* WeekViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeekViewController.swift; sourceTree = "<group>"; };
 		09CE42C21E354D5200A6E587 /* PastWeekButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PastWeekButton.swift; sourceTree = "<group>"; };
 		09CE42C81E35525200A6E587 /* DuffyToday.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = DuffyToday.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -284,7 +284,7 @@
 				09323C771D22C39700961822 /* Assets.xcassets */,
 				09323C791D22C39700961822 /* LaunchScreen.storyboard */,
 				09323C7C1D22C39700961822 /* Info.plist */,
-				0911A8DC1E34239000EA4F6E /* duffy.ckcomplication */,
+				09CB871120D0A5460026B6CF /* duffy.ckcomplication */,
 			);
 			path = Duffy;
 			sourceTree = "<group>";
@@ -580,7 +580,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0911A8DD1E34239000EA4F6E /* duffy.ckcomplication in Resources */,
+				09CB871220D0A5460026B6CF /* duffy.ckcomplication in Resources */,
 				09323C7B1D22C39700961822 /* LaunchScreen.storyboard in Resources */,
 				09323C781D22C39700961822 /* Assets.xcassets in Resources */,
 				09323C761D22C39700961822 /* Main.storyboard in Resources */,
