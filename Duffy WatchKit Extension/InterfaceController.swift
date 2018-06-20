@@ -32,7 +32,12 @@ class InterfaceController: WKInterfaceController
     
     fileprivate func askForHealthKitPermission()
     {
-        updateGoalDisplay(stepsForDay: 0)
+        //reset display if day turned over
+        if (HealthCache.cacheIsForADifferentDay(Date()))
+        {
+            display(steps: 0)
+        }
+        
         HealthKitService.getInstance().authorizeForSteps({
             
             DispatchQueue.main.async(execute: {
