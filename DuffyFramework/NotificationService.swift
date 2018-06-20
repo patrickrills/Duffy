@@ -30,6 +30,8 @@ open class NotificationService
             content.body = String(format: "You've reached your goal of %@ steps.", numberFormatter.string(from: NSNumber(value: HealthCache.getStepsDailyGoal()))!)
             content.sound = UNNotificationSound.default()
             content.setValue("YES", forKeyPath: "shouldAlwaysAlertWhileAppIsForeground")
+            content.categoryIdentifier = "goal-notification"
+        
             let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(Constants.notificationDelayInSeconds), repeats: false)
         
             let request = UNNotificationRequest(identifier: String(format: "DailyStepsGoal-%@", convertDayToKey(Date())), content: content, trigger: trigger)
