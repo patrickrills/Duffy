@@ -53,7 +53,7 @@
 		09AACE2A1D318E5D0058A814 /* WCSessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09AACE291D318E5D0058A814 /* WCSessionService.swift */; };
 		09AACE2B1D318E5D0058A814 /* WCSessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09AACE291D318E5D0058A814 /* WCSessionService.swift */; };
 		09CB871220D0A5460026B6CF /* duffy.ckcomplication in Resources */ = {isa = PBXBuildFile; fileRef = 09CB871120D0A5460026B6CF /* duffy.ckcomplication */; };
-		09CE42C11E353E7100A6E587 /* WeekViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CE42C01E353E7100A6E587 /* WeekViewController.swift */; };
+		09CE42C11E353E7100A6E587 /* HistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CE42C01E353E7100A6E587 /* HistoryTableViewController.swift */; };
 		09CE42C31E354D5200A6E587 /* PastWeekButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CE42C21E354D5200A6E587 /* PastWeekButton.swift */; };
 		09CE42CA1E35525200A6E587 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09CE42C91E35525200A6E587 /* NotificationCenter.framework */; };
 		09CE42CD1E35525200A6E587 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CE42CC1E35525200A6E587 /* TodayViewController.swift */; };
@@ -207,7 +207,7 @@
 		09AACE261D318A390058A814 /* HealthCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthCache.swift; sourceTree = "<group>"; };
 		09AACE291D318E5D0058A814 /* WCSessionService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WCSessionService.swift; sourceTree = "<group>"; };
 		09CB871120D0A5460026B6CF /* duffy.ckcomplication */ = {isa = PBXFileReference; lastKnownFileType = folder; path = duffy.ckcomplication; sourceTree = "<group>"; };
-		09CE42C01E353E7100A6E587 /* WeekViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeekViewController.swift; sourceTree = "<group>"; };
+		09CE42C01E353E7100A6E587 /* HistoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryTableViewController.swift; sourceTree = "<group>"; };
 		09CE42C21E354D5200A6E587 /* PastWeekButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PastWeekButton.swift; sourceTree = "<group>"; };
 		09CE42C81E35525200A6E587 /* DuffyToday.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = DuffyToday.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		09CE42C91E35525200A6E587 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
@@ -301,7 +301,7 @@
 				09289C7F20DE0AD8005BF6B8 /* TodayHeaderView.swift */,
 				09289C8120DE131E005BF6B8 /* TodayHeaderView.xib */,
 				09323C721D22C39700961822 /* ViewController.swift */,
-				09CE42C01E353E7100A6E587 /* WeekViewController.swift */,
+				09CE42C01E353E7100A6E587 /* HistoryTableViewController.swift */,
 				0900866E20F27D0C006540E7 /* PreviousValueTableViewCell.swift */,
 				09CE42C21E354D5200A6E587 /* PastWeekButton.swift */,
 				0900867220FA7673006540E7 /* PreviousSectionHeaderView.swift */,
@@ -665,7 +665,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0900866F20F27D0C006540E7 /* PreviousValueTableViewCell.swift in Sources */,
-				09CE42C11E353E7100A6E587 /* WeekViewController.swift in Sources */,
+				09CE42C11E353E7100A6E587 /* HistoryTableViewController.swift in Sources */,
 				0900867320FA7673006540E7 /* PreviousSectionHeaderView.swift in Sources */,
 				09CEA97F211F86DC0023786B /* HistoryTableViewFooter.swift in Sources */,
 				09323C731D22C39700961822 /* ViewController.swift in Sources */,

@@ -9,7 +9,7 @@
 import UIKit
 import DuffyFramework
 
-class WeekViewController: UITableViewController
+class HistoryTableViewController: UITableViewController
 {
     let CELL_ID = "PreviousValueTableViewCell"
     let PAGE_SIZE = 30

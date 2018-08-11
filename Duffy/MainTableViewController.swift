@@ -130,7 +130,7 @@ class MainTableViewController: UITableViewController
     
     private func openHistory()
     {
-        let weekVC = WeekViewController()
+        let weekVC = HistoryTableViewController()
         let modalNav = UINavigationController(rootViewController: weekVC)
         modalNav.navigationBar.tintColor = Globals.secondaryColor()
         present(modalNav, animated: true, completion: nil)
