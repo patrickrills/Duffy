@@ -10,7 +10,6 @@ import UIKit
 
 class PastWeekButton: UIButton
 {
-
     override func draw(_ rect: CGRect)
     {
         //// General Declarations
@@ -156,14 +155,13 @@ class PastWeekButton: UIButton
         fillColor.setFill()
         bezierPath.fill()
         
-        
         //// Text Drawing
-        let textRect = CGRect(x: 29, y: 0, width: 145, height: 44)
-        let textTextContent = NSString(string: "View the past week")
+        let textRect = CGRect(x: 20, y: -1, width: 170, height: 44)
+        let textTextContent = NSString(string: "PAST WEEK")
         let textStyle = NSMutableParagraphStyle()
         textStyle.alignment = .center
         
-        let textFontAttributes = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 15), NSAttributedStringKey.foregroundColor: fillColor, NSAttributedStringKey.paragraphStyle: textStyle]
+        let textFontAttributes = [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 24), NSAttributedStringKey.foregroundColor: fillColor, NSAttributedStringKey.paragraphStyle: textStyle]
         
         let textTextHeight: CGFloat = textTextContent.boundingRect(with: CGSize(width: textRect.width, height: CGFloat.infinity), options: NSStringDrawingOptions.usesLineFragmentOrigin, attributes: textFontAttributes, context: nil).size.height
         context!.saveGState()
@@ -171,15 +169,18 @@ class PastWeekButton: UIButton
         textTextContent.draw(in: CGRect(x: textRect.minX, y: textRect.minY + (textRect.height - textTextHeight) / 2, width: textRect.width, height: textTextHeight), withAttributes: textFontAttributes)
         context!.restoreGState()
         
-        if isHighlighted {
+        if isHighlighted
+        {
             alpha = 0.5
-        } else {
+        }
+        else
+        {
             alpha = 1.0
         }
     }
  
     override var isHighlighted: Bool
-        {
+    {
         didSet
         {
             super.isHighlighted = isHighlighted
@@ -192,5 +193,4 @@ class PastWeekButton: UIButton
         super.touchesCancelled(touches, with: event)
         isHighlighted = false
     }
-
 }

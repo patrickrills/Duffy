@@ -7,7 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0900866F20F27D0C006540E7 /* PreviousValueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0900866E20F27D0C006540E7 /* PreviousValueTableViewCell.swift */; };
+		0900867120F282DE006540E7 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0900867020F282DE006540E7 /* Globals.swift */; };
+		0900867320FA7673006540E7 /* PreviousSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0900867220FA7673006540E7 /* PreviousSectionHeaderView.swift */; };
 		09289C7820D873F9005BF6B8 /* GoalNotificationInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09289C7720D873F9005BF6B8 /* GoalNotificationInterfaceController.swift */; };
+		09289C7E20DDFF56005BF6B8 /* MainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09289C7D20DDFF56005BF6B8 /* MainTableViewController.swift */; };
+		09289C8020DE0AD8005BF6B8 /* TodayHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09289C7F20DE0AD8005BF6B8 /* TodayHeaderView.swift */; };
+		09289C8220DE131E005BF6B8 /* TodayHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09289C8120DE131E005BF6B8 /* TodayHeaderView.xib */; };
 		092B0E8A1D45841F00085F99 /* CoreMotionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092B0E891D45841F00085F99 /* CoreMotionService.swift */; };
 		092B0E8B1D45841F00085F99 /* CoreMotionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092B0E891D45841F00085F99 /* CoreMotionService.swift */; };
 		09323C711D22C39700961822 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09323C701D22C39700961822 /* AppDelegate.swift */; };
@@ -154,8 +160,14 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0900866E20F27D0C006540E7 /* PreviousValueTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviousValueTableViewCell.swift; sourceTree = "<group>"; };
+		0900867020F282DE006540E7 /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
+		0900867220FA7673006540E7 /* PreviousSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviousSectionHeaderView.swift; sourceTree = "<group>"; };
 		09289C7720D873F9005BF6B8 /* GoalNotificationInterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalNotificationInterfaceController.swift; sourceTree = "<group>"; };
 		09289C7920D87856005BF6B8 /* GoalNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = GoalNotificationPayload.apns; sourceTree = "<group>"; };
+		09289C7D20DDFF56005BF6B8 /* MainTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewController.swift; sourceTree = "<group>"; };
+		09289C7F20DE0AD8005BF6B8 /* TodayHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayHeaderView.swift; sourceTree = "<group>"; };
+		09289C8120DE131E005BF6B8 /* TodayHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TodayHeaderView.xib; sourceTree = "<group>"; };
 		092B0E891D45841F00085F99 /* CoreMotionService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreMotionService.swift; sourceTree = "<group>"; };
 		09323C6D1D22C39700961822 /* Duffy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Duffy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		09323C701D22C39700961822 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -280,9 +292,15 @@
 			children = (
 				09323CFA1D23027500961822 /* Duffy.entitlements */,
 				09323C701D22C39700961822 /* AppDelegate.swift */,
+				0900867020F282DE006540E7 /* Globals.swift */,
+				09289C7D20DDFF56005BF6B8 /* MainTableViewController.swift */,
+				09289C7F20DE0AD8005BF6B8 /* TodayHeaderView.swift */,
+				09289C8120DE131E005BF6B8 /* TodayHeaderView.xib */,
 				09323C721D22C39700961822 /* ViewController.swift */,
 				09CE42C01E353E7100A6E587 /* WeekViewController.swift */,
+				0900866E20F27D0C006540E7 /* PreviousValueTableViewCell.swift */,
 				09CE42C21E354D5200A6E587 /* PastWeekButton.swift */,
+				0900867220FA7673006540E7 /* PreviousSectionHeaderView.swift */,
 				09323C741D22C39700961822 /* Main.storyboard */,
 				09323C771D22C39700961822 /* Assets.xcassets */,
 				09323C791D22C39700961822 /* LaunchScreen.storyboard */,
@@ -585,6 +603,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09289C8220DE131E005BF6B8 /* TodayHeaderView.xib in Resources */,
 				09CB871220D0A5460026B6CF /* duffy.ckcomplication in Resources */,
 				09323C7B1D22C39700961822 /* LaunchScreen.storyboard in Resources */,
 				09323C781D22C39700961822 /* Assets.xcassets in Resources */,
@@ -638,10 +657,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0900866F20F27D0C006540E7 /* PreviousValueTableViewCell.swift in Sources */,
 				09CE42C11E353E7100A6E587 /* WeekViewController.swift in Sources */,
+				0900867320FA7673006540E7 /* PreviousSectionHeaderView.swift in Sources */,
 				09323C731D22C39700961822 /* ViewController.swift in Sources */,
 				09323C711D22C39700961822 /* AppDelegate.swift in Sources */,
+				0900867120F282DE006540E7 /* Globals.swift in Sources */,
+				09289C7E20DDFF56005BF6B8 /* MainTableViewController.swift in Sources */,
 				09CE42C31E354D5200A6E587 /* PastWeekButton.swift in Sources */,
+				09289C8020DE0AD8005BF6B8 /* TodayHeaderView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
