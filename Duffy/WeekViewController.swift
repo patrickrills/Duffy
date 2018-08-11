@@ -9,37 +9,54 @@
 import UIKit
 import DuffyFramework
 
-class WeekViewController: UIViewController, UITableViewDataSource, UITableViewDelegate
+class WeekViewController: UITableViewController
 {
-    var tableView: UITableView?
-    var pastWeekSteps: [Date : Int]?
-    var sortedDates: [Date]?
-    let dateFormatter = DateFormatter()
-    let numFormatter = NumberFormatter()
-    let stepGoal = HealthCache.getStepsDailyGoal()
+    let CELL_ID = "PreviousValueTableViewCell"
+    let PAGE_SIZE = 30
+    var pastSteps : [Date : Int] = [:]
+    var sortedKeys : [Date] = []
+    let goal = HealthCache.getStepsDailyGoal()
+    var lastDateFetched = Date()
     
-    override func loadView()
+    init()
     {
-        super.loadView()
-        
-        let appFrameSize = UIScreen.main.bounds.size
-        
-        self.tableView = UITableView(frame: CGRect(x: 0, y: 0, width: appFrameSize.width, height: appFrameSize.height), style: .grouped)
-        self.tableView?.delegate = self
-        self.tableView?.dataSource = self
-        self.view = UIView(frame: CGRect(x: 0, y: 0, width: appFrameSize.width, height: appFrameSize.height))
-        view?.addSubview(tableView!)
-        
-        dateFormatter.dateFormat = "eeee, MMM d"
-        numFormatter.numberStyle = .decimal
-        numFormatter.locale = Locale.current
+        super.init(style: .grouped)
+    }
+    
+    required init?(coder aDecoder: NSCoder)
+    {
+        super.init(style: .grouped)
     }
 
-    override func viewDidLoad() {
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
 
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(donePressed))
-        bindTableToWeek()
+        
+        tableView.register(PreviousValueTableViewCell.self, forCellReuseIdentifier: CELL_ID)
+        tableView.rowHeight = 44.0
+        
+        let footer = HistoryTableViewFooter.createView()
+        footer?.loadMoreButton?.addTarget(self, action: #selector(loadMorePressed), for: .touchUpInside)
+        tableView.tableFooterView = footer
+        
+        getMoreRows()
+    }
+    
+    override func viewWillLayoutSubviews()
+    {
+        super.viewWillLayoutSubviews()
+        
+        if let footer = tableView.tableFooterView
+        {
+            footer.frame = CGRect(x: footer.frame.origin.x, y: footer.frame.origin.y, width: tableView.frame.size.width, height: tableView.rowHeight)
+        }
+    }
+    
+    @IBAction func loadMorePressed()
+    {
+        getMoreRows()
     }
     
     @IBAction func donePressed()
@@ -54,14 +71,14 @@ class WeekViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     func hideLoading(_ hasData: Bool)
     {
-        title = hasData ? "Past Week" : "No Data"
+        title = hasData ? "History" : "No Data"
     }
     
-    func bindTableToWeek()
+    func getMoreRows()
     {
         showLoading()
         
-        let startDate = (Calendar.current as NSCalendar).date(byAdding: .day, value: -7, to: Date(), options: NSCalendar.Options(rawValue: 0))
+        let startDate = Calendar.current.date(byAdding: .day, value: -PAGE_SIZE, to: lastDateFetched)
         
         HealthKitService.getInstance().getSteps(startDate!, toEndDate: Date(), onRetrieve: {
             (stepsCollection: [Date : Int]) in
@@ -70,17 +87,29 @@ class WeekViewController: UIViewController, UITableViewDataSource, UITableViewDe
                 [weak self] in
                 if let weakSelf = self
                 {
-                    weakSelf.sortedDates = stepsCollection.keys.sorted(by: {
-                        (date1: Date, date2: Date) in
-                        return date1.timeIntervalSince1970 > date2.timeIntervalSince1970
-                    })
+                    stepsCollection.forEach({ (key, value) in weakSelf.pastSteps[key] = value })
+                    weakSelf.sortedKeys = weakSelf.pastSteps.keys.sorted(by: >)
                     
-                    if (weakSelf.sortedDates!.count == 0) {
-                        weakSelf.hideLoading(false)
-                        return
+                    let fetchedRowCount = stepsCollection.count
+                    var hideFooter = fetchedRowCount == 0
+                    if (fetchedRowCount > 0)
+                    {
+                        var lastDateInCache = weakSelf.sortedKeys[weakSelf.sortedKeys.count - 1];
+                        if (weakSelf.lastDateFetched == lastDateInCache)
+                        {
+                            hideFooter = true
+                        }
+                        else
+                        {
+                            weakSelf.lastDateFetched = lastDateInCache
+                        }
+                    }
+                        
+                    if let footer = weakSelf.tableView?.tableFooterView as? HistoryTableViewFooter, hideFooter
+                    {
+                        footer.loadMoreButton?.isHidden = true
                     }
                     
-                    weakSelf.pastWeekSteps = stepsCollection
                     weakSelf.tableView?.reloadData()
                     weakSelf.hideLoading(true)
                 }
@@ -94,54 +123,24 @@ class WeekViewController: UIViewController, UITableViewDataSource, UITableViewDe
         })
     }
 
-    func numberOfSections(in tableView: UITableView) -> Int
+    override func numberOfSections(in tableView: UITableView) -> Int
     {
         return 1
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        if let s = pastWeekSteps
-        {
-            return s.count
-        }
-        
-        return 0
+        return pastSteps.count
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String?
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-        if let _ = pastWeekSteps
+        let cell = tableView.dequeueReusableCell(withIdentifier: CELL_ID, for: indexPath) as! PreviousValueTableViewCell
+        let currentDate = sortedKeys[indexPath.row];
+        if let steps = pastSteps[currentDate]
         {
-            return "Steps"
+            cell.bind(toDate: currentDate, steps: steps, goal: goal)
         }
-        
-        return nil
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
-    {
-        let cell = UITableViewCell(style: .value1, reuseIdentifier: "CellValue2")
-        
-        if let keys = sortedDates, let steps = pastWeekSteps
-        {
-            let currentKey = keys[indexPath.row]
-            if let stepsForDay = steps[currentKey]
-            {
-                cell.detailTextLabel?.text = dateFormatter.string(from: currentKey)
-                cell.detailTextLabel?.textColor = ViewController.primaryColor
-                
-                if stepGoal > 0, stepsForDay >= stepGoal {
-                    cell.textLabel?.text = String(format: "%@ %@", numFormatter.string(from: NSNumber(value: stepsForDay))!, HealthKitService.getInstance().getAdornment(for: stepsForDay))
-                    cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 17.0)
-                }
-                else {
-                    cell.textLabel?.text = numFormatter.string(from: NSNumber(value: stepsForDay))
-                    cell.textLabel?.font = UIFont.systemFont(ofSize: 17.0)
-                }
-            }
-        }
-        
         return cell
     }
 

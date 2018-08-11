@@ -59,6 +59,8 @@
 		09CE42CD1E35525200A6E587 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CE42CC1E35525200A6E587 /* TodayViewController.swift */; };
 		09CE42D01E35525200A6E587 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09CE42CE1E35525200A6E587 /* MainInterface.storyboard */; };
 		09CE42D41E35525200A6E587 /* DuffyToday.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 09CE42C81E35525200A6E587 /* DuffyToday.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		09CEA97D211F86BB0023786B /* HistoryTableViewFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09CEA97C211F86BB0023786B /* HistoryTableViewFooter.xib */; };
+		09CEA97F211F86DC0023786B /* HistoryTableViewFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CEA97E211F86DC0023786B /* HistoryTableViewFooter.swift */; };
 		09D7F1241E340EA7008FF0CC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7F1231E340EA7008FF0CC /* Constants.swift */; };
 		09D7F1251E340EA7008FF0CC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7F1231E340EA7008FF0CC /* Constants.swift */; };
 /* End PBXBuildFile section */
@@ -213,6 +215,8 @@
 		09CE42CF1E35525200A6E587 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		09CE42D11E35525200A6E587 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		09CE42D91E35640E00A6E587 /* DuffyToday.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DuffyToday.entitlements; sourceTree = "<group>"; };
+		09CEA97C211F86BB0023786B /* HistoryTableViewFooter.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryTableViewFooter.xib; sourceTree = "<group>"; };
+		09CEA97E211F86DC0023786B /* HistoryTableViewFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewFooter.swift; sourceTree = "<group>"; };
 		09D7F1231E340EA7008FF0CC /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -301,6 +305,8 @@
 				0900866E20F27D0C006540E7 /* PreviousValueTableViewCell.swift */,
 				09CE42C21E354D5200A6E587 /* PastWeekButton.swift */,
 				0900867220FA7673006540E7 /* PreviousSectionHeaderView.swift */,
+				09CEA97E211F86DC0023786B /* HistoryTableViewFooter.swift */,
+				09CEA97C211F86BB0023786B /* HistoryTableViewFooter.xib */,
 				09323C741D22C39700961822 /* Main.storyboard */,
 				09323C771D22C39700961822 /* Assets.xcassets */,
 				09323C791D22C39700961822 /* LaunchScreen.storyboard */,
@@ -606,6 +612,7 @@
 				09289C8220DE131E005BF6B8 /* TodayHeaderView.xib in Resources */,
 				09CB871220D0A5460026B6CF /* duffy.ckcomplication in Resources */,
 				09323C7B1D22C39700961822 /* LaunchScreen.storyboard in Resources */,
+				09CEA97D211F86BB0023786B /* HistoryTableViewFooter.xib in Resources */,
 				09323C781D22C39700961822 /* Assets.xcassets in Resources */,
 				09323C761D22C39700961822 /* Main.storyboard in Resources */,
 			);
@@ -660,6 +667,7 @@
 				0900866F20F27D0C006540E7 /* PreviousValueTableViewCell.swift in Sources */,
 				09CE42C11E353E7100A6E587 /* WeekViewController.swift in Sources */,
 				0900867320FA7673006540E7 /* PreviousSectionHeaderView.swift in Sources */,
+				09CEA97F211F86DC0023786B /* HistoryTableViewFooter.swift in Sources */,
 				09323C731D22C39700961822 /* ViewController.swift in Sources */,
 				09323C711D22C39700961822 /* AppDelegate.swift in Sources */,
 				0900867120F282DE006540E7 /* Globals.swift in Sources */,
