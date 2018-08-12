@@ -88,7 +88,7 @@ class MainTableViewController: UITableViewController
         isLoading = true
         showLoading()
         
-        HealthKitService.getInstance().authorizeForSteps({
+        HealthKitService.getInstance().authorizeForAllData({
             
             let startDate = Calendar.current.date(byAdding: .day, value: -6, to: Date())
             let endDate = Calendar.current.date(byAdding: .day, value: -1, to: Date())

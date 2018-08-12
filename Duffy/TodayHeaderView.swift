@@ -65,6 +65,27 @@ class TodayHeaderView: UIView
             [weak self] (error: Error?) in
             self?.toggleLoading(isLoading: false)
         })
+        
+        HealthKitService.getInstance().getFlightsClimbed(Date(), onRetrieve: {
+            flights, forDate in
+            print("Number of flights climbed is \(flights)")
+            
+        }, onFailure: {
+            (error: Error?) in
+            print("error getting flights: \(String(describing: error))")
+        })
+        
+        HealthKitService.getInstance().getDistanceCovered(Date(), onRetrieve: {
+            distance, lengthUnit, forDate in
+
+            let formatter = LengthFormatter()
+            let displayDistance = formatter.string(fromValue: distance, unit: lengthUnit)
+            print("Distance is \(displayDistance)")
+
+        }, onFailure: {
+            (error: Error?) in
+            print("error getting flights: \(String(describing: error))")
+        })
     }
     
     private func updateGoalDisplay(stepsForDay: Int)
