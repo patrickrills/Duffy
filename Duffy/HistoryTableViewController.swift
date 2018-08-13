@@ -94,7 +94,7 @@ class HistoryTableViewController: UITableViewController
                     var hideFooter = fetchedRowCount == 0
                     if (fetchedRowCount > 0)
                     {
-                        var lastDateInCache = weakSelf.sortedKeys[weakSelf.sortedKeys.count - 1];
+                        let lastDateInCache = weakSelf.sortedKeys[weakSelf.sortedKeys.count - 1];
                         if (weakSelf.lastDateFetched == lastDateInCache)
                         {
                             hideFooter = true
@@ -104,7 +104,7 @@ class HistoryTableViewController: UITableViewController
                             weakSelf.lastDateFetched = lastDateInCache
                         }
                     }
-                        
+                    
                     if let footer = weakSelf.tableView?.tableFooterView as? HistoryTableViewFooter, hideFooter
                     {
                         footer.loadMoreButton?.isHidden = true

@@ -162,7 +162,6 @@ class MainTableViewController: UITableViewController
         {
             if let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: SECTION_ID) as? PreviousSectionHeaderView
             {
-                header.backgroundColor = UIColor.white
                 header.button?.addTarget(self, action: #selector(openHistoryPressed), for: .touchUpInside)
                 return header
             }
