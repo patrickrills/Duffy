@@ -16,6 +16,7 @@ class TodayHeaderView: UIView
     @IBOutlet weak var stepsValueLabel : UILabel?
     @IBOutlet weak var refreshButton : UIButton?
     @IBOutlet weak var goalLabel : UILabel?
+    @IBOutlet weak var detailContainer : UIView?
     
     class func createView() -> TodayHeaderView?
     {
@@ -37,6 +38,16 @@ class TodayHeaderView: UIView
         refreshButton?.setTitleColor(Globals.secondaryColor(), for: .normal)
         stepsValueLabel?.text = "0"
         updateGoalDisplay(stepsForDay: 0)
+        
+        if let container = detailContainer, let detail = DetailDataView.createView()
+        {
+            container.addSubview(detail)
+            detail.translatesAutoresizingMaskIntoConstraints = false
+            detail.leadingAnchor.constraint(equalTo: container.leadingAnchor).isActive = true
+            detail.trailingAnchor.constraint(equalTo: container.trailingAnchor).isActive = true
+            detail.topAnchor.constraint(equalTo: container.topAnchor).isActive = true
+            detail.bottomAnchor.constraint(equalTo: container.bottomAnchor).isActive = true
+        }
     }
     
     func toggleLoading(isLoading: Bool)
@@ -66,26 +77,10 @@ class TodayHeaderView: UIView
             self?.toggleLoading(isLoading: false)
         })
         
-        HealthKitService.getInstance().getFlightsClimbed(Date(), onRetrieve: {
-            flights, forDate in
-            print("Number of flights climbed is \(flights)")
-            
-        }, onFailure: {
-            (error: Error?) in
-            print("error getting flights: \(String(describing: error))")
-        })
-        
-        HealthKitService.getInstance().getDistanceCovered(Date(), onRetrieve: {
-            distance, lengthUnit, forDate in
-
-            let formatter = LengthFormatter()
-            let displayDistance = formatter.string(fromValue: distance, unit: lengthUnit)
-            print("Distance is \(displayDistance)")
-
-        }, onFailure: {
-            (error: Error?) in
-            print("error getting flights: \(String(describing: error))")
-        })
+        if let container = detailContainer, container.subviews.count > 0, let details = container.subviews[0] as? DetailDataView
+        {
+            details.refresh()
+        }
     }
     
     private func updateGoalDisplay(stepsForDay: Int)

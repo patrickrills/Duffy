@@ -48,16 +48,16 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="26,780" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HTd-A8-iMh">
-                    <rect key="frame" x="16" y="221" width="343" height="72"/>
+                    <rect key="frame" x="16" y="221" width="343" height="74"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="72" id="Ked-RB-eQl"/>
+                        <constraint firstAttribute="height" constant="74" id="Ked-RB-eQl"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="70"/>
+                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="74"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aGZ-bb-DcM">
-                    <rect key="frame" x="16" y="305" width="343" height="24"/>
+                    <rect key="frame" x="16" y="307" width="343" height="24"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="24" id="IG1-1d-Ud7"/>
                     </constraints>
@@ -68,7 +68,7 @@
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="of 00,000 goal" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lac-jq-TNG">
-                    <rect key="frame" x="16" y="339" width="343" height="20"/>
+                    <rect key="frame" x="16" y="341" width="343" height="20"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="20" id="syZ-T1-n6r"/>
                     </constraints>
@@ -77,8 +77,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="enX-HD-spO">
-                    <rect key="frame" x="0.0" y="375" width="375" height="92"/>
-                    <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                    <rect key="frame" x="0.0" y="377" width="375" height="90"/>
                 </view>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -108,6 +107,7 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
+                <outlet property="detailContainer" destination="enX-HD-spO" id="Zx2-yq-YDD"/>
                 <outlet property="goalLabel" destination="lac-jq-TNG" id="IV9-Sb-Zdk"/>
                 <outlet property="refreshButton" destination="aGZ-bb-DcM" id="CCu-T2-wxH"/>
                 <outlet property="stepsValueLabel" destination="HTd-A8-iMh" id="f2r-OV-4sb"/>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DistanceFlightsDetailViewController" customModule="Duffy" customModuleProvider="target">
+            <connections>
+                <outlet property="distanceNameLabel" destination="zWN-vY-Epu" id="Uwd-MS-Ua7"/>
+                <outlet property="distanceValueLabel" destination="jLp-yr-Low" id="i2I-OT-DYy"/>
+                <outlet property="flightsNameLabel" destination="4Gs-JJ-VVO" id="Sjo-Tw-Ere"/>
+                <outlet property="flightsValueLabel" destination="6EG-1V-Ko4" id="ZNa-xl-aj9"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ccA-rf-2rz">
+                    <rect key="frame" x="0.0" y="48" width="320" height="105"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="14" translatesAutoresizingMaskIntoConstraints="NO" id="jLp-yr-Low">
+                            <rect key="frame" x="12" y="12" width="31" height="60"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="50"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6EG-1V-Ko4">
+                            <rect key="frame" x="277" y="12" width="31" height="60"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="50"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Distance Travelled" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zWN-vY-Epu">
+                            <rect key="frame" x="12" y="72" width="138.5" height="21"/>
+                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Flights Climbed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Gs-JJ-VVO">
+                            <rect key="frame" x="191" y="72" width="117" height="21"/>
+                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="6EG-1V-Ko4" firstAttribute="trailing" secondItem="4Gs-JJ-VVO" secondAttribute="trailing" id="2nU-Xn-bdQ"/>
+                        <constraint firstItem="jLp-yr-Low" firstAttribute="leading" secondItem="ccA-rf-2rz" secondAttribute="leading" constant="12" id="7CH-5E-J0L"/>
+                        <constraint firstItem="zWN-vY-Epu" firstAttribute="leading" secondItem="jLp-yr-Low" secondAttribute="leading" id="Ahz-u6-AgL"/>
+                        <constraint firstItem="jLp-yr-Low" firstAttribute="top" secondItem="ccA-rf-2rz" secondAttribute="top" constant="12" id="JHj-CI-xi7"/>
+                        <constraint firstItem="4Gs-JJ-VVO" firstAttribute="centerY" secondItem="zWN-vY-Epu" secondAttribute="centerY" id="RXq-5j-hAG"/>
+                        <constraint firstAttribute="trailing" secondItem="6EG-1V-Ko4" secondAttribute="trailing" constant="12" id="luk-y1-I4p"/>
+                        <constraint firstAttribute="bottom" secondItem="zWN-vY-Epu" secondAttribute="bottom" constant="12" id="qc3-RN-1vQ"/>
+                        <constraint firstItem="zWN-vY-Epu" firstAttribute="top" secondItem="jLp-yr-Low" secondAttribute="bottom" id="sym-iz-cZA"/>
+                        <constraint firstItem="6EG-1V-Ko4" firstAttribute="bottom" secondItem="jLp-yr-Low" secondAttribute="bottom" id="y4D-tM-3Qf"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="ccA-rf-2rz" secondAttribute="trailing" id="1aa-EO-gN8"/>
+                <constraint firstItem="ccA-rf-2rz" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="5iS-9C-h50"/>
+                <constraint firstItem="ccA-rf-2rz" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="uDe-Fi-9BK"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="85" y="-160"/>
+        </view>
+    </objects>
+</document>

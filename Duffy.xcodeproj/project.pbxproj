@@ -45,6 +45,8 @@
 		0967EB791E7F0ACE0073BF3F /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0967EB781E7F0ACE0073BF3F /* NotificationService.swift */; };
 		0967EB7A1E7F0ACE0073BF3F /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0967EB781E7F0ACE0073BF3F /* NotificationService.swift */; };
 		096A4EE61E58D39900CE3D5B /* DuffyFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09323D031D2303BC00961822 /* DuffyFramework.framework */; };
+		097085632127122B00790EC7 /* DistanceFlightsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097085612127122B00790EC7 /* DistanceFlightsDetailViewController.swift */; };
+		097085642127122B00790EC7 /* DistanceFlightsDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 097085622127122B00790EC7 /* DistanceFlightsDetailViewController.xib */; };
 		09824A8C1EA66C74002A4A84 /* EditGoalInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09824A8B1EA66C74002A4A84 /* EditGoalInterfaceController.swift */; };
 		099C13111DA336C80007C72F /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 099C13101DA336C80007C72F /* HealthKit.framework */; };
 		099C13131DA336D50007C72F /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 099C13121DA336D50007C72F /* HealthKit.framework */; };
@@ -61,6 +63,8 @@
 		09CE42D41E35525200A6E587 /* DuffyToday.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 09CE42C81E35525200A6E587 /* DuffyToday.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		09CEA97D211F86BB0023786B /* HistoryTableViewFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09CEA97C211F86BB0023786B /* HistoryTableViewFooter.xib */; };
 		09CEA97F211F86DC0023786B /* HistoryTableViewFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CEA97E211F86DC0023786B /* HistoryTableViewFooter.swift */; };
+		09CEA981212259040023786B /* DetailDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CEA980212259040023786B /* DetailDataView.swift */; };
+		09CEA983212259200023786B /* DetailDataView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09CEA982212259200023786B /* DetailDataView.xib */; };
 		09D7F1241E340EA7008FF0CC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7F1231E340EA7008FF0CC /* Constants.swift */; };
 		09D7F1251E340EA7008FF0CC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7F1231E340EA7008FF0CC /* Constants.swift */; };
 /* End PBXBuildFile section */
@@ -201,6 +205,8 @@
 		0947AA9F1D4EB5490040E1DD /* LoaderInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoaderInterfaceController.swift; sourceTree = "<group>"; };
 		0967EB751E7D88770073BF3F /* HealthEventDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthEventDelegate.swift; sourceTree = "<group>"; };
 		0967EB781E7F0ACE0073BF3F /* NotificationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		097085612127122B00790EC7 /* DistanceFlightsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceFlightsDetailViewController.swift; sourceTree = "<group>"; };
+		097085622127122B00790EC7 /* DistanceFlightsDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DistanceFlightsDetailViewController.xib; sourceTree = "<group>"; };
 		09824A8B1EA66C74002A4A84 /* EditGoalInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditGoalInterfaceController.swift; sourceTree = "<group>"; };
 		099C13101DA336C80007C72F /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		099C13121DA336D50007C72F /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS3.0.sdk/System/Library/Frameworks/HealthKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -217,6 +223,8 @@
 		09CE42D91E35640E00A6E587 /* DuffyToday.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DuffyToday.entitlements; sourceTree = "<group>"; };
 		09CEA97C211F86BB0023786B /* HistoryTableViewFooter.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryTableViewFooter.xib; sourceTree = "<group>"; };
 		09CEA97E211F86DC0023786B /* HistoryTableViewFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewFooter.swift; sourceTree = "<group>"; };
+		09CEA980212259040023786B /* DetailDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailDataView.swift; sourceTree = "<group>"; };
+		09CEA982212259200023786B /* DetailDataView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailDataView.xib; sourceTree = "<group>"; };
 		09D7F1231E340EA7008FF0CC /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -307,6 +315,10 @@
 				0900867220FA7673006540E7 /* PreviousSectionHeaderView.swift */,
 				09CEA97E211F86DC0023786B /* HistoryTableViewFooter.swift */,
 				09CEA97C211F86BB0023786B /* HistoryTableViewFooter.xib */,
+				09CEA980212259040023786B /* DetailDataView.swift */,
+				09CEA982212259200023786B /* DetailDataView.xib */,
+				097085612127122B00790EC7 /* DistanceFlightsDetailViewController.swift */,
+				097085622127122B00790EC7 /* DistanceFlightsDetailViewController.xib */,
 				09323C741D22C39700961822 /* Main.storyboard */,
 				09323C771D22C39700961822 /* Assets.xcassets */,
 				09323C791D22C39700961822 /* LaunchScreen.storyboard */,
@@ -614,6 +626,8 @@
 				09323C7B1D22C39700961822 /* LaunchScreen.storyboard in Resources */,
 				09CEA97D211F86BB0023786B /* HistoryTableViewFooter.xib in Resources */,
 				09323C781D22C39700961822 /* Assets.xcassets in Resources */,
+				09CEA983212259200023786B /* DetailDataView.xib in Resources */,
+				097085642127122B00790EC7 /* DistanceFlightsDetailViewController.xib in Resources */,
 				09323C761D22C39700961822 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -666,10 +680,12 @@
 			files = (
 				0900866F20F27D0C006540E7 /* PreviousValueTableViewCell.swift in Sources */,
 				09CE42C11E353E7100A6E587 /* HistoryTableViewController.swift in Sources */,
+				097085632127122B00790EC7 /* DistanceFlightsDetailViewController.swift in Sources */,
 				0900867320FA7673006540E7 /* PreviousSectionHeaderView.swift in Sources */,
 				09CEA97F211F86DC0023786B /* HistoryTableViewFooter.swift in Sources */,
 				09323C731D22C39700961822 /* ViewController.swift in Sources */,
 				09323C711D22C39700961822 /* AppDelegate.swift in Sources */,
+				09CEA981212259040023786B /* DetailDataView.swift in Sources */,
 				0900867120F282DE006540E7 /* Globals.swift in Sources */,
 				09289C7E20DDFF56005BF6B8 /* MainTableViewController.swift in Sources */,
 				09CE42C31E354D5200A6E587 /* PastWeekButton.swift in Sources */,
