@@ -16,7 +16,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="483"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DuffyLogo" translatesAutoresizingMaskIntoConstraints="NO" id="DIK-Qc-zBj">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DuffyLogo02" translatesAutoresizingMaskIntoConstraints="NO" id="DIK-Qc-zBj">
                     <rect key="frame" x="147" y="20" width="80" height="80"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="80" id="86E-Kx-ldD"/>
@@ -24,7 +24,7 @@
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="take it step by step" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fF4-nD-wZD">
-                    <rect key="frame" x="92" y="160" width="190" height="33"/>
+                    <rect key="frame" x="92" y="156" width="190" height="33"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="190" id="Avr-8c-gaD"/>
                         <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="190" id="GD4-9r-b7v"/>
@@ -36,7 +36,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="duffy" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XdS-1n-bMU">
-                    <rect key="frame" x="106" y="110" width="162" height="50"/>
+                    <rect key="frame" x="106" y="106" width="162" height="50"/>
                     <constraints>
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="6fN-4q-lrj"/>
                         <constraint firstAttribute="width" constant="162" id="8og-2m-umZ"/>
@@ -87,7 +87,7 @@
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="enX-HD-spO" secondAttribute="bottom" constant="16" id="Ekt-U6-uax"/>
                 <constraint firstItem="fF4-nD-wZD" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="IHp-Qd-WSe"/>
                 <constraint firstItem="lac-jq-TNG" firstAttribute="top" secondItem="aGZ-bb-DcM" secondAttribute="bottom" constant="10" id="Rxk-iY-pQn"/>
-                <constraint firstItem="XdS-1n-bMU" firstAttribute="top" secondItem="DIK-Qc-zBj" secondAttribute="bottom" constant="10" id="SPt-Um-4Z0"/>
+                <constraint firstItem="XdS-1n-bMU" firstAttribute="top" secondItem="DIK-Qc-zBj" secondAttribute="bottom" constant="6" id="SPt-Um-4Z0"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="enX-HD-spO" secondAttribute="trailing" id="STb-xt-iLE"/>
                 <constraint firstItem="HTd-A8-iMh" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="UBI-Be-opA"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="HTd-A8-iMh" secondAttribute="trailing" constant="16" id="Xoa-Gi-vaG"/>
@@ -100,7 +100,7 @@
                 <constraint firstItem="enX-HD-spO" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="k6G-02-qee"/>
                 <constraint firstItem="lac-jq-TNG" firstAttribute="leading" secondItem="HTd-A8-iMh" secondAttribute="leading" id="lzB-mz-Cm8"/>
                 <constraint firstItem="enX-HD-spO" firstAttribute="top" secondItem="lac-jq-TNG" secondAttribute="bottom" constant="16" id="rV7-vR-szV"/>
-                <constraint firstItem="HTd-A8-iMh" firstAttribute="top" secondItem="fF4-nD-wZD" secondAttribute="bottom" constant="28" id="vLq-qk-Kf0"/>
+                <constraint firstItem="HTd-A8-iMh" firstAttribute="top" secondItem="fF4-nD-wZD" secondAttribute="bottom" constant="32" id="vLq-qk-Kf0"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
@@ -118,6 +118,6 @@
         </view>
     </objects>
     <resources>
-        <image name="DuffyLogo" width="100" height="100"/>
+        <image name="DuffyLogo02" width="80" height="80"/>
     </resources>
 </document>
