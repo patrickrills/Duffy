@@ -39,7 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate //, HealthEventDelegate
 
         if let w = window
         {
-            if let root = w.rootViewController as? ViewController
+            if let root = w.rootViewController as? MainTableViewController
             {
                 root.refresh()
             }
