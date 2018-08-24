@@ -23,7 +23,7 @@ class PreviousValueTableViewCell: UITableViewCell
     
     func bind(toDate: Date, steps: Int, goal: Int)
     {
-        textLabel?.text = Globals.dayFormatter().string(from: toDate).uppercased()
+        textLabel?.text = Globals.dayFormatter().string(from: toDate)
         textLabel?.textColor = Globals.primaryColor()
         textLabel?.font = UIFont.systemFont(ofSize: UIFont.labelFontSize, weight: .light)
         
