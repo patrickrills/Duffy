@@ -99,7 +99,7 @@ open class HealthKitService
         }
     }
     
-    open func getSteps(_ fromStartDate: Date, toEndDate: Date, onRetrieve: (([Date : Int]) -> Void)?, onFailure:  ((Error?) -> Void)?)
+    open func getSteps(_ fromStartDate: Date, toEndDate: Date, onRetrieve: (([Date : Int]) -> Void)?, onFailure: ((Error?) -> Void)?)
     {
         guard HKHealthStore.isHealthDataAvailable() && healthStore != nil else {
             if let failBlock = onFailure
@@ -114,7 +114,8 @@ open class HealthKitService
         
         guard startDate != nil && endDate != nil else { return }
         
-        let dateRangePredicate = HKQuery.predicateForSamples(withStart: startDate!, end: endDate!, options: .strictEndDate)
+        let endDateFilter = getQueryEndDate(fromStartDate: endDate!)
+        let dateRangePredicate = HKQuery.predicateForSamples(withStart: startDate!, end: endDateFilter, options: .strictEndDate)
         var interval = DateComponents()
         interval.day = 1
         
