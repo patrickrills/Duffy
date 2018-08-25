@@ -77,6 +77,34 @@ class TodayHeaderView: UIView
             self?.toggleLoading(isLoading: false)
         })
         
+        HealthKitService.getInstance().getStepsByHour(forDate: Date(),
+                                                      onRetrieve: {
+                                                        stepsByHour, queryDate in
+                                                        
+                                                        if (stepsByHour.count == 0)
+                                                        {
+                                                            print("No steps by hour")
+                                                        }
+                                                        else
+                                                        {
+                                                            for hour in stepsByHour.keys.sorted()
+                                                            {
+                                                                if let steps = stepsByHour[hour]
+                                                                {
+                                                                    print("Retrieved \(steps) steps in hour: \(hour)")
+                                                                }
+                                                            }
+                                                        }
+        },
+                                                      onFailure: {
+                                                        error in
+                                                        
+                                                        if let e = error
+                                                        {
+                                                            print("Got an error: \(e)")
+                                                        }
+        })
+        
         if let container = detailContainer, container.subviews.count > 0, let details = container.subviews[0] as? DetailDataView
         {
             details.refresh()
