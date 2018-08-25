@@ -60,4 +60,9 @@ class Globals: NSObject
     {
         return lightText
     }
+    
+    open class func isNarrowPhone() -> Bool
+    {
+        return UIScreen.main.bounds.size.width <= 320.0
+    }
 }

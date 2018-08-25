@@ -81,9 +81,22 @@ class DistanceFlightsDetailViewController: UIViewController
             {
                 flightLabel.text = "?"
             }
-            else
+            else if let displayFlights = Globals.flightsFormatter().string(from: NSNumber(value: lastFlightsValue))
             {
-                flightLabel.text = Globals.flightsFormatter().string(from: NSNumber(value: lastFlightsValue))
+                if (!Globals.isNarrowPhone())
+                {
+                    let attachment = NSTextAttachment()
+                    attachment.image = UIImage(named: "Flights")
+                    let attachmentString = NSAttributedString(attachment: attachment)
+                    let imageAndText = NSMutableAttributedString(attributedString: attachmentString)
+                    imageAndText.append(NSAttributedString(string: " "))
+                    imageAndText.append(NSAttributedString(string: displayFlights))
+                    flightLabel.attributedText = imageAndText
+                }
+                else
+                {
+                    flightLabel.text = displayFlights
+                }
             }
         }
     }
@@ -100,13 +113,52 @@ class DistanceFlightsDetailViewController: UIViewController
             }
             else
             {
+                var displayUnits: String
+                if (lastDistanceUnits == .mile)
+                {
+                    if (lastDistanceValue == 1.0)
+                    {
+                        displayUnits = "Mile"
+                    }
+                    else
+                    {
+                        displayUnits = "Miles"
+                    }
+                }
+                else if (lastDistanceUnits == .kilometer)
+                {
+                    if (lastDistanceValue == 1.0)
+                    {
+                        displayUnits = "Kilometer"
+                    }
+                    else
+                    {
+                        displayUnits = "Kilometers"
+                    }
+                }
+                else
+                {
+                    displayUnits = LengthFormatter().unitString(fromValue: lastDistanceValue, unit: lastDistanceUnits)
+                }
+                
                 let displayDistance = Globals.distanceFormatter().string(from: NSNumber(value: lastDistanceValue))!
-                let displayUnits = LengthFormatter().unitString(fromValue: lastDistanceValue, unit: lastDistanceUnits)
-                let combined = String(format: "%@ %@", displayDistance, displayUnits)
-                let attributed = NSMutableAttributedString(string: combined)
-                let unitFontSize = CGFloat(floorf(Float(valueFontSize() / 2.0)))
-                attributed.addAttribute(.font, value: UIFont.systemFont(ofSize: unitFontSize), range: NSMakeRange(displayDistance.count, combined.count - displayDistance.count))
-                distanceLabel.attributedText = attributed
+                
+                if (!Globals.isNarrowPhone())
+                {
+                    let attachment = NSTextAttachment()
+                    attachment.image = UIImage(named: "Distance")
+                    let attachmentString = NSAttributedString(attachment: attachment)
+                    let imageAndText = NSMutableAttributedString(attributedString: attachmentString)
+                    imageAndText.append(NSAttributedString(string: " "))
+                    imageAndText.append(NSAttributedString(string: displayDistance))
+                    distanceLabel.attributedText = imageAndText
+                }
+                else
+                {
+                    distanceLabel.text = displayDistance
+                }
+                
+                distanceNameLabel?.text = String(format: "%@ Travelled", displayUnits)
             }
         }
     }
