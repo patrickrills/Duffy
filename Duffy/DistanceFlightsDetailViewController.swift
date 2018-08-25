@@ -28,10 +28,10 @@ class DistanceFlightsDetailViewController: UIViewController
     
     private func initialize()
     {
-        distanceValueLabel?.textColor = UIColor.lightGray
-        flightsValueLabel?.textColor = UIColor.lightGray
-        distanceNameLabel?.textColor = UIColor.lightGray
-        flightsNameLabel?.textColor = UIColor.lightGray
+        distanceValueLabel?.textColor = Globals.lightGrayColor()
+        flightsValueLabel?.textColor = Globals.lightGrayColor()
+        distanceNameLabel?.textColor = Globals.lightGrayColor()
+        flightsNameLabel?.textColor = Globals.lightGrayColor()
     }
     
     override func viewWillLayoutSubviews()

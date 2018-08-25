@@ -176,7 +176,7 @@ class MainTableViewController: UITableViewController
         {
             let plainCell = UITableViewCell(style: .default, reuseIdentifier: nil)
             plainCell.textLabel?.textAlignment = .center
-            plainCell.textLabel?.textColor = UIColor.lightGray
+            plainCell.textLabel?.textColor = Globals.lightGrayColor()
             plainCell.selectionStyle = .none
             plainCell.textLabel?.text = "No data for the previous week"
             return plainCell

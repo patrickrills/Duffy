@@ -15,6 +15,7 @@ class Globals: NSObject
     private static let dateFormatter = DateFormatter()
     private static let primary = UIColor(red: 0.0, green: 61.0/255.0, blue: 165.0/255.0, alpha: 1.0)
     private static let secondary = UIColor(red: 76.0/255.0, green: 142.0/255.0, blue: 218.0/255.0, alpha: 1.0)
+    private static let lightText = UIColor.black.withAlphaComponent(0.2)
     
     open class func stepsFormatter() -> NumberFormatter
     {
@@ -53,5 +54,10 @@ class Globals: NSObject
     open class func secondaryColor() -> UIColor
     {
         return secondary
+    }
+    
+    open class func lightGrayColor() -> UIColor
+    {
+        return lightText
     }
 }

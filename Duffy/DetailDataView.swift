@@ -32,7 +32,7 @@ class DetailDataView: UIView
 
         pageControl?.isHidden = true
 //        pageControl?.currentPageIndicatorTintColor = Globals.primaryColor()
-//        pageControl?.pageIndicatorTintColor = UIColor.black.withAlphaComponent(0.1)
+//        pageControl?.pageIndicatorTintColor = Globals.lightGrayColor()
         scrollView?.addSubview(distanceFlightController.view)
     }
     
