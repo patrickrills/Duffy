@@ -43,7 +43,7 @@ open class HealthKitService
         let startDate = getQueryDate(from: forDate)
         guard startDate != nil else { return }
 
-        let forSpecificDay = HKQuery.predicateForSamples(withStart: startDate!, end: getQueryEndDate(fromStartDate: startDate!), options: .strictStartDate)
+        let forSpecificDay = HKQuery.predicateForSamples(withStart: startDate!, end: getQueryEndDate(fromStartDate: startDate!), options: [])
         var interval = DateComponents()
         interval.day = 1
 
