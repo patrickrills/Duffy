@@ -90,7 +90,7 @@ class MainTableViewController: UITableViewController
         
         HealthKitService.getInstance().authorizeForAllData({
             
-            let startDate = Calendar.current.date(byAdding: .day, value: -6, to: Date())
+            let startDate = Calendar.current.date(byAdding: .day, value: -7, to: Date())
             let endDate = Calendar.current.date(byAdding: .day, value: -1, to: Date())
             
             HealthKitService.getInstance().getSteps(startDate!, toEndDate: endDate!, onRetrieve: {
