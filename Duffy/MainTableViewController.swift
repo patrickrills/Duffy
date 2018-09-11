@@ -27,6 +27,11 @@ class MainTableViewController: UITableViewController
         tableView.sectionHeaderHeight = 44.0
         tableView.rowHeight = 44.0
         tableView.tableFooterView = UIView()
+        
+        if #available(iOS 11.0, *)
+        {
+            additionalSafeAreaInsets = UIEdgeInsetsMake(0, 0, 44.0, 0)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool)
@@ -45,7 +50,7 @@ class MainTableViewController: UITableViewController
         
         let availableRealEstate = UIScreen.main.bounds.height - UIApplication.shared.statusBarFrame.size.height - safeArea
         let amountOfTableToShow = tableView.sectionHeaderHeight + (tableView.rowHeight * 1.1);
-        return availableRealEstate - amountOfTableToShow
+        return ceil(availableRealEstate - amountOfTableToShow)
     }
     
     override func viewWillLayoutSubviews()
