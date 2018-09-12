@@ -37,13 +37,6 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, etc.
     }
-    
-    /*
-    func applicationDidEnterBackground() 
-     {
-        scheduleNextBackgroundRefresh()
-    }
-    */
 
     func complicationUpdateRequested(_ complicationData : [String : AnyObject])
     {
@@ -51,7 +44,6 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
         scheduleSnapshotNow()
     }
     
-    @available(watchOSApplicationExtension 3.0, *)
     func handle(_ backgroundTasks: Set<WKRefreshBackgroundTask>)
     {
         for t in backgroundTasks
@@ -65,19 +57,13 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
                 {
                     if let c = WKExtension.shared().rootInterfaceController as? InterfaceController
                     {
-                        //NSLog(String(format: "snapshot root: %@", c.description))
-                        //os_log("snapshot root: %@", c.description)
-                        c.displayTodaysStepsFromHealth()
+                        c.displayTodaysStepsFromCache()
                     }
                     
-                    currentBackgroundTasks.removeValue(forKey: dictKey)
-                    (t as! WKSnapshotRefreshBackgroundTask).setTaskCompleted(restoredDefaultState: false, estimatedSnapshotExpiration: Date.init(timeIntervalSinceNow: 60*30), userInfo: nil)
+                    complete(task: t)
                 }
                 else
                 {
-                    //NSLog(String(format: "task class: %@", t.description))
-                    //os_log("task class: %@", t.description)
-                    
                     //At least turn over the complication to zero if it is a new day - if the lock is locked we can't get the steps
                     if (HealthCache.cacheIsForADifferentDay(Date()))
                     {
@@ -93,30 +79,39 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
                         
                             if (HealthCache.saveStepsToCache(steps, forDay: forDay))
                             {
-                                //os_log("Update complication from bg task with %d steps", steps)
                                 ComplicationController.refreshComplication()
                             }
                         
-                            self?.scheduleNextBackgroundRefresh()
-                            let _ = self?.currentBackgroundTasks.removeValue(forKey: dictKey)
-                            t.setTaskCompleted()
+                            self?.complete(task: t)
                         },
                         onFailure: {
                             [weak self] (error: Error?) in
-                            
-                            /*
-                            if let e = error {
-                                os_log("Error getting steps in bg task: %@", e.localizedDescription)
-                            } else {
-                                os_log("Error getting steps in bg task with unknown error")
-                            }
-                            */
-                            
-                            self?.scheduleNextBackgroundRefresh()
-                            let _ = self?.currentBackgroundTasks.removeValue(forKey: dictKey)
-                            t.setTaskCompleted()
+    
+                            self?.complete(task: t)
                     })
                 }
+            }
+        }
+    }
+    
+    func complete(task: WKRefreshBackgroundTask)
+    {
+        let dictKey = String(describing: type(of: task))
+        currentBackgroundTasks.removeValue(forKey: dictKey)
+        
+        if #available(watchOSApplicationExtension 4.0, *)
+        {
+            task.setTaskCompletedWithSnapshot(true)
+        }
+        else
+        {
+            if task is WKSnapshotRefreshBackgroundTask
+            {
+                (task as! WKSnapshotRefreshBackgroundTask).setTaskCompleted(restoredDefaultState: true, estimatedSnapshotExpiration: Date.init(timeIntervalSinceNow: 60*30), userInfo: nil)
+            }
+            else
+            {
+                task.setTaskCompleted()
             }
         }
     }
@@ -126,55 +121,20 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
         let userInfo = ["reason" : "background update"] as NSDictionary
         let refreshDate = Date(timeIntervalSinceNow: 60*30)
         
-        if #available(watchOSApplicationExtension 3.0, *) {
-            WKExtension.shared().scheduleBackgroundRefresh(withPreferredDate: refreshDate, userInfo: userInfo, scheduledCompletion: {
-                (err: Error?) in
-                
-                /*
-                if err != nil {
-                    os_log("error requesting bg refresh")
-                } else {
-                    os_log("background refresh requested")
-                }
-                */
-                
-            })
-        } else {
-            // Fallback on earlier versions
-        }
+        WKExtension.shared().scheduleBackgroundRefresh(withPreferredDate: refreshDate, userInfo: userInfo, scheduledCompletion: {
+            (err: Error?) in
+        })
     }
     
     func scheduleSnapshotNow()
     {
-        if #available(watchOSApplicationExtension 3.0, *) {
-            WKExtension.shared().scheduleSnapshotRefresh(withPreferredDate: Date(), userInfo: nil, scheduledCompletion: {
-                (err: Error?) in
-                
-                /*
-                if err != nil {
-                    os_log("error requesting snapshot refresh")
-                } else {
-                    os_log("snapshot refresh requested")
-                }
-                */
-            })
-        }
+        WKExtension.shared().scheduleSnapshotRefresh(withPreferredDate: Date(), userInfo: nil, scheduledCompletion: {
+            (err: Error?) in
+        })
     }
     
     func dailyStepsGoalWasReached()
     {
         NotificationService.sendDailyStepsGoalNotification()
-        /*
-        if #available(watchOSApplicationExtension 3.0, *) {
-            UNUserNotificationCenter.current().getPendingNotificationRequests(completionHandler: {
-                (notifications: [UNNotificationRequest]) in
-                for n in notifications
-                {
-                    NSLog(n.identifier)
-                }
-            })
-        } else {
-            // Fallback on earlier versions
-        }*/
     }
 }

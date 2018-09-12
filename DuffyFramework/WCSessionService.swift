@@ -47,8 +47,8 @@ open class WCSessionService : NSObject, WCSessionDelegate
         
         if (WCSession.isSupported())
         {
-            WCSession.default().delegate = self
-            WCSession.default().activate()
+            WCSession.default.delegate = self
+            WCSession.default.activate()
         }
     }
     
@@ -79,11 +79,10 @@ open class WCSessionService : NSObject, WCSessionDelegate
         #if os(iOS)
             if (WCSession.isSupported())
             {
-                if (WCSession.default().activationState == .activated
-                    && WCSession.default().isComplicationEnabled)
+                if (WCSession.default.activationState == .activated
+                    && WCSession.default.isComplicationEnabled)
                 {
-                    //NSLog("transferring compilcation data...")
-                    WCSession.default().transferCurrentComplicationUserInfo(complicationData)
+                    WCSession.default.transferCurrentComplicationUserInfo(complicationData)
                 }
             }
         #endif
@@ -93,9 +92,9 @@ open class WCSessionService : NSObject, WCSessionDelegate
     {
         if WCSession.isSupported()
         {
-            if WCSession.default().activationState == .activated
+            if WCSession.default.activationState == .activated
             {
-                WCSession.default().sendMessage(["goalNotificationSent" : NotificationService.convertDayToKey(Date()) as AnyObject], replyHandler: nil, errorHandler: nil)
+                WCSession.default.sendMessage(["goalNotificationSent" : NotificationService.convertDayToKey(Date()) as AnyObject], replyHandler: nil, errorHandler: nil)
             }
         }
     }
@@ -104,9 +103,9 @@ open class WCSessionService : NSObject, WCSessionDelegate
     {
         if WCSession.isSupported()
         {
-            if WCSession.default().activationState == .activated
+            if WCSession.default.activationState == .activated
             {
-                WCSession.default().sendMessage(["stepsGoal" : goal], replyHandler: nil, errorHandler: {
+                WCSession.default.sendMessage(["stepsGoal" : goal], replyHandler: nil, errorHandler: {
                     (err: Error?) in
                     if let e = err
                     {
@@ -123,8 +122,6 @@ open class WCSessionService : NSObject, WCSessionDelegate
         {
             if (key == "stepsGoal")
             {
-                //NSLog("Goal was transferred via sendMessage")
-                
                 if let goalVal = value as? Int
                 {
                     HealthCache.saveStepsGoalToCache(goalVal)
@@ -132,8 +129,6 @@ open class WCSessionService : NSObject, WCSessionDelegate
             }
             else if (key == "goalNotificationSent")
             {
-                //NSLog("goalNotificationSent was transferred via sendMessage")
-                
                 if let dayKey = value as? String
                 {
                     NotificationService.markNotificationSentByOtherDevice(forKey: dayKey)
@@ -148,8 +143,6 @@ open class WCSessionService : NSObject, WCSessionDelegate
         {
             if (key == "stepsdataresponse")
             {
-                //NSLog("Received steps from phone")
-                
                 if let dict = value as? [String: AnyObject]
                 {
                     if (HealthCache.saveStepsDataToCache(dict))
@@ -159,12 +152,8 @@ open class WCSessionService : NSObject, WCSessionDelegate
                             del.complicationUpdateRequested(dict)
                         }
                         
-                        //NSLog("Updated complication from steps from phone")
-                        
                         if HealthCache.getStepsFromCache(Date()) >= HealthCache.getStepsDailyGoal()
                         {
-                            //NSLog("Sent notification from steps from phone")
-                            
                             NotificationService.sendDailyStepsGoalNotification()
                         }
                     }

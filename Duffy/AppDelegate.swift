@@ -21,9 +21,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate //, HealthEventDelegate
         application.setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalMinimum)
         let _ = WCSessionService.getInstance()
         HealthKitService.getInstance().initializeBackgroundQueries()
-        //HealthKitService.getInstance().setEventDelegate(self)
-        //CoreMotionService.getInstance().initializeBackgroundUpdates()
-        //NotificationService.maybeAskForNotificationPermission()
         return true
     }
 
@@ -40,11 +37,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate //, HealthEventDelegate
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
 
-        //NSLog("Entered foreground")
-        
         if let w = window
         {
-            if let root = w.rootViewController as? ViewController
+            if let root = w.rootViewController as? MainTableViewController
             {
                 root.refresh()
             }
@@ -56,25 +51,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate //, HealthEventDelegate
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     }
 
-    func applicationWillTerminate(_ application: UIApplication) {
-        // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-        //NSLog("Application will TERMINATE")
-        //CoreMotionService.getInstance().stopBackgroundUpdates()
-    }
-
-    func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void)
+    func applicationWillTerminate(_ application: UIApplication)
     {
-        //NSLog("Background fetch")
-        
-        HealthKitService.getInstance().cacheTodaysStepsAndUpdateComplication({
-            (success: Bool) in
-            completionHandler(success ? .newData : .noData)
-        })
+        // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-    
-    //func dailyStepsGoalWasReached()
-    //{
-    //    NotificationService.sendDailyStepsGoalNotification()
-    //}
 }
 

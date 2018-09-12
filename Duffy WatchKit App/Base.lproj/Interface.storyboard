@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="jDe-kN-uGL">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="14113" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="jDe-kN-uGL">
     <device id="watch38" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="watchOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="12029"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="14033"/>
     </dependencies>
     <scenes>
         <!--Duffy-->
@@ -87,6 +86,22 @@
             </objects>
             <point key="canvasLocation" x="345" y="1120"/>
         </scene>
+        <!--Static Notification Interface Controller-->
+        <scene sceneID="x9Y-1d-Uel">
+            <objects>
+                <notificationController id="wdy-bl-48B">
+                    <items>
+                        <label alignment="left" text="Alert Label" numberOfLines="0" id="H5t-4J-579"/>
+                    </items>
+                    <notificationCategory key="notificationCategory" identifier="goal-notification" id="skx-XT-mwm"/>
+                    <connections>
+                        <outlet property="notificationAlertLabel" destination="H5t-4J-579" id="PRk-wJ-hWc"/>
+                        <segue destination="2aJ-93-JYN" kind="relationship" relationship="dynamicNotificationInterface" id="wmd-pu-Lrl"/>
+                    </connections>
+                </notificationController>
+            </objects>
+            <point key="canvasLocation" x="313" y="1451"/>
+        </scene>
         <!--Past Week-->
         <scene sceneID="LZl-Pd-feh">
             <objects>
@@ -118,11 +133,37 @@
                         </table>
                     </items>
                     <connections>
-                        <outlet property="scoresTable" destination="Xkh-TU-BTJ" id="Dyz-7Z-4GO"/>
+                        <outlet property="stepsTable" destination="Xkh-TU-BTJ" id="qTy-pb-FWa"/>
                     </connections>
                 </controller>
             </objects>
             <point key="canvasLocation" x="565" y="840"/>
+        </scene>
+        <!--Goal Notification Interface Controller-->
+        <scene sceneID="Khe-dC-FsF">
+            <objects>
+                <controller id="2aJ-93-JYN" customClass="GoalNotificationInterfaceController" customModule="Duffy_WatchKit_Extension">
+                    <items>
+                        <group width="1" alignment="left" layout="vertical" id="bT5-bZ-eq4">
+                            <items>
+                                <label width="1" alignment="left" text="Goal!" textAlignment="center" id="H2z-2w-NkC"/>
+                                <label width="1" alignment="left" text="00,000" textAlignment="center" minimumScaleFactor="0.5" id="XyQ-Md-7bW">
+                                    <fontDescription key="font" type="system" weight="semibold" pointSize="34"/>
+                                </label>
+                                <label width="1" alignment="left" text="STEPS" textAlignment="center" id="yjy-MT-lTv">
+                                    <color key="textColor" red="0.41568627450980394" green="0.67450980392156867" blue="0.8901960784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </label>
+                                <label width="1" alignment="left" text="Label" textAlignment="center" numberOfLines="0" id="4L3-DK-j5d"/>
+                            </items>
+                        </group>
+                    </items>
+                    <connections>
+                        <outlet property="lblGoal" destination="XyQ-Md-7bW" id="Wdd-df-GHq"/>
+                        <outlet property="lblHeadline" destination="4L3-DK-j5d" id="fTv-hR-ODU"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="613" y="1451"/>
         </scene>
     </scenes>
     <color key="tintColor" red="0.33725490196078434" green="0.59999999999999998" blue="0.87450980392156863" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

@@ -47,6 +47,12 @@
       "idiom" : "iphone",
       "filename" : "duffy3-180-2.png",
       "scale" : "3x"
+    },
+    {
+      "size" : "1024x1024",
+      "idiom" : "ios-marketing",
+      "filename" : "duffy3-1024.png",
+      "scale" : "1x"
     }
   ],
   "info" : {

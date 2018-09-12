@@ -1,11 +1,12 @@
 {
-  "class" : "CLKComplicationTemplateCircularSmallStackText",
+  "class" : "CLKComplicationTemplateModularSmallStackText",
+  "highlightLine2" : false,
   "line2TextProvider" : {
     "tintColor" : {
-      "green" : 0.6705883,
-      "red" : 0.4039216,
+      "green" : 0.67058825492858887,
+      "red" : 0.40392157435417175,
       "alpha" : 1,
-      "blue" : 0.8980392
+      "blue" : 0.89803922176361084
     },
     "class" : "CLKSimpleTextProvider",
     "text" : "steps",

@@ -23,11 +23,6 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         handler(CLKComplicationTimeTravelDirections())
     }
     
-    func requestedUpdateDidBegin()
-    {
-        ComplicationController.refreshComplication()
-    }
-    
     // MARK: - Timeline Population
     
     func getCurrentTimelineEntry(for complication: CLKComplication, withHandler handler: (@escaping (CLKComplicationTimelineEntry?) -> Void))
@@ -52,18 +47,16 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         {
             entry = getEntryForUtilitarianLarge(NSNumber(value: steps as Int))
         }
-        else if (complication.family == .utilitarianSmall)
+        else if (complication.family == .utilitarianSmall || complication.family == .utilitarianSmallFlat)
         {
             entry = getEntryForUtilitarianSmall(NSNumber(value: steps as Int))
         }
+        else if (complication.family == .extraLarge)
+        {
+            entry = getEntryForExtraLarge(NSNumber(value: steps as Int))
+        }
         
         handler(entry)
-    }
-    
-    // MARK: - Update Scheduling
-    func getNextRequestedUpdateDate(handler: @escaping (Date?) -> Void)
-    {
-        handler(Date(timeIntervalSinceNow: 60*30))
     }
     
     // MARK: - Placeholder Templates
@@ -88,9 +81,13 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         {
             template = getTemplateForUtilitarianLarge(NSNumber(value: 0 as Int))
         }
-        else if (complication.family == .utilitarianSmall)
+        else if (complication.family == .utilitarianSmall || complication.family == .utilitarianSmallFlat)
         {
             template = getTemplateForUtilitarianSmall(NSNumber(value: 0 as Int))
+        }
+        else if (complication.family == .extraLarge)
+        {
+            template = getTemplateForExtraLarge(NSNumber(value: 0 as Int))
         }
         
         handler(template)
@@ -213,6 +210,31 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         return flat
     }
     
+    func getEntryForExtraLarge(_ totalSteps: NSNumber) -> CLKComplicationTimelineEntry
+    {
+        let xLarge = getTemplateForExtraLarge(totalSteps)
+        return CLKComplicationTimelineEntry(date: Date(), complicationTemplate: xLarge)
+    }
+    
+    func getTemplateForExtraLarge(_ totalSteps: NSNumber) -> CLKComplicationTemplateExtraLargeStackText
+    {
+        let xLarge = CLKComplicationTemplateExtraLargeStackText()
+
+        let header = CLKSimpleTextProvider()
+        header.text = NSLocalizedString("Steps", comment: "")
+        header.shortText = header.text
+        header.tintColor = UIColor(red: 103.0/255.0, green: 171.0/255.0, blue: 229.0/255.0, alpha: 1)
+        xLarge.line1TextProvider = header
+        
+        let body = CLKSimpleTextProvider()
+        body.text = String(format: "%@", formatStepsForLarge(totalSteps))
+        body.shortText = body.text
+        body.tintColor = UIColor.white
+        xLarge.line2TextProvider = body
+        
+        return xLarge
+    }
+    
     func formatStepsForLarge(_ totalSteps: NSNumber) -> String
     {
         let numberFormatter = NumberFormatter()
@@ -275,14 +297,17 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         {
             template = getTemplateForUtilitarianLarge(sampleDisplaySteps)
         }
-        else if (complication.family == .utilitarianSmall)
+        else if (complication.family == .utilitarianSmall || complication.family == .utilitarianSmallFlat)
         {
             template = getTemplateForUtilitarianSmall(sampleDisplaySteps)
+        }
+        else if (complication.family == .extraLarge)
+        {
+            template = getTemplateForExtraLarge(sampleDisplaySteps)
         }
         
         handler(template)
     }
-    
     
     class func refreshComplication()
     {

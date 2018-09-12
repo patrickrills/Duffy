@@ -56,7 +56,7 @@ class ViewController: UIViewController
         HealthKitService.getInstance().authorizeForSteps({
 
             DispatchQueue.main.async(execute: {
-                [weak self] (_) in
+                [weak self] in
                 self?.displayTodaysStepsFromHealth()
             })
 
@@ -76,7 +76,7 @@ class ViewController: UIViewController
                 (stepsCount: Int, forDate: Date) in
 
                 DispatchQueue.main.async(execute: {
-                    [weak self] (_) in
+                    [weak self] in
                     if let weakSelf = self
                     {
                         weakSelf.hideLoading()
@@ -95,7 +95,7 @@ class ViewController: UIViewController
                 */
 
                 DispatchQueue.main.async(execute: {
-                    [weak self] (_) in
+                    [weak self] in
                     if let weakSelf = self
                     {
                         weakSelf.hideLoading()
@@ -129,7 +129,7 @@ class ViewController: UIViewController
     
     @IBAction func pastWeekPressed()
     {
-        let weekVC = WeekViewController()
+        let weekVC = HistoryTableViewController()
         let modalNav = UINavigationController(rootViewController: weekVC)
         modalNav.navigationBar.tintColor = secondaryColor
         present(modalNav, animated: true, completion: nil)
@@ -139,27 +139,31 @@ class ViewController: UIViewController
     {
         refresh()
         
-        let cacheData = HealthCache.getStepsDataFromCache()
-        var date = "Unknown"
-        var steps = -1
-        if let savedDay = cacheData["stepsCacheDay"] as? String
-        {
-            date = savedDay
-        }
-        if let savedVal = cacheData["stepsCacheValue"] as? Int
-        {
-            steps = savedVal
-        }
+//        let cacheData = HealthCache.getStepsDataFromCache()
+//        var date = "Unknown"
+//        var steps = -1
+//        if let savedDay = cacheData["stepsCacheDay"] as? String
+//        {
+//            date = savedDay
+//        }
+//        if let savedVal = cacheData["stepsCacheValue"] as? Int
+//        {
+//            steps = savedVal
+//        }
+//
+//        let wasSentToday = NotificationService.dailyStepsGoalNotificationWasAlreadySent()
+//        let wasSentString = wasSentToday ? "today" : "n/a"
+//
+//        let message = String(format: "Saved in cache:\n Steps: %d\n For day: %@\n Last note sent: %@", steps, date, wasSentString)
+//        let title = "Info"
+//        let alertContoller = UIAlertController(title: title, message: message, preferredStyle: .alert);
+//        alertContoller.view.tintColor = ViewController.primaryColor
+//        alertContoller.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
+//        present(alertContoller, animated: true, completion: nil)
         
-        let wasSentToday = NotificationService.dailyStepsGoalNotificationWasAlreadySent()
-        let wasSentString = wasSentToday ? "today" : "n/a"
+        let main2 = MainTableViewController()
+        present(main2, animated: true, completion: nil)
         
-        let message = String(format: "Saved in cache:\n Steps: %d\n For day: %@\n Last note sent: %@", steps, date, wasSentString)
-        let title = "Info"
-        let alertContoller = UIAlertController(title: title, message: message, preferredStyle: .alert);
-        alertContoller.view.tintColor = ViewController.primaryColor
-        alertContoller.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
-        present(alertContoller, animated: true, completion: nil)
     }
     
     @IBAction func versionPressed()

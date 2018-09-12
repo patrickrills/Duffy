@@ -1,10 +1,12 @@
 {
   "supported complication families" : {
-    "3" : "8E8EFDAE-454D-4800-BEE9-4B3B9F919F03.json",
-    "1" : "A077B0D2-CCAE-44CB-ACC7-EBF75197555E.json",
-    "4" : "76CE64D5-8007-4C9A-B68C-8D2EACD103CA.json",
-    "2" : "7052C46B-E38E-4C41-9885-F2B930D52A8A.json",
-    "0" : "59381B4A-3DF5-47FC-91C5-CA14C80A5147.json"
+    "7" : "455F6C03-9037-469F-8375-E6B26C743F26.json",
+    "3" : "5A35387B-71BC-49C5-84FF-675081ABF00C.json",
+    "4" : "CE7E16FD-7D6F-4712-A0DD-CC654B17B95A.json",
+    "0" : "3B50D21C-2270-48B6-94EB-ECCFD42A196D.json",
+    "1" : "4C6B50D7-5964-4294-BD4D-496778D79701.json",
+    "6" : "9F50678D-AB25-459F-A95C-4F4D34153684.json",
+    "2" : "37189D41-F59A-4FE8-8A7A-8C6B7BA1CA7A.json"
   },
   "client ID" : "com.bigbluefly.Duffy.watchkitapp.watchkitextension"
 }

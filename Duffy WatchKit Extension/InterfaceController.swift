@@ -20,32 +20,32 @@ class InterfaceController: WKInterfaceController
     {
         super.awake(withContext: context)
         
-        // Configure interface objects here.
-        
-    }
-
-    override func willActivate()
-    {
-        // This method is called when watch view controller is about to be visible to user
-        super.willActivate()
         infoButton?.setHidden(!Constants.isDebugMode)
+    }
+    
+    override func didAppear()
+    {
+        super.didAppear()
+        
         askForHealthKitPermission()
     }
     
     fileprivate func askForHealthKitPermission()
     {
-        updateGoalDisplay(stepsForDay: 0)
+        //reset display if day turned over
+        if (HealthCache.cacheIsForADifferentDay(Date()))
+        {
+            display(steps: 0)
+        }
+        
         HealthKitService.getInstance().authorizeForSteps({
             
             DispatchQueue.main.async(execute: {
-                [weak self] (_) in
+                [weak self] in
                     self?.refresh()
                 })
             
-            
-            }, onFailure: {
-                //NSLog("Did not authorize")
-        })
+            }, onFailure: { })
     }
     
     fileprivate func refresh()
@@ -66,34 +66,41 @@ class InterfaceController: WKInterfaceController
                 (stepsCount: Int, forDate: Date) in
                 
                 DispatchQueue.main.async(execute: {
-                    [weak self] (_) in
-                    if let weakSelf = self
-                    {
-                        weakSelf.hideLoading()
-                        
-                        weakSelf.stepsValueLabel?.setText(InterfaceController.getNumberFormatter().string(from: NSNumber(value: stepsCount)))
-                        weakSelf.updateGoalDisplay(stepsForDay: stepsCount)
-                    }
+                    [weak self] in
+                    self?.display(steps: stepsCount)
                 })
             },
-            onFailure:  {
+            onFailure: {
                 (error: Error?) in
-                /*
-                if let e = error
-                {
-                    NSLog(String(format:"ERROR: %@", e.localizedDescription))
-                }
-                */
                 
                 DispatchQueue.main.async(execute: {
-                    [weak self] (_) in
-                    if let weakSelf = self
-                    {
-                        weakSelf.hideLoading()
-                        weakSelf.stepsValueLabel?.setText("ERR")
-                    }
+                    [weak self] in
+                    self?.displayTodaysStepsFromCache()
                 })
             })
+    }
+    
+    func displayTodaysStepsFromCache()
+    {
+        DispatchQueue.main.async(execute: {
+            [weak self] in
+            
+            if let weakSelf = self
+            {
+                var steps = 0
+                
+                if (!HealthCache.cacheIsForADifferentDay(Date()))
+                {
+                    let cacheData = HealthCache.getStepsDataFromCache()
+                    if let savedVal = cacheData["stepsCacheValue"] as? Int
+                    {
+                        steps = savedVal
+                    }
+                }
+                
+                weakSelf.display(steps: steps)
+            }
+        })
     }
     
     func showLoading()
@@ -106,27 +113,28 @@ class InterfaceController: WKInterfaceController
         setTitle("Duffy")
     }
     
+    private func display(steps: Int)
+    {
+        hideLoading()
+        stepsValueLabel?.setText(InterfaceController.getNumberFormatter().string(from: NSNumber(value: steps)))
+        updateGoalDisplay(stepsForDay: steps)
+    }
+    
     private func updateGoalDisplay(stepsForDay: Int)
     {
         if let lbl = stepsGoalLabel
         {
             let goalValue = HealthCache.getStepsDailyGoal()
-            if goalValue > 0, let formattedValue = InterfaceController.getNumberFormatter().string(from: NSNumber(value: goalValue)) {
+            if goalValue > 0, let formattedValue = InterfaceController.getNumberFormatter().string(from: NSNumber(value: goalValue))
+            {
                 lbl.setHidden(false)
                 lbl.setText(String(format: "of %@ %@", formattedValue, HealthKitService.getInstance().getAdornment(for: stepsForDay)))
-            } else {
+            }
+            else
+            {
                 lbl.setHidden(true)
             }
         }
-    }
-    
-    open class func getNumberFormatter() -> NumberFormatter
-    {
-        let numberFormatter = NumberFormatter()
-        numberFormatter.numberStyle = NumberFormatter.Style.decimal
-        numberFormatter.locale = Locale.current
-        numberFormatter.maximumFractionDigits = 0
-        return numberFormatter
     }
     
     @IBAction func refreshPressed()
@@ -161,5 +169,14 @@ class InterfaceController: WKInterfaceController
     @IBAction func changeGoalMenuItemPressed()
     {
         presentController(withName: "editGoalInterfaceController", context: nil)
+    }
+    
+    open class func getNumberFormatter() -> NumberFormatter
+    {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = NumberFormatter.Style.decimal
+        numberFormatter.locale = Locale.current
+        numberFormatter.maximumFractionDigits = 0
+        return numberFormatter
     }
 }

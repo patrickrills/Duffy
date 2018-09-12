@@ -13,53 +13,39 @@ open class NotificationService
 {
     open class func sendDailyStepsGoalNotification()
     {
-        guard #available(iOS 10.0, watchOSApplicationExtension 3.0, *) else {
-            return
-        }
-        
         #if os(iOS)
             return
+        #else
+            if (dailyStepsGoalNotificationWasAlreadySent()) {
+                return
+            }
+        
+            let numberFormatter = NumberFormatter()
+            numberFormatter.numberStyle = NumberFormatter.Style.decimal
+            numberFormatter.locale = Locale.current
+            numberFormatter.maximumFractionDigits = 1
+        
+            let content = UNMutableNotificationContent()
+            content.title = "Way to go!"
+            content.body = String(format: "You've reached your goal of %@ steps.", numberFormatter.string(from: NSNumber(value: HealthCache.getStepsDailyGoal()))!)
+            content.sound = UNNotificationSound.default()
+            content.setValue("YES", forKeyPath: "shouldAlwaysAlertWhileAppIsForeground")
+            content.categoryIdentifier = "goal-notification"
+        
+            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(Constants.notificationDelayInSeconds), repeats: false)
+        
+            let request = UNNotificationRequest(identifier: String(format: "DailyStepsGoal-%@", convertDayToKey(Date())), content: content, trigger: trigger)
+            UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+        
+            setDailyStepsGoalNotificationSent()
         #endif
-        
-        if (dailyStepsGoalNotificationWasAlreadySent()) {
-            return
-        }
-        
-        let numberFormatter = NumberFormatter()
-        numberFormatter.numberStyle = NumberFormatter.Style.decimal
-        numberFormatter.locale = Locale.current
-        numberFormatter.maximumFractionDigits = 1
-        
-        let content = UNMutableNotificationContent()
-        content.title = "Way to go!"
-        content.body = String(format: "You've reached your goal of %@ steps.", numberFormatter.string(from: NSNumber(value: HealthCache.getStepsDailyGoal()))!)
-        content.sound = UNNotificationSound.default()
-        content.setValue("YES", forKeyPath: "shouldAlwaysAlertWhileAppIsForeground") 
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(Constants.notificationDelayInSeconds), repeats: false)
-        
-        // Create the request object.
-        let request = UNNotificationRequest(identifier: String(format: "DailyStepsGoal-%@", convertDayToKey(Date())), content: content, trigger: trigger)
-        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
-        
-        setDailyStepsGoalNotificationSent()
-        
-        //NSLog("Notification queued")
     }
     
     open class func maybeAskForNotificationPermission()
     {
-        guard #available(iOS 10.0, watchOSApplicationExtension 3.0, *) else {
-            return
-        }
-        
+
         let center = UNUserNotificationCenter.current()
-        center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in
-            if granted {
-                //NSLog("Notification permission granted")
-            } else {
-                //NSLog("Notification permission DENIED")
-            }
-        }
+        center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in }
     }
     
     open class func dailyStepsGoalNotificationWasAlreadySent() -> Bool

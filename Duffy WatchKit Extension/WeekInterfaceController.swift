@@ -13,23 +13,13 @@ import DuffyWatchFramework
 
 class WeekInterfaceController: WKInterfaceController
 {
-    @IBOutlet weak var scoresTable: WKInterfaceTable?
+    @IBOutlet weak var stepsTable: WKInterfaceTable?
     
-    override func awake(withContext context: Any?) {
-        super.awake(withContext: context)
+    override func didAppear()
+    {
+        super.didAppear()
         
-        // Configure interface objects here.
-    }
-
-    override func willActivate() {
-        // This method is called when watch view controller is about to be visible to user
-        super.willActivate()
         bindTableToWeek()
-    }
-
-    override func didDeactivate() {
-        // This method is called when watch view controller is no longer visible
-        super.didDeactivate()
     }
     
     func showLoading()
@@ -39,20 +29,20 @@ class WeekInterfaceController: WKInterfaceController
     
     func hideLoading()
     {
-        setTitle("Past Week")
+        setTitle("History")
     }
 
     func bindTableToWeek()
     {
         showLoading()
         
-        let startDate = (Calendar.current as NSCalendar).date(byAdding: .day, value: -7, to: Date(), options: NSCalendar.Options(rawValue: 0))
+        let startDate = (Calendar.current as NSCalendar).date(byAdding: .day, value: -14, to: Date(), options: NSCalendar.Options(rawValue: 0))
         
         HealthKitService.getInstance().getSteps(startDate!, toEndDate: Date(), onRetrieve: {
             (stepsCollection: [Date : Int]) in
             
-            DispatchQueue.main.async(execute: {
-                [weak self] (_) in
+            DispatchQueue.main.async {
+                [weak self] in
                 if let weakSelf = self
                 {
                     let sortedKeys = stepsCollection.keys.sorted(by: {
@@ -68,7 +58,7 @@ class WeekInterfaceController: WKInterfaceController
                         rowTypes.append("WeekRowController")
                     }
                     
-                    weakSelf.scoresTable?.setRowTypes(rowTypes)
+                    weakSelf.stepsTable?.setRowTypes(rowTypes)
                     
                     var idx = 0
                     
@@ -81,7 +71,7 @@ class WeekInterfaceController: WKInterfaceController
                     
                     for key in sortedKeys
                     {
-                        let stepRow = weakSelf.scoresTable?.rowController(at: idx) as! WeekRowController
+                        let stepRow = weakSelf.stepsTable?.rowController(at: idx) as! WeekRowController
                         stepRow.dateLabel?.setText(dateFormatter.string(from: key).uppercased())
                         stepRow.stepsLabel?.setText("0")
                         
@@ -96,7 +86,7 @@ class WeekInterfaceController: WKInterfaceController
                     
                     weakSelf.hideLoading()
                 }
-            })
+                }
             },
             onFailure: {
                 [weak self] (err: Error?) in
