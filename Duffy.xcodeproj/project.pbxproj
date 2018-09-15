@@ -49,6 +49,7 @@
 		097085642127122B00790EC7 /* DistanceFlightsDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 097085622127122B00790EC7 /* DistanceFlightsDetailViewController.xib */; };
 		09708599214D7A8000790EC7 /* HourGraphDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09708597214D7A8000790EC7 /* HourGraphDetailViewController.swift */; };
 		0970859A214D7A8000790EC7 /* HourGraphDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09708598214D7A8000790EC7 /* HourGraphDetailViewController.xib */; };
+		0970859C214DAB8900790EC7 /* HourGraphBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0970859B214DAB8900790EC7 /* HourGraphBarView.swift */; };
 		09824A8C1EA66C74002A4A84 /* EditGoalInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09824A8B1EA66C74002A4A84 /* EditGoalInterfaceController.swift */; };
 		099C13111DA336C80007C72F /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 099C13101DA336C80007C72F /* HealthKit.framework */; };
 		099C13131DA336D50007C72F /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 099C13121DA336D50007C72F /* HealthKit.framework */; };
@@ -211,6 +212,7 @@
 		097085622127122B00790EC7 /* DistanceFlightsDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DistanceFlightsDetailViewController.xib; sourceTree = "<group>"; };
 		09708597214D7A8000790EC7 /* HourGraphDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourGraphDetailViewController.swift; sourceTree = "<group>"; };
 		09708598214D7A8000790EC7 /* HourGraphDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HourGraphDetailViewController.xib; sourceTree = "<group>"; };
+		0970859B214DAB8900790EC7 /* HourGraphBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourGraphBarView.swift; sourceTree = "<group>"; };
 		09824A8B1EA66C74002A4A84 /* EditGoalInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditGoalInterfaceController.swift; sourceTree = "<group>"; };
 		099C13101DA336C80007C72F /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		099C13121DA336D50007C72F /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS3.0.sdk/System/Library/Frameworks/HealthKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -325,6 +327,7 @@
 				097085622127122B00790EC7 /* DistanceFlightsDetailViewController.xib */,
 				09708597214D7A8000790EC7 /* HourGraphDetailViewController.swift */,
 				09708598214D7A8000790EC7 /* HourGraphDetailViewController.xib */,
+				0970859B214DAB8900790EC7 /* HourGraphBarView.swift */,
 				09323C741D22C39700961822 /* Main.storyboard */,
 				09323C771D22C39700961822 /* Assets.xcassets */,
 				09323C791D22C39700961822 /* LaunchScreen.storyboard */,
@@ -690,6 +693,7 @@
 				097085632127122B00790EC7 /* DistanceFlightsDetailViewController.swift in Sources */,
 				09708599214D7A8000790EC7 /* HourGraphDetailViewController.swift in Sources */,
 				0900867320FA7673006540E7 /* PreviousSectionHeaderView.swift in Sources */,
+				0970859C214DAB8900790EC7 /* HourGraphBarView.swift in Sources */,
 				09CEA97F211F86DC0023786B /* HistoryTableViewFooter.swift in Sources */,
 				09323C731D22C39700961822 /* ViewController.swift in Sources */,
 				09323C711D22C39700961822 /* AppDelegate.swift in Sources */,

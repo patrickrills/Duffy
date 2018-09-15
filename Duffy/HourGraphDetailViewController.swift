@@ -17,7 +17,10 @@ class HourGraphDetailViewController: DetailDataViewPageViewController
     {
         super.viewDidLoad()
 
-        print("bar count: \(barsStackView!.arrangedSubviews.count)")
+        for bar in barsStackView!.arrangedSubviews
+        {
+            (bar as! HourGraphBarView).percent = 0.5
+        }
     }
     
     override func viewDidLayoutSubviews()
