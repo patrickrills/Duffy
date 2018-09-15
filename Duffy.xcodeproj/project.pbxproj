@@ -47,6 +47,8 @@
 		096A4EE61E58D39900CE3D5B /* DuffyFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09323D031D2303BC00961822 /* DuffyFramework.framework */; };
 		097085632127122B00790EC7 /* DistanceFlightsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097085612127122B00790EC7 /* DistanceFlightsDetailViewController.swift */; };
 		097085642127122B00790EC7 /* DistanceFlightsDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 097085622127122B00790EC7 /* DistanceFlightsDetailViewController.xib */; };
+		09708599214D7A8000790EC7 /* HourGraphDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09708597214D7A8000790EC7 /* HourGraphDetailViewController.swift */; };
+		0970859A214D7A8000790EC7 /* HourGraphDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09708598214D7A8000790EC7 /* HourGraphDetailViewController.xib */; };
 		09824A8C1EA66C74002A4A84 /* EditGoalInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09824A8B1EA66C74002A4A84 /* EditGoalInterfaceController.swift */; };
 		099C13111DA336C80007C72F /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 099C13101DA336C80007C72F /* HealthKit.framework */; };
 		099C13131DA336D50007C72F /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 099C13121DA336D50007C72F /* HealthKit.framework */; };
@@ -207,6 +209,8 @@
 		0967EB781E7F0ACE0073BF3F /* NotificationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		097085612127122B00790EC7 /* DistanceFlightsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceFlightsDetailViewController.swift; sourceTree = "<group>"; };
 		097085622127122B00790EC7 /* DistanceFlightsDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DistanceFlightsDetailViewController.xib; sourceTree = "<group>"; };
+		09708597214D7A8000790EC7 /* HourGraphDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourGraphDetailViewController.swift; sourceTree = "<group>"; };
+		09708598214D7A8000790EC7 /* HourGraphDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HourGraphDetailViewController.xib; sourceTree = "<group>"; };
 		09824A8B1EA66C74002A4A84 /* EditGoalInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditGoalInterfaceController.swift; sourceTree = "<group>"; };
 		099C13101DA336C80007C72F /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		099C13121DA336D50007C72F /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS3.0.sdk/System/Library/Frameworks/HealthKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -319,6 +323,8 @@
 				09CEA982212259200023786B /* DetailDataView.xib */,
 				097085612127122B00790EC7 /* DistanceFlightsDetailViewController.swift */,
 				097085622127122B00790EC7 /* DistanceFlightsDetailViewController.xib */,
+				09708597214D7A8000790EC7 /* HourGraphDetailViewController.swift */,
+				09708598214D7A8000790EC7 /* HourGraphDetailViewController.xib */,
 				09323C741D22C39700961822 /* Main.storyboard */,
 				09323C771D22C39700961822 /* Assets.xcassets */,
 				09323C791D22C39700961822 /* LaunchScreen.storyboard */,
@@ -629,6 +635,7 @@
 				09CEA983212259200023786B /* DetailDataView.xib in Resources */,
 				097085642127122B00790EC7 /* DistanceFlightsDetailViewController.xib in Resources */,
 				09323C761D22C39700961822 /* Main.storyboard in Resources */,
+				0970859A214D7A8000790EC7 /* HourGraphDetailViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -681,6 +688,7 @@
 				0900866F20F27D0C006540E7 /* PreviousValueTableViewCell.swift in Sources */,
 				09CE42C11E353E7100A6E587 /* HistoryTableViewController.swift in Sources */,
 				097085632127122B00790EC7 /* DistanceFlightsDetailViewController.swift in Sources */,
+				09708599214D7A8000790EC7 /* HourGraphDetailViewController.swift in Sources */,
 				0900867320FA7673006540E7 /* PreviousSectionHeaderView.swift in Sources */,
 				09CEA97F211F86DC0023786B /* HistoryTableViewFooter.swift in Sources */,
 				09323C731D22C39700961822 /* ViewController.swift in Sources */,

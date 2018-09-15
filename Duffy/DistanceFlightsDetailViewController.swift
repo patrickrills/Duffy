@@ -9,7 +9,7 @@
 import UIKit
 import DuffyFramework
 
-class DistanceFlightsDetailViewController: UIViewController
+class DistanceFlightsDetailViewController: DetailDataViewPageViewController
 {
     @IBOutlet weak var distanceValueLabel : UILabel?
     @IBOutlet weak var flightsValueLabel : UILabel?
@@ -41,7 +41,7 @@ class DistanceFlightsDetailViewController: UIViewController
         updateDistance()
     }
     
-    func refresh()
+    override func refresh()
     {
         HealthKitService.getInstance().getFlightsClimbed(Date(), onRetrieve: {
             [weak self] flights, forDate in
