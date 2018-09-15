@@ -7,19 +7,78 @@
 //
 
 import UIKit
+import DuffyFramework
 
 class HourGraphDetailViewController: DetailDataViewPageViewController
 {
     @IBOutlet weak var barsStackView : UIStackView?
     @IBOutlet weak var bottomConstraint : NSLayoutConstraint?
+    @IBOutlet weak var maxLabel : UILabel?
     
-    override func viewDidLoad()
+    override func refresh()
     {
-        super.viewDidLoad()
-
-        for bar in barsStackView!.arrangedSubviews
+        HealthKitService.getInstance().getStepsByHour(forDate: Date(),
+            onRetrieve: {
+                [weak self] stepsByHour, queryDate in
+                
+                DispatchQueue.main.async {
+                    self?.process(stepsByHour: stepsByHour)
+                }
+            },
+            onFailure: nil
+        )
+    }
+    
+    private func process(stepsByHour : [UInt : Int])
+    {
+        if let bars = barsStackView
         {
-            (bar as! HourGraphBarView).percent = 0.5
+            var runningStepTotal : Int = 0
+            var max : Int = 0
+            
+            if let maxStepsInAnHour = stepsByHour.values.max()
+            {
+                max = maxStepsInAnHour
+            }
+            
+            if (max > 0)
+            {
+                maxLabel?.text = Globals.stepsFormatter().string(from: NSNumber(value: max))
+                maxLabel?.isHidden = false
+            }
+            else
+            {
+                maxLabel?.isHidden = true
+            }
+            
+            for i in 0..<bars.arrangedSubviews.count
+            {
+                if let bar = bars.arrangedSubviews[i] as? HourGraphBarView
+                {
+                    var percent : CGFloat = 0.0
+                    
+                    if let steps = stepsByHour[UInt(i)]
+                    {
+                        runningStepTotal += steps
+                        
+                        if max > 0
+                        {
+                            percent = CGFloat(CGFloat(steps) / CGFloat(max))
+                        }
+                    }
+                    
+                    bar.percent = percent
+                    
+                    if (runningStepTotal >= HealthCache.getStepsDailyGoal())
+                    {
+                        bar.color = Globals.successColor()
+                    }
+                    else
+                    {
+                        bar.color = Globals.primaryColor()
+                    }
+                }
+            }
         }
     }
     
