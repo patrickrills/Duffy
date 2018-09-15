@@ -10,12 +10,20 @@ import UIKit
 
 class HourGraphDetailViewController: DetailDataViewPageViewController
 {
-
+    @IBOutlet weak var barsStackView : UIStackView?
+    @IBOutlet weak var bottomConstraint : NSLayoutConstraint?
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        print("bar count: \(barsStackView!.arrangedSubviews.count)")
     }
-
+    
+    override func viewDidLayoutSubviews()
+    {
+        super.viewDidLayoutSubviews()
+        
+        bottomConstraint?.constant = margin.bottom
+    }
 }

@@ -11,6 +11,13 @@ import UIKit
 class DetailDataViewPageViewController : UIViewController
 {
     func refresh() {}
+    
+    var margin = UIEdgeInsets.zero
+    
+    func setMargin(_ margin: UIEdgeInsets)
+    {
+        self.margin = margin
+    }
 }
 
 class DetailDataView: UIView, UIScrollViewDelegate
@@ -75,6 +82,13 @@ class DetailDataView: UIView, UIScrollViewDelegate
             for i in 0..<detailViewCount
             {
                 detailViewControllers[i].view.frame = CGRect(x: (CGFloat(i) * scroll.frame.size.width), y: 0, width: scroll.frame.size.width, height: scroll.frame.size.height)
+
+                var bottomMargin : CGFloat = 0.0
+                if let pager = pageControl, !pager.isHidden
+                {
+                    bottomMargin = scroll.frame.size.height - pager.frame.origin.y
+                }
+                detailViewControllers[i].setMargin(UIEdgeInsetsMake(0, 0, bottomMargin, 0))
             }
             scroll.contentSize = CGSize(width: CGFloat(detailViewCount) * scroll.frame.size.width, height: scroll.frame.size.height)
         }
