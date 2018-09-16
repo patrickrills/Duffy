@@ -17,8 +17,8 @@ class AppRater: NSObject
     {
         if (!haveAsked())
         {
-            SKStoreReviewController.requestReview()
             UserDefaults.standard.set(1, forKey: hasAskedKey)
+            SKStoreReviewController.requestReview()
         }
     }
     

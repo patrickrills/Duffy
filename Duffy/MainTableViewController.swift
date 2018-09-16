@@ -40,6 +40,19 @@ class MainTableViewController: UITableViewController
         refresh()
     }
     
+    override func viewDidAppear(_ animated: Bool)
+    {
+        super.viewDidAppear(animated)
+        if HealthCache.getGoalReachedCount() >= 5
+        {
+            let twoSecondsFromNow = DispatchTime.now() + 2.0
+            DispatchQueue.main.asyncAfter(deadline: twoSecondsFromNow)
+            {
+                AppRater.askToRate()
+            }
+        }
+    }
+    
     func heightForHeader() -> CGFloat
     {
         var safeArea : CGFloat = 0.0
