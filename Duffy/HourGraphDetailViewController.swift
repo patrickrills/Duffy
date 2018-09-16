@@ -13,7 +13,15 @@ class HourGraphDetailViewController: DetailDataViewPageViewController
 {
     @IBOutlet weak var barsStackView : UIStackView?
     @IBOutlet weak var bottomConstraint : NSLayoutConstraint?
-    @IBOutlet weak var maxLabel : UILabel?
+    @IBOutlet weak var maxIndicator : HourGraphMaxIndicatorView?
+    @IBOutlet weak var noStepsLabel : UILabel?
+    
+    override func viewDidLoad()
+    {
+        super.viewDidLoad()
+        
+        noStepsLabel?.textColor = Globals.lightGrayColor()
+    }
     
     override func refresh()
     {
@@ -36,19 +44,21 @@ class HourGraphDetailViewController: DetailDataViewPageViewController
             var runningStepTotal : Int = 0
             var max : Int = 0
             
-            if let maxStepsInAnHour = stepsByHour.values.max()
+            if stepsByHour.count > 0, let maxStepsInAnHour = stepsByHour.values.max()
             {
                 max = maxStepsInAnHour
             }
             
             if (max > 0)
             {
-                maxLabel?.text = Globals.stepsFormatter().string(from: NSNumber(value: max))
-                maxLabel?.isHidden = false
+                maxIndicator?.max = UInt(max)
+                maxIndicator?.isHidden = false
+                noStepsLabel?.isHidden = true
             }
             else
             {
-                maxLabel?.isHidden = true
+                maxIndicator?.isHidden = true
+                noStepsLabel?.isHidden = false
             }
             
             for i in 0..<bars.arrangedSubviews.count
