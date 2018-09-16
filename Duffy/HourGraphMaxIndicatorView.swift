@@ -35,7 +35,7 @@ class HourGraphMaxIndicatorView: UIView
     {
         let lbl = UILabel(frame: CGRect.zero)
         lbl.font = UIFont.systemFont(ofSize: 14.0, weight: .light)
-        lbl.textColor = Globals.lightGrayColor()
+        lbl.textColor = Globals.veryLightGrayColor()
         addSubview(lbl)
         maxLabel = lbl
     }
@@ -73,7 +73,7 @@ class HourGraphMaxIndicatorView: UIView
             dotted.addLine(to: CGPoint(x: rect.size.width, y: lineY))
             dotted.lineWidth = 1.0
             dotted.setLineDash([2.0, 2.0], count: 2, phase: 0.0)
-            Globals.lightGrayColor().setStroke()
+            lbl.textColor.setStroke()
             dotted.stroke()
         }
     }

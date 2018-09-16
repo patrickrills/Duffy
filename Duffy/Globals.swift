@@ -16,6 +16,7 @@ class Globals: NSObject
     private static let primary = UIColor(red: 0.0, green: 61.0/255.0, blue: 165.0/255.0, alpha: 1.0)
     private static let secondary = UIColor(red: 76.0/255.0, green: 142.0/255.0, blue: 218.0/255.0, alpha: 1.0)
     private static let lightText = UIColor.black.withAlphaComponent(0.2)
+    private static let veryLightText = UIColor.black.withAlphaComponent(0.15)
     private static let success = UIColor(red: 0.25, green: 0.72, blue:0.48, alpha: 1.0)
     
     open class func stepsFormatter() -> NumberFormatter
@@ -60,6 +61,11 @@ class Globals: NSObject
     open class func lightGrayColor() -> UIColor
     {
         return lightText
+    }
+    
+    open class func veryLightGrayColor() -> UIColor
+    {
+        return veryLightText
     }
     
     open class func successColor() -> UIColor
