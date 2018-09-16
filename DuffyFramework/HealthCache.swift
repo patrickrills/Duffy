@@ -173,4 +173,30 @@ open class HealthCache
             WCSessionService.getInstance().sendStepsGoal(goal: stepGoal)
         #endif
     }
+    
+    open class func incrementGoalReachedCounter()
+    {
+        var dates = getGoalReachedDates()
+        let today = convertDayToKey(Date())
+        if dates.count < 10 && !dates.contains(today)
+        {
+            dates.append(today)
+            UserDefaults.standard.set(dates, forKey: "goalReachedDates")
+        }
+    }
+    
+    open class func getGoalReachedCount() -> Int
+    {
+        return getGoalReachedDates().count
+    }
+    
+    fileprivate class func getGoalReachedDates() -> [String]
+    {
+        if let dates = UserDefaults.standard.object(forKey: "goalReachedDates") as? [String]
+        {
+            return dates;
+        }
+        
+        return [String]()
+    }
 }

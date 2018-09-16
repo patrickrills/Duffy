@@ -75,6 +75,8 @@ open class HealthKitService
                     if steps >= HealthCache.getStepsDailyGoal(),
                         NotificationService.convertDayToKey(sampleDate) == NotificationService.convertDayToKey(Date())
                     {
+                        HealthCache.incrementGoalReachedCounter()
+                        
                         if let del = self?.eventDelegate
                         {
                             del.dailyStepsGoalWasReached()
