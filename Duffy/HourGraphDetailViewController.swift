@@ -12,9 +12,11 @@ import DuffyFramework
 class HourGraphDetailViewController: DetailDataViewPageViewController
 {
     @IBOutlet weak var barsStackView : UIStackView?
-    @IBOutlet weak var bottomConstraint : NSLayoutConstraint?
     @IBOutlet weak var maxIndicator : HourGraphMaxIndicatorView?
     @IBOutlet weak var noStepsLabel : UILabel?
+    @IBOutlet weak var sixAMBottomConstraint : NSLayoutConstraint?
+    @IBOutlet weak var noonBottomConstraint : NSLayoutConstraint?
+    @IBOutlet weak var sixPMBottomConstraint : NSLayoutConstraint?
     
     override func viewDidLoad()
     {
@@ -96,6 +98,8 @@ class HourGraphDetailViewController: DetailDataViewPageViewController
     {
         super.viewDidLayoutSubviews()
         
-        bottomConstraint?.constant = margin.bottom
+        sixAMBottomConstraint?.constant = margin.bottom
+        noonBottomConstraint?.constant = margin.bottom
+        sixPMBottomConstraint?.constant = margin.bottom
     }
 }
