@@ -44,6 +44,7 @@ class HourGraphDetailViewController: DetailDataViewPageViewController
         if let bars = barsStackView
         {
             var runningStepTotal : Int = 0
+            var reachedGoal = false
             var max : Int = 0
             
             if stepsByHour.count > 0, let maxStepsInAnHour = stepsByHour.values.max()
@@ -81,9 +82,10 @@ class HourGraphDetailViewController: DetailDataViewPageViewController
                     
                     bar.percent = percent
                     
-                    if (runningStepTotal >= HealthCache.getStepsDailyGoal())
+                    if (runningStepTotal >= HealthCache.getStepsDailyGoal() && !reachedGoal)
                     {
                         bar.color = Globals.successColor()
+                        reachedGoal = true
                     }
                     else
                     {
