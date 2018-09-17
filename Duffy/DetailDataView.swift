@@ -66,10 +66,7 @@ class DetailDataView: UIView, UIScrollViewDelegate
     
     func refresh()
     {
-        for vc in detailViewControllers
-        {
-            vc.refresh()
-        }
+        detailViewControllers.forEach() { $0.refresh() }
     }
     
     override func layoutSubviews()
