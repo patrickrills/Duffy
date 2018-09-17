@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HourGraphDetailViewController" customModule="Duffy" customModuleProvider="target">
+            <connections>
+                <outlet property="barsStackView" destination="dUi-YL-Twy" id="SP3-PW-nEy"/>
+                <outlet property="maxIndicator" destination="zuH-gr-Wgc" id="awz-fs-Fr6"/>
+                <outlet property="noStepsLabel" destination="vZ8-9o-bjj" id="s7b-yo-Rxv"/>
+                <outlet property="noonBottomConstraint" destination="Q0p-ni-ZKm" id="0hB-Cr-eGF"/>
+                <outlet property="sixAMBottomConstraint" destination="H7h-Vs-nOR" id="qIE-mb-7NT"/>
+                <outlet property="sixPMBottomConstraint" destination="9Vs-eF-udC" id="5wJ-B4-XEV"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="204"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zuH-gr-Wgc" customClass="HourGraphMaxIndicatorView" customModule="Duffy" customModuleProvider="target">
+                    <rect key="frame" x="14" y="8" width="357" height="16"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="16" id="e0p-FH-41D"/>
+                    </constraints>
+                </view>
+                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="dUi-YL-Twy">
+                    <rect key="frame" x="4" y="15" width="367" height="163"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J9e-26-gm7" customClass="HourGraphBarView" customModule="Duffy" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="11.5" height="163"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gnv-dU-sti" customClass="HourGraphBarView" customModule="Duffy" customModuleProvider="target">
+                            <rect key="frame" x="15.5" y="0.0" width="11.5" height="163"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="U7C-Re-AX5" customClass="HourGraphBarView" customModule="Duffy" customModuleProvider="target">
+                            <rect key="frame" x="31" y="0.0" width="11.5" height="163"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QBA-gK-NEU" customClass="HourGraphBarView" customModule="Duffy" customModuleProvider="target">
+                            <rect key="frame" x="46.5" y="0.0" width="11.5" height="163"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m7c-4C-rOi" customClass="HourGraphBarView" customModule="Duffy" customModuleProvider="target">
+                            <rect key="frame" x="62" y="0.0" width="11.5" height="163"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GUh-A2-4Rc" customClass="HourGraphBarView" customModule="Duffy" customModuleProvider="target">
+                            <rect key="frame" x="77.5" y="0.0" width="11.5" height="163"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JBQ-EI-kHr" customClass="HourGraphBarView" customModule="Duffy" customModuleProvider="target">
+                            <rect key="frame" x="93" y="0.0" width="11" height="163"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hPr-5j-chx" customClass="HourGraphBarView" customModule="Duffy" customModuleProvider="target">
+                            <rect key="frame" x="108" y="0.0" width="11.5" height="163"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kvd-a9-ogY" customClass="HourGraphBarView" customModule="Duffy" customModuleProvider="target">
+                            <rect key="frame" x="123.5" y="0.0" width="11.5" height="163"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Brs-Cb-4ID" customClass="HourGraphBarView" customModule="Duffy" customModuleProvider="target">
+                            <rect key="frame" x="139" y="0.0" width="11.5" height="163"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fn6-wP-HEG" customClass="HourGraphBarView" customModule="Duffy" customModuleProvider="target">
+                            <rect key="frame" x="154.5" y="0.0" width="11.5" height="163"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rkw-AB-q4B" customClass="HourGraphBarView" customModule="Duffy" customModuleProvider="target">
+                            <rect key="frame" x="170" y="0.0" width="11.5" height="163"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JAI-Xm-dUu" customClass="HourGraphBarView" customModule="Duffy" customModuleProvider="target">
+                            <rect key="frame" x="185.5" y="0.0" width="11.5" height="163"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OUI-LK-oBa" customClass="HourGraphBarView" customModule="Duffy" customModuleProvider="target">
+                            <rect key="frame" x="201" y="0.0" width="11.5" height="163"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3hb-a6-AfR" customClass="HourGraphBarView" customModule="Duffy" customModuleProvider="target">
+                            <rect key="frame" x="216.5" y="0.0" width="11.5" height="163"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4Pp-fB-7k8" customClass="HourGraphBarView" customModule="Duffy" customModuleProvider="target">
+                            <rect key="frame" x="232" y="0.0" width="11.5" height="163"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="exX-he-Aw4" customClass="HourGraphBarView" customModule="Duffy" customModuleProvider="target">
+                            <rect key="frame" x="247.5" y="0.0" width="11.5" height="163"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AAY-6E-HbQ" customClass="HourGraphBarView" customModule="Duffy" customModuleProvider="target">
+                            <rect key="frame" x="263" y="0.0" width="11.5" height="163"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tfP-me-vKA" customClass="HourGraphBarView" customModule="Duffy" customModuleProvider="target">
+                            <rect key="frame" x="278.5" y="0.0" width="11" height="163"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="09c-9W-ldl" customClass="HourGraphBarView" customModule="Duffy" customModuleProvider="target">
+                            <rect key="frame" x="293.5" y="0.0" width="11.5" height="163"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="via-1Y-D4V" customClass="HourGraphBarView" customModule="Duffy" customModuleProvider="target">
+                            <rect key="frame" x="309" y="0.0" width="11.5" height="163"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h3G-vn-rCE" customClass="HourGraphBarView" customModule="Duffy" customModuleProvider="target">
+                            <rect key="frame" x="324.5" y="0.0" width="11.5" height="163"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v5u-lL-kdU" customClass="HourGraphBarView" customModule="Duffy" customModuleProvider="target">
+                            <rect key="frame" x="340" y="0.0" width="11.5" height="163"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QoP-2N-S8C" customClass="HourGraphBarView" customModule="Duffy" customModuleProvider="target">
+                            <rect key="frame" x="355.5" y="0.0" width="11.5" height="163"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </view>
+                    </subviews>
+                </stackView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="6 AM" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0fQ-ZB-Tf9">
+                    <rect key="frame" x="84" y="186" width="36.5" height="18"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="18" id="bfq-WD-18c"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NOON" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bDx-6e-ufq">
+                    <rect key="frame" x="173" y="186" width="44.5" height="18"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="18" id="yOq-yc-RLY"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="6 PM" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Uq-TC-ZOV">
+                    <rect key="frame" x="270" y="186" width="35.5" height="18"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="18" id="xGW-Qo-jAD"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Steps Today" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vZ8-9o-bjj">
+                    <rect key="frame" x="127" y="86.5" width="121" height="20.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <constraints>
+                <constraint firstItem="zuH-gr-Wgc" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="8" id="0cU-yv-lme"/>
+                <constraint firstItem="bDx-6e-ufq" firstAttribute="top" secondItem="dUi-YL-Twy" secondAttribute="bottom" constant="8" id="0ct-bc-0k8"/>
+                <constraint firstItem="vZ8-9o-bjj" firstAttribute="centerY" secondItem="dUi-YL-Twy" secondAttribute="centerY" id="8x9-1m-0NR"/>
+                <constraint firstAttribute="bottom" secondItem="3Uq-TC-ZOV" secondAttribute="bottom" id="9Vs-eF-udC"/>
+                <constraint firstAttribute="bottom" secondItem="0fQ-ZB-Tf9" secondAttribute="bottom" id="H7h-Vs-nOR"/>
+                <constraint firstAttribute="bottom" secondItem="bDx-6e-ufq" secondAttribute="bottom" id="Q0p-ni-ZKm"/>
+                <constraint firstItem="0fQ-ZB-Tf9" firstAttribute="centerX" secondItem="JBQ-EI-kHr" secondAttribute="centerX" id="WGA-Wk-Tr2"/>
+                <constraint firstAttribute="trailing" secondItem="zuH-gr-Wgc" secondAttribute="trailing" constant="4" id="XD5-5G-Esd"/>
+                <constraint firstAttribute="trailing" secondItem="dUi-YL-Twy" secondAttribute="trailing" constant="4" id="aBz-QY-r9r"/>
+                <constraint firstItem="zuH-gr-Wgc" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="14" id="anQ-Bd-HPq"/>
+                <constraint firstItem="dUi-YL-Twy" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="15" id="dRz-6E-5xX"/>
+                <constraint firstItem="vZ8-9o-bjj" firstAttribute="centerX" secondItem="dUi-YL-Twy" secondAttribute="centerX" id="h3V-0w-oS4"/>
+                <constraint firstItem="tfP-me-vKA" firstAttribute="centerX" secondItem="3Uq-TC-ZOV" secondAttribute="centerX" id="hrM-qU-Jgr"/>
+                <constraint firstItem="dUi-YL-Twy" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="4" id="s7S-SH-FFc"/>
+                <constraint firstItem="bDx-6e-ufq" firstAttribute="centerX" secondItem="JAI-Xm-dUu" secondAttribute="centerX" id="yZ1-Rz-9Ad"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="-23.5" y="-180"/>
+        </view>
+    </objects>
+</document>

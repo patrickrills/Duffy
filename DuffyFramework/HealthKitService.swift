@@ -75,6 +75,8 @@ open class HealthKitService
                     if steps >= HealthCache.getStepsDailyGoal(),
                         NotificationService.convertDayToKey(sampleDate) == NotificationService.convertDayToKey(Date())
                     {
+                        HealthCache.incrementGoalReachedCounter()
+                        
                         if let del = self?.eventDelegate
                         {
                             del.dailyStepsGoalWasReached()
@@ -95,6 +97,68 @@ open class HealthKitService
                 }
             }
 
+            store.execute(query)
+        }
+    }
+    
+    open func getStepsByHour(forDate: Date, onRetrieve: (([UInt : Int], Date) -> Void)?, onFailure: ((Error?) -> Void)?)
+    {
+        guard HKHealthStore.isHealthDataAvailable() && healthStore != nil else { return }
+        
+        let startDate = getQueryDate(from: forDate)
+        guard startDate != nil else { return }
+        
+        let queryDate = startDate!
+        let queryEndDate = Calendar.current.date(byAdding: .day, value: 1, to: queryDate)!
+        let forSpecificDay = HKQuery.predicateForSamples(withStart: queryDate, end: queryEndDate, options: [])
+        
+        var interval = DateComponents()
+        interval.hour = 1
+        
+        if let store = healthStore, let stepType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.stepCount)
+        {
+            let query = HKStatisticsCollectionQuery(quantityType: stepType,
+                                                    quantitySamplePredicate: forSpecificDay,
+                                                    options: .cumulativeSum,
+                                                    anchorDate: queryDate,
+                                                    intervalComponents: interval)
+            
+            query.initialResultsHandler = {
+                (query: HKStatisticsCollectionQuery, results: HKStatisticsCollection?, error: Error?) in
+                
+                if let r = results , error == nil
+                {
+                    var stepsByHour = [UInt:Int]()
+                    
+                    r.enumerateStatistics(from: queryDate, to: queryEndDate) {
+                        statistics, stop in
+                        
+                        if let quantity = statistics.sumQuantity()
+                        {
+                            let hour = Calendar.current.component(.hour, from: statistics.startDate)
+                            
+                            if hour >= 0
+                            {
+                                let stepsThisHour = Int(quantity.doubleValue(for: HKUnit.count()))
+                                stepsByHour[UInt(hour)] = stepsThisHour
+                            }
+                        }
+                    }
+                    
+                    if let successBlock = onRetrieve
+                    {
+                        successBlock(stepsByHour, queryDate)
+                    }
+                }
+                else
+                {
+                    if let failBlock = onFailure
+                    {
+                        failBlock(error)
+                    }
+                }
+            }
+            
             store.execute(query)
         }
     }

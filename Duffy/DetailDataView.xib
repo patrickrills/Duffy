@@ -16,11 +16,17 @@
             <rect key="frame" x="0.0" y="0.0" width="382" height="155"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RHI-Z4-buE">
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RHI-Z4-buE">
                     <rect key="frame" x="0.0" y="0.0" width="382" height="155"/>
+                    <connections>
+                        <outlet property="delegate" destination="iN0-l3-epB" id="fM2-gH-Brf"/>
+                    </connections>
                 </scrollView>
                 <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="2" translatesAutoresizingMaskIntoConstraints="NO" id="Mf8-hC-lwx">
-                    <rect key="frame" x="180" y="118" width="23" height="37"/>
+                    <rect key="frame" x="180" y="125" width="23" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="p4f-uY-VBu"/>
+                    </constraints>
                 </pageControl>
             </subviews>
             <constraints>
