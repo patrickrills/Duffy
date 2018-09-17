@@ -21,7 +21,7 @@ class ViewController: UIViewController
     @IBOutlet weak var subTitleLabel : UILabel?
     @IBOutlet weak var goalLabel : UILabel?
     
-    open static let primaryColor = UIColor(red: 0.0, green: 61.0/255.0, blue: 165.0/255.0, alpha: 1.0)
+    public static let primaryColor = UIColor(red: 0.0, green: 61.0/255.0, blue: 165.0/255.0, alpha: 1.0)
     let secondaryColor = UIColor(red: 76.0/255.0, green: 142.0/255.0, blue: 218.0/255.0, alpha: 1.0)
     let numberFormatter = NumberFormatter()
 
