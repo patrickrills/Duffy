@@ -37,7 +37,7 @@ class ViewController: UIViewController
         loadingContainer?.backgroundColor = UIColor(red: 0, green: 0, blue: 1, alpha: 0.85)
         stepsTextLabel?.textColor = ViewController.primaryColor
         infoButton?.tintColor = secondaryColor
-        refreshButton?.setTitleColor(secondaryColor, for: UIControlState())
+        refreshButton?.setTitleColor(secondaryColor, for: UIControl.State())
         titleLabel?.textColor = ViewController.primaryColor
         subTitleLabel?.textColor = ViewController.primaryColor
         updateGoalDisplay(stepsForDay: 0)

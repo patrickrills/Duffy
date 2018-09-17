@@ -28,7 +28,7 @@ open class NotificationService
             let content = UNMutableNotificationContent()
             content.title = "Way to go!"
             content.body = String(format: "You've reached your goal of %@ steps.", numberFormatter.string(from: NSNumber(value: HealthCache.getStepsDailyGoal()))!)
-            content.sound = UNNotificationSound.default()
+            content.sound = UNNotificationSound.default
             content.setValue("YES", forKeyPath: "shouldAlwaysAlertWhileAppIsForeground")
             content.categoryIdentifier = "goal-notification"
         
