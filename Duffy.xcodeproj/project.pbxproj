@@ -38,7 +38,6 @@
 		09323D231D23040100961822 /* HealthKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09323D211D23040100961822 /* HealthKitService.swift */; };
 		0947AA9C1D4EB1D80040E1DD /* WeekInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0947AA9B1D4EB1D80040E1DD /* WeekInterfaceController.swift */; };
 		0947AA9E1D4EB24A0040E1DD /* WeekRowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0947AA9D1D4EB24A0040E1DD /* WeekRowController.swift */; };
-		0947AAA01D4EB5490040E1DD /* LoaderInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0947AA9F1D4EB5490040E1DD /* LoaderInterfaceController.swift */; };
 		0967EB761E7D88770073BF3F /* HealthEventDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0967EB751E7D88770073BF3F /* HealthEventDelegate.swift */; };
 		0967EB771E7D88770073BF3F /* HealthEventDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0967EB751E7D88770073BF3F /* HealthEventDelegate.swift */; };
 		0967EB791E7F0ACE0073BF3F /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0967EB781E7F0ACE0073BF3F /* NotificationService.swift */; };
@@ -205,7 +204,6 @@
 		09323D211D23040100961822 /* HealthKitService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthKitService.swift; sourceTree = "<group>"; };
 		0947AA9B1D4EB1D80040E1DD /* WeekInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeekInterfaceController.swift; sourceTree = "<group>"; };
 		0947AA9D1D4EB24A0040E1DD /* WeekRowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeekRowController.swift; sourceTree = "<group>"; };
-		0947AA9F1D4EB5490040E1DD /* LoaderInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoaderInterfaceController.swift; sourceTree = "<group>"; };
 		0967EB751E7D88770073BF3F /* HealthEventDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthEventDelegate.swift; sourceTree = "<group>"; };
 		0967EB781E7F0ACE0073BF3F /* NotificationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		097085612127122B00790EC7 /* DistanceFlightsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceFlightsDetailViewController.swift; sourceTree = "<group>"; };
@@ -354,7 +352,6 @@
 			isa = PBXGroup;
 			children = (
 				09323CFB1D2302A800961822 /* Duffy WatchKit Extension.entitlements */,
-				0947AA9F1D4EB5490040E1DD /* LoaderInterfaceController.swift */,
 				09323C931D22C39700961822 /* InterfaceController.swift */,
 				0947AA9B1D4EB1D80040E1DD /* WeekInterfaceController.swift */,
 				0947AA9D1D4EB24A0040E1DD /* WeekRowController.swift */,
@@ -715,7 +712,6 @@
 			files = (
 				09323C961D22C39700961822 /* ExtensionDelegate.swift in Sources */,
 				0947AA9C1D4EB1D80040E1DD /* WeekInterfaceController.swift in Sources */,
-				0947AAA01D4EB5490040E1DD /* LoaderInterfaceController.swift in Sources */,
 				09289C7820D873F9005BF6B8 /* GoalNotificationInterfaceController.swift in Sources */,
 				0947AA9E1D4EB24A0040E1DD /* WeekRowController.swift in Sources */,
 				09824A8C1EA66C74002A4A84 /* EditGoalInterfaceController.swift in Sources */,

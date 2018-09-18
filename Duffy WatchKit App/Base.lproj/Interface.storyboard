@@ -1,20 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="14113" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="jDe-kN-uGL">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="14313.18" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
     <device id="watch38" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="14033"/>
+        <deployment identifier="watchOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="14238.10"/>
     </dependencies>
     <scenes>
-        <!--Duffy-->
-        <scene sceneID="921-QU-s6P">
-            <objects>
-                <controller identifier="loader" title="Duffy" id="jDe-kN-uGL" customClass="LoaderInterfaceController" customModule="Duffy_WatchKit_Extension"/>
-            </objects>
-            <point key="canvasLocation" x="437" y="550"/>
-        </scene>
         <!--Duffy-->
         <scene sceneID="aou-V4-d1y">
             <objects>
@@ -58,10 +52,11 @@
                         <outlet property="infoButton" destination="Y1p-Ns-rIT" id="wxL-kg-1VK"/>
                         <outlet property="stepsGoalLabel" destination="npA-ct-HjH" id="PtN-ob-TDp"/>
                         <outlet property="stepsValueLabel" destination="G6E-Dy-R0M" id="K2a-Ej-vfL"/>
+                        <segue destination="jZc-PD-Him" kind="relationship" relationship="nextPage" id="Ckp-Pq-aOB"/>
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="351" y="840"/>
+            <point key="canvasLocation" x="139" y="852"/>
         </scene>
         <!--Cancel-->
         <scene sceneID="xdF-XR-FCq">
