@@ -11,7 +11,7 @@ import DuffyWatchFramework
 import os.log
 import UserNotifications
 
-class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate, HealthEventDelegate
+class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate, HealthEventDelegate, UNUserNotificationCenterDelegate
 {
     var currentBackgroundTasks: [String : AnyObject] = [:]
     
@@ -25,7 +25,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
         // Perform any final initialization of your application.
         HealthKitService.getInstance().initializeBackgroundQueries()
         HealthKitService.getInstance().setEventDelegate(self)
-        NotificationService.maybeAskForNotificationPermission()
+        NotificationService.maybeAskForNotificationPermission(self)
     }
 
     func applicationDidBecomeActive() {
@@ -136,5 +136,12 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
     func dailyStepsGoalWasReached()
     {
         NotificationService.sendDailyStepsGoalNotification()
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                willPresent notification: UNNotification,
+                                withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+
+        completionHandler(UNNotificationPresentationOptions.alert)
     }
 }

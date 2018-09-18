@@ -29,7 +29,6 @@ open class NotificationService
             content.title = "Way to go!"
             content.body = String(format: "You've reached your goal of %@ steps.", numberFormatter.string(from: NSNumber(value: HealthCache.getStepsDailyGoal()))!)
             content.sound = UNNotificationSound.default
-            content.setValue("YES", forKeyPath: "shouldAlwaysAlertWhileAppIsForeground")
             content.categoryIdentifier = "goal-notification"
         
             let trigger = UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(Constants.notificationDelayInSeconds), repeats: false)
@@ -41,10 +40,11 @@ open class NotificationService
         #endif
     }
     
-    open class func maybeAskForNotificationPermission()
+    open class func maybeAskForNotificationPermission(_ delegate : UNUserNotificationCenterDelegate?)
     {
 
         let center = UNUserNotificationCenter.current()
+        center.delegate = delegate
         center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in }
     }
     
