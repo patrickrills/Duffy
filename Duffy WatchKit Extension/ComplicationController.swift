@@ -56,6 +56,17 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
             entry = getEntryForExtraLarge(NSNumber(value: steps as Int))
         }
         
+        if #available(watchOS 5.0, *)
+        {
+            let stepsGoal = HealthCache.getStepsDailyGoal()
+            
+            if (complication.family == .graphicCorner)
+            {
+                entry = getEntryForGraphicCorner(steps, stepsGoal)
+            }
+        }
+        
+        
         handler(entry)
     }
     
@@ -88,6 +99,14 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         else if (complication.family == .extraLarge)
         {
             template = getTemplateForExtraLarge(NSNumber(value: 0 as Int))
+        }
+        
+        if #available(watchOS 5.0, *)
+        {
+            if (complication.family == .graphicCorner)
+            {
+                template = getTemplateForGraphicCorner(0, 10000)
+            }
         }
         
         handler(template)
@@ -235,6 +254,31 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         return xLarge
     }
     
+    @available(watchOSApplicationExtension 5.0, *)
+    func getEntryForGraphicCorner(_ totalSteps: Int, _ goal: Int) -> CLKComplicationTimelineEntry
+    {
+        let gc = getTemplateForGraphicCorner(totalSteps, goal)
+        return CLKComplicationTimelineEntry(date: Date(), complicationTemplate: gc)
+    }
+    
+    @available(watchOSApplicationExtension 5.0, *)
+    func getTemplateForGraphicCorner(_ totalSteps: Int, _ goal: Int) -> CLKComplicationTemplateGraphicCornerGaugeText
+    {
+        let gc = CLKComplicationTemplateGraphicCornerGaugeText()
+        
+        let text = CLKSimpleTextProvider()
+        text.text = formatStepsForLarge(NSNumber(value: totalSteps))
+        text.shortText = formatStepsForSmall(NSNumber(value: totalSteps))
+        text.tintColor = UIColor.white
+        
+        let provider = CLKSimpleGaugeProvider(style: .fill, gaugeColor: UIColor(red: 103.0/255.0, green: 171.0/255.0, blue: 229.0/255.0, alpha: 1), fillFraction: Float(min(totalSteps, goal)) / Float(goal))
+        
+        gc.outerTextProvider = text
+        gc.gaugeProvider = provider
+        
+        return gc;
+    }
+    
     func formatStepsForLarge(_ totalSteps: NSNumber) -> String
     {
         let numberFormatter = NumberFormatter()
@@ -304,6 +348,16 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         else if (complication.family == .extraLarge)
         {
             template = getTemplateForExtraLarge(sampleDisplaySteps)
+        }
+        
+        if #available(watchOS 5.0, *)
+        {
+            let sampleStepsGoal = 10000
+            
+            if (complication.family == .graphicCorner)
+            {
+                template = getTemplateForGraphicCorner(12500, sampleStepsGoal)
+            }
         }
         
         handler(template)
