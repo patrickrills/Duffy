@@ -30,7 +30,7 @@ class MainTableViewController: UITableViewController
         
         if #available(iOS 11.0, *)
         {
-            additionalSafeAreaInsets = UIEdgeInsetsMake(0, 0, 44.0, 0)
+            additionalSafeAreaInsets = UIEdgeInsets.init(top: 0, left: 0, bottom: 44.0, right: 0)
         }
     }
     

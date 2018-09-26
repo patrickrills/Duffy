@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import DuffyFramework
 
 class HourGraphMaxIndicatorView: UIView
 {
@@ -65,7 +66,7 @@ class HourGraphMaxIndicatorView: UIView
     {
         super.draw(rect)
         
-        if max > 0, let lbl = maxLabel
+        if max > 0, let lbl = maxLabel, Constants.showGraphMaxLine
         {
             let lineY = rect.size.height / 2.0
             let dotted = UIBezierPath()

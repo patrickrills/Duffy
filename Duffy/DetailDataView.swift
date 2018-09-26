@@ -66,10 +66,7 @@ class DetailDataView: UIView, UIScrollViewDelegate
     
     func refresh()
     {
-        for vc in detailViewControllers
-        {
-            vc.refresh()
-        }
+        detailViewControllers.forEach() { $0.refresh() }
     }
     
     override func layoutSubviews()
@@ -88,7 +85,7 @@ class DetailDataView: UIView, UIScrollViewDelegate
                 {
                     bottomMargin = scroll.frame.size.height - pager.frame.origin.y
                 }
-                detailViewControllers[i].setMargin(UIEdgeInsetsMake(0, 0, bottomMargin, 0))
+                detailViewControllers[i].setMargin(UIEdgeInsets.init(top: 0, left: 0, bottom: bottomMargin, right: 0))
             }
             scroll.contentSize = CGSize(width: CGFloat(detailViewCount) * scroll.frame.size.width, height: scroll.frame.size.height)
         }

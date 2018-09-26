@@ -10,7 +10,8 @@ import Foundation
 
 open class Constants
 {
-    open static let isDebugMode: Bool = false
-    open static let stepsGoalDefault: Int = 10000
-    open static let notificationDelayInSeconds: Int = 10
+    public static let isDebugMode: Bool = false
+    public static let stepsGoalDefault: Int = 10000
+    public static let notificationDelayInSeconds: Int = 10
+    public static let showGraphMaxLine: Bool = false
 }
