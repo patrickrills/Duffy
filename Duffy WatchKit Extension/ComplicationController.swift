@@ -64,6 +64,10 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
             {
                 entry = getEntryForGraphicCorner(steps, stepsGoal)
             }
+            else if (complication.family == .graphicCircular)
+            {
+                entry = getEntryForGraphicCircular(steps, stepsGoal)
+            }
         }
         
         
@@ -106,6 +110,10 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
             if (complication.family == .graphicCorner)
             {
                 template = getTemplateForGraphicCorner(0, 10000)
+            }
+            else if (complication.family == .graphicCircular)
+            {
+                template = getTemplateForGraphicCircular(0, 10000)
             }
         }
         
@@ -279,6 +287,35 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         return gc;
     }
     
+    @available(watchOSApplicationExtension 5.0, *)
+    func getEntryForGraphicCircular(_ totalSteps: Int, _ goal: Int) -> CLKComplicationTimelineEntry
+    {
+        let gc = getTemplateForGraphicCircular(totalSteps, goal)
+        return CLKComplicationTimelineEntry(date: Date(), complicationTemplate: gc)
+    }
+    
+    @available(watchOSApplicationExtension 5.0, *)
+    func getTemplateForGraphicCircular(_ totalSteps: Int, _ goal: Int) -> CLKComplicationTemplateGraphicCircularClosedGaugeText
+    {
+        let gc = CLKComplicationTemplateGraphicCircularClosedGaugeText()
+        
+        let text = CLKSimpleTextProvider()
+        text.text = formatStepsForVerySmall(NSNumber(value: totalSteps))
+        text.tintColor = UIColor.white
+        
+        gc.centerTextProvider = text
+//        gc.imageProvider = CLKFullColorImageProvider.init(fullColorImage: UIImage(named: "testing")!)
+        gc.gaugeProvider = getGauge(forTotalSteps: totalSteps, goal: goal)
+        
+        return gc;
+    }
+    
+    @available(watchOSApplicationExtension 5.0, *)
+    func getGauge(forTotalSteps: Int, goal: Int) -> CLKSimpleGaugeProvider
+    {
+        return CLKSimpleGaugeProvider(style: .fill, gaugeColor: UIColor(red: 103.0/255.0, green: 171.0/255.0, blue: 229.0/255.0, alpha: 1), fillFraction: Float(min(forTotalSteps, goal)) / Float(goal))
+    }
+    
     func formatStepsForLarge(_ totalSteps: NSNumber) -> String
     {
         let numberFormatter = NumberFormatter()
@@ -321,6 +358,24 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         return "0"
     }
     
+    func formatStepsForVerySmall(_ totalSteps: NSNumber) -> String
+    {
+        if (totalSteps.intValue >= 1000)
+        {
+            let totalStepsReduced = NSNumber(value: totalSteps.doubleValue / 1000.0 as Double)
+            let numberFormatter = NumberFormatter()
+            numberFormatter.numberStyle = NumberFormatter.Style.decimal
+            numberFormatter.locale = Locale.current
+            numberFormatter.maximumFractionDigits = 0
+            if let format = numberFormatter.string(from: totalStepsReduced)
+            {
+                return String(format: "%@k", format)
+            }
+        }
+        
+        return formatStepsForSmall(totalSteps)
+    }
+    
     func getLocalizableSampleTemplate(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTemplate?) -> Swift.Void)
     {
         let sampleDisplaySteps = NSNumber(value: 12500 as Int)
@@ -357,6 +412,10 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
             if (complication.family == .graphicCorner)
             {
                 template = getTemplateForGraphicCorner(12500, sampleStepsGoal)
+            }
+            else if (complication.family == .graphicCircular)
+            {
+                template = getTemplateForGraphicCircular(12500, sampleStepsGoal)
             }
         }
         
