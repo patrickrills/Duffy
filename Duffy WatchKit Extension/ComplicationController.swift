@@ -311,16 +311,12 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     }
     
     @available(watchOSApplicationExtension 5.0, *)
-    func getTemplateForGraphicCircular(_ totalSteps: Int, _ goal: Int) -> CLKComplicationTemplateGraphicCircularClosedGaugeText
+    func getTemplateForGraphicCircular(_ totalSteps: Int, _ goal: Int) -> CLKComplicationTemplateGraphicCircularClosedGaugeImage
     {
-        let gc = CLKComplicationTemplateGraphicCircularClosedGaugeText()
+        let gc = CLKComplicationTemplateGraphicCircularClosedGaugeImage()
+        let shoe = UIImage(named: "GraphicCircularShoe")!
         
-        let text = CLKSimpleTextProvider()
-        text.text = formatStepsForVerySmall(NSNumber(value: totalSteps))
-        text.tintColor = UIColor.white
-        
-        gc.centerTextProvider = text
-//        gc.imageProvider = CLKFullColorImageProvider.init(fullColorImage: UIImage(named: "testing")!)
+        gc.imageProvider = CLKFullColorImageProvider.init(fullColorImage: shoe)
         gc.gaugeProvider = getGauge(forTotalSteps: totalSteps, goal: goal)
         
         return gc;
