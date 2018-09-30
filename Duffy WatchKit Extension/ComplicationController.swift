@@ -352,6 +352,9 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     @available(watchOSApplicationExtension 5.0, *)
     func getTemplateForGraphicRectangle(_ totalSteps: Int, _ goal: Int) -> CLKComplicationTemplateGraphicRectangularTextGauge
     {
+        let shoe = UIImage(named: "GraphicRectShoe")!
+        let image = CLKFullColorImageProvider(fullColorImage: shoe)
+        
         let text = CLKSimpleTextProvider()
         text.text = String(format: "%@ STEPS", formatStepsForLarge(NSNumber(value: totalSteps)))
         text.tintColor = UIColor(red: 103.0/255.0, green: 171.0/255.0, blue: 229.0/255.0, alpha: 1)
@@ -368,6 +371,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         }
         
         let template = CLKComplicationTemplateGraphicRectangularTextGauge()
+        template.headerImageProvider = image
         template.headerTextProvider = text
         template.body1TextProvider = toGoText
         template.gaugeProvider = getGauge(forTotalSteps: totalSteps, goal: goal)
