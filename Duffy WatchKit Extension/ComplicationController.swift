@@ -72,6 +72,10 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
             {
                 entry = getEntryForGraphicBezel(steps, stepsGoal)
             }
+            else if (complication.family == .graphicRectangular)
+            {
+                entry = getEntryForGraphicRectangle(steps, stepsGoal)
+            }
         }
         
         
@@ -122,6 +126,10 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
             else if (complication.family == .graphicBezel)
             {
                 template = getTemplateForGraphicBezel(0, 10000)
+            }
+            else if (complication.family == .graphicRectangular)
+            {
+                template = getTemplateForGraphicRectangle(0, 10000)
             }
         }
         
@@ -339,6 +347,38 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     }
     
     @available(watchOSApplicationExtension 5.0, *)
+    func getEntryForGraphicRectangle(_ totalSteps: Int, _ goal: Int) -> CLKComplicationTimelineEntry
+    {
+        let gb = getTemplateForGraphicRectangle(totalSteps, goal)
+        return CLKComplicationTimelineEntry(date: Date(), complicationTemplate: gb)
+    }
+    
+    @available(watchOSApplicationExtension 5.0, *)
+    func getTemplateForGraphicRectangle(_ totalSteps: Int, _ goal: Int) -> CLKComplicationTemplateGraphicRectangularTextGauge
+    {
+        let text = CLKSimpleTextProvider()
+        text.text = String(format: "%@ STEPS", formatStepsForLarge(NSNumber(value: totalSteps)))
+        text.tintColor = UIColor(red: 103.0/255.0, green: 171.0/255.0, blue: 229.0/255.0, alpha: 1)
+        
+        let toGoText = CLKSimpleTextProvider()
+        if (totalSteps >= goal)
+        {
+            toGoText.text = "Goal achieved!"
+        }
+        else
+        {
+            let toGo = goal - totalSteps
+            toGoText.text = String(format: "%@ to go", formatStepsForVerySmall(NSNumber(value: toGo)))
+        }
+        
+        let template = CLKComplicationTemplateGraphicRectangularTextGauge()
+        template.headerTextProvider = text
+        template.body1TextProvider = toGoText
+        template.gaugeProvider = getGauge(forTotalSteps: totalSteps, goal: goal)
+        return template
+    }
+    
+    @available(watchOSApplicationExtension 5.0, *)
     func getGauge(forTotalSteps: Int, goal: Int) -> CLKSimpleGaugeProvider
     {
         return CLKSimpleGaugeProvider(style: .fill, gaugeColor: UIColor(red: 103.0/255.0, green: 171.0/255.0, blue: 229.0/255.0, alpha: 1), fillFraction: Float(min(forTotalSteps, goal)) / Float(goal))
@@ -448,6 +488,10 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
             else if (complication.family == .graphicBezel)
             {
                 template = getTemplateForGraphicBezel(12500, sampleStepsGoal)
+            }
+            else if (complication.family == .graphicRectangular)
+            {
+                template = getTemplateForGraphicRectangle(12500, sampleStepsGoal)
             }
         }
         
