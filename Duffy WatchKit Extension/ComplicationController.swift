@@ -56,6 +56,29 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
             entry = getEntryForExtraLarge(NSNumber(value: steps as Int))
         }
         
+        if #available(watchOS 5.0, *)
+        {
+            let stepsGoal = HealthCache.getStepsDailyGoal()
+            
+            if (complication.family == .graphicCorner)
+            {
+                entry = getEntryForGraphicCorner(steps, stepsGoal)
+            }
+            else if (complication.family == .graphicCircular)
+            {
+                entry = getEntryForGraphicCircular(steps, stepsGoal)
+            }
+            else if (complication.family == .graphicBezel)
+            {
+                entry = getEntryForGraphicBezel(steps, stepsGoal)
+            }
+            else if (complication.family == .graphicRectangular)
+            {
+                entry = getEntryForGraphicRectangle(steps, stepsGoal)
+            }
+        }
+        
+        
         handler(entry)
     }
     
@@ -88,6 +111,26 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         else if (complication.family == .extraLarge)
         {
             template = getTemplateForExtraLarge(NSNumber(value: 0 as Int))
+        }
+        
+        if #available(watchOS 5.0, *)
+        {
+            if (complication.family == .graphicCorner)
+            {
+                template = getTemplateForGraphicCorner(0, 10000)
+            }
+            else if (complication.family == .graphicCircular)
+            {
+                template = getTemplateForGraphicCircular(0, 10000)
+            }
+            else if (complication.family == .graphicBezel)
+            {
+                template = getTemplateForGraphicBezel(0, 10000)
+            }
+            else if (complication.family == .graphicRectangular)
+            {
+                template = getTemplateForGraphicRectangle(0, 10000)
+            }
         }
         
         handler(template)
@@ -235,6 +278,112 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         return xLarge
     }
     
+    @available(watchOSApplicationExtension 5.0, *)
+    func getEntryForGraphicCorner(_ totalSteps: Int, _ goal: Int) -> CLKComplicationTimelineEntry
+    {
+        let gc = getTemplateForGraphicCorner(totalSteps, goal)
+        return CLKComplicationTimelineEntry(date: Date(), complicationTemplate: gc)
+    }
+    
+    @available(watchOSApplicationExtension 5.0, *)
+    func getTemplateForGraphicCorner(_ totalSteps: Int, _ goal: Int) -> CLKComplicationTemplateGraphicCornerGaugeText
+    {
+        let gc = CLKComplicationTemplateGraphicCornerGaugeText()
+        
+        let text = CLKSimpleTextProvider()
+        text.text = formatStepsForLarge(NSNumber(value: totalSteps))
+        text.shortText = formatStepsForSmall(NSNumber(value: totalSteps))
+        text.tintColor = UIColor.white
+        
+        let provider = CLKSimpleGaugeProvider(style: .fill, gaugeColor: UIColor(red: 103.0/255.0, green: 171.0/255.0, blue: 229.0/255.0, alpha: 1), fillFraction: Float(min(totalSteps, goal)) / Float(goal))
+        
+        gc.outerTextProvider = text
+        gc.gaugeProvider = provider
+        
+        return gc;
+    }
+    
+    @available(watchOSApplicationExtension 5.0, *)
+    func getEntryForGraphicCircular(_ totalSteps: Int, _ goal: Int) -> CLKComplicationTimelineEntry
+    {
+        let gc = getTemplateForGraphicCircular(totalSteps, goal)
+        return CLKComplicationTimelineEntry(date: Date(), complicationTemplate: gc)
+    }
+    
+    @available(watchOSApplicationExtension 5.0, *)
+    func getTemplateForGraphicCircular(_ totalSteps: Int, _ goal: Int) -> CLKComplicationTemplateGraphicCircularClosedGaugeImage
+    {
+        let gc = CLKComplicationTemplateGraphicCircularClosedGaugeImage()
+        let shoe = UIImage(named: "GraphicCircularShoe")!
+        
+        gc.imageProvider = CLKFullColorImageProvider.init(fullColorImage: shoe)
+        gc.gaugeProvider = getGauge(forTotalSteps: totalSteps, goal: goal)
+        
+        return gc;
+    }
+    
+    @available(watchOSApplicationExtension 5.0, *)
+    func getEntryForGraphicBezel(_ totalSteps: Int, _ goal: Int) -> CLKComplicationTimelineEntry
+    {
+        let gb = getTemplateForGraphicBezel(totalSteps, goal)
+        return CLKComplicationTimelineEntry(date: Date(), complicationTemplate: gb)
+    }
+    
+    @available(watchOSApplicationExtension 5.0, *)
+    func getTemplateForGraphicBezel(_ totalSteps: Int, _ goal: Int) -> CLKComplicationTemplateGraphicBezelCircularText
+    {
+        let text = CLKSimpleTextProvider()
+        text.text = String(format: "%@ STEPS", formatStepsForLarge(NSNumber(value: totalSteps)))
+        text.tintColor = UIColor.white
+        
+        let template = CLKComplicationTemplateGraphicBezelCircularText()
+        template.circularTemplate = getTemplateForGraphicCircular(totalSteps, goal)
+        template.textProvider = text
+        return template
+    }
+    
+    @available(watchOSApplicationExtension 5.0, *)
+    func getEntryForGraphicRectangle(_ totalSteps: Int, _ goal: Int) -> CLKComplicationTimelineEntry
+    {
+        let gb = getTemplateForGraphicRectangle(totalSteps, goal)
+        return CLKComplicationTimelineEntry(date: Date(), complicationTemplate: gb)
+    }
+    
+    @available(watchOSApplicationExtension 5.0, *)
+    func getTemplateForGraphicRectangle(_ totalSteps: Int, _ goal: Int) -> CLKComplicationTemplateGraphicRectangularTextGauge
+    {
+        let shoe = UIImage(named: "GraphicRectShoe")!
+        let image = CLKFullColorImageProvider(fullColorImage: shoe)
+        
+        let text = CLKSimpleTextProvider()
+        text.text = String(format: "%@ STEPS", formatStepsForLarge(NSNumber(value: totalSteps)))
+        text.tintColor = UIColor(red: 103.0/255.0, green: 171.0/255.0, blue: 229.0/255.0, alpha: 1)
+        
+        let toGoText = CLKSimpleTextProvider()
+        if (totalSteps >= goal)
+        {
+            toGoText.text = "Goal achieved!"
+        }
+        else
+        {
+            let toGo = goal - totalSteps
+            toGoText.text = String(format: "%@ to go", formatStepsForVerySmall(NSNumber(value: toGo)))
+        }
+        
+        let template = CLKComplicationTemplateGraphicRectangularTextGauge()
+        template.headerImageProvider = image
+        template.headerTextProvider = text
+        template.body1TextProvider = toGoText
+        template.gaugeProvider = getGauge(forTotalSteps: totalSteps, goal: goal)
+        return template
+    }
+    
+    @available(watchOSApplicationExtension 5.0, *)
+    func getGauge(forTotalSteps: Int, goal: Int) -> CLKSimpleGaugeProvider
+    {
+        return CLKSimpleGaugeProvider(style: .fill, gaugeColor: UIColor(red: 103.0/255.0, green: 171.0/255.0, blue: 229.0/255.0, alpha: 1), fillFraction: Float(min(forTotalSteps, goal)) / Float(goal))
+    }
+    
     func formatStepsForLarge(_ totalSteps: NSNumber) -> String
     {
         let numberFormatter = NumberFormatter()
@@ -277,6 +426,24 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         return "0"
     }
     
+    func formatStepsForVerySmall(_ totalSteps: NSNumber) -> String
+    {
+        if (totalSteps.intValue >= 1000)
+        {
+            let totalStepsReduced = NSNumber(value: totalSteps.doubleValue / 1000.0 as Double)
+            let numberFormatter = NumberFormatter()
+            numberFormatter.numberStyle = NumberFormatter.Style.decimal
+            numberFormatter.locale = Locale.current
+            numberFormatter.maximumFractionDigits = 0
+            if let format = numberFormatter.string(from: totalStepsReduced)
+            {
+                return String(format: "%@k", format)
+            }
+        }
+        
+        return formatStepsForSmall(totalSteps)
+    }
+    
     func getLocalizableSampleTemplate(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTemplate?) -> Swift.Void)
     {
         let sampleDisplaySteps = NSNumber(value: 12500 as Int)
@@ -304,6 +471,28 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         else if (complication.family == .extraLarge)
         {
             template = getTemplateForExtraLarge(sampleDisplaySteps)
+        }
+        
+        if #available(watchOS 5.0, *)
+        {
+            let sampleStepsGoal = 10000
+            
+            if (complication.family == .graphicCorner)
+            {
+                template = getTemplateForGraphicCorner(12500, sampleStepsGoal)
+            }
+            else if (complication.family == .graphicCircular)
+            {
+                template = getTemplateForGraphicCircular(12500, sampleStepsGoal)
+            }
+            else if (complication.family == .graphicBezel)
+            {
+                template = getTemplateForGraphicBezel(12500, sampleStepsGoal)
+            }
+            else if (complication.family == .graphicRectangular)
+            {
+                template = getTemplateForGraphicRectangle(12500, sampleStepsGoal)
+            }
         }
         
         handler(template)
