@@ -1,0 +1,24 @@
+{
+  "gaugeProvider" : {
+    "class" : "CLKSimpleGaugeProvider",
+    "gaugeStyle" : 1,
+    "gaugeFillFraction" : 1,
+    "gaugeColors" : [
+      {
+        "green" : 0.67058825492858887,
+        "red" : 0.40392157435417175,
+        "alpha" : 1,
+        "blue" : 0.89803922176361084
+      }
+    ]
+  },
+  "class" : "CLKComplicationTemplateGraphicCircularClosedGaugeImage",
+  "version" : 30000,
+  "imageProvider" : {
+    "applyScalingAndCircularMask" : true,
+    "fullColorImage" : {
+      "file name" : "7BD149D5-289A-4D19-9C4F-36FB90158211.png",
+      "scale" : 2
+    }
+  }
+}

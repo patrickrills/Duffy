@@ -1,0 +1,38 @@
+{
+  "gaugeProvider" : {
+    "class" : "CLKSimpleGaugeProvider",
+    "gaugeStyle" : 1,
+    "gaugeFillFraction" : 1,
+    "gaugeColors" : [
+      {
+        "green" : 0.67058825492858887,
+        "red" : 0.40392157435417175,
+        "alpha" : 1,
+        "blue" : 0.89803922176361084
+      }
+    ]
+  },
+  "class" : "CLKComplicationTemplateGraphicRectangularTextGauge",
+  "headerImageProvider" : {
+    "applyScalingAndCircularMask" : true,
+    "fullColorImage" : {
+      "file name" : "C5E69F78-EC10-4A5A-8191-1DE0C4DEF85D.png",
+      "scale" : 2
+    }
+  },
+  "body1TextProvider" : {
+    "class" : "CLKSimpleTextProvider",
+    "text" : "Goal achieved!"
+  },
+  "version" : 30000,
+  "headerTextProvider" : {
+    "tintColor" : {
+      "green" : 0.67058825492858887,
+      "red" : 0.40392157435417175,
+      "alpha" : 1,
+      "blue" : 0.89803922176361084
+    },
+    "class" : "CLKSimpleTextProvider",
+    "text" : "12,500 STEPS"
+  }
+}

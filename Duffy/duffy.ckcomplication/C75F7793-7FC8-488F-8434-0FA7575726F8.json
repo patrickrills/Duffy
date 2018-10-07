@@ -1,0 +1,28 @@
+{
+  "gaugeProvider" : {
+    "class" : "CLKSimpleGaugeProvider",
+    "gaugeStyle" : 1,
+    "gaugeFillFraction" : 1,
+    "gaugeColors" : [
+      {
+        "green" : 0.67058825492858887,
+        "red" : 0.40392157435417175,
+        "alpha" : 1,
+        "blue" : 0.89803922176361084
+      }
+    ]
+  },
+  "class" : "CLKComplicationTemplateGraphicCornerGaugeText",
+  "version" : 30000,
+  "outerTextProvider" : {
+    "tintColor" : {
+      "green" : 1,
+      "red" : 1,
+      "alpha" : 1,
+      "blue" : 1
+    },
+    "class" : "CLKSimpleTextProvider",
+    "text" : "12,500",
+    "shortText" : "12.5k"
+  }
+}
