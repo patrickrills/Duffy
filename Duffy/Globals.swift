@@ -77,4 +77,18 @@ class Globals: NSObject
     {
         return UIScreen.main.bounds.size.width <= 320.0
     }
+    
+    open class func appVersion() -> String
+    {
+        if let infoDict = Bundle.main.infoDictionary
+        {
+            if let ver1 = infoDict["CFBundleShortVersionString"] as? String,
+                let ver2 = infoDict["CFBundleVersion"] as? String
+            {
+                return String(format: "%@.%@", ver1, ver2)
+            }
+        }
+        
+        return "Unknown"
+    }
 }
