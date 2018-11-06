@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SafariServices
 
 class AboutTableViewController: UITableViewController {
 
@@ -37,6 +38,17 @@ class AboutTableViewController: UITableViewController {
     @IBAction func donePressed()
     {
         dismiss(animated: true, completion: nil)
+    }
+    
+    func openURL(_ urlAsString: String)
+    {
+        let url = URL(string: urlAsString)
+        
+        if let u = url
+        {
+            let safari = SFSafariViewController(url: u)
+            self.navigationController?.present(safari, animated: true, completion: nil)
+        }
     }
 
     // MARK: - Table view data source
@@ -113,5 +125,31 @@ class AboutTableViewController: UITableViewController {
         }
         
         return nil
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
+    {
+        switch indexPath.section
+        {
+            case 0:
+                switch (indexPath.row)
+                {
+                    case 0:
+                        openURL("http://www.bigbluefly.com/duffy?contact=1")
+                        break
+                    default:
+                        AppRater.redirectToAppStore()
+                        break
+                }
+                break
+            case 1:
+                openURL("http://www.bigbluefly.com/duffy/privacy")
+                break
+            default:
+                openURL("http://www.bigbluefly.com")
+                break
+        }
+        
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
