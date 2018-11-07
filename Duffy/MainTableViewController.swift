@@ -202,7 +202,6 @@ class MainTableViewController: UITableViewController
         else if (indexPath.row == stepsByDay.count)
         {
             let buttonCell = UITableViewCell(style: .default, reuseIdentifier: nil)
-            buttonCell.textLabel?.textAlignment = .center
             buttonCell.textLabel?.textColor = Globals.secondaryColor()
             buttonCell.textLabel?.text = "View More History"
             return buttonCell
