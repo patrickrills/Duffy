@@ -152,18 +152,12 @@ class MainTableViewController: UITableViewController
     
     private func openHistory()
     {
-        let weekVC = HistoryTableViewController()
-        let modalNav = UINavigationController(rootViewController: weekVC)
-        modalNav.navigationBar.tintColor = Globals.secondaryColor()
-        present(modalNav, animated: true, completion: nil)
+        present(ModalNavigationController(rootViewController: HistoryTableViewController()), animated: true, completion: nil)
     }
     
     private func openAbout()
     {
-        let aboutVC = AboutTableViewController()
-        let modalNav = UINavigationController(rootViewController: aboutVC)
-        modalNav.navigationBar.tintColor = Globals.secondaryColor()
-        present(modalNav, animated: true, completion: nil)
+        present(ModalNavigationController(rootViewController: AboutTableViewController()), animated: true, completion: nil)
     }
     
     @IBAction private func openHistoryPressed()

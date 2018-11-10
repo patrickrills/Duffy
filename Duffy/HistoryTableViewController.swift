@@ -31,8 +31,6 @@ class HistoryTableViewController: UITableViewController
     override func viewDidLoad()
     {
         super.viewDidLoad()
-
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(donePressed))
         
         tableView.register(PreviousValueTableViewCell.self, forCellReuseIdentifier: CELL_ID)
         tableView.rowHeight = 44.0
@@ -57,11 +55,6 @@ class HistoryTableViewController: UITableViewController
     @IBAction func loadMorePressed()
     {
         getMoreRows()
-    }
-    
-    @IBAction func donePressed()
-    {
-        dismiss(animated: true, completion: nil)
     }
     
     func showLoading()

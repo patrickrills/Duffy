@@ -29,15 +29,8 @@ class AboutTableViewController: UITableViewController {
         
         title = "About Duffy"
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(donePressed))
-        
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: CELL_ID)
         tableView.estimatedRowHeight = 44.0
-    }
-    
-    @IBAction func donePressed()
-    {
-        dismiss(animated: true, completion: nil)
     }
     
     func openURL(_ urlAsString: String)
