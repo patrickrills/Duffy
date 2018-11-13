@@ -26,12 +26,6 @@ class MainTableViewController: UITableViewController
         tableView.register(PreviousSectionHeaderView.self, forHeaderFooterViewReuseIdentifier: SECTION_ID)
         tableView.sectionHeaderHeight = 44.0
         tableView.rowHeight = 44.0
-        tableView.tableFooterView = UIView()
-        
-        if #available(iOS 11.0, *)
-        {
-            additionalSafeAreaInsets = UIEdgeInsets.init(top: 0, left: 0, bottom: 44.0, right: 0)
-        }
     }
     
     override func viewWillAppear(_ animated: Bool)
@@ -70,12 +64,22 @@ class MainTableViewController: UITableViewController
     {
         super.viewWillLayoutSubviews()
         
-        if (tableView.tableHeaderView == nil)
+        if tableView.tableHeaderView == nil
         {
             if let header = TodayHeaderView.createView()
             {
                 header.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: heightForHeader())
                 tableView.tableHeaderView = header
+            }
+        }
+        
+        if tableView.tableFooterView == nil
+        {
+            if let footer = AboutFooterView.createView()
+            {
+                footer.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 120.0)
+                footer.aboutButton?.addTarget(self, action: #selector(openAboutPressed), for: .touchUpInside)
+                tableView.tableFooterView = footer
             }
         }
     }
@@ -148,15 +152,22 @@ class MainTableViewController: UITableViewController
     
     private func openHistory()
     {
-        let weekVC = HistoryTableViewController()
-        let modalNav = UINavigationController(rootViewController: weekVC)
-        modalNav.navigationBar.tintColor = Globals.secondaryColor()
-        present(modalNav, animated: true, completion: nil)
+        present(ModalNavigationController(rootViewController: HistoryTableViewController()), animated: true, completion: nil)
+    }
+    
+    private func openAbout()
+    {
+        present(ModalNavigationController(rootViewController: AboutTableViewController()), animated: true, completion: nil)
     }
     
     @IBAction private func openHistoryPressed()
     {
         openHistory()
+    }
+    
+    @IBAction private func openAboutPressed()
+    {
+        openAbout()
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int
@@ -202,7 +213,6 @@ class MainTableViewController: UITableViewController
         else if (indexPath.row == stepsByDay.count)
         {
             let buttonCell = UITableViewCell(style: .default, reuseIdentifier: nil)
-            buttonCell.textLabel?.textAlignment = .center
             buttonCell.textLabel?.textColor = Globals.secondaryColor()
             buttonCell.textLabel?.text = "View More History"
             return buttonCell
