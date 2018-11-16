@@ -191,7 +191,7 @@ class MainTableViewController: UITableViewController
         {
             if let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: SECTION_ID) as? PreviousSectionHeaderView
             {
-                header.button?.addTarget(self, action: #selector(openHistoryPressed), for: .touchUpInside)
+                header.button.addTarget(self, action: #selector(openHistoryPressed), for: .touchUpInside)
                 return header
             }
         }
