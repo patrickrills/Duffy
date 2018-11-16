@@ -182,7 +182,7 @@ class MainTableViewController: UITableViewController
             return 0
         }
         
-        return (stepsByDay.count == 0 ? 1 : stepsByDay.count + 1)
+        return (stepsByDay.count == 0 ? 1 : stepsByDay.count)
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
@@ -210,13 +210,6 @@ class MainTableViewController: UITableViewController
             plainCell.textLabel?.text = "No data for the previous week"
             return plainCell
         }
-        else if (indexPath.row == stepsByDay.count)
-        {
-            let buttonCell = UITableViewCell(style: .default, reuseIdentifier: nil)
-            buttonCell.textLabel?.textColor = Globals.secondaryColor()
-            buttonCell.textLabel?.text = "View More History"
-            return buttonCell
-        }
         else
         {
             let cell = tableView.dequeueReusableCell(withIdentifier: CELL_ID, for: indexPath) as! PreviousValueTableViewCell
@@ -227,15 +220,5 @@ class MainTableViewController: UITableViewController
             }
             return cell
         }
-    }
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
-    {
-        if (indexPath.row == stepsByDay.count)
-        {
-            openHistory()
-        }
-        
-        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
