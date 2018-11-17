@@ -29,4 +29,13 @@ class AboutFooterView: UIView
         
         return nil
     }
+    
+    override func draw(_ rect: CGRect)
+    {
+        super.draw(rect)
+        
+        let separator = UIBezierPath(rect: CGRect(x: 0, y: 1, width: rect.width, height: 0.33))
+        Globals.separatorColor().setFill()
+        separator.fill()
+    }
 }
