@@ -82,6 +82,11 @@ class MainTableViewController: UITableViewController
                 tableView.tableFooterView = footer
             }
         }
+        
+        if let aboutFooter = tableView.tableFooterView as? AboutFooterView
+        {
+            aboutFooter.separatorIsVisible = stepsByDay.count > 0
+        }
     }
     
     private func showLoading()
