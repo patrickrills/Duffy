@@ -44,6 +44,11 @@ class PreviousSectionHeaderView: UITableViewHeaderFooterView
         actionLabel.numberOfLines = 1
         actionLabel.textAlignment = .right
         
+        button.addTarget(self, action: #selector(onTouchDown), for: .touchDown)
+        button.addTarget(self, action: #selector(onTouchUp), for: .touchUpInside)
+        button.addTarget(self, action: #selector(onTouchUp), for: .touchUpOutside)
+        button.addTarget(self, action: #selector(onTouchUp), for: .touchCancel)
+        
         contentView.addSubview(headerLabel)
         contentView.addSubview(actionLabel)
         contentView.addSubview(button)
@@ -59,5 +64,15 @@ class PreviousSectionHeaderView: UITableViewHeaderFooterView
         actionLabel.sizeToFit()
         let size = actionLabel.frame.size
         actionLabel.frame = CGRect(x: frame.size.width - 16.0 - size.width, y: frame.size.height - size.height - 12.0, width: size.width, height: size.height)
+    }
+    
+    @IBAction func onTouchDown()
+    {
+        actionLabel.textColor = Globals.secondaryColor().withAlphaComponent(0.5)
+    }
+    
+    @IBAction func onTouchUp()
+    {
+        actionLabel.textColor = Globals.secondaryColor()
     }
 }
