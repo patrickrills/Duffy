@@ -58,6 +58,6 @@ class PreviousSectionHeaderView: UITableViewHeaderFooterView
         
         actionLabel.sizeToFit()
         let size = actionLabel.frame.size
-        actionLabel.frame = CGRect(x: frame.size.width - 16.0 - size.width, y: frame.size.height - size.height - 9.0, width: size.width, height: size.height)
+        actionLabel.frame = CGRect(x: frame.size.width - 16.0 - size.width, y: frame.size.height - size.height - 12.0, width: size.width, height: size.height)
     }
 }

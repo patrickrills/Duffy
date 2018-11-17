@@ -24,7 +24,7 @@ class MainTableViewController: UITableViewController
         
         tableView.register(PreviousValueTableViewCell.self, forCellReuseIdentifier: CELL_ID)
         tableView.register(PreviousSectionHeaderView.self, forHeaderFooterViewReuseIdentifier: SECTION_ID)
-        tableView.sectionHeaderHeight = 44.0
+        tableView.sectionHeaderHeight = 48.0
         tableView.rowHeight = 44.0
     }
     
