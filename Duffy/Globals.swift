@@ -18,6 +18,7 @@ class Globals: NSObject
     private static let lightText = UIColor.black.withAlphaComponent(0.2)
     private static let veryLightText = UIColor.black.withAlphaComponent(0.15)
     private static let success = UIColor(red: 0.25, green: 0.72, blue:0.48, alpha: 1.0)
+    private static var separator : UIColor? = nil
     
     open class func stepsFormatter() -> NumberFormatter
     {
@@ -71,6 +72,23 @@ class Globals: NSObject
     open class func successColor() -> UIColor
     {
         return success
+    }
+    
+    open class func separatorColor() -> UIColor
+    {
+        if separator == nil
+        {
+            if let systemSeparatorColor = UITableView().separatorColor
+            {
+                separator = systemSeparatorColor
+            }
+            else
+            {
+                separator = UIColor.lightGray
+            }
+        }
+        
+        return separator!
     }
     
     open class func isNarrowPhone() -> Bool
