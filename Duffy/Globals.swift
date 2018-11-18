@@ -13,6 +13,7 @@ class Globals: NSObject
     private static let numberFormatter = NumberFormatter()
     private static let decimalFormatter = NumberFormatter()
     private static let dateFormatter = DateFormatter()
+    private static let fullFormatter = DateFormatter()
     private static let primary = UIColor(red: 0.0, green: 61.0/255.0, blue: 165.0/255.0, alpha: 1.0)
     private static let secondary = UIColor(red: 76.0/255.0, green: 142.0/255.0, blue: 218.0/255.0, alpha: 1.0)
     private static let lightText = UIColor.black.withAlphaComponent(0.2)
@@ -47,6 +48,12 @@ class Globals: NSObject
     {
         dateFormatter.dateFormat = "eee, MMM d"
         return dateFormatter
+    }
+    
+    open class func fullDateFormatter() -> DateFormatter
+    {
+        fullFormatter.dateFormat = "MMM d, yyyy"
+        return fullFormatter
     }
  
     open class func primaryColor() -> UIColor

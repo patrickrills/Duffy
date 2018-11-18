@@ -12,6 +12,8 @@ import DuffyFramework
 class HistoryTableViewController: UITableViewController
 {
     let CELL_ID = "PreviousValueTableViewCell"
+    let CHART_CELL_ID = "HistoryTrendChartTableViewCell"
+    let DETAILS_ROW_HEIGHT : CGFloat = 44.0
     let PAGE_SIZE = 30
     var pastSteps : [Date : Int] = [:]
     var sortedKeys : [Date] = []
@@ -33,7 +35,7 @@ class HistoryTableViewController: UITableViewController
         super.viewDidLoad()
         
         tableView.register(PreviousValueTableViewCell.self, forCellReuseIdentifier: CELL_ID)
-        tableView.rowHeight = 44.0
+        tableView.register(UINib(nibName: CHART_CELL_ID, bundle: Bundle.main), forCellReuseIdentifier: CHART_CELL_ID)
         
         let footer = HistoryTableViewFooter.createView()
         footer?.loadMoreButton?.addTarget(self, action: #selector(loadMorePressed), for: .touchUpInside)
@@ -48,7 +50,7 @@ class HistoryTableViewController: UITableViewController
         
         if let footer = tableView.tableFooterView
         {
-            footer.frame = CGRect(x: footer.frame.origin.x, y: footer.frame.origin.y, width: tableView.frame.size.width, height: tableView.rowHeight)
+            footer.frame = CGRect(x: footer.frame.origin.x, y: footer.frame.origin.y, width: tableView.frame.size.width, height: DETAILS_ROW_HEIGHT)
         }
     }
     
@@ -118,23 +120,72 @@ class HistoryTableViewController: UITableViewController
 
     override func numberOfSections(in tableView: UITableView) -> Int
     {
-        return 1
+        return 3
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
-        return pastSteps.count
+        switch section
+        {
+            case 2:
+                return pastSteps.count
+            
+            default:
+                return 1
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
+    {
+        switch indexPath.section
+        {
+            case 2:
+                return DETAILS_ROW_HEIGHT
+            
+            default:
+                return UITableView.automaticDimension
+        }
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-        let cell = tableView.dequeueReusableCell(withIdentifier: CELL_ID, for: indexPath) as! PreviousValueTableViewCell
-        let currentDate = sortedKeys[indexPath.row];
-        if let steps = pastSteps[currentDate]
+        switch indexPath.section
         {
-            cell.bind(toDate: currentDate, steps: steps, goal: goal)
+            case 0:
+                let filterCell = UITableViewCell(style: .value1, reuseIdentifier: nil)
+                filterCell.textLabel?.text = "Since"
+                filterCell.detailTextLabel?.text = Globals.fullDateFormatter().string(from: lastDateFetched)
+                filterCell.detailTextLabel?.textColor = Globals.secondaryColor()
+                filterCell.accessoryType = .disclosureIndicator
+                return filterCell
+         
+            case 1:
+                let graphCell = tableView.dequeueReusableCell(withIdentifier: CHART_CELL_ID, for: indexPath) as! HistoryTrendChartTableViewCell
+                graphCell.bind(toStepsByDay: pastSteps.filter { !Calendar.current.isDate($0.key, inSameDayAs:Date()) })
+                return graphCell
+            
+            default:
+                let cell = tableView.dequeueReusableCell(withIdentifier: CELL_ID, for: indexPath) as! PreviousValueTableViewCell
+                let currentDate = sortedKeys[indexPath.row];
+                if let steps = pastSteps[currentDate]
+                {
+                    cell.bind(toDate: currentDate, steps: steps, goal: goal)
+                }
+                return cell
         }
-        return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String?
+    {
+        switch section
+        {
+            case 1:
+                return "Trend"
+            case 2:
+                return "Details"
+            default:
+                return nil
+        }
     }
 
 }
