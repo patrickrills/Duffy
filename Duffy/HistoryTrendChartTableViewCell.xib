@@ -19,9 +19,9 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="263.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x6C-Vh-YXt">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x6C-Vh-YXt" customClass="HistoryTrendChartView" customModule="Duffy" customModuleProvider="target">
                         <rect key="frame" x="16" y="11" width="288" height="200"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="200" id="lLl-XO-OhE"/>
                         </constraints>
@@ -46,6 +46,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="averageLabel" destination="Wve-bj-tRs" id="h3k-sU-ACq"/>
+                <outlet property="chart" destination="x6C-Vh-YXt" id="G79-Cp-4tg"/>
             </connections>
             <point key="canvasLocation" x="137.59999999999999" y="218.59070464767618"/>
         </tableViewCell>

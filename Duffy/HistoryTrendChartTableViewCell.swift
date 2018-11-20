@@ -11,6 +11,7 @@ import UIKit
 class HistoryTrendChartTableViewCell: UITableViewCell
 {
     @IBOutlet weak var averageLabel : UILabel?
+    @IBOutlet weak var chart : HistoryTrendChartView?
     
     override func awakeFromNib()
     {
@@ -32,5 +33,7 @@ class HistoryTrendChartTableViewCell: UITableViewCell
         averageAttributed.addAttribute(.font, value: UIFont.systemFont(ofSize: 24.0, weight: .medium), range: NSRange(location: 0, length: averageFormatted.count))
         averageAttributed.addAttribute(.font, value: UIFont.systemFont(ofSize: 15.0), range: NSRange(location: averageFormatted.count, length: averageAttributed.length - averageFormatted.count))
         averageLabel?.attributedText = averageAttributed
+        
+        chart?.dataSet = toStepsByDay
     }
 }
