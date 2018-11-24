@@ -28,16 +28,28 @@ class HistoryTrendChartView: UIView
         {
             let maxSteps = dataSet.values.max()
             let topRange = Double(max(maxSteps!, goalSteps)) * 1.2
-            let widthOfDay = floor(Double(rect.width) / Double(dataSet.count))
+            let widthOfDay = Double(rect.width) / Double(dataSet.count)
             lineY = rect.size.height - CGFloat(floor((Double(goalSteps) / topRange) * Double(rect.size.height)))
             
             let trendLine = UIBezierPath()
-            trendLine.lineWidth = 2.0
+            
+            if (widthOfDay <= 0.5)
+            {
+                trendLine.lineWidth = 0.5
+            }
+            else if (widthOfDay < 2.0)
+            {
+                trendLine.lineWidth = 1.0
+            }
+            else
+            {
+                trendLine.lineWidth = 2.0
+            }
             
             for (index, day) in dataSet.keys.sorted().enumerated()
             {
                 let stepsForDay = dataSet[day]!
-                let dayY = Double(rect.size.height) - floor((Double(stepsForDay) / topRange) * Double(rect.size.height))
+                let dayY = Double(rect.size.height) - (Double(stepsForDay) / topRange) * Double(rect.size.height)
                 let dayX = widthOfDay * Double(index) + floor(widthOfDay * 0.5)
                 let dayPoint = CGPoint(x: dayX, y: dayY)
                 
