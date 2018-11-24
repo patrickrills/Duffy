@@ -36,6 +36,7 @@ class HistoryTableViewController: UITableViewController
         
         tableView.register(PreviousValueTableViewCell.self, forCellReuseIdentifier: CELL_ID)
         tableView.register(UINib(nibName: CHART_CELL_ID, bundle: Bundle.main), forCellReuseIdentifier: CHART_CELL_ID)
+        clearsSelectionOnViewWillAppear = true
         
         let footer = HistoryTableViewFooter.createView()
         footer?.loadMoreButton?.addTarget(self, action: #selector(loadMorePressed), for: .touchUpInside)
@@ -188,4 +189,11 @@ class HistoryTableViewController: UITableViewController
         }
     }
 
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
+    {
+        if indexPath.section == 0
+        {
+            navigationController?.pushViewController(HistoryFilterTableViewController(), animated: true)
+        }
+    }
 }
