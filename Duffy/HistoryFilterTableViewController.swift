@@ -36,20 +36,17 @@ class HistoryFilterTableViewController: UITableViewController
         tableView.isScrollEnabled = false
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveFilter))
         
+        let container = UIView(frame: CGRect.zero)
+        container.backgroundColor = UIColor(red: 0.82, green: 0.83, blue: 0.85, alpha: 1.0)
+        view.addSubview(container)
+        
         let spinner = UIDatePicker(frame: CGRect.zero)
         spinner.tag = DATE_PICKER_TAG
         spinner.datePickerMode = .date
         spinner.maximumDate = Date().addingTimeInterval(-1*60*60*24*7)
         spinner.date = sinceDateFilter
         spinner.addTarget(self, action: #selector(dateSelected(_:)), for: .valueChanged)
-        view.addSubview(spinner)
-    }
-    
-    override func viewWillAppear(_ animated: Bool)
-    {
-        super.viewWillAppear(true)
-        
-        tableView.selectRow(at: IndexPath(row: 0, section: 0), animated: false, scrollPosition: .top)
+        container.addSubview(spinner)
     }
     
     override func viewWillLayoutSubviews()
@@ -58,8 +55,17 @@ class HistoryFilterTableViewController: UITableViewController
         
         if let spinner = view.viewWithTag(DATE_PICKER_TAG)
         {
-            //view.frame.size.height - DATE_PICKER_HEIGHT
-            spinner.frame = CGRect(x: 0, y: 160, width: view.frame.size.width, height: DATE_PICKER_HEIGHT)
+            var safeArea : CGFloat = 0.0
+            if #available(iOS 11.0, *)
+            {
+                safeArea = view.safeAreaInsets.bottom
+            }
+            
+            print("view height: \(view.frame.size.height), offset: \(tableView.contentOffset.y), content height: \(tableView.contentSize.height)")
+            
+            let containerHeight = DATE_PICKER_HEIGHT + safeArea
+            spinner.superview?.frame = CGRect(x: 0, y: view.frame.size.height - containerHeight + tableView.contentOffset.y, width: view.frame.size.width, height: containerHeight)
+            spinner.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: DATE_PICKER_HEIGHT)
         }
     }
 
@@ -77,9 +83,11 @@ class HistoryFilterTableViewController: UITableViewController
     {
         let cell = UITableViewCell(style: .value1, reuseIdentifier: nil)
         cell.textLabel?.text = "Since"
+        cell.textLabel?.textColor = Globals.lightGrayColor()
         cell.detailTextLabel?.text = Globals.dayFormatter().string(from: sinceDateFilter)
         cell.detailTextLabel?.textColor = Globals.primaryColor()
         cell.accessoryType = .none
+        cell.selectionStyle = .none
         return cell
     }
     
