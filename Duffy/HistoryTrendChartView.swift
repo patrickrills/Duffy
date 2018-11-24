@@ -21,12 +21,12 @@ class HistoryTrendChartView: UIView
 
     override func draw(_ rect: CGRect)
     {
+        let goalSteps = HealthCache.getStepsDailyGoal()
         var lineY = rect.size.height / 2.0
         
         if (dataSet.count > 0)
         {
             let maxSteps = dataSet.values.max()
-            let goalSteps = HealthCache.getStepsDailyGoal()
             let topRange = Double(max(maxSteps!, goalSteps)) * 1.2
             let widthOfDay = floor(Double(rect.width) / Double(dataSet.count))
             lineY = rect.size.height - CGFloat(floor((Double(goalSteps) / topRange) * Double(rect.size.height)))
@@ -55,13 +55,17 @@ class HistoryTrendChartView: UIView
             trendLine.stroke()
         }
         
+        let shoe = NSAttributedString(string: HealthKitService.getInstance().getAdornment(for: goalSteps), attributes: [.font : UIFont.systemFont(ofSize: UIFont.systemFontSize)])
+        let shoeSize = shoe.size()
+        
         let dotted = UIBezierPath()
-        dotted.move(to: CGPoint(x: 0, y: lineY))
+        dotted.move(to: CGPoint(x: shoeSize.width + 1, y: lineY))
         dotted.addLine(to: CGPoint(x: rect.size.width, y: lineY))
         dotted.lineWidth = 1.0
         dotted.setLineDash([2.0, 2.0], count: 2, phase: 0.0)
         Globals.veryLightGrayColor().setStroke()
         dotted.stroke()
+        
+        shoe.draw(at: CGPoint(x: 0, y: lineY - (shoeSize.height / 2.0)))
     }
-
 }
