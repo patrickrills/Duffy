@@ -28,18 +28,31 @@ class HistoryTrendChartView: UIView
             let maxSteps = dataSet.values.max()
             let goalSteps = HealthCache.getStepsDailyGoal()
             let topRange = Double(max(maxSteps!, goalSteps)) * 1.2
+            let widthOfDay = floor(Double(rect.width) / Double(dataSet.count))
             lineY = rect.size.height - CGFloat(floor((Double(goalSteps) / topRange) * Double(rect.size.height)))
             
-            Globals.primaryColor().setFill()
+            let trendLine = UIBezierPath()
+            trendLine.lineWidth = 2.0
             
             for (index, day) in dataSet.keys.sorted().enumerated()
             {
                 let stepsForDay = dataSet[day]!
-                let dotY = rect.size.height - CGFloat(floor((Double(stepsForDay) / topRange) * Double(rect.size.height)))
-                let dotX = CGFloat(floor(Double(rect.width) / Double(dataSet.count))) * CGFloat(index)
-                let path = UIBezierPath(arcCenter: CGPoint(x: dotX, y: dotY), radius: 4.0, startAngle: 0, endAngle: 360, clockwise: true)
-                path.fill()
+                let dayY = Double(rect.size.height) - floor((Double(stepsForDay) / topRange) * Double(rect.size.height))
+                let dayX = widthOfDay * Double(index) + floor(widthOfDay * 0.5)
+                let dayPoint = CGPoint(x: dayX, y: dayY)
+                
+                if index == 0
+                {
+                    trendLine.move(to: dayPoint)
+                }
+                else
+                {
+                    trendLine.addLine(to: dayPoint)
+                }
             }
+            
+            Globals.primaryColor().setStroke()
+            trendLine.stroke()
         }
         
         let dotted = UIBezierPath()
