@@ -70,13 +70,23 @@ class HistoryTableViewController: UITableViewController
         title = hasData ? "History" : "No Data"
     }
     
+    func updateDateFilter(_ filterDate : Date)
+    {
+        pastSteps = [:]
+        getRowsSince(filterDate)
+    }
+    
     func getMoreRows()
+    {
+        let startDate = Calendar.current.date(byAdding: .day, value: -PAGE_SIZE, to: lastDateFetched)
+        getRowsSince(startDate!)
+    }
+    
+    func getRowsSince(_ startDate : Date)
     {
         showLoading()
         
-        let startDate = Calendar.current.date(byAdding: .day, value: -PAGE_SIZE, to: lastDateFetched)
-        
-        HealthKitService.getInstance().getSteps(startDate!, toEndDate: Date(), onRetrieve: {
+        HealthKitService.getInstance().getSteps(startDate, toEndDate: Date(), onRetrieve: {
             (stepsCollection: [Date : Int]) in
             
             DispatchQueue.main.async(execute: {
@@ -193,7 +203,7 @@ class HistoryTableViewController: UITableViewController
     {
         if indexPath.section == 0
         {
-            navigationController?.pushViewController(HistoryFilterTableViewController(), animated: true)
+            navigationController?.pushViewController(HistoryFilterTableViewController(withSelectedDate: lastDateFetched, fromParent: self), animated: true)
         }
     }
 }
