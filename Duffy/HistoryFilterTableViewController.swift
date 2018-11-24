@@ -61,8 +61,6 @@ class HistoryFilterTableViewController: UITableViewController
                 safeArea = view.safeAreaInsets.bottom
             }
             
-            print("view height: \(view.frame.size.height), offset: \(tableView.contentOffset.y), content height: \(tableView.contentSize.height)")
-            
             let containerHeight = DATE_PICKER_HEIGHT + safeArea
             spinner.superview?.frame = CGRect(x: 0, y: view.frame.size.height - containerHeight + tableView.contentOffset.y, width: view.frame.size.width, height: containerHeight)
             spinner.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: DATE_PICKER_HEIGHT)
@@ -83,7 +81,7 @@ class HistoryFilterTableViewController: UITableViewController
     {
         let cell = UITableViewCell(style: .value1, reuseIdentifier: nil)
         cell.textLabel?.text = "Since"
-        cell.textLabel?.textColor = Globals.lightGrayColor()
+        cell.textLabel?.textColor = UIColor.darkGray
         cell.detailTextLabel?.text = Globals.dayFormatter().string(from: sinceDateFilter)
         cell.detailTextLabel?.textColor = Globals.primaryColor()
         cell.accessoryType = .none
