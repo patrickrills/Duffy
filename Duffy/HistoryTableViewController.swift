@@ -34,6 +34,8 @@ class HistoryTableViewController: UITableViewController
     {
         super.viewDidLoad()
         
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Filter", style: .plain, target: self, action: #selector(changeFilter))
+        
         tableView.register(PreviousValueTableViewCell.self, forCellReuseIdentifier: CELL_ID)
         tableView.register(UINib(nibName: CHART_CELL_ID, bundle: Bundle.main), forCellReuseIdentifier: CHART_CELL_ID)
         clearsSelectionOnViewWillAppear = true
@@ -67,7 +69,7 @@ class HistoryTableViewController: UITableViewController
     
     func hideLoading(_ hasData: Bool)
     {
-        title = hasData ? "History" : "No Data"
+        title = String(format: "Since %@", Globals.fullDateFormatter().string(from: lastDateFetched))
     }
     
     func updateDateFilter(_ filterDate : Date)
@@ -131,14 +133,14 @@ class HistoryTableViewController: UITableViewController
 
     override func numberOfSections(in tableView: UITableView) -> Int
     {
-        return 3
+        return 2
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
     {
         switch section
         {
-            case 2:
+            case 1:
                 return pastSteps.count
             
             default:
@@ -150,7 +152,7 @@ class HistoryTableViewController: UITableViewController
     {
         switch indexPath.section
         {
-            case 2:
+            case 1:
                 return DETAILS_ROW_HEIGHT
             
             default:
@@ -163,14 +165,6 @@ class HistoryTableViewController: UITableViewController
         switch indexPath.section
         {
             case 0:
-                let filterCell = UITableViewCell(style: .value1, reuseIdentifier: nil)
-                filterCell.textLabel?.text = "Since"
-                filterCell.detailTextLabel?.text = Globals.fullDateFormatter().string(from: lastDateFetched)
-                filterCell.detailTextLabel?.textColor = Globals.secondaryColor()
-                filterCell.accessoryType = .disclosureIndicator
-                return filterCell
-         
-            case 1:
                 let graphCell = tableView.dequeueReusableCell(withIdentifier: CHART_CELL_ID, for: indexPath) as! HistoryTrendChartTableViewCell
                 graphCell.bind(toStepsByDay: pastSteps.filter { !Calendar.current.isDate($0.key, inSameDayAs:Date()) })
                 return graphCell
@@ -190,20 +184,17 @@ class HistoryTableViewController: UITableViewController
     {
         switch section
         {
-            case 1:
+            case 0:
                 return "Trend"
-            case 2:
+            case 1:
                 return "Details"
             default:
                 return nil
         }
     }
-
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
+    
+    @IBAction fileprivate func changeFilter()
     {
-        if indexPath.section == 0
-        {
-            navigationController?.pushViewController(HistoryFilterTableViewController(withSelectedDate: lastDateFetched, fromParent: self), animated: true)
-        }
+        navigationController?.pushViewController(HistoryFilterTableViewController(withSelectedDate: lastDateFetched, fromParent: self), animated: true)
     }
 }
