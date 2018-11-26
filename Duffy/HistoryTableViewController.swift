@@ -160,6 +160,18 @@ class HistoryTableViewController: UITableViewController
         }
     }
     
+    override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat
+    {
+        switch indexPath.section
+        {
+            case 0:
+                return 265.0
+            
+            default:
+                return DETAILS_ROW_HEIGHT
+        }
+    }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
         switch indexPath.section
