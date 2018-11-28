@@ -13,11 +13,13 @@ class Globals: NSObject
     private static let numberFormatter = NumberFormatter()
     private static let decimalFormatter = NumberFormatter()
     private static let dateFormatter = DateFormatter()
+    private static let fullFormatter = DateFormatter()
     private static let primary = UIColor(red: 0.0, green: 61.0/255.0, blue: 165.0/255.0, alpha: 1.0)
     private static let secondary = UIColor(red: 76.0/255.0, green: 142.0/255.0, blue: 218.0/255.0, alpha: 1.0)
     private static let lightText = UIColor.black.withAlphaComponent(0.2)
     private static let veryLightText = UIColor.black.withAlphaComponent(0.15)
     private static let success = UIColor(red: 0.25, green: 0.72, blue:0.48, alpha: 1.0)
+    private static var separator : UIColor? = nil
     
     open class func stepsFormatter() -> NumberFormatter
     {
@@ -47,6 +49,12 @@ class Globals: NSObject
         dateFormatter.dateFormat = "eee, MMM d"
         return dateFormatter
     }
+    
+    open class func fullDateFormatter() -> DateFormatter
+    {
+        fullFormatter.dateFormat = "MMM d, yyyy"
+        return fullFormatter
+    }
  
     open class func primaryColor() -> UIColor
     {
@@ -71,6 +79,23 @@ class Globals: NSObject
     open class func successColor() -> UIColor
     {
         return success
+    }
+    
+    open class func separatorColor() -> UIColor
+    {
+        if separator == nil
+        {
+            if let systemSeparatorColor = UITableView().separatorColor
+            {
+                separator = systemSeparatorColor
+            }
+            else
+            {
+                separator = UIColor.lightGray
+            }
+        }
+        
+        return separator!
     }
     
     open class func isNarrowPhone() -> Bool

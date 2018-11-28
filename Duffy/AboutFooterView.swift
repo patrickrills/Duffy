@@ -12,6 +12,14 @@ class AboutFooterView: UIView
 {
     @IBOutlet weak var aboutButton : UIButton?
     
+    var separatorIsVisible : Bool = true
+    {
+        didSet
+        {
+            setNeedsDisplay()
+        }
+    }
+    
     override func awakeFromNib()
     {
         super.awakeFromNib()
@@ -28,5 +36,17 @@ class AboutFooterView: UIView
         }
         
         return nil
+    }
+    
+    override func draw(_ rect: CGRect)
+    {
+        super.draw(rect)
+        
+        if (separatorIsVisible)
+        {
+            let separator = UIBezierPath(rect: CGRect(x: 0, y: 1, width: rect.width, height: 0.33))
+            Globals.separatorColor().setFill()
+            separator.fill()
+        }
     }
 }

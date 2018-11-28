@@ -14,7 +14,7 @@ class ModalNavigationController: UINavigationController
     {
         super.init(rootViewController: rootViewController)
         navigationBar.tintColor = Globals.secondaryColor()
-        rootViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(donePressed))
+        rootViewController.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(donePressed))
         
         if #available(iOS 11.0, *)
         {

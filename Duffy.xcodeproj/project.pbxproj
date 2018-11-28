@@ -36,6 +36,7 @@
 		09323D1C1D2303DE00961822 /* DuffyWatchFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 09323D141D2303DE00961822 /* DuffyWatchFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		09323D221D23040100961822 /* HealthKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09323D211D23040100961822 /* HealthKitService.swift */; };
 		09323D231D23040100961822 /* HealthKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09323D211D23040100961822 /* HealthKitService.swift */; };
+		0935D17E21A8D8E100B91009 /* HistoryFilterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0935D17D21A8D8E100B91009 /* HistoryFilterTableViewController.swift */; };
 		0947AA9C1D4EB1D80040E1DD /* WeekInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0947AA9B1D4EB1D80040E1DD /* WeekInterfaceController.swift */; };
 		0947AA9E1D4EB24A0040E1DD /* WeekRowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0947AA9D1D4EB24A0040E1DD /* WeekRowController.swift */; };
 		0961D905216A9BCF00F4AA88 /* ClockKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0961D904216A9BCF00F4AA88 /* ClockKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -55,6 +56,9 @@
 		09824A8C1EA66C74002A4A84 /* EditGoalInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09824A8B1EA66C74002A4A84 /* EditGoalInterfaceController.swift */; };
 		099C13111DA336C80007C72F /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 099C13101DA336C80007C72F /* HealthKit.framework */; };
 		099C13131DA336D50007C72F /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 099C13121DA336D50007C72F /* HealthKit.framework */; };
+		09A7EEAD21A1E89A00DEDE5C /* HistoryTrendChartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A7EEAB21A1E89A00DEDE5C /* HistoryTrendChartTableViewCell.swift */; };
+		09A7EEAE21A1E89A00DEDE5C /* HistoryTrendChartTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09A7EEAC21A1E89A00DEDE5C /* HistoryTrendChartTableViewCell.xib */; };
+		09A7EEB021A39D7100DEDE5C /* HistoryTrendChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A7EEAF21A39D7100DEDE5C /* HistoryTrendChartView.swift */; };
 		09AACE271D318A390058A814 /* HealthCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09AACE261D318A390058A814 /* HealthCache.swift */; };
 		09AACE281D318A390058A814 /* HealthCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09AACE261D318A390058A814 /* HealthCache.swift */; };
 		09AACE2A1D318E5D0058A814 /* WCSessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09AACE291D318E5D0058A814 /* WCSessionService.swift */; };
@@ -64,7 +68,6 @@
 		09BDDA6621978CE90078B749 /* AboutFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09BDDA6521978CE90078B749 /* AboutFooterView.xib */; };
 		09BDDA6821979A940078B749 /* ModalNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BDDA6721979A940078B749 /* ModalNavigationController.swift */; };
 		09CE42C11E353E7100A6E587 /* HistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CE42C01E353E7100A6E587 /* HistoryTableViewController.swift */; };
-		09CE42C31E354D5200A6E587 /* PastWeekButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CE42C21E354D5200A6E587 /* PastWeekButton.swift */; };
 		09CE42CA1E35525200A6E587 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09CE42C91E35525200A6E587 /* NotificationCenter.framework */; };
 		09CE42CD1E35525200A6E587 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CE42CC1E35525200A6E587 /* TodayViewController.swift */; };
 		09CE42D01E35525200A6E587 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09CE42CE1E35525200A6E587 /* MainInterface.storyboard */; };
@@ -207,6 +210,7 @@
 		09323D141D2303DE00961822 /* DuffyWatchFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DuffyWatchFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		09323D161D2303DE00961822 /* DuffyWatchFramework.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DuffyWatchFramework.h; path = ../DuffyWatchFramework/DuffyWatchFramework.h; sourceTree = "<group>"; };
 		09323D211D23040100961822 /* HealthKitService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthKitService.swift; sourceTree = "<group>"; };
+		0935D17D21A8D8E100B91009 /* HistoryFilterTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryFilterTableViewController.swift; sourceTree = "<group>"; };
 		0947AA9B1D4EB1D80040E1DD /* WeekInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeekInterfaceController.swift; sourceTree = "<group>"; };
 		0947AA9D1D4EB24A0040E1DD /* WeekRowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeekRowController.swift; sourceTree = "<group>"; };
 		0961D904216A9BCF00F4AA88 /* ClockKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ClockKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS5.0.sdk/System/Library/Frameworks/ClockKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -223,6 +227,9 @@
 		09824A8B1EA66C74002A4A84 /* EditGoalInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditGoalInterfaceController.swift; sourceTree = "<group>"; };
 		099C13101DA336C80007C72F /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		099C13121DA336D50007C72F /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS3.0.sdk/System/Library/Frameworks/HealthKit.framework; sourceTree = DEVELOPER_DIR; };
+		09A7EEAB21A1E89A00DEDE5C /* HistoryTrendChartTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTrendChartTableViewCell.swift; sourceTree = "<group>"; };
+		09A7EEAC21A1E89A00DEDE5C /* HistoryTrendChartTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryTrendChartTableViewCell.xib; sourceTree = "<group>"; };
+		09A7EEAF21A39D7100DEDE5C /* HistoryTrendChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTrendChartView.swift; sourceTree = "<group>"; };
 		09AACE261D318A390058A814 /* HealthCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthCache.swift; sourceTree = "<group>"; };
 		09AACE291D318E5D0058A814 /* WCSessionService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WCSessionService.swift; sourceTree = "<group>"; };
 		09BDDA5D219116740078B749 /* AboutTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutTableViewController.swift; sourceTree = "<group>"; };
@@ -230,7 +237,6 @@
 		09BDDA6521978CE90078B749 /* AboutFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AboutFooterView.xib; sourceTree = "<group>"; };
 		09BDDA6721979A940078B749 /* ModalNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalNavigationController.swift; sourceTree = "<group>"; };
 		09CE42C01E353E7100A6E587 /* HistoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryTableViewController.swift; sourceTree = "<group>"; };
-		09CE42C21E354D5200A6E587 /* PastWeekButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PastWeekButton.swift; sourceTree = "<group>"; };
 		09CE42C81E35525200A6E587 /* DuffyToday.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = DuffyToday.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		09CE42C91E35525200A6E587 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		09CE42CC1E35525200A6E587 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
@@ -332,8 +338,11 @@
 				09BDDA6721979A940078B749 /* ModalNavigationController.swift */,
 				09BDDA5D219116740078B749 /* AboutTableViewController.swift */,
 				09CE42C01E353E7100A6E587 /* HistoryTableViewController.swift */,
+				09A7EEAB21A1E89A00DEDE5C /* HistoryTrendChartTableViewCell.swift */,
+				09A7EEAC21A1E89A00DEDE5C /* HistoryTrendChartTableViewCell.xib */,
+				09A7EEAF21A39D7100DEDE5C /* HistoryTrendChartView.swift */,
+				0935D17D21A8D8E100B91009 /* HistoryFilterTableViewController.swift */,
 				0900866E20F27D0C006540E7 /* PreviousValueTableViewCell.swift */,
-				09CE42C21E354D5200A6E587 /* PastWeekButton.swift */,
 				0900867220FA7673006540E7 /* PreviousSectionHeaderView.swift */,
 				09CEA97E211F86DC0023786B /* HistoryTableViewFooter.swift */,
 				09CEA97C211F86BB0023786B /* HistoryTableViewFooter.xib */,
@@ -655,6 +664,7 @@
 				09CEA983212259200023786B /* DetailDataView.xib in Resources */,
 				097085642127122B00790EC7 /* DistanceFlightsDetailViewController.xib in Resources */,
 				09323C761D22C39700961822 /* Main.storyboard in Resources */,
+				09A7EEAE21A1E89A00DEDE5C /* HistoryTrendChartTableViewCell.xib in Resources */,
 				0970859A214D7A8000790EC7 /* HourGraphDetailViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -710,18 +720,20 @@
 				097085632127122B00790EC7 /* DistanceFlightsDetailViewController.swift in Sources */,
 				09708599214D7A8000790EC7 /* HourGraphDetailViewController.swift in Sources */,
 				0900867320FA7673006540E7 /* PreviousSectionHeaderView.swift in Sources */,
+				09A7EEAD21A1E89A00DEDE5C /* HistoryTrendChartTableViewCell.swift in Sources */,
 				0970859C214DAB8900790EC7 /* HourGraphBarView.swift in Sources */,
 				09CEA97F211F86DC0023786B /* HistoryTableViewFooter.swift in Sources */,
 				097085A0214F16B600790EC7 /* AppRater.swift in Sources */,
 				09323C711D22C39700961822 /* AppDelegate.swift in Sources */,
 				0970859E214EAEB200790EC7 /* HourGraphMaxIndicatorView.swift in Sources */,
+				09A7EEB021A39D7100DEDE5C /* HistoryTrendChartView.swift in Sources */,
 				09CEA981212259040023786B /* DetailDataView.swift in Sources */,
 				09BDDA6821979A940078B749 /* ModalNavigationController.swift in Sources */,
 				09BDDA5E219116740078B749 /* AboutTableViewController.swift in Sources */,
 				0900867120F282DE006540E7 /* Globals.swift in Sources */,
+				0935D17E21A8D8E100B91009 /* HistoryFilterTableViewController.swift in Sources */,
 				09289C7E20DDFF56005BF6B8 /* MainTableViewController.swift in Sources */,
 				09BDDA6421978CD20078B749 /* AboutFooterView.swift in Sources */,
-				09CE42C31E354D5200A6E587 /* PastWeekButton.swift in Sources */,
 				09289C8020DE0AD8005BF6B8 /* TodayHeaderView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

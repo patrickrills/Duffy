@@ -24,7 +24,7 @@ class MainTableViewController: UITableViewController
         
         tableView.register(PreviousValueTableViewCell.self, forCellReuseIdentifier: CELL_ID)
         tableView.register(PreviousSectionHeaderView.self, forHeaderFooterViewReuseIdentifier: SECTION_ID)
-        tableView.sectionHeaderHeight = 44.0
+        tableView.sectionHeaderHeight = 48.0
         tableView.rowHeight = 44.0
     }
     
@@ -81,6 +81,11 @@ class MainTableViewController: UITableViewController
                 footer.aboutButton?.addTarget(self, action: #selector(openAboutPressed), for: .touchUpInside)
                 tableView.tableFooterView = footer
             }
+        }
+        
+        if let aboutFooter = tableView.tableFooterView as? AboutFooterView
+        {
+            aboutFooter.separatorIsVisible = stepsByDay.count > 0
         }
     }
     
@@ -182,7 +187,7 @@ class MainTableViewController: UITableViewController
             return 0
         }
         
-        return (stepsByDay.count == 0 ? 1 : stepsByDay.count + 1)
+        return (stepsByDay.count == 0 ? 1 : stepsByDay.count)
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
@@ -191,7 +196,7 @@ class MainTableViewController: UITableViewController
         {
             if let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: SECTION_ID) as? PreviousSectionHeaderView
             {
-                header.button?.addTarget(self, action: #selector(openHistoryPressed), for: .touchUpInside)
+                header.button.addTarget(self, action: #selector(openHistoryPressed), for: .touchUpInside)
                 return header
             }
         }
@@ -210,13 +215,6 @@ class MainTableViewController: UITableViewController
             plainCell.textLabel?.text = "No data for the previous week"
             return plainCell
         }
-        else if (indexPath.row == stepsByDay.count)
-        {
-            let buttonCell = UITableViewCell(style: .default, reuseIdentifier: nil)
-            buttonCell.textLabel?.textColor = Globals.secondaryColor()
-            buttonCell.textLabel?.text = "View More History"
-            return buttonCell
-        }
         else
         {
             let cell = tableView.dequeueReusableCell(withIdentifier: CELL_ID, for: indexPath) as! PreviousValueTableViewCell
@@ -227,15 +225,5 @@ class MainTableViewController: UITableViewController
             }
             return cell
         }
-    }
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
-    {
-        if (indexPath.row == stepsByDay.count)
-        {
-            openHistory()
-        }
-        
-        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
