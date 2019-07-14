@@ -98,22 +98,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
     {
         let dictKey = String(describing: type(of: task))
         currentBackgroundTasks.removeValue(forKey: dictKey)
-        
-        if #available(watchOSApplicationExtension 4.0, *)
-        {
-            task.setTaskCompletedWithSnapshot(true)
-        }
-        else
-        {
-            if task is WKSnapshotRefreshBackgroundTask
-            {
-                (task as! WKSnapshotRefreshBackgroundTask).setTaskCompleted(restoredDefaultState: true, estimatedSnapshotExpiration: Date.init(timeIntervalSinceNow: 60*30), userInfo: nil)
-            }
-            else
-            {
-                task.setTaskCompleted()
-            }
-        }
+        task.setTaskCompletedWithSnapshot(true)
     }
     
     func scheduleNextBackgroundRefresh()

@@ -49,12 +49,7 @@ class MainTableViewController: UITableViewController
     
     func heightForHeader() -> CGFloat
     {
-        var safeArea : CGFloat = 0.0
-        if #available(iOS 11.0, *)
-        {
-             safeArea = view.safeAreaInsets.top
-        }
-        
+        let safeArea : CGFloat = view.safeAreaInsets.top        
         let availableRealEstate = UIScreen.main.bounds.height - UIApplication.shared.statusBarFrame.size.height - safeArea
         let amountOfTableToShow = tableView.sectionHeaderHeight + (tableView.rowHeight * 1.1);
         return ceil(availableRealEstate - amountOfTableToShow)
