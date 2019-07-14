@@ -55,12 +55,7 @@ class HistoryFilterTableViewController: UITableViewController
         
         if let spinner = view.viewWithTag(DATE_PICKER_TAG)
         {
-            var safeArea : CGFloat = 0.0
-            if #available(iOS 11.0, *)
-            {
-                safeArea = view.safeAreaInsets.bottom
-            }
-            
+            let safeArea : CGFloat = view.safeAreaInsets.bottom
             let containerHeight = DATE_PICKER_HEIGHT + safeArea
             spinner.superview?.frame = CGRect(x: 0, y: view.frame.size.height - containerHeight + tableView.contentOffset.y, width: view.frame.size.width, height: containerHeight)
             spinner.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: DATE_PICKER_HEIGHT)

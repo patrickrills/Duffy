@@ -15,12 +15,8 @@ class ModalNavigationController: UINavigationController
         super.init(rootViewController: rootViewController)
         navigationBar.tintColor = Globals.secondaryColor()
         rootViewController.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(donePressed))
-        
-        if #available(iOS 11.0, *)
-        {
-            navigationBar.prefersLargeTitles = true
-            rootViewController.navigationItem.largeTitleDisplayMode = .always
-        }
+        navigationBar.prefersLargeTitles = true
+        rootViewController.navigationItem.largeTitleDisplayMode = .always
     }
     
     required init?(coder aDecoder: NSCoder)
