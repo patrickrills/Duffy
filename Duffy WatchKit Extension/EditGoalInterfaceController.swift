@@ -40,7 +40,7 @@ class EditGoalInterfaceController: WKInterfaceController
         
         stepsGoal = HealthCache.getStepsDailyGoal()
         
-        if let i = options.index(of: stepsGoal)
+        if let i = options.firstIndex(of: stepsGoal)
         {
             goalOptionsList?.setSelectedItemIndex(i)
         }
