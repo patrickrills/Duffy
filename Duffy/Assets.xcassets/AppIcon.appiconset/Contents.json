@@ -3,55 +3,55 @@
     {
       "size" : "20x20",
       "idiom" : "iphone",
-      "filename" : "duffy3-40-phone.png",
+      "filename" : "duffy4-40.png",
       "scale" : "2x"
     },
     {
       "size" : "20x20",
       "idiom" : "iphone",
-      "filename" : "duffy3-60-phone.png",
+      "filename" : "duffy4-60.png",
       "scale" : "3x"
     },
     {
       "size" : "29x29",
       "idiom" : "iphone",
-      "filename" : "duffy3-58-phone.png",
+      "filename" : "duffy4-58.png",
       "scale" : "2x"
     },
     {
       "size" : "29x29",
       "idiom" : "iphone",
-      "filename" : "duffy3-87-phone.png",
+      "filename" : "duffy4-87.png",
       "scale" : "3x"
     },
     {
       "size" : "40x40",
       "idiom" : "iphone",
-      "filename" : "duffy3-80-phone.png",
+      "filename" : "duffy4-80.png",
       "scale" : "2x"
     },
     {
       "size" : "40x40",
       "idiom" : "iphone",
-      "filename" : "duffy3-120-3.png",
+      "filename" : "duffy4-120.png",
       "scale" : "3x"
     },
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "duffy3-120-2.png",
+      "filename" : "duffy4-121.png",
       "scale" : "2x"
     },
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "duffy3-180-2.png",
+      "filename" : "duffy4-180.png",
       "scale" : "3x"
     },
     {
       "size" : "1024x1024",
       "idiom" : "ios-marketing",
-      "filename" : "duffy3-1024.png",
+      "filename" : "duffy4-1024.png",
       "scale" : "1x"
     }
   ],
