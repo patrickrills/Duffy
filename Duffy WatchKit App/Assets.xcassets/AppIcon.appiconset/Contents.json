@@ -3,7 +3,7 @@
     {
       "size" : "24x24",
       "idiom" : "watch",
-      "filename" : "duffy3-48.png",
+      "filename" : "duffy4-48.png",
       "scale" : "2x",
       "role" : "notificationCenter",
       "subtype" : "38mm"
@@ -11,7 +11,7 @@
     {
       "size" : "27.5x27.5",
       "idiom" : "watch",
-      "filename" : "duffy3-55.png",
+      "filename" : "duffy4-55.png",
       "scale" : "2x",
       "role" : "notificationCenter",
       "subtype" : "42mm"
@@ -19,21 +19,21 @@
     {
       "size" : "29x29",
       "idiom" : "watch",
-      "filename" : "duffy3-58.png",
+      "filename" : "duffy4-watch-58.png",
       "role" : "companionSettings",
       "scale" : "2x"
     },
     {
       "size" : "29x29",
       "idiom" : "watch",
-      "filename" : "duffy3-87.png",
+      "filename" : "duffy4-watch-87.png",
       "role" : "companionSettings",
       "scale" : "3x"
     },
     {
       "size" : "40x40",
       "idiom" : "watch",
-      "filename" : "duffy3-80-6.png",
+      "filename" : "duffy4-watch-80.png",
       "scale" : "2x",
       "role" : "appLauncher",
       "subtype" : "38mm"
@@ -41,7 +41,7 @@
     {
       "size" : "44x44",
       "idiom" : "watch",
-      "filename" : "duffy3-watch-88.png",
+      "filename" : "duffy4-watch-88.png",
       "scale" : "2x",
       "role" : "appLauncher",
       "subtype" : "40mm"
@@ -49,7 +49,7 @@
     {
       "size" : "50x50",
       "idiom" : "watch",
-      "filename" : "duffy3-watch-100.png",
+      "filename" : "duffy4-watch-100.png",
       "scale" : "2x",
       "role" : "appLauncher",
       "subtype" : "44mm"
@@ -57,7 +57,7 @@
     {
       "size" : "86x86",
       "idiom" : "watch",
-      "filename" : "duffy3-172.png",
+      "filename" : "duffy4-watch-172.png",
       "scale" : "2x",
       "role" : "quickLook",
       "subtype" : "38mm"
@@ -65,7 +65,7 @@
     {
       "size" : "98x98",
       "idiom" : "watch",
-      "filename" : "duffy3-196.png",
+      "filename" : "duffy4-watch-196.png",
       "scale" : "2x",
       "role" : "quickLook",
       "subtype" : "42mm"
@@ -73,7 +73,7 @@
     {
       "size" : "108x108",
       "idiom" : "watch",
-      "filename" : "duffy3-watch-216.png",
+      "filename" : "duffy4-watch-216.png",
       "scale" : "2x",
       "role" : "quickLook",
       "subtype" : "44mm"
@@ -81,7 +81,7 @@
     {
       "size" : "1024x1024",
       "idiom" : "watch-marketing",
-      "filename" : "duffy3-1024.png",
+      "filename" : "duffy4-1024.png",
       "scale" : "1x"
     }
   ],
