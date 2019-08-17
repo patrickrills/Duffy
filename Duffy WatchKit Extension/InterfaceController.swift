@@ -116,7 +116,7 @@ class InterfaceController: WKInterfaceController
     
     func hideLoading()
     {
-        setTitle("Duffy")
+        setTitle("Today")
     }
     
     private func display(steps: Int)
@@ -134,7 +134,7 @@ class InterfaceController: WKInterfaceController
             if goalValue > 0, let formattedValue = InterfaceController.getNumberFormatter().string(from: NSNumber(value: goalValue))
             {
                 lbl.setHidden(false)
-                lbl.setText(String(format: "of %@ %@", formattedValue, HealthKitService.getInstance().getAdornment(for: stepsForDay)))
+                lbl.setText(String(format: "of %@ goal %@", formattedValue, HealthKitService.getInstance().getAdornment(for: stepsForDay)))
             }
             else
             {
