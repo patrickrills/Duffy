@@ -12,10 +12,10 @@ import os.log
 
 open class HealthKitService
 {
-    fileprivate static let instance: HealthKitService = HealthKitService()
-    fileprivate var healthStore: HKHealthStore?
-    fileprivate var eventDelegate: HealthEventDelegate?
-    open var observerQueries: [String : HKObserverQuery]?
+    private static let instance: HealthKitService = HealthKitService()
+    private var healthStore: HKHealthStore?
+    private var eventDelegate: HealthEventDelegate?
+    private var observerQueries: [String : HKObserverQuery]?
 
     init()
     {
