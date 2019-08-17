@@ -629,10 +629,9 @@
 			};
 			buildConfigurationList = 09323C681D22C39700961822 /* Build configuration list for PBXProject "Duffy" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
 				Base,
 			);
