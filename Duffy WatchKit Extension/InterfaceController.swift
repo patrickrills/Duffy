@@ -9,6 +9,7 @@
 import WatchKit
 import Foundation
 import DuffyWatchFramework
+import HealthKit
 
 class InterfaceController: WKInterfaceController
 {
@@ -30,6 +31,11 @@ class InterfaceController: WKInterfaceController
         askForHealthKitPermission()
     }
     
+    override func willDisappear() {
+        super.willDisappear()
+        HealthKitService.getInstance().unsubscribe(from: HKQuantityTypeIdentifier.stepCount)
+    }
+    
     fileprivate func askForHealthKitPermission()
     {
         //reset display if day turned over
@@ -43,6 +49,7 @@ class InterfaceController: WKInterfaceController
             DispatchQueue.main.async(execute: {
                 [weak self] in
                     self?.refresh()
+                    self?.subscribeToSteps()
                 })
             
             }, onFailure: { })
@@ -57,6 +64,13 @@ class InterfaceController: WKInterfaceController
             d.scheduleNextBackgroundRefresh()
             d.scheduleSnapshotNow()
         }
+    }
+    
+    private func subscribeToSteps() {
+        HealthKitService.getInstance().subscribe(to: HKQuantityTypeIdentifier.stepCount, on: {
+            [weak self] in
+            self?.displayTodaysStepsFromHealth()
+        })
     }
     
     func displayTodaysStepsFromHealth()
