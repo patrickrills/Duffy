@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="14313.18" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="14490.70" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
     <device id="watch38" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="watchOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="14238.10"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="14490.21"/>
     </dependencies>
     <scenes>
         <!--Duffy-->
@@ -31,11 +31,6 @@
                                         <action selector="refreshPressed" destination="AgC-eL-Hgc" id="us0-f1-NpC"/>
                                     </connections>
                                 </button>
-                                <button width="1" alignment="center" verticalAlignment="center" title="Info" id="Y1p-Ns-rIT">
-                                    <connections>
-                                        <action selector="infoPressed" destination="AgC-eL-Hgc" id="OLD-ew-VFE"/>
-                                    </connections>
-                                </button>
                             </items>
                         </group>
                     </items>
@@ -49,7 +44,6 @@
                         </items>
                     </menu>
                     <connections>
-                        <outlet property="infoButton" destination="Y1p-Ns-rIT" id="wxL-kg-1VK"/>
                         <outlet property="stepsGoalLabel" destination="npA-ct-HjH" id="PtN-ob-TDp"/>
                         <outlet property="stepsValueLabel" destination="G6E-Dy-R0M" id="K2a-Ej-vfL"/>
                         <segue destination="jZc-PD-Him" kind="relationship" relationship="nextPage" id="Ckp-Pq-aOB"/>

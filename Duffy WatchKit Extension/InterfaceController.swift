@@ -15,14 +15,6 @@ class InterfaceController: WKInterfaceController
 {
     @IBOutlet weak var stepsValueLabel : WKInterfaceLabel?
     @IBOutlet weak var stepsGoalLabel : WKInterfaceLabel?
-    @IBOutlet weak var infoButton: WKInterfaceButton?
-
-    override func awake(withContext context: Any?)
-    {
-        super.awake(withContext: context)
-        
-        infoButton?.setHidden(!Constants.isDebugMode)
-    }
     
     override func didAppear()
     {
@@ -154,30 +146,6 @@ class InterfaceController: WKInterfaceController
     @IBAction func refreshPressed()
     {
         refresh()
-    }
-    
-    @IBAction func infoPressed()
-    {
-        refresh()
-        
-        let cancel = WKAlertAction(title: "Cancel", style: WKAlertActionStyle.cancel, handler: { () in })
-        let cacheData = HealthCache.getStepsDataFromCache()
-        var date = "Unknown"
-        var steps = -1
-        if let savedDay = cacheData["stepsCacheDay"] as? String
-        {
-            date = savedDay
-        }
-        if let savedVal = cacheData["stepsCacheValue"] as? Int
-        {
-            steps = savedVal
-        }
-        
-        let wasSentToday = NotificationService.dailyStepsGoalNotificationWasAlreadySent()
-        let wasSentString = wasSentToday ? "today" : "n/a"
-        
-        let message = String(format: "Saved in cache:\n Steps: %d\n For day: %@\n Last note sent: %@", steps, date, wasSentString)
-        presentAlert(withTitle: "Info", message: message, preferredStyle: WKAlertControllerStyle.alert, actions: [cancel])
     }
     
     @IBAction func changeGoalMenuItemPressed()
