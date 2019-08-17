@@ -15,14 +15,14 @@ open class HealthKitService
     private static let instance: HealthKitService = HealthKitService()
     private var healthStore: HKHealthStore?
     private var eventDelegate: HealthEventDelegate?
-    private var observerQueries: [String : HKObserverQuery]?
+    private var observerQueries = [String : HKObserverQuery]()
+    private var subscribers = [String : HKObserverQuery]()
 
     init()
     {
         if (HKHealthStore.isHealthDataAvailable())
         {
             healthStore = HKHealthStore()
-            observerQueries = [String : HKObserverQuery]()
         }
     }
 
@@ -288,17 +288,17 @@ open class HealthKitService
     
     open func initializeBackgroundQueries()
     {
-        if let store = healthStore , observerQueries != nil
+        if let store = healthStore
         {
             let stepsIdenitifier = HKQuantityTypeIdentifier.stepCount
             let stepsType = HKQuantityType.quantityType(forIdentifier: stepsIdenitifier)
             
             if let sampleType = stepsType
             {
-                if let stepsQuery = observerQueries!["steps"]
+                if let stepsQuery = observerQueries["steps"]
                 {
                     store.stop(stepsQuery)
-                    observerQueries!.removeValue(forKey: stepsIdenitifier.rawValue)
+                    observerQueries.removeValue(forKey: stepsIdenitifier.rawValue)
                 }
                 
                 let query = HKObserverQuery(sampleType: sampleType, predicate: nil, updateHandler: {
@@ -320,7 +320,7 @@ open class HealthKitService
                     
                 })
                 
-                observerQueries!["steps"] = query
+                observerQueries["steps"] = query
                 store.execute(query)
                 
                 #if os(iOS)
@@ -501,5 +501,35 @@ open class HealthKitService
     private func getQueryEndDate(fromStartDate: Date) -> Date
     {
         return Calendar.current.date(byAdding: .day, value: 1, to: fromStartDate)!
+    }
+    
+    open func subscribe(to dataType: HKQuantityTypeIdentifier, on updateHandler: @escaping (() -> Void)) {
+        guard let sampleType = HKQuantityType.quantityType(forIdentifier: dataType), let store = healthStore else {
+            return
+        }
+        
+        
+        let query = HKObserverQuery(sampleType: sampleType, predicate: nil, updateHandler: {
+            (updateQuery: HKObserverQuery, handler: HKObserverQueryCompletionHandler, updateError: Error?) in
+            
+            updateHandler()
+            handler()
+        })
+        
+        subscribers.removeValue(forKey: sampleType.identifier)
+        subscribers[sampleType.identifier] = query
+        
+        store.execute(query)
+    }
+    
+    open func unsubscribe(from dataType: HKQuantityTypeIdentifier) {
+        guard let sampleType = HKQuantityType.quantityType(forIdentifier: dataType), let store = healthStore else {
+            return
+        }
+        
+        if let query = subscribers[sampleType.identifier] {
+            store.stop(query)
+            subscribers.removeValue(forKey: sampleType.identifier)
+        }
     }
 }
