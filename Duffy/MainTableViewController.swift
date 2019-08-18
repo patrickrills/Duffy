@@ -160,8 +160,10 @@ class MainTableViewController: UITableViewController
     
     func subscribeToHealthUpdates() {
         HealthKitService.getInstance().subscribe(to: HKQuantityTypeIdentifier.stepCount, on: {
-            [weak self] in
-            self?.refresh()
+            DispatchQueue.main.async {
+                [weak self] in
+                self?.refresh()
+            }
         })
     }
     
