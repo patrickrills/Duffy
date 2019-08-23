@@ -16,6 +16,16 @@ class InterfaceController: WKInterfaceController
     @IBOutlet weak var stepsValueLabel : WKInterfaceLabel?
     @IBOutlet weak var stepsGoalLabel : WKInterfaceLabel?
     
+    private let refreshInterval = 3.0
+    private let autoRefreshMax = 5
+    private var isQueryInProgress = false
+    private var timer: Timer? {
+        didSet {
+            currentRefreshCount = 0
+        }
+    }
+    private var currentRefreshCount = 0
+    
     override func didAppear()
     {
         super.didAppear()
@@ -25,10 +35,10 @@ class InterfaceController: WKInterfaceController
     
     override func willDisappear() {
         super.willDisappear()
-        HealthKitService.getInstance().unsubscribe(from: HKQuantityTypeIdentifier.stepCount)
+        stopAutomaticUpdates()
     }
     
-    fileprivate func askForHealthKitPermission()
+    private func askForHealthKitPermission()
     {
         //reset display if day turned over
         if (HealthCache.cacheIsForADifferentDay(Date()))
@@ -41,16 +51,16 @@ class InterfaceController: WKInterfaceController
             DispatchQueue.main.async(execute: {
                 [weak self] in
                     self?.refresh()
-                    self?.subscribeToSteps()
                 })
             
             }, onFailure: { })
     }
     
-    fileprivate func refresh()
+    private func refresh()
     {
         showLoading()
         displayTodaysStepsFromHealth()
+        startAutomaticUpdates()
         if let d = WKExtension.shared().delegate as? ExtensionDelegate
         {
             d.scheduleNextBackgroundRefresh()
@@ -58,21 +68,17 @@ class InterfaceController: WKInterfaceController
         }
     }
     
-    private func subscribeToSteps() {
-        HealthKitService.getInstance().subscribe(to: HKQuantityTypeIdentifier.stepCount, on: {
-            [weak self] in
-            self?.displayTodaysStepsFromHealth()
-        })
-    }
-    
     func displayTodaysStepsFromHealth()
     {
+        isQueryInProgress = true
+        
         HealthKitService.getInstance().getSteps(Date(),
             onRetrieve: {
                 (stepsCount: Int, forDate: Date) in
                 
                 DispatchQueue.main.async(execute: {
                     [weak self] in
+                    self?.isQueryInProgress = false
                     self?.display(steps: stepsCount)
                 })
             },
@@ -81,6 +87,7 @@ class InterfaceController: WKInterfaceController
                 
                 DispatchQueue.main.async(execute: {
                     [weak self] in
+                    self?.isQueryInProgress = false
                     self?.displayTodaysStepsFromCache()
                 })
             })
@@ -141,6 +148,33 @@ class InterfaceController: WKInterfaceController
                 lbl.setHidden(true)
             }
         }
+    }
+    
+    private func startAutomaticUpdates() {
+        guard timer == nil else {
+            return
+        }
+        
+        timer = Timer.scheduledTimer(withTimeInterval: refreshInterval, repeats: true, block: {
+            [weak self] (t: Timer) in
+            
+            if WKExtension.shared().applicationState != .active {
+                return
+            }
+            
+            if let weakSelf = self, !weakSelf.isQueryInProgress, weakSelf.currentRefreshCount < weakSelf.autoRefreshMax {
+                weakSelf.displayTodaysStepsFromHealth()
+                weakSelf.currentRefreshCount += 1
+            }
+        })
+    }
+    
+    private func stopAutomaticUpdates() {
+        if let timer = timer {
+            timer.invalidate()
+        }
+        
+        timer = nil
     }
     
     @IBAction func refreshPressed()
