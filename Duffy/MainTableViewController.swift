@@ -162,6 +162,11 @@ class MainTableViewController: UITableViewController
         HealthKitService.getInstance().subscribe(to: HKQuantityTypeIdentifier.stepCount, on: {
             DispatchQueue.main.async {
                 [weak self] in
+                
+                if UIApplication.shared.applicationState != .active {
+                    return
+                }
+                
                 self?.refresh()
             }
         })
