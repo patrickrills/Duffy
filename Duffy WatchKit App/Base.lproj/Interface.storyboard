@@ -21,7 +21,7 @@
                                     <fontDescription key="font" type="system" weight="light" pointSize="16"/>
                                 </label>
                                 <label height="40" alignment="center" verticalAlignment="center" text="10,000" minimumScaleFactor="0.5" id="G6E-Dy-R0M">
-                                    <fontDescription key="font" type="system" weight="medium" pointSize="40"/>
+                                    <fontDescription key="font" type="system" weight="medium" pointSize="42"/>
                                 </label>
                                 <label width="1" alignment="left" verticalAlignment="center" text="of XXXXX goal" textAlignment="center" id="npA-ct-HjH">
                                     <color key="textColor" red="0.33725490200000002" green="0.59999999999999998" blue="0.87450980389999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
