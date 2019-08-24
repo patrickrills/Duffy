@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="14490.70" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
-    <device id="watch38" orientation="portrait">
+    <device id="watch42" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -111,6 +111,9 @@
                                             </label>
                                             <label alignment="right" verticalAlignment="bottom" text="00,000" textAlignment="right" id="fxo-fl-i6s">
                                                 <fontDescription key="font" type="system" weight="medium" pointSize="26"/>
+                                                <variation key="device=watch38mm">
+                                                    <fontDescription key="font" type="system" weight="medium" pointSize="22"/>
+                                                </variation>
                                             </label>
                                         </items>
                                     </group>
