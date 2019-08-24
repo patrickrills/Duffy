@@ -17,7 +17,7 @@ class InterfaceController: WKInterfaceController
     @IBOutlet weak var stepsGoalLabel : WKInterfaceLabel?
     
     private let refreshInterval = 3.0
-    private let autoRefreshMax = 5
+    private let autoRefreshMax = 10
     private var isQueryInProgress = false
     private var timer: Timer? {
         didSet {
