@@ -29,7 +29,7 @@ class WeekInterfaceController: WKInterfaceController
     
     func hideLoading()
     {
-        setTitle("History")
+        setTitle("Recent")
     }
 
     func bindTableToWeek()
