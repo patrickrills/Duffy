@@ -202,7 +202,7 @@ class InterfaceController: WKInterfaceController
     
     func showLoading()
     {
-        setTitle("Getting...")
+        setTitle("Loading...")
     }
     
     func hideLoading()
