@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GoalChangeHowToViewController" customModule="Duffy" customModuleProvider="target">
+            <connections>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dCy-S7-4Jg">
+                    <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your goal can only be changed from the Duffy Apple Watch app." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uU0-GN-4Oa">
+                            <rect key="frame" x="20" y="20" width="374" height="41"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iid-26-d89">
+                            <rect key="frame" x="20" y="81" width="12" height="29"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="12" id="pE8-vZ-izQ"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="From the Today view of the watch app, hard press on the screen" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Ih-H5-y7t">
+                            <rect key="frame" x="42" y="81" width="352" height="41"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="6Ih-H5-y7t" firstAttribute="trailing" secondItem="uU0-GN-4Oa" secondAttribute="trailing" id="0cU-3Y-GY7"/>
+                        <constraint firstItem="6Ih-H5-y7t" firstAttribute="top" secondItem="iid-26-d89" secondAttribute="top" id="4Rd-0x-0Su"/>
+                        <constraint firstItem="iid-26-d89" firstAttribute="leading" secondItem="uU0-GN-4Oa" secondAttribute="leading" id="DO0-4d-8zB"/>
+                        <constraint firstItem="uU0-GN-4Oa" firstAttribute="top" secondItem="dCy-S7-4Jg" secondAttribute="top" constant="20" id="Dgh-7O-eOj"/>
+                        <constraint firstItem="iid-26-d89" firstAttribute="top" secondItem="uU0-GN-4Oa" secondAttribute="bottom" constant="20" id="YvI-FO-KHv"/>
+                        <constraint firstItem="6Ih-H5-y7t" firstAttribute="leading" secondItem="iid-26-d89" secondAttribute="trailing" constant="10" id="eOM-9c-Be9"/>
+                        <constraint firstItem="uU0-GN-4Oa" firstAttribute="centerX" secondItem="dCy-S7-4Jg" secondAttribute="centerX" id="kTc-Ea-s2X"/>
+                        <constraint firstAttribute="trailing" secondItem="6Ih-H5-y7t" secondAttribute="trailing" constant="44" id="lT2-9N-vHz"/>
+                        <constraint firstItem="uU0-GN-4Oa" firstAttribute="width" secondItem="dCy-S7-4Jg" secondAttribute="width" constant="-40" id="vak-cr-6wh"/>
+                        <constraint firstAttribute="bottom" secondItem="6Ih-H5-y7t" secondAttribute="bottom" constant="686" id="y5x-KD-hdl"/>
+                    </constraints>
+                </scrollView>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="dCy-S7-4Jg" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="S0r-P8-EUs"/>
+                <constraint firstItem="dCy-S7-4Jg" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="T3a-xE-o3h"/>
+                <constraint firstAttribute="bottom" secondItem="dCy-S7-4Jg" secondAttribute="bottom" id="vmF-xD-UhG"/>
+                <constraint firstAttribute="trailing" secondItem="dCy-S7-4Jg" secondAttribute="trailing" id="xvH-RU-v3p"/>
+            </constraints>
+            <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <point key="canvasLocation" x="73.913043478260875" y="58.928571428571423"/>
+        </view>
+    </objects>
+</document>
