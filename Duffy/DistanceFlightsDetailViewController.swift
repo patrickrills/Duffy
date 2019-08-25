@@ -113,32 +113,32 @@ class DistanceFlightsDetailViewController: DetailDataViewPageViewController
             }
             else
             {
-                var displayUnits: String
+                var displayDistanceLabel: String
                 if (lastDistanceUnits == .mile)
                 {
                     if (lastDistanceValue == 1.0)
                     {
-                        displayUnits = "Mile"
+                        displayDistanceLabel = "Mile Travelled"
                     }
                     else
                     {
-                        displayUnits = "Miles"
+                        displayDistanceLabel = "Miles Travelled"
                     }
                 }
                 else if (lastDistanceUnits == .kilometer)
                 {
                     if (lastDistanceValue == 1.0)
                     {
-                        displayUnits = "Kilometer"
+                        displayDistanceLabel = "Kilometer Travelled"
                     }
                     else
                     {
-                        displayUnits = "Kilometers"
+                        displayDistanceLabel = "Kilometers Travelled"
                     }
                 }
                 else
                 {
-                    displayUnits = LengthFormatter().unitString(fromValue: lastDistanceValue, unit: lastDistanceUnits)
+                    displayDistanceLabel = LengthFormatter().unitString(fromValue: lastDistanceValue, unit: lastDistanceUnits)
                 }
                 
                 let displayDistance = Globals.distanceFormatter().string(from: NSNumber(value: lastDistanceValue))!
@@ -158,7 +158,7 @@ class DistanceFlightsDetailViewController: DetailDataViewPageViewController
                     distanceLabel.text = displayDistance
                 }
                 
-                distanceNameLabel?.text = String(format: "%@ Travelled", displayUnits)
+                distanceNameLabel?.text = displayDistanceLabel
             }
         }
     }
