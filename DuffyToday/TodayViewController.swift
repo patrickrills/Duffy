@@ -56,4 +56,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         })
     }
     
+    @IBAction private func launchParentApp() {
+        UIApplication.shared.open(URL(string: "duffy://")!, options: [:], completionHandler: nil)
+    }
 }
