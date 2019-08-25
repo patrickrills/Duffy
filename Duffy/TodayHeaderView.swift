@@ -103,9 +103,7 @@ class TodayHeaderView: UIView
     
     @IBAction func goalInfoPressed() {
         if let root = UIApplication.shared.delegate?.window??.rootViewController {
-            let alert = UIAlertController(title: "Change Goal", message: "Open the watch app to change your goal", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            root.present(alert, animated: true, completion: nil)
+            root.present(ModalNavigationController(rootViewController: GoalChangeHowToViewController()), animated: true, completion: nil)
         }
     }
 }
