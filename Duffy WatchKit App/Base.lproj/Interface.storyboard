@@ -30,6 +30,27 @@
                             </items>
                             <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
                         </group>
+                        <group width="1" alignment="left" verticalAlignment="center" id="7fr-Yb-KoG">
+                            <items>
+                                <group alignment="left" layout="vertical" id="yG0-a4-sTu">
+                                    <items>
+                                        <label alignment="left" text="D" id="ir6-ZB-MA8"/>
+                                        <label alignment="left" text="DISTANCE" id="9tE-DR-Rkn">
+                                            <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
+                                        </label>
+                                    </items>
+                                </group>
+                                <group alignment="right" layout="vertical" id="lmG-lm-j7m">
+                                    <items>
+                                        <label alignment="right" text="F" id="cnX-fS-dbw"/>
+                                        <label alignment="left" text="FLIGHTS" id="93Q-ig-5lW">
+                                            <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
+                                        </label>
+                                    </items>
+                                </group>
+                            </items>
+                            <edgeInsets key="margins" left="2" right="2" top="4" bottom="0.0"/>
+                        </group>
                     </items>
                     <menu key="menu" id="XKt-9c-iyP">
                         <items>
@@ -46,6 +67,10 @@
                         </items>
                     </menu>
                     <connections>
+                        <outlet property="distanceUnitsLabel" destination="9tE-DR-Rkn" id="j3V-54-ch2"/>
+                        <outlet property="distanceValueLabel" destination="ir6-ZB-MA8" id="ZJD-L0-R7A"/>
+                        <outlet property="flightsUnitsLabel" destination="93Q-ig-5lW" id="0xc-Fh-o6m"/>
+                        <outlet property="flightsValueLabel" destination="cnX-fS-dbw" id="ywQ-48-ydb"/>
                         <outlet property="stepsGoalLabel" destination="npA-ct-HjH" id="PtN-ob-TDp"/>
                         <outlet property="stepsValueLabel" destination="G6E-Dy-R0M" id="K2a-Ej-vfL"/>
                         <segue destination="jZc-PD-Him" kind="relationship" relationship="nextPage" id="Ckp-Pq-aOB"/>

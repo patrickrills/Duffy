@@ -15,6 +15,10 @@ class InterfaceController: WKInterfaceController
 {
     @IBOutlet weak var stepsValueLabel : WKInterfaceLabel?
     @IBOutlet weak var stepsGoalLabel : WKInterfaceLabel?
+    @IBOutlet weak var distanceValueLabel : WKInterfaceLabel?
+    @IBOutlet weak var distanceUnitsLabel : WKInterfaceLabel?
+    @IBOutlet weak var flightsValueLabel : WKInterfaceLabel?
+    @IBOutlet weak var flightsUnitsLabel : WKInterfaceLabel?
     
     private let refreshInterval = 3.0
     private let autoRefreshMax = 10
@@ -46,7 +50,7 @@ class InterfaceController: WKInterfaceController
             display(steps: 0)
         }
         
-        HealthKitService.getInstance().authorizeForSteps({
+        HealthKitService.getInstance().authorizeForAllData({
             
             DispatchQueue.main.async(execute: {
                 [weak self] in
@@ -60,6 +64,8 @@ class InterfaceController: WKInterfaceController
     {
         showLoading()
         displayTodaysStepsFromHealth()
+        displayTodaysFlightsFromHealth()
+        displayTodaysDistanceFromHealth()
         startAutomaticUpdates()
         if let d = WKExtension.shared().delegate as? ExtensionDelegate
         {
@@ -91,6 +97,32 @@ class InterfaceController: WKInterfaceController
                     self?.displayTodaysStepsFromCache()
                 })
             })
+    }
+    
+    func displayTodaysFlightsFromHealth() {
+        HealthKitService.getInstance().getFlightsClimbed(Date(), onRetrieve: {
+            flights, date in
+            
+            DispatchQueue.main.async {
+                [weak self] in
+                self?.flightsValueLabel?.setText(InterfaceController.getNumberFormatter().string(from: NSNumber(value: flights)))
+            }
+            
+        }, onFailure: nil)
+    }
+    
+    func displayTodaysDistanceFromHealth() {
+        HealthKitService.getInstance().getDistanceCovered(Date(), onRetrieve: {
+            distance, units, date in
+            
+            DispatchQueue.main.async {
+                [weak self] in
+                let formatter = InterfaceController.getNumberFormatter()
+                formatter.maximumFractionDigits = 1
+                self?.distanceValueLabel?.setText(formatter.string(from: NSNumber(value: distance)))
+            }
+            
+        }, onFailure: nil)
     }
     
     func displayTodaysStepsFromCache()
