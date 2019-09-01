@@ -238,8 +238,6 @@ class InterfaceController: WKInterfaceController
             }
             
             if let weakSelf = self, !weakSelf.isQueryInProgress, weakSelf.currentRefreshCount < weakSelf.autoRefreshMax {
-                print("auto refresh.....")
-                
                 weakSelf.refreshTodayFromHealth({
                     [weak self] success in
                     self?.scheduleSnapshot()
