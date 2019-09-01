@@ -63,10 +63,21 @@ class InterfaceController: WKInterfaceController
     private func refresh()
     {
         showLoading()
-        displayTodaysStepsFromHealth()
-        displayTodaysFlightsFromHealth()
-        displayTodaysDistanceFromHealth()
-        startAutomaticUpdates()
+        refreshTodayFromHealth({
+            [weak self] success in
+            
+            if let weakSelf = self {
+                self?.hideLoading()
+            
+                if success {
+                    weakSelf.startAutomaticUpdates()
+                    weakSelf.scheduleSnapshot()
+                }
+            }
+        })
+    }
+    
+    private func scheduleSnapshot() {
         if let d = WKExtension.shared().delegate as? ExtensionDelegate
         {
             d.scheduleNextBackgroundRefresh()
@@ -74,44 +85,75 @@ class InterfaceController: WKInterfaceController
         }
     }
     
-    func displayTodaysStepsFromHealth()
-    {
+    private func refreshTodayFromHealth(_ completion: @escaping (Bool) -> Void) {
         isQueryInProgress = true
+        let failBlock = {
+            [weak self] in
+            self?.isQueryInProgress = false
+            completion(false)
+        }
         
+        displayTodaysStepsFromHealth({
+            [weak self] success in
+            if success {
+                self?.displayTodaysFlightsFromHealth({
+                    [weak self] success in
+                    if success {
+                        self?.displayTodaysDistanceFromHealth({
+                            [weak self] success in
+                            self?.isQueryInProgress = false
+                            completion(success)
+                        })
+                    } else {
+                        failBlock()
+                    }
+                })
+            } else {
+                failBlock()
+            }
+        })
+    }
+    
+    private func displayTodaysStepsFromHealth(_ completion: @escaping (Bool) -> Void)
+    {
         HealthKitService.getInstance().getSteps(Date(),
             onRetrieve: {
                 (stepsCount: Int, forDate: Date) in
                 
-                DispatchQueue.main.async(execute: {
+                DispatchQueue.main.async {
                     [weak self] in
-                    self?.isQueryInProgress = false
                     self?.display(steps: stepsCount)
-                })
+                    completion(true)
+                }
             },
             onFailure: {
                 (error: Error?) in
                 
-                DispatchQueue.main.async(execute: {
+                DispatchQueue.main.async {
                     [weak self] in
-                    self?.isQueryInProgress = false
                     self?.displayTodaysStepsFromCache()
-                })
+                    completion(false)
+                }
             })
     }
     
-    func displayTodaysFlightsFromHealth() {
+    private func displayTodaysFlightsFromHealth(_ completion: @escaping (Bool) -> Void) {
         HealthKitService.getInstance().getFlightsClimbed(Date(), onRetrieve: {
             flights, date in
             
             DispatchQueue.main.async {
                 [weak self] in
                 self?.flightsValueLabel?.setText(InterfaceController.getNumberFormatter().string(from: NSNumber(value: flights)))
+                completion(true)
             }
             
-        }, onFailure: nil)
+        }, onFailure: {
+            error in
+            completion(false)
+        })
     }
     
-    func displayTodaysDistanceFromHealth() {
+    func displayTodaysDistanceFromHealth(_ completion: @escaping (Bool) -> Void) {
         HealthKitService.getInstance().getDistanceCovered(Date(), onRetrieve: {
             distance, units, date in
             
@@ -120,9 +162,13 @@ class InterfaceController: WKInterfaceController
                 let formatter = InterfaceController.getNumberFormatter()
                 formatter.maximumFractionDigits = 1
                 self?.distanceValueLabel?.setText(formatter.string(from: NSNumber(value: distance)))
+                completion(true)
             }
             
-        }, onFailure: nil)
+        }, onFailure: {
+            error in
+            completion(false)
+        })
     }
     
     func displayTodaysStepsFromCache()
@@ -160,7 +206,6 @@ class InterfaceController: WKInterfaceController
     
     private func display(steps: Int)
     {
-        hideLoading()
         stepsValueLabel?.setText(InterfaceController.getNumberFormatter().string(from: NSNumber(value: steps)))
         updateGoalDisplay(stepsForDay: steps)
     }
@@ -195,7 +240,12 @@ class InterfaceController: WKInterfaceController
             }
             
             if let weakSelf = self, !weakSelf.isQueryInProgress, weakSelf.currentRefreshCount < weakSelf.autoRefreshMax {
-                weakSelf.displayTodaysStepsFromHealth()
+                print("auto refresh.....")
+                
+                weakSelf.refreshTodayFromHealth({
+                    [weak self] success in
+                    self?.scheduleSnapshot()
+                })
                 weakSelf.currentRefreshCount += 1
             }
         })
