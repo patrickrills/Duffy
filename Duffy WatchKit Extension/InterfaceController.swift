@@ -16,9 +16,7 @@ class InterfaceController: WKInterfaceController
     @IBOutlet weak var stepsValueLabel : WKInterfaceLabel?
     @IBOutlet weak var stepsGoalLabel : WKInterfaceLabel?
     @IBOutlet weak var distanceValueLabel : WKInterfaceLabel?
-    @IBOutlet weak var distanceUnitsLabel : WKInterfaceLabel?
     @IBOutlet weak var flightsValueLabel : WKInterfaceLabel?
-    @IBOutlet weak var flightsUnitsLabel : WKInterfaceLabel?
     
     private let refreshInterval = 3.0
     private let autoRefreshMax = 10

@@ -32,24 +32,22 @@
                         </group>
                         <group width="1" alignment="left" verticalAlignment="center" id="7fr-Yb-KoG">
                             <items>
-                                <group alignment="left" layout="vertical" id="yG0-a4-sTu">
+                                <group alignment="left" id="yG0-a4-sTu">
                                     <items>
+                                        <imageView width="21" height="16" alignment="left" image="Distance" contentMode="scaleAspectFit" id="kBg-Kd-5vZ">
+                                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </imageView>
                                         <label alignment="left" text="0" id="ir6-ZB-MA8"/>
-                                        <label alignment="left" text="DISTANCE" id="9tE-DR-Rkn">
-                                            <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
-                                        </label>
                                     </items>
                                 </group>
-                                <group alignment="right" layout="vertical" id="lmG-lm-j7m">
+                                <group alignment="right" id="lmG-lm-j7m">
                                     <items>
                                         <label alignment="right" text="0" id="cnX-fS-dbw"/>
-                                        <label alignment="left" text="FLIGHTS" id="93Q-ig-5lW">
-                                            <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
-                                        </label>
+                                        <imageView width="18" height="13" alignment="right" verticalAlignment="center" image="Flights" contentMode="scaleAspectFit" id="5fg-Yj-r1K"/>
                                     </items>
                                 </group>
                             </items>
-                            <edgeInsets key="margins" left="2" right="2" top="4" bottom="0.0"/>
+                            <edgeInsets key="margins" left="0.0" right="0.0" top="16" bottom="0.0"/>
                         </group>
                     </items>
                     <menu key="menu" id="XKt-9c-iyP">
@@ -67,9 +65,7 @@
                         </items>
                     </menu>
                     <connections>
-                        <outlet property="distanceUnitsLabel" destination="9tE-DR-Rkn" id="j3V-54-ch2"/>
                         <outlet property="distanceValueLabel" destination="ir6-ZB-MA8" id="ZJD-L0-R7A"/>
-                        <outlet property="flightsUnitsLabel" destination="93Q-ig-5lW" id="0xc-Fh-o6m"/>
                         <outlet property="flightsValueLabel" destination="cnX-fS-dbw" id="ywQ-48-ydb"/>
                         <outlet property="stepsGoalLabel" destination="npA-ct-HjH" id="PtN-ob-TDp"/>
                         <outlet property="stepsValueLabel" destination="G6E-Dy-R0M" id="K2a-Ej-vfL"/>
