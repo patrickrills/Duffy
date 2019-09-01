@@ -8,6 +8,7 @@
 
 import UIKit
 import DuffyFramework
+import HealthKit
 
 class MainTableViewController: UITableViewController
 {
@@ -32,6 +33,7 @@ class MainTableViewController: UITableViewController
     {
         super.viewWillAppear(animated)
         refresh()
+        subscribeToHealthUpdates()
     }
     
     override func viewDidAppear(_ animated: Bool)
@@ -45,6 +47,12 @@ class MainTableViewController: UITableViewController
                 AppRater.askToRate()
             }
         }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        unsubscribeToHealthUpdates()
     }
     
     func heightForHeader() -> CGFloat
@@ -148,6 +156,24 @@ class MainTableViewController: UITableViewController
         }, onFailure: {
             self.isLoading = false
         })
+    }
+    
+    func subscribeToHealthUpdates() {
+        HealthKitService.getInstance().subscribe(to: HKQuantityTypeIdentifier.stepCount, on: {
+            DispatchQueue.main.async {
+                [weak self] in
+                
+                if UIApplication.shared.applicationState != .active {
+                    return
+                }
+                
+                self?.refresh()
+            }
+        })
+    }
+    
+    func unsubscribeToHealthUpdates() {
+        HealthKitService.getInstance().unsubscribe(from: HKQuantityTypeIdentifier.stepCount)
     }
     
     private func openHistory()

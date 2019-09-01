@@ -12,33 +12,51 @@ import DuffyFramework
 
 class TodayViewController: UIViewController, NCWidgetProviding {
     
-    @IBOutlet weak var stepsValueLabel : UILabel?
+    @IBOutlet weak var stepsValueLabel : UILabel!
     
-    let numFormatter = NumberFormatter()
+    private let numFormatter = NumberFormatter()
+    private var stepCount = HealthCache.getStepsFromSharedCache(forDay: Date())
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view from its nib.
+        
         numFormatter.numberStyle = .decimal
         numFormatter.locale = Locale.current
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        displaySteps()
+        HealthKitService.getInstance().getSteps(Date(), onRetrieve: {
+            [weak self] steps, date in
+            if let weakSelf = self {
+                weakSelf.stepCount = steps
+                DispatchQueue.main.async {
+                    [weak self] in
+                    self?.displaySteps()
+                }
+            }
+        }, onFailure: nil)
+    }
+    
+    private func displaySteps() {
+        stepsValueLabel.text = numFormatter.string(from: NSNumber(value:stepCount))
     }
     
     func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
-        // Perform any setup necessary in order to update the view.
-        
-        // If an error is encountered, use NCUpdateResult.Failed
-        // If there's no update required, use NCUpdateResult.NoData
-        // If there's an update, use NCUpdateResult.NewData
-               
-        let cachedStepCount = HealthCache.getStepsFromSharedCache(forDay: Date())
-        stepsValueLabel?.text = numFormatter.string(from: NSNumber(value:cachedStepCount))
-        
-        completionHandler(NCUpdateResult.newData)
+        stepCount = HealthCache.getStepsFromSharedCache(forDay: Date())
+        HealthKitService.getInstance().getSteps(Date(), onRetrieve: {
+            [weak self] steps, date in
+            self?.stepCount = steps
+            completionHandler(NCUpdateResult.newData)
+            }, onFailure: {
+                error in
+                completionHandler(NCUpdateResult.failed)
+        })
     }
     
+    @IBAction private func launchParentApp() {
+        UIApplication.shared.open(URL(string: "duffy://")!, options: [:], completionHandler: nil)
+    }
 }

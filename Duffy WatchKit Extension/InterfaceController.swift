@@ -9,19 +9,22 @@
 import WatchKit
 import Foundation
 import DuffyWatchFramework
+import HealthKit
 
 class InterfaceController: WKInterfaceController
 {
     @IBOutlet weak var stepsValueLabel : WKInterfaceLabel?
     @IBOutlet weak var stepsGoalLabel : WKInterfaceLabel?
-    @IBOutlet weak var infoButton: WKInterfaceButton?
-
-    override func awake(withContext context: Any?)
-    {
-        super.awake(withContext: context)
-        
-        infoButton?.setHidden(!Constants.isDebugMode)
+    
+    private let refreshInterval = 3.0
+    private let autoRefreshMax = 10
+    private var isQueryInProgress = false
+    private var timer: Timer? {
+        didSet {
+            currentRefreshCount = 0
+        }
     }
+    private var currentRefreshCount = 0
     
     override func didAppear()
     {
@@ -30,7 +33,12 @@ class InterfaceController: WKInterfaceController
         askForHealthKitPermission()
     }
     
-    fileprivate func askForHealthKitPermission()
+    override func willDisappear() {
+        super.willDisappear()
+        stopAutomaticUpdates()
+    }
+    
+    private func askForHealthKitPermission()
     {
         //reset display if day turned over
         if (HealthCache.cacheIsForADifferentDay(Date()))
@@ -48,10 +56,11 @@ class InterfaceController: WKInterfaceController
             }, onFailure: { })
     }
     
-    fileprivate func refresh()
+    private func refresh()
     {
         showLoading()
         displayTodaysStepsFromHealth()
+        startAutomaticUpdates()
         if let d = WKExtension.shared().delegate as? ExtensionDelegate
         {
             d.scheduleNextBackgroundRefresh()
@@ -61,12 +70,15 @@ class InterfaceController: WKInterfaceController
     
     func displayTodaysStepsFromHealth()
     {
+        isQueryInProgress = true
+        
         HealthKitService.getInstance().getSteps(Date(),
             onRetrieve: {
                 (stepsCount: Int, forDate: Date) in
                 
                 DispatchQueue.main.async(execute: {
                     [weak self] in
+                    self?.isQueryInProgress = false
                     self?.display(steps: stepsCount)
                 })
             },
@@ -75,6 +87,7 @@ class InterfaceController: WKInterfaceController
                 
                 DispatchQueue.main.async(execute: {
                     [weak self] in
+                    self?.isQueryInProgress = false
                     self?.displayTodaysStepsFromCache()
                 })
             })
@@ -110,7 +123,7 @@ class InterfaceController: WKInterfaceController
     
     func hideLoading()
     {
-        setTitle("Duffy")
+        setTitle("Today")
     }
     
     private func display(steps: Int)
@@ -128,7 +141,7 @@ class InterfaceController: WKInterfaceController
             if goalValue > 0, let formattedValue = InterfaceController.getNumberFormatter().string(from: NSNumber(value: goalValue))
             {
                 lbl.setHidden(false)
-                lbl.setText(String(format: "of %@ %@", formattedValue, HealthKitService.getInstance().getAdornment(for: stepsForDay)))
+                lbl.setText(String(format: "of %@ goal %@", formattedValue, HealthKitService.getInstance().getAdornment(for: stepsForDay)))
             }
             else
             {
@@ -137,33 +150,36 @@ class InterfaceController: WKInterfaceController
         }
     }
     
+    private func startAutomaticUpdates() {
+        guard timer == nil else {
+            return
+        }
+        
+        timer = Timer.scheduledTimer(withTimeInterval: refreshInterval, repeats: true, block: {
+            [weak self] (t: Timer) in
+            
+            if WKExtension.shared().applicationState != .active {
+                return
+            }
+            
+            if let weakSelf = self, !weakSelf.isQueryInProgress, weakSelf.currentRefreshCount < weakSelf.autoRefreshMax {
+                weakSelf.displayTodaysStepsFromHealth()
+                weakSelf.currentRefreshCount += 1
+            }
+        })
+    }
+    
+    private func stopAutomaticUpdates() {
+        if let timer = timer {
+            timer.invalidate()
+        }
+        
+        timer = nil
+    }
+    
     @IBAction func refreshPressed()
     {
         refresh()
-    }
-    
-    @IBAction func infoPressed()
-    {
-        refresh()
-        
-        let cancel = WKAlertAction(title: "Cancel", style: WKAlertActionStyle.cancel, handler: { () in })
-        let cacheData = HealthCache.getStepsDataFromCache()
-        var date = "Unknown"
-        var steps = -1
-        if let savedDay = cacheData["stepsCacheDay"] as? String
-        {
-            date = savedDay
-        }
-        if let savedVal = cacheData["stepsCacheValue"] as? Int
-        {
-            steps = savedVal
-        }
-        
-        let wasSentToday = NotificationService.dailyStepsGoalNotificationWasAlreadySent()
-        let wasSentString = wasSentToday ? "today" : "n/a"
-        
-        let message = String(format: "Saved in cache:\n Steps: %d\n For day: %@\n Last note sent: %@", steps, date, wasSentString)
-        presentAlert(withTitle: "Info", message: message, preferredStyle: WKAlertControllerStyle.alert, actions: [cancel])
     }
     
     @IBAction func changeGoalMenuItemPressed()
