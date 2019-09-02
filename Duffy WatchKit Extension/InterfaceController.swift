@@ -159,7 +159,12 @@ class InterfaceController: WKInterfaceController
                 [weak self] in
                 let formatter = InterfaceController.getNumberFormatter()
                 formatter.maximumFractionDigits = 1
-                self?.distanceValueLabel?.setText(formatter.string(from: NSNumber(value: distance)))
+                let unitsFormatted = units == .mile ? "mi" : "km"
+                if let weakSelf = self, let valueFormatted = formatter.string(from: NSNumber(value: distance)) {
+                    let distanceAttributed = NSMutableAttributedString(string: String(format: "%@ %@", valueFormatted, unitsFormatted))
+                    distanceAttributed.addAttribute(.font, value: UIFont.systemFont(ofSize: 9.0), range: NSRange(location: distanceAttributed.string.count - unitsFormatted.count, length: unitsFormatted.count))
+                    weakSelf.distanceValueLabel?.setAttributedText(distanceAttributed)
+                }
                 completion(true)
             }
             
