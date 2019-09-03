@@ -8,13 +8,13 @@
 
 import UIKit
 
-class ModalNavigationController: UINavigationController
+class ModalNavigationController: UINavigationController, UINavigationControllerDelegate
 {
     override init(rootViewController: UIViewController)
     {
         super.init(rootViewController: rootViewController)
+        self.delegate = self
         navigationBar.tintColor = Globals.secondaryColor()
-        rootViewController.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(donePressed))
         navigationBar.prefersLargeTitles = true
         rootViewController.navigationItem.largeTitleDisplayMode = .always
     }
@@ -32,5 +32,18 @@ class ModalNavigationController: UINavigationController
     @IBAction func donePressed()
     {
         dismiss(animated: true, completion: nil)
+    }
+    
+    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
+        guard viewController == self.viewControllers[0] else {
+            return
+        }
+        
+        let doneButton  = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(donePressed))
+        if viewController.navigationItem.rightBarButtonItem != nil {
+            viewController.navigationItem.leftBarButtonItem = doneButton
+        } else {
+            viewController.navigationItem.rightBarButtonItem = doneButton
+        }
     }
 }
