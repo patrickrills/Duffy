@@ -50,5 +50,9 @@
 	</dict>
 	<key>WKExtensionDelegateClassName</key>
 	<string>$(PRODUCT_MODULE_NAME).ExtensionDelegate</string>
+	<key>NSHealthShareUsageDescription</key>
+	<string>Need to read your steps to display your steps.</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>Need to write steps.</string>
 </dict>
 </plist>
