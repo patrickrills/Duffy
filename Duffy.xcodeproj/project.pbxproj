@@ -69,6 +69,8 @@
 		09BDDA6821979A940078B749 /* ModalNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BDDA6721979A940078B749 /* ModalNavigationController.swift */; };
 		09CC417A23132C140029AAFB /* GoalChangeHowToViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CC417823132C140029AAFB /* GoalChangeHowToViewController.swift */; };
 		09CC417B23132C140029AAFB /* GoalChangeHowToViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09CC417923132C140029AAFB /* GoalChangeHowToViewController.xib */; };
+		09CC417F231F3DAD0029AAFB /* AboutTableViewFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CC417E231F3DAD0029AAFB /* AboutTableViewFooter.swift */; };
+		09CC4181231F3DC70029AAFB /* AboutTableViewFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09CC4180231F3DC70029AAFB /* AboutTableViewFooter.xib */; };
 		09CE42C11E353E7100A6E587 /* HistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CE42C01E353E7100A6E587 /* HistoryTableViewController.swift */; };
 		09CE42CA1E35525200A6E587 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09CE42C91E35525200A6E587 /* NotificationCenter.framework */; };
 		09CE42CD1E35525200A6E587 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CE42CC1E35525200A6E587 /* TodayViewController.swift */; };
@@ -240,6 +242,8 @@
 		09BDDA6721979A940078B749 /* ModalNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalNavigationController.swift; sourceTree = "<group>"; };
 		09CC417823132C140029AAFB /* GoalChangeHowToViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalChangeHowToViewController.swift; sourceTree = "<group>"; };
 		09CC417923132C140029AAFB /* GoalChangeHowToViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GoalChangeHowToViewController.xib; sourceTree = "<group>"; };
+		09CC417E231F3DAD0029AAFB /* AboutTableViewFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutTableViewFooter.swift; sourceTree = "<group>"; };
+		09CC4180231F3DC70029AAFB /* AboutTableViewFooter.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AboutTableViewFooter.xib; sourceTree = "<group>"; };
 		09CE42C01E353E7100A6E587 /* HistoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryTableViewController.swift; sourceTree = "<group>"; };
 		09CE42C81E35525200A6E587 /* DuffyToday.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = DuffyToday.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		09CE42C91E35525200A6E587 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
@@ -341,6 +345,8 @@
 				09BDDA6521978CE90078B749 /* AboutFooterView.xib */,
 				09BDDA6721979A940078B749 /* ModalNavigationController.swift */,
 				09BDDA5D219116740078B749 /* AboutTableViewController.swift */,
+				09CC417E231F3DAD0029AAFB /* AboutTableViewFooter.swift */,
+				09CC4180231F3DC70029AAFB /* AboutTableViewFooter.xib */,
 				09CE42C01E353E7100A6E587 /* HistoryTableViewController.swift */,
 				09A7EEAB21A1E89A00DEDE5C /* HistoryTrendChartTableViewCell.swift */,
 				09A7EEAC21A1E89A00DEDE5C /* HistoryTrendChartTableViewCell.xib */,
@@ -662,6 +668,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				09289C8220DE131E005BF6B8 /* TodayHeaderView.xib in Resources */,
+				09CC4181231F3DC70029AAFB /* AboutTableViewFooter.xib in Resources */,
 				09323C7B1D22C39700961822 /* LaunchScreen.storyboard in Resources */,
 				09CEA97D211F86BB0023786B /* HistoryTableViewFooter.xib in Resources */,
 				09323C781D22C39700961822 /* Assets.xcassets in Resources */,
@@ -726,6 +733,7 @@
 				09CE42C11E353E7100A6E587 /* HistoryTableViewController.swift in Sources */,
 				097085632127122B00790EC7 /* DistanceFlightsDetailViewController.swift in Sources */,
 				09708599214D7A8000790EC7 /* HourGraphDetailViewController.swift in Sources */,
+				09CC417F231F3DAD0029AAFB /* AboutTableViewFooter.swift in Sources */,
 				0900867320FA7673006540E7 /* PreviousSectionHeaderView.swift in Sources */,
 				09A7EEAD21A1E89A00DEDE5C /* HistoryTrendChartTableViewCell.swift in Sources */,
 				0970859C214DAB8900790EC7 /* HourGraphBarView.swift in Sources */,
