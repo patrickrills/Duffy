@@ -110,14 +110,12 @@ class AboutTableViewController: UITableViewController {
         }
     }
     
-    override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String?
-    {
-        if (section == self.numberOfSections(in: tableView) - 1)
-        {
-            return String(format: "Version %@", Globals.appVersion())
-        }
-        
-        return nil
+    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+            if (section == self.numberOfSections(in: tableView) - 1) {
+                return AboutTableViewFooter.createView(self, action: #selector(openPrivacyPolicy))
+            }
+
+            return nil
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
@@ -146,7 +144,7 @@ class AboutTableViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    private func openPrivacyPolicy() {
+    @objc private func openPrivacyPolicy() {
         openURL("http://www.bigbluefly.com/duffy/privacy")
     }
 }
