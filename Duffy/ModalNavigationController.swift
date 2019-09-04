@@ -34,8 +34,10 @@ class ModalNavigationController: UINavigationController, UINavigationControllerD
         dismiss(animated: true, completion: nil)
     }
     
+    private var addedDoneButton = false
+    
     func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
-        guard viewController == self.viewControllers[0] else {
+        guard viewController == self.viewControllers[0] && !addedDoneButton else {
             return
         }
         
@@ -45,5 +47,7 @@ class ModalNavigationController: UINavigationController, UINavigationControllerD
         } else {
             viewController.navigationItem.rightBarButtonItem = doneButton
         }
+        
+        addedDoneButton = true
     }
 }
