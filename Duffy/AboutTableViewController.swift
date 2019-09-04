@@ -74,15 +74,15 @@ class AboutTableViewController: UITableViewController {
                 switch (indexPath.row)
                 {
                     case 0:
-                        cell.textLabel?.text = "Request Help"
+                        cell.textLabel?.text = "How To Change Your Goal"
                         break
                     default:
-                        cell.textLabel?.text = "Rate Duffy"
+                        cell.textLabel?.text = "Ask a Question"
                         break
                 }
                 break
             case 1:
-                cell.textLabel?.text = "Privacy Policy"
+                cell.textLabel?.text = "Rate Duffy"
                 break
             default:
                 cell.textLabel?.text = "Big Blue Fly"
@@ -97,11 +97,11 @@ class AboutTableViewController: UITableViewController {
         switch (section)
         {
             case 0:
-                return "Feedback"
+                return "Help"
             
             case 1:
-                return "Legal"
-            
+                return "Feedback"
+
             case 2:
                 return "Published By"
             
@@ -128,15 +128,15 @@ class AboutTableViewController: UITableViewController {
                 switch (indexPath.row)
                 {
                     case 0:
-                        openURL("http://www.bigbluefly.com/duffy?contact=1")
+                        self.navigationController?.pushViewController(GoalChangeHowToViewController(), animated: true)
                         break
                     default:
-                        AppRater.redirectToAppStore()
+                        openURL("http://www.bigbluefly.com/duffy?contact=1")
                         break
                 }
                 break
             case 1:
-                openURL("http://www.bigbluefly.com/duffy/privacy")
+                AppRater.redirectToAppStore()
                 break
             default:
                 openURL("http://www.bigbluefly.com")
@@ -144,5 +144,9 @@ class AboutTableViewController: UITableViewController {
         }
         
         tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    private func openPrivacyPolicy() {
+        openURL("http://www.bigbluefly.com/duffy/privacy")
     }
 }
