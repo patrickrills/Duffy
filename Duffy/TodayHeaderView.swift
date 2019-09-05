@@ -11,12 +11,13 @@ import DuffyFramework
 
 class TodayHeaderView: UIView
 {
-    @IBOutlet weak var titleLabel : UILabel?
-    @IBOutlet weak var subTitleLabel : UILabel?
-    @IBOutlet weak var stepsValueLabel : UILabel?
-    @IBOutlet weak var refreshButton : UIButton?
-    @IBOutlet weak var goalLabel : UILabel?
-    @IBOutlet weak var detailContainer : UIView?
+    @IBOutlet weak var titleLabel : UILabel!
+    @IBOutlet weak var subTitleLabel : UILabel!
+    @IBOutlet weak var stepsValueLabel : UILabel!
+    @IBOutlet weak var refreshButton : UIButton!
+    @IBOutlet weak var goalLabel : UILabel!
+    @IBOutlet weak var goalInfoButton : UIButton!
+    @IBOutlet weak var detailContainer : UIView!
     
     class func createView() -> TodayHeaderView?
     {
@@ -33,29 +34,27 @@ class TodayHeaderView: UIView
     {
         super.awakeFromNib()
         
-        titleLabel?.textColor = Globals.primaryColor()
-        subTitleLabel?.textColor = Globals.primaryColor()
-        refreshButton?.setTitleColor(Globals.secondaryColor(), for: .normal)
-        stepsValueLabel?.text = "0"
+        titleLabel.textColor = Globals.primaryColor()
+        subTitleLabel.textColor = Globals.primaryColor()
+        refreshButton.setTitleColor(Globals.secondaryColor(), for: .normal)
+        goalInfoButton.tintColor = Globals.secondaryColor()
+        stepsValueLabel.text = "0"
         updateGoalDisplay(stepsForDay: 0)
         
-        if let container = detailContainer, let detail = DetailDataView.createView()
+        if let detail = DetailDataView.createView()
         {
-            container.addSubview(detail)
+            detailContainer.addSubview(detail)
             detail.translatesAutoresizingMaskIntoConstraints = false
-            detail.leadingAnchor.constraint(equalTo: container.leadingAnchor).isActive = true
-            detail.trailingAnchor.constraint(equalTo: container.trailingAnchor).isActive = true
-            detail.topAnchor.constraint(equalTo: container.topAnchor).isActive = true
-            detail.bottomAnchor.constraint(equalTo: container.bottomAnchor).isActive = true
+            detail.leadingAnchor.constraint(equalTo: detailContainer.leadingAnchor).isActive = true
+            detail.trailingAnchor.constraint(equalTo: detailContainer.trailingAnchor).isActive = true
+            detail.topAnchor.constraint(equalTo: detailContainer.topAnchor).isActive = true
+            detail.bottomAnchor.constraint(equalTo: detailContainer.bottomAnchor).isActive = true
         }
     }
     
     func toggleLoading(isLoading: Bool)
     {
-        if let r = refreshButton
-        {
-            r.setTitle((isLoading ? "Loading..." : "STEPS"), for: .normal)
-        }
+        refreshButton.setTitle((isLoading ? "Loading..." : "STEPS"), for: .normal)
     }
     
     func refresh()
@@ -68,7 +67,7 @@ class TodayHeaderView: UIView
                 if let weakSelf = self
                 {
                     weakSelf.toggleLoading(isLoading: false)
-                    weakSelf.stepsValueLabel?.text = Globals.stepsFormatter().string(from: NSNumber(value: stepsCount))
+                    weakSelf.stepsValueLabel.text = Globals.stepsFormatter().string(from: NSNumber(value: stepsCount))
                     weakSelf.updateGoalDisplay(stepsForDay: stepsCount)
                 }
             })
@@ -77,7 +76,7 @@ class TodayHeaderView: UIView
             self?.toggleLoading(isLoading: false)
         })
         
-        if let container = detailContainer, container.subviews.count > 0, let details = container.subviews[0] as? DetailDataView
+        if detailContainer.subviews.count > 0, let details = detailContainer.subviews[0] as? DetailDataView
         {
             details.refresh()
         }
@@ -85,17 +84,14 @@ class TodayHeaderView: UIView
     
     private func updateGoalDisplay(stepsForDay: Int)
     {
-        if let lbl = goalLabel
+        let goalValue = HealthCache.getStepsDailyGoal()
+        if goalValue > 0, let formattedValue = Globals.stepsFormatter().string(from: NSNumber(value: goalValue))
         {
-            let goalValue = HealthCache.getStepsDailyGoal()
-            if goalValue > 0, let formattedValue = Globals.stepsFormatter().string(from: NSNumber(value: goalValue))
-            {
-                lbl.text = String(format: "of %@ goal %@", formattedValue, HealthKitService.getInstance().getAdornment(for: stepsForDay))
-            }
-            else
-            {
-                lbl.text = nil
-            }
+            goalLabel.text = String(format: "of %@ goal %@", formattedValue, HealthKitService.getInstance().getAdornment(for: stepsForDay))
+        }
+        else
+        {
+            goalLabel.text = nil
         }
     }
     
@@ -103,5 +99,11 @@ class TodayHeaderView: UIView
     {
         toggleLoading(isLoading: true)
         refresh()
+    }
+    
+    @IBAction func goalInfoPressed() {
+        if let root = UIApplication.shared.delegate?.window??.rootViewController {
+            root.present(ModalNavigationController(rootViewController: GoalChangeHowToViewController()), animated: true, completion: nil)
+        }
     }
 }
