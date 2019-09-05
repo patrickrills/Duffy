@@ -46,6 +46,7 @@ class InterfaceController: WKInterfaceController
         if (HealthCache.cacheIsForADifferentDay(Date()))
         {
             display(steps: 0)
+            scheduleSnapshot()
         }
         
         HealthKitService.getInstance().authorizeForAllData({
@@ -176,7 +177,7 @@ class InterfaceController: WKInterfaceController
     
     func displayTodaysStepsFromCache()
     {
-        DispatchQueue.main.async(execute: {
+        DispatchQueue.main.async {
             [weak self] in
             
             if let weakSelf = self
@@ -194,7 +195,7 @@ class InterfaceController: WKInterfaceController
                 
                 weakSelf.display(steps: steps)
             }
-        })
+        }
     }
     
     func showLoading()
