@@ -51,10 +51,10 @@ class InterfaceController: WKInterfaceController
         
         HealthKitService.getInstance().authorizeForAllData({
             
-            DispatchQueue.main.async(execute: {
+            DispatchQueue.main.async {
                 [weak self] in
                     self?.refresh()
-                })
+                }
             
             }, onFailure: { })
     }
@@ -87,9 +87,11 @@ class InterfaceController: WKInterfaceController
     private func refreshTodayFromHealth(_ completion: @escaping (Bool) -> Void) {
         isQueryInProgress = true
         let failBlock = {
-            [weak self] in
-            self?.isQueryInProgress = false
-            completion(false)
+            DispatchQueue.main.async {
+                [weak self] in
+                self?.isQueryInProgress = false
+                completion(false)
+            }
         }
         
         displayTodaysStepsFromHealth({
