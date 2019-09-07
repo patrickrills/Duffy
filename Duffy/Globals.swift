@@ -68,6 +68,10 @@ class Globals: NSObject
     
     open class func lightGrayColor() -> UIColor
     {
+        if #available(iOS 13.0, *) {
+            return .tertiaryLabel
+        }
+        
         return lightText
     }
     

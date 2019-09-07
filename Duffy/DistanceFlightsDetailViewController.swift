@@ -20,25 +20,15 @@ class DistanceFlightsDetailViewController: DetailDataViewPageViewController
     var lastDistanceUnits : LengthFormatter.Unit = LengthFormatter.Unit.mile
     var lastFlightsValue : Int = 0
     
-    override func viewDidLoad()
-    {
-        super.viewDidLoad()
-        initialize()
-    }
-    
-    private func initialize()
-    {
-        distanceValueLabel?.textColor = Globals.lightGrayColor()
-        flightsValueLabel?.textColor = Globals.lightGrayColor()
-        distanceNameLabel?.textColor = Globals.lightGrayColor()
-        flightsNameLabel?.textColor = Globals.lightGrayColor()
-    }
-    
     override func viewWillLayoutSubviews()
     {
         super.viewWillLayoutSubviews()
         updateFlights()
         updateDistance()
+        distanceValueLabel?.textColor = Globals.lightGrayColor()
+        flightsValueLabel?.textColor = Globals.lightGrayColor()
+        distanceNameLabel?.textColor = Globals.lightGrayColor()
+        flightsNameLabel?.textColor = Globals.lightGrayColor()
     }
     
     override func refresh()
