@@ -86,6 +86,10 @@ class Globals: NSObject
     
     open class func successColor() -> UIColor
     {
+        if #available(iOS 13.0, *) {
+            return .systemGreen
+        }
+        
         return success
     }
     
