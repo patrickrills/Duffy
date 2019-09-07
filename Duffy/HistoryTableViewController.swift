@@ -23,11 +23,13 @@ class HistoryTableViewController: UITableViewController
     init()
     {
         super.init(style: .grouped)
+        self.modalPresentationStyle = .fullScreen
     }
     
     required init?(coder aDecoder: NSCoder)
     {
         super.init(style: .grouped)
+        self.modalPresentationStyle = .fullScreen
     }
 
     override func viewDidLoad()

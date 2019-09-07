@@ -17,6 +17,7 @@ class ModalNavigationController: UINavigationController, UINavigationControllerD
         navigationBar.tintColor = Globals.secondaryColor()
         navigationBar.prefersLargeTitles = true
         rootViewController.navigationItem.largeTitleDisplayMode = .always
+        modalPresentationStyle = rootViewController.modalPresentationStyle
     }
     
     required init?(coder aDecoder: NSCoder)

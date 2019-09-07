@@ -15,6 +15,7 @@ class HistoryTrendChartView: UIView
     {
         didSet
         {
+            backgroundColor = .clear
             setNeedsDisplay()
         }
     }
