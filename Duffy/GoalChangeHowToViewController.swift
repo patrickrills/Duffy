@@ -28,8 +28,22 @@ class GoalChangeHowToViewController: UIViewController {
         super.viewDidLoad()
 
         self.title = "Change Your Goal"
-        self.headerLabel.textColor = .darkGray
+        
         self.headerLabel.text = String(format: "This guide describes how to change your daily steps goal (currently %@ steps). Your goal can only be changed from the Duffy Apple Watch app.", Globals.stepsFormatter().string(from: NSNumber(value: HealthCache.getStepsDailyGoal()))!)
+        
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        if #available(iOS 13, *) {
+            view.backgroundColor = .systemBackground
+            self.headerLabel.textColor = .secondaryLabel
+        } else {
+            self.headerLabel.textColor = .darkGray
+            view.backgroundColor = .white
+        }
+        
         self.oneLabel.textColor = Globals.primaryColor()
         self.twoLabel.textColor = self.oneLabel.textColor
         self.threeLabel.textColor = self.oneLabel.textColor
