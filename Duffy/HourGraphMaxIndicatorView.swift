@@ -36,7 +36,6 @@ class HourGraphMaxIndicatorView: UIView
     {
         let lbl = UILabel(frame: CGRect.zero)
         lbl.font = UIFont.systemFont(ofSize: 14.0, weight: .light)
-        lbl.textColor = Globals.veryLightGrayColor()
         addSubview(lbl)
         maxLabel = lbl
     }
@@ -59,6 +58,7 @@ class HourGraphMaxIndicatorView: UIView
         {
             let textSize = lbl.sizeThatFits(CGSize(width: CGFloat.greatestFiniteMagnitude, height: self.frame.size.height))
             lbl.frame = CGRect(x: 0, y: 0, width: textSize.width, height: self.frame.size.height)
+            lbl.textColor = Globals.veryLightGrayColor()
         }
     }
     
