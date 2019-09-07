@@ -27,7 +27,11 @@ class PreviousValueTableViewCell: UITableViewCell
         textLabel?.textColor = Globals.primaryColor()
         textLabel?.font = UIFont.systemFont(ofSize: UIFont.labelFontSize, weight: .light)
         
-        detailTextLabel?.textColor = UIColor.black
+        if #available(iOS 13.0, *) {
+            detailTextLabel?.textColor = .label
+        } else {
+            detailTextLabel?.textColor = .black
+        }
         
         let stepsFormatted = Globals.stepsFormatter().string(from: NSNumber(value: steps))!
         var detailWeight : UIFont.Weight = .regular

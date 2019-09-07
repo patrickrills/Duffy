@@ -36,9 +36,6 @@ class TodayHeaderView: UIView
     {
         super.awakeFromNib()
         
-        titleLabel.textColor = Globals.primaryColor()
-        refreshButton.setTitleColor(Globals.secondaryColor(), for: .normal)
-        goalInfoButton.tintColor = Globals.secondaryColor()
         stepsValueLabel.text = "0"
         updateGoalDisplay(stepsForDay: 0)
         
@@ -66,6 +63,18 @@ class TodayHeaderView: UIView
         }
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        titleLabel.textColor = Globals.primaryColor()
+        refreshButton.setTitleColor(Globals.secondaryColor(), for: .normal)
+        goalInfoButton.tintColor = Globals.secondaryColor()
+        
+        if #available(iOS 13.0, *) {
+            stepsValueLabel.textColor = .label
+            goalLabel.textColor = .label
+        }
+    }
+    
     func toggleLoading(isLoading: Bool)
     {
         refreshButton.setTitle((isLoading ? "Loading..." : "STEPS"), for: .normal)
@@ -76,7 +85,7 @@ class TodayHeaderView: UIView
         HealthKitService.getInstance().getSteps(Date(), onRetrieve: {
             (stepsCount: Int, forDate: Date) in
             
-            DispatchQueue.main.async(execute: {
+            DispatchQueue.main.async {
                 [weak self] in
                 if let weakSelf = self
                 {
@@ -84,7 +93,7 @@ class TodayHeaderView: UIView
                     weakSelf.stepsValueLabel.text = Globals.stepsFormatter().string(from: NSNumber(value: stepsCount))
                     weakSelf.updateGoalDisplay(stepsForDay: stepsCount)
                 }
-            })
+            }
         }, onFailure: {
             [weak self] (error: Error?) in
             self?.toggleLoading(isLoading: false)
