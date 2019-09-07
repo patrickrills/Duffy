@@ -14,16 +14,12 @@ class HourGraphDetailViewController: DetailDataViewPageViewController
     @IBOutlet weak var barsStackView : UIStackView?
     @IBOutlet weak var maxIndicator : HourGraphMaxIndicatorView?
     @IBOutlet weak var noStepsLabel : UILabel?
+    @IBOutlet weak var sixAMLabel : UILabel?
+    @IBOutlet weak var noonLabel : UILabel?
+    @IBOutlet weak var sixPMLabel : UILabel?
     @IBOutlet weak var sixAMBottomConstraint : NSLayoutConstraint?
     @IBOutlet weak var noonBottomConstraint : NSLayoutConstraint?
     @IBOutlet weak var sixPMBottomConstraint : NSLayoutConstraint?
-    
-    override func viewDidLoad()
-    {
-        super.viewDidLoad()
-        
-        noStepsLabel?.textColor = Globals.lightGrayColor()
-    }
     
     override func refresh()
     {
@@ -103,5 +99,12 @@ class HourGraphDetailViewController: DetailDataViewPageViewController
         sixAMBottomConstraint?.constant = margin.bottom
         noonBottomConstraint?.constant = margin.bottom
         sixPMBottomConstraint?.constant = margin.bottom
+        noStepsLabel?.textColor = Globals.lightGrayColor()
+        
+        if #available(iOS 13.0, *) {
+            sixAMLabel?.textColor = .label
+            noonLabel?.textColor = .label
+            sixPMLabel?.textColor = .label
+        }
     }
 }
