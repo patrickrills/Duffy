@@ -14,7 +14,6 @@ class Globals: NSObject
     private static let decimalFormatter = NumberFormatter()
     private static let dateFormatter = DateFormatter()
     private static let fullFormatter = DateFormatter()
-    private static let primary = UIColor(red: 0.0, green: 61.0/255.0, blue: 165.0/255.0, alpha: 1.0)
     private static let secondary = UIColor(red: 76.0/255.0, green: 142.0/255.0, blue: 218.0/255.0, alpha: 1.0)
     private static let lightText = UIColor(red: 196.0/255.0, green: 196.0/255.0, blue: 198.0/255.0, alpha: 1.0)
     private static let veryLightText = UIColor.black.withAlphaComponent(0.15)
@@ -58,11 +57,19 @@ class Globals: NSObject
  
     open class func primaryColor() -> UIColor
     {
-        return primary
+        if let primaryColor = UIColor(named: "PrimaryColor") {
+            return primaryColor
+        }
+        
+        return .systemBlue
     }
     
     open class func secondaryColor() -> UIColor
     {
+        if let secondaryColor = UIColor(named: "SecondaryColor") {
+            return secondaryColor
+        }
+        
         return secondary
     }
     
