@@ -25,7 +25,7 @@ class PreviousValueTableViewCell: UITableViewCell
     {
         textLabel?.text = Globals.dayFormatter().string(from: toDate)
         textLabel?.textColor = Globals.primaryColor()
-        textLabel?.font = UIFont.systemFont(ofSize: UIFont.labelFontSize, weight: .light)
+        textLabel?.font = UIFont.systemFont(ofSize: UIFont.labelFontSize, weight: .regular)
         
         if #available(iOS 13.0, *) {
             detailTextLabel?.textColor = .label
