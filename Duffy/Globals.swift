@@ -103,6 +103,16 @@ class Globals: NSObject
         return UIScreen.main.bounds.size.width <= 320.0
     }
     
+    open class func isTallPhone() -> Bool
+    {
+        return UIScreen.main.bounds.size.height > 700.0
+    }
+    
+    open class func isMaxPhone() -> Bool
+    {
+        return UIScreen.main.bounds.size.height > 850.0
+    }
+    
     open class func appVersion() -> String
     {
         if let infoDict = Bundle.main.infoDictionary

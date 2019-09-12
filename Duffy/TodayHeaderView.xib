@@ -104,12 +104,15 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
+                <outlet property="bottomMargin" destination="Ekt-U6-uax" id="JFz-mJ-Bje"/>
+                <outlet property="chartMargin" destination="rV7-vR-szV" id="KmJ-3F-EK6"/>
                 <outlet property="detailContainer" destination="enX-HD-spO" id="Zx2-yq-YDD"/>
                 <outlet property="goalInfoButton" destination="VvN-ah-yaI" id="KfR-gu-2AF"/>
                 <outlet property="goalLabel" destination="lac-jq-TNG" id="IV9-Sb-Zdk"/>
                 <outlet property="refreshButton" destination="aGZ-bb-DcM" id="CCu-T2-wxH"/>
                 <outlet property="stepsValueLabel" destination="HTd-A8-iMh" id="f2r-OV-4sb"/>
                 <outlet property="titleLabel" destination="XdS-1n-bMU" id="GZL-85-nO5"/>
+                <outlet property="topMargin" destination="lcd-FY-ebk" id="0HA-wE-ukJ"/>
             </connections>
             <point key="canvasLocation" x="33.5" y="-38.5"/>
         </view>

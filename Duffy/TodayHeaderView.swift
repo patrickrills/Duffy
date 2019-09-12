@@ -17,6 +17,9 @@ class TodayHeaderView: UIView
     @IBOutlet weak var goalLabel : UILabel!
     @IBOutlet weak var goalInfoButton : UIButton!
     @IBOutlet weak var detailContainer : UIView!
+    @IBOutlet weak var topMargin : NSLayoutConstraint!
+    @IBOutlet weak var chartMargin : NSLayoutConstraint!
+    @IBOutlet weak var bottomMargin : NSLayoutConstraint!
     
     class func createView() -> TodayHeaderView?
     {
@@ -49,6 +52,17 @@ class TodayHeaderView: UIView
                 detail.topAnchor.constraint(equalTo: detailContainer.topAnchor),
                 detail.bottomAnchor.constraint(equalTo: detailContainer.bottomAnchor)
             ])
+        }
+        
+        if Globals.isMaxPhone() {
+            topMargin.constant = 56.0
+            bottomMargin.constant = 42.0
+        } else if Globals.isTallPhone() {
+            topMargin.constant = 40.0
+            bottomMargin.constant = 28.0
+        } else {
+            topMargin.constant = 24.0
+            bottomMargin.constant = 8.0
         }
     }
     
