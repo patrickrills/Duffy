@@ -24,12 +24,12 @@ class WeekInterfaceController: WKInterfaceController
     
     func showLoading()
     {
-        setTitle("Getting...")
+        setTitle("Loading...")
     }
     
     func hideLoading()
     {
-        setTitle("History")
+        setTitle("Recent")
     }
 
     func bindTableToWeek()

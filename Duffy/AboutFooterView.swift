@@ -10,7 +10,7 @@ import UIKit
 
 class AboutFooterView: UIView
 {
-    @IBOutlet weak var aboutButton : UIButton?
+    @IBOutlet weak var aboutButton : UIButton!
     
     var separatorIsVisible : Bool = true
     {
@@ -23,8 +23,9 @@ class AboutFooterView: UIView
     override func awakeFromNib()
     {
         super.awakeFromNib()
-        aboutButton?.setTitleColor(Globals.secondaryColor(), for: .normal)
-        aboutButton?.setTitleColor(Globals.secondaryColor().withAlphaComponent(0.4), for: .highlighted)
+        aboutButton.setTitleColor(Globals.secondaryColor(), for: .normal)
+        aboutButton.setTitleColor(Globals.secondaryColor().withAlphaComponent(0.4), for: .highlighted)
+        aboutButton.setTitle("About Duffy".uppercased(), for: .normal)
     }
     
     class func createView() -> AboutFooterView?

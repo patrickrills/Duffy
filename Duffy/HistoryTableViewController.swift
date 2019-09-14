@@ -64,7 +64,7 @@ class HistoryTableViewController: UITableViewController
     
     func showLoading()
     {
-        title = "Getting..."
+        title = "Loading..."
     }
     
     func hideLoading(_ hasData: Bool)

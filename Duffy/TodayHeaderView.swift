@@ -12,12 +12,14 @@ import DuffyFramework
 class TodayHeaderView: UIView
 {
     @IBOutlet weak var titleLabel : UILabel!
-    @IBOutlet weak var subTitleLabel : UILabel!
     @IBOutlet weak var stepsValueLabel : UILabel!
     @IBOutlet weak var refreshButton : UIButton!
     @IBOutlet weak var goalLabel : UILabel!
     @IBOutlet weak var goalInfoButton : UIButton!
     @IBOutlet weak var detailContainer : UIView!
+    @IBOutlet weak var topMargin : NSLayoutConstraint!
+    @IBOutlet weak var chartMargin : NSLayoutConstraint!
+    @IBOutlet weak var bottomMargin : NSLayoutConstraint!
     
     class func createView() -> TodayHeaderView?
     {
@@ -35,7 +37,6 @@ class TodayHeaderView: UIView
         super.awakeFromNib()
         
         titleLabel.textColor = Globals.primaryColor()
-        subTitleLabel.textColor = Globals.primaryColor()
         refreshButton.setTitleColor(Globals.secondaryColor(), for: .normal)
         goalInfoButton.tintColor = Globals.secondaryColor()
         stepsValueLabel.text = "0"
@@ -45,10 +46,23 @@ class TodayHeaderView: UIView
         {
             detailContainer.addSubview(detail)
             detail.translatesAutoresizingMaskIntoConstraints = false
-            detail.leadingAnchor.constraint(equalTo: detailContainer.leadingAnchor).isActive = true
-            detail.trailingAnchor.constraint(equalTo: detailContainer.trailingAnchor).isActive = true
-            detail.topAnchor.constraint(equalTo: detailContainer.topAnchor).isActive = true
-            detail.bottomAnchor.constraint(equalTo: detailContainer.bottomAnchor).isActive = true
+            NSLayoutConstraint.activate([
+                detail.leadingAnchor.constraint(equalTo: detailContainer.leadingAnchor),
+                detail.trailingAnchor.constraint(equalTo: detailContainer.trailingAnchor),
+                detail.topAnchor.constraint(equalTo: detailContainer.topAnchor),
+                detail.bottomAnchor.constraint(equalTo: detailContainer.bottomAnchor)
+            ])
+        }
+        
+        if Globals.isMaxPhone() {
+            topMargin.constant = 56.0
+            bottomMargin.constant = 42.0
+        } else if Globals.isTallPhone() {
+            topMargin.constant = 40.0
+            bottomMargin.constant = 28.0
+        } else {
+            topMargin.constant = 24.0
+            bottomMargin.constant = 8.0
         }
     }
     
