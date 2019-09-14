@@ -24,13 +24,14 @@ class PreviousValueTableViewCell: UITableViewCell
     func bind(toDate: Date, steps: Int, goal: Int)
     {
         textLabel?.text = Globals.dayFormatter().string(from: toDate)
-        textLabel?.textColor = Globals.primaryColor()
         textLabel?.font = UIFont.systemFont(ofSize: UIFont.labelFontSize, weight: .regular)
         
         if #available(iOS 13.0, *) {
             detailTextLabel?.textColor = .label
+            textLabel?.textColor = .secondaryLabel
         } else {
             detailTextLabel?.textColor = .black
+            textLabel?.textColor = UIColor(red: 117.0/255.0, green: 117.0/255.0, blue: 117.0/255.0, alpha: 1.0)
         }
         
         let stepsFormatted = Globals.stepsFormatter().string(from: NSNumber(value: steps))!

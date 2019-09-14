@@ -76,7 +76,7 @@ class HistoryTrendChartView: UIView
         dotted.addLine(to: CGPoint(x: rect.size.width, y: lineY))
         dotted.lineWidth = 1.0
         dotted.setLineDash([2.0, 2.0], count: 2, phase: 0.0)
-        Globals.veryLightGrayColor().setStroke()
+        Globals.lightGrayColor().setStroke()
         dotted.stroke()
         
         shoe.draw(at: CGPoint(x: 0, y: lineY - (shoeSize.height / 2.0)))
