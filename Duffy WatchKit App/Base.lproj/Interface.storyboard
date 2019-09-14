@@ -20,7 +20,7 @@
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <fontDescription key="font" type="system" weight="light" pointSize="16"/>
                                 </label>
-                                <label height="46" alignment="center" verticalAlignment="center" text="20,000" minimumScaleFactor="0.5" id="G6E-Dy-R0M">
+                                <label height="46" alignment="center" verticalAlignment="center" text="0" minimumScaleFactor="0.5" id="G6E-Dy-R0M">
                                     <fontDescription key="font" type="system" weight="medium" pointSize="46"/>
                                 </label>
                                 <label width="1" alignment="left" verticalAlignment="center" text="today" textAlignment="center" id="npA-ct-HjH">
