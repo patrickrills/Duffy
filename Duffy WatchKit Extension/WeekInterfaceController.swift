@@ -21,21 +21,9 @@ class WeekInterfaceController: WKInterfaceController
         
         bindTableToWeek()
     }
-    
-    func showLoading()
-    {
-        setTitle("Loading...")
-    }
-    
-    func hideLoading()
-    {
-        setTitle("Recent")
-    }
 
     func bindTableToWeek()
     {
-        showLoading()
-        
         let startDate = (Calendar.current as NSCalendar).date(byAdding: .day, value: -14, to: Date(), options: NSCalendar.Options(rawValue: 0))
         
         HealthKitService.getInstance().getSteps(startDate!, toEndDate: Date(), onRetrieve: {
@@ -83,15 +71,13 @@ class WeekInterfaceController: WKInterfaceController
                         
                         idx += 1
                     }
-                    
-                    weakSelf.hideLoading()
                 }
                 }
             },
             onFailure: {
-                [weak self] (err: Error?) in
+                (err: Error?) in
                 DispatchQueue.main.async {
-                    self?.hideLoading()
+                    print("error: \(err?.localizedDescription ?? "no error")")
                 }
         })
     }

@@ -61,17 +61,12 @@ class InterfaceController: WKInterfaceController
     
     private func refresh()
     {
-        showLoading()
         refreshTodayFromHealth({
             [weak self] success in
             
-            if let weakSelf = self {
-                self?.hideLoading()
-            
-                if success {
-                    weakSelf.startAutomaticUpdates()
-                    weakSelf.scheduleSnapshot()
-                }
+            if let weakSelf = self, success {
+                weakSelf.startAutomaticUpdates()
+                weakSelf.scheduleSnapshot()
             }
         })
     }
@@ -198,16 +193,6 @@ class InterfaceController: WKInterfaceController
                 weakSelf.display(steps: steps)
             }
         }
-    }
-    
-    func showLoading()
-    {
-        setTitle("Loading...")
-    }
-    
-    func hideLoading()
-    {
-        setTitle("Today")
     }
     
     private func display(steps: Int)
