@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="14490.70" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
-    <device id="watch42" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="14868" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+    <device id="watch42"/>
     <dependencies>
         <deployment identifier="watchOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="14490.21"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="14643"/>
     </dependencies>
     <scenes>
         <!--Today-->
@@ -114,10 +112,10 @@
             </objects>
             <point key="canvasLocation" x="313" y="1451"/>
         </scene>
-        <!--Past Week-->
+        <!--Recent-->
         <scene sceneID="LZl-Pd-feh">
             <objects>
-                <controller identifier="weekInterfaceController" title="Past Week" id="jZc-PD-Him" customClass="WeekInterfaceController" customModule="Duffy_WatchKit_Extension">
+                <controller identifier="weekInterfaceController" title="Recent" id="jZc-PD-Him" customClass="WeekInterfaceController" customModule="Duffy_WatchKit_Extension">
                     <items>
                         <table alignment="left" id="Xkh-TU-BTJ">
                             <items>
@@ -181,5 +179,10 @@
             <point key="canvasLocation" x="613" y="1451"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Distance" width="30" height="30"/>
+        <image name="Flights" width="30" height="30"/>
+        <image name="GoalMenu" width="40" height="40"/>
+    </resources>
     <color key="tintColor" red="0.33725490196078434" green="0.59999999999999998" blue="0.87450980392156863" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>
