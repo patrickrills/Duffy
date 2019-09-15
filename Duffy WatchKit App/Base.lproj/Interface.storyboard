@@ -5,6 +5,7 @@
         <deployment identifier="watchOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="14643"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
     </dependencies>
     <scenes>
         <!--Today-->
@@ -22,7 +23,7 @@
                                     <fontDescription key="font" type="system" weight="medium" pointSize="46"/>
                                 </label>
                                 <label width="1" alignment="left" verticalAlignment="center" text="today" textAlignment="center" id="npA-ct-HjH">
-                                    <color key="textColor" red="0.33725490200000002" green="0.59999999999999998" blue="0.87450980389999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="textColor" name="PrimaryColor"/>
                                     <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
                                 </label>
                             </items>
@@ -164,7 +165,7 @@
                                     <fontDescription key="font" type="system" weight="semibold" pointSize="34"/>
                                 </label>
                                 <label width="1" alignment="left" text="STEPS" textAlignment="center" id="yjy-MT-lTv">
-                                    <color key="textColor" red="0.41568627450980394" green="0.67450980392156867" blue="0.8901960784313725" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="textColor" name="PrimaryColor"/>
                                 </label>
                                 <label width="1" alignment="left" text="Label" textAlignment="center" numberOfLines="0" id="4L3-DK-j5d"/>
                             </items>
@@ -183,6 +184,9 @@
         <image name="Distance" width="30" height="30"/>
         <image name="Flights" width="30" height="30"/>
         <image name="GoalMenu" width="40" height="40"/>
+        <namedColor name="PrimaryColor">
+            <color red="0.0039215686274509803" green="0.59999999999999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
-    <color key="tintColor" red="0.33725490196078434" green="0.59999999999999998" blue="0.87450980392156863" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+    <color key="tintColor" name="PrimaryColor"/>
 </document>
