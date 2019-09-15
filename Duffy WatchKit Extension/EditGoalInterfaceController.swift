@@ -22,7 +22,7 @@ class EditGoalInterfaceController: WKInterfaceController
         if let picker = goalOptionsList
         {
             var items: [WKPickerItem] = []
-            for i in stride(from: 5000, to: 20250, by: 250)
+            for i in stride(from: 5000, to: 80250, by: 250)
             {
                 let opt = WKPickerItem()
                 opt.title = InterfaceController.getNumberFormatter().string(from: NSNumber(value: i))
