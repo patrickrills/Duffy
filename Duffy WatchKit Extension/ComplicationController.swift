@@ -29,7 +29,10 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     {
         // Call the handler with the current timeline entry
         var entry: CLKComplicationTimelineEntry?
-        let steps = HealthCache.getStepsFromCache(Date())
+        var steps = 0
+        if (!HealthCache.cacheIsForADifferentDay(Date())) {
+            steps = HealthCache.getStepsFromCache(Date())
+        }
         
         if (complication.family == .modularSmall)
         {
