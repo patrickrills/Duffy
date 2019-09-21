@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14865.1" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14819.2"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -16,6 +17,7 @@
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DuffyLogo02" translatesAutoresizingMaskIntoConstraints="NO" id="DIK-Qc-zBj">
                     <rect key="frame" x="147.5" y="0.0" width="80" height="80"/>
+                    <color key="tintColor" name="PrimaryColor"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="80" id="86E-Kx-ldD"/>
                         <constraint firstAttribute="height" constant="80" id="iUJ-mF-evz"/>
@@ -30,11 +32,11 @@
                         <constraint firstAttribute="height" constant="50" id="gGW-BJ-DqA"/>
                     </constraints>
                     <fontDescription key="fontDescription" name="Avenir-BlackOblique" family="Avenir" pointSize="40"/>
-                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="textColor" name="PrimaryColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="26,780" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HTd-A8-iMh">
-                    <rect key="frame" x="16" y="188" width="343" height="74"/>
+                    <rect key="frame" x="16" y="168" width="343" height="74"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="74" id="Ked-RB-eQl"/>
                     </constraints>
@@ -43,7 +45,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aGZ-bb-DcM">
-                    <rect key="frame" x="16" y="274" width="343" height="24"/>
+                    <rect key="frame" x="16" y="254" width="343" height="24"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="24" id="IG1-1d-Ud7"/>
                     </constraints>
@@ -54,7 +56,7 @@
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="751" text="of 00,000 goal" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lac-jq-TNG">
-                    <rect key="frame" x="122.5" y="308" width="110.5" height="20"/>
+                    <rect key="frame" x="122.5" y="288" width="110" height="20"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="20" id="syZ-T1-n6r"/>
                     </constraints>
@@ -63,10 +65,10 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="enX-HD-spO">
-                    <rect key="frame" x="0.0" y="344" width="375" height="123"/>
+                    <rect key="frame" x="0.0" y="324" width="375" height="143"/>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VvN-ah-yaI">
-                    <rect key="frame" x="237" y="309" width="18" height="18"/>
+                    <rect key="frame" x="236.5" y="289" width="18" height="18"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="18" id="9ZD-1C-cVd"/>
                         <constraint firstAttribute="height" constant="18" id="whi-kR-PEZ"/>
@@ -117,5 +119,8 @@
     </objects>
     <resources>
         <image name="DuffyLogo02" width="80" height="80"/>
+        <namedColor name="PrimaryColor">
+            <color red="0.0" green="0.23921568627450981" blue="0.6470588235294118" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

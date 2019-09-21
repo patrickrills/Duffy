@@ -65,7 +65,6 @@ class TodayHeaderView: UIView
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        titleLabel.textColor = Globals.primaryColor()
         refreshButton.setTitleColor(Globals.secondaryColor(), for: .normal)
         goalInfoButton.tintColor = Globals.secondaryColor()
         
