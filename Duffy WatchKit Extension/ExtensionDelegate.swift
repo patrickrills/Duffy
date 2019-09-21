@@ -64,7 +64,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
                 }
                 else
                 {
-                    //At least turn over the complication to zero if it is a new day - if the lock is locked we can't get the steps
+                    //At least turn over the complication to zero if it is a new day - if the screen is locked we can't get the steps
                     if (HealthCache.cacheIsForADifferentDay(Date()))
                     {
                         if (HealthCache.saveStepsToCache(0, forDay: Date())) {
