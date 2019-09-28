@@ -23,7 +23,7 @@
                                     <fontDescription key="font" type="system" weight="medium" pointSize="46"/>
                                 </label>
                                 <label width="1" alignment="left" verticalAlignment="center" text="today" textAlignment="center" id="npA-ct-HjH">
-                                    <color key="textColor" name="PrimaryColor"/>
+                                    <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
                                     <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
                                 </label>
                             </items>
@@ -182,10 +182,10 @@
     </scenes>
     <resources>
         <image name="Distance" width="30" height="30"/>
-        <image name="Flights" width="30" height="30"/>
+        <image name="Flights" width="16" height="16"/>
         <image name="GoalMenu" width="40" height="40"/>
         <namedColor name="PrimaryColor">
-            <color red="0.0039215686274509803" green="0.59999999999999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.0" green="0.29411764705882354" blue="0.80784313725490198" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
     <color key="tintColor" name="PrimaryColor"/>
