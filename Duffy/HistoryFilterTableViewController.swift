@@ -82,9 +82,17 @@ class HistoryFilterTableViewController: UITableViewController
         let cell = UITableViewCell(style: .value1, reuseIdentifier: nil)
         cell.textLabel?.text = "Since"
         cell.detailTextLabel?.text = Globals.fullDateFormatter().string(from: sinceDateFilter)
-        cell.detailTextLabel?.textColor = Globals.primaryColor()
         cell.accessoryType = .none
         cell.selectionStyle = .none
+        
+        if #available(iOS 13.0, *) {
+            cell.detailTextLabel?.textColor = .label
+            cell.textLabel?.textColor = .secondaryLabel
+        } else {
+            cell.detailTextLabel?.textColor = .black
+            cell.textLabel?.textColor = UIColor(red: 117.0/255.0, green: 117.0/255.0, blue: 117.0/255.0, alpha: 1.0)
+        }
+        
         return cell
     }
     
