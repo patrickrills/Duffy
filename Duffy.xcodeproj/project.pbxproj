@@ -238,6 +238,13 @@
 		099582C9234192A600AF6A96 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		099582CC234192BE00AF6A96 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		099582CF234192C400AF6A96 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		099582D1234192E900AF6A96 /* ja */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = ja; path = ja.lproj/Main.storyboard; sourceTree = "<group>"; };
+		099582D2234192E900AF6A96 /* ja */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = ja; path = ja.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		099582D3234192E900AF6A96 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
+		099582D4234192EA00AF6A96 /* ja */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = ja; path = ja.lproj/Interface.storyboard; sourceTree = "<group>"; };
+		099582D5234192EA00AF6A96 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
+		099582D6234192EA00AF6A96 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
+		099582D7234192EA00AF6A96 /* ja */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = ja; path = ja.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		099C13101DA336C80007C72F /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		099C13121DA336D50007C72F /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS3.0.sdk/System/Library/Frameworks/HealthKit.framework; sourceTree = DEVELOPER_DIR; };
 		099FE6FF234EB5300092D219 /* LoggingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggingService.swift; sourceTree = "<group>"; };
@@ -658,6 +665,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				ja,
 			);
 			mainGroup = 09323C641D22C39700961822;
 			productRefGroup = 09323C6E1D22C39700961822 /* Products */;
@@ -856,6 +864,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				099582B923418F2400AF6A96 /* en */,
+				099582D1234192E900AF6A96 /* ja */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -864,6 +873,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				099582B823418F2400AF6A96 /* en */,
+				099582D2234192E900AF6A96 /* ja */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -872,6 +882,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				099582B723418F2300AF6A96 /* en */,
+				099582D4234192EA00AF6A96 /* ja */,
 			);
 			name = Interface.storyboard;
 			sourceTree = "<group>";
@@ -880,6 +891,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				099582C9234192A600AF6A96 /* en */,
+				099582D3234192E900AF6A96 /* ja */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -888,6 +900,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				099582CC234192BE00AF6A96 /* en */,
+				099582D5234192EA00AF6A96 /* ja */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -896,6 +909,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				099582CF234192C400AF6A96 /* en */,
+				099582D6234192EA00AF6A96 /* ja */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -904,6 +918,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				099582B623418F2300AF6A96 /* en */,
+				099582D7234192EA00AF6A96 /* ja */,
 			);
 			name = MainInterface.storyboard;
 			sourceTree = "<group>";

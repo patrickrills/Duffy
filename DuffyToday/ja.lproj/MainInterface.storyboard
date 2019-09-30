@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="M4Y-Lb-cyx">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Today View Controller-->
+        <scene sceneID="cwh-vc-ff4">
+            <objects>
+                <viewController id="M4Y-Lb-cyx" customClass="TodayViewController" customModule="DuffyToday" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Ft6-oW-KC0"/>
+                        <viewControllerLayoutGuide type="bottom" id="FKl-LY-JtV"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" simulatedAppContext="notificationCenter" id="S3S-Oj-5AN">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="but-Go-bJ7">
+                                <rect key="frame" x="0.0" y="0.0" width="160" height="44"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="39"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="STEPS TODAY" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qep-RC-Dtt">
+                                <rect key="frame" x="167.5" y="0.0" width="152.5" height="44"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <color key="textColor" red="0.0074895629659295082" green="0.23990625143051147" blue="0.64746040105819702" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kqy-QP-gxd">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <connections>
+                                    <action selector="launchParentApp" destination="M4Y-Lb-cyx" eventType="touchUpInside" id="bO1-xC-AA4"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="kqy-QP-gxd" firstAttribute="top" secondItem="S3S-Oj-5AN" secondAttribute="top" id="07X-2N-9UX"/>
+                            <constraint firstItem="but-Go-bJ7" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="bottom" id="5AQ-jx-gYq"/>
+                            <constraint firstItem="kqy-QP-gxd" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leading" id="6g3-A5-KZZ"/>
+                            <constraint firstAttribute="width" secondItem="Qep-RC-Dtt" secondAttribute="width" multiplier="2.1:1" id="7Cn-mF-wl4"/>
+                            <constraint firstItem="but-Go-bJ7" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leading" id="JCo-QE-nrc"/>
+                            <constraint firstAttribute="width" secondItem="but-Go-bJ7" secondAttribute="width" multiplier="2:1" id="Svu-CQ-Pnw"/>
+                            <constraint firstAttribute="trailing" secondItem="Qep-RC-Dtt" secondAttribute="trailing" id="hsh-ZL-rvS"/>
+                            <constraint firstItem="Qep-RC-Dtt" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="bottom" id="jGd-CC-d6r"/>
+                            <constraint firstAttribute="trailing" secondItem="kqy-QP-gxd" secondAttribute="trailing" id="jry-av-57i"/>
+                            <constraint firstItem="FKl-LY-JtV" firstAttribute="top" secondItem="but-Go-bJ7" secondAttribute="bottom" id="kZv-PN-7Uz"/>
+                            <constraint firstItem="FKl-LY-JtV" firstAttribute="top" secondItem="kqy-QP-gxd" secondAttribute="bottom" id="oaY-Fn-NIg"/>
+                            <constraint firstItem="FKl-LY-JtV" firstAttribute="top" secondItem="Qep-RC-Dtt" secondAttribute="bottom" id="wMH-Ox-54l"/>
+                        </constraints>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="44"/>
+                    <connections>
+                        <outlet property="stepsValueLabel" destination="but-Go-bJ7" id="pMu-aJ-ETw"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vXp-U4-Rya" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="33.600000000000001" y="37.781109445277366"/>
+        </scene>
+    </scenes>
+</document>
