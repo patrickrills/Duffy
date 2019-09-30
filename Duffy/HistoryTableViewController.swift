@@ -36,7 +36,7 @@ class HistoryTableViewController: UITableViewController
     {
         super.viewDidLoad()
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Filter", style: .plain, target: self, action: #selector(changeFilter))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Filter", comment: ""), style: .plain, target: self, action: #selector(changeFilter))
         
         tableView.register(PreviousValueTableViewCell.self, forCellReuseIdentifier: CELL_ID)
         tableView.register(UINib(nibName: CHART_CELL_ID, bundle: Bundle.main), forCellReuseIdentifier: CHART_CELL_ID)
@@ -66,12 +66,12 @@ class HistoryTableViewController: UITableViewController
     
     func showLoading()
     {
-        title = "Loading..."
+        title = NSLocalizedString("Loading...", comment: "")
     }
     
     func hideLoading(_ hasData: Bool)
     {
-        title = String(format: "Since %@", Globals.fullDateFormatter().string(from: lastDateFetched))
+        title = String(format: NSLocalizedString("Since %@", comment: ""), Globals.fullDateFormatter().string(from: lastDateFetched))
     }
     
     func updateDateFilter(_ filterDate : Date)
@@ -199,9 +199,9 @@ class HistoryTableViewController: UITableViewController
         switch section
         {
             case 0:
-                return "Trend"
+                return NSLocalizedString("Trend", comment: "")
             case 1:
-                return "Details"
+                return NSLocalizedString("Details", comment: "")
             default:
                 return nil
         }

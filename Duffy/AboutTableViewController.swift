@@ -27,7 +27,7 @@ class AboutTableViewController: UITableViewController {
     {
         super.viewDidLoad()
         
-        title = "About Duffy"
+        title = NSLocalizedString("About Duffy", comment: "")
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: CELL_ID)
         tableView.estimatedRowHeight = 44.0
@@ -74,15 +74,15 @@ class AboutTableViewController: UITableViewController {
                 switch (indexPath.row)
                 {
                     case 0:
-                        cell.textLabel?.text = "How To Change Your Goal"
+                        cell.textLabel?.text = NSLocalizedString("How To Change Your Goal", comment: "")
                         break
                     default:
-                        cell.textLabel?.text = "Ask a Question"
+                        cell.textLabel?.text = NSLocalizedString("Ask a Question", comment: "")
                         break
                 }
                 break
             case 1:
-                cell.textLabel?.text = "Rate Duffy"
+                cell.textLabel?.text = NSLocalizedString("Rate Duffy", comment: "")
                 break
             default:
                 cell.textLabel?.text = "Big Blue Fly"
@@ -97,13 +97,13 @@ class AboutTableViewController: UITableViewController {
         switch (section)
         {
             case 0:
-                return "Help"
+                return NSLocalizedString("Help", comment: "")
             
             case 1:
-                return "Feedback"
+                return NSLocalizedString("Feedback", comment: "")
 
             case 2:
-                return "Published By"
+                return NSLocalizedString("Published By", comment: "")
             
             default:
                 return nil

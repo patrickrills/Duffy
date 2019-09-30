@@ -76,7 +76,7 @@ class TodayHeaderView: UIView
     
     func toggleLoading(isLoading: Bool)
     {
-        refreshButton.setTitle((isLoading ? "Loading..." : "STEPS"), for: .normal)
+        refreshButton.setTitle((isLoading ? NSLocalizedString("Loading...", comment: "") : NSLocalizedString("STEPS", comment: "")), for: .normal)
     }
     
     func refresh()
@@ -109,7 +109,7 @@ class TodayHeaderView: UIView
         let goalValue = HealthCache.getStepsDailyGoal()
         if goalValue > 0, let formattedValue = Globals.stepsFormatter().string(from: NSNumber(value: goalValue))
         {
-            goalLabel.text = String(format: "of %@ goal %@", formattedValue, HealthKitService.getInstance().getAdornment(for: stepsForDay))
+            goalLabel.text = String(format: NSLocalizedString("of %@ goal %@", comment: ""), formattedValue, HealthKitService.getInstance().getAdornment(for: stepsForDay))
         }
         else
         {
