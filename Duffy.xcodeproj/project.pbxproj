@@ -194,12 +194,9 @@
 		092B0E891D45841F00085F99 /* CoreMotionService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreMotionService.swift; sourceTree = "<group>"; };
 		09323C6D1D22C39700961822 /* Duffy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Duffy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		09323C701D22C39700961822 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		09323C751D22C39700961822 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		09323C771D22C39700961822 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		09323C7A1D22C39700961822 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		09323C7C1D22C39700961822 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		09323C7F1D22C39700961822 /* Duffy WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Duffy WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		09323C851D22C39700961822 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		09323C871D22C39700961822 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		09323C891D22C39700961822 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		09323C8E1D22C39700961822 /* Duffy WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Duffy WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -231,6 +228,10 @@
 		0970859D214EAEB200790EC7 /* HourGraphMaxIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourGraphMaxIndicatorView.swift; sourceTree = "<group>"; };
 		0970859F214F16B600790EC7 /* AppRater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRater.swift; sourceTree = "<group>"; };
 		09824A8B1EA66C74002A4A84 /* EditGoalInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditGoalInterfaceController.swift; sourceTree = "<group>"; };
+		099582B623418F2300AF6A96 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		099582B723418F2300AF6A96 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/Interface.storyboard; sourceTree = "<group>"; };
+		099582B823418F2400AF6A96 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		099582B923418F2400AF6A96 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/Main.storyboard; sourceTree = "<group>"; };
 		099C13101DA336C80007C72F /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		099C13121DA336D50007C72F /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS3.0.sdk/System/Library/Frameworks/HealthKit.framework; sourceTree = DEVELOPER_DIR; };
 		099FE6FF234EB5300092D219 /* LoggingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggingService.swift; sourceTree = "<group>"; };
@@ -251,7 +252,6 @@
 		09CE42C81E35525200A6E587 /* DuffyToday.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = DuffyToday.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		09CE42C91E35525200A6E587 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		09CE42CC1E35525200A6E587 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
-		09CE42CF1E35525200A6E587 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		09CE42D11E35525200A6E587 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		09CE42D91E35640E00A6E587 /* DuffyToday.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DuffyToday.entitlements; sourceTree = "<group>"; };
 		09CEA97C211F86BB0023786B /* HistoryTableViewFooter.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryTableViewFooter.xib; sourceTree = "<group>"; };
@@ -649,7 +649,6 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
-				Base,
 			);
 			mainGroup = 09323C641D22C39700961822;
 			productRefGroup = 09323C6E1D22C39700961822 /* Products */;
@@ -844,7 +843,7 @@
 		09323C741D22C39700961822 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				09323C751D22C39700961822 /* Base */,
+				099582B923418F2400AF6A96 /* en */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -852,7 +851,7 @@
 		09323C791D22C39700961822 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				09323C7A1D22C39700961822 /* Base */,
+				099582B823418F2400AF6A96 /* en */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -860,7 +859,7 @@
 		09323C841D22C39700961822 /* Interface.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				09323C851D22C39700961822 /* Base */,
+				099582B723418F2300AF6A96 /* en */,
 			);
 			name = Interface.storyboard;
 			sourceTree = "<group>";
@@ -868,7 +867,7 @@
 		09CE42CE1E35525200A6E587 /* MainInterface.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				09CE42CF1E35525200A6E587 /* Base */,
+				099582B623418F2300AF6A96 /* en */,
 			);
 			name = MainInterface.storyboard;
 			sourceTree = "<group>";
