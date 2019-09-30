@@ -53,6 +53,9 @@
 		0970859E214EAEB200790EC7 /* HourGraphMaxIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0970859D214EAEB200790EC7 /* HourGraphMaxIndicatorView.swift */; };
 		097085A0214F16B600790EC7 /* AppRater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0970859F214F16B600790EC7 /* AppRater.swift */; };
 		09824A8C1EA66C74002A4A84 /* EditGoalInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09824A8B1EA66C74002A4A84 /* EditGoalInterfaceController.swift */; };
+		099582C8234192A600AF6A96 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 099582CA234192A600AF6A96 /* Localizable.strings */; };
+		099582CB234192BE00AF6A96 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 099582CD234192BE00AF6A96 /* Localizable.strings */; };
+		099582CE234192C400AF6A96 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 099582D0234192C400AF6A96 /* Localizable.strings */; };
 		099C13111DA336C80007C72F /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 099C13101DA336C80007C72F /* HealthKit.framework */; };
 		099C13131DA336D50007C72F /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 099C13121DA336D50007C72F /* HealthKit.framework */; };
 		099FE700234EB5300092D219 /* LoggingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099FE6FF234EB5300092D219 /* LoggingService.swift */; };
@@ -232,6 +235,9 @@
 		099582B723418F2300AF6A96 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		099582B823418F2400AF6A96 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		099582B923418F2400AF6A96 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/Main.storyboard; sourceTree = "<group>"; };
+		099582C9234192A600AF6A96 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		099582CC234192BE00AF6A96 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		099582CF234192C400AF6A96 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		099C13101DA336C80007C72F /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		099C13121DA336D50007C72F /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS3.0.sdk/System/Library/Frameworks/HealthKit.framework; sourceTree = DEVELOPER_DIR; };
 		099FE6FF234EB5300092D219 /* LoggingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggingService.swift; sourceTree = "<group>"; };
@@ -373,6 +379,7 @@
 				09323C771D22C39700961822 /* Assets.xcassets */,
 				09323C791D22C39700961822 /* LaunchScreen.storyboard */,
 				09323C7C1D22C39700961822 /* Info.plist */,
+				099582CA234192A600AF6A96 /* Localizable.strings */,
 			);
 			path = Duffy;
 			sourceTree = "<group>";
@@ -401,6 +408,7 @@
 				09323C991D22C39700961822 /* Assets.xcassets */,
 				09323C9B1D22C39700961822 /* Info.plist */,
 				09289C7920D87856005BF6B8 /* GoalNotificationPayload.apns */,
+				099582CD234192BE00AF6A96 /* Localizable.strings */,
 			);
 			path = "Duffy WatchKit Extension";
 			sourceTree = "<group>";
@@ -419,6 +427,7 @@
 				0967EB751E7D88770073BF3F /* HealthEventDelegate.swift */,
 				0967EB781E7F0ACE0073BF3F /* NotificationService.swift */,
 				099FE6FF234EB5300092D219 /* LoggingService.swift */,
+				099582D0234192C400AF6A96 /* Localizable.strings */,
 			);
 			path = DuffyFramework;
 			sourceTree = "<group>";
@@ -673,6 +682,7 @@
 				09289C8220DE131E005BF6B8 /* TodayHeaderView.xib in Resources */,
 				09CC4181231F3DC70029AAFB /* AboutTableViewFooter.xib in Resources */,
 				09323C7B1D22C39700961822 /* LaunchScreen.storyboard in Resources */,
+				099582C8234192A600AF6A96 /* Localizable.strings in Resources */,
 				09CEA97D211F86BB0023786B /* HistoryTableViewFooter.xib in Resources */,
 				09323C781D22C39700961822 /* Assets.xcassets in Resources */,
 				0961D907216A9F2000F4AA88 /* duffy.ckcomplication in Resources */,
@@ -700,6 +710,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				09323C9A1D22C39700961822 /* Assets.xcassets in Resources */,
+				099582CB234192BE00AF6A96 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -707,6 +718,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				099582CE234192C400AF6A96 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -862,6 +874,30 @@
 				099582B723418F2300AF6A96 /* en */,
 			);
 			name = Interface.storyboard;
+			sourceTree = "<group>";
+		};
+		099582CA234192A600AF6A96 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				099582C9234192A600AF6A96 /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		099582CD234192BE00AF6A96 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				099582CC234192BE00AF6A96 /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		099582D0234192C400AF6A96 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				099582CF234192C400AF6A96 /* en */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 		09CE42CE1E35525200A6E587 /* MainInterface.storyboard */ = {
