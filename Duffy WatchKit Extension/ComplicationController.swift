@@ -229,8 +229,8 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         let formattedStepsShort = formatStepsForSmall(totalSteps)
         
         let text = CLKSimpleTextProvider()
-        text.text = String(format: "%@ STEPS", formattedStepsLong)
-        text.shortText = String(format: "%@ STEPS", formattedStepsShort)
+        text.text = String(format: NSLocalizedString("%@ STEPS", comment: ""), formattedStepsLong)
+        text.shortText = String(format: NSLocalizedString("%@ STEPS", comment: ""), formattedStepsShort)
         text.tintColor = .white
         flat.textProvider = text
         
@@ -336,7 +336,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     func getTemplateForGraphicBezel(_ totalSteps: Int, _ goal: Int) -> CLKComplicationTemplateGraphicBezelCircularText
     {
         let text = CLKSimpleTextProvider()
-        text.text = String(format: "%@ STEPS", formatStepsForLarge(NSNumber(value: totalSteps)))
+        text.text = String(format: NSLocalizedString("%@ STEPS", comment: ""), formatStepsForLarge(NSNumber(value: totalSteps)))
         text.tintColor = .white
         
         let template = CLKComplicationTemplateGraphicBezelCircularText()
@@ -359,18 +359,18 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         let image = CLKFullColorImageProvider(fullColorImage: shoe)
         
         let text = CLKSimpleTextProvider()
-        text.text = String(format: "%@ STEPS", formatStepsForLarge(NSNumber(value: totalSteps)))
+        text.text = String(format: NSLocalizedString("%@ STEPS", comment: ""), formatStepsForLarge(NSNumber(value: totalSteps)))
         text.tintColor = UIColor(red: 81.0/255.0, green: 153.0/255.0, blue: 238.0/255.0, alpha: 1)
         
         let toGoText = CLKSimpleTextProvider()
         if (totalSteps >= goal)
         {
-            toGoText.text = "Goal achieved!"
+            toGoText.text = NSLocalizedString("Goal achieved!", comment: "")
         }
         else
         {
             let toGo = goal - totalSteps
-            toGoText.text = String(format: "%@ to go", formatStepsForVerySmall(NSNumber(value: toGo)))
+            toGoText.text = String(format: NSLocalizedString("%@ to go", comment: ""), formatStepsForVerySmall(NSNumber(value: toGo)))
         }
         
         let template = CLKComplicationTemplateGraphicRectangularTextGauge()

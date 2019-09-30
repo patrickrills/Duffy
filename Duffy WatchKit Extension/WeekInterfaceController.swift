@@ -99,7 +99,7 @@ class WeekInterfaceController: WKInterfaceController
     }
     
     private func showErrorState() {
-        bindTable(to: [WeekRowData(title: "No Data", formattedValue: "", adornment: "")])
+        bindTable(to: [WeekRowData(title: NSLocalizedString("No Data", comment: ""), formattedValue: "", adornment: "")])
     }
     
     struct WeekRowData {
