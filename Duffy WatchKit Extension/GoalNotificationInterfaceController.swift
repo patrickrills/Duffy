@@ -28,17 +28,25 @@ class GoalNotificationInterfaceController: WKUserNotificationInterfaceController
     
     func getHeadline() -> String
     {
-        let maxRandom: UInt32 = 4
+        let maxRandom: UInt32 = 6
         let randomNumber = Int(arc4random_uniform(maxRandom))
         
         switch randomNumber
         {
             case 1:
-                return "You're a Shoe-per man (or Run-der Woman)! 👑"
+                if #available(watchOS 5.0, *) {
+                    return "You're a Shoe-per man 🦸‍♂️ or Run-der Woman 🦸‍♀️!"
+                } else {
+                     return "You're a Shoe-per man or Run-der Woman! 👑"
+                }
             case 2:
                 return "Just call you Christopher Walkin' 🐮🔔"
             case 3:
                 return "You're a Steppin' Wolf 🐺"
+            case 4:
+                return "Nice Boot Scootin, Walker Texas Ranger 🤠🥋"
+            case 5:
+                return "Hey now, you’re an all star cuz you might as well be walkin' on the sun ☀️ 👊👄"
             default:
                 return "You've walked hard and prospered, Star Trekker 🖖"
         }

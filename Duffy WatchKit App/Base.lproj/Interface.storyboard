@@ -5,7 +5,6 @@
         <deployment identifier="watchOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="14643"/>
-        <capability name="Named colors" minToolsVersion="9.0"/>
     </dependencies>
     <scenes>
         <!--Today-->
@@ -23,7 +22,7 @@
                                     <fontDescription key="font" type="system" weight="medium" pointSize="46"/>
                                 </label>
                                 <label width="1" alignment="left" verticalAlignment="center" text="today" textAlignment="center" id="npA-ct-HjH">
-                                    <color key="textColor" name="PrimaryColor"/>
+                                    <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
                                     <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
                                 </label>
                             </items>
@@ -165,7 +164,7 @@
                                     <fontDescription key="font" type="system" weight="semibold" pointSize="34"/>
                                 </label>
                                 <label width="1" alignment="left" text="STEPS" textAlignment="center" id="yjy-MT-lTv">
-                                    <color key="textColor" name="PrimaryColor"/>
+                                    <color key="textColor" red="0.19607843137254902" green="0.61960784313725492" blue="0.90196078431372551" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </label>
                                 <label width="1" alignment="left" text="Label" textAlignment="center" numberOfLines="0" id="4L3-DK-j5d"/>
                             </items>
@@ -181,12 +180,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Distance" width="30" height="30"/>
-        <image name="Flights" width="30" height="30"/>
+        <image name="Distance" width="16" height="16"/>
+        <image name="Flights" width="16" height="16"/>
         <image name="GoalMenu" width="40" height="40"/>
-        <namedColor name="PrimaryColor">
-            <color red="0.0039215686274509803" green="0.59999999999999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
     </resources>
-    <color key="tintColor" name="PrimaryColor"/>
+    <color key="tintColor" red="0.0" green="0.29411764705882354" blue="0.80784313725490198" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>
