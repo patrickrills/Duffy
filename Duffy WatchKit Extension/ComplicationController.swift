@@ -154,13 +154,13 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         let line1 = CLKSimpleTextProvider()
         line1.text = String(format: "%@", formatStepsForSmall(totalSteps))
         line1.shortText = line1.text
-        line1.tintColor = UIColor.white
+        line1.tintColor = .white
         smallStack.line1TextProvider = line1
         
         let line2 = CLKSimpleTextProvider()
         line2.text =  NSLocalizedString("steps", comment: "")
         line2.shortText = line2.text
-        line2.tintColor = UIColor(red: 103.0/255.0, green: 171.0/255.0, blue: 229.0/255.0, alpha: 1)
+        line2.tintColor = UIColor(red: 81.0/255.0, green: 153.0/255.0, blue: 238.0/255.0, alpha: 1)
         smallStack.line2TextProvider = line2
         
         return smallStack
@@ -179,13 +179,13 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         let header = CLKSimpleTextProvider()
         header.text = NSLocalizedString("Steps", comment: "")
         header.shortText = header.text
-        header.tintColor = UIColor(red: 103.0/255.0, green: 171.0/255.0, blue: 229.0/255.0, alpha: 1)
+        header.tintColor = UIColor(red: 81.0/255.0, green: 153.0/255.0, blue: 238.0/255.0, alpha: 1)
         tall.headerTextProvider = header
         
         let body = CLKSimpleTextProvider()
         body.text = String(format: "%@", formatStepsForLarge(totalSteps))
         body.shortText = body.text
-        body.tintColor = UIColor.white
+        body.tintColor = .white
         tall.bodyTextProvider = body
         
         return tall
@@ -204,13 +204,13 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         let line1 = CLKSimpleTextProvider()
         line1.text = String(format: "%@", formatStepsForSmall(totalSteps))
         line1.shortText = line1.text
-        line1.tintColor = UIColor.white
+        line1.tintColor = .white
         circularStack.line1TextProvider = line1
         
         let line2 = CLKSimpleTextProvider()
         line2.text =  NSLocalizedString("steps", comment: "")
         line2.shortText = line2.text
-        line2.tintColor = UIColor(red: 103.0/255.0, green: 171.0/255.0, blue: 229.0/255.0, alpha: 1)
+        line2.tintColor = UIColor(red: 81.0/255.0, green: 153.0/255.0, blue: 238.0/255.0, alpha: 1)
         circularStack.line2TextProvider = line2
         
         return circularStack
@@ -231,7 +231,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         let text = CLKSimpleTextProvider()
         text.text = String(format: "%@ STEPS", formattedStepsLong)
         text.shortText = String(format: "%@ STEPS", formattedStepsShort)
-        text.tintColor = UIColor.white
+        text.tintColor = .white
         flat.textProvider = text
         
         return flat
@@ -250,7 +250,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         let text = CLKSimpleTextProvider()
         text.text = String(format: "%@", formatStepsForSmall(totalSteps))
         text.shortText = text.text
-        text.tintColor = UIColor.white
+        text.tintColor = .white
         flat.textProvider = text
         
         return flat
@@ -269,13 +269,13 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         let header = CLKSimpleTextProvider()
         header.text = NSLocalizedString("Steps", comment: "")
         header.shortText = header.text
-        header.tintColor = UIColor(red: 103.0/255.0, green: 171.0/255.0, blue: 229.0/255.0, alpha: 1)
+        header.tintColor = UIColor(red: 81.0/255.0, green: 153.0/255.0, blue: 238.0/255.0, alpha: 1)
         xLarge.line1TextProvider = header
         
         let body = CLKSimpleTextProvider()
         body.text = String(format: "%@", formatStepsForLarge(totalSteps))
         body.shortText = body.text
-        body.tintColor = UIColor.white
+        body.tintColor = .white
         xLarge.line2TextProvider = body
         
         return xLarge
@@ -296,9 +296,9 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         let text = CLKSimpleTextProvider()
         text.text = formatStepsForLarge(NSNumber(value: totalSteps))
         text.shortText = formatStepsForSmall(NSNumber(value: totalSteps))
-        text.tintColor = UIColor.white
+        text.tintColor = .white
         
-        let provider = CLKSimpleGaugeProvider(style: .fill, gaugeColor: UIColor(red: 103.0/255.0, green: 171.0/255.0, blue: 229.0/255.0, alpha: 1), fillFraction: Float(min(totalSteps, goal)) / Float(goal))
+        let provider = CLKSimpleGaugeProvider(style: .fill, gaugeColor: UIColor(red: 81.0/255.0, green: 153.0/255.0, blue: 238.0/255.0, alpha: 1), fillFraction: Float(min(totalSteps, goal)) / Float(goal))
         
         gc.outerTextProvider = text
         gc.gaugeProvider = provider
@@ -337,7 +337,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     {
         let text = CLKSimpleTextProvider()
         text.text = String(format: "%@ STEPS", formatStepsForLarge(NSNumber(value: totalSteps)))
-        text.tintColor = UIColor.white
+        text.tintColor = .white
         
         let template = CLKComplicationTemplateGraphicBezelCircularText()
         template.circularTemplate = getTemplateForGraphicCircular(totalSteps, goal)
@@ -360,7 +360,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         
         let text = CLKSimpleTextProvider()
         text.text = String(format: "%@ STEPS", formatStepsForLarge(NSNumber(value: totalSteps)))
-        text.tintColor = UIColor(red: 103.0/255.0, green: 171.0/255.0, blue: 229.0/255.0, alpha: 1)
+        text.tintColor = UIColor(red: 81.0/255.0, green: 153.0/255.0, blue: 238.0/255.0, alpha: 1)
         
         let toGoText = CLKSimpleTextProvider()
         if (totalSteps >= goal)
@@ -384,7 +384,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     @available(watchOSApplicationExtension 5.0, *)
     func getGauge(forTotalSteps: Int, goal: Int) -> CLKSimpleGaugeProvider
     {
-        return CLKSimpleGaugeProvider(style: .fill, gaugeColor: UIColor(red: 103.0/255.0, green: 171.0/255.0, blue: 229.0/255.0, alpha: 1), fillFraction: Float(min(forTotalSteps, goal)) / Float(goal))
+        return CLKSimpleGaugeProvider(style: .fill, gaugeColor: UIColor(red: 81.0/255.0, green: 153.0/255.0, blue: 238.0/255.0, alpha: 1), fillFraction: Float(min(forTotalSteps, goal)) / Float(goal))
     }
     
     func formatStepsForLarge(_ totalSteps: NSNumber) -> String
