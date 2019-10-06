@@ -47,6 +47,9 @@ class InterfaceController: WKInterfaceController
         {
             display(steps: 0)
             scheduleSnapshot()
+            if let d = WKExtension.shared().delegate as? ExtensionDelegate {
+                d.complicationUpdateRequested([:])
+            }
         }
         
         HealthKitService.getInstance().authorizeForAllData({
