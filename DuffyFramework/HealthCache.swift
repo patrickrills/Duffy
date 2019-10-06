@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import os.log
 
 open class HealthCache
 {
@@ -30,7 +31,10 @@ open class HealthCache
             UserDefaults.standard.synchronize()
             
             #if os(iOS)
+                os_log("Duffy - save steps to phone cache: %d", stepCount)
                 saveStepsToSharedCache(todaysKey: todaysKey, stepCount: stepCount)
+            #else
+                os_log("Duffy - save steps to watch cache: %d", stepCount)
             #endif
             
             return true

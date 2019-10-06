@@ -8,6 +8,7 @@
 
 import Foundation
 import WatchConnectivity
+import os.log
 
 public protocol WCSessionServiceDelegate
 {
@@ -79,9 +80,10 @@ open class WCSessionService : NSObject, WCSessionDelegate
         #if os(iOS)
             if (WCSession.isSupported())
             {
-                if (WCSession.default.activationState == .activated
-                    && WCSession.default.isComplicationEnabled)
+                if WCSession.default.activationState == .activated
+                    && WCSession.default.isComplicationEnabled
                 {
+                    os_log("Duffy - send data to watch: %@", complicationData)
                     WCSession.default.transferCurrentComplicationUserInfo(complicationData)
                 }
             }
@@ -139,6 +141,8 @@ open class WCSessionService : NSObject, WCSessionDelegate
     
     open func session(_ session: WCSession, didReceiveUserInfo userInfo: [String : Any])
     {
+        os_log("Duffy - watch received complication info")
+    
         for (key, value) in userInfo
         {
             if (key == "stepsdataresponse")
@@ -149,6 +153,7 @@ open class WCSessionService : NSObject, WCSessionDelegate
                     {
                         if let del = delegate
                         {
+                            os_log("Duffy - watch refreshing complication from phone message")
                             del.complicationUpdateRequested(dict)
                         }
                         
@@ -156,6 +161,10 @@ open class WCSessionService : NSObject, WCSessionDelegate
                         {
                             NotificationService.sendDailyStepsGoalNotification()
                         }
+                    }
+                    else
+                    {
+                        os_log("Duffy - watch didn't save steps from phone")
                     }
                 }
             }
