@@ -32,7 +32,6 @@
 		09323D0A1D2303BC00961822 /* DuffyFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09323D031D2303BC00961822 /* DuffyFramework.framework */; };
 		09323D0B1D2303BC00961822 /* DuffyFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 09323D031D2303BC00961822 /* DuffyFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		09323D171D2303DE00961822 /* DuffyWatchFramework.h in Headers */ = {isa = PBXBuildFile; fileRef = 09323D161D2303DE00961822 /* DuffyWatchFramework.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		09323D1B1D2303DE00961822 /* DuffyWatchFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09323D141D2303DE00961822 /* DuffyWatchFramework.framework */; };
 		09323D1C1D2303DE00961822 /* DuffyWatchFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 09323D141D2303DE00961822 /* DuffyWatchFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		09323D221D23040100961822 /* HealthKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09323D211D23040100961822 /* HealthKitService.swift */; };
 		09323D231D23040100961822 /* HealthKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09323D211D23040100961822 /* HealthKitService.swift */; };
@@ -56,6 +55,9 @@
 		09824A8C1EA66C74002A4A84 /* EditGoalInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09824A8B1EA66C74002A4A84 /* EditGoalInterfaceController.swift */; };
 		099C13111DA336C80007C72F /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 099C13101DA336C80007C72F /* HealthKit.framework */; };
 		099C13131DA336D50007C72F /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 099C13121DA336D50007C72F /* HealthKit.framework */; };
+		099FE700234EB5300092D219 /* LoggingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099FE6FF234EB5300092D219 /* LoggingService.swift */; };
+		099FE701234EB5300092D219 /* LoggingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099FE6FF234EB5300092D219 /* LoggingService.swift */; };
+		099FE702234EBA3C0092D219 /* DuffyWatchFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09323D141D2303DE00961822 /* DuffyWatchFramework.framework */; };
 		09A7EEAD21A1E89A00DEDE5C /* HistoryTrendChartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A7EEAB21A1E89A00DEDE5C /* HistoryTrendChartTableViewCell.swift */; };
 		09A7EEAE21A1E89A00DEDE5C /* HistoryTrendChartTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09A7EEAC21A1E89A00DEDE5C /* HistoryTrendChartTableViewCell.xib */; };
 		09A7EEB021A39D7100DEDE5C /* HistoryTrendChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A7EEAF21A39D7100DEDE5C /* HistoryTrendChartView.swift */; };
@@ -231,6 +233,7 @@
 		09824A8B1EA66C74002A4A84 /* EditGoalInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditGoalInterfaceController.swift; sourceTree = "<group>"; };
 		099C13101DA336C80007C72F /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		099C13121DA336D50007C72F /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS3.0.sdk/System/Library/Frameworks/HealthKit.framework; sourceTree = DEVELOPER_DIR; };
+		099FE6FF234EB5300092D219 /* LoggingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggingService.swift; sourceTree = "<group>"; };
 		09A7EEAB21A1E89A00DEDE5C /* HistoryTrendChartTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTrendChartTableViewCell.swift; sourceTree = "<group>"; };
 		09A7EEAC21A1E89A00DEDE5C /* HistoryTrendChartTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryTrendChartTableViewCell.xib; sourceTree = "<group>"; };
 		09A7EEAF21A39D7100DEDE5C /* HistoryTrendChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTrendChartView.swift; sourceTree = "<group>"; };
@@ -272,8 +275,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				099FE702234EBA3C0092D219 /* DuffyWatchFramework.framework in Frameworks */,
 				0961D905216A9BCF00F4AA88 /* ClockKit.framework in Frameworks */,
-				09323D1B1D2303DE00961822 /* DuffyWatchFramework.framework in Frameworks */,
 				099C13131DA336D50007C72F /* HealthKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -415,6 +418,7 @@
 				09D7F1231E340EA7008FF0CC /* Constants.swift */,
 				0967EB751E7D88770073BF3F /* HealthEventDelegate.swift */,
 				0967EB781E7F0ACE0073BF3F /* NotificationService.swift */,
+				099FE6FF234EB5300092D219 /* LoggingService.swift */,
 			);
 			path = DuffyFramework;
 			sourceTree = "<group>";
@@ -779,6 +783,7 @@
 				092B0E8A1D45841F00085F99 /* CoreMotionService.swift in Sources */,
 				09323D221D23040100961822 /* HealthKitService.swift in Sources */,
 				0967EB761E7D88770073BF3F /* HealthEventDelegate.swift in Sources */,
+				099FE700234EB5300092D219 /* LoggingService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -793,6 +798,7 @@
 				092B0E8B1D45841F00085F99 /* CoreMotionService.swift in Sources */,
 				09323D231D23040100961822 /* HealthKitService.swift in Sources */,
 				0967EB771E7D88770073BF3F /* HealthEventDelegate.swift in Sources */,
+				099FE701234EB5300092D219 /* LoggingService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

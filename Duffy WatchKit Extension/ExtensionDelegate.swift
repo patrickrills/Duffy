@@ -8,7 +8,6 @@
 
 import WatchKit
 import DuffyWatchFramework
-import os.log
 import UserNotifications
 
 class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate, HealthEventDelegate, UNUserNotificationCenterDelegate
@@ -55,7 +54,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
                 
                 if t is WKSnapshotRefreshBackgroundTask
                 {
-                    os_log("Duffy - snapshot task handled")
+                    LoggingService.log("Snapshot task handled")
                     
                     if let c = WKExtension.shared().rootInterfaceController as? InterfaceController
                     {
@@ -71,7 +70,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
                 }
                 else
                 {
-                    os_log("Duffy - background update task handled")
+                    LoggingService.log("Background update task handled")
                     
                     //At least turn over the complication to zero if it is a new day - if the screen is locked we can't get the steps
                     if (HealthCache.cacheIsForADifferentDay(Date()))

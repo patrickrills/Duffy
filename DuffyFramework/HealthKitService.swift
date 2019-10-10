@@ -8,7 +8,6 @@
 
 import Foundation
 import HealthKit
-import os.log
 
 open class HealthKitService
 {
@@ -308,28 +307,16 @@ open class HealthKitService
                         onRetrieve: {
                             (steps: Int, forDay: Date) in
                             
-                            #if os(iOS)
-                                os_log("Duffy - steps retrieved in background on phone: %d", steps)
-                            #else
-                                os_log("Duffy - steps retrieved in background on watch: %d", steps)
-                            #endif
+                            LoggingService.log("Steps retrieved in background", with: String(format: "%d", steps))
                             
                             if (HealthCache.saveStepsToCache(steps, forDay: forDay))
                             {
                                 WCSessionService.getInstance().updateWatchFaceComplication(["stepsdataresponse" : HealthCache.getStepsDataFromCache() as AnyObject])
-                                #if os(iOS)
-                                    os_log("Duffy - updateWatchFaceComplication in background on phone: %d", steps)
-                                #else
-                                    os_log("Duffy - updateWatchFaceComplication in background on watch: %d", steps)
-                                #endif
+                                LoggingService.log("updateWatchFaceComplication in background", with: String(format: "%d", steps))
                             }
                             else
                             {
-                                #if os(iOS)
-                                    os_log("Duffy - did not cache in background on phone: %d", steps)
-                                #else
-                                    os_log("Duffy - did not cache in background on watch: %d", steps)
-                                #endif
+                                LoggingService.log("Did not cache in background", with: String(format: "%d", steps))
                             }
                             
                         },

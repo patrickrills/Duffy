@@ -8,7 +8,6 @@
 
 import Foundation
 import WatchConnectivity
-import os.log
 
 public protocol WCSessionServiceDelegate
 {
@@ -83,7 +82,7 @@ open class WCSessionService : NSObject, WCSessionDelegate
                 if WCSession.default.activationState == .activated
                     && WCSession.default.isComplicationEnabled
                 {
-                    os_log("Duffy - send data to watch: %@", complicationData)
+                    LoggingService.log("Send data to watch")
                     WCSession.default.transferCurrentComplicationUserInfo(complicationData)
                 }
             }
@@ -141,7 +140,7 @@ open class WCSessionService : NSObject, WCSessionDelegate
     
     open func session(_ session: WCSession, didReceiveUserInfo userInfo: [String : Any])
     {
-        os_log("Duffy - watch received complication info")
+        LoggingService.log("Received complication info")
     
         for (key, value) in userInfo
         {
@@ -153,7 +152,7 @@ open class WCSessionService : NSObject, WCSessionDelegate
                     {
                         if let del = delegate
                         {
-                            os_log("Duffy - watch refreshing complication from phone message")
+                            LoggingService.log("Refreshing complication from received message")
                             del.complicationUpdateRequested(dict)
                         }
                         
@@ -164,7 +163,7 @@ open class WCSessionService : NSObject, WCSessionDelegate
                     }
                     else
                     {
-                        os_log("Duffy - watch didn't save steps from phone")
+                        LoggingService.log("Did not save steps from received message")
                     }
                 }
             }
