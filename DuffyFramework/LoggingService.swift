@@ -28,9 +28,9 @@ open class LoggingService {
         #endif
         
         if let extra = extra {
-            os_log("%@|%@ %@: %@", LOGGING_PREFIX, platform, message, extra)
+            os_log("%{public}@|%{public}@ %{public}@: %{public}@", LOGGING_PREFIX, platform, message, extra)
         } else {
-            os_log("%@|%@ %@", LOGGING_PREFIX, platform, message)
+            os_log("%{public}@|%{public}@ %{public}@", LOGGING_PREFIX, platform, message)
         }
     }
 }
