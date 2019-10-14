@@ -29,9 +29,7 @@ open class HealthCache
             UserDefaults.standard.set(latestValues, forKey: "stepsCache")
             UserDefaults.standard.synchronize()
             
-            #if os(iOS)
-                saveStepsToSharedCache(todaysKey: todaysKey, stepCount: stepCount)
-            #endif
+            LoggingService.log("Save steps to cache", with: String(format: "%d", stepCount))
             
             return true
         }

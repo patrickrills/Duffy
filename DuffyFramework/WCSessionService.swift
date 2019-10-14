@@ -79,9 +79,10 @@ open class WCSessionService : NSObject, WCSessionDelegate
         #if os(iOS)
             if (WCSession.isSupported())
             {
-                if (WCSession.default.activationState == .activated
-                    && WCSession.default.isComplicationEnabled)
+                if WCSession.default.activationState == .activated
+                    && WCSession.default.isComplicationEnabled
                 {
+                    LoggingService.log("Send data to watch")
                     WCSession.default.transferCurrentComplicationUserInfo(complicationData)
                 }
             }
@@ -139,6 +140,8 @@ open class WCSessionService : NSObject, WCSessionDelegate
     
     open func session(_ session: WCSession, didReceiveUserInfo userInfo: [String : Any])
     {
+        LoggingService.log("Received complication info")
+    
         for (key, value) in userInfo
         {
             if (key == "stepsdataresponse")
@@ -149,6 +152,7 @@ open class WCSessionService : NSObject, WCSessionDelegate
                     {
                         if let del = delegate
                         {
+                            LoggingService.log("Refreshing complication from received message")
                             del.complicationUpdateRequested(dict)
                         }
                         
@@ -156,6 +160,10 @@ open class WCSessionService : NSObject, WCSessionDelegate
                         {
                             NotificationService.sendDailyStepsGoalNotification()
                         }
+                    }
+                    else
+                    {
+                        LoggingService.log("Did not save steps from received message")
                     }
                 }
             }

@@ -8,7 +8,6 @@
 
 import WatchKit
 import DuffyWatchFramework
-import os.log
 import UserNotifications
 
 class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate, HealthEventDelegate, UNUserNotificationCenterDelegate
@@ -55,15 +54,24 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
                 
                 if t is WKSnapshotRefreshBackgroundTask
                 {
+                    LoggingService.log("Snapshot task handled")
+                    
                     if let c = WKExtension.shared().rootInterfaceController as? InterfaceController
                     {
                         c.displayTodaysStepsFromCache()
                     }
                     
+                    if HealthCache.getStepsFromCache(Date()) == 0 {
+                        ComplicationController.refreshComplication()
+                    }
+                    
                     complete(task: t)
+                    scheduleDayChangedSnapshot()
                 }
                 else
                 {
+                    LoggingService.log("Background update task handled")
+                    
                     //At least turn over the complication to zero if it is a new day - if the screen is locked we can't get the steps
                     if (HealthCache.cacheIsForADifferentDay(Date()))
                     {
@@ -116,6 +124,23 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
         WKExtension.shared().scheduleSnapshotRefresh(withPreferredDate: Date(), userInfo: nil, scheduledCompletion: {
             (err: Error?) in
         })
+    }
+    
+    func scheduleDayChangedSnapshot() {
+        guard let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: Date()) else {
+            return
+        }
+        
+        var components = Calendar.current.dateComponents([.era, .year, .month, .day], from: tomorrow)
+        components.hour = 0
+        components.minute = 1
+        components.timeZone = TimeZone.current
+        
+        if let tomorrowAtMidnight = Calendar.current.date(from: components) {
+            WKExtension.shared().scheduleSnapshotRefresh(withPreferredDate: tomorrowAtMidnight, userInfo: nil, scheduledCompletion: {
+                (err: Error?) in
+            })
+        }
     }
     
     func dailyStepsGoalWasReached()

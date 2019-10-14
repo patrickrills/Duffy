@@ -8,7 +8,6 @@
 
 import Foundation
 import HealthKit
-import os.log
 
 open class HealthKitService
 {
@@ -308,9 +307,16 @@ open class HealthKitService
                         onRetrieve: {
                             (steps: Int, forDay: Date) in
                             
+                            LoggingService.log("Steps retrieved in background", with: String(format: "%d", steps))
+                            
                             if (HealthCache.saveStepsToCache(steps, forDay: forDay))
                             {
                                 WCSessionService.getInstance().updateWatchFaceComplication(["stepsdataresponse" : HealthCache.getStepsDataFromCache() as AnyObject])
+                                LoggingService.log("updateWatchFaceComplication in background", with: String(format: "%d", steps))
+                            }
+                            else
+                            {
+                                LoggingService.log("Did not cache in background", with: String(format: "%d", steps))
                             }
                             
                         },
