@@ -29,6 +29,7 @@ class DistanceFlightsDetailViewController: DetailDataViewPageViewController
         flightsValueLabel?.textColor = Globals.lightGrayColor()
         distanceNameLabel?.textColor = Globals.lightGrayColor()
         flightsNameLabel?.textColor = Globals.lightGrayColor()
+        flightsNameLabel?.text = NSLocalizedString("Flights Climbed", comment: "")
     }
     
     override func refresh()
