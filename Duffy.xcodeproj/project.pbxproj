@@ -11,6 +11,7 @@
 		0900867120F282DE006540E7 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0900867020F282DE006540E7 /* Globals.swift */; };
 		0900867320FA7673006540E7 /* PreviousSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0900867220FA7673006540E7 /* PreviousSectionHeaderView.swift */; };
 		092276DB235549240015A1E6 /* HistoryTableViewFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = 092276DD235549240015A1E6 /* HistoryTableViewFooter.xib */; };
+		092276DF23569A560015A1E6 /* GoalChangeHowToViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 092276E123569A560015A1E6 /* GoalChangeHowToViewController.xib */; };
 		09289C7820D873F9005BF6B8 /* GoalNotificationInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09289C7720D873F9005BF6B8 /* GoalNotificationInterfaceController.swift */; };
 		09289C7E20DDFF56005BF6B8 /* MainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09289C7D20DDFF56005BF6B8 /* MainTableViewController.swift */; };
 		09289C8020DE0AD8005BF6B8 /* TodayHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09289C7F20DE0AD8005BF6B8 /* TodayHeaderView.swift */; };
@@ -74,7 +75,6 @@
 		09BDDA6621978CE90078B749 /* AboutFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09BDDA6521978CE90078B749 /* AboutFooterView.xib */; };
 		09BDDA6821979A940078B749 /* ModalNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BDDA6721979A940078B749 /* ModalNavigationController.swift */; };
 		09CC417A23132C140029AAFB /* GoalChangeHowToViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CC417823132C140029AAFB /* GoalChangeHowToViewController.swift */; };
-		09CC417B23132C140029AAFB /* GoalChangeHowToViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09CC417923132C140029AAFB /* GoalChangeHowToViewController.xib */; };
 		09CC417F231F3DAD0029AAFB /* AboutTableViewFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CC417E231F3DAD0029AAFB /* AboutTableViewFooter.swift */; };
 		09CC4181231F3DC70029AAFB /* AboutTableViewFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09CC4180231F3DC70029AAFB /* AboutTableViewFooter.xib */; };
 		09CE42C11E353E7100A6E587 /* HistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CE42C01E353E7100A6E587 /* HistoryTableViewController.swift */; };
@@ -191,6 +191,8 @@
 		0900867220FA7673006540E7 /* PreviousSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviousSectionHeaderView.swift; sourceTree = "<group>"; };
 		092276DC235549240015A1E6 /* ja */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ja; path = ja.lproj/HistoryTableViewFooter.xib; sourceTree = "<group>"; };
 		092276DE2355492C0015A1E6 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/HistoryTableViewFooter.xib; sourceTree = "<group>"; };
+		092276E023569A560015A1E6 /* ja */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ja; path = ja.lproj/GoalChangeHowToViewController.xib; sourceTree = "<group>"; };
+		092276E223569A5B0015A1E6 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/GoalChangeHowToViewController.xib; sourceTree = "<group>"; };
 		09289C7720D873F9005BF6B8 /* GoalNotificationInterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalNotificationInterfaceController.swift; sourceTree = "<group>"; };
 		09289C7920D87856005BF6B8 /* GoalNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = GoalNotificationPayload.apns; sourceTree = "<group>"; };
 		09289C7D20DDFF56005BF6B8 /* MainTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewController.swift; sourceTree = "<group>"; };
@@ -260,7 +262,6 @@
 		09BDDA6521978CE90078B749 /* AboutFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AboutFooterView.xib; sourceTree = "<group>"; };
 		09BDDA6721979A940078B749 /* ModalNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalNavigationController.swift; sourceTree = "<group>"; };
 		09CC417823132C140029AAFB /* GoalChangeHowToViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalChangeHowToViewController.swift; sourceTree = "<group>"; };
-		09CC417923132C140029AAFB /* GoalChangeHowToViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GoalChangeHowToViewController.xib; sourceTree = "<group>"; };
 		09CC417E231F3DAD0029AAFB /* AboutTableViewFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutTableViewFooter.swift; sourceTree = "<group>"; };
 		09CC4180231F3DC70029AAFB /* AboutTableViewFooter.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AboutTableViewFooter.xib; sourceTree = "<group>"; };
 		09CE42C01E353E7100A6E587 /* HistoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryTableViewController.swift; sourceTree = "<group>"; };
@@ -382,7 +383,7 @@
 				0970859B214DAB8900790EC7 /* HourGraphBarView.swift */,
 				0970859D214EAEB200790EC7 /* HourGraphMaxIndicatorView.swift */,
 				09CC417823132C140029AAFB /* GoalChangeHowToViewController.swift */,
-				09CC417923132C140029AAFB /* GoalChangeHowToViewController.xib */,
+				092276E123569A560015A1E6 /* GoalChangeHowToViewController.xib */,
 				09323C741D22C39700961822 /* Main.storyboard */,
 				09323C771D22C39700961822 /* Assets.xcassets */,
 				09323C791D22C39700961822 /* LaunchScreen.storyboard */,
@@ -699,7 +700,7 @@
 				09CEA983212259200023786B /* DetailDataView.xib in Resources */,
 				097085642127122B00790EC7 /* DistanceFlightsDetailViewController.xib in Resources */,
 				09323C761D22C39700961822 /* Main.storyboard in Resources */,
-				09CC417B23132C140029AAFB /* GoalChangeHowToViewController.xib in Resources */,
+				092276DF23569A560015A1E6 /* GoalChangeHowToViewController.xib in Resources */,
 				09A7EEAE21A1E89A00DEDE5C /* HistoryTrendChartTableViewCell.xib in Resources */,
 				0970859A214D7A8000790EC7 /* HourGraphDetailViewController.xib in Resources */,
 			);
@@ -868,6 +869,15 @@
 				092276DE2355492C0015A1E6 /* en */,
 			);
 			name = HistoryTableViewFooter.xib;
+			sourceTree = "<group>";
+		};
+		092276E123569A560015A1E6 /* GoalChangeHowToViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				092276E023569A560015A1E6 /* ja */,
+				092276E223569A5B0015A1E6 /* en */,
+			);
+			name = GoalChangeHowToViewController.xib;
 			sourceTree = "<group>";
 		};
 		09323C741D22C39700961822 /* Main.storyboard */ = {
