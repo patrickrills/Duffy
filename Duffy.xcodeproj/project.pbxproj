@@ -189,11 +189,15 @@
 		0900866E20F27D0C006540E7 /* PreviousValueTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviousValueTableViewCell.swift; sourceTree = "<group>"; };
 		0900867020F282DE006540E7 /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		0900867220FA7673006540E7 /* PreviousSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviousSectionHeaderView.swift; sourceTree = "<group>"; };
+		0903E603235BCAEC0049E071 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/HistoryTableViewFooter.xib; sourceTree = "<group>"; };
+		0903E604235BCAED0049E071 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/HourGraphDetailViewController.xib; sourceTree = "<group>"; };
+		0903E605235BCAED0049E071 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/GoalChangeHowToViewController.xib; sourceTree = "<group>"; };
+		0903E606235BCAED0049E071 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		0903E607235BCAED0049E071 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		0903E608235BCAED0049E071 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
+		0903E609235BCAED0049E071 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		092276DC235549240015A1E6 /* ja */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ja; path = ja.lproj/HistoryTableViewFooter.xib; sourceTree = "<group>"; };
-		092276DE2355492C0015A1E6 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/HistoryTableViewFooter.xib; sourceTree = "<group>"; };
 		092276E023569A560015A1E6 /* ja */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ja; path = ja.lproj/GoalChangeHowToViewController.xib; sourceTree = "<group>"; };
-		092276E223569A5B0015A1E6 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/GoalChangeHowToViewController.xib; sourceTree = "<group>"; };
-		092276E423569EB10015A1E6 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/HourGraphDetailViewController.xib; sourceTree = "<group>"; };
 		092276E623569EB20015A1E6 /* ja */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ja; path = ja.lproj/HourGraphDetailViewController.xib; sourceTree = "<group>"; };
 		09289C7720D873F9005BF6B8 /* GoalNotificationInterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalNotificationInterfaceController.swift; sourceTree = "<group>"; };
 		09289C7920D87856005BF6B8 /* GoalNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = GoalNotificationPayload.apns; sourceTree = "<group>"; };
@@ -236,10 +240,6 @@
 		0970859D214EAEB200790EC7 /* HourGraphMaxIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourGraphMaxIndicatorView.swift; sourceTree = "<group>"; };
 		0970859F214F16B600790EC7 /* AppRater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRater.swift; sourceTree = "<group>"; };
 		09824A8B1EA66C74002A4A84 /* EditGoalInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditGoalInterfaceController.swift; sourceTree = "<group>"; };
-		099582B623418F2300AF6A96 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
-		099582B723418F2300AF6A96 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/Interface.storyboard; sourceTree = "<group>"; };
-		099582B823418F2400AF6A96 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		099582B923418F2400AF6A96 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/Main.storyboard; sourceTree = "<group>"; };
 		099582C9234192A600AF6A96 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		099582CC234192BE00AF6A96 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		099582CF234192C400AF6A96 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -669,6 +669,7 @@
 			knownRegions = (
 				en,
 				ja,
+				Base,
 			);
 			mainGroup = 09323C641D22C39700961822;
 			productRefGroup = 09323C6E1D22C39700961822 /* Products */;
@@ -867,7 +868,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				092276DC235549240015A1E6 /* ja */,
-				092276DE2355492C0015A1E6 /* en */,
+				0903E603235BCAEC0049E071 /* Base */,
 			);
 			name = HistoryTableViewFooter.xib;
 			sourceTree = "<group>";
@@ -876,7 +877,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				092276E023569A560015A1E6 /* ja */,
-				092276E223569A5B0015A1E6 /* en */,
+				0903E605235BCAED0049E071 /* Base */,
 			);
 			name = GoalChangeHowToViewController.xib;
 			sourceTree = "<group>";
@@ -884,8 +885,8 @@
 		092276E523569EB10015A1E6 /* HourGraphDetailViewController.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				092276E423569EB10015A1E6 /* en */,
 				092276E623569EB20015A1E6 /* ja */,
+				0903E604235BCAED0049E071 /* Base */,
 			);
 			name = HourGraphDetailViewController.xib;
 			sourceTree = "<group>";
@@ -893,8 +894,8 @@
 		09323C741D22C39700961822 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				099582B923418F2400AF6A96 /* en */,
 				099582D1234192E900AF6A96 /* ja */,
+				0903E606235BCAED0049E071 /* Base */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -902,8 +903,8 @@
 		09323C791D22C39700961822 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				099582B823418F2400AF6A96 /* en */,
 				099582D2234192E900AF6A96 /* ja */,
+				0903E607235BCAED0049E071 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -911,8 +912,8 @@
 		09323C841D22C39700961822 /* Interface.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				099582B723418F2300AF6A96 /* en */,
 				099582D4234192EA00AF6A96 /* ja */,
+				0903E608235BCAED0049E071 /* Base */,
 			);
 			name = Interface.storyboard;
 			sourceTree = "<group>";
@@ -947,8 +948,8 @@
 		09CE42CE1E35525200A6E587 /* MainInterface.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				099582B623418F2300AF6A96 /* en */,
 				099582D7234192EA00AF6A96 /* ja */,
+				0903E609235BCAED0049E071 /* Base */,
 			);
 			name = MainInterface.storyboard;
 			sourceTree = "<group>";
