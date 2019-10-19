@@ -65,8 +65,11 @@ class PreviousSectionHeaderView: UITableViewHeaderFooterView
         
         if #available(iOS 13.0, *) {
             headerLabel.textColor = .label
-            actionLabel.textColor = Globals.secondaryColor()
+        } else {
+            headerLabel.textColor = .black
         }
+        
+        actionLabel.textColor = Globals.secondaryColor()
     }
     
     @IBAction func onTouchDown()
