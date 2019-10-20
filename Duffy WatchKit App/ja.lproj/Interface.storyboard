@@ -7,10 +7,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="15400"/>
     </dependencies>
     <scenes>
-        <!--Today-->
+        <!--今日-->
         <scene sceneID="aou-V4-d1y">
             <objects>
-                <controller identifier="mainInterfaceController" title="Today" id="AgC-eL-Hgc" customClass="InterfaceController" customModule="Duffy_WatchKit_App" customModuleProvider="target">
+                <controller identifier="mainInterfaceController" title="今日" id="AgC-eL-Hgc" customClass="InterfaceController" customModule="Duffy_WatchKit_App" customModuleProvider="target">
                     <items>
                         <group width="1" alignment="center" verticalAlignment="center" layout="vertical" spacing="2" id="JsD-K4-SSk">
                             <items>
@@ -73,10 +73,10 @@
             </objects>
             <point key="canvasLocation" x="139" y="852"/>
         </scene>
-        <!--Cancel-->
+        <!--キャンセル-->
         <scene sceneID="xdF-XR-FCq">
             <objects>
-                <controller identifier="editGoalInterfaceController" title="Cancel" id="NnG-6h-E9i" customClass="EditGoalInterfaceController" customModule="Duffy_WatchKit_Extension">
+                <controller identifier="editGoalInterfaceController" title="キャンセル" id="NnG-6h-E9i" customClass="EditGoalInterfaceController" customModule="Duffy_WatchKit_Extension">
                     <items>
                         <picker height="90" alignment="center" verticalAlignment="center" focusStyle="stack" id="Vgb-3m-FEt">
                             <connections>
@@ -112,10 +112,10 @@
             </objects>
             <point key="canvasLocation" x="313" y="1451"/>
         </scene>
-        <!--Recent-->
+        <!--最近-->
         <scene sceneID="LZl-Pd-feh">
             <objects>
-                <controller identifier="weekInterfaceController" title="Recent" id="jZc-PD-Him" customClass="WeekInterfaceController" customModule="Duffy_WatchKit_Extension">
+                <controller identifier="weekInterfaceController" title="最近" id="jZc-PD-Him" customClass="WeekInterfaceController" customModule="Duffy_WatchKit_Extension">
                     <items>
                         <table alignment="left" id="Xkh-TU-BTJ">
                             <items>
@@ -181,7 +181,7 @@
     </scenes>
     <resources>
         <image name="Distance" width="16" height="16"/>
-        <image name="Flights" width="30" height="30"/>
+        <image name="Flights" width="16" height="16"/>
         <image name="GoalMenu" width="40" height="40"/>
     </resources>
     <color key="tintColor" red="0.0" green="0.30980392156862746" blue="0.85098039215686272" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
