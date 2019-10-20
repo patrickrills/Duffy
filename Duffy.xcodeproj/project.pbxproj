@@ -10,6 +10,7 @@
 		0900866F20F27D0C006540E7 /* PreviousValueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0900866E20F27D0C006540E7 /* PreviousValueTableViewCell.swift */; };
 		0900867120F282DE006540E7 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0900867020F282DE006540E7 /* Globals.swift */; };
 		0900867320FA7673006540E7 /* PreviousSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0900867220FA7673006540E7 /* PreviousSectionHeaderView.swift */; };
+		0903E60A235CEFE00049E071 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 099582D0234192C400AF6A96 /* Localizable.strings */; };
 		092276DB235549240015A1E6 /* HistoryTableViewFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = 092276DD235549240015A1E6 /* HistoryTableViewFooter.xib */; };
 		092276DF23569A560015A1E6 /* GoalChangeHowToViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 092276E123569A560015A1E6 /* GoalChangeHowToViewController.xib */; };
 		092276E323569EB10015A1E6 /* HourGraphDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 092276E523569EB10015A1E6 /* HourGraphDetailViewController.xib */; };
@@ -738,6 +739,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0903E60A235CEFE00049E071 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
