@@ -163,7 +163,7 @@
                                 <label width="1" alignment="left" text="00,000" textAlignment="center" minimumScaleFactor="0.5" id="XyQ-Md-7bW">
                                     <fontDescription key="font" type="system" weight="semibold" pointSize="34"/>
                                 </label>
-                                <label width="1" alignment="left" text="STEPS" textAlignment="center" id="yjy-MT-lTv">
+                                <label width="1" alignment="left" text="歩数" textAlignment="center" id="yjy-MT-lTv">
                                     <color key="textColor" red="0.31764705882352939" green="0.59999999999999998" blue="0.93333333333333335" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </label>
                                 <label width="1" alignment="left" text="Label" textAlignment="center" numberOfLines="0" id="4L3-DK-j5d"/>
