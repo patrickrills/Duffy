@@ -33,11 +33,11 @@ class PreviousSectionHeaderView: UITableViewHeaderFooterView
         backgroundView = UIView()
         backgroundView?.backgroundColor = .clear
         
-        headerLabel.text = "Previous Week"
+        headerLabel.text = NSLocalizedString("Previous Week", comment: "")
         headerLabel.font = UIFont.boldSystemFont(ofSize: 24.0)
         headerLabel.numberOfLines = 1
         
-        actionLabel.text = "VIEW HISTORY"
+        actionLabel.text = NSLocalizedString("VIEW HISTORY", comment: "")
         actionLabel.font = UIFont.systemFont(ofSize: 14.0)
         actionLabel.numberOfLines = 1
         actionLabel.textAlignment = .right
@@ -65,8 +65,11 @@ class PreviousSectionHeaderView: UITableViewHeaderFooterView
         
         if #available(iOS 13.0, *) {
             headerLabel.textColor = .label
-            actionLabel.textColor = Globals.secondaryColor()
+        } else {
+            headerLabel.textColor = .black
         }
+        
+        actionLabel.textColor = Globals.secondaryColor()
     }
     
     @IBAction func onTouchDown()

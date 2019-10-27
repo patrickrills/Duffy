@@ -233,7 +233,7 @@ class MainTableViewController: UITableViewController
             plainCell.textLabel?.textAlignment = .center
             plainCell.textLabel?.textColor = Globals.lightGrayColor()
             plainCell.selectionStyle = .none
-            plainCell.textLabel?.text = "No data for the previous week"
+            plainCell.textLabel?.text = NSLocalizedString("No data for the previous week", comment: "")
             return plainCell
         }
         else

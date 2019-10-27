@@ -25,8 +25,8 @@ class AboutTableViewFooter: UIView {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        let version = String(format: "Version: %@", Globals.appVersion())
-        let privacy = "Privacy Policy"
+        let version = String(format: NSLocalizedString("Version: %@", comment: ""), Globals.appVersion())
+        let privacy = NSLocalizedString("Privacy Policy", comment: "")
         let combined = String(format: "%@ · %@", version, privacy)
         let attributed = NSMutableAttributedString(string: combined)
         

@@ -160,7 +160,7 @@ class InterfaceController: WKInterfaceController
                 [weak self] in
                 let formatter = InterfaceController.getNumberFormatter()
                 formatter.maximumFractionDigits = 1
-                let unitsFormatted = units == .mile ? "mi" : "km"
+                let unitsFormatted = units == .mile ? NSLocalizedString("mi", comment: "") : NSLocalizedString("km", comment: "")
                 if let weakSelf = self, let valueFormatted = formatter.string(from: NSNumber(value: distance)) {
                     let distanceAttributed = NSMutableAttributedString(string: String(format: "%@ %@", valueFormatted, unitsFormatted))
                     distanceAttributed.addAttribute(.font, value: UIFont.systemFont(ofSize: 10.0), range: NSRange(location: distanceAttributed.string.count - unitsFormatted.count, length: unitsFormatted.count))
@@ -212,7 +212,7 @@ class InterfaceController: WKInterfaceController
             if goalValue > 0, let formattedValue = InterfaceController.getNumberFormatter().string(from: NSNumber(value: goalValue))
             {
                 lbl.setHidden(false)
-                lbl.setText(String(format: "of %@ goal %@", formattedValue, HealthKitService.getInstance().getAdornment(for: stepsForDay)))
+                lbl.setText(String(format: NSLocalizedString("of %@ goal %@", comment: ""), formattedValue, HealthKitService.getInstance().getAdornment(for: stepsForDay)))
             }
             else
             {

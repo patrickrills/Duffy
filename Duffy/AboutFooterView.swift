@@ -25,7 +25,7 @@ class AboutFooterView: UIView
         super.awakeFromNib()
         aboutButton.setTitleColor(Globals.secondaryColor(), for: .normal)
         aboutButton.setTitleColor(Globals.secondaryColor().withAlphaComponent(0.4), for: .highlighted)
-        aboutButton.setTitle("About Duffy".uppercased(), for: .normal)
+        aboutButton.setTitle(NSLocalizedString("About Duffy", comment: "").uppercased(), for: .normal)
     }
     
     class func createView() -> AboutFooterView?

@@ -26,8 +26,8 @@ open class NotificationService
             numberFormatter.maximumFractionDigits = 1
         
             let content = UNMutableNotificationContent()
-            content.title = "Way to go!"
-            content.body = String(format: "You've reached your goal of %@ steps.", numberFormatter.string(from: NSNumber(value: HealthCache.getStepsDailyGoal()))!)
+            content.title = NSLocalizedString("Way to go!", comment: "")
+            content.body = String(format: NSLocalizedString("You've reached your goal of %@ steps.", comment: ""), numberFormatter.string(from: NSNumber(value: HealthCache.getStepsDailyGoal()))!)
             content.sound = UNNotificationSound.default
             content.categoryIdentifier = "goal-notification"
         

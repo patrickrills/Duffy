@@ -33,7 +33,7 @@ class HistoryFilterTableViewController: UITableViewController
     {
         super.viewDidLoad()
         
-        title = "Filter"
+        title = NSLocalizedString("Filter", comment: "")
         tableView.isScrollEnabled = false
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveFilter))
         
@@ -80,7 +80,7 @@ class HistoryFilterTableViewController: UITableViewController
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
         let cell = UITableViewCell(style: .value1, reuseIdentifier: nil)
-        cell.textLabel?.text = "Since"
+        cell.textLabel?.text = NSLocalizedString("Since", comment: "")
         cell.detailTextLabel?.text = Globals.fullDateFormatter().string(from: sinceDateFilter)
         cell.accessoryType = .none
         cell.selectionStyle = .none

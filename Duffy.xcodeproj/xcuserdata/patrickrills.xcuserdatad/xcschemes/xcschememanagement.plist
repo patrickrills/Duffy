@@ -9,6 +9,11 @@
 			<key>orderHint</key>
 			<integer>1</integer>
 		</dict>
+		<key>Duffy Japan.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>5</integer>
+		</dict>
 		<key>Duffy Today Ext.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -64,6 +69,11 @@
 			<key>orderHint</key>
 			<integer>3</integer>
 		</dict>
+		<key>Watch Japan.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>6</integer>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
@@ -73,6 +83,11 @@
 			<true/>
 		</dict>
 		<key>09323C7E1D22C39700961822</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>09323C8D1D22C39700961822</key>
 		<dict>
 			<key>primary</key>
 			<true/>

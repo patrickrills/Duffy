@@ -29,6 +29,7 @@ class DistanceFlightsDetailViewController: DetailDataViewPageViewController
         flightsValueLabel?.textColor = Globals.lightGrayColor()
         distanceNameLabel?.textColor = Globals.lightGrayColor()
         flightsNameLabel?.textColor = Globals.lightGrayColor()
+        flightsNameLabel?.text = NSLocalizedString("Flights Climbed", comment: "")
     }
     
     override func refresh()
@@ -108,22 +109,22 @@ class DistanceFlightsDetailViewController: DetailDataViewPageViewController
                 {
                     if (lastDistanceValue == 1.0)
                     {
-                        displayDistanceLabel = "Mile Travelled"
+                        displayDistanceLabel = NSLocalizedString("Mile Travelled", comment: "")
                     }
                     else
                     {
-                        displayDistanceLabel = "Miles Travelled"
+                        displayDistanceLabel = NSLocalizedString("Miles Travelled", comment: "")
                     }
                 }
                 else if (lastDistanceUnits == .kilometer)
                 {
                     if (lastDistanceValue == 1.0)
                     {
-                        displayDistanceLabel = "Kilometer Travelled"
+                        displayDistanceLabel = NSLocalizedString("Kilometer Travelled", comment: "")
                     }
                     else
                     {
-                        displayDistanceLabel = "Kilometers Travelled"
+                        displayDistanceLabel = NSLocalizedString("Kilometers Travelled", comment: "")
                     }
                 }
                 else

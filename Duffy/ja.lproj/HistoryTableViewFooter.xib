@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="HistoryTableViewFooter" customModule="Duffy" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8FP-ah-Z8r">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <state key="normal" title="さらに表示する"/>
+                </button>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstItem="8FP-ah-Z8r" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Pwf-Tu-NXX"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="8FP-ah-Z8r" secondAttribute="bottom" id="gdT-19-CFO"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="8FP-ah-Z8r" secondAttribute="trailing" id="prT-nK-mHc"/>
+                <constraint firstItem="8FP-ah-Z8r" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="rdz-yA-m7u"/>
+            </constraints>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <connections>
+                <outlet property="loadMoreButton" destination="8FP-ah-Z8r" id="Y2K-fE-5lI"/>
+            </connections>
+            <point key="canvasLocation" x="33.5" y="-53.5"/>
+        </view>
+    </objects>
+</document>
