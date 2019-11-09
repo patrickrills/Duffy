@@ -31,10 +31,16 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         if (HealthCache.cacheIsForADifferentDay(Date())) {
             complicationUpdateRequested([:])
+            if Constants.isDebugMode {
+                LoggingService.log("roll over complication in applicationDidBecomeActive")
+            }
         }
         
         if WKExtension.shared().applicationState == .active,
             let c = WKExtension.shared().rootInterfaceController as? InterfaceController {
+            if Constants.isDebugMode {
+                LoggingService.log("refresh ui from applicationDidBecomeActive")
+            }
             c.refreshPressed()
         }
     }

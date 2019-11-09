@@ -28,9 +28,21 @@ class InterfaceController: WKInterfaceController
     }
     private var currentRefreshCount = 0
     
+    override func willActivate() {
+        super.willActivate()
+        
+        if Constants.isDebugMode {
+            LoggingService.log("watchkit called willActivate")
+        }
+    }
+    
     override func didAppear()
     {
         super.didAppear()
+        
+        if Constants.isDebugMode {
+            LoggingService.log("watchkit called didAppear")
+        }
         
         askForHealthKitPermissionAndRefresh()
     }
