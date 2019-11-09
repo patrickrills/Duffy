@@ -34,6 +34,8 @@ class InterfaceController: WKInterfaceController
         if Constants.isDebugMode {
             LoggingService.log("watchkit called willActivate")
         }
+        
+        maybeTurnOverComplicationDate()
     }
     
     override func didAppear()
