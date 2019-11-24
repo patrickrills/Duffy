@@ -82,7 +82,8 @@ open class WCSessionService : NSObject, WCSessionDelegate
                 if WCSession.default.activationState == .activated
                     && WCSession.default.isComplicationEnabled
                 {
-                    LoggingService.log("Send data to watch")
+                    let remaining = WCSession.default.remainingComplicationUserInfoTransfers
+                    LoggingService.log("Send data to watch, remaining transfers", with: remaining.description)
                     WCSession.default.transferCurrentComplicationUserInfo(complicationData)
                 }
             }
