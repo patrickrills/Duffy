@@ -36,6 +36,7 @@ class InterfaceController: WKInterfaceController
         }
         
         maybeTurnOverComplicationDate()
+        refresh()
     }
     
     override func didAppear()
