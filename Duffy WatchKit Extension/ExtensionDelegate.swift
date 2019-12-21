@@ -25,22 +25,23 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
         HealthKitService.getInstance().initializeBackgroundQueries()
         HealthKitService.getInstance().setEventDelegate(self)
         NotificationService.maybeAskForNotificationPermission(self)
-    }
-
-    func applicationDidBecomeActive() {
-        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        
         if (HealthCache.cacheIsForADifferentDay(Date())) {
             complicationUpdateRequested([:])
             if Constants.isDebugMode {
-                LoggingService.log("roll over complication in applicationDidBecomeActive")
+                LoggingService.log("roll over complication in applicationDidFinishLaunching")
             }
         }
-        
-        if WKExtension.shared().applicationState == .active,
+    }
+    
+    func applicationWillEnterForeground() {
+        if WKExtension.shared().isApplicationRunningInDock,
             let c = WKExtension.shared().rootInterfaceController as? InterfaceController {
+            
             if Constants.isDebugMode {
-                LoggingService.log("refresh ui from applicationDidBecomeActive")
+                LoggingService.log("refresh ui from applicationWillEnterForeground while in dock")
             }
+            
             c.refreshPressed()
         }
     }
