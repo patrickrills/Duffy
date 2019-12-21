@@ -28,11 +28,26 @@ class InterfaceController: WKInterfaceController
     }
     private var currentRefreshCount = 0
     
+    override func willActivate() {
+        super.willActivate()
+        
+        if Constants.isDebugMode {
+            LoggingService.log("watchkit called willActivate")
+        }
+        
+        maybeTurnOverComplicationDate()
+        refresh()
+    }
+    
     override func didAppear()
     {
         super.didAppear()
         
-        askForHealthKitPermission()
+        if Constants.isDebugMode {
+            LoggingService.log("watchkit called didAppear")
+        }
+        
+        askForHealthKitPermissionAndRefresh()
     }
     
     override func willDisappear() {
@@ -40,17 +55,9 @@ class InterfaceController: WKInterfaceController
         stopAutomaticUpdates()
     }
     
-    private func askForHealthKitPermission()
+    private func askForHealthKitPermissionAndRefresh()
     {
-        //reset display if day turned over
-        if (HealthCache.cacheIsForADifferentDay(Date()))
-        {
-            display(steps: 0)
-            scheduleSnapshot()
-            if let d = WKExtension.shared().delegate as? ExtensionDelegate {
-                d.complicationUpdateRequested([:])
-            }
-        }
+        maybeTurnOverComplicationDate()
         
         HealthKitService.getInstance().authorizeForAllData({
             
@@ -60,6 +67,18 @@ class InterfaceController: WKInterfaceController
                 }
             
             }, onFailure: { })
+    }
+    
+    func maybeTurnOverComplicationDate() {
+        //reset display if day turned over
+        if (HealthCache.cacheIsForADifferentDay(Date()))
+        {
+            display(steps: 0)
+            scheduleSnapshot()
+            if let d = WKExtension.shared().delegate as? ExtensionDelegate {
+                d.complicationUpdateRequested([:])
+            }
+        }
     }
     
     private func refresh()

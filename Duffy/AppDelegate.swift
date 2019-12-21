@@ -16,7 +16,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate //, HealthEventDelegate
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        application.setMinimumBackgroundFetchInterval(UIApplication.backgroundFetchIntervalMinimum)
         let _ = WCSessionService.getInstance()
         HealthKitService.getInstance().initializeBackgroundQueries()
         return true
