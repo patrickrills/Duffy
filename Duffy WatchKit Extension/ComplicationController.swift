@@ -314,12 +314,15 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     }
     
     @available(watchOSApplicationExtension 5.0, *)
-    func getTemplateForGraphicCircular(_ totalSteps: Int, _ goal: Int) -> CLKComplicationTemplateGraphicCircularClosedGaugeImage
+    func  getTemplateForGraphicCircular(_ totalSteps: Int, _ goal: Int) -> CLKComplicationTemplateGraphicCircularClosedGaugeText
     {
-        let gc = CLKComplicationTemplateGraphicCircularClosedGaugeImage()
-        let shoe = UIImage(named: "GraphicCircularShoe")!
+        let gc = CLKComplicationTemplateGraphicCircularClosedGaugeText()
         
-        gc.imageProvider = CLKFullColorImageProvider.init(fullColorImage: shoe)
+        let text = CLKSimpleTextProvider()
+        text.text = formatStepsForVerySmall(NSNumber(value: totalSteps))
+        text.tintColor = .white
+        
+        gc.centerTextProvider = text
         gc.gaugeProvider = getGauge(forTotalSteps: totalSteps, goal: goal)
         
         return gc;
@@ -370,7 +373,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         else
         {
             let toGo = goal - totalSteps
-            toGoText.text = String(format: NSLocalizedString("%@ to go", comment: ""), formatStepsForVerySmall(NSNumber(value: toGo)))
+            toGoText.text = String(format: NSLocalizedString("%@ to go", comment: ""), formatStepsForSmall(NSNumber(value: toGo)))
         }
         
         let template = CLKComplicationTemplateGraphicRectangularTextGauge()
@@ -433,19 +436,21 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     {
         if (totalSteps.intValue >= 1000)
         {
-            let totalStepsReduced = NSNumber(value: totalSteps.doubleValue / 1000.0 as Double)
+            let totalStepsReduced = NSNumber(value: totalSteps.doubleValue / Double(1000))
             let numberFormatter = NumberFormatter()
+            numberFormatter.roundingMode = .floor
             numberFormatter.numberStyle = NumberFormatter.Style.decimal
             numberFormatter.locale = Locale.current
-            numberFormatter.maximumFractionDigits = 0
+            numberFormatter.maximumFractionDigits = totalSteps.intValue >= 10000 ? 0 : 1
             if let format = numberFormatter.string(from: totalStepsReduced)
             {
-                return String(format: "%@k", format)
+                return format.count <= 2 ? String(format: "%@k", format) : format
             }
         }
         
-        return formatStepsForSmall(totalSteps)
+        return "<1k"
     }
+
     
     func getLocalizableSampleTemplate(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTemplate?) -> Swift.Void)
     {
