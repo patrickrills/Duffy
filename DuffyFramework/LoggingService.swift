@@ -32,5 +32,40 @@ open class LoggingService {
         } else {
             os_log("%{public}@|%{public}@ %{public}@", LOGGING_PREFIX, platform, message)
         }
+        
+        if Constants.isDebugMode {
+            logDebug(message: message, extra: extra)
+        }
+    }
+    
+    private class func logDebug(message: String, extra: String?) {
+        var platform = "Watch"
+        #if os(iOS)
+            platform = "Phone"
+        #endif
+        
+        var formattedMessage: String
+        let prefix = String(format: "%@ | %@", platform, message)
+        if let extra = extra {
+            formattedMessage = String(format: "%@: %@", prefix, extra)
+        } else {
+            formattedMessage = prefix
+        }
+        
+        var log = getDebugLog()
+        log.append(DebugLogEntry(message: formattedMessage, timestampInterval: Date().timeIntervalSinceReferenceDate))
+        let serialized = log.map({ $0.serialize() })
+        UserDefaults.standard.set(serialized, forKey: "debugLog")
+    }
+    
+    private class func getDebugLog() -> [DebugLogEntry] {
+        if let logDict = UserDefaults.standard.object(forKey: "debugLog") as? [[String : Any]]
+        {
+            return logDict.map({dict in
+                return DebugLogEntry(deseralized: dict)
+            })
+        }
+        
+        return []
     }
 }
