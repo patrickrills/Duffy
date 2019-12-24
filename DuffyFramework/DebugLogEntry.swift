@@ -8,9 +8,9 @@
 
 import UIKit
 
-class DebugLogEntry: NSObject {
-    var message: String
-    var timestamp: Date
+public class DebugLogEntry: NSObject {
+    public var message: String
+    public var timestamp: Date
     
     static let messageKey = "Debug_Message"
     static let timestampKey = "Debug_Timestamp"

@@ -58,7 +58,7 @@ open class LoggingService {
         UserDefaults.standard.set(serialized, forKey: "debugLog")
     }
     
-    private class func getDebugLog() -> [DebugLogEntry] {
+    open class func getDebugLog() -> [DebugLogEntry] {
         if let logDict = UserDefaults.standard.object(forKey: "debugLog") as? [[String : Any]]
         {
             return logDict.map({dict in

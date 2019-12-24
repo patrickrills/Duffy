@@ -42,6 +42,7 @@
 		0935D17E21A8D8E100B91009 /* HistoryFilterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0935D17D21A8D8E100B91009 /* HistoryFilterTableViewController.swift */; };
 		093A5F0523AEC870007D11E3 /* DebugLogEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093A5F0423AEC870007D11E3 /* DebugLogEntry.swift */; };
 		093A5F0623AEC870007D11E3 /* DebugLogEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093A5F0423AEC870007D11E3 /* DebugLogEntry.swift */; };
+		093A5F0823B26C1A007D11E3 /* DebugLogTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093A5F0723B26C1A007D11E3 /* DebugLogTableViewController.swift */; };
 		0947AA9C1D4EB1D80040E1DD /* WeekInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0947AA9B1D4EB1D80040E1DD /* WeekInterfaceController.swift */; };
 		0947AA9E1D4EB24A0040E1DD /* WeekRowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0947AA9D1D4EB24A0040E1DD /* WeekRowController.swift */; };
 		0961D905216A9BCF00F4AA88 /* ClockKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0961D904216A9BCF00F4AA88 /* ClockKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -231,6 +232,7 @@
 		09323D211D23040100961822 /* HealthKitService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthKitService.swift; sourceTree = "<group>"; };
 		0935D17D21A8D8E100B91009 /* HistoryFilterTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryFilterTableViewController.swift; sourceTree = "<group>"; };
 		093A5F0423AEC870007D11E3 /* DebugLogEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugLogEntry.swift; sourceTree = "<group>"; };
+		093A5F0723B26C1A007D11E3 /* DebugLogTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugLogTableViewController.swift; sourceTree = "<group>"; };
 		0947AA9B1D4EB1D80040E1DD /* WeekInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeekInterfaceController.swift; sourceTree = "<group>"; };
 		0947AA9D1D4EB24A0040E1DD /* WeekRowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeekRowController.swift; sourceTree = "<group>"; };
 		0961D904216A9BCF00F4AA88 /* ClockKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ClockKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS5.0.sdk/System/Library/Frameworks/ClockKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -370,6 +372,7 @@
 				09BDDA5D219116740078B749 /* AboutTableViewController.swift */,
 				09CC417E231F3DAD0029AAFB /* AboutTableViewFooter.swift */,
 				09CC4180231F3DC70029AAFB /* AboutTableViewFooter.xib */,
+				093A5F0723B26C1A007D11E3 /* DebugLogTableViewController.swift */,
 				09CE42C01E353E7100A6E587 /* HistoryTableViewController.swift */,
 				09A7EEAB21A1E89A00DEDE5C /* HistoryTrendChartTableViewCell.swift */,
 				09A7EEAC21A1E89A00DEDE5C /* HistoryTrendChartTableViewCell.xib */,
@@ -781,6 +784,7 @@
 				0900867120F282DE006540E7 /* Globals.swift in Sources */,
 				0935D17E21A8D8E100B91009 /* HistoryFilterTableViewController.swift in Sources */,
 				09CC417A23132C140029AAFB /* GoalChangeHowToViewController.swift in Sources */,
+				093A5F0823B26C1A007D11E3 /* DebugLogTableViewController.swift in Sources */,
 				09289C7E20DDFF56005BF6B8 /* MainTableViewController.swift in Sources */,
 				09BDDA6421978CD20078B749 /* AboutFooterView.swift in Sources */,
 				09289C8020DE0AD8005BF6B8 /* TodayHeaderView.swift in Sources */,

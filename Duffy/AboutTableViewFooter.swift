@@ -7,13 +7,15 @@
 //
 
 import UIKit
+import DuffyFramework
 
 class AboutTableViewFooter: UIView {
 
-    class func createView(_ target: Any, action: Selector) -> AboutTableViewFooter? {
+    class func createView(_ target: Any, action: Selector, debugAction: Selector) -> AboutTableViewFooter? {
         if let nibViews = Bundle.main.loadNibNamed("AboutTableViewFooter", owner:nil, options:nil),
             let footer = nibViews[0] as? AboutTableViewFooter {
             footer.aboutButton.addTarget(target, action: action, for: .touchUpInside)
+            footer.debugButton.addTarget(target, action: debugAction, for: .touchUpInside)
             return footer
         }
         
@@ -21,6 +23,7 @@ class AboutTableViewFooter: UIView {
     }
     
     @IBOutlet fileprivate var aboutButton: UIButton!
+    @IBOutlet fileprivate var debugButton: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -34,5 +37,7 @@ class AboutTableViewFooter: UIView {
         attributed.addAttribute(.foregroundColor, value: Globals.secondaryColor(), range: NSRange(location: combined.count - privacy.count, length: privacy.count))
         aboutButton.setTitleColor(.lightGray, for: .normal)
         aboutButton.setAttributedTitle(attributed, for: .normal)
+        
+        debugButton.isHidden = !Constants.isDebugMode
     }
 }

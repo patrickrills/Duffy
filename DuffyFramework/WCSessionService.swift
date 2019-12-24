@@ -62,6 +62,16 @@ open class WCSessionService : NSObject, WCSessionDelegate
         delegate = withDelegate
     }
     
+    open func transfersRemaining() -> Int {
+        #if os(iOS)
+            if (WCSession.isSupported()) {
+                return WCSession.default.remainingComplicationUserInfoTransfers
+            }
+        #endif
+        
+        return 0
+    }
+    
     open func updateWatchFaceComplication(_ complicationData : [String : AnyObject])
     {
         #if os(iOS)
