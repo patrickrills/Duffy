@@ -28,6 +28,13 @@ class InterfaceController: WKInterfaceController
     }
     private var currentRefreshCount = 0
     
+    override func awake(withContext context: Any?) {
+        super.awake(withContext: context)
+        if Constants.isDebugMode {
+            addMenuItem(with: .info, title: "Debug", action: #selector(debugPressed))
+        }
+    }
+    
     override func willActivate() {
         super.willActivate()
         
@@ -278,6 +285,25 @@ class InterfaceController: WKInterfaceController
     @IBAction func changeGoalMenuItemPressed()
     {
         presentController(withName: "editGoalInterfaceController", context: nil)
+    }
+    
+    @IBAction func debugPressed()
+    {
+        let log = LoggingService.getDebugLog()
+        if log.count > 0 {
+            presentAlert(withTitle: "\(log[0].timestamp)", message: log[0].message, preferredStyle: .alert, actions: [
+                WKAlertAction(title: "Send to Phone", style: .default, handler: {
+                    [weak self] in
+                    self?.sendDebugLogToPhone()
+                }),
+                WKAlertAction(title: "Dismiss", style: .cancel, handler: {})
+            ])
+        }
+    }
+    
+    private func sendDebugLogToPhone() {
+        //TODO: WCSessionService method to send log to phone
+        print("send debug log to phone")
     }
     
     open class func getNumberFormatter() -> NumberFormatter
