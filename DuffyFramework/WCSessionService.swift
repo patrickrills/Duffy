@@ -118,32 +118,44 @@ open class WCSessionService : NSObject, WCSessionDelegate
         }
     }
     
-    open func session(_ session: WCSession, didReceiveMessage message: [String : Any])
-    {
-        for (key, value) in message
+    open func send(message name: String, payload: Any, onCompletion: @escaping (Bool) -> (Void)) {
+        if WCSession.isSupported()
         {
-            if (key == "stepsGoal")
+            if WCSession.default.activationState == .activated
             {
-                if let goalVal = value as? Int
-                {
-                    HealthCache.saveStepsGoalToCache(goalVal)
-                }
-            }
-            else if (key == "goalNotificationSent")
-            {
-                if let dayKey = value as? String
-                {
-                    NotificationService.markNotificationSentByOtherDevice(forKey: dayKey)
-                }
+                WCSession.default.sendMessage([name : payload],
+                                              replyHandler: { (_) in
+                                                onCompletion(true)
+                                              },
+                                              errorHandler: { (err: Error?) in
+                                                if let e = err
+                                                {
+                                                    LoggingService.log("send message error", with: e.localizedDescription)
+                                                }
+                                                onCompletion(false)
+                })
             }
         }
+    }
+    
+    open func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Void) {
+        handle(message: message)
+        replyHandler(["received" : Int(1)])
+    }
+    
+    open func session(_ session: WCSession, didReceiveMessage message: [String : Any])
+    {
+        handle(message: message)
     }
     
     open func session(_ session: WCSession, didReceiveUserInfo userInfo: [String : Any])
     {
         LoggingService.log("Received complication info")
+        handle(message: userInfo)
+    }
     
-        for (key, value) in userInfo
+    fileprivate func handle(message: [String : Any]) {
+        for (key, value) in message
         {
             if (key == "stepsdataresponse")
             {
@@ -166,6 +178,20 @@ open class WCSessionService : NSObject, WCSessionDelegate
                     {
                         LoggingService.log("Did not save steps from received message")
                     }
+                }
+            }
+            else if (key == "stepsGoal")
+            {
+                if let goalVal = value as? Int
+                {
+                    HealthCache.saveStepsGoalToCache(goalVal)
+                }
+            }
+            else if (key == "goalNotificationSent")
+            {
+                if let dayKey = value as? String
+                {
+                    NotificationService.markNotificationSentByOtherDevice(forKey: dayKey)
                 }
             }
         }
