@@ -448,7 +448,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
             }
         }
         
-        return "<1k"
+        return totalSteps.intValue > 0 ? "<1k" : "0"
     }
 
     
