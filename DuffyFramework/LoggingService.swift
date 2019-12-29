@@ -63,7 +63,10 @@ open class LoggingService {
         {
             return logDict.map({dict in
                 return DebugLogEntry(deseralized: dict)
-                })
+            }).sorted(by: {
+                (obj1, obj2) in
+                return obj1.timestamp.timeIntervalSinceReferenceDate > obj2.timestamp.timeIntervalSinceReferenceDate
+            })
         }
         
         return []
