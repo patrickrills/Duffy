@@ -11,7 +11,7 @@ import DuffyFramework
 
 class DebugLogTableViewController: UITableViewController {
 
-    let log = LoggingService.getDebugLog().sorted(by: { $0.timestamp > $1.timestamp })
+    var log = LoggingService.getDebugLog()
     let dateFormatter = DateFormatter()
     
     init() {
@@ -27,13 +27,15 @@ class DebugLogTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
             return 3
+        case 2:
+            return 1
         default:
             return log.count
         }
@@ -60,6 +62,10 @@ class DebugLogTableViewController: UITableViewController {
             default:
                 break
             }
+        case 2:
+            cell.textLabel?.text = "Clear Log"
+            cell.textLabel?.textColor = .red
+            break
         default:
             let logEntry = log[indexPath.row]
             cell.textLabel?.text = dateFormatter.string(from: logEntry.timestamp)
@@ -68,7 +74,7 @@ class DebugLogTableViewController: UITableViewController {
             break
         }
         
-        cell.selectionStyle = .none
+        cell.selectionStyle = indexPath.section == 2 ? .default : .none
 
         return cell
     }
@@ -77,8 +83,18 @@ class DebugLogTableViewController: UITableViewController {
         switch section {
         case 0:
             return "Data"
-        default:
+        case 1:
             return "Log"
+        default:
+            return nil
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 2 {
+            LoggingService.clearLog()
+            log = LoggingService.getDebugLog()
+            tableView.reloadData()
         }
     }
 }

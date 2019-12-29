@@ -296,6 +296,10 @@ class InterfaceController: WKInterfaceController
                     [weak self] in
                     self?.sendDebugLogToPhone()
                 }),
+                WKAlertAction(title: "Clear Log", style: .destructive, handler: {
+                    [weak self] in
+                    self?.clearDebugLog()
+                }),
                 WKAlertAction(title: "Dismiss", style: .cancel, handler: {})
             ])
         }
@@ -310,6 +314,10 @@ class InterfaceController: WKInterfaceController
                 ])
             }
         })
+    }
+    
+    private func clearDebugLog() {
+        LoggingService.clearLog()
     }
     
     open class func getNumberFormatter() -> NumberFormatter
