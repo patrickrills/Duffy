@@ -63,9 +63,17 @@ open class LoggingService {
         {
             return logDict.map({dict in
                 return DebugLogEntry(deseralized: dict)
-            })
+                })
         }
         
         return []
+    }
+    
+    open class func mergeLog(newEntries: [DebugLogEntry]) {
+        var log = getDebugLog()
+        let deltas = newEntries.filter({ !log.contains($0) })
+        log.append(contentsOf: deltas)
+        let serialized = log.map({ $0.serialize() })
+        UserDefaults.standard.set(serialized, forKey: "debugLog")
     }
 }

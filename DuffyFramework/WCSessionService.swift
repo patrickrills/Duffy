@@ -214,7 +214,9 @@ open class WCSessionService : NSObject, WCSessionDelegate
             }
             else if (key == "watchDebugLog")
             {
-                LoggingService.log("Received watch log")
+                if let log = value as? [[String : Any]] {
+                    LoggingService.mergeLog(newEntries: log.map({ DebugLogEntry(deseralized: $0) }))
+                }
             }
         }
     }

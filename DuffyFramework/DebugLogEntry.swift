@@ -41,4 +41,9 @@ public class DebugLogEntry: NSObject {
             DebugLogEntry.timestampKey : NSNumber(value: self.timestamp.timeIntervalSinceReferenceDate)
         ]
     }
+    
+    override public func isEqual(_ object: Any?) -> Bool {
+        guard let otherLog = object as? DebugLogEntry else { return false }
+        return self.message == otherLog.message && self.timestamp.timeIntervalSinceReferenceDate == otherLog.timestamp.timeIntervalSinceReferenceDate
+    }
 }
