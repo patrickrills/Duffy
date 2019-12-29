@@ -37,11 +37,6 @@ class InterfaceController: WKInterfaceController
     
     override func willActivate() {
         super.willActivate()
-        
-        if Constants.isDebugMode {
-            LoggingService.log("watchkit called willActivate")
-        }
-        
         maybeTurnOverComplicationDate()
         refresh()
     }
@@ -49,11 +44,6 @@ class InterfaceController: WKInterfaceController
     override func didAppear()
     {
         super.didAppear()
-        
-        if Constants.isDebugMode {
-            LoggingService.log("watchkit called didAppear")
-        }
-        
         askForHealthKitPermissionAndRefresh()
     }
     
