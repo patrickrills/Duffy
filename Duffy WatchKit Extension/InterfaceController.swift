@@ -291,7 +291,7 @@ class InterfaceController: WKInterfaceController
     {
         let log = LoggingService.getDebugLog()
         if log.count > 0 {
-            presentAlert(withTitle: "\(log[0].timestamp)", message: log[0].message, preferredStyle: .alert, actions: [
+            presentAlert(withTitle: "\(log[0].timestamp)", message: log[0].message, preferredStyle: .actionSheet, actions: [
                 WKAlertAction(title: "Send to Phone", style: .default, handler: {
                     [weak self] in
                     self?.sendDebugLogToPhone()
@@ -302,8 +302,14 @@ class InterfaceController: WKInterfaceController
     }
     
     private func sendDebugLogToPhone() {
-        //TODO: WCSessionService method to send log to phone
-        print("send debug log to phone")
+        WCSessionService.getInstance().sendDebugLog({
+            [weak self] success in
+            DispatchQueue.main.async {
+                self?.presentAlert(withTitle: "Log Transfer", message: (success ? "Log sent to phone" : "Error sending log"), preferredStyle: .alert, actions: [
+                    WKAlertAction(title: "Dismiss", style: .cancel, handler: {})
+                ])
+            }
+        })
     }
     
     open class func getNumberFormatter() -> NumberFormatter

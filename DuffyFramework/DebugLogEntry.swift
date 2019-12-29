@@ -35,7 +35,7 @@ public class DebugLogEntry: NSObject {
         self.timestamp = Date(timeIntervalSinceReferenceDate: timestampInterval)
     }
     
-    func serialize() -> [String : Any] {
+    public func serialize() -> [String : Any] {
         return [
             DebugLogEntry.messageKey : self.message,
             DebugLogEntry.timestampKey : NSNumber(value: self.timestamp.timeIntervalSinceReferenceDate)

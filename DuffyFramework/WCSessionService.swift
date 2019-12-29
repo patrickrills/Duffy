@@ -128,6 +128,14 @@ open class WCSessionService : NSObject, WCSessionDelegate
         }
     }
     
+    open func sendDebugLog(_ onCompletion: @escaping (Bool)->(Void)) {
+        let serializedLog = LoggingService.getDebugLog().map({ $0.serialize() })
+        WCSessionService.getInstance().send(message: "watchDebugLog", payload: serializedLog, onCompletion: {
+            (success) in
+            onCompletion(success)
+        })
+    }
+    
     open func send(message name: String, payload: Any, onCompletion: @escaping (Bool) -> (Void)) {
         if WCSession.isSupported()
         {
@@ -203,6 +211,10 @@ open class WCSessionService : NSObject, WCSessionDelegate
                 {
                     NotificationService.markNotificationSentByOtherDevice(forKey: dayKey)
                 }
+            }
+            else if (key == "watchDebugLog")
+            {
+                LoggingService.log("Received watch log")
             }
         }
     }
