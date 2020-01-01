@@ -28,13 +28,15 @@ class InterfaceController: WKInterfaceController
     }
     private var currentRefreshCount = 0
     
+    override func awake(withContext context: Any?) {
+        super.awake(withContext: context)
+        if Constants.isDebugMode {
+            addMenuItem(with: .info, title: "Debug", action: #selector(debugPressed))
+        }
+    }
+    
     override func willActivate() {
         super.willActivate()
-        
-        if Constants.isDebugMode {
-            LoggingService.log("watchkit called willActivate")
-        }
-        
         maybeTurnOverComplicationDate()
         refresh()
     }
@@ -42,11 +44,6 @@ class InterfaceController: WKInterfaceController
     override func didAppear()
     {
         super.didAppear()
-        
-        if Constants.isDebugMode {
-            LoggingService.log("watchkit called didAppear")
-        }
-        
         askForHealthKitPermissionAndRefresh()
     }
     
@@ -278,6 +275,39 @@ class InterfaceController: WKInterfaceController
     @IBAction func changeGoalMenuItemPressed()
     {
         presentController(withName: "editGoalInterfaceController", context: nil)
+    }
+    
+    @IBAction func debugPressed()
+    {
+        let log = LoggingService.getDebugLog()
+        if log.count > 0 {
+            presentAlert(withTitle: "\(log[0].timestamp)", message: log[0].message, preferredStyle: .actionSheet, actions: [
+                WKAlertAction(title: "Send to Phone", style: .default, handler: {
+                    [weak self] in
+                    self?.sendDebugLogToPhone()
+                }),
+                WKAlertAction(title: "Clear Log", style: .destructive, handler: {
+                    [weak self] in
+                    self?.clearDebugLog()
+                }),
+                WKAlertAction(title: "Dismiss", style: .cancel, handler: {})
+            ])
+        }
+    }
+    
+    private func sendDebugLogToPhone() {
+        WCSessionService.getInstance().sendDebugLog({
+            [weak self] success in
+            DispatchQueue.main.async {
+                self?.presentAlert(withTitle: "Log Transfer", message: (success ? "Log sent to phone" : "Error sending log"), preferredStyle: .alert, actions: [
+                    WKAlertAction(title: "Dismiss", style: .cancel, handler: {})
+                ])
+            }
+        })
+    }
+    
+    private func clearDebugLog() {
+        LoggingService.clearLog()
     }
     
     open class func getNumberFormatter() -> NumberFormatter

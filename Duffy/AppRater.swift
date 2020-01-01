@@ -22,7 +22,7 @@ class AppRater: NSObject
         }
     }
     
-    fileprivate class func haveAsked() -> Bool
+    open class func haveAsked() -> Bool
     {
         return UserDefaults.standard.integer(forKey: hasAskedKey) == 1
     }

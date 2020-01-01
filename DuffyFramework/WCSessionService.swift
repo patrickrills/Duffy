@@ -62,6 +62,16 @@ open class WCSessionService : NSObject, WCSessionDelegate
         delegate = withDelegate
     }
     
+    open func transfersRemaining() -> Int {
+        #if os(iOS)
+            if (WCSession.isSupported()) {
+                return WCSession.default.remainingComplicationUserInfoTransfers
+            }
+        #endif
+        
+        return 0
+    }
+    
     open func updateWatchFaceComplication(_ complicationData : [String : AnyObject])
     {
         #if os(iOS)
@@ -116,6 +126,14 @@ open class WCSessionService : NSObject, WCSessionDelegate
                 })
             }
         }
+    }
+    
+    open func sendDebugLog(_ onCompletion: @escaping (Bool)->(Void)) {
+        let serializedLog = LoggingService.getDebugLog().map({ $0.serialize() })
+        WCSessionService.getInstance().send(message: "watchDebugLog", payload: serializedLog, onCompletion: {
+            (success) in
+            onCompletion(success)
+        })
     }
     
     open func send(message name: String, payload: Any, onCompletion: @escaping (Bool) -> (Void)) {
@@ -192,6 +210,12 @@ open class WCSessionService : NSObject, WCSessionDelegate
                 if let dayKey = value as? String
                 {
                     NotificationService.markNotificationSentByOtherDevice(forKey: dayKey)
+                }
+            }
+            else if (key == "watchDebugLog")
+            {
+                if let log = value as? [[String : Any]] {
+                    LoggingService.mergeLog(newEntries: log.map({ DebugLogEntry(deseralized: $0) }))
                 }
             }
         }

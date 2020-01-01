@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina5_5" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -16,8 +15,8 @@
             <rect key="frame" x="0.0" y="0.0" width="460" height="38"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MTj-jV-MrU">
-                    <rect key="frame" x="16" y="4" width="444" height="34"/>
+                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="751" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MTj-jV-MrU">
+                    <rect key="frame" x="16" y="4" width="141" height="34"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="34" id="Sun-ZU-IjQ"/>
                     </constraints>
@@ -26,13 +25,20 @@
                         <color key="titleColor" red="0.41568627450000001" green="0.67450980390000004" blue="0.89019607840000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ARy-rE-Dag">
+                    <rect key="frame" x="393" y="4" width="51" height="30"/>
+                    <state key="normal" title="DEBUG">
+                        <color key="titleColor" name="PrimaryColor"/>
+                    </state>
+                </button>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="MTj-jV-MrU" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="4" id="5Qv-8a-bzu"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="MTj-jV-MrU" secondAttribute="bottom" id="MTI-zR-QQ7"/>
-                <constraint firstItem="MTj-jV-MrU" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="16" id="NY6-Ra-gCO"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="MTj-jV-MrU" secondAttribute="trailing" id="UmM-F7-FMQ"/>
+                <constraint firstItem="MTj-jV-MrU" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="4" id="5Qv-8a-bzu"/>
+                <constraint firstAttribute="bottom" secondItem="MTj-jV-MrU" secondAttribute="bottom" id="MTI-zR-QQ7"/>
+                <constraint firstItem="MTj-jV-MrU" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="NY6-Ra-gCO"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="ARy-rE-Dag" secondAttribute="trailing" constant="16" id="afT-pj-7jG"/>
+                <constraint firstItem="ARy-rE-Dag" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="sug-Fm-fLK"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
@@ -40,8 +46,14 @@
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
                 <outlet property="aboutButton" destination="MTj-jV-MrU" id="xPm-nA-31Z"/>
+                <outlet property="debugButton" destination="ARy-rE-Dag" id="1kg-Jo-bLz"/>
             </connections>
             <point key="canvasLocation" x="208.69565217391306" y="-257.60869565217394"/>
         </view>
     </objects>
+    <resources>
+        <namedColor name="PrimaryColor">
+            <color red="0.0" green="0.23921568627450981" blue="0.6470588235294118" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
 </document>

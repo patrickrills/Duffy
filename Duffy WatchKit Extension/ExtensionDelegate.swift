@@ -37,11 +37,6 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
     func applicationWillEnterForeground() {
         if WKExtension.shared().isApplicationRunningInDock,
             let c = WKExtension.shared().rootInterfaceController as? InterfaceController {
-            
-            if Constants.isDebugMode {
-                LoggingService.log("refresh ui from applicationWillEnterForeground while in dock")
-            }
-            
             c.refreshPressed()
         }
     }

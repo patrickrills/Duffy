@@ -112,7 +112,7 @@ class AboutTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
             if (section == self.numberOfSections(in: tableView) - 1) {
-                return AboutTableViewFooter.createView(self, action: #selector(openPrivacyPolicy))
+                return AboutTableViewFooter.createView(self, action: #selector(openPrivacyPolicy), debugAction: #selector(openDebugLog))
             }
 
             return nil
@@ -146,5 +146,9 @@ class AboutTableViewController: UITableViewController {
     
     @objc private func openPrivacyPolicy() {
         openURL("http://www.bigbluefly.com/duffy/privacy")
+    }
+    
+    @objc private func openDebugLog() {
+        navigationController?.pushViewController(DebugLogTableViewController(), animated: true)
     }
 }
