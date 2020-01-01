@@ -16,6 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate //, HealthEventDelegate
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        LoggingService.log("App did finish launching")
         let _ = WCSessionService.getInstance()
         HealthKitService.getInstance().initializeBackgroundQueries()
         return true
@@ -37,11 +38,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate //, HealthEventDelegate
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        LoggingService.log("App did enter background")
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-
+        LoggingService.log("App will enter foreground")
+        
         if let w = window
         {
             if let root = w.rootViewController as? MainTableViewController
