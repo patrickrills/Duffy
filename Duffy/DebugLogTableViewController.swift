@@ -16,7 +16,7 @@ class DebugLogTableViewController: UITableViewController {
     
     init() {
         super.init(style: .grouped)
-        dateFormatter.dateFormat = "MM/dd/yyyy hh:mm:ss"
+        dateFormatter.dateFormat = "MM/dd/yy hh:mm:ss a"
         title = "Debug"
     }
     
