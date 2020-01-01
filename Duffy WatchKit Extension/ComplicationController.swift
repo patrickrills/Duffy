@@ -20,19 +20,68 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     
     func getSupportedTimeTravelDirections(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTimeTravelDirections) -> Void)
     {
-        handler(CLKComplicationTimeTravelDirections())
+        handler(CLKComplicationTimeTravelDirections.forward)
     }
     
     // MARK: - Timeline Population
     
+    func getTimelineEndDate(for complication: CLKComplication, withHandler handler: @escaping (Date?) -> Void)
+    {
+        guard let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: Date()) else {
+            handler(nil)
+            return
+        }
+        
+        var components = Calendar.current.dateComponents([.era, .year, .month, .day], from: tomorrow)
+        components.hour = 0
+        components.minute = 1
+        components.second = 0
+        components.timeZone = TimeZone.current
+        
+        if let oneMinuteAfterMidnight = Calendar.current.date(from: components) {
+            handler(oneMinuteAfterMidnight)
+        } else {
+            handler(nil)
+        }
+    }
+    
+    func getTimelineEntries(for complication: CLKComplication, after date: Date, limit: Int, withHandler handler: @escaping ([CLKComplicationTimelineEntry]?) -> Void)
+    {
+        guard let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: Date()) else {
+            handler(nil)
+            return
+        }
+        
+        var components = Calendar.current.dateComponents([.era, .year, .month, .day], from: tomorrow)
+        components.hour = 0
+        components.minute = 0
+        components.second = 1
+        components.timeZone = TimeZone.current
+        
+        if date < tomorrow,
+            let oneSecondAfterMidnight = Calendar.current.date(from: components),
+            let tomorrowsEntry = entry(for: complication, withStepsCount: 0) {
+            tomorrowsEntry.date = oneSecondAfterMidnight
+            handler([tomorrowsEntry])
+        } else {
+            handler(nil)
+        }
+    }
+    
     func getCurrentTimelineEntry(for complication: CLKComplication, withHandler handler: (@escaping (CLKComplicationTimelineEntry?) -> Void))
     {
         // Call the handler with the current timeline entry
-        var entry: CLKComplicationTimelineEntry?
         var steps = 0
         if (!HealthCache.cacheIsForADifferentDay(Date())) {
             steps = HealthCache.getStepsFromCache(Date())
         }
+        
+        handler(entry(for: complication, withStepsCount: steps))
+    }
+    
+    private func entry(for complication: CLKComplication, withStepsCount steps: Int) -> CLKComplicationTimelineEntry?
+    {
+        var entry: CLKComplicationTimelineEntry?
         
         if (complication.family == .modularSmall)
         {
@@ -81,8 +130,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
             }
         }
         
-        
-        handler(entry)
+        return entry
     }
     
     // MARK: - Placeholder Templates
