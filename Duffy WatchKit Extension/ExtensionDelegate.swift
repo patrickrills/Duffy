@@ -112,7 +112,11 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
     {
         let dictKey = String(describing: type(of: task))
         currentBackgroundTasks.removeValue(forKey: dictKey)
-        task.setTaskCompletedWithSnapshot(true)
+        if let snapshot = task as? WKSnapshotRefreshBackgroundTask {
+            snapshot.setTaskCompleted(restoredDefaultState: true, estimatedSnapshotExpiration: Date(timeIntervalSinceNow: 60*30), userInfo: nil)
+        } else {
+            task.setTaskCompletedWithSnapshot(true)
+        }
     }
     
     func scheduleNextBackgroundRefresh()
