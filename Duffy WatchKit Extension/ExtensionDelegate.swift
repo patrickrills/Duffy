@@ -75,7 +75,6 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
                     }
                     
                     complete(task: t)
-                    scheduleDayChangedSnapshot()
                 }
                 else
                 {
@@ -133,23 +132,6 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
         WKExtension.shared().scheduleSnapshotRefresh(withPreferredDate: Date(), userInfo: nil, scheduledCompletion: {
             (err: Error?) in
         })
-    }
-    
-    func scheduleDayChangedSnapshot() {
-        guard let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: Date()) else {
-            return
-        }
-        
-        var components = Calendar.current.dateComponents([.era, .year, .month, .day], from: tomorrow)
-        components.hour = 0
-        components.minute = 1
-        components.timeZone = TimeZone.current
-        
-        if let tomorrowAtMidnight = Calendar.current.date(from: components) {
-            WKExtension.shared().scheduleSnapshotRefresh(withPreferredDate: tomorrowAtMidnight, userInfo: nil, scheduledCompletion: {
-                (err: Error?) in
-            })
-        }
     }
     
     func dailyStepsGoalWasReached()
