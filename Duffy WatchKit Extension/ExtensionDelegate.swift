@@ -91,8 +91,6 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
                     HealthKitService.getInstance().getSteps(Date(), onRetrieve: {
                             [weak self] (steps: Int, forDay: Date) in
                         
-                            self?.scheduleSnapshotNow()
-                        
                             if (HealthCache.saveStepsToCache(steps, forDay: forDay))
                             {
                                 ComplicationController.refreshComplication()
