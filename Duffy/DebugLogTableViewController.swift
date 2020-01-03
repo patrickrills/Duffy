@@ -71,6 +71,7 @@ class DebugLogTableViewController: UITableViewController {
             cell.textLabel?.text = dateFormatter.string(from: logEntry.timestamp)
             cell.detailTextLabel?.text = logEntry.message
             cell.detailTextLabel?.numberOfLines = 0
+            cell.detailTextLabel?.textColor = logEntry.textColor()
             break
         }
         
