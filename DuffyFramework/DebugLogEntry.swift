@@ -46,12 +46,15 @@ public class DebugLogEntry: NSObject {
     public func textColor() -> UIColor {
         #if os(iOS)
             let isOpen = self.message.contains("App will enter foreground") || self.message.contains("App did finish launching")
-            let isClose = self.message.contains("App did enter background")
+            let isClose = self.message.contains("App will resign active")
+            let isComplication = self.message.contains("updateWatchFaceComplication")
         
             if isOpen {
                 return .systemGreen
             } else if isClose {
                 return .systemRed
+            } else if isComplication {
+                return .systemPurple
             } else {
                 if #available(iOS 13.0, *) {
                     return .label
