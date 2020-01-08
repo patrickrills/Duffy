@@ -307,16 +307,16 @@ open class HealthKitService
                         onRetrieve: {
                             (steps: Int, forDay: Date) in
                             
-                            LoggingService.log("Steps retrieved in background", with: String(format: "%d", steps))
+                            LoggingService.log("Steps retrieved by observer", with: String(format: "%d", steps))
                             
                             if (HealthCache.saveStepsToCache(steps, forDay: forDay))
                             {
                                 WCSessionService.getInstance().updateWatchFaceComplication(["stepsdataresponse" : HealthCache.getStepsDataFromCache() as AnyObject])
-                                LoggingService.log("updateWatchFaceComplication in background", with: String(format: "%d", steps))
+                                LoggingService.log("updateWatchFaceComplication from observer", with: String(format: "%d", steps))
                             }
                             else
                             {
-                                LoggingService.log("Did not cache in background", with: String(format: "%d", steps))
+                                LoggingService.log("Did not cache from observer", with: String(format: "%d", steps))
                             }
                             
                         },
