@@ -39,7 +39,7 @@ class MainTableViewController: UITableViewController
     override func viewDidAppear(_ animated: Bool)
     {
         super.viewDidAppear(animated)
-        if HealthCache.getGoalReachedCount() >= 5
+        if HealthCache.getGoalReachedCount() >= Constants.goalReachedCountForRating
         {
             let twoSecondsFromNow = DispatchTime.now() + 2.0
             DispatchQueue.main.asyncAfter(deadline: twoSecondsFromNow)
