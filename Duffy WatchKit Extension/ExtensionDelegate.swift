@@ -28,9 +28,6 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
         
         if (HealthCache.cacheIsForADifferentDay(Date())) {
             complicationUpdateRequested([:])
-            if Constants.isDebugMode {
-                LoggingService.log("roll over complication in applicationDidFinishLaunching")
-            }
         }
     }
     

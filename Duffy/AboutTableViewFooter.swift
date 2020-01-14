@@ -38,6 +38,6 @@ class AboutTableViewFooter: UIView {
         aboutButton.setTitleColor(.lightGray, for: .normal)
         aboutButton.setAttributedTitle(attributed, for: .normal)
         
-        debugButton.isHidden = !Constants.isDebugMode
+        debugButton.isHidden = !DebugService.isDebugModeEnabled()
     }
 }

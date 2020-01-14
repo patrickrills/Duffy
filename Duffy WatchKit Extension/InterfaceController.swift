@@ -30,7 +30,7 @@ class InterfaceController: WKInterfaceController
     
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
-        if Constants.isDebugMode {
+        if DebugService.isDebugModeEnabled() {
             addMenuItem(with: .info, title: "Debug", action: #selector(debugPressed))
         }
     }
