@@ -165,18 +165,20 @@ open class WCSessionService : NSObject, WCSessionDelegate
     }
     
     open func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Void) {
+        LoggingService.log("Message received didReceiveMessage replyHandler")
         handle(message: message)
         replyHandler(["received" : Int(1)])
     }
     
     open func session(_ session: WCSession, didReceiveMessage message: [String : Any])
     {
+        LoggingService.log("Message received didReceiveMessage")
         handle(message: message)
     }
     
     open func session(_ session: WCSession, didReceiveUserInfo userInfo: [String : Any])
     {
-        LoggingService.log("Received complication info")
+        LoggingService.log("Message received didReceiveUserInfo")
         handle(message: userInfo)
     }
     
