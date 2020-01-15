@@ -228,6 +228,10 @@ open class WCSessionService : NSObject, WCSessionDelegate
                     LoggingService.mergeLog(newEntries: log.map({ DebugLogEntry(deseralized: $0) }))
                 }
             }
+            else if (key == "debugMode")
+            {
+                DebugService.toggleDebugMode()
+            }
         }
     }
 }
