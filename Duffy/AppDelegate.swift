@@ -66,5 +66,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate //, HealthEventDelegate
     {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
+    
+    func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any]) -> Bool
+    {
+        if let host = url.host, host == "debug" {
+            DebugService.toggleDebugMode()
+        }
+        
+        return true
+    }
 }
 
