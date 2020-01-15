@@ -564,6 +564,8 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
                 server.reloadTimeline(for: complication)
             }
         }
+        
+        LoggingService.log("Complication reloadTimeline")
     }
     
 }
