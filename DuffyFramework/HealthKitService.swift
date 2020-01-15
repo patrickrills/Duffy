@@ -311,12 +311,8 @@ open class HealthKitService
                             
                             if (HealthCache.saveStepsToCache(steps, forDay: forDay))
                             {
-                                WCSessionService.getInstance().updateWatchFaceComplication(["stepsdataresponse" : HealthCache.getStepsDataFromCache() as AnyObject])
                                 LoggingService.log("updateWatchFaceComplication from observer", with: String(format: "%d", steps))
-                            }
-                            else
-                            {
-                                LoggingService.log("Did not cache from observer", with: String(format: "%d", steps))
+                                WCSessionService.getInstance().updateWatchFaceComplication(["stepsdataresponse" : HealthCache.getStepsDataFromCache() as AnyObject])
                             }
                         },
                         onFailure: nil)
