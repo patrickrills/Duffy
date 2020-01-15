@@ -64,7 +64,7 @@ class DebugLogTableViewController: UITableViewController {
             }
         case 2:
             cell.textLabel?.text = "Clear Log"
-            cell.textLabel?.textColor = .red
+            cell.textLabel?.textColor = .systemRed
             break
         default:
             let logEntry = log[indexPath.row]
