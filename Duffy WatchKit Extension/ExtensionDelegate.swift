@@ -13,7 +13,7 @@ import UserNotifications
 class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate, HealthEventDelegate, UNUserNotificationCenterDelegate
 {
     var currentBackgroundTasks: [String : AnyObject] = [:]
-    
+        
     override init()
     {
         super.init()
@@ -21,6 +21,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
     }
     
     func applicationDidFinishLaunching() {
+        LoggingService.log("App did finish launching")
         // Perform any final initialization of your application.
         HealthKitService.getInstance().initializeBackgroundQueries()
         HealthKitService.getInstance().setEventDelegate(self)
@@ -32,15 +33,21 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
     }
     
     func applicationWillEnterForeground() {
+        LoggingService.log("App will enter foreground")
         if WKExtension.shared().isApplicationRunningInDock,
             let c = WKExtension.shared().rootInterfaceController as? InterfaceController {
             c.refreshPressed()
         }
     }
+    
+    func applicationDidBecomeActive() {
+        LoggingService.log("App did become active")
+    }
 
     func applicationWillResignActive() {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, etc.
+        LoggingService.log("App will resign active")
     }
 
     func complicationUpdateRequested(_ complicationData : [String : AnyObject])
