@@ -10,14 +10,14 @@ import UIKit
 import DuffyFramework
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate //, HealthEventDelegate
+class AppDelegate: UIResponder, UIApplicationDelegate, WCSessionServiceDelegate
 {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         LoggingService.log("App did finish launching")
-        let _ = WCSessionService.getInstance()
+        WCSessionService.getInstance().initialize(self)
         HealthKitService.getInstance().initializeBackgroundQueries()
         return true
     }
@@ -74,6 +74,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate //, HealthEventDelegate
         }
         
         return true
+    }
+    
+    func complicationUpdateRequested(_ complicationData: [String : AnyObject]) {
+        //do nothing
+    }
+    
+    func sessionWasActivated() {
+        LoggingService.log("App received session activate method")
+    }
+    
+    func sessionWasNotActivated() {
+        LoggingService.log("App received session NOT activated method")
     }
 }
 
