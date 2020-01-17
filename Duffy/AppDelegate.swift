@@ -17,8 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WCSessionServiceDelegate
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         LoggingService.log("App did finish launching")
-        WCSessionService.getInstance().initialize(self)
-        HealthKitService.getInstance().initializeBackgroundQueries()
+        let session = WCSessionService.getInstance()
+        session.activate(with: self)
         return true
     }
 
@@ -60,6 +60,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WCSessionServiceDelegate
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         LoggingService.log("App did become active")
+        
+        //TODO: If session is not paired, try to here?
+        //let session = WCSessionService.getInstance()
+        //if !session.isPairingInValidState() {
+        //    session.activate(with: self)
+        //}
     }
 
     func applicationWillTerminate(_ application: UIApplication)
@@ -81,11 +87,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WCSessionServiceDelegate
     }
     
     func sessionWasActivated() {
-        LoggingService.log("App received session activate method")
+        LoggingService.log("App received session activate message - start observers")
+        HealthKitService.getInstance().initializeBackgroundQueries()
     }
     
     func sessionWasNotActivated() {
-        LoggingService.log("App received session NOT activated method")
+        LoggingService.log("App received session NOT activated message - start observers")
+        HealthKitService.getInstance().initializeBackgroundQueries()
     }
 }
 

@@ -36,7 +36,7 @@ open class WCSessionService : NSObject, WCSessionDelegate
     @available(watchOS 2.2, *)
     public func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
         if activationState == .activated {
-            LoggingService.log("WCSession activated - call delegate")
+            LoggingService.log("WCSession activated")
             delegate?.sessionWasActivated?()
         } else {
             var errorMessage = "none"
@@ -58,7 +58,6 @@ open class WCSessionService : NSObject, WCSessionDelegate
         if (WCSession.isSupported())
         {
             WCSession.default.delegate = self
-            WCSession.default.activate()
         }
     }
     
@@ -67,9 +66,14 @@ open class WCSessionService : NSObject, WCSessionDelegate
         return instance
     }
     
-    open func initialize(_ withDelegate: WCSessionServiceDelegate)
+    open func activate(with delegate: WCSessionServiceDelegate)
     {
-        delegate = withDelegate
+        self.delegate = delegate
+        if (WCSession.isSupported()) {
+            WCSession.default.activate()
+        } else {
+            delegate.sessionWasNotActivated?()
+        }
     }
     
     open func transfersRemaining() -> Int {
