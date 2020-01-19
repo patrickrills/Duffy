@@ -126,6 +126,9 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
         
         WKExtension.shared().scheduleBackgroundRefresh(withPreferredDate: refreshDate, userInfo: userInfo, scheduledCompletion: {
             (err: Error?) in
+            if let e = err {
+                LoggingService.log(error: e)
+            }
         })
     }
     
@@ -133,6 +136,9 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
     {
         WKExtension.shared().scheduleSnapshotRefresh(withPreferredDate: Date(), userInfo: nil, scheduledCompletion: {
             (err: Error?) in
+            if let e = err {
+                LoggingService.log(error: e)
+            }
         })
     }
     
