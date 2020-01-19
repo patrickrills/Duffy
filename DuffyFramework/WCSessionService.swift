@@ -181,6 +181,25 @@ open class WCSessionService : NSObject, WCSessionDelegate
         LoggingService.log("Message received didReceiveUserInfo")
         handle(message: userInfo)
     }
+
+    open func session(_ session: WCSession, didFinish userInfoTransfer: WCSessionUserInfoTransfer, error: Error?) {
+        var dataTransferred = "?"
+        
+        #if os(iOS)
+            if userInfoTransfer.isCurrentComplicationInfo,
+                let stepsDict = userInfoTransfer.userInfo["stepsdataresponse"] as? [String : Any],
+                let steps = stepsDict["stepsCacheValue"] as? Int {
+                
+                dataTransferred = "\(steps)"
+            }
+        #endif
+        
+        if let error = error {
+            LoggingService.log("WCSession transfer userInfo FAILED", with: error.localizedDescription)
+        } else {
+            LoggingService.log("WCSession transferred userInfo", with: dataTransferred)
+        }
+    }
     
     fileprivate func handle(message: [String : Any]) {
         for (key, value) in message
