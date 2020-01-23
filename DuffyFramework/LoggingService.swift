@@ -38,7 +38,7 @@ open class LoggingService {
             os_log("%{public}@|%{public}@ %{public}@", LOGGING_PREFIX, platform, message)
         }
         
-        if Constants.isDebugMode {
+        if DebugService.isDebugModeEnabled() {
             logDebug(message: message, extra: extra)
         }
     }

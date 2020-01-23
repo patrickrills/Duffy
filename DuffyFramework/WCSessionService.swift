@@ -165,19 +165,40 @@ open class WCSessionService : NSObject, WCSessionDelegate
     }
     
     open func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Void) {
+        LoggingService.log("Message received didReceiveMessage replyHandler")
         handle(message: message)
         replyHandler(["received" : Int(1)])
     }
     
     open func session(_ session: WCSession, didReceiveMessage message: [String : Any])
     {
+        LoggingService.log("Message received didReceiveMessage")
         handle(message: message)
     }
     
     open func session(_ session: WCSession, didReceiveUserInfo userInfo: [String : Any])
     {
-        LoggingService.log("Received complication info")
+        LoggingService.log("Message received didReceiveUserInfo")
         handle(message: userInfo)
+    }
+
+    open func session(_ session: WCSession, didFinish userInfoTransfer: WCSessionUserInfoTransfer, error: Error?) {
+        var dataTransferred = "?"
+        
+        #if os(iOS)
+            if userInfoTransfer.isCurrentComplicationInfo,
+                let stepsDict = userInfoTransfer.userInfo["stepsdataresponse"] as? [String : Any],
+                let steps = stepsDict["stepsCacheValue"] as? Int {
+                
+                dataTransferred = "\(steps)"
+            }
+        #endif
+        
+        if let error = error {
+            LoggingService.log("WCSession transfer userInfo FAILED", with: error.localizedDescription)
+        } else {
+            LoggingService.log("WCSession transferred userInfo", with: dataTransferred)
+        }
     }
     
     fileprivate func handle(message: [String : Any]) {
@@ -225,6 +246,10 @@ open class WCSessionService : NSObject, WCSessionDelegate
                 if let log = value as? [[String : Any]] {
                     LoggingService.mergeLog(newEntries: log.map({ DebugLogEntry(deseralized: $0) }))
                 }
+            }
+            else if (key == "debugMode")
+            {
+                DebugService.toggleDebugMode()
             }
         }
     }

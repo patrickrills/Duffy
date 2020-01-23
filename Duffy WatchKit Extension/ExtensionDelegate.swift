@@ -13,7 +13,7 @@ import UserNotifications
 class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate, HealthEventDelegate, UNUserNotificationCenterDelegate
 {
     var currentBackgroundTasks: [String : AnyObject] = [:]
-    
+        
     override init()
     {
         super.init()
@@ -21,6 +21,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
     }
     
     func applicationDidFinishLaunching() {
+        LoggingService.log("App did finish launching")
         // Perform any final initialization of your application.
         HealthKitService.getInstance().initializeBackgroundQueries()
         HealthKitService.getInstance().setEventDelegate(self)
@@ -28,22 +29,25 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
         
         if (HealthCache.cacheIsForADifferentDay(Date())) {
             complicationUpdateRequested([:])
-            if Constants.isDebugMode {
-                LoggingService.log("roll over complication in applicationDidFinishLaunching")
-            }
         }
     }
     
     func applicationWillEnterForeground() {
+        LoggingService.log("App will enter foreground")
         if WKExtension.shared().isApplicationRunningInDock,
             let c = WKExtension.shared().rootInterfaceController as? InterfaceController {
             c.refreshPressed()
         }
     }
+    
+    func applicationDidBecomeActive() {
+        LoggingService.log("App did become active")
+    }
 
     func applicationWillResignActive() {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, etc.
+        LoggingService.log("App will resign active")
     }
 
     func complicationUpdateRequested(_ complicationData : [String : AnyObject])
@@ -83,6 +87,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
                     //At least turn over the complication to zero if it is a new day - if the screen is locked we can't get the steps
                     if (HealthCache.cacheIsForADifferentDay(Date()))
                     {
+                        LoggingService.log("Rolling over complication in background task")
                         if (HealthCache.saveStepsToCache(0, forDay: Date())) {
                             ComplicationController.refreshComplication()
                         }
@@ -91,8 +96,11 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
                     HealthKitService.getInstance().getSteps(Date(), onRetrieve: {
                             [weak self] (steps: Int, forDay: Date) in
                         
+                            LoggingService.log("Retrieved steps from HK in background task")
+                        
                             if (HealthCache.saveStepsToCache(steps, forDay: forDay))
                             {
+                                LoggingService.log("Refresh complication in background task")
                                 ComplicationController.refreshComplication()
                             }
                         
@@ -101,6 +109,13 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
                         onFailure: {
                             [weak self] (error: Error?) in
     
+                            var message = "no error message"
+                            if let error = error {
+                                message = error.localizedDescription
+                            }
+                            
+                            LoggingService.log("Error getting steps in background task", with: message)
+                            
                             self?.complete(task: t)
                     })
                 }
