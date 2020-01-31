@@ -17,7 +17,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
     override init()
     {
         super.init()
-        WCSessionService.getInstance().initialize(self)
+        WCSessionService.getInstance().activate(with: self)
     }
     
     func applicationDidFinishLaunching() {

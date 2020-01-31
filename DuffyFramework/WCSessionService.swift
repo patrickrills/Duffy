@@ -9,9 +9,11 @@
 import Foundation
 import WatchConnectivity
 
-public protocol WCSessionServiceDelegate
+@objc public protocol WCSessionServiceDelegate
 {
     func complicationUpdateRequested(_ complicationData : [String : AnyObject])
+    @objc optional func sessionWasActivated()
+    @objc optional func sessionWasNotActivated()
 }
 
 open class WCSessionService : NSObject, WCSessionDelegate
@@ -21,8 +23,6 @@ open class WCSessionService : NSObject, WCSessionDelegate
     @available(iOS 9.3, *)
     public func sessionDidDeactivate(_ session: WCSession) {
         
-        
-    
    }
     
     /** Called when the session can no longer be used to modify or add any new transfers and, all interactive messages will be cancelled, but delegate callbacks for background transfers can still occur. This will happen when the selected watch is being changed. */
@@ -35,7 +35,17 @@ open class WCSessionService : NSObject, WCSessionDelegate
    /** Called when the session has completed activation. If session state is WCSessionActivationStateNotActivated there will be an error with more details. */
     @available(watchOS 2.2, *)
     public func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
-        
+        if activationState == .activated {
+            LoggingService.log("WCSession activated")
+            delegate?.sessionWasActivated?()
+        } else {
+            var errorMessage = "none"
+            if let e = error {
+                errorMessage = e.localizedDescription
+            }
+            LoggingService.log("WCSession NOT activated", with: errorMessage)
+            delegate?.sessionWasNotActivated?()
+        }
     }
     
     fileprivate static let instance: WCSessionService = WCSessionService()
@@ -48,7 +58,6 @@ open class WCSessionService : NSObject, WCSessionDelegate
         if (WCSession.isSupported())
         {
             WCSession.default.delegate = self
-            WCSession.default.activate()
         }
     }
     
@@ -57,9 +66,14 @@ open class WCSessionService : NSObject, WCSessionDelegate
         return instance
     }
     
-    open func initialize(_ withDelegate: WCSessionServiceDelegate)
+    open func activate(with delegate: WCSessionServiceDelegate)
     {
-        delegate = withDelegate
+        self.delegate = delegate
+        if (WCSession.isSupported()) {
+            WCSession.default.activate()
+        } else {
+            delegate.sessionWasNotActivated?()
+        }
     }
     
     open func transfersRemaining() -> Int {
