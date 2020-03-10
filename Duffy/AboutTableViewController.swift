@@ -137,7 +137,7 @@ class AboutTableViewController: UITableViewController {
                 AppRater.redirectToAppStore()
                 break
             default:
-                openURL("http://www.bigbluefly.com")
+                openURL("http://www.bigbluefly.com/duffy")
                 break
         }
         
