@@ -31,27 +31,23 @@ open class CoreMotionService
         if let ped = pedometer
         {
             ped.startUpdates(from: Date(), withHandler: {
-                data, error in
+                [weak self] data, error in
                 if let stepData = data {
-                    
                     LoggingService.log("CMPedometer update triggered", with: String(format: "%@", stepData.numberOfSteps))
-                    
-                    HealthKitService.getInstance().getSteps(Date(),
-                        onRetrieve: {
-                            (steps: Int, forDay: Date) in
-                            
-                            LoggingService.log("Steps retrieved from HK by core motion", with: String(format: "%d", steps))
-                            
-                            if (HealthCache.saveStepsToCache(steps, forDay: forDay))
-                            {
-                                LoggingService.log("updateWatchFaceComplication from core motion", with: String(format: "%d", steps))
-                                WCSessionService.getInstance().updateWatchFaceComplication(["stepsdataresponse" : HealthCache.getStepsDataFromCache() as AnyObject])
-                            }
-                            
-                        },
-                        onFailure: nil)
+                    self?.queryHealthKit()
                 }
             })
+            
+            if CMPedometer.isPedometerEventTrackingAvailable() {
+                LoggingService.log("Pedometer Event Tracking is Available")
+                ped.startEventUpdates(handler: {
+                    [weak self] event, error in
+                    if let type = event?.type {
+                        LoggingService.log((type == .resume ? "CMPedometer resume event" : "CMPedometer pause event"))
+                        self?.queryHealthKit()
+                    }
+                })
+            }
         }
     }
     
@@ -60,6 +56,28 @@ open class CoreMotionService
         if let ped = pedometer
         {
             ped.stopUpdates()
+            
+            if CMPedometer.isPedometerEventTrackingAvailable() {
+                ped.stopEventUpdates()
+            }
         }
+    }
+    
+    private func queryHealthKit()
+    {
+        HealthKitService.getInstance().getSteps(Date(),
+        onRetrieve: {
+            (steps: Int, forDay: Date) in
+            
+            LoggingService.log("Steps retrieved from HK by core motion", with: String(format: "%d", steps))
+            
+            if (HealthCache.saveStepsToCache(steps, forDay: forDay))
+            {
+                LoggingService.log("updateWatchFaceComplication from core motion", with: String(format: "%d", steps))
+                WCSessionService.getInstance().updateWatchFaceComplication(["stepsdataresponse" : HealthCache.getStepsDataFromCache() as AnyObject])
+            }
+            
+        },
+        onFailure: nil)
     }
 }
