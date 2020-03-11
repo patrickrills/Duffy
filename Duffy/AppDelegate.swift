@@ -76,7 +76,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WCSessionServiceDelegate
 
     func applicationWillTerminate(_ application: UIApplication)
     {
-        // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+        // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:
+        CoreMotionService.getInstance().stopBackgroundUpdates()
     }
     
     func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any]) -> Bool
@@ -95,6 +96,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WCSessionServiceDelegate
     func sessionWasActivated() {
         LoggingService.log("App received session activate message - start observers")
         HealthKitService.getInstance().initializeBackgroundQueries()
+        CoreMotionService.getInstance().initializeBackgroundUpdates()
     }
     
     func sessionWasNotActivated() {

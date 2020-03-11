@@ -52,5 +52,7 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+	<key>NSMotionUsageDescription</key>
+	<string>Used to update watch complication when new steps are detected</string>
 </dict>
 </plist>

@@ -34,14 +34,17 @@ open class CoreMotionService
                 data, error in
                 if let stepData = data {
                     
-                    NSLog("CMPedometer - Steps Taken: \(stepData.numberOfSteps)")
+                    LoggingService.log("CMPedometer update triggered", with: String(format: "%@", stepData.numberOfSteps))
                     
                     HealthKitService.getInstance().getSteps(Date(),
                         onRetrieve: {
                             (steps: Int, forDay: Date) in
                             
+                            LoggingService.log("Steps retrieved from HK by core motion", with: String(format: "%d", steps))
+                            
                             if (HealthCache.saveStepsToCache(steps, forDay: forDay))
                             {
+                                LoggingService.log("updateWatchFaceComplication from core motion", with: String(format: "%d", steps))
                                 WCSessionService.getInstance().updateWatchFaceComplication(["stepsdataresponse" : HealthCache.getStepsDataFromCache() as AnyObject])
                             }
                             
