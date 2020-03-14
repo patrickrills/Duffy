@@ -29,4 +29,43 @@ open class DebugService {
             WCSessionService.getInstance().send(message: DEBUG_MODE_KEY, payload: newModeInt, onCompletion:{ (_) in })
         #endif
     }
+    
+    open class func exportLogToCSV() -> Bool {
+        let log = LoggingService.getDebugLog()
+        let columns = ["RowId", "Timestamp", "Platform", "Message", "Extra"]
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "MM/dd/yyyy hh:mm:ss a"
+        var rows = [[String]]()
+        for (index, item) in log.enumerated() {
+            var row = [String]()
+            var platform = ""
+            var message = item.message
+            var extra = ""
+            
+            if let platformIndex = message.firstIndex(of: "|") {
+                platform = String(message[..<platformIndex]).trimmingCharacters(in: .whitespaces)
+                message = String(message[message.index(after: platformIndex)...]).trimmingCharacters(in: .whitespaces)
+            }
+            
+            if let extraIndex = message.lastIndex(of: ":") {
+                extra = String(message[message.index(after: extraIndex)...])
+                message = String(message[..<extraIndex])
+            }
+            
+            row.append(String(format: "%d", index))
+            row.append(dateFormatter.string(from: item.timestamp))
+            row.append(platform)
+            row.append(message)
+            row.append(extra)
+            rows.append(row)
+        }
+        
+        if let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first,
+            ExportService.toCSV(rows, columns: columns, saveAs: String(format: "%@/log.csv", path)) {
+            
+            return true
+        }
+        
+        return false
+    }
 }

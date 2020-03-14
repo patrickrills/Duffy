@@ -27,14 +27,14 @@ class DebugLogTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return 4
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
             return 3
-        case 2:
+        case 2, 3:
             return 1
         default:
             return log.count
@@ -63,6 +63,10 @@ class DebugLogTableViewController: UITableViewController {
                 break
             }
         case 2:
+            cell.textLabel?.text = "Export to CSV"
+            cell.textLabel?.textColor = .systemBlue
+            break
+        case 3:
             cell.textLabel?.text = "Clear Log"
             cell.textLabel?.textColor = .systemRed
             break
@@ -92,10 +96,18 @@ class DebugLogTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 2 {
-            LoggingService.clearLog()
-            log = LoggingService.getDebugLog()
-            tableView.reloadData()
+        switch indexPath.section {
+            case 2:
+                let _ = DebugService.exportLogToCSV()
+                tableView.deselectRow(at: indexPath, animated: true)
+                return
+            case 3:
+                LoggingService.clearLog()
+                log = LoggingService.getDebugLog()
+                tableView.reloadData()
+                return
+            default:
+                return
         }
     }
 }
