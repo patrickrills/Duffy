@@ -30,7 +30,7 @@ open class DebugService {
         #endif
     }
     
-    open class func exportLogToCSV() -> Bool {
+    open class func exportLogToCSV() -> URL? {
         let log = LoggingService.getDebugLog()
         let columns = ["RowId", "Timestamp", "Platform", "Message", "Extra"]
         let dateFormatter = DateFormatter()
@@ -61,11 +61,12 @@ open class DebugService {
         }
         
         if let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first,
-            ExportService.toCSV(rows, columns: columns, saveAs: String(format: "%@/log.csv", path)) {
+            case let fullPath = String(format: "%@/log.csv", path),
+            ExportService.toCSV(rows, columns: columns, saveAs: fullPath) {
             
-            return true
+            return URL(fileURLWithPath: fullPath)
         }
         
-        return false
+        return nil
     }
 }

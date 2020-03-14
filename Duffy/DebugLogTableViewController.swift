@@ -13,6 +13,7 @@ class DebugLogTableViewController: UITableViewController {
 
     var log = LoggingService.getDebugLog()
     let dateFormatter = DateFormatter()
+    private var shareSheet: UIDocumentInteractionController?
     
     init() {
         super.init(style: .grouped)
@@ -98,8 +99,10 @@ class DebugLogTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch indexPath.section {
             case 2:
-                let _ = DebugService.exportLogToCSV()
                 tableView.deselectRow(at: indexPath, animated: true)
+                if let csvURL = DebugService.exportLogToCSV() {
+                    showShareSheet(for: csvURL)
+                }
                 return
             case 3:
                 LoggingService.clearLog()
@@ -109,5 +112,12 @@ class DebugLogTableViewController: UITableViewController {
             default:
                 return
         }
+    }
+    
+    private func showShareSheet(for pathURL: URL) {
+        let docController = UIDocumentInteractionController(url: pathURL)
+        docController.name = "log.csv"
+        shareSheet = docController
+        docController.presentOptionsMenu(from: self.view.frame, in: self.view, animated: true)
     }
 }
