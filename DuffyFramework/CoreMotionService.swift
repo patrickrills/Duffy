@@ -43,6 +43,9 @@ open class CoreMotionService
                     [weak self] event, error in
                     if let type = event?.type {
                         LoggingService.log((type == .resume ? "CMPedometer resume event" : "CMPedometer pause event"))
+                        #if os(iOS)
+                            self?.forceComplicationUpdate(from: "CM Event before HK query")
+                        #endif
                         self?.queryHealthKit(from: "CM Event")
                     }
                 })
@@ -62,18 +65,17 @@ open class CoreMotionService
         }
     }
     
-    private func queryHealthKit(from source:String)
+    private func queryHealthKit(from source: String)
     {
         HealthKitService.getInstance().getSteps(Date(),
         onRetrieve: {
-            (steps: Int, forDay: Date) in
+            [weak self] (steps: Int, forDay: Date) in
             
             LoggingService.log(String(format: "Steps retrieved from HK by %@", source), with: String(format: "%d", steps))
             
             if (HealthCache.saveStepsToCache(steps, forDay: forDay))
             {
-                LoggingService.log("updateWatchFaceComplication from %@", with: String(format: "%d", steps))
-                WCSessionService.getInstance().updateWatchFaceComplication(["stepsdataresponse" : HealthCache.getStepsDataFromCache() as AnyObject])
+                self?.forceComplicationUpdate(from: source)
             }
             else
             {
@@ -81,5 +83,16 @@ open class CoreMotionService
             }
         },
         onFailure: nil)
+    }
+    
+    private func forceComplicationUpdate(from source: String)
+    {
+        let cache = HealthCache.getStepsDataFromCache()
+        var logSteps = "?"
+        if let steps = cache["stepsCacheValue"] as? Int {
+            logSteps = String(format: "%d", steps)
+        }
+        LoggingService.log(String(format: "updateWatchFaceComplication from %@", source), with: logSteps)
+        WCSessionService.getInstance().updateWatchFaceComplication(["stepsdataresponse" : cache as AnyObject])
     }
 }
