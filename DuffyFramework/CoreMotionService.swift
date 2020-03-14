@@ -39,7 +39,6 @@ open class CoreMotionService
             })
             
             if CMPedometer.isPedometerEventTrackingAvailable() {
-                LoggingService.log("Pedometer Event Tracking is Available")
                 ped.startEventUpdates(handler: {
                     [weak self] event, error in
                     if let type = event?.type {
