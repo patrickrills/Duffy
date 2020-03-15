@@ -13,6 +13,9 @@ import DuffyFramework
 class TodayViewController: UIViewController, NCWidgetProviding {
     
     @IBOutlet weak var stepsValueLabel : UILabel!
+    @IBOutlet weak var flightsValueLabel : UILabel!
+    @IBOutlet weak var distanceValueLabel : UILabel!
+    @IBOutlet weak var distanceUnitsLabel : UILabel!
     
     private let numFormatter = NumberFormatter()
     private var stepCount = HealthCache.getStepsFromSharedCache(forDay: Date())
@@ -37,6 +40,25 @@ class TodayViewController: UIViewController, NCWidgetProviding {
                     self?.displaySteps()
                 }
             }
+        }, onFailure: nil)
+        
+        HealthKitService.getInstance().getFlightsClimbed(Date(), onRetrieve: {
+            [weak self] flights, date in
+            DispatchQueue.main.async {
+                self?.flightsValueLabel.text = self?.numFormatter.string(for: flights)
+            }
+        }, onFailure: nil)
+        
+        HealthKitService.getInstance().getDistanceCovered(Date(), onRetrieve: {
+            [weak self] distance, units, date in
+            let unitsFormatted = units == .mile ? NSLocalizedString("miles", comment: "") : NSLocalizedString("kilometers", comment: "")
+            if let valueFormatted = self?.numFormatter.string(from: NSNumber(value: distance)) {
+                DispatchQueue.main.async {
+                    self?.distanceValueLabel.text = valueFormatted
+                    self?.distanceUnitsLabel.text = unitsFormatted
+                }
+            }
+            
         }, onFailure: nil)
     }
     
