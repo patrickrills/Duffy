@@ -16,6 +16,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     @IBOutlet weak var flightsValueLabel : UILabel!
     @IBOutlet weak var distanceValueLabel : UILabel!
     @IBOutlet weak var distanceUnitsLabel : UILabel!
+    @IBOutlet weak var progressRingView: ProgressRingView!
     
     private let numFormatter = NumberFormatter()
     private var stepCount = HealthCache.getStepsFromSharedCache(forDay: Date())
@@ -64,6 +65,8 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     private func displaySteps() {
         stepsValueLabel.text = numFormatter.string(from: NSNumber(value:stepCount))
+        //progressRingView.progress = CGFloat(stepCount) / CGFloat(Constants.stepsGoalDefault)
+        progressRingView.isHidden = true
     }
     
     func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
