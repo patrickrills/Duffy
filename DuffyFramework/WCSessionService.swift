@@ -112,7 +112,6 @@ open class WCSessionService : NSObject, WCSessionDelegate
                     } else {
                         LoggingService.log("Complication NOT enabled")
                     }
-                    //TODO: log WCSession.default.outstandingUserInfoTransfers.count ?
                 }
                 else
                 {

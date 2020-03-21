@@ -88,7 +88,6 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
                     //At least turn over the complication to zero if it is a new day - if the screen is locked we can't get the steps
                     if (HealthCache.cacheIsForADifferentDay(Date()))
                     {
-                        LoggingService.log("Rolling over complication in background task")
                         if (HealthCache.saveStepsToCache(0, forDay: Date())) {
                             ComplicationController.refreshComplication()
                         }
@@ -96,9 +95,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
                     
                     HealthKitService.getInstance().getSteps(Date(), onRetrieve: {
                             [weak self] (steps: Int, forDay: Date) in
-                        
-                            LoggingService.log("Retrieved steps from HK in background task")
-                        
+                                                
                             if (HealthCache.saveStepsToCache(steps, forDay: forDay))
                             {
                                 LoggingService.log("Refresh complication in background task")
