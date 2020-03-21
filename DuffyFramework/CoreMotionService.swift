@@ -29,15 +29,7 @@ open class CoreMotionService
     open func initializeBackgroundUpdates()
     {
         if let ped = pedometer
-        {
-            ped.startUpdates(from: Date(), withHandler: {
-                [weak self] data, error in
-                if let stepData = data {
-                    LoggingService.log("CMPedometer update triggered", with: String(format: "%@", stepData.numberOfSteps))
-                    self?.queryHealthKit(from: "CM Update")
-                }
-            })
-            
+        {            
             if CMPedometer.isPedometerEventTrackingAvailable() {
                 ped.startEventUpdates(handler: {
                     [weak self] event, error in
