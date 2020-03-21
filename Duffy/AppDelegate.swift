@@ -102,6 +102,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WCSessionServiceDelegate
     func sessionWasNotActivated() {
         LoggingService.log("App received session NOT activated message - start observers")
         HealthKitService.getInstance().initializeBackgroundQueries()
+        CoreMotionService.getInstance().initializeBackgroundUpdates()
     }
 }
 
