@@ -35,9 +35,6 @@ open class CoreMotionService
                     [weak self] event, error in
                     if let type = event?.type {
                         LoggingService.log((type == .resume ? "CMPedometer resume event" : "CMPedometer pause event"))
-                        #if os(iOS)
-                            self?.forceComplicationUpdate(from: "CM Event before HK query")
-                        #endif
                         self?.queryHealthKit(from: "CM Event")
                     }
                 })
@@ -74,7 +71,12 @@ open class CoreMotionService
                 LoggingService.log(String(format: "Steps not saved to cache from HK by %@", source), with: String(format: "%d", steps))
             }
         },
-        onFailure: nil)
+        onFailure: {
+            error in
+            if let error = error {
+                LoggingService.log(error: error)
+            }
+        })
     }
     
     private func forceComplicationUpdate(from source: String)
