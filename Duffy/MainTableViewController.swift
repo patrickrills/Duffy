@@ -143,6 +143,7 @@ class MainTableViewController: UITableViewController
                         }
                         
                         weakSelf.hideLoading()
+                        weakSelf.maybeAskForCoreMotionPermission()
                     }
                 })
             },
@@ -156,6 +157,12 @@ class MainTableViewController: UITableViewController
         }, onFailure: {
             self.isLoading = false
         })
+    }
+    
+    func maybeAskForCoreMotionPermission() {
+        if CoreMotionService.getInstance().shouldAskPermission() {
+            CoreMotionService.getInstance().askForPermission()
+        }
     }
     
     func subscribeToHealthUpdates() {

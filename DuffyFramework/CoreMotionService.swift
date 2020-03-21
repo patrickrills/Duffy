@@ -28,28 +28,41 @@ open class CoreMotionService
     
     open func initializeBackgroundUpdates()
     {
-        if let ped = pedometer
-        {            
-            if CMPedometer.isPedometerEventTrackingAvailable() {
-                ped.startEventUpdates(handler: {
-                    [weak self] event, error in
-                    if let type = event?.type {
-                        LoggingService.log((type == .resume ? "CMPedometer resume event" : "CMPedometer pause event"))
-                        self?.queryHealthKit(from: "CM Event")
-                    }
-                })
-            }
+        guard !shouldAskPermission(), let ped = pedometer else { return }
+        
+        if CMPedometer.isPedometerEventTrackingAvailable() {
+            ped.startEventUpdates(handler: {
+                [weak self] event, error in
+                if let type = event?.type {
+                    LoggingService.log((type == .resume ? "CMPedometer resume event" : "CMPedometer pause event"))
+                    self?.queryHealthKit(from: "CM Event")
+                }
+            })
         }
     }
     
     open func stopBackgroundUpdates()
     {
-        if let ped = pedometer
-        {
-            ped.stopUpdates()
-            
-            if CMPedometer.isPedometerEventTrackingAvailable() {
-                ped.stopEventUpdates()
+        guard !shouldAskPermission(), let ped = pedometer else { return }
+        
+        if CMPedometer.isPedometerEventTrackingAvailable() {
+            ped.stopEventUpdates()
+        }
+    }
+    
+    open func shouldAskPermission() -> Bool
+    {
+        return CMPedometer.isStepCountingAvailable() && CMPedometer.isPedometerEventTrackingAvailable() && CMPedometer.authorizationStatus() == .notDetermined
+    }
+    
+    open func askForPermission()
+    {
+        if shouldAskPermission() {
+            if let ped = pedometer {
+                ped.queryPedometerData(from: Date(), to: Date(), withHandler: {
+                    [weak self] steps, error in
+                    self?.initializeBackgroundUpdates()
+                })
             }
         }
     }

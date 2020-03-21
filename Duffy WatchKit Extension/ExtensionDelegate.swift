@@ -26,7 +26,11 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
         HealthKitService.getInstance().initializeBackgroundQueries()
         HealthKitService.getInstance().setEventDelegate(self)
         NotificationService.maybeAskForNotificationPermission(self)
-        CoreMotionService.getInstance().initializeBackgroundUpdates()
+        if CoreMotionService.getInstance().shouldAskPermission() {
+            CoreMotionService.getInstance().askForPermission()
+        } else {
+            CoreMotionService.getInstance().initializeBackgroundUpdates()
+        }
         
         if (HealthCache.cacheIsForADifferentDay(Date())) {
             complicationUpdateRequested([:])
