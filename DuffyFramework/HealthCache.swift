@@ -104,50 +104,8 @@ open class HealthCache
         return dateFormatter.string(from: day)
     }
     
-    fileprivate static let sharedGroupName = "group.com.bigbluefly.Duffy"
-    
-    fileprivate class func saveStepsToSharedCache(todaysKey: String, stepCount: Int)
-    {
-        var latestValues = [String : AnyObject]()
-        latestValues["stepsCacheDay"] = todaysKey as AnyObject?
-        latestValues["stepsCacheValue"] = stepCount as AnyObject?
+    //fileprivate static let sharedGroupName = "group.com.bigbluefly.Duffy"
         
-        if let sharedDefaults = UserDefaults(suiteName: sharedGroupName)
-        {
-            if let _ = sharedDefaults.object(forKey: "stepsCache")
-            {
-                sharedDefaults.removeObject(forKey: "stepsCache")
-            }
-            
-            sharedDefaults.set(latestValues, forKey: "stepsCache")
-            sharedDefaults.synchronize()
-        }
-    }
-    
-    open class func getStepsFromSharedCache(forDay: Date) -> Int
-    {
-        var previousValueForDay: Int = 0
-        
-        if let sharedDefaults = UserDefaults(suiteName: sharedGroupName)
-        {
-            if let stepsDict = sharedDefaults.object(forKey: "stepsCache") as? [String : AnyObject]
-            {
-                if let previousDay = stepsDict["stepsCacheDay"] as? String
-                {
-                    if (previousDay == convertDayToKey(forDay))
-                    {
-                        if let prev = stepsDict["stepsCacheValue"] as? Int
-                        {
-                            previousValueForDay = prev
-                        }
-                    }
-                }
-            }
-        }
-        
-        return previousValueForDay
-    }
-    
     open class func getStepsDailyGoal() -> Int
     {
         if let stepsGoal = UserDefaults.standard.object(forKey: "stepsDailyGoal") as? Int

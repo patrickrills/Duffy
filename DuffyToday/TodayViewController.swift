@@ -19,7 +19,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     @IBOutlet weak var progressRingView: ProgressRingView!
     
     private let numFormatter = NumberFormatter()
-    private var stepCount = HealthCache.getStepsFromSharedCache(forDay: Date())
+    private var stepCount = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,7 +70,6 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     }
     
     func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
-        stepCount = HealthCache.getStepsFromSharedCache(forDay: Date())
         HealthKitService.getInstance().getSteps(Date(), onRetrieve: {
             [weak self] steps, date in
             self?.stepCount = steps
