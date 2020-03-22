@@ -104,7 +104,7 @@ open class HealthCache
         return dateFormatter.string(from: day)
     }
     
-    //fileprivate static let sharedGroupName = "group.com.bigbluefly.Duffy"
+    fileprivate static let sharedGroupName = "group.com.bigbluefly.Duffy"
         
     open class func getStepsDailyGoal() -> Int
     {
@@ -119,10 +119,29 @@ open class HealthCache
         }
     }
     
+    open class func getStepsDailyGoalFromShared() -> Int
+    {
+        #if os(iOS)
+            if let sharedDefaults = UserDefaults(suiteName: sharedGroupName),
+                let goal = sharedDefaults.object(forKey: "stepsDailyGoal") as? Int {
+                    return goal
+            } else {
+                return 0
+            }
+        #else
+            return getStepsDailyGoal()
+        #endif
+    }
+    
     open class func saveStepsGoalToCache(_ stepGoal: Int)
     {
         UserDefaults.standard.set(stepGoal, forKey: "stepsDailyGoal")
-        UserDefaults.standard.synchronize()
+        
+        #if os(iOS)
+            if let sharedDefaults = UserDefaults(suiteName: sharedGroupName) {
+                sharedDefaults.set(stepGoal, forKey: "stepsDailyGoal")
+            }
+        #endif
         
         //if watchos, send to phone
         #if os(watchOS)

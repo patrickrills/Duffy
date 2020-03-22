@@ -20,6 +20,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     private let numFormatter = NumberFormatter()
     private var stepCount = 0
+    private var dailyGoal = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +37,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             [weak self] steps, date in
             if let weakSelf = self {
                 weakSelf.stepCount = steps
+                weakSelf.dailyGoal = HealthCache.getStepsDailyGoalFromShared()
                 DispatchQueue.main.async {
                     [weak self] in
                     self?.displaySteps()
@@ -65,14 +67,19 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     private func displaySteps() {
         stepsValueLabel.text = numFormatter.string(from: NSNumber(value:stepCount))
-        //progressRingView.progress = CGFloat(stepCount) / CGFloat(Constants.stepsGoalDefault)
-        progressRingView.isHidden = true
+        if dailyGoal > 0 {
+            progressRingView.isHidden = false
+            progressRingView.progress = CGFloat(stepCount) / CGFloat(dailyGoal)
+        } else {
+            progressRingView.isHidden = true
+        }
     }
     
     func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
         HealthKitService.getInstance().getSteps(Date(), onRetrieve: {
             [weak self] steps, date in
             self?.stepCount = steps
+            self?.dailyGoal = HealthCache.getStepsDailyGoalFromShared()
             completionHandler(NCUpdateResult.newData)
             }, onFailure: {
                 error in
