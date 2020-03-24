@@ -21,7 +21,7 @@ open class LoggingService {
     
     open class func log(error: Error) {
         let nsError = error as NSError
-        log(message: "Error", extra: String(format: "%@ (%@)", nsError.localizedDescription, nsError.code))
+        log(message: "Error", extra: String(format: "%@ (%d)", nsError.localizedDescription, nsError.code))
     }
     
     private static var LOGGING_PREFIX = "Duffy"
