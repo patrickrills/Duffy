@@ -20,14 +20,15 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gSo-bL-oji" customClass="ProgressRingView" customModule="DuffyToday" customModuleProvider="target">
-                                <rect key="frame" x="110" y="0.0" width="100" height="100"/>
+                                <rect key="frame" x="111" y="0.0" width="98" height="96"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="gSo-bL-oji" secondAttribute="height" multiplier="1:1" id="gZq-SI-xNP"/>
+                                    <constraint firstAttribute="width" secondItem="gSo-bL-oji" secondAttribute="height" multiplier="1:1" constant="2" id="gZq-SI-xNP"/>
                                 </constraints>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0,000" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ql0-1L-hGp">
-                                <rect key="frame" x="110" y="22" width="100" height="38.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="751" text="0,000" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ql0-1L-hGp">
+                                <rect key="frame" x="125" y="22" width="70" height="38.5"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="32"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -92,9 +93,9 @@
                             <constraint firstItem="MiA-Vt-Wa5" firstAttribute="trailing" secondItem="OAF-fx-iMW" secondAttribute="trailing" id="dy3-a3-FUi"/>
                             <constraint firstItem="gSo-bL-oji" firstAttribute="centerX" secondItem="S3S-Oj-5AN" secondAttribute="centerX" id="fFG-CB-XuX"/>
                             <constraint firstItem="mWr-EU-pHJ" firstAttribute="top" secondItem="x7Q-RR-jDy" secondAttribute="top" id="ief-4B-4M3"/>
-                            <constraint firstItem="ql0-1L-hGp" firstAttribute="width" secondItem="gSo-bL-oji" secondAttribute="width" id="kcO-3d-55v"/>
+                            <constraint firstItem="ql0-1L-hGp" firstAttribute="width" secondItem="gSo-bL-oji" secondAttribute="width" constant="-28" id="kcO-3d-55v"/>
                             <constraint firstItem="6a8-Ly-X8e" firstAttribute="top" secondItem="mWr-EU-pHJ" secondAttribute="bottom" id="mOD-PD-Yej"/>
-                            <constraint firstAttribute="bottom" secondItem="gSo-bL-oji" secondAttribute="bottom" id="mf0-T3-uAo"/>
+                            <constraint firstAttribute="bottom" secondItem="gSo-bL-oji" secondAttribute="bottom" constant="4" id="mf0-T3-uAo"/>
                             <constraint firstItem="mWr-EU-pHJ" firstAttribute="leading" secondItem="x7Q-RR-jDy" secondAttribute="trailing" constant="6" id="pvV-wH-mC9"/>
                             <constraint firstItem="m4E-Dg-8JQ" firstAttribute="centerX" secondItem="S3S-Oj-5AN" secondAttribute="centerX" id="sSh-w0-RHp"/>
                             <constraint firstItem="OAF-fx-iMW" firstAttribute="top" secondItem="MiA-Vt-Wa5" secondAttribute="bottom" id="sx0-8i-25h"/>

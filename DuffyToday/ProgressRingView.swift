@@ -22,7 +22,11 @@ class ProgressRingView: UIView {
     override func draw(_ rect: CGRect) {
         super.draw(rect)
         
-        guard progress > 0.0, let ringColor = UIColor(named: "RingColor") else { return }
+        guard progress > 0.0,
+            let ringColor = UIColor(named: "RingColor"),
+            let successColor = UIColor(named: "SuccessColor") else {
+                return
+        }
         
         let insetRect = rect.inset(by: UIEdgeInsets(top: INSET, left: INSET, bottom: INSET, right: INSET))
         let startAngle: CGFloat = (START_ANGLE / 360.0 + START_ANGLE) * .pi / 180
@@ -30,7 +34,7 @@ class ProgressRingView: UIView {
         let ring = UIBezierPath(arcCenter: CGPoint(x: rect.size.width / 2.0, y: rect.size.height / 2.0), radius: insetRect.size.width / 2.0, startAngle: startAngle, endAngle: endAngle, clockwise: true)
         ring.lineWidth = 4.0
         if progress >= 1.0 {
-            UIColor.systemGreen.setStroke()
+            successColor.setStroke()
         } else {
             ringColor.setStroke()
         }
