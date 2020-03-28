@@ -49,8 +49,14 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         
         HealthKitService.getInstance().getFlightsClimbed(Date(), onRetrieve: {
             [weak self] flights, date in
-            DispatchQueue.main.async {
-                self?.flightsValueLabel.text = self?.numFormatter.string(for: flights)
+            
+            if let valueFormatted = self?.numFormatter.string(for: flights) {
+                let flightsLocalized = "flights"
+                let flightsAttributed = NSMutableAttributedString(string: String(format: "%@ %@", valueFormatted, flightsLocalized))
+                flightsAttributed.addAttribute(.font, value: UIFont.systemFont(ofSize: 13.0), range: NSRange(location: flightsAttributed.string.count - flightsLocalized.count, length: flightsLocalized.count))
+                DispatchQueue.main.async {
+                    self?.flightsValueLabel.attributedText = flightsAttributed
+                }
             }
         }, onFailure: nil)
         
@@ -58,9 +64,9 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             [weak self] distance, units, date in
             let unitsFormatted = units == .mile ? NSLocalizedString("mi", comment: "") : NSLocalizedString("km", comment: "")
             
-            if let valueFormatted = self?.numFormatter.string(from: NSNumber(value: distance)) {
+            if let valueFormatted = self?.numFormatter.string(for: distance) {
                 let distanceAttributed = NSMutableAttributedString(string: String(format: "%@ %@", valueFormatted, unitsFormatted))
-                distanceAttributed.addAttribute(.font, value: UIFont.systemFont(ofSize: 14.0), range: NSRange(location: distanceAttributed.string.count - unitsFormatted.count, length: unitsFormatted.count))
+                distanceAttributed.addAttribute(.font, value: UIFont.systemFont(ofSize: 13.0), range: NSRange(location: distanceAttributed.string.count - unitsFormatted.count, length: unitsFormatted.count))
                 DispatchQueue.main.async {
                     self?.distanceValueLabel.attributedText = distanceAttributed
                 }
