@@ -70,6 +70,12 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MZX-Db-bGj">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="100"/>
+                                <connections>
+                                    <action selector="launchParentApp" destination="M4Y-Lb-cyx" eventType="touchUpInside" id="zaC-af-AoZ"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstItem="m4E-Dg-8JQ" firstAttribute="top" secondItem="ql0-1L-hGp" secondAttribute="bottom" id="7jw-k7-0pg"/>
@@ -77,7 +83,10 @@
                             <constraint firstItem="MiA-Vt-Wa5" firstAttribute="leading" secondItem="8R4-bI-s1L" secondAttribute="trailing" constant="6" id="8Bv-zN-3DJ"/>
                             <constraint firstItem="gSo-bL-oji" firstAttribute="top" secondItem="S3S-Oj-5AN" secondAttribute="top" id="9K5-Oh-iag"/>
                             <constraint firstItem="ql0-1L-hGp" firstAttribute="centerY" secondItem="S3S-Oj-5AN" secondAttribute="centerY" constant="-8" id="9Qo-OB-YSD"/>
+                            <constraint firstItem="MZX-Db-bGj" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leading" id="DND-rf-pcS"/>
+                            <constraint firstAttribute="trailing" secondItem="MZX-Db-bGj" secondAttribute="trailing" id="HyL-NH-3Zf"/>
                             <constraint firstAttribute="trailing" secondItem="MiA-Vt-Wa5" secondAttribute="trailing" constant="10" id="T7n-Vj-nDM"/>
+                            <constraint firstAttribute="bottom" secondItem="MZX-Db-bGj" secondAttribute="bottom" id="TPM-XF-1Qb"/>
                             <constraint firstItem="MiA-Vt-Wa5" firstAttribute="bottom" secondItem="8R4-bI-s1L" secondAttribute="bottom" constant="3" id="dVd-Nr-3Mi"/>
                             <constraint firstItem="mWr-EU-pHJ" firstAttribute="bottom" secondItem="x7Q-RR-jDy" secondAttribute="bottom" constant="4" id="e5w-j7-hnU"/>
                             <constraint firstItem="gSo-bL-oji" firstAttribute="centerX" secondItem="S3S-Oj-5AN" secondAttribute="centerX" id="fFG-CB-XuX"/>
@@ -85,6 +94,7 @@
                             <constraint firstAttribute="bottom" secondItem="gSo-bL-oji" secondAttribute="bottom" id="mf0-T3-uAo"/>
                             <constraint firstItem="mWr-EU-pHJ" firstAttribute="leading" secondItem="x7Q-RR-jDy" secondAttribute="trailing" constant="6" id="pvV-wH-mC9"/>
                             <constraint firstItem="m4E-Dg-8JQ" firstAttribute="centerX" secondItem="S3S-Oj-5AN" secondAttribute="centerX" id="sSh-w0-RHp"/>
+                            <constraint firstItem="MZX-Db-bGj" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="bottom" id="siJ-KN-Ysl"/>
                             <constraint firstItem="FKl-LY-JtV" firstAttribute="top" secondItem="8R4-bI-s1L" secondAttribute="bottom" constant="10" id="t0A-Nf-W5I"/>
                             <constraint firstItem="x7Q-RR-jDy" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leading" constant="10" id="xXi-oW-gm6"/>
                             <constraint firstAttribute="bottom" secondItem="x7Q-RR-jDy" secondAttribute="bottom" constant="10" id="yzK-Je-spg"/>
