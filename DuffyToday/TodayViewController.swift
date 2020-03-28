@@ -14,6 +14,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     @IBOutlet weak var stepsValueLabel : UILabel!
     @IBOutlet weak var flightsValueLabel : UILabel!
+    @IBOutlet weak var flightsIcon : UIImageView!
     @IBOutlet weak var distanceValueLabel : UILabel!
     @IBOutlet weak var distanceIcon : UIImageView!
     @IBOutlet weak var progressRingView: ProgressRingView!
@@ -33,6 +34,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         super.viewWillAppear(animated)
         
         displaySteps()
+        
         HealthKitService.getInstance().getSteps(Date(), onRetrieve: {
             [weak self] steps, date in
             if let weakSelf = self {
@@ -69,10 +71,13 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         if #available(iOS 13.0, *) {
-            distanceIcon.tintColor = .secondaryLabel
-            distanceValueLabel.textColor = .secondaryLabel
+            distanceIcon.tintColor = .label
+            distanceValueLabel.textColor = .label
+            flightsIcon.tintColor = .label
+            flightsValueLabel.textColor = .label
         } else {
             distanceIcon.tintColor = .black
+            flightsIcon.tintColor = .black
         }
     }
     
