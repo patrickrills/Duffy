@@ -69,7 +69,8 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         if #available(iOS 13.0, *) {
-            distanceIcon.tintColor = .label
+            distanceIcon.tintColor = .secondaryLabel
+            distanceValueLabel.textColor = .secondaryLabel
         } else {
             distanceIcon.tintColor = .black
         }
