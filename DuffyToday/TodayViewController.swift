@@ -15,7 +15,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     @IBOutlet weak var stepsValueLabel : UILabel!
     @IBOutlet weak var flightsValueLabel : UILabel!
     @IBOutlet weak var distanceValueLabel : UILabel!
-    @IBOutlet weak var distanceUnitsLabel : UILabel!
+    @IBOutlet weak var distanceIcon : UIImageView!
     @IBOutlet weak var progressRingView: ProgressRingView!
     
     private let numFormatter = NumberFormatter()
@@ -54,15 +54,25 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         
         HealthKitService.getInstance().getDistanceCovered(Date(), onRetrieve: {
             [weak self] distance, units, date in
-            let unitsFormatted = units == .mile ? NSLocalizedString("miles", comment: "") : NSLocalizedString("kilometers", comment: "")
+            let unitsFormatted = units == .mile ? NSLocalizedString("mi", comment: "") : NSLocalizedString("km", comment: "")
+            
             if let valueFormatted = self?.numFormatter.string(from: NSNumber(value: distance)) {
+                let distanceAttributed = NSMutableAttributedString(string: String(format: "%@ %@", valueFormatted, unitsFormatted))
+                distanceAttributed.addAttribute(.font, value: UIFont.systemFont(ofSize: 14.0), range: NSRange(location: distanceAttributed.string.count - unitsFormatted.count, length: unitsFormatted.count))
                 DispatchQueue.main.async {
-                    self?.distanceValueLabel.text = valueFormatted
-                    self?.distanceUnitsLabel.text = unitsFormatted
+                    self?.distanceValueLabel.attributedText = distanceAttributed
                 }
             }
-            
         }, onFailure: nil)
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        if #available(iOS 13.0, *) {
+            distanceIcon.tintColor = .label
+        } else {
+            distanceIcon.tintColor = .black
+        }
     }
     
     private func displaySteps() {
