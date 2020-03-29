@@ -61,6 +61,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WCSessionServiceDelegate
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         LoggingService.log("App did become active")
         
+        //Synchronize daily goal to shared defaults if its never been done so Today extension can know the goal
+        if HealthCache.getStepsDailyGoal() > 0,
+            HealthCache.getStepsDailyGoal() != HealthCache.getStepsDailyGoalFromShared() {
+            HealthCache.saveStepsGoalToCache(HealthCache.getStepsDailyGoal())
+        }
+        
         //TODO: If session is not paired, try to here?
         //let session = WCSessionService.getInstance()
         //if !session.isPairingInValidState() {
