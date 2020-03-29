@@ -250,14 +250,20 @@ open class HealthKitService
             
             if (includeExtraTypes)
             {
-                if let distanceType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.distanceWalkingRunning)
-                {
+                if let distanceType = HKQuantityType.quantityType(forIdentifier: .distanceWalkingRunning) {
                     readDataTypes.insert(distanceType)
                 }
                 
-                if let flightType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.flightsClimbed)
-                {
+                if let flightType = HKQuantityType.quantityType(forIdentifier: .flightsClimbed) {
                     readDataTypes.insert(flightType)
+                }
+                
+                if let activeType = HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned) {
+                    readDataTypes.insert(activeType)
+                }
+                
+                if let minuteType = HKQuantityType.quantityType(forIdentifier: .appleExerciseTime) {
+                    readDataTypes.insert(minuteType)
                 }
                 
                 readDataTypes.insert(HKQuantityType.workoutType())
@@ -298,6 +304,22 @@ open class HealthKitService
                 observerQueries[key] = query
                 store.execute(query)
                 enableBackgroundQueryOnPhone(for: stepsType, in: store)
+            }
+            
+            if let activeType = HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned) {
+                let key = "activeEnergy"
+                let query = createObserverQuery(key: key, sampleType: activeType, store: store)
+                observerQueries[key] = query
+                store.execute(query)
+                enableBackgroundQueryOnPhone(for: activeType, in: store)
+            }
+            
+            if let minuteType = HKQuantityType.quantityType(forIdentifier: .appleExerciseTime) {
+                let key = "exerciseMinutes"
+                let query = createObserverQuery(key: key, sampleType: minuteType, store: store)
+                observerQueries[key] = query
+                store.execute(query)
+                enableBackgroundQueryOnPhone(for: minuteType, in: store)
             }
             
             let workoutsType = HKQuantityType.workoutType()
