@@ -53,7 +53,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             [weak self] flights, date in
             
             if let valueFormatted = self?.numFormatter.string(for: flights) {
-                let flightsLocalized = "flights"
+                let flightsLocalized = NSLocalizedString("floors", comment: "")
                 let flightsAttributed = NSMutableAttributedString(string: String(format: "%@ %@", valueFormatted, flightsLocalized))
                 flightsAttributed.addAttribute(.font, value: UIFont.systemFont(ofSize: 13.0), range: NSRange(location: flightsAttributed.string.count - flightsLocalized.count, length: flightsLocalized.count))
                 DispatchQueue.main.async {
