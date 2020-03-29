@@ -36,9 +36,9 @@ class ProgressRingView: UIView {
             let emptyRing = UIBezierPath(arcCenter: center, radius: radius, startAngle: 0, endAngle: .pi * 2, clockwise: true)
             emptyRing.lineWidth = 1.0
             if #available(iOS 13.0, *) {
-                UIColor.quaternaryLabel.withAlphaComponent(0.1).setStroke()
+                UIColor.quaternaryLabel.withAlphaComponent(0.2).setStroke()
             } else {
-                UIColor.lightGray.withAlphaComponent(0.25).setStroke()
+                UIColor.darkGray.withAlphaComponent(0.4).setStroke()
             }
             emptyRing.stroke()
             UIColor.clear.setFill()
@@ -50,9 +50,9 @@ class ProgressRingView: UIView {
         let ring = UIBezierPath(arcCenter: center, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: true)
         ring.lineWidth = PROGRESS_WIDTH
         if progress >= 1.0 {
-            successColor.withAlphaComponent(0.85).setStroke()
+            successColor.withAlphaComponent(0.9).setStroke()
         } else {
-            ringColor.withAlphaComponent(0.85).setStroke()
+            ringColor.withAlphaComponent(0.9).setStroke()
         }
         ring.stroke()
         UIColor.clear.setFill()

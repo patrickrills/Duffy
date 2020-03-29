@@ -28,6 +28,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         
         numFormatter.numberStyle = .decimal
         numFormatter.locale = Locale.current
+        numFormatter.maximumFractionDigits = 2
     }
     
     override func viewWillAppear(_ animated: Bool) {

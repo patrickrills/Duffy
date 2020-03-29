@@ -29,7 +29,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="751" text="0,000" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ql0-1L-hGp">
                                 <rect key="frame" x="124" y="23" width="72" height="38.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="32"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="32"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -62,11 +62,11 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="STEPS" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m4E-Dg-8JQ">
-                                <rect key="frame" x="137" y="61.5" width="46" height="18"/>
+                                <rect key="frame" x="140" y="60.5" width="40.5" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="18" id="54w-Wv-ZNr"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -78,7 +78,7 @@
                             </button>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="m4E-Dg-8JQ" firstAttribute="top" secondItem="ql0-1L-hGp" secondAttribute="bottom" id="7jw-k7-0pg"/>
+                            <constraint firstItem="m4E-Dg-8JQ" firstAttribute="top" secondItem="ql0-1L-hGp" secondAttribute="bottom" constant="-1" id="7jw-k7-0pg"/>
                             <constraint firstItem="ql0-1L-hGp" firstAttribute="centerX" secondItem="S3S-Oj-5AN" secondAttribute="centerX" id="82c-fN-dNi"/>
                             <constraint firstItem="MiA-Vt-Wa5" firstAttribute="leading" secondItem="8R4-bI-s1L" secondAttribute="trailing" constant="6" id="8Bv-zN-3DJ"/>
                             <constraint firstItem="gSo-bL-oji" firstAttribute="top" secondItem="S3S-Oj-5AN" secondAttribute="top" id="9K5-Oh-iag"/>
