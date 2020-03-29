@@ -112,6 +112,7 @@
                         <outlet property="flightsIcon" destination="8R4-bI-s1L" id="qcb-R7-QMf"/>
                         <outlet property="flightsValueLabel" destination="MiA-Vt-Wa5" id="Fzc-rA-TLp"/>
                         <outlet property="progressRingView" destination="gSo-bL-oji" id="8b1-kO-Yud"/>
+                        <outlet property="stepsDescriptionLabel" destination="m4E-Dg-8JQ" id="1ui-HL-Dh1"/>
                         <outlet property="stepsValueLabel" destination="ql0-1L-hGp" id="dI1-Dq-YCE"/>
                     </connections>
                 </viewController>

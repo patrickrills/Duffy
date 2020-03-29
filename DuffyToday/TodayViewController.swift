@@ -13,6 +13,7 @@ import DuffyFramework
 class TodayViewController: UIViewController, NCWidgetProviding {
     
     @IBOutlet weak var stepsValueLabel : UILabel!
+    @IBOutlet weak var stepsDescriptionLabel : UILabel!
     @IBOutlet weak var flightsValueLabel : UILabel!
     @IBOutlet weak var flightsIcon : UIImageView!
     @IBOutlet weak var distanceValueLabel : UILabel!
@@ -89,10 +90,18 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     }
     
     private func displaySteps() {
-        stepsValueLabel.text = numFormatter.string(from: NSNumber(value:stepCount))
+        stepsValueLabel.text = numFormatter.string(for: stepCount)
         if dailyGoal > 0 {
             progressRingView.isHidden = false
             progressRingView.progress = CGFloat(stepCount) / CGFloat(dailyGoal)
+            
+            let adornment = HealthKitService.getInstance().getAdornment(for: stepCount)
+            let localizedStepsDescription = NSLocalizedString("STEPS", comment: "")
+            if adornment.count > 0 {
+                stepsDescriptionLabel.text = String(format: "%@%@", localizedStepsDescription, adornment)
+            } else {
+                stepsDescriptionLabel.text = localizedStepsDescription
+            }
         } else {
             progressRingView.isHidden = true
         }
