@@ -263,10 +263,6 @@ open class HealthKitService
                     readDataTypes.insert(activeType)
                 }
                 
-                if let minuteType = HKQuantityType.quantityType(forIdentifier: .appleExerciseTime) {
-                    readDataTypes.insert(minuteType)
-                }
-                
                 readDataTypes.insert(HKQuantityType.workoutType())
             }
             
@@ -317,14 +313,6 @@ open class HealthKitService
                 observerQueries[key] = query
                 store.execute(query)
                 enableBackgroundQueryOnPhone(for: activeType, in: store)
-            }
-            
-            if let minuteType = HKQuantityType.quantityType(forIdentifier: .appleExerciseTime) {
-                let key = "exerciseMinutes"
-                let query = createObserverQuery(key: key, sampleType: minuteType, store: store)
-                observerQueries[key] = query
-                store.execute(query)
-                enableBackgroundQueryOnPhone(for: minuteType, in: store)
             }
             
             let workoutsType = HKQuantityType.workoutType()
