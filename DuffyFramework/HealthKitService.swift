@@ -16,6 +16,7 @@ open class HealthKitService
     private var eventDelegate: HealthEventDelegate?
     private var observerQueries = [String : HKObserverQuery]()
     private var subscribers = [String : HealthKitSubscriber]()
+    public private(set) var shouldRestartObservers: Bool = false
 
     init()
     {
@@ -297,6 +298,10 @@ open class HealthKitService
     {
         if let store = healthStore
         {
+            DispatchQueue.main.async {
+                self.shouldRestartObservers = false
+            }
+            
             if let stepsType = HKQuantityType.quantityType(forIdentifier: .stepCount)
             {
                 let key = "steps"
@@ -341,6 +346,19 @@ open class HealthKitService
         
         let query = HKObserverQuery(sampleType: sampleType, predicate: nil, updateHandler: {
             [weak self] (updateQuery: HKObserverQuery, handler: HKObserverQueryCompletionHandler, updateError: Error?) in
+            
+            if let updateError = updateError {
+                LoggingService.log(error: updateError)
+                let nsUpdateError = updateError as NSError
+                //Error code 5 is 'authorization not determined'. Permission hasn't been granted yet
+                if nsUpdateError.code == 5 && nsUpdateError.domain == "com.apple.healthkit" {
+                    DispatchQueue.main.async {
+                        self?.shouldRestartObservers = true
+                    }
+                    
+                    return
+                }
+            }
             
             self?.getSteps(Date(),
                 onRetrieve: {
