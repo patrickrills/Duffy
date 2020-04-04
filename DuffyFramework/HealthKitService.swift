@@ -294,6 +294,8 @@ open class HealthKitService
     {
         if let store = healthStore
         {
+            LoggingService.log("App is starting observers")
+            
             DispatchQueue.main.async {
                 self.shouldRestartObservers = false
             }
