@@ -361,12 +361,12 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     @available(watchOSApplicationExtension 5.0, *)
     func getEntryForGraphicCircular(_ totalSteps: Int, _ goal: Int) -> CLKComplicationTimelineEntry
     {
-        let gc = getTemplateForGraphicCircular(totalSteps, goal)
+        let gc = getTemplateForTextCircular(totalSteps, goal)
         return CLKComplicationTimelineEntry(date: Date(), complicationTemplate: gc)
     }
     
     @available(watchOSApplicationExtension 5.0, *)
-    func  getTemplateForGraphicCircular(_ totalSteps: Int, _ goal: Int) -> CLKComplicationTemplateGraphicCircularClosedGaugeText
+    func  getTemplateForTextCircular(_ totalSteps: Int, _ goal: Int) -> CLKComplicationTemplateGraphicCircularClosedGaugeText
     {
         let gc = CLKComplicationTemplateGraphicCircularClosedGaugeText()
         
@@ -377,6 +377,16 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         gc.centerTextProvider = text
         gc.gaugeProvider = getGauge(forTotalSteps: totalSteps, goal: goal)
         
+        return gc;
+    }
+    
+    @available(watchOSApplicationExtension 5.0, *)
+    func  getTemplateForGraphicCircular(_ totalSteps: Int, _ goal: Int) -> CLKComplicationTemplateGraphicCircularClosedGaugeImage
+    {
+        let gc = CLKComplicationTemplateGraphicCircularClosedGaugeImage()
+        let shoe = UIImage(named: "GraphicCircularShoe")!
+        gc.imageProvider = CLKFullColorImageProvider.init(fullColorImage: shoe)
+        gc.gaugeProvider = getGauge(forTotalSteps: totalSteps, goal: goal)
         return gc;
     }
     
