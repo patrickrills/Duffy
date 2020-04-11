@@ -225,7 +225,7 @@ open class WCSessionService : NSObject, WCSessionDelegate
                     {
                         if let del = delegate
                         {
-                            LoggingService.log("Refreshing complication from received message")
+                            LoggingService.log("Refreshing complication from received message", with: String(format: "%d", HealthCache.getStepsFromCache(Date())))
                             del.complicationUpdateRequested(dict)
                         }
                         

@@ -20,7 +20,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     
     func getSupportedTimeTravelDirections(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTimeTravelDirections) -> Void)
     {
-        handler(CLKComplicationTimeTravelDirections.forward)
+        handler(.forward)
     }
     
     // MARK: - Timeline Population
@@ -74,6 +74,10 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         var steps = 0
         if (!HealthCache.cacheIsForADifferentDay(Date())) {
             steps = HealthCache.getStepsFromCache(Date())
+        }
+        
+        if Constants.isDebugMode {
+            LoggingService.log("Complication getCurrentTimelineEntry", with: String(format: "%d", HealthCache.getStepsFromCache(Date())))
         }
         
         handler(entry(for: complication, withStepsCount: steps))
@@ -563,9 +567,14 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
             {
                 server.reloadTimeline(for: complication)
             }
+            
+            let log = allComplications.count > 0 ? "Complication reloadTimeline" : "Complication reloadTimeline but no active found"
+            LoggingService.log(log, with: String(format: "%d", HealthCache.getStepsFromCache(Date())))
         }
-        
-        LoggingService.log("Complication reloadTimeline")
+        else
+        {
+            LoggingService.log("Complication reloadTimeline but no active found")
+        }
     }
     
 }
