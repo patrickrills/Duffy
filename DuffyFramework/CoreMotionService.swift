@@ -30,15 +30,42 @@ open class CoreMotionService
     {
         guard !shouldAskPermission(), let ped = pedometer else { return }
         
-        if CMPedometer.isPedometerEventTrackingAvailable() {
-            ped.startEventUpdates(handler: {
-                [weak self] event, error in
-                if let type = event?.type {
-                    LoggingService.log((type == .resume ? "CMPedometer resume event" : "CMPedometer pause event"))
-                    self?.queryHealthKit(from: "CM Event")
+        #if os(iOS)
+            if CMPedometer.isPedometerEventTrackingAvailable() {
+                ped.startEventUpdates(handler: {
+                    [weak self] event, error in
+                    if let type = event?.type {
+                        LoggingService.log((type == .resume ? "CMPedometer resume event" : "CMPedometer pause event"))
+                        self?.queryHealthKit(from: "CM Event")
+                    }
+                })
+            }
+        #else
+            ped.startUpdates(from: Date(), withHandler: {
+                [weak self] data, error in
+                LoggingService.log("CMPedometer data update")
+                if let weakPed = self?.pedometer {
+                    var components = Calendar.current.dateComponents([.era, .year, .month, .day], from: Date())
+                    components.hour = 0
+                    components.minute = 0
+                    components.second = 1
+                    components.timeZone = TimeZone.current
+                    if let todayAtMidnight = Calendar.current.date(from: components) {
+                        weakPed.queryPedometerData(from: todayAtMidnight, to: Date(), withHandler: {
+                            data, error in
+                            if let stepData = data {
+                                let cmSteps = stepData.numberOfSteps.intValue
+                                let hkSteps = HealthCache.getStepsFromCache(Date())
+                                if cmSteps > hkSteps {
+                                    let extra = "\(cmSteps) CM vs \(hkSteps) HK"
+                                    LoggingService.log("CMPedometer would update cache", with: extra)
+                                }
+                            }
+                        })
+                    }
                 }
             })
-        }
+        #endif
     }
     
     open func stopBackgroundUpdates()
