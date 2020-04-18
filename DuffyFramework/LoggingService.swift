@@ -76,6 +76,14 @@ open class LoggingService {
         return []
     }
     
+    open class func getDatesFromDebugLog() -> [Date] {
+        let allDates:[Date] = getFullDebugLog().compactMap({
+            let components = Calendar.current.dateComponents([.era, .year, .month, .day], from: $0.timestamp)
+            return Calendar.current.date(from: components)
+        })
+        return Array(Set(allDates))
+    }
+    
     open class func mergeLog(newEntries: [DebugLogEntry]) {
         var log = getFullDebugLog()
         let deltas = newEntries.filter({ !log.contains($0) })
