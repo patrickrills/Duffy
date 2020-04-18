@@ -16,6 +16,7 @@ open class HealthKitService
     private var eventDelegate: HealthEventDelegate?
     private var observerQueries = [String : HKObserverQuery]()
     private var subscribers = [String : HealthKitSubscriber]()
+    private var lastQueryTimes = [String : Double]()
     public private(set) var shouldRestartObservers: Bool = false
 
     init()
@@ -337,10 +338,20 @@ open class HealthKitService
                         DispatchQueue.main.async {
                             self?.shouldRestartObservers = true
                         }
-                        
+
                         handler()
                         return
                     }
+                }
+            #else
+                //Throttle non-steps observers on the watch - 4 times a second
+                if let hkType = updateQuery.objectType as? HKSampleType,
+                    hkType.identifier != HKQuantityTypeIdentifier.stepCount.rawValue,
+                    let lastQuery = self?.lastQueryTimes[hkType.identifier],
+                    Date().timeIntervalSince(Date(timeIntervalSinceReferenceDate: lastQuery)) <= 0.25 {
+                        LoggingService.log("Observer was throttled", with: hkType.identifier)
+                        handler()
+                        return
                 }
             #endif
             
@@ -358,8 +369,11 @@ open class HealthKitService
                 },
                 onFailure: nil)
             
-            if let sampleId = updateQuery.objectType?.identifier, let subscriber = self?.subscribers[sampleId] {
-                subscriber.updateHandler()
+            if let sampleId = updateQuery.objectType?.identifier {
+                self?.lastQueryTimes[sampleId] = Date().timeIntervalSinceReferenceDate
+                if let subscriber = self?.subscribers[sampleId] {
+                    subscriber.updateHandler()
+                }
             }
             
             handler()
