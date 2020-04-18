@@ -97,7 +97,7 @@ open class LoggingService {
             let components = Calendar.current.dateComponents([.era, .year, .month, .day], from: $0.timestamp)
             return Calendar.current.date(from: components)
         })
-        return Array(Set(allDates))
+        return Array(Set(allDates)).sorted(by: >)
     }
     
     open class func mergeLog(newEntries: [DebugLogEntry]) {

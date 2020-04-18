@@ -281,10 +281,41 @@ class InterfaceController: WKInterfaceController
     {
         let log = LoggingService.getFullDebugLog()
         if log.count > 0 {
-            presentAlert(withTitle: "\(log[0].timestamp)", message: log[0].message, preferredStyle: .actionSheet, actions: [
-                WKAlertAction(title: "Send to Phone", style: .default, handler: {
+            var actions = [WKAlertAction]()
+            
+            let numberOfDays = LoggingService.getDatesFromDebugLog()
+            if numberOfDays.count > 2 {
+                let lastDay = numberOfDays[0]
+                let lastDayMinus1 = numberOfDays[1]
+                let lastDayMinus2 = numberOfDays[2]
+                
+                actions.append(WKAlertAction(title: "Last 2 Days", style: .default, handler: {
                     [weak self] in
-                    self?.sendDebugLogToPhone()
+                    self?.sendDebugLogToPhone(LoggingService.getPartialDebugLog(from: lastDayMinus1, to: lastDay))
+                }))
+                
+                if let lastDayMinus3 = Calendar.current.date(byAdding: .day, value: -1, to: lastDayMinus2) {
+                    actions.append(WKAlertAction(title: "Previous 2 Days", style: .default, handler: {
+                        [weak self] in
+                        self?.sendDebugLogToPhone(LoggingService.getPartialDebugLog(from: lastDayMinus3, to: lastDayMinus2))
+                    }))
+                }
+            }
+            
+            if numberOfDays.count > 4 {
+                let lastDayMinus4 = numberOfDays[4]
+                if let lastDayMinus5 = Calendar.current.date(byAdding: .day, value: -1, to: lastDayMinus4) {
+                    actions.append(WKAlertAction(title: "2 Days Before That", style: .default, handler: {
+                        [weak self] in
+                        self?.sendDebugLogToPhone(LoggingService.getPartialDebugLog(from: lastDayMinus5, to: lastDayMinus4))
+                    }))
+                }
+            }
+            
+            actions.append(contentsOf: [
+                WKAlertAction(title: "Send Entire Log", style: .default, handler: {
+                    [weak self] in
+                    self?.sendDebugLogToPhone(LoggingService.getFullDebugLog())
                 }),
                 WKAlertAction(title: "Clear Log", style: .destructive, handler: {
                     [weak self] in
@@ -292,11 +323,13 @@ class InterfaceController: WKInterfaceController
                 }),
                 WKAlertAction(title: "Dismiss", style: .cancel, handler: {})
             ])
+            
+            presentAlert(withTitle: "\(log.count) Entries", message: log[0].message, preferredStyle: .actionSheet, actions: actions)
         }
     }
     
-    private func sendDebugLogToPhone() {
-        WCSessionService.getInstance().sendDebugLog({
+    private func sendDebugLogToPhone(_ entries: [DebugLogEntry]) {
+        WCSessionService.getInstance().sendDebugLog(entries, onCompletion: {
             [weak self] success in
             DispatchQueue.main.async {
                 self?.presentAlert(withTitle: "Log Transfer", message: (success ? "Log sent to phone" : "Error sending log"), preferredStyle: .alert, actions: [

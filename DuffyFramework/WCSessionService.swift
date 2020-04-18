@@ -149,8 +149,8 @@ open class WCSessionService : NSObject, WCSessionDelegate
         }
     }
     
-    open func sendDebugLog(_ onCompletion: @escaping (Bool)->(Void)) {
-        let serializedLog = LoggingService.getFullDebugLog().map({ $0.serialize() })
+    open func sendDebugLog(_ log: [DebugLogEntry], onCompletion: @escaping (Bool)->(Void)) {
+        let serializedLog = log.map({ $0.serialize() })
         WCSessionService.getInstance().send(message: "watchDebugLog", payload: serializedLog, onCompletion: {
             (success) in
             onCompletion(success)
