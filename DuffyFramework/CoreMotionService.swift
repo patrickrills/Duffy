@@ -35,30 +35,32 @@ open class CoreMotionService
                 ped.startEventUpdates(handler: {
                     [weak self] event, error in
                     if let type = event?.type {
-                        LoggingService.log((type == .resume ? "CMPedometer resume event" : "CMPedometer pause event"))
-                        self?.queryHealthKit(from: "CM Event")
+                        let source = (type == .resume ? "CMPedometer resume" : "CMPedometer pause")
+                        //LoggingService.log((type == .resume ? "CMPedometer resume event" : "CMPedometer pause event"))
+                        self?.queryHealthKit(from: source)
                     }
                 })
             }
         #else
             ped.startUpdates(from: Date(), withHandler: {
                 [weak self] data, error in
-                LoggingService.log("CMPedometer data update")
+                //LoggingService.log("CMPedometer data update")
                 if let weakPed = self?.pedometer {
-                    var components = Calendar.current.dateComponents([.era, .year, .month, .day], from: Date())
+                    let now = Date()
+                    var components = Calendar.current.dateComponents([.era, .year, .month, .day], from: now)
                     components.hour = 0
                     components.minute = 0
                     components.second = 1
                     components.timeZone = TimeZone.current
                     if let todayAtMidnight = Calendar.current.date(from: components) {
-                        weakPed.queryPedometerData(from: todayAtMidnight, to: Date(), withHandler: {
-                            data, error in
+                        weakPed.queryPedometerData(from: todayAtMidnight, to: now, withHandler: {
+                            [weak self] data, error in
                             if let stepData = data {
                                 let cmSteps = stepData.numberOfSteps.intValue
-                                let hkSteps = HealthCache.getStepsFromCache(Date())
-                                if cmSteps > hkSteps {
-                                    let extra = "\(cmSteps) CM vs \(hkSteps) HK"
-                                    LoggingService.log("CMPedometer would update cache", with: extra)
+                                let cmStartDate = stepData.endDate
+                                LoggingService.log("CMPedometer steps", with: String(format: "%d", cmSteps))
+                                if (HealthCache.saveStepsToCache(cmSteps, forDay: cmStartDate)) {
+                                    self?.forceComplicationUpdate(from: "CMPedometer data update")
                                 }
                             }
                         })
