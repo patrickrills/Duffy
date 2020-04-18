@@ -76,6 +76,22 @@ open class LoggingService {
         return []
     }
     
+    open class func getPartialDebugLog(from startDate: Date, to endDate: Date) -> [DebugLogEntry] {
+        let startComponents = Calendar.current.dateComponents([.era, .year, .month, .day], from: startDate)
+        let endDateCompentents = Calendar.current.dateComponents([.era, .year, .month, .day], from: endDate)
+        
+        guard let filterStartDate = Calendar.current.date(from: startComponents),
+            let rawEndDate = Calendar.current.date(from: endDateCompentents),
+            let filterEndDate = Calendar.current.date(byAdding: .day, value: 1, to: rawEndDate)
+            else {
+            return []
+        }
+       
+        return getFullDebugLog().filter({
+            $0.timestamp >= filterStartDate && $0.timestamp < filterEndDate
+        })
+    }
+    
     open class func getDatesFromDebugLog() -> [Date] {
         let allDates:[Date] = getFullDebugLog().compactMap({
             let components = Calendar.current.dateComponents([.era, .year, .month, .day], from: $0.timestamp)
