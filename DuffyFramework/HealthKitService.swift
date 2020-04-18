@@ -262,8 +262,6 @@ open class HealthKitService
                 if let activeType = HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned) {
                     readDataTypes.insert(activeType)
                 }
-                
-                readDataTypes.insert(HKQuantityType.workoutType())
             }
             
             store.requestAuthorization(toShare: nil, read: readDataTypes, completion: {
@@ -316,13 +314,6 @@ open class HealthKitService
                 store.execute(query)
                 enableBackgroundQueryOnPhone(for: activeType, in: store)
             }
-            
-            let workoutsType = HKQuantityType.workoutType()
-            let key = "workouts"
-            let query = createObserverQuery(key: key, sampleType: workoutsType, store: store)
-            observerQueries[key] = query
-            store.execute(query)
-            enableBackgroundQueryOnPhone(for: workoutsType, in: store)
         }
     }
     
