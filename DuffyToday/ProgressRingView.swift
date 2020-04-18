@@ -45,17 +45,19 @@ class ProgressRingView: UIView {
             emptyRing.fill()
         }
         
-        let startAngle: CGFloat = (START_ANGLE / 360.0 + START_ANGLE) * .pi / 180
-        let endAngle: CGFloat = ((progress * 360.0) + START_ANGLE)  * .pi / 180
-        let ring = UIBezierPath(arcCenter: center, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: true)
-        ring.lineWidth = PROGRESS_WIDTH
-        if progress >= 1.0 {
-            successColor.withAlphaComponent(0.9).setStroke()
-        } else {
-            ringColor.withAlphaComponent(0.9).setStroke()
+        let startAngle: CGFloat = START_ANGLE * .pi / 180.0
+        let endAngle: CGFloat = ((progress * 360.0) + START_ANGLE)  * .pi / 180.0
+        if endAngle > startAngle {
+            let ring = UIBezierPath(arcCenter: center, radius: radius, startAngle: startAngle, endAngle: endAngle, clockwise: true)
+            ring.lineWidth = PROGRESS_WIDTH
+            if progress >= 1.0 {
+                successColor.withAlphaComponent(0.9).setStroke()
+            } else {
+                ringColor.withAlphaComponent(0.9).setStroke()
+            }
+            ring.stroke()
+            UIColor.clear.setFill()
+            ring.fill()
         }
-        ring.stroke()
-        UIColor.clear.setFill()
-        ring.fill()
     }
 }
