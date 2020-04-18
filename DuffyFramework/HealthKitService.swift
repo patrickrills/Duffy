@@ -337,18 +337,21 @@ open class HealthKitService
         let query = HKObserverQuery(sampleType: sampleType, predicate: nil, updateHandler: {
             [weak self] (updateQuery: HKObserverQuery, handler: HKObserverQueryCompletionHandler, updateError: Error?) in
             
-            if let updateError = updateError {
-                LoggingService.log(error: updateError)
-                let nsUpdateError = updateError as NSError
-                //Error code 5 is 'authorization not determined'. Permission hasn't been granted yet
-                if nsUpdateError.code == 5 && nsUpdateError.domain == "com.apple.healthkit" {
-                    DispatchQueue.main.async {
-                        self?.shouldRestartObservers = true
+            #if os(iOS)
+                if let updateError = updateError {
+                    LoggingService.log(error: updateError)
+                    let nsUpdateError = updateError as NSError
+                    //Error code 5 is 'authorization not determined'. Permission hasn't been granted yet
+                    if nsUpdateError.code == 5 && nsUpdateError.domain == "com.apple.healthkit" {
+                        DispatchQueue.main.async {
+                            self?.shouldRestartObservers = true
+                        }
+                        
+                        handler()
+                        return
                     }
-                    
-                    return
                 }
-            }
+            #endif
             
             self?.getSteps(Date(),
                 onRetrieve: {
