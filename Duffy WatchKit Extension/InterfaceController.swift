@@ -279,7 +279,7 @@ class InterfaceController: WKInterfaceController
     
     @IBAction func debugPressed()
     {
-        let log = LoggingService.getDebugLog()
+        let log = LoggingService.getFullDebugLog()
         if log.count > 0 {
             presentAlert(withTitle: "\(log[0].timestamp)", message: log[0].message, preferredStyle: .actionSheet, actions: [
                 WKAlertAction(title: "Send to Phone", style: .default, handler: {

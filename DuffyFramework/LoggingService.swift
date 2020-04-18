@@ -57,13 +57,13 @@ open class LoggingService {
             formattedMessage = prefix
         }
         
-        var log = getDebugLog()
+        var log = getFullDebugLog()
         log.append(DebugLogEntry(message: formattedMessage, timestampInterval: Date().timeIntervalSinceReferenceDate))
         let serialized = log.map({ $0.serialize() })
         UserDefaults.standard.set(serialized, forKey: "debugLog")
     }
     
-    open class func getDebugLog() -> [DebugLogEntry] {
+    open class func getFullDebugLog() -> [DebugLogEntry] {
         if let logDict = UserDefaults.standard.object(forKey: "debugLog") as? [[String : Any]]
         {
             return logDict.map({dict in
@@ -77,7 +77,7 @@ open class LoggingService {
     }
     
     open class func mergeLog(newEntries: [DebugLogEntry]) {
-        var log = getDebugLog()
+        var log = getFullDebugLog()
         let deltas = newEntries.filter({ !log.contains($0) })
         log.append(contentsOf: deltas)
         let serialized = log.map({ $0.serialize() })

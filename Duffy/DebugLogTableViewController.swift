@@ -11,7 +11,7 @@ import DuffyFramework
 
 class DebugLogTableViewController: UITableViewController {
 
-    var log = LoggingService.getDebugLog()
+    var log = LoggingService.getFullDebugLog()
     let dateFormatter = DateFormatter()
     private var shareSheet: UIDocumentInteractionController?
     
@@ -106,7 +106,7 @@ class DebugLogTableViewController: UITableViewController {
                 return
             case 3:
                 LoggingService.clearLog()
-                log = LoggingService.getDebugLog()
+                log = LoggingService.getFullDebugLog()
                 tableView.reloadData()
                 return
             default:

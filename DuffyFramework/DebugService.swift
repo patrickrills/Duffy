@@ -31,7 +31,7 @@ open class DebugService {
     }
     
     open class func exportLogToCSV() -> URL? {
-        let log = LoggingService.getDebugLog()
+        let log = LoggingService.getFullDebugLog()
         let columns = ["RowId", "Timestamp", "Platform", "Message", "Extra"]
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MM/dd/yyyy hh:mm:ss a"
