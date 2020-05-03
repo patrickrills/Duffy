@@ -16,7 +16,6 @@ open class HealthKitService
     private var eventDelegate: HealthEventDelegate?
     private var observerQueries = [String : HKObserverQuery]()
     private var subscribers = [String : HealthKitSubscriber]()
-    private var lastQueryTimes = [String : Double]()
     public private(set) var shouldRestartObservers: Bool = false
 
     init()
@@ -308,13 +307,15 @@ open class HealthKitService
                 enableBackgroundQueryOnPhone(for: stepsType, in: store)
             }
             
-            if let activeType = HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned) {
-                let key = "activeEnergy"
-                let query = createObserverQuery(key: key, sampleType: activeType, store: store)
-                observerQueries[key] = query
-                store.execute(query)
-                enableBackgroundQueryOnPhone(for: activeType, in: store)
-            }
+            #if os(iOS)
+                if let activeType = HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned) {
+                    let key = "activeEnergy"
+                    let query = createObserverQuery(key: key, sampleType: activeType, store: store)
+                    observerQueries[key] = query
+                    store.execute(query)
+                    enableBackgroundQueryOnPhone(for: activeType, in: store)
+                }
+            #endif
         }
     }
     
@@ -329,31 +330,19 @@ open class HealthKitService
         let query = HKObserverQuery(sampleType: sampleType, predicate: nil, updateHandler: {
             [weak self] (updateQuery: HKObserverQuery, handler: HKObserverQueryCompletionHandler, updateError: Error?) in
             
-            #if os(iOS)
-                if let updateError = updateError {
-                    LoggingService.log(error: updateError)
-                    let nsUpdateError = updateError as NSError
-                    //Error code 5 is 'authorization not determined'. Permission hasn't been granted yet
-                    if nsUpdateError.code == 5 && nsUpdateError.domain == "com.apple.healthkit" {
-                        DispatchQueue.main.async {
-                            self?.shouldRestartObservers = true
-                        }
-
-                        handler()
-                        return
+            if let updateError = updateError {
+                LoggingService.log(error: updateError)
+                let nsUpdateError = updateError as NSError
+                //Error code 5 is 'authorization not determined'. Permission hasn't been granted yet
+                if nsUpdateError.code == 5 && nsUpdateError.domain == "com.apple.healthkit" {
+                    DispatchQueue.main.async {
+                        self?.shouldRestartObservers = true
                     }
+
+                    handler()
+                    return
                 }
-            #else
-                //Throttle non-steps observers on the watch - 4 times a second
-                if let hkType = updateQuery.objectType as? HKSampleType,
-                    hkType.identifier != HKQuantityTypeIdentifier.stepCount.rawValue,
-                    let lastQuery = self?.lastQueryTimes[hkType.identifier],
-                    Date().timeIntervalSince(Date(timeIntervalSinceReferenceDate: lastQuery)) <= 0.25 {
-                        LoggingService.log("Observer was throttled", with: hkType.identifier)
-                        handler()
-                        return
-                }
-            #endif
+            }
             
             self?.getSteps(Date(),
                 onRetrieve: {
@@ -369,11 +358,9 @@ open class HealthKitService
                 },
                 onFailure: nil)
             
-            if let sampleId = updateQuery.objectType?.identifier {
-                self?.lastQueryTimes[sampleId] = Date().timeIntervalSinceReferenceDate
-                if let subscriber = self?.subscribers[sampleId] {
-                    subscriber.updateHandler()
-                }
+            if let sampleId = updateQuery.objectType?.identifier,
+                let subscriber = self?.subscribers[sampleId] {
+                subscriber.updateHandler()
             }
             
             handler()
