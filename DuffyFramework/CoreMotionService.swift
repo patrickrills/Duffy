@@ -30,42 +30,25 @@ open class CoreMotionService
     {
         guard !shouldAskPermission(), let ped = pedometer else { return }
         
-        #if os(iOS)
-            if CMPedometer.isPedometerEventTrackingAvailable() {
-                ped.startEventUpdates(handler: {
-                    [weak self] event, error in
-                    if let type = event?.type {
-                        let source = (type == .resume ? "CMPedometer resume" : "CMPedometer pause")
-                        //LoggingService.log((type == .resume ? "CMPedometer resume event" : "CMPedometer pause event"))
+        if CMPedometer.isPedometerEventTrackingAvailable() {
+            ped.startEventUpdates(handler: {
+                [weak self] event, error in
+                if let type = event?.type {
+                    let source = (type == .resume ? "CMPedometer resume" : "CMPedometer pause")
+                    #if os(iOS)
                         self?.queryHealthKit(from: source)
-                    }
-                })
-            }
-        #else
+                    #else
+                        self?.queryCoreMotion(from: source)
+                    #endif
+                }
+            })
+        }
+        
+        #if os(watchOS)
             ped.startUpdates(from: Date(), withHandler: {
                 [weak self] data, error in
-                //LoggingService.log("CMPedometer data update")
-                if let weakPed = self?.pedometer {
-                    let now = Date()
-                    var components = Calendar.current.dateComponents([.era, .year, .month, .day], from: now)
-                    components.hour = 0
-                    components.minute = 0
-                    components.second = 1
-                    components.timeZone = TimeZone.current
-                    if let todayAtMidnight = Calendar.current.date(from: components) {
-                        weakPed.queryPedometerData(from: todayAtMidnight, to: now, withHandler: {
-                            [weak self] data, error in
-                            if let stepData = data {
-                                let cmSteps = stepData.numberOfSteps.intValue
-                                let cmStartDate = stepData.endDate
-                                LoggingService.log("CMPedometer steps", with: String(format: "%d", cmSteps))
-                                if (HealthCache.saveStepsToCache(cmSteps, forDay: cmStartDate)) {
-                                    self?.forceComplicationUpdate(from: "CMPedometer data update")
-                                }
-                            }
-                        })
-                    }
-                }
+                self?.queryCoreMotion(from: "CMPedometer updates")
+                
             })
         #endif
     }
@@ -91,6 +74,31 @@ open class CoreMotionService
                 ped.queryPedometerData(from: Date(), to: Date(), withHandler: {
                     [weak self] steps, error in
                     self?.initializeBackgroundUpdates()
+                })
+            }
+        }
+    }
+    
+    private func queryCoreMotion(from source: String)
+    {
+        if let pedometer = pedometer {
+            let now = Date()
+            var components = Calendar.current.dateComponents([.era, .year, .month, .day], from: now)
+            components.hour = 0
+            components.minute = 0
+            components.second = 1
+            components.timeZone = TimeZone.current
+            if let todayAtMidnight = Calendar.current.date(from: components) {
+                pedometer.queryPedometerData(from: todayAtMidnight, to: now, withHandler: {
+                    [weak self] data, error in
+                    if let stepData = data {
+                        let cmSteps = stepData.numberOfSteps.intValue
+                        let cmStartDate = stepData.endDate
+                        LoggingService.log(String(format: "CMPedometer steps from %@", source), with: String(format: "%d", cmSteps))
+                        if (HealthCache.saveStepsToCache(cmSteps, forDay: cmStartDate)) {
+                            self?.forceComplicationUpdate(from: "CMPedometer data update")
+                        }
+                    }
                 })
             }
         }
