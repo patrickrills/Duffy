@@ -372,7 +372,9 @@ open class HealthKitService
         let stepsGoal = Double(HealthCache.getStepsDailyGoal())
         let steps = Double(stepsTotal)
         
-        if steps >= (stepsGoal * 1.5) {
+        if steps >= (stepsGoal * 2.0) {
+            return "🚀"
+        } else if steps >= (stepsGoal * 1.5) {
             return "🏆"
         } else if steps >= (stepsGoal * 1.25) {
             return "🏅"
