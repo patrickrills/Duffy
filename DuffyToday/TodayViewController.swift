@@ -95,7 +95,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             progressRingView.isHidden = false
             progressRingView.progress = CGFloat(stepCount) / CGFloat(dailyGoal)
             
-            let adornment = HealthKitService.getInstance().getAdornment(for: stepCount)
+            let adornment = Trophy.trophy(for: stepCount).symbol()
             let localizedStepsDescription = NSLocalizedString("STEPS", comment: "")
             if adornment.count > 0 {
                 stepsDescriptionLabel.text = String(format: "%@%@", localizedStepsDescription, adornment)

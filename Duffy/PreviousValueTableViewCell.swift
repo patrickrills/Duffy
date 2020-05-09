@@ -39,7 +39,7 @@ class PreviousValueTableViewCell: UITableViewCell
         
         if goal > 0, steps >= goal
         {
-            detailTextLabel?.text = String(format: "%@ %@", HealthKitService.getInstance().getAdornment(for: steps), stepsFormatted)
+            detailTextLabel?.text = String(format: "%@ %@", Trophy.trophy(for: steps).symbol(), stepsFormatted)
             detailWeight = .semibold
         }
         else
