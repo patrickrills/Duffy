@@ -374,6 +374,8 @@ open class HealthKitService
         
         if steps >= (stepsGoal * 2.0) {
             return "🚀"
+        } else if steps >= (stepsGoal * 1.75) {
+            return "🌟"
         } else if steps >= (stepsGoal * 1.5) {
             return "🏆"
         } else if steps >= (stepsGoal * 1.25) {
@@ -383,6 +385,21 @@ open class HealthKitService
         }
         
         return ""
+    }
+    
+    public typealias Adornment = (String, Int)
+    
+    open func getAdornments() -> [Adornment] {
+        let stepsGoal = Double(HealthCache.getStepsDailyGoal())
+        var adornments = [Adornment]()
+        for g in stride(from: stepsGoal, through: (stepsGoal * 2.0), by: (stepsGoal * 0.25)) {
+            let threshold = Int(ceil(g))
+            let current = getAdornment(for: threshold)
+            if current.count > 0 {
+                adornments.append(Adornment(current, threshold))
+            }
+        }
+        return adornments
     }
     
     open func getFlightsClimbed(_ forDate: Date, onRetrieve: ((Int, Date) -> Void)?, onFailure: ((Error?) -> Void)?)
