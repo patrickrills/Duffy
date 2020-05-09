@@ -24,18 +24,24 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="When you've reached your goal, you'll earn a trophy based on how many steps you've taken beyond your goal (X,XXX)" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ala-K5-Ryf">
-                    <rect key="frame" x="34" y="2" width="380" height="417"/>
+                    <rect key="frame" x="34" y="2" width="380" height="61"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="mRw-ku-1Xr">
+                    <rect key="frame" x="34" y="87" width="380" height="332"/>
+                </stackView>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
+                <constraint firstItem="mRw-ku-1Xr" firstAttribute="top" secondItem="Ala-K5-Ryf" secondAttribute="bottom" constant="24" id="4Fm-64-e7e"/>
                 <constraint firstItem="ukB-Rf-9nA" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="9Cg-Bo-dYM"/>
                 <constraint firstAttribute="trailing" secondItem="Ala-K5-Ryf" secondAttribute="trailing" id="UiW-tL-qp1"/>
+                <constraint firstAttribute="bottom" secondItem="mRw-ku-1Xr" secondAttribute="bottom" id="Wwv-fM-aYp"/>
                 <constraint firstItem="ukB-Rf-9nA" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="Z1y-Uh-6z6"/>
-                <constraint firstAttribute="bottom" secondItem="Ala-K5-Ryf" secondAttribute="bottom" id="Zza-EK-XpZ"/>
+                <constraint firstItem="mRw-ku-1Xr" firstAttribute="leading" secondItem="Ala-K5-Ryf" secondAttribute="leading" id="aBw-f6-REd"/>
+                <constraint firstItem="mRw-ku-1Xr" firstAttribute="trailing" secondItem="iN0-l3-epB" secondAttribute="trailing" id="aMg-9R-i0b"/>
                 <constraint firstItem="Ala-K5-Ryf" firstAttribute="leading" secondItem="ukB-Rf-9nA" secondAttribute="trailing" constant="14" id="c14-lI-Dnu"/>
                 <constraint firstItem="Ala-K5-Ryf" firstAttribute="top" secondItem="ukB-Rf-9nA" secondAttribute="top" constant="2" id="lW1-QS-JoL"/>
             </constraints>
@@ -46,6 +52,7 @@
             <connections>
                 <outlet property="descriptionLabel" destination="Ala-K5-Ryf" id="i4C-dQ-xWU"/>
                 <outlet property="fourLabel" destination="ukB-Rf-9nA" id="kpG-bU-YCb"/>
+                <outlet property="legendStackView" destination="mRw-ku-1Xr" id="gn7-BR-eAb"/>
             </connections>
             <point key="canvasLocation" x="140.57971014492756" y="-6.3616071428571423"/>
         </view>

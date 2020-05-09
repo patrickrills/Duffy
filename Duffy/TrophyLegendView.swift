@@ -13,6 +13,7 @@ class TrophyLegendView: UIView {
 
     @IBOutlet var fourLabel: UILabel!
     @IBOutlet var descriptionLabel: UILabel!
+    @IBOutlet var legendStackView: UIStackView!
     
     class func createView() -> TrophyLegendView? {
         if let nibViews = Bundle.main.loadNibNamed("TrophyLegendView", owner:nil, options:nil),
@@ -27,7 +28,18 @@ class TrophyLegendView: UIView {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        let stepGoalFormatted = Globals.stepsFormatter().string(from: NSNumber(value: HealthCache.getStepsDailyGoal()))!
+        let stepGoal = HealthCache.getStepsDailyGoal()
+        let stepGoalFormatted = Globals.stepsFormatter().string(for: stepGoal)!
         descriptionLabel.text = String(format: NSLocalizedString("When you've reached your goal, you'll earn a trophy based on how many steps you've taken beyond your goal (%@).", comment: "Placeholder is a number of steps: ie 10,000"), stepGoalFormatted)
+        Trophy.allCases.filter({ $0 != .none }).forEach({
+            [weak self] t in
+            self?.createLegendEntry(for: t)
+        })
+    }
+    
+    private func createLegendEntry(for trophy: Trophy) {
+        let goalLabel = UILabel()
+        goalLabel.text = "\(trophy.symbol()) \(Globals.stepsFormatter().string(for: trophy.stepsRequired())!) steps"
+        legendStackView.addArrangedSubview(goalLabel)
     }
 }
