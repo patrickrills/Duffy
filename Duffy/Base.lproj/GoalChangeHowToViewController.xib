@@ -12,8 +12,11 @@
             <connections>
                 <outlet property="headerLabel" destination="uU0-GN-4Oa" id="HZR-Q4-hGI"/>
                 <outlet property="legendContainer" destination="74i-mx-hJ2" id="kaI-e9-umk"/>
+                <outlet property="oneInstructionsLabel" destination="6Ih-H5-y7t" id="S5U-yZ-kWO"/>
                 <outlet property="oneLabel" destination="iid-26-d89" id="O6D-kV-sXV"/>
+                <outlet property="threeInstructionsLabel" destination="12h-uc-CHh" id="g1P-59-KZn"/>
                 <outlet property="threeLabel" destination="kbb-UF-1Zx" id="by8-VF-OJH"/>
+                <outlet property="twoInstructionsLabel" destination="NfE-xM-prm" id="gzx-cG-XyJ"/>
                 <outlet property="twoLabel" destination="ZGZ-FE-0JF" id="vgS-cV-lik"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
