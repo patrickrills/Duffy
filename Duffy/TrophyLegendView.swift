@@ -38,8 +38,10 @@ class TrophyLegendView: UIView {
     }
     
     private func createLegendEntry(for trophy: Trophy) {
-        let goalLabel = UILabel()
-        goalLabel.text = "\(trophy.symbol()) \(Globals.stepsFormatter().string(for: trophy.stepsRequired())!) steps"
-        legendStackView.addArrangedSubview(goalLabel)
+        guard let trophyItem = TrophyItemView.createView(for: trophy) else {
+            return
+        }
+        
+        legendStackView.addArrangedSubview(trophyItem)
     }
 }

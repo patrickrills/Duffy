@@ -45,6 +45,23 @@ public enum Trophy: CaseIterable {
         }
     }
     
+    public func description() -> String {
+        switch self {
+        case .shoe:
+            return "Reached your goal"
+        case .medal:
+            return "25% over your goal"
+        case .award:
+            return "50% over your goal"
+        case .star:
+            return "75% over your goal"
+        case .rocket:
+            return "Double your goal"
+        default:
+            return ""
+        }
+    }
+    
     public func stepsRequired() -> Int {
         let stepsGoal = Double(HealthCache.getStepsDailyGoal())
         return Int(ceil(stepsGoal * self.factor()))
