@@ -14,11 +14,17 @@ class TrophyLegendView: UIView {
     @IBOutlet var fourLabel: UILabel!
     @IBOutlet var descriptionLabel: UILabel!
     @IBOutlet var legendStackView: UIStackView!
+    @IBOutlet private weak var instructionNumberWidth: NSLayoutConstraint!
+    @IBOutlet private weak var instructionNumberMargin: NSLayoutConstraint!
     
-    class func createView() -> TrophyLegendView? {
+    class func createView(showInstructionNumber: Bool) -> TrophyLegendView? {
         if let nibViews = Bundle.main.loadNibNamed("TrophyLegendView", owner:nil, options:nil),
             let trophyView = nibViews[0] as? TrophyLegendView {
             trophyView.translatesAutoresizingMaskIntoConstraints = false
+            if !showInstructionNumber {
+                trophyView.instructionNumberWidth.constant = 0.0
+                trophyView.instructionNumberMargin.constant = 0.0
+            }
             return trophyView
         }
         

@@ -32,12 +32,12 @@
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="am0-WF-nYL">
                     <rect key="frame" x="42" y="2" width="372" height="73"/>
-                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
-            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="Ion-KX-X7C" firstAttribute="leading" secondItem="dpM-QZ-B7f" secondAttribute="trailing" constant="12" id="8OH-XN-AN1"/>
                 <constraint firstAttribute="trailing" secondItem="Ion-KX-X7C" secondAttribute="trailing" id="HCw-w9-Veq"/>

@@ -56,7 +56,7 @@ class AboutTableViewController: UITableViewController {
         switch (section)
         {
             case 0:
-                return 2;
+                return 3;
             
             default:
                 return 1;
@@ -75,6 +75,9 @@ class AboutTableViewController: UITableViewController {
                 {
                     case 0:
                         cell.textLabel?.text = NSLocalizedString("How To Change Your Goal", comment: "")
+                        break
+                    case 1:
+                        cell.textLabel?.text = "Trophies"
                         break
                     default:
                         cell.textLabel?.text = NSLocalizedString("Ask a Question", comment: "")
@@ -127,6 +130,9 @@ class AboutTableViewController: UITableViewController {
                 {
                     case 0:
                         self.navigationController?.pushViewController(GoalChangeHowToViewController(), animated: true)
+                        break
+                    case 1:
+                        self.navigationController?.pushViewController(TrophiesViewController(), animated: true)
                         break
                     default:
                         openURL("http://www.bigbluefly.com/duffy?contact=1")

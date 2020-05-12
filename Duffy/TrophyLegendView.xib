@@ -52,6 +52,8 @@
             <connections>
                 <outlet property="descriptionLabel" destination="Ala-K5-Ryf" id="i4C-dQ-xWU"/>
                 <outlet property="fourLabel" destination="ukB-Rf-9nA" id="kpG-bU-YCb"/>
+                <outlet property="instructionNumberMargin" destination="c14-lI-Dnu" id="Sxh-Sh-giI"/>
+                <outlet property="instructionNumberWidth" destination="4ap-Jx-Uxv" id="WEk-IZ-bi4"/>
                 <outlet property="legendStackView" destination="mRw-ku-1Xr" id="gn7-BR-eAb"/>
             </connections>
             <point key="canvasLocation" x="140.57971014492756" y="-6.3616071428571423"/>

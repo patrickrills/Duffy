@@ -38,7 +38,7 @@ class GoalChangeHowToViewController: UIViewController {
         self.twoInstructionsLabel.text = NSLocalizedString("Tap 'Change Daily Goal' from the menu that appears.", comment: "")
         self.threeInstructionsLabel.text = NSLocalizedString("Select a new goal by swiping with your finger or turning the digital crown. Then tap the 'Set Goal' button to save it.", comment: "")
         
-        if let trophyView = TrophyLegendView.createView() {
+        if let trophyView = TrophyLegendView.createView(showInstructionNumber: true) {
             self.legendContainer.addSubview(trophyView)
             NSLayoutConstraint.activate([
                 trophyView.leadingAnchor.constraint(equalTo: self.legendContainer.leadingAnchor),
