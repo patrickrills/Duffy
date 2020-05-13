@@ -11,6 +11,7 @@ import UIKit
 class TrophiesViewController: UIViewController {
     
     @IBOutlet private weak var legendContainer: UIView!
+    @IBOutlet private weak var helpButton: UIButton!
     
     init() {
         super.init(nibName: "TrophiesViewController", bundle: Bundle.main)
@@ -24,6 +25,8 @@ class TrophiesViewController: UIViewController {
         super.viewDidLoad()
 
         self.title = "Trophies"
+        self.helpButton.setTitle(NSLocalizedString("How To Change Your Goal", comment: ""), for: .normal)
+        self.helpButton.tintColor = Globals.secondaryColor()
         
         if let legend = TrophyLegendView.createView(showInstructionNumber: false) {
             legendContainer.addSubview(legend)
@@ -34,5 +37,9 @@ class TrophiesViewController: UIViewController {
                 legendContainer.bottomAnchor.constraint(equalTo: legend.bottomAnchor)
             ])
         }
+    }
+    
+    @IBAction func howToChangeGoal() {
+        self.navigationController?.pushViewController(GoalChangeHowToViewController(), animated: true)
     }
 }

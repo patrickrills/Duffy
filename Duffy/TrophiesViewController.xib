@@ -10,6 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TrophiesViewController" customModule="Duffy" customModuleProvider="target">
             <connections>
+                <outlet property="helpButton" destination="Hso-hf-ehz" id="mnp-hg-gdk"/>
                 <outlet property="legendContainer" destination="art-Wb-4c2" id="IIB-xI-Y7y"/>
                 <outlet property="view" destination="iN0-l3-epB" id="hyg-jX-daK"/>
             </connections>
@@ -23,18 +24,27 @@
                     <rect key="frame" x="0.0" y="44" width="414" height="852"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="art-Wb-4c2">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="128"/>
+                            <rect key="frame" x="0.0" y="10" width="414" height="128"/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="128" placeholder="YES" id="bKP-tO-vto"/>
                             </constraints>
                         </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hso-hf-ehz">
+                            <rect key="frame" x="135" y="166" width="144" height="30"/>
+                            <state key="normal" title="How to change goal?"/>
+                            <connections>
+                                <action selector="howToChangeGoal" destination="-1" eventType="touchUpInside" id="mGs-je-SGc"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <constraints>
+                        <constraint firstItem="Hso-hf-ehz" firstAttribute="centerX" secondItem="uOh-Ew-6Tp" secondAttribute="centerX" id="1bS-yb-GBF"/>
                         <constraint firstItem="art-Wb-4c2" firstAttribute="width" secondItem="uOh-Ew-6Tp" secondAttribute="width" id="4hU-yX-uKE"/>
-                        <constraint firstItem="art-Wb-4c2" firstAttribute="top" secondItem="uOh-Ew-6Tp" secondAttribute="top" id="NB8-wH-gt8"/>
+                        <constraint firstItem="Hso-hf-ehz" firstAttribute="top" secondItem="art-Wb-4c2" secondAttribute="bottom" constant="28" id="89E-pg-bPP"/>
+                        <constraint firstItem="art-Wb-4c2" firstAttribute="top" secondItem="uOh-Ew-6Tp" secondAttribute="top" constant="10" id="NB8-wH-gt8"/>
+                        <constraint firstAttribute="bottom" secondItem="Hso-hf-ehz" secondAttribute="bottom" constant="40" id="VUP-wt-3pe"/>
                         <constraint firstAttribute="trailing" secondItem="art-Wb-4c2" secondAttribute="trailing" id="eFU-j0-p8V"/>
-                        <constraint firstAttribute="bottom" secondItem="art-Wb-4c2" secondAttribute="bottom" priority="750" constant="724" id="eKu-FH-dlu"/>
                         <constraint firstItem="art-Wb-4c2" firstAttribute="leading" secondItem="uOh-Ew-6Tp" secondAttribute="leading" id="v4l-Mp-O25"/>
                     </constraints>
                 </scrollView>
