@@ -48,15 +48,15 @@ public enum Trophy: CaseIterable {
     public func description() -> String {
         switch self {
         case .shoe:
-            return "Reached your goal"
+            return NSLocalizedString("Reached your goal", comment: "")
         case .medal:
-            return "25% over your goal"
+            return NSLocalizedString("25% over your goal", comment: "")
         case .award:
-            return "50% over your goal"
+            return NSLocalizedString("50% over your goal", comment: "")
         case .star:
-            return "75% over your goal"
+            return NSLocalizedString("75% over your goal", comment: "")
         case .rocket:
-            return "Double your goal"
+            return NSLocalizedString("Double your goal", comment: "")
         default:
             return ""
         }
