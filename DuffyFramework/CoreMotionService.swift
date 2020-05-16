@@ -38,7 +38,7 @@ open class CoreMotionService
                     #if os(iOS)
                         self?.queryHealthKit(from: source)
                     #else
-                        self?.queryCoreMotion(from: source)
+                        self?.queryCoreMotion(from: source, completion: nil)
                     #endif
                 }
             })
@@ -47,7 +47,7 @@ open class CoreMotionService
         #if os(watchOS)
             ped.startUpdates(from: Date(), withHandler: {
                 [weak self] data, error in
-                self?.queryCoreMotion(from: "CMPedometer updates")
+                self?.queryCoreMotion(from: "CMPedometer updates", completion: nil)
                 
             })
         #endif
@@ -79,7 +79,21 @@ open class CoreMotionService
         }
     }
     
-    private func queryCoreMotion(from source: String)
+    open func isEnabled() -> Bool {
+        return pedometer != nil && !shouldAskPermission()
+    }
+    
+    open func updateStepsForToday(from source: String, completion: @escaping ()->())
+    {
+        guard isEnabled() else {
+            completion()
+            return
+        }
+        
+        queryCoreMotion(from: source, completion: completion)
+    }
+    
+    private func queryCoreMotion(from source: String, completion: (()->())?)
     {
         if let pedometer = pedometer {
             let now = Date()
@@ -99,8 +113,17 @@ open class CoreMotionService
                             self?.forceComplicationUpdate(from: "CMPedometer data update")
                         }
                     }
+                    
+                    if let completion = completion {
+                        completion()
+                    }
                 })
+                return
             }
+        }
+        
+        if let completion = completion {
+            completion()
         }
     }
     

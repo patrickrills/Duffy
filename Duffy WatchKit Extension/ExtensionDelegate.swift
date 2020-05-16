@@ -93,29 +93,30 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
                         }
                     }
                     
-                    HealthKitService.getInstance().getSteps(Date(), onRetrieve: {
+                    //Try to update steps from CoreMotion first unless its not enabled
+                    if CoreMotionService.getInstance().isEnabled() {
+                        CoreMotionService.getInstance().updateStepsForToday(from: "WKRefreshBackgroundTask", completion: {
+                            [weak self] in
+                            self?.complete(task: t)
+                        })
+                    } else {
+                        //Fallback to using Healthkit if core motion not enabled
+                        HealthKitService.getInstance().getSteps(Date(), onRetrieve: {
                             [weak self] (steps: Int, forDay: Date) in
-                                                
-                            if (HealthCache.saveStepsToCache(steps, forDay: forDay))
-                            {
+                                                                    
+                            if (HealthCache.saveStepsToCache(steps, forDay: forDay)) {
                                 LoggingService.log("Refresh complication in background task")
                                 ComplicationController.refreshComplication()
                             }
-                        
+                                            
                             self?.complete(task: t)
                         },
                         onFailure: {
                             [weak self] (error: Error?) in
-    
-                            var message = "no error message"
-                            if let error = error {
-                                message = error.localizedDescription
-                            }
-                            
-                            LoggingService.log("Error getting steps in background task", with: message)
-                            
+                            LoggingService.log("Error getting steps in background task")
                             self?.complete(task: t)
-                    })
+                        })
+                    }
                 }
             }
         }
