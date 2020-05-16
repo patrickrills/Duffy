@@ -110,7 +110,7 @@ open class CoreMotionService
                         let cmStartDate = stepData.endDate
                         LoggingService.log(String(format: "CMPedometer steps from %@", source), with: String(format: "%d", cmSteps))
                         if (HealthCache.saveStepsToCache(cmSteps, forDay: cmStartDate)) {
-                            self?.forceComplicationUpdate(from: "CMPedometer data update")
+                            self?.forceComplicationUpdate(from: String(format: "CMPedometer steps from %@", source))
                         }
                     }
                     
