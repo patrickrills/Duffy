@@ -191,7 +191,13 @@ class InterfaceController: WKInterfaceController
         })
     }
     
-    func displayTodaysStepsFromCache()
+    func updateInterfaceFromSnapshot()
+    {
+        displayTodaysStepsFromCache()
+        LoggingService.log("Update UI from snapshot task")
+    }
+    
+    private func displayTodaysStepsFromCache()
     {
         DispatchQueue.main.async {
             [weak self] in

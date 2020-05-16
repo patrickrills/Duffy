@@ -76,7 +76,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
                     
                     if let c = WKExtension.shared().rootInterfaceController as? InterfaceController
                     {
-                        c.displayTodaysStepsFromCache()
+                        c.updateInterfaceFromSnapshot()
                     }
                     
                     complete(task: t)
