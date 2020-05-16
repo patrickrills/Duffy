@@ -507,6 +507,10 @@ open class HealthKitService
         
         subscribers.removeValue(forKey: sampleType.identifier)
     }
+    
+    open func earliestQueryDate() -> Date? {
+        return healthStore?.earliestPermittedSampleDate()
+    }
 }
 
 class HealthKitSubscriber {

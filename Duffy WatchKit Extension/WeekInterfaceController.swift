@@ -24,7 +24,7 @@ class WeekInterfaceController: WKInterfaceController
 
     private func retrieveRecentSteps()
     {
-        guard let startDate = Calendar.current.date(byAdding: .day, value: -14, to: Date()) else {
+        guard let startDate = HealthKitService.getInstance().earliestQueryDate() else {
             showErrorState()
             return
         }
