@@ -79,10 +79,6 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
                         c.displayTodaysStepsFromCache()
                     }
                     
-                    if HealthCache.getStepsFromCache(Date()) == 0 {
-                        ComplicationController.refreshComplication()
-                    }
-                    
                     complete(task: t)
                 }
                 else
