@@ -85,14 +85,6 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
                 {
                     LoggingService.log("Background update task handled")
                     
-                    //At least turn over the complication to zero if it is a new day - if the screen is locked we can't get the steps
-                    if (HealthCache.cacheIsForADifferentDay(Date()))
-                    {
-                        if (HealthCache.saveStepsToCache(0, forDay: Date())) {
-                            ComplicationController.refreshComplication()
-                        }
-                    }
-                    
                     //Try to update steps from CoreMotion first unless its not enabled
                     if CoreMotionService.getInstance().isEnabled() {
                         CoreMotionService.getInstance().updateStepsForToday(from: "WKRefreshBackgroundTask", completion: {
