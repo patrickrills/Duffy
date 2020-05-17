@@ -228,7 +228,7 @@ class InterfaceController: WKInterfaceController
             if goalValue > 0, let formattedValue = InterfaceController.getNumberFormatter().string(from: NSNumber(value: goalValue))
             {
                 lbl.setHidden(false)
-                lbl.setText(String(format: NSLocalizedString("of %@ goal %@", comment: ""), formattedValue, HealthKitService.getInstance().getAdornment(for: stepsForDay)))
+                lbl.setText(String(format: NSLocalizedString("of %@ goal %@", comment: ""), formattedValue, Trophy.trophy(for: stepsForDay).symbol()))
             }
             else
             {

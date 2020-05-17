@@ -68,7 +68,7 @@ class HistoryTrendChartView: UIView
             trendLine.stroke()
         }
         
-        let shoe = NSAttributedString(string: HealthKitService.getInstance().getAdornment(for: goalSteps), attributes: [.font : UIFont.systemFont(ofSize: UIFont.systemFontSize)])
+        let shoe = NSAttributedString(string: Trophy.shoe.symbol(), attributes: [.font : UIFont.systemFont(ofSize: UIFont.systemFontSize)])
         let shoeSize = shoe.size()
         
         let dotted = UIBezierPath()

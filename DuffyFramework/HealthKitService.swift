@@ -366,23 +366,7 @@ open class HealthKitService
                 }
         })
     }
-    
-    open func getAdornment(for stepsTotal: Int) -> String
-    {
-        let stepsGoal = Double(HealthCache.getStepsDailyGoal())
-        let steps = Double(stepsTotal)
         
-        if steps >= (stepsGoal * 1.5) {
-            return "🏆"
-        } else if steps >= (stepsGoal * 1.25) {
-            return "🏅"
-        } else if steps >= stepsGoal {
-            return "👟"
-        }
-        
-        return ""
-    }
-    
     open func getFlightsClimbed(_ forDate: Date, onRetrieve: ((Int, Date) -> Void)?, onFailure: ((Error?) -> Void)?)
     {
         if let flightType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.flightsClimbed)
@@ -522,6 +506,10 @@ open class HealthKitService
         }
         
         subscribers.removeValue(forKey: sampleType.identifier)
+    }
+    
+    open func earliestQueryDate() -> Date? {
+        return healthStore?.earliestPermittedSampleDate()
     }
 }
 

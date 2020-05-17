@@ -24,7 +24,7 @@ class WeekInterfaceController: WKInterfaceController
 
     private func retrieveRecentSteps()
     {
-        guard let startDate = Calendar.current.date(byAdding: .day, value: -14, to: Date()) else {
+        guard let startDate = HealthKitService.getInstance().earliestQueryDate() else {
             showErrorState()
             return
         }
@@ -63,7 +63,7 @@ class WeekInterfaceController: WKInterfaceController
                                 let formattedSteps = numFormatter.string(from: NSNumber(value: steps)) {
                                 
                                 value = formattedSteps
-                                adornment = HealthKitService.getInstance().getAdornment(for: steps)
+                                adornment = Trophy.trophy(for: steps).symbol()
                             }
                             
                             data.append(WeekRowData(title: title, formattedValue: value, adornment: adornment))

@@ -8,6 +8,7 @@
 
 import UIKit
 import SafariServices
+import DuffyFramework
 
 class AboutTableViewController: UITableViewController {
 
@@ -56,7 +57,7 @@ class AboutTableViewController: UITableViewController {
         switch (section)
         {
             case 0:
-                return 2;
+                return 3;
             
             default:
                 return 1;
@@ -75,6 +76,9 @@ class AboutTableViewController: UITableViewController {
                 {
                     case 0:
                         cell.textLabel?.text = NSLocalizedString("How To Change Your Goal", comment: "")
+                        break
+                    case 1:
+                        cell.textLabel?.attributedText = trophyDescription()
                         break
                     default:
                         cell.textLabel?.text = NSLocalizedString("Ask a Question", comment: "")
@@ -128,6 +132,9 @@ class AboutTableViewController: UITableViewController {
                     case 0:
                         self.navigationController?.pushViewController(GoalChangeHowToViewController(), animated: true)
                         break
+                    case 1:
+                        self.navigationController?.pushViewController(TrophiesViewController(), animated: true)
+                        break
                     default:
                         openURL("http://www.bigbluefly.com/duffy?contact=1")
                         break
@@ -150,5 +157,16 @@ class AboutTableViewController: UITableViewController {
     
     @objc private func openDebugLog() {
         navigationController?.pushViewController(DebugLogTableViewController(), animated: true)
+    }
+    
+    private func trophyDescription() -> NSAttributedString {
+        let trophiesLocalized = NSLocalizedString("Trophies", comment: "")
+        let symbols = Trophy.allCases.map({ $0.symbol() }).joined()
+        let mutable = NSMutableAttributedString(string: String(format: "%@  %@", trophiesLocalized, symbols))
+        if let range = mutable.string.range(of: symbols) {
+            let nsRange = NSRange(range, in: mutable.string)
+            mutable.addAttribute(.font, value: UIFont.systemFont(ofSize: 12.0), range: nsRange)
+        }
+        return mutable
     }
 }
