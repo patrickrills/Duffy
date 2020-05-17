@@ -19,6 +19,13 @@ class DebugLogTableViewController: UITableViewController {
         super.init(style: .grouped)
         dateFormatter.dateFormat = "MM/dd/yy hh:mm:ss a"
         title = "Debug"
+        
+        if #available(iOS 13.0, *) {
+            navigationItem.rightBarButtonItems = [
+                UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.up"), style: .plain, target: self, action: #selector(showShareSheet)),
+                UIBarButtonItem(image: UIImage(systemName: "trash"), style: .plain, target: self, action: #selector(clearLog))
+            ]
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -100,24 +107,36 @@ class DebugLogTableViewController: UITableViewController {
         switch indexPath.section {
             case 2:
                 tableView.deselectRow(at: indexPath, animated: true)
-                if let csvURL = DebugService.exportLogToCSV() {
-                    showShareSheet(for: csvURL)
-                }
+                showShareSheet()
                 return
             case 3:
-                LoggingService.clearLog()
-                log = LoggingService.getFullDebugLog()
-                tableView.reloadData()
+                clearLog()
                 return
             default:
                 return
         }
     }
     
-    private func showShareSheet(for pathURL: URL) {
-        let docController = UIDocumentInteractionController(url: pathURL)
+    @objc private func showShareSheet() {
+        guard let csvURL = DebugService.exportLogToCSV() else {
+            return
+        }
+        
+        let docController = UIDocumentInteractionController(url: csvURL)
         docController.name = "log.csv"
         shareSheet = docController
         docController.presentOptionsMenu(from: self.view.frame, in: self.view, animated: true)
+    }
+    
+    @objc private func clearLog() {
+        let confirm = UIAlertController(title: nil, message: "Are you sure?", preferredStyle: .actionSheet)
+        confirm.addAction(UIAlertAction(title: "Clear Log", style: .destructive, handler: {
+            [weak self] action in
+            LoggingService.clearLog()
+            self?.log = LoggingService.getFullDebugLog()
+            self?.tableView.reloadData()
+        }))
+        confirm.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        present(confirm, animated: true, completion: nil)
     }
 }
