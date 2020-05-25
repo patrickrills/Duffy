@@ -143,6 +143,8 @@ class MainTableViewController: UITableViewController
                         }
                         
                         weakSelf.hideLoading()
+                        weakSelf.maybeRestartObservers()
+                        weakSelf.maybeAskForCoreMotionPermission()
                     }
                 })
             },
@@ -156,6 +158,20 @@ class MainTableViewController: UITableViewController
         }, onFailure: {
             self.isLoading = false
         })
+    }
+    
+    func maybeAskForCoreMotionPermission() {
+        if CoreMotionService.getInstance().shouldAskPermission() {
+            CoreMotionService.getInstance().askForPermission()
+        }
+    }
+    
+    func maybeRestartObservers() {
+        if HealthKitService.getInstance().shouldRestartObservers {
+            unsubscribeToHealthUpdates()
+            HealthKitService.getInstance().initializeBackgroundQueries()
+            subscribeToHealthUpdates()
+        }
     }
     
     func subscribeToHealthUpdates() {

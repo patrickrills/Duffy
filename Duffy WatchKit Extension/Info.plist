@@ -49,7 +49,7 @@
 		<string>com.apple.watchkit</string>
 	</dict>
 	<key>NSHealthShareUsageDescription</key>
-	<string>Need to read your steps to display your steps.</string>
+	<string>Duffy will monitor these types of data to determine when you move and then update your watch face complication.</string>
 	<key>NSHealthUpdateUsageDescription</key>
 	<string>Need to write steps.</string>
 	<key>WKExtensionDelegateClassName</key>

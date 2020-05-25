@@ -36,9 +36,11 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSHealthShareUsageDescription</key>
-	<string>Need to read your steps to display your steps.</string>
+	<string>Duffy will monitor these types of data to determine when you move and then update your watch face complication.</string>
 	<key>NSHealthUpdateUsageDescription</key>
 	<string>Need to write steps.</string>
+	<key>NSMotionUsageDescription</key>
+	<string>Used to update watch complication when new steps are detected.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

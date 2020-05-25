@@ -112,7 +112,6 @@ open class WCSessionService : NSObject, WCSessionDelegate
                     } else {
                         LoggingService.log("Complication NOT enabled")
                     }
-                    //TODO: log WCSession.default.outstandingUserInfoTransfers.count ?
                 }
                 else
                 {
@@ -150,8 +149,8 @@ open class WCSessionService : NSObject, WCSessionDelegate
         }
     }
     
-    open func sendDebugLog(_ onCompletion: @escaping (Bool)->(Void)) {
-        let serializedLog = LoggingService.getDebugLog().map({ $0.serialize() })
+    open func sendDebugLog(_ log: [DebugLogEntry], onCompletion: @escaping (Bool)->(Void)) {
+        let serializedLog = log.map({ $0.serialize() })
         WCSessionService.getInstance().send(message: "watchDebugLog", payload: serializedLog, onCompletion: {
             (success) in
             onCompletion(success)
@@ -226,7 +225,7 @@ open class WCSessionService : NSObject, WCSessionDelegate
                     {
                         if let del = delegate
                         {
-                            LoggingService.log("Refreshing complication from received message")
+                            LoggingService.log("Refreshing complication from received message", with: String(format: "%d", HealthCache.getStepsFromCache(Date())))
                             del.complicationUpdateRequested(dict)
                         }
                         

@@ -49,6 +49,7 @@ public class DebugLogEntry: NSObject {
             let isClose = self.message.contains("App will resign active")
             let isSendComplication = self.message.contains("updateWatchFaceComplication")
             let isReloadComplication = self.message.contains("reloadTimeline")
+            let isCoreMotion = self.message.contains("CMPedometer")
         
             if isOpen {
                 return .systemGreen
@@ -58,6 +59,8 @@ public class DebugLogEntry: NSObject {
                 return .systemPurple
             } else if isReloadComplication {
                 return .systemTeal
+            } else if isCoreMotion {
+                return .systemOrange
             } else {
                 if #available(iOS 13.0, *) {
                     return .label

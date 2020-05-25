@@ -26,6 +26,11 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
         HealthKitService.getInstance().initializeBackgroundQueries()
         HealthKitService.getInstance().setEventDelegate(self)
         NotificationService.maybeAskForNotificationPermission(self)
+        if CoreMotionService.getInstance().shouldAskPermission() {
+            CoreMotionService.getInstance().askForPermission()
+        } else {
+            CoreMotionService.getInstance().initializeBackgroundUpdates()
+        }
         
         if (HealthCache.cacheIsForADifferentDay(Date())) {
             complicationUpdateRequested([:])
@@ -71,11 +76,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
                     
                     if let c = WKExtension.shared().rootInterfaceController as? InterfaceController
                     {
-                        c.displayTodaysStepsFromCache()
-                    }
-                    
-                    if HealthCache.getStepsFromCache(Date()) == 0 {
-                        ComplicationController.refreshComplication()
+                        c.updateInterfaceFromSnapshot()
                     }
                     
                     complete(task: t)
@@ -84,40 +85,30 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
                 {
                     LoggingService.log("Background update task handled")
                     
-                    //At least turn over the complication to zero if it is a new day - if the screen is locked we can't get the steps
-                    if (HealthCache.cacheIsForADifferentDay(Date()))
-                    {
-                        LoggingService.log("Rolling over complication in background task")
-                        if (HealthCache.saveStepsToCache(0, forDay: Date())) {
-                            ComplicationController.refreshComplication()
-                        }
-                    }
-                    
-                    HealthKitService.getInstance().getSteps(Date(), onRetrieve: {
+                    //Try to update steps from CoreMotion first unless its not enabled
+                    if CoreMotionService.getInstance().isEnabled() {
+                        CoreMotionService.getInstance().updateStepsForToday(from: "WKRefreshBackgroundTask", completion: {
+                            [weak self] in
+                            self?.complete(task: t)
+                        })
+                    } else {
+                        //Fallback to using Healthkit if core motion not enabled
+                        HealthKitService.getInstance().getSteps(Date(), onRetrieve: {
                             [weak self] (steps: Int, forDay: Date) in
-                        
-                            LoggingService.log("Retrieved steps from HK in background task")
-                        
-                            if (HealthCache.saveStepsToCache(steps, forDay: forDay))
-                            {
+                                                                    
+                            if (HealthCache.saveStepsToCache(steps, forDay: forDay)) {
                                 LoggingService.log("Refresh complication in background task")
                                 ComplicationController.refreshComplication()
                             }
-                        
+                                            
                             self?.complete(task: t)
                         },
                         onFailure: {
                             [weak self] (error: Error?) in
-    
-                            var message = "no error message"
-                            if let error = error {
-                                message = error.localizedDescription
-                            }
-                            
-                            LoggingService.log("Error getting steps in background task", with: message)
-                            
+                            LoggingService.log("Error getting steps in background task")
                             self?.complete(task: t)
-                    })
+                        })
+                    }
                 }
             }
         }

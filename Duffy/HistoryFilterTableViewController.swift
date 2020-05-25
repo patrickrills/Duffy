@@ -35,7 +35,12 @@ class HistoryFilterTableViewController: UITableViewController
         
         title = NSLocalizedString("Filter", comment: "")
         tableView.isScrollEnabled = false
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveFilter))
+        
+        if #available(iOS 13.0, *) {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "checkmark.circle"), style: .plain, target: self, action: #selector(saveFilter))
+        } else {
+            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveFilter))
+        }
         
         let container = UIView(frame: CGRect.zero)
         container.tag = CONTAINER_TAG
