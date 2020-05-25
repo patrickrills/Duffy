@@ -43,14 +43,6 @@ open class CoreMotionService
                 }
             })
         }
-        
-        #if os(watchOS)
-            ped.startUpdates(from: Date(), withHandler: {
-                [weak self] data, error in
-                self?.queryCoreMotion(from: "CMPedometer updates", completion: nil)
-                
-            })
-        #endif
     }
     
     open func stopBackgroundUpdates()
