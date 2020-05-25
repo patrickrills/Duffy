@@ -44,7 +44,7 @@ class ModalNavigationController: UINavigationController, UINavigationControllerD
         
         var doneButton: UIBarButtonItem
         if #available(iOS 13.0, *) {
-            doneButton = UIBarButtonItem(image: UIImage(systemName: "xmark.circle.fill"), style: .plain, target: self, action: #selector(donePressed))
+            doneButton = UIBarButtonItem(image: UIImage(systemName: "xmark.circle"), style: .plain, target: self, action: #selector(donePressed))
         } else {
             doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(donePressed))
         }
