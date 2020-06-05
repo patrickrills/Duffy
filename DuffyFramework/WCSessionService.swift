@@ -192,6 +192,9 @@ open class WCSessionService : NSObject, WCSessionDelegate
     open func session(_ session: WCSession, didReceiveUserInfo userInfo: [String : Any])
     {
         LoggingService.log("Message received didReceiveUserInfo")
+        #if os(watchOS)
+            CoreMotionService.getInstance().updateStepsForToday(from: "didReceiveUserInfo", completion: { LoggingService.log("Successfully refreshed steps on didReceiveUserInfo") })
+        #endif
         handle(message: userInfo)
     }
 
