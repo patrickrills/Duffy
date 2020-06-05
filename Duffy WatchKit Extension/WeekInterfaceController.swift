@@ -25,70 +25,62 @@ class WeekInterfaceController: WKInterfaceController
     private func retrieveRecentSteps()
     {
         guard let startDate = HealthKitService.getInstance().earliestQueryDate() else {
+            LoggingService.log("HealthKit earliest date could not be retrieved")
             showErrorState()
             return
         }
         
+        LoggingService.log("Start retrieving steps history", with: startDate.debugDescription)
+        
         HealthKitService.getInstance().getSteps(startDate, toEndDate: Date(), onRetrieve: {
             (stepsCollection: [Date : Int]) in
             
-                DispatchQueue.main.async {
-                    [weak self] in
+            let numFormatter = InterfaceController.getNumberFormatter()
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "eee"
+            
+            let sortedKeys = stepsCollection.keys.sorted(by: >)
+            
+            if sortedKeys.count > 0 {
+                LoggingService.log("Steps history retrieved - last", with: String(describing: stepsCollection[sortedKeys[0]]))
+            } else {
+                LoggingService.log("No steps history found")
+            }
+            
+            let data: [WeekRowData] = sortedKeys.map({
+                let title = dateFormatter.string(from: $0).uppercased()
+                var value = "0"
+                var adornment = ""
+                
+                if let steps = stepsCollection[$0],
+                    let formattedSteps = numFormatter.string(for: steps) {
+                    
+                    value = formattedSteps
+                    adornment = Trophy.trophy(for: steps).symbol()
+                }
+                
+                return WeekRowData(title: title, formattedValue: value, adornment: adornment)
+            })
+            
+            DispatchQueue.main.async { [weak self] in
                     if let weakSelf = self {
-                        let sortedKeys = stepsCollection.keys.sorted(by: {
-                            (date1: Date, date2: Date) in
-                            return date1.timeIntervalSince1970 > date2.timeIntervalSince1970
-                        })
-                    
-                        if (sortedKeys.count == 0) {
+                        if (data.count > 0) {
+                            weakSelf.bindTable(to: data)
+                        } else {
                             weakSelf.showErrorState()
-                            return
                         }
-                    
-                        let dateFormatter = DateFormatter()
-                        dateFormatter.dateFormat = "eee"
-                    
-                        let numFormatter = NumberFormatter()
-                        numFormatter.numberStyle = .decimal
-                        numFormatter.locale = Locale.current
-                    
-                        var data = [WeekRowData]()
-                        
-                        for key in sortedKeys {
-                            let title = dateFormatter.string(from: key).uppercased()
-                            var value = "0"
-                            var adornment = ""
-                            
-                            if let steps = stepsCollection[key],
-                                let formattedSteps = numFormatter.string(from: NSNumber(value: steps)) {
-                                
-                                value = formattedSteps
-                                adornment = Trophy.trophy(for: steps).symbol()
-                            }
-                            
-                            data.append(WeekRowData(title: title, formattedValue: value, adornment: adornment))
-                        }
-                        
-                        weakSelf.bindTable(to: data)
                     }
                 }
             },
-            onFailure: {
-                [weak self] (err: Error?) in
-                DispatchQueue.main.async {
+            onFailure: { (err: Error?) in
+                DispatchQueue.main.async { [weak self] in
                     self?.showErrorState()
                 }
         })
     }
     
     private func bindTable(to data: [WeekRowData]) {
-        var rowTypes = [String]()
-        for _ in 1...data.count
-        {
-            rowTypes.append("WeekRowController")
-        }
-        
-        stepsTable.setRowTypes(rowTypes)
+        stepsTable.setRowTypes(Array(repeating: "WeekRowController", count: data.count))
         
         for (index, row) in data.enumerated() {
             let stepRow = stepsTable.rowController(at: index) as! WeekRowController
