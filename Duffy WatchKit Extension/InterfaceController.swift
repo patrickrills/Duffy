@@ -99,34 +99,42 @@ class InterfaceController: WKInterfaceController
     }
     
     private func refreshTodayFromHealth(_ completion: @escaping (Bool) -> Void) {
-        isQueryInProgress = true
-        let failBlock = {
-            DispatchQueue.main.async {
-                [weak self] in
-                self?.isQueryInProgress = false
-                completion(false)
-            }
-        }
+        guard !isQueryInProgress else { return }
         
-        displayTodaysStepsFromHealth({
-            [weak self] success in
-            if success {
-                self?.displayTodaysFlightsFromHealth({
-                    [weak self] success in
-                    if success {
-                        self?.displayTodaysDistanceFromHealth({
-                            [weak self] success in
-                            self?.isQueryInProgress = false
-                            completion(success)
-                        })
-                    } else {
-                        failBlock()
-                    }
-                })
-            } else {
-                failBlock()
-            }
+        isQueryInProgress = true
+
+        let refreshGroup = DispatchGroup()
+        
+        //steps
+        var stepsSuccess = false
+        refreshGroup.enter()
+        displayTodaysStepsFromHealth({ success in
+            stepsSuccess = success
+            refreshGroup.leave()
         })
+        
+        //flights
+        var flightsSuccess = false
+        refreshGroup.enter()
+        displayTodaysFlightsFromHealth({ success in
+            flightsSuccess = success
+            refreshGroup.leave()
+        })
+        
+        //distance
+        var distanceSuccess = false
+        refreshGroup.enter()
+        displayTodaysDistanceFromHealth({ success in
+            distanceSuccess = success
+            refreshGroup.leave()
+        })
+        
+        refreshGroup.notify(queue: DispatchQueue.main, work: DispatchWorkItem(block: { [weak self] in
+            if let self = self {
+                self.isQueryInProgress = false
+            }
+            completion(stepsSuccess && flightsSuccess && distanceSuccess)
+        }))
     }
     
     private func displayTodaysStepsFromHealth(_ completion: @escaping (Bool) -> Void)
