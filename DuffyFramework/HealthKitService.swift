@@ -304,7 +304,7 @@ open class HealthKitService
                 let query = createObserverQuery(key: key, sampleType: stepsType, store: store)
                 observerQueries[key] = query
                 store.execute(query)
-                enableBackgroundQueryOnPhone(for: stepsType, in: store)
+                enableBackgroundQueryOnPhone(for: stepsType, at: .hourly, in: store)
             }
             
             #if os(iOS)
@@ -313,7 +313,7 @@ open class HealthKitService
                     let query = createObserverQuery(key: key, sampleType: activeType, store: store)
                     observerQueries[key] = query
                     store.execute(query)
-                    enableBackgroundQueryOnPhone(for: activeType, in: store)
+                    enableBackgroundQueryOnPhone(for: activeType, at: .immediate, in: store)
                 }
             #endif
         }
@@ -369,10 +369,10 @@ open class HealthKitService
         return query
     }
     
-    private func enableBackgroundQueryOnPhone(for sampleType: HKSampleType, in store: HKHealthStore)
+    private func enableBackgroundQueryOnPhone(for sampleType: HKSampleType, at frequency: HKUpdateFrequency, in store: HKHealthStore)
     {
         #if os(iOS)
-            store.enableBackgroundDelivery(for: sampleType, frequency: .immediate, withCompletion: {
+            store.enableBackgroundDelivery(for: sampleType, frequency: frequency, withCompletion: {
                 (success: Bool, error: Error?) in
                 if let error = error {
                     LoggingService.log(error: error)
