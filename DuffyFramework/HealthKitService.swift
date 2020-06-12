@@ -319,6 +319,14 @@ open class HealthKitService
         }
     }
     
+    open func stopBackgroundQueries() {
+        guard let healthStore = healthStore else { return }
+        observerQueries.forEach({
+            healthStore.stop($1)
+        })
+        observerQueries.removeAll()
+    }
+    
     private func createObserverQuery(key: String, sampleType: HKSampleType, store: HKHealthStore) -> HKObserverQuery
     {
         if let oldQuery = observerQueries[key]

@@ -22,9 +22,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
     
     func applicationDidFinishLaunching() {
         LoggingService.log("App did finish launching")
-        // Perform any final initialization of your application.
-        HealthKitService.getInstance().initializeBackgroundQueries()
-        HealthKitService.getInstance().setEventDelegate(self)
+        startHealthKitObservers()
         NotificationService.maybeAskForNotificationPermission(self)
         if CoreMotionService.getInstance().shouldAskPermission() {
             CoreMotionService.getInstance().askForPermission()
@@ -46,13 +44,15 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
     }
     
     func applicationDidBecomeActive() {
-        LoggingService.log("App did become active")
+        LoggingService.log("App did become active - stop observers")
+        stopHealthKitObservers()
     }
 
     func applicationWillResignActive() {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, etc.
-        LoggingService.log("App will resign active")
+        LoggingService.log("App will resign active - restart observers")
+        startHealthKitObservers()
     }
 
     func complicationUpdateRequested(_ complicationData : [String : AnyObject])
@@ -160,5 +160,14 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
                                 withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
 
         completionHandler(UNNotificationPresentationOptions.alert)
+    }
+    
+    private func startHealthKitObservers() {
+        HealthKitService.getInstance().initializeBackgroundQueries()
+        HealthKitService.getInstance().setEventDelegate(self)
+    }
+    
+    private func stopHealthKitObservers() {
+        HealthKitService.getInstance().stopBackgroundQueries()
     }
 }
