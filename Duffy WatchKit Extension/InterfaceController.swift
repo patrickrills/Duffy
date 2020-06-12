@@ -66,18 +66,6 @@ class InterfaceController: WKInterfaceController
             }, onFailure: { })
     }
     
-    func maybeTurnOverComplicationDate() {
-        //reset display if day turned over
-        if (HealthCache.cacheIsForADifferentDay(Date()))
-        {
-            display(steps: 0)
-            scheduleSnapshot()
-            if let d = WKExtension.shared().delegate as? ExtensionDelegate {
-                d.complicationUpdateRequested([:])
-            }
-        }
-    }
-    
     private func refresh()
     {
         refreshTodayFromHealth({
@@ -141,7 +129,9 @@ class InterfaceController: WKInterfaceController
     {
         HealthKitService.getInstance().getSteps(Date(),
             onRetrieve: {
-                (stepsCount: Int, forDate: Date) in
+                [weak self] (stepsCount: Int, forDate: Date) in
+                
+                self?.maybeUpdateComplication(with: stepsCount, for: forDate)
                 
                 DispatchQueue.main.async {
                     [weak self] in
@@ -279,6 +269,21 @@ class InterfaceController: WKInterfaceController
         }
         
         timer = nil
+    }
+    
+    private func maybeTurnOverComplicationDate() {
+        //reset display if day turned over
+        if (HealthCache.cacheIsForADifferentDay(Date())) {
+            display(steps: 0)
+            maybeUpdateComplication(with: 0, for: Date())
+        }
+    }
+    
+    private func maybeUpdateComplication(with stepCount: Int, for day: Date) {
+        if HealthCache.saveStepsToCache(stepCount, forDay: day) {
+            LoggingService.log("Update complication from watch UI", with: "\(stepCount)")
+            ComplicationController.refreshComplication()
+        }
     }
     
     @IBAction func refreshPressed()
