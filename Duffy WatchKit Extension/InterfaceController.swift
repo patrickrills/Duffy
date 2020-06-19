@@ -269,6 +269,7 @@ class InterfaceController: WKInterfaceController
         }
         
         timer = nil
+        isQueryInProgress = false
     }
     
     private func maybeTurnOverComplicationDate() {
