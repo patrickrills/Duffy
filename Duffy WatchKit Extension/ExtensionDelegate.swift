@@ -36,23 +36,27 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
     }
     
     func applicationWillEnterForeground() {
-        LoggingService.log("App will enter foreground")
+        LoggingService.log("App will enter foreground - stop observers")
+        stopHealthKitObservers()
         if WKExtension.shared().isApplicationRunningInDock,
             let c = WKExtension.shared().rootInterfaceController as? InterfaceController {
             c.refreshPressed()
         }
     }
     
+    func applicationDidEnterBackground() {
+        LoggingService.log("App did enter background  - restart observers")
+        startHealthKitObservers()
+    }
+    
     func applicationDidBecomeActive() {
-        LoggingService.log("App did become active - stop observers")
-        stopHealthKitObservers()
+        LoggingService.log("App did become active")
     }
 
     func applicationWillResignActive() {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, etc.
-        LoggingService.log("App will resign active - restart observers")
-        startHealthKitObservers()
+        LoggingService.log("App will resign active")
     }
 
     func complicationUpdateRequested(_ complicationData : [String : AnyObject])

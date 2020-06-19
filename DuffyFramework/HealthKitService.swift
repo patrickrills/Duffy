@@ -323,6 +323,7 @@ open class HealthKitService
         guard let healthStore = healthStore else { return }
         observerQueries.forEach({
             healthStore.stop($1)
+            LoggingService.log("Stopped observer query")
         })
         observerQueries.removeAll()
     }
