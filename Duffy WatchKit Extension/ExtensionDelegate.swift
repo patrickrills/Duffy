@@ -9,6 +9,7 @@
 import WatchKit
 import DuffyWatchFramework
 import UserNotifications
+import HealthKit
 
 class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate, HealthEventDelegate, UNUserNotificationCenterDelegate
 {
@@ -37,9 +38,13 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
     
     func applicationWillEnterForeground() {
         LoggingService.log("App will enter foreground")
-        if WKExtension.shared().isApplicationRunningInDock,
-            let c = WKExtension.shared().rootInterfaceController as? InterfaceController {
-            c.refreshPressed()
+        
+        if let c = WKExtension.shared().rootInterfaceController as? InterfaceController {
+            if WKExtension.shared().isApplicationRunningInDock {
+                c.refreshPressed()
+            }
+            
+            c.subscribeToHealthKitUpdates()
         }
     }
     
@@ -51,6 +56,14 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, etc.
         LoggingService.log("App will resign active")
+    }
+    
+    func applicationDidEnterBackground() {
+        LoggingService.log("App will enter background")
+        
+        if let c = WKExtension.shared().rootInterfaceController as? InterfaceController {
+            c.unsubscribeToHealthKitUpdates()
+        }
     }
 
     func complicationUpdateRequested(_ complicationData : [String : AnyObject])

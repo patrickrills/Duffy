@@ -18,15 +18,7 @@ class InterfaceController: WKInterfaceController
     @IBOutlet weak var distanceValueLabel : WKInterfaceLabel?
     @IBOutlet weak var flightsValueLabel : WKInterfaceLabel?
     
-    private let refreshInterval = 3.0
-    private let autoRefreshMax = 10
     private var isQueryInProgress = false
-    private var timer: Timer? {
-        didSet {
-            currentRefreshCount = 0
-        }
-    }
-    private var currentRefreshCount = 0
     
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
@@ -45,11 +37,12 @@ class InterfaceController: WKInterfaceController
     {
         super.didAppear()
         askForHealthKitPermissionAndRefresh()
+        subscribeToHealthKitUpdates()
     }
     
     override func willDisappear() {
         super.willDisappear()
-        stopAutomaticUpdates()
+        unsubscribeToHealthKitUpdates()
     }
     
     private func askForHealthKitPermissionAndRefresh()
@@ -72,7 +65,6 @@ class InterfaceController: WKInterfaceController
             [weak self] success in
             
             if let weakSelf = self, success {
-                weakSelf.startAutomaticUpdates()
                 weakSelf.scheduleSnapshot()
             }
         })
@@ -241,34 +233,31 @@ class InterfaceController: WKInterfaceController
         }
     }
     
-    private func startAutomaticUpdates() {
-        guard timer == nil else {
-            return
-        }
+    func subscribeToHealthKitUpdates() {
+        LoggingService.log("Subscribe to HK updates")
         
-        timer = Timer.scheduledTimer(withTimeInterval: refreshInterval, repeats: true, block: {
-            [weak self] (t: Timer) in
-            
-            if WKExtension.shared().applicationState != .active {
-                return
-            }
-            
-            if let weakSelf = self, !weakSelf.isQueryInProgress, weakSelf.currentRefreshCount < weakSelf.autoRefreshMax {
-                weakSelf.refreshTodayFromHealth({
-                    [weak self] success in
-                    self?.scheduleSnapshot()
-                })
-                weakSelf.currentRefreshCount += 1
+        HealthKitService.getInstance().subscribe(to: HKQuantityTypeIdentifier.stepCount, on: {
+            DispatchQueue.main.async {
+                [weak self] in
+                
+                if WKExtension.shared().applicationState != .active {
+                    return
+                }
+                
+                if let weakSelf = self, !weakSelf.isQueryInProgress {
+                    LoggingService.log("Refreshing from update subscriber")
+                    weakSelf.refreshTodayFromHealth({
+                        [weak self] success in
+                        self?.scheduleSnapshot()
+                    })
+                }
             }
         })
     }
     
-    private func stopAutomaticUpdates() {
-        if let timer = timer {
-            timer.invalidate()
-        }
-        
-        timer = nil
+    func unsubscribeToHealthKitUpdates() {
+        LoggingService.log("Unsubscribe from HK updates")
+        HealthKitService.getInstance().unsubscribe(from: HKQuantityTypeIdentifier.stepCount)
         isQueryInProgress = false
     }
     
