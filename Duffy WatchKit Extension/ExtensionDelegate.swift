@@ -22,7 +22,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
     
     func applicationDidFinishLaunching() {
         LoggingService.log("App did finish launching")
-        startHealthKitObservers()
+        startHealthKitBackgroundQueries()
         NotificationService.maybeAskForNotificationPermission(self)
         if CoreMotionService.getInstance().shouldAskPermission() {
             CoreMotionService.getInstance().askForPermission()
@@ -36,17 +36,11 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
     }
     
     func applicationWillEnterForeground() {
-        LoggingService.log("App will enter foreground - stop observers")
-        stopHealthKitObservers()
+        LoggingService.log("App will enter foreground")
         if WKExtension.shared().isApplicationRunningInDock,
             let c = WKExtension.shared().rootInterfaceController as? InterfaceController {
             c.refreshPressed()
         }
-    }
-    
-    func applicationDidEnterBackground() {
-        LoggingService.log("App did enter background  - restart observers")
-        startHealthKitObservers()
     }
     
     func applicationDidBecomeActive() {
@@ -166,12 +160,8 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
         completionHandler(UNNotificationPresentationOptions.alert)
     }
     
-    private func startHealthKitObservers() {
+    private func startHealthKitBackgroundQueries() {
         HealthKitService.getInstance().initializeBackgroundQueries()
         HealthKitService.getInstance().setEventDelegate(self)
-    }
-    
-    private func stopHealthKitObservers() {
-        HealthKitService.getInstance().stopBackgroundQueries()
     }
 }
