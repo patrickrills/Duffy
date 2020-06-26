@@ -443,6 +443,16 @@ open class HealthKitService
                     WCSessionService.getInstance().updateWatchFaceComplication(["stepsdataresponse" : HealthCache.getStepsDataFromCache() as AnyObject])
                 }
                 
+                if todaysSteps >= HealthCache.getStepsDailyGoal(),
+                    NotificationService.convertDayToKey(startDate) == NotificationService.convertDayToKey(Date())
+                {
+                    HealthCache.incrementGoalReachedCounter()
+                    
+                    if let del = self?.eventDelegate {
+                        del.dailyStepsGoalWasReached()
+                    }
+                }
+                
                 if let sampleId = query.objectType?.identifier,
                     let subscriber = self?.subscribers[sampleId]
                 {
