@@ -12,21 +12,25 @@ import os.log
 open class LoggingService {
     
     open class func log(_ message: String) {
-        log(message: message, extra: nil)
+        log(level: .debug, message: message, extra: nil)
     }
     
     open class func log(_ message: String, with extra: String) {
-        log(message: message, extra: extra)
+        log(level: .debug, message: message, extra: extra)
     }
     
     open class func log(error: Error) {
         let nsError = error as NSError
-        log(message: "Error", extra: String(format: "%@ (%d)", nsError.localizedDescription, nsError.code))
+        log(level: .error, message: "Error", extra: String(format: "%@ (%d)", nsError.localizedDescription, nsError.code))
     }
     
     private static var LOGGING_PREFIX = "Duffy"
     
-    private class func log(message: String, extra: String?) {
+    private class func log(level: LogLevel, message: String, extra: String?) {
+        guard level.shouldLog() else {
+            return
+        }
+        
         var platform = "Watch"
         #if os(iOS)
             platform = "Phone"

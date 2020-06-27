@@ -89,6 +89,8 @@
 		09AACE281D318A390058A814 /* HealthCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09AACE261D318A390058A814 /* HealthCache.swift */; };
 		09AACE2A1D318E5D0058A814 /* WCSessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09AACE291D318E5D0058A814 /* WCSessionService.swift */; };
 		09AACE2B1D318E5D0058A814 /* WCSessionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09AACE291D318E5D0058A814 /* WCSessionService.swift */; };
+		09B20DBD24A7AC400037B300 /* LogLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B20DBC24A7AC3F0037B300 /* LogLevel.swift */; };
+		09B20DBE24A7AC400037B300 /* LogLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B20DBC24A7AC3F0037B300 /* LogLevel.swift */; };
 		09BDDA5E219116740078B749 /* AboutTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BDDA5D219116740078B749 /* AboutTableViewController.swift */; };
 		09BDDA6421978CD20078B749 /* AboutFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BDDA6321978CD20078B749 /* AboutFooterView.swift */; };
 		09BDDA6621978CE90078B749 /* AboutFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09BDDA6521978CE90078B749 /* AboutFooterView.xib */; };
@@ -288,6 +290,7 @@
 		09A7EEAF21A39D7100DEDE5C /* HistoryTrendChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTrendChartView.swift; sourceTree = "<group>"; };
 		09AACE261D318A390058A814 /* HealthCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthCache.swift; sourceTree = "<group>"; };
 		09AACE291D318E5D0058A814 /* WCSessionService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WCSessionService.swift; sourceTree = "<group>"; };
+		09B20DBC24A7AC3F0037B300 /* LogLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogLevel.swift; sourceTree = "<group>"; };
 		09BDDA5D219116740078B749 /* AboutTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutTableViewController.swift; sourceTree = "<group>"; };
 		09BDDA6321978CD20078B749 /* AboutFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutFooterView.swift; sourceTree = "<group>"; };
 		09BDDA6521978CE90078B749 /* AboutFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AboutFooterView.xib; sourceTree = "<group>"; };
@@ -475,10 +478,11 @@
 				0967EB781E7F0ACE0073BF3F /* NotificationService.swift */,
 				090829E124670EEF00F100D6 /* Trophy.swift */,
 				099FE6FF234EB5300092D219 /* LoggingService.swift */,
+				09B20DBC24A7AC3F0037B300 /* LogLevel.swift */,
 				097FB10E23CDEAF5001621D4 /* DebugService.swift */,
 				093A5F0423AEC870007D11E3 /* DebugLogEntry.swift */,
-				099582D0234192C400AF6A96 /* Localizable.strings */,
 				09177BC4241D466E0095ECB4 /* ExportService.swift */,
+				099582D0234192C400AF6A96 /* Localizable.strings */,
 			);
 			path = DuffyFramework;
 			sourceTree = "<group>";
@@ -858,6 +862,7 @@
 				0967EB791E7F0ACE0073BF3F /* NotificationService.swift in Sources */,
 				09AACE2A1D318E5D0058A814 /* WCSessionService.swift in Sources */,
 				092B0E8A1D45841F00085F99 /* CoreMotionService.swift in Sources */,
+				09B20DBD24A7AC400037B300 /* LogLevel.swift in Sources */,
 				097FB10F23CDEAF5001621D4 /* DebugService.swift in Sources */,
 				093A5F0523AEC870007D11E3 /* DebugLogEntry.swift in Sources */,
 				09323D221D23040100961822 /* HealthKitService.swift in Sources */,
@@ -877,6 +882,7 @@
 				0967EB7A1E7F0ACE0073BF3F /* NotificationService.swift in Sources */,
 				09AACE2B1D318E5D0058A814 /* WCSessionService.swift in Sources */,
 				092B0E8B1D45841F00085F99 /* CoreMotionService.swift in Sources */,
+				09B20DBE24A7AC400037B300 /* LogLevel.swift in Sources */,
 				097FB11023CDEAF5001621D4 /* DebugService.swift in Sources */,
 				093A5F0623AEC870007D11E3 /* DebugLogEntry.swift in Sources */,
 				09323D231D23040100961822 /* HealthKitService.swift in Sources */,
