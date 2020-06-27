@@ -25,6 +25,7 @@ open class LoggingService {
     }
     
     private static var LOGGING_PREFIX = "Duffy"
+    private static let logger = OSLog(subsystem: "com.bigbluefly.Duffy", category: LOGGING_PREFIX)
     
     private class func log(level: LogLevel, message: String, extra: String?) {
         guard level.shouldLog() else {
@@ -37,9 +38,9 @@ open class LoggingService {
         #endif
         
         if let extra = extra {
-            os_log("%{public}@|%{public}@ %{public}@: %{public}@", LOGGING_PREFIX, platform, message, extra)
+            os_log("%{public}@ %{public}@: %{public}@", log: logger, platform, message, extra)
         } else {
-            os_log("%{public}@|%{public}@ %{public}@", LOGGING_PREFIX, platform, message)
+            os_log("%{public}@ %{public}@", log: logger, platform, message)
         }
         
         if DebugService.isDebugModeEnabled() {
