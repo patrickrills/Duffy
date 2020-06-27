@@ -105,7 +105,9 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
                         },
                         onFailure: {
                             [weak self] (error: Error?) in
-                            LoggingService.log("Error getting steps in background task")
+                            if let error = error {
+                                LoggingService.log(error: error)
+                            }
                             self?.complete(task: t)
                         })
                     }

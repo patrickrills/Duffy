@@ -76,9 +76,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
             steps = HealthCache.getStepsFromCache(Date())
         }
         
-        if Constants.isDebugMode {
-            LoggingService.log("Complication getCurrentTimelineEntry", with: String(format: "%d", HealthCache.getStepsFromCache(Date())))
-        }
+        LoggingService.log("Complication getCurrentTimelineEntry", with: String(format: "%d", HealthCache.getStepsFromCache(Date())))
         
         handler(entry(for: complication, withStepsCount: steps))
     }
@@ -583,7 +581,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         }
         else
         {
-            LoggingService.log("Complication reloadTimeline but no active found")
+            LoggingService.log("Complication reloadTimeline but no active found", at: .debug)
         }
     }
     

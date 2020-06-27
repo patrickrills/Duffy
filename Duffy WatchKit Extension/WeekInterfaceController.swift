@@ -25,12 +25,9 @@ class WeekInterfaceController: WKInterfaceController
     private func retrieveRecentSteps()
     {
         guard let startDate = HealthKitService.getInstance().earliestQueryDate() else {
-            LoggingService.log("HealthKit earliest date could not be retrieved")
             showErrorState()
             return
         }
-        
-        LoggingService.log("Start retrieving steps history", with: startDate.debugDescription)
         
         HealthKitService.getInstance().getSteps(startDate, toEndDate: Date(), onRetrieve: {
             (stepsCollection: [Date : Int]) in
@@ -40,13 +37,7 @@ class WeekInterfaceController: WKInterfaceController
             dateFormatter.dateFormat = "eee"
             
             let sortedKeys = stepsCollection.keys.sorted(by: >)
-            
-            if sortedKeys.count > 0 {
-                LoggingService.log("Steps history retrieved - last", with: String(describing: stepsCollection[sortedKeys[0]]))
-            } else {
-                LoggingService.log("No steps history found")
-            }
-            
+    
             let data: [WeekRowData] = sortedKeys.map({
                 let title = dateFormatter.string(from: $0).uppercased()
                 var value = "0"

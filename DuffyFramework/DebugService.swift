@@ -17,7 +17,11 @@ open class DebugService {
             return true
         }
         
-        return UserDefaults.standard.bool(forKey: DEBUG_MODE_KEY)
+        #if targetEnvironment(simulator)
+            return true
+        #else
+            return UserDefaults.standard.bool(forKey: DEBUG_MODE_KEY)
+        #endif
     }
     
     open class func toggleDebugMode() {
