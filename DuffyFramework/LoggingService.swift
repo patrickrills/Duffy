@@ -12,7 +12,11 @@ import os.log
 open class LoggingService {
     
     open class func log(_ message: String) {
-        log(level: .debug, message: message, extra: nil)
+        log(level: .tracing, message: message, extra: nil)
+    }
+    
+    open class func log(_ message: String, at level: LogLevel) {
+        log(level: level, message: message, extra: nil)
     }
     
     open class func log(_ message: String, with extra: String) {

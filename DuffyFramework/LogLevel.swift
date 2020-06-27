@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum LogLevel {
+public enum LogLevel {
     case tracing, debug, error
     
     public func shouldLog() -> Bool {

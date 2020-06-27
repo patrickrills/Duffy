@@ -36,14 +36,11 @@ open class WCSessionService : NSObject, WCSessionDelegate
     @available(watchOS 2.2, *)
     public func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
         if activationState == .activated {
-            LoggingService.log("WCSession activated")
             delegate?.sessionWasActivated?()
         } else {
-            var errorMessage = "none"
             if let e = error {
-                errorMessage = e.localizedDescription
+                LoggingService.log(error: e)
             }
-            LoggingService.log("WCSession NOT activated", with: errorMessage)
             delegate?.sessionWasNotActivated?()
         }
     }
@@ -110,12 +107,12 @@ open class WCSessionService : NSObject, WCSessionDelegate
                         LoggingService.log("Send data to watch, remaining transfers", with: remaining.description)
                         WCSession.default.transferCurrentComplicationUserInfo(complicationData)
                     } else {
-                        LoggingService.log("Complication NOT enabled")
+                        LoggingService.log("Complication NOT enabled", at: .debug)
                     }
                 }
                 else
                 {
-                    LoggingService.log("WCSession NOT activated")
+                    LoggingService.log("WCSession NOT activated", at: .debug)
                 }
             }
         #endif
@@ -167,9 +164,8 @@ open class WCSessionService : NSObject, WCSessionDelegate
                                                 onCompletion(true)
                                               },
                                               errorHandler: { (err: Error?) in
-                                                if let e = err
-                                                {
-                                                    LoggingService.log("send message error", with: e.localizedDescription)
+                                                if let e = err {
+                                                    LoggingService.log(error: e)
                                                 }
                                                 onCompletion(false)
                 })
@@ -178,14 +174,12 @@ open class WCSessionService : NSObject, WCSessionDelegate
     }
     
     open func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Void) {
-        LoggingService.log("Message received didReceiveMessage replyHandler")
         handle(message: message)
         replyHandler(["received" : Int(1)])
     }
     
     open func session(_ session: WCSession, didReceiveMessage message: [String : Any])
     {
-        LoggingService.log("Message received didReceiveMessage")
         handle(message: message)
     }
     
@@ -193,7 +187,7 @@ open class WCSessionService : NSObject, WCSessionDelegate
     {
         LoggingService.log("Message received didReceiveUserInfo")
         #if os(watchOS)
-            CoreMotionService.getInstance().updateStepsForToday(from: "didReceiveUserInfo", completion: { LoggingService.log("Successfully refreshed steps on didReceiveUserInfo") })
+            CoreMotionService.getInstance().updateStepsForToday(from: "didReceiveUserInfo", completion: { LoggingService.log("Successfully refreshed steps on didReceiveUserInfo", at: .debug) })
         #endif
         handle(message: userInfo)
     }
@@ -236,10 +230,6 @@ open class WCSessionService : NSObject, WCSessionDelegate
                         {
                             NotificationService.sendDailyStepsGoalNotification()
                         }
-                    }
-                    else
-                    {
-                        LoggingService.log("Did not save steps from received message")
                     }
                 }
             }
