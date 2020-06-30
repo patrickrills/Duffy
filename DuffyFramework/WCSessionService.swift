@@ -106,16 +106,6 @@ open class WCSessionService : NSObject, WCSessionDelegate
                         WCSession.default.transferCurrentComplicationUserInfo(complicationData)
                         let remaining = WCSession.default.remainingComplicationUserInfoTransfers
                         LoggingService.log("Requested to send data to watch, remaining transfers", with: remaining.description)
-                        
-                        if Constants.isDebugMode {
-                            //Log transfer status
-                            var outstandingLog = ""
-                            WCSession.default.outstandingUserInfoTransfers.forEach({
-                                outstandingLog += $0.isCurrentComplicationInfo ? "Complication Info: " : "Regular Info: "
-                                outstandingLog += $0.isTransferring ? "Transferring | " : "Pending | "
-                            })
-                            LoggingService.log("Trnasfer status", with: outstandingLog)
-                        }
                     } else {
                         LoggingService.log("Complication NOT enabled", at: .debug)
                     }
