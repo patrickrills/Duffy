@@ -410,12 +410,11 @@ open class HealthKitService
         let today = getQueryDate(from: Date())
         guard let sinceDate = today else { return nil }
         
-        let sinceDatePredicate = HKQuery.predicateForSamples(withStart: sinceDate, end: nil, options: .strictEndDate)
         var interval = DateComponents()
         interval.day = 1
         
         let statsQuery = HKStatisticsCollectionQuery(quantityType: quantityType,
-                                                quantitySamplePredicate: sinceDatePredicate,
+                                                quantitySamplePredicate: nil,
                                                 options: .cumulativeSum,
                                                 anchorDate: sinceDate,
                                                 intervalComponents: interval)
