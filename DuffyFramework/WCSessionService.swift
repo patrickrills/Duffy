@@ -187,7 +187,7 @@ open class WCSessionService : NSObject, WCSessionDelegate
     {
         LoggingService.log("Message received didReceiveUserInfo")
         #if os(watchOS)
-            CoreMotionService.getInstance().updateStepsForToday(from: "didReceiveUserInfo", completion: { LoggingService.log("Successfully refreshed steps on didReceiveUserInfo", at: .debug) })
+            updateSteps()
         #endif
         handle(message: userInfo)
     }
@@ -257,6 +257,25 @@ open class WCSessionService : NSObject, WCSessionDelegate
             {
                 DebugService.toggleDebugMode()
             }
+        }
+    }
+    
+    fileprivate func updateSteps() {
+        if CoreMotionService.getInstance().isEnabled() {
+            CoreMotionService.getInstance().updateStepsForToday(from: "didReceiveUserInfo", completion: { LoggingService.log("Successfully refreshed steps on didReceiveUserInfo", at: .debug) })
+        } else {
+            HealthKitService.getInstance().getSteps(Date(), onRetrieve: {
+                (steps: Int, forDay: Date) in
+                if (HealthCache.saveStepsToCache(steps, forDay: forDay)) {
+                    WCSessionService.getInstance().updateWatchFaceComplication(["stepsdataresponse" : HealthCache.getStepsDataFromCache() as AnyObject])
+                }
+            },
+            onFailure: {
+                (error: Error?) in
+                if let error = error {
+                    LoggingService.log(error: error)
+                }
+            })
         }
     }
 }
