@@ -234,7 +234,10 @@ class InterfaceController: WKInterfaceController
     }
     
     func subscribeToHealthKitUpdates() {
-        LoggingService.log("Subscribe to HK updates")
+        if let healthDelegate = WKExtension.shared().delegate as? ExtensionDelegate {
+            HealthKitService.getInstance().setEventDelegate(healthDelegate)
+        }
+        HealthKitService.getInstance().initializeBackgroundQueries()
         
         HealthKitService.getInstance().subscribe(to: HKQuantityTypeIdentifier.stepCount, on: {
             DispatchQueue.main.async {
@@ -256,7 +259,6 @@ class InterfaceController: WKInterfaceController
     }
     
     func unsubscribeToHealthKitUpdates() {
-        LoggingService.log("Unsubscribe from HK updates")
         HealthKitService.getInstance().unsubscribe(from: HKQuantityTypeIdentifier.stepCount)
         isQueryInProgress = false
     }

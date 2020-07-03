@@ -174,7 +174,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
     }
     
     private func startHealthKitBackgroundQueries() {
-        HealthKitService.getInstance().initializeBackgroundQueries()
         HealthKitService.getInstance().setEventDelegate(self)
+        HealthKitService.getInstance().initializeBackgroundQueries()
     }
 }
