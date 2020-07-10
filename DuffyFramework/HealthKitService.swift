@@ -15,6 +15,7 @@ open class HealthKitService
     private var healthStore: HKHealthStore?
     private var eventDelegate: HealthEventDelegate?
     private var observerQueries = [String : HKObserverQuery]()
+    private var statisticsQueries = [String : HKStatisticsCollectionQuery]()
     private var subscribers = [String : HealthKitSubscriber]()
     public private(set) var shouldRestartObservers: Bool = false
 
@@ -290,24 +291,22 @@ open class HealthKitService
     
     open func initializeBackgroundQueries()
     {
-        if let store = healthStore
+        if let store = healthStore, let stepsType = HKQuantityType.quantityType(forIdentifier: .stepCount)
         {
-            LoggingService.log("App is starting observers")
-            
             DispatchQueue.main.async {
                 self.shouldRestartObservers = false
             }
             
-            if let stepsType = HKQuantityType.quantityType(forIdentifier: .stepCount)
-            {
-                let key = "steps"
-                let query = createObserverQuery(key: key, sampleType: stepsType, store: store)
-                observerQueries[key] = query
-                store.execute(query)
-                enableBackgroundQueryOnPhone(for: stepsType, at: .hourly, in: store)
-            }
+            let stepsKey = "steps"
             
             #if os(iOS)
+                LoggingService.log("App is starting observers")
+            
+                let query = createObserverQuery(key: stepsKey, sampleType: stepsType, store: store)
+                observerQueries[stepsKey] = query
+                store.execute(query)
+                enableBackgroundQueryOnPhone(for: stepsType, at: .hourly, in: store)
+
                 if let activeType = HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned) {
                     let key = "activeEnergy"
                     let query = createObserverQuery(key: key, sampleType: activeType, store: store)
@@ -315,8 +314,29 @@ open class HealthKitService
                     store.execute(query)
                     enableBackgroundQueryOnPhone(for: activeType, at: .immediate, in: store)
                 }
+            #elseif os(watchOS)
+                LoggingService.log("App is starting stats queries")
+            
+                if let statsQuery = createUpdatingStatisticsQuery(key: stepsKey, quantityType: stepsType, store: store) {
+                    statisticsQueries[stepsKey] = statsQuery
+                    store.execute(statsQuery)
+                }
             #endif
         }
+    }
+    
+    open func stopBackgroundQueries() {
+        guard let healthStore = healthStore else { return }
+        
+        observerQueries.forEach({
+            healthStore.stop($1)
+        })
+        observerQueries.removeAll()
+        
+        statisticsQueries.forEach({
+            healthStore.stop($1)
+        })
+        statisticsQueries.removeAll()
     }
     
     private func createObserverQuery(key: String, sampleType: HKSampleType, store: HKHealthStore) -> HKObserverQuery
@@ -379,6 +399,85 @@ open class HealthKitService
                 }
             })
         #endif
+    }
+    
+    private func createUpdatingStatisticsQuery(key: String, quantityType: HKQuantityType, store: HKHealthStore) -> HKStatisticsCollectionQuery?
+    {
+        if let oldQuery = statisticsQueries.removeValue(forKey: key) {
+            store.stop(oldQuery)
+        }
+        
+        let today = getQueryDate(from: Date())
+        guard let sinceDate = today else { return nil }
+        
+        var interval = DateComponents()
+        interval.day = 1
+        
+        let statsQuery = HKStatisticsCollectionQuery(quantityType: quantityType,
+                                                quantitySamplePredicate: nil,
+                                                options: .cumulativeSum,
+                                                anchorDate: sinceDate,
+                                                intervalComponents: interval)
+        
+        let resultsHandler: (HKStatisticsCollectionQuery, HKStatisticsCollection?, Error?) -> Void = { [weak self] query, results, error in
+            if let results = results,
+                error == nil,
+                let startDate = self?.getQueryDate(from: Date()),
+                let endDate = self?.getQueryEndDate(fromStartDate: startDate)
+            {
+                var todaysSteps: Int = 0
+                
+                results.enumerateStatistics(from: startDate, to: endDate) {
+                    statistics, stop in
+                    
+                    if let quantity = statistics.sumQuantity() {
+                        todaysSteps += Int(quantity.doubleValue(for: HKUnit.count()))
+                    }
+                }
+                
+                LoggingService.log(String(format: "Steps retrieved by %@ stats query", key), with: String(format: "%d", todaysSteps))
+                
+                if (HealthCache.saveStepsToCache(todaysSteps, forDay: startDate)) {
+                    LoggingService.log(String(format: "updateWatchFaceComplication from %@ stats query", key), with: String(format: "%d", todaysSteps))
+                    WCSessionService.getInstance().updateWatchFaceComplication(["stepsdataresponse" : HealthCache.getStepsDataFromCache() as AnyObject])
+                }
+                
+                if todaysSteps >= HealthCache.getStepsDailyGoal(),
+                    NotificationService.convertDayToKey(startDate) == NotificationService.convertDayToKey(Date())
+                {
+                    HealthCache.incrementGoalReachedCounter()
+                    
+                    if let del = self?.eventDelegate {
+                        del.dailyStepsGoalWasReached()
+                    }
+                }
+                
+                if let sampleId = query.objectType?.identifier,
+                    let subscriber = self?.subscribers[sampleId]
+                {
+                    subscriber.updateHandler()
+                }
+            }
+            else if let error = error
+            {
+                LoggingService.log(error: error)
+                
+                let nsUpdateError = error as NSError
+                //Error code 5 is 'authorization not determined'. Permission hasn't been granted yet
+                if nsUpdateError.code == 5 && nsUpdateError.domain == "com.apple.healthkit" {
+                    DispatchQueue.main.async {
+                        self?.shouldRestartObservers = true
+                    }
+                }
+            }
+        }
+        
+        statsQuery.initialResultsHandler = resultsHandler
+        statsQuery.statisticsUpdateHandler = { query, stats, results, error in
+            resultsHandler(query, results, error)
+        }
+        
+        return statsQuery
     }
     
     open func cacheTodaysStepsAndUpdateComplication(_ onComplete: ((_ success: Bool) -> (Void))?)

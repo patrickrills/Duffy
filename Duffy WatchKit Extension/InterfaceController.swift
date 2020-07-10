@@ -18,15 +18,7 @@ class InterfaceController: WKInterfaceController
     @IBOutlet weak var distanceValueLabel : WKInterfaceLabel?
     @IBOutlet weak var flightsValueLabel : WKInterfaceLabel?
     
-    private let refreshInterval = 3.0
-    private let autoRefreshMax = 10
     private var isQueryInProgress = false
-    private var timer: Timer? {
-        didSet {
-            currentRefreshCount = 0
-        }
-    }
-    private var currentRefreshCount = 0
     
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
@@ -45,11 +37,12 @@ class InterfaceController: WKInterfaceController
     {
         super.didAppear()
         askForHealthKitPermissionAndRefresh()
+        subscribeToHealthKitUpdates()
     }
     
     override func willDisappear() {
         super.willDisappear()
-        stopAutomaticUpdates()
+        unsubscribeToHealthKitUpdates()
     }
     
     private func askForHealthKitPermissionAndRefresh()
@@ -66,25 +59,12 @@ class InterfaceController: WKInterfaceController
             }, onFailure: { })
     }
     
-    func maybeTurnOverComplicationDate() {
-        //reset display if day turned over
-        if (HealthCache.cacheIsForADifferentDay(Date()))
-        {
-            display(steps: 0)
-            scheduleSnapshot()
-            if let d = WKExtension.shared().delegate as? ExtensionDelegate {
-                d.complicationUpdateRequested([:])
-            }
-        }
-    }
-    
     private func refresh()
     {
         refreshTodayFromHealth({
             [weak self] success in
             
             if let weakSelf = self, success {
-                weakSelf.startAutomaticUpdates()
                 weakSelf.scheduleSnapshot()
             }
         })
@@ -141,7 +121,9 @@ class InterfaceController: WKInterfaceController
     {
         HealthKitService.getInstance().getSteps(Date(),
             onRetrieve: {
-                (stepsCount: Int, forDate: Date) in
+                [weak self] (stepsCount: Int, forDate: Date) in
+                
+                self?.maybeUpdateComplication(with: stepsCount, for: forDate)
                 
                 DispatchQueue.main.async {
                     [weak self] in
@@ -251,34 +233,49 @@ class InterfaceController: WKInterfaceController
         }
     }
     
-    private func startAutomaticUpdates() {
-        guard timer == nil else {
-            return
+    func subscribeToHealthKitUpdates() {
+        if let healthDelegate = WKExtension.shared().delegate as? ExtensionDelegate {
+            HealthKitService.getInstance().setEventDelegate(healthDelegate)
         }
+        HealthKitService.getInstance().initializeBackgroundQueries()
         
-        timer = Timer.scheduledTimer(withTimeInterval: refreshInterval, repeats: true, block: {
-            [weak self] (t: Timer) in
-            
-            if WKExtension.shared().applicationState != .active {
-                return
-            }
-            
-            if let weakSelf = self, !weakSelf.isQueryInProgress, weakSelf.currentRefreshCount < weakSelf.autoRefreshMax {
-                weakSelf.refreshTodayFromHealth({
-                    [weak self] success in
-                    self?.scheduleSnapshot()
-                })
-                weakSelf.currentRefreshCount += 1
+        HealthKitService.getInstance().subscribe(to: HKQuantityTypeIdentifier.stepCount, on: {
+            DispatchQueue.main.async {
+                [weak self] in
+                
+                if WKExtension.shared().applicationState != .active {
+                    return
+                }
+                
+                if let weakSelf = self, !weakSelf.isQueryInProgress {
+                    LoggingService.log("Refreshing from update subscriber")
+                    weakSelf.refreshTodayFromHealth({
+                        [weak self] success in
+                        self?.scheduleSnapshot()
+                    })
+                }
             }
         })
     }
     
-    private func stopAutomaticUpdates() {
-        if let timer = timer {
-            timer.invalidate()
+    func unsubscribeToHealthKitUpdates() {
+        HealthKitService.getInstance().unsubscribe(from: HKQuantityTypeIdentifier.stepCount)
+        isQueryInProgress = false
+    }
+    
+    private func maybeTurnOverComplicationDate() {
+        //reset display if day turned over
+        if (HealthCache.cacheIsForADifferentDay(Date())) {
+            display(steps: 0)
+            maybeUpdateComplication(with: 0, for: Date())
         }
-        
-        timer = nil
+    }
+    
+    private func maybeUpdateComplication(with stepCount: Int, for day: Date) {
+        if HealthCache.saveStepsToCache(stepCount, forDay: day) {
+            LoggingService.log("Update complication from watch UI", with: "\(stepCount)")
+            ComplicationController.refreshComplication()
+        }
     }
     
     @IBAction func refreshPressed()

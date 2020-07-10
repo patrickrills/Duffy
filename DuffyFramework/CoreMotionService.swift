@@ -99,10 +99,11 @@ open class CoreMotionService
                     [weak self] data, error in
                     if let stepData = data {
                         let cmSteps = stepData.numberOfSteps.intValue
-                        let cmStartDate = stepData.endDate
+                        let cmDate = stepData.endDate
                         LoggingService.log(String(format: "CMPedometer steps from %@", source), with: String(format: "%d", cmSteps))
-                        if (HealthCache.saveStepsToCache(cmSteps, forDay: cmStartDate)) {
+                        if (HealthCache.saveStepsToCache(cmSteps, forDay: cmDate)) {
                             self?.forceComplicationUpdate(from: String(format: "CMPedometer steps from %@", source))
+                            self?.maybeSendGoalNotification(for: cmSteps, on: cmDate)
                         }
                     }
                     
@@ -130,6 +131,7 @@ open class CoreMotionService
             if (HealthCache.saveStepsToCache(steps, forDay: forDay))
             {
                 self?.forceComplicationUpdate(from: source)
+                self?.maybeSendGoalNotification(for: steps, on: forDay)
             }
             else
             {
@@ -153,5 +155,12 @@ open class CoreMotionService
         }
         LoggingService.log(String(format: "updateWatchFaceComplication from %@", source), with: logSteps)
         WCSessionService.getInstance().updateWatchFaceComplication(["stepsdataresponse" : cache as AnyObject])
+    }
+    
+    private func maybeSendGoalNotification(for steps: Int, on day: Date) {
+        if steps >= HealthCache.getStepsDailyGoal(), NotificationService.convertDayToKey(day) == NotificationService.convertDayToKey(Date()) {
+            HealthCache.incrementGoalReachedCounter()
+            NotificationService.sendDailyStepsGoalNotification()
+        }
     }
 }
