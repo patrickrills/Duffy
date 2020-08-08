@@ -10,8 +10,8 @@ import UIKit
 
 class HistoryTrendChartTableViewCell: UITableViewCell
 {
-    @IBOutlet weak var averageLabel : UILabel?
-    @IBOutlet weak var chart : HistoryTrendChartView?
+    @IBOutlet weak var averageLabel : UILabel!
+    @IBOutlet weak var chart : HistoryTrendChartView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
