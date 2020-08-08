@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import DuffyFramework
 
 class HistoryTrendChartTableViewCell: UITableViewCell
 {
@@ -30,6 +31,10 @@ class HistoryTrendChartTableViewCell: UITableViewCell
         
         if let numberRange = averageAttributed.string.range(of: averageFormatted) {
             averageAttributed.addAttribute(.font, value: UIFont.systemFont(ofSize: 24.0, weight: .medium), range: NSRange(numberRange, in: averageAttributed.string))
+        }
+        
+        if DebugService.isDebugModeEnabled() {
+            averageAttributed.addAttribute(.foregroundColor, value: Globals.averageColor(), range: NSRange(location: 0, length: averageAttributed.string.count))
         }
         
         averageLabel?.attributedText = averageAttributed

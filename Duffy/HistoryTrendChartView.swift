@@ -93,7 +93,7 @@ class HistoryTrendChartView: UIView
     
     private func drawAverageLine(with plot: Plot, in rect: CGRect) {
         guard let averageY = plot.averageY else { return }
-        drawDottedLine(from: 0.0, to: rect.size.width, at: averageY, in: .magenta)
+        drawDottedLine(from: 0.0, to: rect.size.width, at: averageY, in: Globals.averageColor())
     }
     
     private func drawDottedLine(from x1: CGFloat, to x2: CGFloat, at y: CGFloat, in color: UIColor) {
