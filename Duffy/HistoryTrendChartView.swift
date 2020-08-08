@@ -36,19 +36,24 @@ class HistoryTrendChartView: UIView
             let maxSteps = dataSet.values.max()
             let topRange = Double(max(maxSteps!, goalSteps)) * 1.2
             let widthOfDay = Double(rect.width) / Double(dataSet.count)
-            goalLineY = rect.size.height - CGFloat(floor((Double(goalSteps) / topRange) * Double(rect.size.height)))
+            
+            let translateY: (Int) -> (CGFloat) = { steps in
+                return rect.size.height - CGFloat(floor((Double(steps) / topRange) * Double(rect.size.height)))
+            }
+            
+            goalLineY = translateY(goalSteps)
             
             for (index, day) in dataSet.keys.sorted().enumerated() {
                 let stepsForDay = dataSet[day]!
-                let dayY = Double(rect.size.height) - (Double(stepsForDay) / topRange) * Double(rect.size.height)
-                let dayX = widthOfDay * Double(index) + floor(widthOfDay * 0.5)
+                let dayY: Double = Double(translateY(stepsForDay))
+                let dayX: Double = widthOfDay * Double(index) + floor(widthOfDay * 0.5)
                 points.append(CGPoint(x: dayX, y: dayY))
             }
             
             //TODO: check to see if average line option is enabled
             if DebugService.isDebugModeEnabled() {
                 let average = dataSet.values.reduce(0, +) / dataSet.count
-                averageY = rect.size.height - CGFloat(floor((Double(average) / topRange) * Double(rect.size.height)))
+                averageY = translateY(average)
             }
         }
         
