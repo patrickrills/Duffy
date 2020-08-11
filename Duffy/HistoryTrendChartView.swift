@@ -11,13 +11,20 @@ import DuffyFramework
 
 class HistoryTrendChartView: UIView
 {
+    private enum DrawingConstants {
+        static let PADDING: CGFloat = 8.0
+        static let LABEL_WIDTH: CGFloat = 20.0
+        static let DOTTED_LINE_MARGIN: CGFloat = (PADDING + LABEL_WIDTH + 2.0) //padding + Label width + extra so the line doesn't touch the label
+        static let GRAPH_INSETS = UIEdgeInsets(top: 0.0, left: PADDING + 15.0, bottom: 0.0, right: PADDING + 15.0)
+    }
+    
+    typealias Plot = (points: [CGPoint], goalY: CGFloat, averageY: CGFloat?)
+    
     var dataSet : [Date : Int] = [:] {
         didSet {
             setNeedsDisplay()
         }
     }
-    
-    typealias Plot = (points: [CGPoint], goalY: CGFloat, averageY: CGFloat?)
     
     override func draw(_ rect: CGRect) {
         let graphPlot = plot(in: rect)
@@ -27,6 +34,7 @@ class HistoryTrendChartView: UIView
     }
     
     private func plot(in rect: CGRect) -> Plot {
+        let activeArea = CGRect(x: DrawingConstants.GRAPH_INSETS.left, y: DrawingConstants.GRAPH_INSETS.top, width: rect.width - (DrawingConstants.GRAPH_INSETS.left + DrawingConstants.GRAPH_INSETS.right), height: rect.height - (DrawingConstants.GRAPH_INSETS.top + DrawingConstants.GRAPH_INSETS.bottom))
         let goalSteps = HealthCache.getStepsDailyGoal()
         var goalLineY: CGFloat = rect.size.height / 2.0
         var averageY: CGFloat? = nil
@@ -35,10 +43,10 @@ class HistoryTrendChartView: UIView
         if (dataSet.count > 0) {
             let maxSteps = dataSet.values.max()
             let topRange = Double(max(maxSteps!, goalSteps)) * 1.2
-            let widthOfDay = Double(rect.width) / Double(dataSet.count)
+            let widthOfDay = Double(activeArea.width) / Double(dataSet.count)
             
             let translateY: (Int) -> (CGFloat) = { steps in
-                return rect.size.height - CGFloat(floor((Double(steps) / topRange) * Double(rect.size.height)))
+                return activeArea.height - CGFloat(floor((Double(steps) / topRange) * Double(activeArea.height)))
             }
             
             goalLineY = translateY(goalSteps)
@@ -46,7 +54,7 @@ class HistoryTrendChartView: UIView
             for (index, day) in dataSet.keys.sorted().enumerated() {
                 let stepsForDay = dataSet[day]!
                 let dayY: Double = Double(translateY(stepsForDay))
-                let dayX: Double = widthOfDay * Double(index) + floor(widthOfDay * 0.5)
+                let dayX: Double = (widthOfDay * Double(index) + floor(widthOfDay * 0.5)) + Double(DrawingConstants.GRAPH_INSETS.left)
                 points.append(CGPoint(x: dayX, y: dayY))
             }
             
@@ -92,19 +100,24 @@ class HistoryTrendChartView: UIView
     private func drawGoalLine(with plot: Plot, in rect: CGRect) {
         let shoe = NSAttributedString(string: Trophy.shoe.symbol(), attributes: [.font : UIFont.systemFont(ofSize: UIFont.systemFontSize)])
         let shoeSize = shoe.size()
-        drawDottedLine(from: shoeSize.width + 1, to: rect.size.width, at: plot.goalY, in: Globals.lightGrayColor())
-        shoe.draw(at: CGPoint(x: 0, y: plot.goalY - (shoeSize.height / 2.0)))
+        let shoeOrigin = CGPoint(x: DrawingConstants.PADDING, y: plot.goalY - (shoeSize.height / 2.0))
+        drawDottedLine(at: plot.goalY, in: Globals.lightGrayColor())
+        shoe.draw(at: shoeOrigin)
     }
     
     private func drawAverageLine(with plot: Plot, in rect: CGRect) {
         guard let averageY = plot.averageY else { return }
-        drawDottedLine(from: 0.0, to: rect.size.width, at: averageY, in: Globals.averageColor())
+        //TODO: find japanese translation of average
+        let avgText = NSAttributedString(string: "avg", attributes: [.font : UIFont.systemFont(ofSize: 12.0), .foregroundColor: Globals.averageColor()])
+        let avgTextOrigin = CGPoint(x: rect.width - DrawingConstants.LABEL_WIDTH - DrawingConstants.PADDING, y: averageY - (avgText.size().height / 2.0) - 1.0)
+        drawDottedLine(at: averageY, in: Globals.averageColor())
+        avgText.draw(at: avgTextOrigin)
     }
     
-    private func drawDottedLine(from x1: CGFloat, to x2: CGFloat, at y: CGFloat, in color: UIColor) {
+    private func drawDottedLine(at y: CGFloat, in color: UIColor) {
         let dotted = UIBezierPath()
-        dotted.move(to: CGPoint(x: x1, y: y))
-        dotted.addLine(to: CGPoint(x: x2, y: y))
+        dotted.move(to: CGPoint(x: DrawingConstants.DOTTED_LINE_MARGIN, y: y))
+        dotted.addLine(to: CGPoint(x: self.frame.size.width - DrawingConstants.DOTTED_LINE_MARGIN, y: y))
         dotted.lineWidth = 1.0
         dotted.setLineDash([2.0, 2.0], count: 2, phase: 0.0)
         color.setStroke()
