@@ -18,7 +18,7 @@ class HistoryTrendChartView: UIView
         static let GRAPH_INSETS = UIEdgeInsets(top: 0.0, left: PADDING + 15.0, bottom: 0.0, right: PADDING + 15.0)
     }
     
-    typealias Plot = (points: [CGPoint], goalY: CGFloat, averageY: CGFloat?)
+    typealias Plot = (points: [CGPoint], goalY: CGFloat, averageY: CGFloat?, trend: [CGPoint]?)
     
     var dataSet : [Date : Int] = [:] {
         didSet {
@@ -29,6 +29,7 @@ class HistoryTrendChartView: UIView
     override func draw(_ rect: CGRect) {
         let graphPlot = plot(in: rect)
         drawDataLine(with: graphPlot, in: rect)
+        drawTrendLine(with: graphPlot, in: rect)
         drawGoalLine(with: graphPlot, in: rect)
         drawAverageLine(with: graphPlot, in: rect)
     }
@@ -38,6 +39,7 @@ class HistoryTrendChartView: UIView
         let goalSteps = HealthCache.getStepsDailyGoal()
         var goalLineY: CGFloat = rect.size.height / 2.0
         var averageY: CGFloat? = nil
+        var trend: [CGPoint]? = nil
         var points = [CGPoint]()
         
         if (dataSet.count > 0) {
@@ -60,12 +62,30 @@ class HistoryTrendChartView: UIView
             
             //TODO: check to see if average line option is enabled
             if DebugService.isDebugModeEnabled() {
-                let average = dataSet.values.reduce(0, +) / dataSet.count
-                averageY = translateY(average)
+                averageY = translateY(Int(dataSet.values.mean()))
+            }
+            
+            //TODO: check to see if trend line option is enabled
+            if DebugService.isDebugModeEnabled() {
+                let xMean = points.map(\.x).mean()
+                let yMean = points.map(\.y).mean()
+                let calculateSlope: ([CGPoint]) -> (CGFloat) = { p in
+                    var slopeParts: (numerator: CGFloat, demoninator: CGFloat) = (0.0, 0.0)
+                    slopeParts = p.reduce(into: slopeParts, { result, point in
+                        result.numerator += (point.x - xMean) * (point.y - yMean)
+                        result.demoninator += pow((point.x - xMean), 2)
+                    })
+                    return slopeParts.numerator / slopeParts.demoninator
+                }
+                let slope = calculateSlope(points)
+                let yIntercept = yMean - (slope * xMean)
+                trend = points.map({
+                    CGPoint(x: $0.x, y: (slope * $0.x) + yIntercept)
+                })
             }
         }
         
-        return Plot(points: points, goalY: goalLineY, averageY: averageY)
+        return Plot(points: points, goalY: goalLineY, averageY: averageY, trend: trend)
     }
     
     private func drawDataLine(with plot: Plot, in rect: CGRect) {
@@ -95,6 +115,22 @@ class HistoryTrendChartView: UIView
             Globals.primaryColor().setStroke()
             dataLine.stroke()
         }
+    }
+    
+    private func drawTrendLine(with plot: Plot, in rect: CGRect) {
+        guard let trendPoints = plot.trend, trendPoints.count > 0 else { return }
+        
+        let trendLine = UIBezierPath()
+        trendLine.lineWidth = 1.5
+        trendPoints.forEach({
+            if trendLine.isEmpty {
+                trendLine.move(to: $0)
+            } else {
+                trendLine.addLine(to: $0)
+            }
+        })
+        Globals.trendColor().setStroke()
+        trendLine.stroke()
     }
     
     private func drawGoalLine(with plot: Plot, in rect: CGRect) {

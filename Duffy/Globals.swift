@@ -82,6 +82,15 @@ enum Globals
         return .systemPurple
     }
     
+    static func trendColor() -> UIColor
+    {
+        if let trendColor = UIColor(named: "TrendColor") {
+            return trendColor
+        }
+        
+        return .systemTeal
+    }
+    
     static func lightGrayColor() -> UIColor
     {
         if #available(iOS 13.0, *) {

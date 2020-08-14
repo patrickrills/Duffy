@@ -20,12 +20,7 @@ class HistoryTrendChartTableViewCell: UITableViewCell
     }
     
     func bind(to stepsByDay: [Date : Int]) {
-        var average : Int = 0
-        
-        if stepsByDay.count > 0 {
-            average = stepsByDay.values.reduce(0, +) / stepsByDay.count
-        }
-        
+        let average = Int(stepsByDay.values.mean())
         let averageFormatted = Globals.stepsFormatter().string(from: NSNumber(value: average))!
         let averageAttributed = NSMutableAttributedString(string: String(format: NSLocalizedString("%@ daily average", comment: ""), averageFormatted))
         

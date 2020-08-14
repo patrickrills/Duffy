@@ -29,6 +29,8 @@
 		09289C7E20DDFF56005BF6B8 /* MainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09289C7D20DDFF56005BF6B8 /* MainTableViewController.swift */; };
 		09289C8020DE0AD8005BF6B8 /* TodayHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09289C7F20DE0AD8005BF6B8 /* TodayHeaderView.swift */; };
 		09289C8220DE131E005BF6B8 /* TodayHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09289C8120DE131E005BF6B8 /* TodayHeaderView.xib */; };
+		0929A6C724E6F1DC00780004 /* AggregateCollections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0929A6C624E6F1DC00780004 /* AggregateCollections.swift */; };
+		0929A6C824E6F1DC00780004 /* AggregateCollections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0929A6C624E6F1DC00780004 /* AggregateCollections.swift */; };
 		092B0E8A1D45841F00085F99 /* CoreMotionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092B0E891D45841F00085F99 /* CoreMotionService.swift */; };
 		092B0E8B1D45841F00085F99 /* CoreMotionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092B0E891D45841F00085F99 /* CoreMotionService.swift */; };
 		09323C711D22C39700961822 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09323C701D22C39700961822 /* AppDelegate.swift */; };
@@ -232,6 +234,7 @@
 		09289C7D20DDFF56005BF6B8 /* MainTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewController.swift; sourceTree = "<group>"; };
 		09289C7F20DE0AD8005BF6B8 /* TodayHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayHeaderView.swift; sourceTree = "<group>"; };
 		09289C8120DE131E005BF6B8 /* TodayHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TodayHeaderView.xib; sourceTree = "<group>"; };
+		0929A6C624E6F1DC00780004 /* AggregateCollections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AggregateCollections.swift; sourceTree = "<group>"; };
 		092B0E891D45841F00085F99 /* CoreMotionService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreMotionService.swift; sourceTree = "<group>"; };
 		09323C6D1D22C39700961822 /* Duffy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Duffy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		09323C701D22C39700961822 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -469,6 +472,7 @@
 				09323D161D2303DE00961822 /* DuffyWatchFramework.h */,
 				09323D051D2303BC00961822 /* DuffyFramework.h */,
 				09323D071D2303BC00961822 /* Info.plist */,
+				0929A6C624E6F1DC00780004 /* AggregateCollections.swift */,
 				09323D211D23040100961822 /* HealthKitService.swift */,
 				09AACE261D318A390058A814 /* HealthCache.swift */,
 				09AACE291D318E5D0058A814 /* WCSessionService.swift */,
@@ -857,6 +861,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				09D7F1241E340EA7008FF0CC /* Constants.swift in Sources */,
+				0929A6C724E6F1DC00780004 /* AggregateCollections.swift in Sources */,
 				09AACE271D318A390058A814 /* HealthCache.swift in Sources */,
 				090829E224670EEF00F100D6 /* Trophy.swift in Sources */,
 				0967EB791E7F0ACE0073BF3F /* NotificationService.swift in Sources */,
@@ -877,6 +882,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				09D7F1251E340EA7008FF0CC /* Constants.swift in Sources */,
+				0929A6C824E6F1DC00780004 /* AggregateCollections.swift in Sources */,
 				09AACE281D318A390058A814 /* HealthCache.swift in Sources */,
 				090829E324670EEF00F100D6 /* Trophy.swift in Sources */,
 				0967EB7A1E7F0ACE0073BF3F /* NotificationService.swift in Sources */,
