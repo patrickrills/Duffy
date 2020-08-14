@@ -20,7 +20,7 @@ class HistoryTrendChartView: UIView
     
     typealias Plot = (points: [CGPoint], goalY: CGFloat, averageY: CGFloat?, trend: [CGPoint]?)
     
-    var dataSet : [Date : Int] = [:] {
+    var dataSet : [Date : Steps] = [:] {
         didSet {
             setNeedsDisplay()
         }
@@ -36,7 +36,7 @@ class HistoryTrendChartView: UIView
     
     private func plot(in rect: CGRect) -> Plot {
         let activeArea = CGRect(x: DrawingConstants.GRAPH_INSETS.left, y: DrawingConstants.GRAPH_INSETS.top, width: rect.width - (DrawingConstants.GRAPH_INSETS.left + DrawingConstants.GRAPH_INSETS.right), height: rect.height - (DrawingConstants.GRAPH_INSETS.top + DrawingConstants.GRAPH_INSETS.bottom))
-        let goalSteps = HealthCache.getStepsDailyGoal()
+        let goalSteps = Steps(HealthCache.getStepsDailyGoal())
         var goalLineY: CGFloat = rect.size.height / 2.0
         var averageY: CGFloat? = nil
         var trend: [CGPoint]? = nil
@@ -47,7 +47,7 @@ class HistoryTrendChartView: UIView
             let topRange = Double(max(maxSteps!, goalSteps)) * 1.2
             let widthOfDay = Double(activeArea.width) / Double(dataSet.count)
             
-            let translateY: (Int) -> (CGFloat) = { steps in
+            let translateY: (Steps) -> (CGFloat) = { steps in
                 return activeArea.height - CGFloat(floor((Double(steps) / topRange) * Double(activeArea.height)))
             }
             
@@ -62,7 +62,7 @@ class HistoryTrendChartView: UIView
             
             //TODO: check to see if average line option is enabled
             if DebugService.isDebugModeEnabled() {
-                averageY = translateY(Int(dataSet.values.mean()))
+                averageY = translateY(Steps(dataSet.values.mean()))
             }
             
             //TODO: check to see if trend line option is enabled

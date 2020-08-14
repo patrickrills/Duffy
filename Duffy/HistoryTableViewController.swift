@@ -17,7 +17,7 @@ class HistoryTableViewController: UITableViewController {
     
     private let goal = HealthCache.getStepsDailyGoal()
     
-    private var pastSteps : [Date : Int] = [:]
+    private var pastSteps : [Date : Steps] = [:]
     private var lastDateInCache: Date {
         return pastSteps.keys.sorted(by: <).first ?? Date()
     }
@@ -104,28 +104,26 @@ class HistoryTableViewController: UITableViewController {
         } else {
             let previousLastCacheDate = lastDateInCache
             
-            HealthKitService.getInstance().getSteps(startDate, toEndDate: lastDateInCache, onRetrieve: {
-                (stepsCollection: [Date : Int]) in
-                
-                DispatchQueue.main.async(execute: { [weak self] in
-                    if let weakSelf = self {
-                        weakSelf.pastSteps.merge(stepsCollection, uniquingKeysWith: { $1 })
-                        weakSelf.refresh(for: startDate)
-                        
-                        let fetchedRowCount = stepsCollection.count
-                        let hideFooter = fetchedRowCount == 0 || weakSelf.lastDateInCache == previousLastCacheDate
+            HealthKitService.getInstance().getSteps(from: startDate, to: lastDateInCache) { [weak self] result in
+                switch result {
+                case .success(let stepsCollection):
+                    DispatchQueue.main.async {
+                        if let weakSelf = self {
+                            weakSelf.pastSteps.merge(stepsCollection, uniquingKeysWith: { $1 })
+                            weakSelf.refresh(for: startDate)
+                            
+                            let fetchedRowCount = stepsCollection.count
+                            let hideFooter = fetchedRowCount == 0 || weakSelf.lastDateInCache == previousLastCacheDate
 
-                        if let footer = weakSelf.tableView.tableFooterView as? HistoryTableViewFooter, hideFooter {
-                            footer.loadMoreButton.isHidden = true
+                            if let footer = weakSelf.tableView.tableFooterView as? HistoryTableViewFooter, hideFooter {
+                                footer.loadMoreButton.isHidden = true
+                            }
                         }
                     }
-                })
-            },
-            onFailure: { [weak self] (_) in
-                DispatchQueue.main.async {
+                case .failure(_):
                     self?.toggleLoading(false)
                 }
-            })
+            }
         }
     }
     

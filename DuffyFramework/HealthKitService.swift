@@ -18,22 +18,18 @@ open class HealthKitService
     private var statisticsQueries = [String : HKStatisticsCollectionQuery]()
     private var subscribers = [String : HealthKitSubscriber]()
     public private(set) var shouldRestartObservers: Bool = false
-
-    init()
-    {
-        if (HKHealthStore.isHealthDataAvailable())
-        {
+    
+    init() {
+        if (HKHealthStore.isHealthDataAvailable()) {
             healthStore = HKHealthStore()
         }
     }
 
-    open class func getInstance() -> HealthKitService
-    {
+    public class func getInstance() -> HealthKitService {
         return instance
     }
     
-    open func setEventDelegate(_ delegate: HealthEventDelegate)
-    {
+    public func setEventDelegate(_ delegate: HealthEventDelegate) {
         eventDelegate = delegate
     }
 
@@ -164,18 +160,14 @@ open class HealthKitService
         }
     }
     
-    open func getSteps(_ fromStartDate: Date, toEndDate: Date, onRetrieve: (([Date : Int]) -> Void)?, onFailure: ((Error?) -> Void)?)
-    {
+    public func getSteps(from startDate: Date, to endDate: Date, completionHandler: @escaping (StepsByDateResult) -> ()) {
         guard HKHealthStore.isHealthDataAvailable() && healthStore != nil else {
-            if let failBlock = onFailure
-            {
-                failBlock(nil)
-            }
+            completionHandler(.failure(.unsupported))
             return
         }
         
-        let startDate = getQueryDate(from: fromStartDate)
-        let endDate = getQueryDate(from: toEndDate)
+        let startDate = getQueryDate(from: startDate)
+        let endDate = getQueryDate(from: endDate)
         
         guard startDate != nil && endDate != nil else { return }
         
@@ -184,8 +176,7 @@ open class HealthKitService
         var interval = DateComponents()
         interval.day = 1
         
-        if let store = healthStore, let stepType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.stepCount)
-        {
+        if let store = healthStore, let stepType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.stepCount) {
             let query = HKStatisticsCollectionQuery(quantityType: stepType,
                                                     quantitySamplePredicate: dateRangePredicate,
                                                     options: .cumulativeSum,
@@ -197,35 +188,32 @@ open class HealthKitService
                 
                 if let r = results , error == nil
                 {
-                    var stepsCollection = [Date : Int]()
+                    var stepsCollection = [Date : Steps]()
                     
                     r.enumerateStatistics(from: startDate!, to: endDate!) {
                         statistics, stop in
                         
                         if let quantity = statistics.sumQuantity() {
                             
-                            var steps: Int = 0
-                            if let prev = stepsCollection[statistics.startDate]
-                            {
+                            var steps: Steps = 0
+                            if let prev = stepsCollection[statistics.startDate] {
                                 steps = prev
                             }
                             
-                            steps += Int(quantity.doubleValue(for: HKUnit.count()))
+                            steps += Steps(quantity.doubleValue(for: HKUnit.count()))
                             stepsCollection[statistics.startDate] = steps
                         }
                     }
                     
-                    if let successBlock = onRetrieve
-                    {
-                        successBlock(stepsCollection)
-                    }
+                    completionHandler(.success(stepsCollection))
                 }
                 else
                 {
-                    if let failBlock = onFailure
-                    {
-                        failBlock(error)
+                    var errorResult: HealthKitError = .invalidResults
+                    if let error = error {
+                        errorResult = .wrapped(error)
                     }
+                    completionHandler(.failure(errorResult))
                 }
             }
             
