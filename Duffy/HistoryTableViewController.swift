@@ -15,11 +15,16 @@ class HistoryTableViewController: UITableViewController {
         static let PAGE_SIZE_DAYS: Int = 30
     }
     
-    private var pastSteps : [Date : Int] = [:]
-    private var sortedKeys : [Date] = []
     private let goal = HealthCache.getStepsDailyGoal()
-    private var lastDateFetched: Date {
-        return sortedKeys.last ?? Date()
+    
+    private var pastSteps : [Date : Int] = [:]
+    private var lastDateInCache: Date {
+        return pastSteps.keys.sorted(by: <).first ?? Date()
+    }
+    
+    private var filteredDates : [Date] = []
+    private var currentFilterDate: Date {
+        return filteredDates.last ?? Date()
     }
     
     //MARK: Constructors
@@ -54,7 +59,7 @@ class HistoryTableViewController: UITableViewController {
             tableView.tableFooterView = footer
         }
         
-        getMoreRows()
+        getNextPage()
     }
     
     override func viewWillLayoutSubviews() {
@@ -68,70 +73,66 @@ class HistoryTableViewController: UITableViewController {
     //MARK: Event handlers
     
     @IBAction private func changeFilter() {
-        navigationController?.pushViewController(HistoryFilterTableViewController(selectedDate: lastDateFetched, onDateSelected: { [weak self] in self?.updateDateFilter($0) }), animated: true)
+        navigationController?.pushViewController(HistoryFilterTableViewController(selectedDate: currentFilterDate, onDateSelected: { [weak self] in self?.updateDateFilter($0) }), animated: true)
     }
     
     @IBAction func loadMorePressed() {
-        getMoreRows()
+        getNextPage()
     }
     
-    private func showLoading() {
-        title = NSLocalizedString("Loading...", comment: "")
-    }
-    
-    private func hideLoading(_ hasData: Bool) {
-        title = String(format: NSLocalizedString("Since %@", comment: ""), Globals.fullDateFormatter().string(from: lastDateFetched))
+    private func toggleLoading(_ isLoading: Bool) {
+        title = isLoading
+            ? NSLocalizedString("Loading...", comment: "")
+            : String(format: NSLocalizedString("Since %@", comment: ""), Globals.fullDateFormatter().string(from: currentFilterDate))
+                    
     }
     
     private func updateDateFilter(_ filterDate : Date) {
-        pastSteps = [:]
-        getRows(since: filterDate)
+        filterSteps(since: filterDate)
     }
     
-    private func getMoreRows() {
-        let startDate = Calendar.current.date(byAdding: .day, value: -Constants.PAGE_SIZE_DAYS, to: lastDateFetched)
-        getRows(since: startDate!)
+    private func getNextPage() {
+        let startDate = Calendar.current.date(byAdding: .day, value: -Constants.PAGE_SIZE_DAYS, to: currentFilterDate)
+        filterSteps(since: startDate!)
     }
     
-    private func getRows(since startDate : Date) {
-        showLoading()
+    private func filterSteps(since startDate : Date) {
+        toggleLoading(true)
         
-        let lastDateInCache = lastDateFetched
-        
-        //TODO: Always using Date() as the end date is inefficient:
-        //  Update to check is start date is > lastDateFetched and if so just rebuild sorted keys with the sub array
-        //  if start date < lastDateFetched only get those days from HK
-        
-        HealthKitService.getInstance().getSteps(startDate, toEndDate: Date(), onRetrieve: {
-            (stepsCollection: [Date : Int]) in
+        if startDate >= lastDateInCache {
+            refresh(for: startDate)
+        } else {
+            let previousLastCacheDate = lastDateInCache
             
-            DispatchQueue.main.async(execute: { [weak self] in
-                if let weakSelf = self {
-                    stepsCollection.forEach({ (key, value) in weakSelf.pastSteps[key] = value })
-                    weakSelf.sortedKeys = weakSelf.pastSteps.keys.sorted(by: >)
-                    
-                    let fetchedRowCount = stepsCollection.count
-                    var hideFooter = fetchedRowCount == 0
-                    if (fetchedRowCount > 0) {
-                        if (weakSelf.lastDateFetched == lastDateInCache) {
-                            hideFooter = true
+            HealthKitService.getInstance().getSteps(startDate, toEndDate: lastDateInCache, onRetrieve: {
+                (stepsCollection: [Date : Int]) in
+                
+                DispatchQueue.main.async(execute: { [weak self] in
+                    if let weakSelf = self {
+                        weakSelf.pastSteps.merge(stepsCollection, uniquingKeysWith: { $1 })
+                        weakSelf.refresh(for: startDate)
+                        
+                        let fetchedRowCount = stepsCollection.count
+                        let hideFooter = fetchedRowCount == 0 || weakSelf.lastDateInCache == previousLastCacheDate
+
+                        if let footer = weakSelf.tableView.tableFooterView as? HistoryTableViewFooter, hideFooter {
+                            footer.loadMoreButton.isHidden = true
                         }
                     }
-                    
-                    if let footer = weakSelf.tableView.tableFooterView as? HistoryTableViewFooter, hideFooter {
-                        footer.loadMoreButton.isHidden = true
-                    }
-                    
-                    weakSelf.tableView.reloadData()
-                    weakSelf.hideLoading(true)
+                })
+            },
+            onFailure: { [weak self] (_) in
+                DispatchQueue.main.async {
+                    self?.toggleLoading(false)
                 }
             })
-        },
-        onFailure: { [weak self] (_) in
-            DispatchQueue.main.async {
-                self?.hideLoading(false)
-            }
-        })
+        }
+    }
+    
+    private func refresh(for startDate: Date) {
+        filteredDates = pastSteps.filter({ $0.key >= startDate }).map(\.key).sorted(by: >)
+        tableView.reloadData()
+        toggleLoading(false)
     }
     
     //MARK: Table view datasource
@@ -143,7 +144,7 @@ class HistoryTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 1:
-            return pastSteps.count
+            return filteredDates.count
         default:
             return 1
         }
@@ -163,11 +164,11 @@ class HistoryTableViewController: UITableViewController {
         switch indexPath.section {
         case 0:
             let graphCell = tableView.dequeueReusableCell(withIdentifier: String(describing: HistoryTrendChartTableViewCell.self), for: indexPath) as! HistoryTrendChartTableViewCell
-            graphCell.bind(to: pastSteps.filter { !Calendar.current.isDate($0.key, inSameDayAs:Date()) })
+            graphCell.bind(to: pastSteps.filter { filteredDates.contains($0.key) && !Calendar.current.isDate($0.key, inSameDayAs:Date()) })
             return graphCell
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PreviousValueTableViewCell.self), for: indexPath) as! PreviousValueTableViewCell
-            let currentDate = sortedKeys[indexPath.row];
+            let currentDate = filteredDates[indexPath.row];
             if let steps = pastSteps[currentDate] {
                 cell.bind(toDate: currentDate, steps: steps, goal: goal)
             }
