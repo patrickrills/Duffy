@@ -9,4 +9,6 @@
 import Foundation
 
 public typealias Steps = UInt
+public typealias Hour = UInt
 public typealias StepsByDateResult = Result<[Date : Steps], HealthKitError>
+public typealias StepsByHourResult = Result<(day: Date, stepsByHour: [Hour : Steps]), HealthKitError>
