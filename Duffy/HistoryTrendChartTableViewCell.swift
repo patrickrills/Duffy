@@ -19,11 +19,11 @@ class HistoryTrendChartTableViewCell: UITableViewCell
         selectionStyle = .none
     }
     
-    func bind(toStepsByDay: [Date : Int]) {
+    func bind(to stepsByDay: [Date : Int]) {
         var average : Int = 0
         
-        if toStepsByDay.count > 0 {
-            average = toStepsByDay.values.reduce(0, +) / toStepsByDay.count
+        if stepsByDay.count > 0 {
+            average = stepsByDay.values.reduce(0, +) / stepsByDay.count
         }
         
         let averageFormatted = Globals.stepsFormatter().string(from: NSNumber(value: average))!
@@ -37,7 +37,7 @@ class HistoryTrendChartTableViewCell: UITableViewCell
             averageAttributed.addAttribute(.foregroundColor, value: Globals.averageColor(), range: NSRange(location: 0, length: averageAttributed.string.count))
         }
         
-        averageLabel?.attributedText = averageAttributed
-        chart?.dataSet = toStepsByDay
+        averageLabel.attributedText = averageAttributed
+        chart.dataSet = stepsByDay
     }
 }

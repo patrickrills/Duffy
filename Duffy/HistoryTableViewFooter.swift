@@ -10,10 +10,9 @@ import UIKit
 
 class HistoryTableViewFooter: UIView
 {
-    @IBOutlet weak var loadMoreButton : UIButton?
+    @IBOutlet weak var loadMoreButton : UIButton!
     
-    class func createView() -> HistoryTableViewFooter?
-    {
+    class func createView() -> HistoryTableViewFooter? {
         if let nibViews = Bundle.main.loadNibNamed("HistoryTableViewFooter", owner:nil, options:nil),
             let footer = nibViews[0] as? HistoryTableViewFooter
         {
@@ -23,11 +22,10 @@ class HistoryTableViewFooter: UIView
         return nil
     }
     
-    override func awakeFromNib()
-    {
+    override func awakeFromNib() {
         super.awakeFromNib()
         
         backgroundColor = UIColor.clear
-        loadMoreButton?.setTitleColor(Globals.secondaryColor(), for: .normal)
+        loadMoreButton.setTitleColor(Globals.secondaryColor(), for: .normal)
     }
 }

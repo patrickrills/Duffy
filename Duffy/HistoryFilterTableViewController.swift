@@ -8,29 +8,26 @@
 
 import UIKit
 
-class HistoryFilterTableViewController: UITableViewController
-{
-    let CONTAINER_TAG = 987655
-    let DATE_PICKER_TAG = 987654
-    let DATE_PICKER_HEIGHT = CGFloat(200.0)
+class HistoryFilterTableViewController: UITableViewController {
     
-    var sinceDateFilter : Date = Date()
-    weak var parentHistoryViewController : HistoryTableViewController? = nil
+    private var sinceDateFilter : Date = Date()
+    private let onDateSelected: (Date) -> ()
     
-    init(withSelectedDate : Date, fromParent : HistoryTableViewController)
-    {
+    //MARK: Constructors
+    
+    init(selectedDate: Date, onDateSelected: @escaping (Date) -> ()) {
+        self.sinceDateFilter = selectedDate
+        self.onDateSelected = onDateSelected
         super.init(style: .grouped)
-        sinceDateFilter = withSelectedDate
-        parentHistoryViewController = fromParent
     }
     
-    required init?(coder aDecoder: NSCoder)
-    {
-        super.init(coder: aDecoder)
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("HistoryFilterTableViewController does not use xib")
     }
     
-    override func viewDidLoad()
-    {
+    //MARK: View lifecycle
+    
+    override func viewDidLoad() {
         super.viewDidLoad()
         
         title = NSLocalizedString("Filter", comment: "")
@@ -42,48 +39,69 @@ class HistoryFilterTableViewController: UITableViewController
             navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveFilter))
         }
         
-        let container = UIView(frame: CGRect.zero)
-        container.tag = CONTAINER_TAG
-        view.addSubview(container)
+        addDatePicker()
+    }
+    
+    private func addDatePicker() {
+        let container = UIView()
+        container.translatesAutoresizingMaskIntoConstraints = false
+        container.backgroundColor = UIColor(named: "SpinnerBackgroundColor")
+        tableView.addSubview(container)
         
-        let spinner = UIDatePicker(frame: CGRect.zero)
-        spinner.tag = DATE_PICKER_TAG
+        let spinner = UIDatePicker()
+        spinner.translatesAutoresizingMaskIntoConstraints = false
         spinner.datePickerMode = .date
         spinner.maximumDate = Date().addingTimeInterval(-1*60*60*24*7)
         spinner.date = sinceDateFilter
         spinner.addTarget(self, action: #selector(dateSelected(_:)), for: .valueChanged)
         container.addSubview(spinner)
+        
+        let safeAreaSpacer = UIView()
+        safeAreaSpacer.translatesAutoresizingMaskIntoConstraints = false
+        safeAreaSpacer.backgroundColor = container.backgroundColor
+        tableView.addSubview(safeAreaSpacer)
+        
+        NSLayoutConstraint.activate([
+            container.bottomAnchor.constraint(equalTo: tableView.layoutMarginsGuide.bottomAnchor),
+            container.leadingAnchor.constraint(equalTo: tableView.frameLayoutGuide.leadingAnchor),
+            container.trailingAnchor.constraint(equalTo: tableView.frameLayoutGuide.trailingAnchor),
+            container.heightAnchor.constraint(equalToConstant: 200.0),
+            spinner.topAnchor.constraint(equalTo: container.topAnchor),
+            spinner.leadingAnchor.constraint(equalTo: container.leadingAnchor),
+            spinner.trailingAnchor.constraint(equalTo: container.trailingAnchor),
+            spinner.bottomAnchor.constraint(equalTo: container.bottomAnchor),
+            safeAreaSpacer.bottomAnchor.constraint(equalTo: tableView.frameLayoutGuide.bottomAnchor),
+            safeAreaSpacer.leadingAnchor.constraint(equalTo: tableView.frameLayoutGuide.leadingAnchor),
+            safeAreaSpacer.trailingAnchor.constraint(equalTo: tableView.frameLayoutGuide.trailingAnchor),
+            safeAreaSpacer.topAnchor.constraint(equalTo: container.bottomAnchor)
+        ])
     }
     
-    override func viewWillLayoutSubviews()
-    {
-        super.viewWillLayoutSubviews()
-        
-        if let spinner = view.viewWithTag(DATE_PICKER_TAG)
-        {
-            let safeArea : CGFloat = view.safeAreaInsets.bottom
-            let containerHeight = DATE_PICKER_HEIGHT + safeArea
-            spinner.superview?.frame = CGRect(x: 0, y: view.frame.size.height - containerHeight + tableView.contentOffset.y, width: view.frame.size.width, height: containerHeight)
-            spinner.frame = CGRect(x: 0, y: 0, width: view.frame.size.width, height: DATE_PICKER_HEIGHT)
-        }
-        
-        if let container = view.viewWithTag(CONTAINER_TAG) {
-            container.backgroundColor = UIColor(named: "SpinnerBackgroundColor")
+    //MARK: Event handlers
+    
+    @IBAction func dateSelected(_ sender : Any?) {
+        if let spinner = sender as? UIDatePicker {
+            sinceDateFilter = spinner.date
+            tableView.reloadData()
         }
     }
+    
+    @IBAction func saveFilter() {
+        onDateSelected(sinceDateFilter)
+        navigationController?.popViewController(animated: true)
+    }
 
-    override func numberOfSections(in tableView: UITableView) -> Int
-    {
+    //MARK: Table view datasource
+    
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
-    {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
-    {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .value1, reuseIdentifier: nil)
         cell.textLabel?.text = NSLocalizedString("Since", comment: "")
         cell.detailTextLabel?.text = Globals.fullDateFormatter().string(from: sinceDateFilter)
@@ -99,24 +117,5 @@ class HistoryFilterTableViewController: UITableViewController
         }
         
         return cell
-    }
-    
-    @IBAction func dateSelected(_ sender : Any?)
-    {
-        if let spinner = sender as? UIDatePicker
-        {
-            sinceDateFilter = spinner.date
-            tableView.reloadData()
-        }
-    }
-    
-    @IBAction func saveFilter()
-    {
-        if let parent = parentHistoryViewController
-        {
-            parent.updateDateFilter(sinceDateFilter)
-        }
-        
-        navigationController?.popViewController(animated: true)
     }
 }
