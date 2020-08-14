@@ -100,49 +100,51 @@ class MainTableViewController: UITableViewController
     
     private func getHeader() -> TodayHeaderView?
     {
-        return tableView?.tableHeaderView as? TodayHeaderView
+        return tableView.tableHeaderView as? TodayHeaderView
     }
     
     func refresh()
     {
         isLoading = true
         
-        HealthKitService.getInstance().authorizeForAllData({
-            
-            let startDate = Calendar.current.date(byAdding: .day, value: -7, to: Date()) ?? Date()
-            let endDate = Calendar.current.date(byAdding: .day, value: -1, to: Date()) ?? Date()
-            
-            HealthKitService.getInstance().getSteps(from: startDate, to: endDate) { result in
-                switch result {
-                case .success(let stepsCollection):
-                    DispatchQueue.main.async { [weak self] in
-                        if let weakSelf = self
-                        {
-                            weakSelf.isLoading = false
-                            weakSelf.goal = HealthCache.getStepsDailyGoal()
-                            weakSelf.stepsByDay = stepsCollection
-                            weakSelf.sortedKeys = stepsCollection.keys.sorted(by: >)
-                            weakSelf.tableView?.separatorStyle = stepsCollection.count == 0 ? .none : .singleLine
-                            weakSelf.tableView?.reloadData()
-                            
-                            if let header = weakSelf.getHeader()
+        HealthKitService.getInstance().authorize { [weak self] success in
+            if success {
+                let startDate = Calendar.current.date(byAdding: .day, value: -7, to: Date()) ?? Date()
+                let endDate = Calendar.current.date(byAdding: .day, value: -1, to: Date()) ?? Date()
+                HealthKitService.getInstance().getSteps(from: startDate, to: endDate) { result in
+                    switch result {
+                    case .success(let stepsCollection):
+                        DispatchQueue.main.async { [weak self] in
+                            if let weakSelf = self
                             {
-                                header.refresh()
+                                weakSelf.isLoading = false
+                                weakSelf.goal = HealthCache.getStepsDailyGoal()
+                                weakSelf.stepsByDay = stepsCollection
+                                weakSelf.sortedKeys = stepsCollection.keys.sorted(by: >)
+                                weakSelf.tableView?.separatorStyle = stepsCollection.count == 0 ? .none : .singleLine
+                                weakSelf.tableView?.reloadData()
+                                
+                                if let header = weakSelf.getHeader()
+                                {
+                                    header.refresh()
+                                }
+                                
+                                weakSelf.maybeRestartObservers()
+                                weakSelf.maybeAskForCoreMotionPermission()
                             }
-                            
-                            weakSelf.maybeRestartObservers()
-                            weakSelf.maybeAskForCoreMotionPermission()
+                        }
+                    case .failure(_):
+                        DispatchQueue.main.async {
+                            self?.isLoading = false
                         }
                     }
-                case .failure(_):
-                    DispatchQueue.main.async { [weak self] in
-                        self?.isLoading = false
-                    }
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self?.isLoading = false
                 }
             }
-        }, onFailure: {
-            self.isLoading = false
-        })
+        }
     }
     
     func maybeAskForCoreMotionPermission() {

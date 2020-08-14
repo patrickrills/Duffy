@@ -218,60 +218,22 @@ open class HealthKitService
             store.execute(query)
         }
     }
-    
-    open func authorizeForSteps(_ onAuthorized: (() -> (Void))?, onFailure: (() -> (Void))?)
-    {
-        authorize(onAuthorized, onFailure: onFailure, includeExtraTypes: false)
-    }
-    
-    open func authorizeForAllData(_ onAuthorized: (() -> (Void))?, onFailure: (() -> (Void))?)
-    {
-        authorize(onAuthorized, onFailure: onFailure, includeExtraTypes: true)
-    }
 
-    open func authorize(_ onAuthorized: (() -> (Void))?, onFailure: (() -> (Void))?, includeExtraTypes: Bool)
-    {
-        if let store = healthStore, let stepType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.stepCount) , HKHealthStore.isHealthDataAvailable()
-        {
-            var readDataTypes = Set<HKObjectType>()
-            readDataTypes.insert(stepType)
-            
-            if (includeExtraTypes)
-            {
-                if let distanceType = HKQuantityType.quantityType(forIdentifier: .distanceWalkingRunning) {
-                    readDataTypes.insert(distanceType)
-                }
-                
-                if let flightType = HKQuantityType.quantityType(forIdentifier: .flightsClimbed) {
-                    readDataTypes.insert(flightType)
-                }
-                
-                if let activeType = HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned) {
-                    readDataTypes.insert(activeType)
-                }
-            }
-            
-            store.requestAuthorization(toShare: nil, read: readDataTypes, completion: {
-                (success: Bool, error: Error?) in
-                if let successBlock = onAuthorized , success
-                {
-                    successBlock()
-                }
-                else
-                {
-                    if let failBlock = onFailure
-                    {
-                        failBlock()
-                    }
-                }
-            })
+    public func authorize(completionHandler: @escaping (Bool) -> ()) {
+        guard HKHealthStore.isHealthDataAvailable(),
+            let store = healthStore,
+            let stepType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.stepCount),
+            let distanceType = HKQuantityType.quantityType(forIdentifier: .distanceWalkingRunning),
+            let flightType = HKQuantityType.quantityType(forIdentifier: .flightsClimbed),
+            let activeType = HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned)
+        else {
+            completionHandler(false)
+            return
         }
-        else
-        {
-            if let failBlock = onFailure
-            {
-                failBlock()
-            }
+        
+        let readDataTypes: Set<HKObjectType> = [stepType, distanceType, flightType, activeType]
+        store.requestAuthorization(toShare: nil, read: readDataTypes) { success, error in
+            completionHandler(success && error == nil)
         }
     }
     
