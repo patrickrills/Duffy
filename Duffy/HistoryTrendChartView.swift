@@ -121,7 +121,7 @@ class HistoryTrendChartView: UIView
         guard let trendPoints = plot.trend, trendPoints.count > 0 else { return }
         
         let trendLine = UIBezierPath()
-        trendLine.lineWidth = 1.5
+        trendLine.lineWidth = 2.5
         trendPoints.forEach({
             if trendLine.isEmpty {
                 trendLine.move(to: $0)
