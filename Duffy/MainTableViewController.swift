@@ -30,7 +30,7 @@ class MainTableViewController: UITableViewController
         super.viewDidLoad()
         
         tableView.register(PreviousValueTableViewCell.self, forCellReuseIdentifier: CELL_ID)
-        tableView.register(PreviousSectionHeaderView.self, forHeaderFooterViewReuseIdentifier: SECTION_ID)
+        tableView.register(BoldActionSectionHeaderView.self, forHeaderFooterViewReuseIdentifier: SECTION_ID)
         tableView.sectionHeaderHeight = 48.0
         tableView.rowHeight = 44.0
     }
@@ -189,11 +189,6 @@ class MainTableViewController: UITableViewController
         present(ModalNavigationController(rootViewController: AboutTableViewController()), animated: true, completion: nil)
     }
     
-    @IBAction private func openHistoryPressed()
-    {
-        openHistory()
-    }
-    
     @IBAction private func openAboutPressed()
     {
         openAbout()
@@ -216,13 +211,11 @@ class MainTableViewController: UITableViewController
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
     {
-        if (section == 0)
+        if section == 0,
+            let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: SECTION_ID) as? BoldActionSectionHeaderView
         {
-            if let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: SECTION_ID) as? PreviousSectionHeaderView
-            {
-                header.button.addTarget(self, action: #selector(openHistoryPressed), for: .touchUpInside)
-                return header
-            }
+            header.set(headerText: NSLocalizedString("Previous Week", comment: ""), actionText: NSLocalizedString("VIEW HISTORY", comment: ""), action: { [weak self] in self?.openHistory() })
+            return header
         }
         
         return nil

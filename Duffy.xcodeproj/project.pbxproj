@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		0900866F20F27D0C006540E7 /* PreviousValueTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0900866E20F27D0C006540E7 /* PreviousValueTableViewCell.swift */; };
 		0900867120F282DE006540E7 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0900867020F282DE006540E7 /* Globals.swift */; };
-		0900867320FA7673006540E7 /* PreviousSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0900867220FA7673006540E7 /* PreviousSectionHeaderView.swift */; };
+		0900867320FA7673006540E7 /* BoldActionSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0900867220FA7673006540E7 /* BoldActionSectionHeaderView.swift */; };
 		0903E60A235CEFE00049E071 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 099582D0234192C400AF6A96 /* Localizable.strings */; };
 		090829DE2465BB1B00F100D6 /* TrophyLegendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090829DD2465BB1B00F100D6 /* TrophyLegendView.swift */; };
 		090829E02465BB2C00F100D6 /* TrophyLegendView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 090829DF2465BB2C00F100D6 /* TrophyLegendView.xib */; };
@@ -215,7 +215,7 @@
 /* Begin PBXFileReference section */
 		0900866E20F27D0C006540E7 /* PreviousValueTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviousValueTableViewCell.swift; sourceTree = "<group>"; };
 		0900867020F282DE006540E7 /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
-		0900867220FA7673006540E7 /* PreviousSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviousSectionHeaderView.swift; sourceTree = "<group>"; };
+		0900867220FA7673006540E7 /* BoldActionSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoldActionSectionHeaderView.swift; sourceTree = "<group>"; };
 		0903E603235BCAEC0049E071 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/HistoryTableViewFooter.xib; sourceTree = "<group>"; };
 		0903E604235BCAED0049E071 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/HourGraphDetailViewController.xib; sourceTree = "<group>"; };
 		0903E606235BCAED0049E071 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -415,7 +415,7 @@
 				09A7EEAF21A39D7100DEDE5C /* HistoryTrendChartView.swift */,
 				0935D17D21A8D8E100B91009 /* HistoryFilterTableViewController.swift */,
 				0900866E20F27D0C006540E7 /* PreviousValueTableViewCell.swift */,
-				0900867220FA7673006540E7 /* PreviousSectionHeaderView.swift */,
+				0900867220FA7673006540E7 /* BoldActionSectionHeaderView.swift */,
 				09CEA97E211F86DC0023786B /* HistoryTableViewFooter.swift */,
 				092276DD235549240015A1E6 /* HistoryTableViewFooter.xib */,
 				09CEA980212259040023786B /* DetailDataView.swift */,
@@ -828,7 +828,7 @@
 				097085632127122B00790EC7 /* DistanceFlightsDetailViewController.swift in Sources */,
 				09708599214D7A8000790EC7 /* HourGraphDetailViewController.swift in Sources */,
 				09CC417F231F3DAD0029AAFB /* AboutTableViewFooter.swift in Sources */,
-				0900867320FA7673006540E7 /* PreviousSectionHeaderView.swift in Sources */,
+				0900867320FA7673006540E7 /* BoldActionSectionHeaderView.swift in Sources */,
 				09A7EEAD21A1E89A00DEDE5C /* HistoryTrendChartTableViewCell.swift in Sources */,
 				0970859C214DAB8900790EC7 /* HourGraphBarView.swift in Sources */,
 				09CEA97F211F86DC0023786B /* HistoryTableViewFooter.swift in Sources */,
