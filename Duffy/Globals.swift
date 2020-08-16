@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Globals: NSObject
+enum Globals
 {
     private static let numberFormatter = NumberFormatter()
     private static let decimalFormatter = NumberFormatter()
@@ -20,7 +20,7 @@ class Globals: NSObject
     private static let success = UIColor(red: 0.25, green: 0.72, blue:0.48, alpha: 1.0)
     private static var separator : UIColor? = nil
     
-    open class func stepsFormatter() -> NumberFormatter
+    static func stepsFormatter() -> NumberFormatter
     {
         numberFormatter.numberStyle = NumberFormatter.Style.decimal
         numberFormatter.locale = Locale.current
@@ -29,12 +29,12 @@ class Globals: NSObject
         return numberFormatter
     }
     
-    open class func flightsFormatter() -> NumberFormatter
+    static func flightsFormatter() -> NumberFormatter
     {
         return stepsFormatter()
     }
     
-    open class func distanceFormatter() -> NumberFormatter
+    static func distanceFormatter() -> NumberFormatter
     {
         decimalFormatter.numberStyle = NumberFormatter.Style.decimal
         decimalFormatter.locale = Locale.current
@@ -43,19 +43,19 @@ class Globals: NSObject
         return decimalFormatter
     }
     
-    open class func dayFormatter() -> DateFormatter
+    static func dayFormatter() -> DateFormatter
     {
         dateFormatter.dateFormat = "eee, MMM d"
         return dateFormatter
     }
     
-    open class func fullDateFormatter() -> DateFormatter
+    static func fullDateFormatter() -> DateFormatter
     {
         fullFormatter.dateFormat = "MMM d, yyyy"
         return fullFormatter
     }
  
-    open class func primaryColor() -> UIColor
+    static func primaryColor() -> UIColor
     {
         if let primaryColor = UIColor(named: "PrimaryColor") {
             return primaryColor
@@ -64,7 +64,7 @@ class Globals: NSObject
         return .systemBlue
     }
     
-    open class func secondaryColor() -> UIColor
+    static func secondaryColor() -> UIColor
     {
         if let secondaryColor = UIColor(named: "SecondaryColor") {
             return secondaryColor
@@ -73,7 +73,25 @@ class Globals: NSObject
         return secondary
     }
     
-    open class func lightGrayColor() -> UIColor
+    static func averageColor() -> UIColor
+    {
+        if let averageColor = UIColor(named: "AverageColor") {
+            return averageColor
+        }
+        
+        return .systemPurple
+    }
+    
+    static func trendColor() -> UIColor
+    {
+        if let trendColor = UIColor(named: "TrendColor") {
+            return trendColor
+        }
+        
+        return .systemTeal
+    }
+    
+    static func lightGrayColor() -> UIColor
     {
         if #available(iOS 13.0, *) {
             return .tertiaryLabel
@@ -82,7 +100,7 @@ class Globals: NSObject
         return lightText
     }
     
-    open class func veryLightGrayColor() -> UIColor
+    static func veryLightGrayColor() -> UIColor
     {
         if #available(iOS 13.0, *) {
             return .quaternaryLabel
@@ -91,7 +109,7 @@ class Globals: NSObject
         return veryLightText
     }
     
-    open class func successColor() -> UIColor
+    static func successColor() -> UIColor
     {
         if #available(iOS 13.0, *) {
             return .systemGreen
@@ -100,7 +118,7 @@ class Globals: NSObject
         return success
     }
     
-    open class func separatorColor() -> UIColor
+    static func separatorColor() -> UIColor
     {
         if #available(iOS 13.0, *) {
             return .separator
@@ -121,22 +139,22 @@ class Globals: NSObject
         return separator!
     }
     
-    open class func isNarrowPhone() -> Bool
+    static func isNarrowPhone() -> Bool
     {
         return UIScreen.main.bounds.size.width <= 320.0
     }
     
-    open class func isTallPhone() -> Bool
+    static func isTallPhone() -> Bool
     {
         return UIScreen.main.bounds.size.height > 700.0
     }
     
-    open class func isMaxPhone() -> Bool
+    static func isMaxPhone() -> Bool
     {
         return UIScreen.main.bounds.size.height > 850.0
     }
     
-    open class func appVersion() -> String
+    static func appVersion() -> String
     {
         if let infoDict = Bundle.main.infoDictionary
         {

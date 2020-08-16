@@ -14,10 +14,16 @@ class MainTableViewController: UITableViewController
 {
     let CELL_ID = "PreviousValueTableViewCell"
     let SECTION_ID = "PreviousSectionHeaderView"
-    var isLoading : Bool = false
-    var stepsByDay : [Date : Int] = [:]
+    var stepsByDay : [Date : Steps] = [:]
     var sortedKeys : [Date] = []
     var goal : Int = 0
+    var isLoading : Bool = false {
+        didSet {
+            if let header = getHeader() {
+                header.toggleLoading(isLoading: isLoading)
+            }
+        }
+    }
     
     override func viewDidLoad()
     {
@@ -92,72 +98,53 @@ class MainTableViewController: UITableViewController
         }
     }
     
-    private func showLoading()
-    {
-        if let header = getHeader()
-        {
-            header.toggleLoading(isLoading: true)
-        }
-    }
-    
-    private func hideLoading()
-    {
-        if let header = getHeader()
-        {
-            header.toggleLoading(isLoading: false)
-        }
-    }
-    
     private func getHeader() -> TodayHeaderView?
     {
-        return tableView?.tableHeaderView as? TodayHeaderView
+        return tableView.tableHeaderView as? TodayHeaderView
     }
     
     func refresh()
     {
         isLoading = true
-        showLoading()
         
-        HealthKitService.getInstance().authorizeForAllData({
-            
-            let startDate = Calendar.current.date(byAdding: .day, value: -7, to: Date())
-            let endDate = Calendar.current.date(byAdding: .day, value: -1, to: Date())
-            
-            HealthKitService.getInstance().getSteps(startDate!, toEndDate: endDate!, onRetrieve: {
-                (stepsCollection: [Date : Int]) in
-                
-                DispatchQueue.main.async(execute: {
-                    [weak self] in
-                    if let weakSelf = self
-                    {
-                        weakSelf.isLoading = false
-                        weakSelf.goal = HealthCache.getStepsDailyGoal()
-                        weakSelf.stepsByDay = stepsCollection
-                        weakSelf.sortedKeys = stepsCollection.keys.sorted(by: >)
-                        weakSelf.tableView?.separatorStyle = stepsCollection.count == 0 ? .none : .singleLine
-                        weakSelf.tableView?.reloadData()
-                        
-                        if let header = weakSelf.getHeader()
-                        {
-                            header.refresh()
+        HealthKitService.getInstance().authorize { [weak self] success in
+            if success {
+                let startDate = Calendar.current.date(byAdding: .day, value: -7, to: Date()) ?? Date()
+                let endDate = Calendar.current.date(byAdding: .day, value: -1, to: Date()) ?? Date()
+                HealthKitService.getInstance().getSteps(from: startDate, to: endDate) { result in
+                    switch result {
+                    case .success(let stepsCollection):
+                        DispatchQueue.main.async { [weak self] in
+                            if let weakSelf = self
+                            {
+                                weakSelf.isLoading = false
+                                weakSelf.goal = HealthCache.getStepsDailyGoal()
+                                weakSelf.stepsByDay = stepsCollection
+                                weakSelf.sortedKeys = stepsCollection.keys.sorted(by: >)
+                                weakSelf.tableView?.separatorStyle = stepsCollection.count == 0 ? .none : .singleLine
+                                weakSelf.tableView?.reloadData()
+                                
+                                if let header = weakSelf.getHeader()
+                                {
+                                    header.refresh()
+                                }
+                                
+                                weakSelf.maybeRestartObservers()
+                                weakSelf.maybeAskForCoreMotionPermission()
+                            }
                         }
-                        
-                        weakSelf.hideLoading()
-                        weakSelf.maybeRestartObservers()
-                        weakSelf.maybeAskForCoreMotionPermission()
+                    case .failure(_):
+                        DispatchQueue.main.async {
+                            self?.isLoading = false
+                        }
                     }
-                })
-            },
-            onFailure: {
-                [weak self] (err: Error?) in
-                    DispatchQueue.main.async {
-                        self?.hideLoading()
-                        self?.isLoading = false
                 }
-            })
-        }, onFailure: {
-            self.isLoading = false
-        })
+            } else {
+                DispatchQueue.main.async {
+                    self?.isLoading = false
+                }
+            }
+        }
     }
     
     func maybeAskForCoreMotionPermission() {
@@ -256,8 +243,7 @@ class MainTableViewController: UITableViewController
         {
             let cell = tableView.dequeueReusableCell(withIdentifier: CELL_ID, for: indexPath) as! PreviousValueTableViewCell
             let currentDate = sortedKeys[indexPath.row];
-            if let steps = stepsByDay[currentDate]
-            {
+            if let steps = stepsByDay[currentDate] {
                 cell.bind(toDate: currentDate, steps: steps, goal: goal)
             }
             return cell

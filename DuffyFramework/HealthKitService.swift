@@ -18,22 +18,18 @@ open class HealthKitService
     private var statisticsQueries = [String : HKStatisticsCollectionQuery]()
     private var subscribers = [String : HealthKitSubscriber]()
     public private(set) var shouldRestartObservers: Bool = false
-
-    init()
-    {
-        if (HKHealthStore.isHealthDataAvailable())
-        {
+    
+    init() {
+        if (HKHealthStore.isHealthDataAvailable()) {
             healthStore = HKHealthStore()
         }
     }
 
-    open class func getInstance() -> HealthKitService
-    {
+    public class func getInstance() -> HealthKitService {
         return instance
     }
     
-    open func setEventDelegate(_ delegate: HealthEventDelegate)
-    {
+    public func setEventDelegate(_ delegate: HealthEventDelegate) {
         eventDelegate = delegate
     }
 
@@ -102,61 +98,58 @@ open class HealthKitService
         }
     }
     
-    open func getStepsByHour(forDate: Date, onRetrieve: (([UInt : Int], Date) -> Void)?, onFailure: ((Error?) -> Void)?)
-    {
-        guard HKHealthStore.isHealthDataAvailable() && healthStore != nil else { return }
+    public func getStepsByHour(for date: Date, completionHandler: @escaping (StepsByHourResult) -> ()) {
+        guard HKHealthStore.isHealthDataAvailable(), let store = healthStore else {
+            completionHandler(.failure(.unsupported))
+            return
+        }
         
-        let startDate = getQueryDate(from: forDate)
-        guard startDate != nil else { return }
+        guard let queryStartDate = getQueryDate(from: date),
+            let queryEndDate = Calendar.current.date(byAdding: .day, value: 1, to: queryStartDate)
+        else {
+            completionHandler(.failure(.invalidQuery))
+            return
+        }
         
-        let queryDate = startDate!
-        let queryEndDate = Calendar.current.date(byAdding: .day, value: 1, to: queryDate)!
-        let forSpecificDay = HKQuery.predicateForSamples(withStart: queryDate, end: queryEndDate, options: [])
+        let forSpecificDay = HKQuery.predicateForSamples(withStart: queryStartDate, end: queryEndDate, options: [])
         
         var interval = DateComponents()
         interval.hour = 1
         
-        if let store = healthStore, let stepType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.stepCount)
+        if let stepType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.stepCount)
         {
             let query = HKStatisticsCollectionQuery(quantityType: stepType,
                                                     quantitySamplePredicate: forSpecificDay,
                                                     options: .cumulativeSum,
-                                                    anchorDate: queryDate,
+                                                    anchorDate: queryStartDate,
                                                     intervalComponents: interval)
             
             query.initialResultsHandler = {
                 (query: HKStatisticsCollectionQuery, results: HKStatisticsCollection?, error: Error?) in
                 
-                if let r = results , error == nil
-                {
-                    var stepsByHour = [UInt:Int]()
+                if let r = results , error == nil {
+                    var stepsByHour = [Hour : Steps]()
                     
-                    r.enumerateStatistics(from: queryDate, to: queryEndDate) {
+                    r.enumerateStatistics(from: queryStartDate, to: queryEndDate) {
                         statistics, stop in
                         
-                        if let quantity = statistics.sumQuantity()
-                        {
+                        if let quantity = statistics.sumQuantity() {
                             let hour = Calendar.current.component(.hour, from: statistics.startDate)
                             
-                            if hour >= 0
-                            {
-                                let stepsThisHour = Int(quantity.doubleValue(for: HKUnit.count()))
-                                stepsByHour[UInt(hour)] = stepsThisHour
+                            if hour >= 0 {
+                                let stepsThisHour = Steps(quantity.doubleValue(for: HKUnit.count()))
+                                stepsByHour[Hour(hour)] = stepsThisHour
                             }
                         }
                     }
                     
-                    if let successBlock = onRetrieve
-                    {
-                        successBlock(stepsByHour, queryDate)
+                    completionHandler(.success((day: queryStartDate, stepsByHour: stepsByHour)))
+                } else {
+                    var errorResult: HealthKitError = .invalidResults
+                    if let error = error {
+                        errorResult = .wrapped(error)
                     }
-                }
-                else
-                {
-                    if let failBlock = onFailure
-                    {
-                        failBlock(error)
-                    }
+                    completionHandler(.failure(errorResult))
                 }
             }
             
@@ -164,128 +157,83 @@ open class HealthKitService
         }
     }
     
-    open func getSteps(_ fromStartDate: Date, toEndDate: Date, onRetrieve: (([Date : Int]) -> Void)?, onFailure: ((Error?) -> Void)?)
-    {
-        guard HKHealthStore.isHealthDataAvailable() && healthStore != nil else {
-            if let failBlock = onFailure
-            {
-                failBlock(nil)
-            }
+    public func getSteps(from startDate: Date, to endDate: Date, completionHandler: @escaping (StepsByDateResult) -> ()) {
+        guard HKHealthStore.isHealthDataAvailable(), let store = healthStore else {
+            completionHandler(.failure(.unsupported))
             return
         }
         
-        let startDate = getQueryDate(from: fromStartDate)
-        let endDate = getQueryDate(from: toEndDate)
+        guard let queryStartDate = getQueryDate(from: startDate),
+            let queryEndDate = getQueryDate(from: endDate)
+        else {
+            completionHandler(.failure(.invalidQuery))
+            return
+        }
         
-        guard startDate != nil && endDate != nil else { return }
-        
-        let endDateFilter = getQueryEndDate(fromStartDate: endDate!)
-        let dateRangePredicate = HKQuery.predicateForSamples(withStart: startDate!, end: endDateFilter, options: .strictEndDate)
+        let endDateFilter = getQueryEndDate(fromStartDate: queryEndDate)
+        let dateRangePredicate = HKQuery.predicateForSamples(withStart: queryStartDate, end: endDateFilter, options: .strictEndDate)
         var interval = DateComponents()
         interval.day = 1
         
-        if let store = healthStore, let stepType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.stepCount)
-        {
+        if let stepType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.stepCount) {
             let query = HKStatisticsCollectionQuery(quantityType: stepType,
                                                     quantitySamplePredicate: dateRangePredicate,
                                                     options: .cumulativeSum,
-                                                    anchorDate: startDate!,
+                                                    anchorDate: queryStartDate,
                                                     intervalComponents: interval)
             
             query.initialResultsHandler = {
                 (query: HKStatisticsCollectionQuery, results: HKStatisticsCollection?, error: Error?) in
                 
-                if let r = results , error == nil
-                {
-                    var stepsCollection = [Date : Int]()
+                if let r = results , error == nil {
+                    var stepsCollection = [Date : Steps]()
                     
-                    r.enumerateStatistics(from: startDate!, to: endDate!) {
+                    r.enumerateStatistics(from: queryStartDate, to: queryEndDate) {
                         statistics, stop in
                         
                         if let quantity = statistics.sumQuantity() {
                             
-                            var steps: Int = 0
-                            if let prev = stepsCollection[statistics.startDate]
-                            {
+                            var steps: Steps = 0
+                            if let prev = stepsCollection[statistics.startDate] {
                                 steps = prev
                             }
                             
-                            steps += Int(quantity.doubleValue(for: HKUnit.count()))
+                            steps += Steps(quantity.doubleValue(for: HKUnit.count()))
                             stepsCollection[statistics.startDate] = steps
                         }
                     }
                     
-                    if let successBlock = onRetrieve
-                    {
-                        successBlock(stepsCollection)
-                    }
+                    completionHandler(.success(stepsCollection))
                 }
                 else
                 {
-                    if let failBlock = onFailure
-                    {
-                        failBlock(error)
+                    var errorResult: HealthKitError = .invalidResults
+                    if let error = error {
+                        errorResult = .wrapped(error)
                     }
+                    completionHandler(.failure(errorResult))
                 }
             }
             
             store.execute(query)
         }
     }
-    
-    open func authorizeForSteps(_ onAuthorized: (() -> (Void))?, onFailure: (() -> (Void))?)
-    {
-        authorize(onAuthorized, onFailure: onFailure, includeExtraTypes: false)
-    }
-    
-    open func authorizeForAllData(_ onAuthorized: (() -> (Void))?, onFailure: (() -> (Void))?)
-    {
-        authorize(onAuthorized, onFailure: onFailure, includeExtraTypes: true)
-    }
 
-    open func authorize(_ onAuthorized: (() -> (Void))?, onFailure: (() -> (Void))?, includeExtraTypes: Bool)
-    {
-        if let store = healthStore, let stepType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.stepCount) , HKHealthStore.isHealthDataAvailable()
-        {
-            var readDataTypes = Set<HKObjectType>()
-            readDataTypes.insert(stepType)
-            
-            if (includeExtraTypes)
-            {
-                if let distanceType = HKQuantityType.quantityType(forIdentifier: .distanceWalkingRunning) {
-                    readDataTypes.insert(distanceType)
-                }
-                
-                if let flightType = HKQuantityType.quantityType(forIdentifier: .flightsClimbed) {
-                    readDataTypes.insert(flightType)
-                }
-                
-                if let activeType = HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned) {
-                    readDataTypes.insert(activeType)
-                }
-            }
-            
-            store.requestAuthorization(toShare: nil, read: readDataTypes, completion: {
-                (success: Bool, error: Error?) in
-                if let successBlock = onAuthorized , success
-                {
-                    successBlock()
-                }
-                else
-                {
-                    if let failBlock = onFailure
-                    {
-                        failBlock()
-                    }
-                }
-            })
+    public func authorize(completionHandler: @escaping (Bool) -> ()) {
+        guard HKHealthStore.isHealthDataAvailable(),
+            let store = healthStore,
+            let stepType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.stepCount),
+            let distanceType = HKQuantityType.quantityType(forIdentifier: .distanceWalkingRunning),
+            let flightType = HKQuantityType.quantityType(forIdentifier: .flightsClimbed),
+            let activeType = HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned)
+        else {
+            completionHandler(false)
+            return
         }
-        else
-        {
-            if let failBlock = onFailure
-            {
-                failBlock()
-            }
+        
+        let readDataTypes: Set<HKObjectType> = [stepType, distanceType, flightType, activeType]
+        store.requestAuthorization(toShare: nil, read: readDataTypes) { success, error in
+            completionHandler(success && error == nil)
         }
     }
     

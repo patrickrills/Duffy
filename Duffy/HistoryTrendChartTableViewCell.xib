@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -18,8 +18,8 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x6C-Vh-YXt" customClass="HistoryTrendChartView" customModule="Duffy" customModuleProvider="target">
-                        <rect key="frame" x="15" y="11" width="290" height="180"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <rect key="frame" x="0.0" y="11" width="320" height="180"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="180" id="lLl-XO-OhE"/>
                         </constraints>
@@ -32,10 +32,10 @@
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="x6C-Vh-YXt" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="1RC-qc-oKu"/>
+                    <constraint firstItem="x6C-Vh-YXt" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="1RC-qc-oKu"/>
                     <constraint firstItem="x6C-Vh-YXt" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="69n-1R-DfR"/>
                     <constraint firstItem="Wve-bj-tRs" firstAttribute="top" secondItem="x6C-Vh-YXt" secondAttribute="bottom" constant="2" id="Boh-OX-xhh"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="x6C-Vh-YXt" secondAttribute="trailing" id="Y5V-g4-yI4"/>
+                    <constraint firstAttribute="trailing" secondItem="x6C-Vh-YXt" secondAttribute="trailing" id="Y5V-g4-yI4"/>
                     <constraint firstAttribute="trailingMargin" secondItem="Wve-bj-tRs" secondAttribute="trailing" id="bqK-4w-1D8"/>
                     <constraint firstItem="Wve-bj-tRs" firstAttribute="bottom" secondItem="H2p-sc-9uM" secondAttribute="bottomMargin" id="nO6-HZ-lDN"/>
                     <constraint firstItem="Wve-bj-tRs" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="rpr-MC-CVX"/>

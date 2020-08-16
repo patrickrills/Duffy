@@ -8,11 +8,10 @@
 
 import Foundation
 
-open class Constants
+public enum Constants
 {
     public static let isDebugMode: Bool = false
     public static let stepsGoalDefault: Int = 10000
     public static let notificationDelayInSeconds: Int = 10
-    public static let showGraphMaxLine: Bool = false
     public static let goalReachedCountForRating: Int = 3
 }

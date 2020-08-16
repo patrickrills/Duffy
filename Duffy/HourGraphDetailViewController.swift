@@ -21,70 +21,56 @@ class HourGraphDetailViewController: DetailDataViewPageViewController
     @IBOutlet weak var noonBottomConstraint : NSLayoutConstraint?
     @IBOutlet weak var sixPMBottomConstraint : NSLayoutConstraint?
     
-    override func refresh()
-    {
-        HealthKitService.getInstance().getStepsByHour(forDate: Date(),
-            onRetrieve: {
-                [weak self] stepsByHour, queryDate in
-                
+    override func refresh() {
+        HealthKitService.getInstance().getStepsByHour(for: Date()) { [weak self] result in
+            switch result {
+            case .success(let steps):
                 DispatchQueue.main.async {
-                    self?.process(stepsByHour: stepsByHour)
+                    self?.process(stepsByHour: steps.stepsByHour)
                 }
-            },
-            onFailure: nil
-        )
+            case .failure(_):
+                break
+            }
+        }
     }
     
-    private func process(stepsByHour : [UInt : Int])
-    {
-        if let bars = barsStackView
-        {
-            var runningStepTotal : Int = 0
+    private func process(stepsByHour : [Hour : Steps]) {
+        if let bars = barsStackView {
+            var runningStepTotal: Steps = 0
             var reachedGoal = false
-            var max : Int = 0
+            var max: Steps = 0
             
-            if stepsByHour.count > 0, let maxStepsInAnHour = stepsByHour.values.max()
-            {
+            if stepsByHour.count > 0, let maxStepsInAnHour = stepsByHour.values.max() {
                 max = maxStepsInAnHour
             }
             
-            if (max > 0)
-            {
-                maxIndicator?.max = UInt(max)
+            if (max > 0) {
+                maxIndicator?.max = max
                 maxIndicator?.isHidden = false
                 noStepsLabel?.isHidden = true
-            }
-            else
-            {
+            } else {
                 maxIndicator?.isHidden = true
                 noStepsLabel?.isHidden = false
             }
             
-            for i in 0..<bars.arrangedSubviews.count
-            {
-                if let bar = bars.arrangedSubviews[i] as? HourGraphBarView
-                {
+            for i in 0..<bars.arrangedSubviews.count {
+                if let bar = bars.arrangedSubviews[i] as? HourGraphBarView {
                     var percent : CGFloat = 0.0
                     
-                    if let steps = stepsByHour[UInt(i)]
-                    {
+                    if let steps = stepsByHour[Hour(i)] {
                         runningStepTotal += steps
                         
-                        if max > 0
-                        {
+                        if max > 0 {
                             percent = CGFloat(CGFloat(steps) / CGFloat(max))
                         }
                     }
                     
                     bar.percent = percent
                     
-                    if (runningStepTotal >= HealthCache.getStepsDailyGoal() && !reachedGoal)
-                    {
+                    if (runningStepTotal >= HealthCache.getStepsDailyGoal() && !reachedGoal) {
                         bar.color = Globals.successColor()
                         reachedGoal = true
-                    }
-                    else
-                    {
+                    } else {
                         bar.color = Globals.primaryColor()
                     }
                 }
@@ -92,8 +78,7 @@ class HourGraphDetailViewController: DetailDataViewPageViewController
         }
     }
     
-    override func viewDidLayoutSubviews()
-    {
+    override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
         sixAMBottomConstraint?.constant = margin.bottom

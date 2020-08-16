@@ -49,14 +49,12 @@ class InterfaceController: WKInterfaceController
     {
         maybeTurnOverComplicationDate()
         
-        HealthKitService.getInstance().authorizeForAllData({
-            
-            DispatchQueue.main.async {
-                [weak self] in
-                    self?.refresh()
-                }
-            
-            }, onFailure: { })
+        HealthKitService.getInstance().authorize { success in
+            guard success else { return }
+            DispatchQueue.main.async { [weak self] in
+                self?.refresh()
+            }
+        }
     }
     
     private func refresh()

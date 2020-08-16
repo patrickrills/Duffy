@@ -29,6 +29,12 @@
 		09289C7E20DDFF56005BF6B8 /* MainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09289C7D20DDFF56005BF6B8 /* MainTableViewController.swift */; };
 		09289C8020DE0AD8005BF6B8 /* TodayHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09289C7F20DE0AD8005BF6B8 /* TodayHeaderView.swift */; };
 		09289C8220DE131E005BF6B8 /* TodayHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09289C8120DE131E005BF6B8 /* TodayHeaderView.xib */; };
+		0929A6C724E6F1DC00780004 /* AggregateCollections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0929A6C624E6F1DC00780004 /* AggregateCollections.swift */; };
+		0929A6C824E6F1DC00780004 /* AggregateCollections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0929A6C624E6F1DC00780004 /* AggregateCollections.swift */; };
+		0929A6CA24E6FF3300780004 /* HealthKitError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0929A6C924E6FF3300780004 /* HealthKitError.swift */; };
+		0929A6CB24E6FF3300780004 /* HealthKitError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0929A6C924E6FF3300780004 /* HealthKitError.swift */; };
+		0929A6CD24E7128F00780004 /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0929A6CC24E7128F00780004 /* Types.swift */; };
+		0929A6CE24E7128F00780004 /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0929A6CC24E7128F00780004 /* Types.swift */; };
 		092B0E8A1D45841F00085F99 /* CoreMotionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092B0E891D45841F00085F99 /* CoreMotionService.swift */; };
 		092B0E8B1D45841F00085F99 /* CoreMotionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092B0E891D45841F00085F99 /* CoreMotionService.swift */; };
 		09323C711D22C39700961822 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09323C701D22C39700961822 /* AppDelegate.swift */; };
@@ -232,6 +238,9 @@
 		09289C7D20DDFF56005BF6B8 /* MainTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewController.swift; sourceTree = "<group>"; };
 		09289C7F20DE0AD8005BF6B8 /* TodayHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayHeaderView.swift; sourceTree = "<group>"; };
 		09289C8120DE131E005BF6B8 /* TodayHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TodayHeaderView.xib; sourceTree = "<group>"; };
+		0929A6C624E6F1DC00780004 /* AggregateCollections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AggregateCollections.swift; sourceTree = "<group>"; };
+		0929A6C924E6FF3300780004 /* HealthKitError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitError.swift; sourceTree = "<group>"; };
+		0929A6CC24E7128F00780004 /* Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
 		092B0E891D45841F00085F99 /* CoreMotionService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreMotionService.swift; sourceTree = "<group>"; };
 		09323C6D1D22C39700961822 /* Duffy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Duffy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		09323C701D22C39700961822 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -469,6 +478,9 @@
 				09323D161D2303DE00961822 /* DuffyWatchFramework.h */,
 				09323D051D2303BC00961822 /* DuffyFramework.h */,
 				09323D071D2303BC00961822 /* Info.plist */,
+				0929A6C624E6F1DC00780004 /* AggregateCollections.swift */,
+				0929A6CC24E7128F00780004 /* Types.swift */,
+				0929A6C924E6FF3300780004 /* HealthKitError.swift */,
 				09323D211D23040100961822 /* HealthKitService.swift */,
 				09AACE261D318A390058A814 /* HealthCache.swift */,
 				09AACE291D318E5D0058A814 /* WCSessionService.swift */,
@@ -857,14 +869,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				09D7F1241E340EA7008FF0CC /* Constants.swift in Sources */,
+				0929A6C724E6F1DC00780004 /* AggregateCollections.swift in Sources */,
 				09AACE271D318A390058A814 /* HealthCache.swift in Sources */,
 				090829E224670EEF00F100D6 /* Trophy.swift in Sources */,
+				0929A6CA24E6FF3300780004 /* HealthKitError.swift in Sources */,
 				0967EB791E7F0ACE0073BF3F /* NotificationService.swift in Sources */,
 				09AACE2A1D318E5D0058A814 /* WCSessionService.swift in Sources */,
 				092B0E8A1D45841F00085F99 /* CoreMotionService.swift in Sources */,
 				09B20DBD24A7AC400037B300 /* LogLevel.swift in Sources */,
 				097FB10F23CDEAF5001621D4 /* DebugService.swift in Sources */,
 				093A5F0523AEC870007D11E3 /* DebugLogEntry.swift in Sources */,
+				0929A6CD24E7128F00780004 /* Types.swift in Sources */,
 				09323D221D23040100961822 /* HealthKitService.swift in Sources */,
 				09177BC5241D466F0095ECB4 /* ExportService.swift in Sources */,
 				0967EB761E7D88770073BF3F /* HealthEventDelegate.swift in Sources */,
@@ -877,14 +892,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				09D7F1251E340EA7008FF0CC /* Constants.swift in Sources */,
+				0929A6C824E6F1DC00780004 /* AggregateCollections.swift in Sources */,
 				09AACE281D318A390058A814 /* HealthCache.swift in Sources */,
 				090829E324670EEF00F100D6 /* Trophy.swift in Sources */,
+				0929A6CB24E6FF3300780004 /* HealthKitError.swift in Sources */,
 				0967EB7A1E7F0ACE0073BF3F /* NotificationService.swift in Sources */,
 				09AACE2B1D318E5D0058A814 /* WCSessionService.swift in Sources */,
 				092B0E8B1D45841F00085F99 /* CoreMotionService.swift in Sources */,
 				09B20DBE24A7AC400037B300 /* LogLevel.swift in Sources */,
 				097FB11023CDEAF5001621D4 /* DebugService.swift in Sources */,
 				093A5F0623AEC870007D11E3 /* DebugLogEntry.swift in Sources */,
+				0929A6CE24E7128F00780004 /* Types.swift in Sources */,
 				09323D231D23040100961822 /* HealthKitService.swift in Sources */,
 				09177BC6241D466F0095ECB4 /* ExportService.swift in Sources */,
 				0967EB771E7D88770073BF3F /* HealthEventDelegate.swift in Sources */,
@@ -1136,10 +1154,10 @@
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_ENTITLEMENTS = "Duffy WatchKit Extension/Duffy WatchKit Extension.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 1;
 				INFOPLIST_FILE = "Duffy WatchKit Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MARKETING_VERSION = 3.4.2;
+				MARKETING_VERSION = 3.4.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bigbluefly.Duffy.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
@@ -1157,10 +1175,10 @@
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_ENTITLEMENTS = "Duffy WatchKit Extension/Duffy WatchKit Extension.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 1;
 				INFOPLIST_FILE = "Duffy WatchKit Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MARKETING_VERSION = 3.4.2;
+				MARKETING_VERSION = 3.4.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bigbluefly.Duffy.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
@@ -1177,10 +1195,10 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 1;
 				IBSC_MODULE = Duffy_WatchKit_Extension;
 				INFOPLIST_FILE = "Duffy WatchKit App/Info.plist";
-				MARKETING_VERSION = 3.4.2;
+				MARKETING_VERSION = 3.4.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bigbluefly.Duffy.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -1197,10 +1215,10 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 1;
 				IBSC_MODULE = Duffy_WatchKit_Extension;
 				INFOPLIST_FILE = "Duffy WatchKit App/Info.plist";
-				MARKETING_VERSION = 3.4.2;
+				MARKETING_VERSION = 3.4.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bigbluefly.Duffy.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -1218,12 +1236,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Duffy/Duffy.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2ZMUDMBY38;
 				INFOPLIST_FILE = Duffy/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 3.4.2;
+				MARKETING_VERSION = 3.4.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bigbluefly.Duffy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1237,12 +1255,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Duffy/Duffy.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2ZMUDMBY38;
 				INFOPLIST_FILE = Duffy/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 3.4.2;
+				MARKETING_VERSION = 3.4.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bigbluefly.Duffy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1362,12 +1380,12 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CODE_SIGN_ENTITLEMENTS = DuffyToday/DuffyToday.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2ZMUDMBY38;
 				INFOPLIST_FILE = DuffyToday/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MARKETING_VERSION = 3.4.2;
+				MARKETING_VERSION = 3.4.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bigbluefly.Duffy.DuffyToday;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1383,12 +1401,12 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CODE_SIGN_ENTITLEMENTS = DuffyToday/DuffyToday.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2ZMUDMBY38;
 				INFOPLIST_FILE = DuffyToday/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MARKETING_VERSION = 3.4.2;
+				MARKETING_VERSION = 3.4.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bigbluefly.Duffy.DuffyToday;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

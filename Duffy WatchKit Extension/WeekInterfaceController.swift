@@ -29,45 +29,47 @@ class WeekInterfaceController: WKInterfaceController
             return
         }
         
-        HealthKitService.getInstance().getSteps(startDate, toEndDate: Date(), onRetrieve: {
-            (stepsCollection: [Date : Int]) in
-            
-            let numFormatter = InterfaceController.getNumberFormatter()
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "eee"
-            
-            let sortedKeys = stepsCollection.keys.sorted(by: >)
+        HealthKitService.getInstance().getSteps(from: startDate, to: Date()) { [weak self] result in
+            switch result {
+            case .success(let stepsCollection):
+                self?.processSteps(stepsCollection)
+            case .failure(_):
+                self?.showErrorState()
+            }
+        }
+    }
     
-            let data: [WeekRowData] = sortedKeys.map({
-                let title = dateFormatter.string(from: $0).uppercased()
-                var value = "0"
-                var adornment = ""
-                
-                if let steps = stepsCollection[$0],
-                    let formattedSteps = numFormatter.string(for: steps) {
-                    
-                    value = formattedSteps
-                    adornment = Trophy.trophy(for: steps).symbol()
-                }
-                
-                return WeekRowData(title: title, formattedValue: value, adornment: adornment)
-            })
-            
-            DispatchQueue.main.async { [weak self] in
-                    if let weakSelf = self {
-                        if (data.count > 0) {
-                            weakSelf.bindTable(to: data)
-                        } else {
-                            weakSelf.showErrorState()
-                        }
-                    }
-                }
-            },
-            onFailure: { (err: Error?) in
-                DispatchQueue.main.async { [weak self] in
-                    self?.showErrorState()
-                }
+    private func processSteps(_ stepsCollection: [Date : Steps]) {
+        let numFormatter = InterfaceController.getNumberFormatter()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "eee"
+        
+        let sortedKeys = stepsCollection.keys.sorted(by: >)
+        
+        let data: [WeekRowData] = sortedKeys.map({
+            let title = dateFormatter.string(from: $0).uppercased()
+            var value = "0"
+            var adornment = ""
+
+            if let steps = stepsCollection[$0],
+                let formattedSteps = numFormatter.string(for: steps) {
+
+                value = formattedSteps
+                adornment = Trophy.trophy(for: Int(steps)).symbol()
+            }
+
+            return WeekRowData(title: title, formattedValue: value, adornment: adornment)
         })
+        
+        DispatchQueue.main.async { [weak self] in
+            if let weakSelf = self {
+                if (data.count > 0) {
+                    weakSelf.bindTable(to: data)
+                } else {
+                    weakSelf.showErrorState()
+                }
+            }
+        }
     }
     
     private func bindTable(to data: [WeekRowData]) {
