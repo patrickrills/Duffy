@@ -30,13 +30,21 @@ class HistoryTableViewController: UITableViewController {
     //MARK: Constructors
     
     init() {
-        super.init(style: .grouped)
+        super.init(style: HistoryTableViewController.tableStyle())
         self.modalPresentationStyle = .fullScreen
     }
     
     required init?(coder aDecoder: NSCoder) {
-        super.init(style: .grouped)
+        super.init(style: HistoryTableViewController.tableStyle())
         self.modalPresentationStyle = .fullScreen
+    }
+    
+    private class func tableStyle() -> UITableView.Style {
+        if #available(iOS 13.0, *) {
+            return .insetGrouped
+        }
+        
+        return .grouped
     }
     
     //MARK: View lifecycle
@@ -50,6 +58,8 @@ class HistoryTableViewController: UITableViewController {
             navigationItem.rightBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Filter", comment: ""), style: .plain, target: self, action: #selector(changeFilter))
         }
         
+        tableView.estimatedSectionHeaderHeight = HistorySectionHeaderView.estimatedHeight
+        tableView.register(HistorySectionHeaderView.self, forHeaderFooterViewReuseIdentifier: String(describing: HistorySectionHeaderView.self))
         tableView.register(PreviousValueTableViewCell.self, forCellReuseIdentifier: String(describing: PreviousValueTableViewCell.self))
         tableView.register(UINib(nibName: String(describing: HistoryTrendChartTableViewCell.self), bundle: Bundle.main), forCellReuseIdentifier: String(describing: HistoryTrendChartTableViewCell.self))
         clearsSelectionOnViewWillAppear = true
@@ -174,14 +184,24 @@ class HistoryTableViewController: UITableViewController {
         }
     }
     
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: String(describing: HistorySectionHeaderView.self)) as? HistorySectionHeaderView else { return nil }
+        
+        let sectionTitle: String
+        let actionTitle: String = "Options" //TODO: Japanese translation of "Options"
+        var action: (() -> ())?
+        
         switch section {
         case 0:
-            return NSLocalizedString("Trend", comment: "")
+            sectionTitle = NSLocalizedString("Trend", comment: "")
+            action = { print("Show Options for Chart") }
         case 1:
-            return NSLocalizedString("Details", comment: "")
+            sectionTitle = NSLocalizedString("Details", comment: "")
         default:
             return nil
         }
+        
+        header.set(headerText: sectionTitle, actionText: (action != nil ? actionTitle : nil), action: action)
+        return header
     }
 }

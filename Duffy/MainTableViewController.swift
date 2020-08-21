@@ -30,8 +30,8 @@ class MainTableViewController: UITableViewController
         super.viewDidLoad()
         
         tableView.register(PreviousValueTableViewCell.self, forCellReuseIdentifier: CELL_ID)
-        tableView.register(BoldActionSectionHeaderView.self, forHeaderFooterViewReuseIdentifier: SECTION_ID)
-        tableView.sectionHeaderHeight = 48.0
+        tableView.register(MainSectionHeaderView.self, forHeaderFooterViewReuseIdentifier: SECTION_ID)
+        tableView.estimatedSectionHeaderHeight = MainSectionHeaderView.estimatedHeight
         tableView.rowHeight = 44.0
     }
     
@@ -65,7 +65,7 @@ class MainTableViewController: UITableViewController
     {
         let safeArea : CGFloat = view.safeAreaInsets.top        
         let availableRealEstate = UIScreen.main.bounds.height - UIApplication.shared.statusBarFrame.size.height - safeArea
-        let amountOfTableToShow = tableView.sectionHeaderHeight + (tableView.rowHeight * 1.1);
+        let amountOfTableToShow = tableView.estimatedSectionHeaderHeight + (tableView.rowHeight * 1.1);
         return ceil(availableRealEstate - amountOfTableToShow)
     }
     
@@ -209,16 +209,10 @@ class MainTableViewController: UITableViewController
         return (stepsByDay.count == 0 ? 1 : stepsByDay.count)
     }
     
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView?
-    {
-        if section == 0,
-            let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: SECTION_ID) as? BoldActionSectionHeaderView
-        {
-            header.set(headerText: NSLocalizedString("Previous Week", comment: ""), actionText: NSLocalizedString("VIEW HISTORY", comment: ""), action: { [weak self] in self?.openHistory() })
-            return header
-        }
-        
-        return nil
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: SECTION_ID) as? MainSectionHeaderView else { return nil }
+        header.setOpenHistory { [weak self] in self?.openHistory() }
+        return header
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell

@@ -19,8 +19,7 @@ class BoldActionSectionHeaderView: UITableViewHeaderFooterView {
     }
     
     required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        buildView()
+        fatalError("xib is not used for BoldActionSectionHeaderView")
     }
     
     private func buildView() {
@@ -47,13 +46,31 @@ class BoldActionSectionHeaderView: UITableViewHeaderFooterView {
         contentView.addSubview(headerLabel)
         contentView.addSubview(button)
         
+        createConstraints()
+    }
+    
+    typealias BoldActionSectionHeaderViewLayoutOptions = (labelHeight: CGFloat, useHorizontalLayoutMargins: Bool, horizontalInset: CGFloat, topInset: CGFloat, actionCenterOffset: CGFloat)
+    
+    private func createConstraints() {
+        let options = layoutOptions()
+        let height = headerLabel.heightAnchor.constraint(equalToConstant: options.labelHeight)
+        height.priority = UILayoutPriority(rawValue: 999.0)
+        
+        let superLeadingAnchor = options.useHorizontalLayoutMargins ? contentView.layoutMarginsGuide.leadingAnchor : contentView.leadingAnchor
+        let superTrailingAnchor = options.useHorizontalLayoutMargins ? contentView.layoutMarginsGuide.trailingAnchor : contentView.trailingAnchor
+        
         NSLayoutConstraint.activate([
-            headerLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
-            headerLabel.heightAnchor.constraint(equalTo: contentView.heightAnchor),
-            headerLabel.leadingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.leadingAnchor),
-            button.trailingAnchor.constraint(equalTo: contentView.layoutMarginsGuide.trailingAnchor),
-            button.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: 2.0)
+            height,
+            headerLabel.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor, constant: options.topInset),
+            contentView.layoutMarginsGuide.bottomAnchor.constraint(equalTo: headerLabel.bottomAnchor),
+            headerLabel.leadingAnchor.constraint(equalTo: superLeadingAnchor, constant: options.horizontalInset),
+            button.trailingAnchor.constraint(equalTo: superTrailingAnchor, constant: -options.horizontalInset),
+            button.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: options.actionCenterOffset)
         ])
+    }
+    
+    func layoutOptions() -> BoldActionSectionHeaderViewLayoutOptions {
+        return BoldActionSectionHeaderViewLayoutOptions(labelHeight: 32.0, useHorizontalLayoutMargins: true, horizontalInset: 0.0, topInset: 0.0, actionCenterOffset: 2.0)
     }
     
     @objc private func onTouchUpInside() {
@@ -66,6 +83,7 @@ class BoldActionSectionHeaderView: UITableViewHeaderFooterView {
         if let actionText = actionText,
             let action = action
         {
+            self.button.isHidden = false
             self.button.setTitle(actionText, for: .normal)
             self.action = action
         }
@@ -75,4 +93,29 @@ class BoldActionSectionHeaderView: UITableViewHeaderFooterView {
             self.action = nil
         }
     }
+}
+
+class MainSectionHeaderView: BoldActionSectionHeaderView {
+    
+    static let estimatedHeight: CGFloat = 48.0
+    
+    func setOpenHistory(_ openHistory: @escaping () -> ()) {
+        set(headerText: NSLocalizedString("Previous Week", comment: ""), actionText: NSLocalizedString("VIEW HISTORY", comment: ""), action: openHistory)
+    }
+    
+}
+
+class HistorySectionHeaderView: BoldActionSectionHeaderView {
+    
+    static let estimatedHeight: CGFloat = 50.0
+    
+    override func layoutOptions() -> BoldActionSectionHeaderViewLayoutOptions {
+        var useLayoutMargins = true
+        if #available(iOS 13.0, *) {
+            useLayoutMargins = false
+        }
+        
+        return BoldActionSectionHeaderViewLayoutOptions(labelHeight: 26.0, useHorizontalLayoutMargins: useLayoutMargins, horizontalInset: 2.0, topInset: 8.0, actionCenterOffset: 6.0)
+    }
+    
 }
