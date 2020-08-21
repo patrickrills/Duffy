@@ -12,44 +12,34 @@ import HealthKit
 
 class MainTableViewController: UITableViewController
 {
-    let CELL_ID = "PreviousValueTableViewCell"
-    let SECTION_ID = "PreviousSectionHeaderView"
     var stepsByDay : [Date : Steps] = [:]
     var sortedKeys : [Date] = []
     var goal : Int = 0
     var isLoading : Bool = false {
         didSet {
-            if let header = getHeader() {
-                header.toggleLoading(isLoading: isLoading)
-            }
+            getHeader()?.toggleLoading(isLoading: isLoading)
         }
     }
     
-    override func viewDidLoad()
-    {
+    override func viewDidLoad() {
         super.viewDidLoad()
         
-        tableView.register(PreviousValueTableViewCell.self, forCellReuseIdentifier: CELL_ID)
-        tableView.register(MainSectionHeaderView.self, forHeaderFooterViewReuseIdentifier: SECTION_ID)
+        tableView.register(PreviousValueTableViewCell.self, forCellReuseIdentifier: String(describing: PreviousValueTableViewCell.self))
+        tableView.register(MainSectionHeaderView.self, forHeaderFooterViewReuseIdentifier: String(describing: MainSectionHeaderView.self))
         tableView.estimatedSectionHeaderHeight = MainSectionHeaderView.estimatedHeight
-        tableView.rowHeight = 44.0
+        tableView.rowHeight = PreviousValueTableViewCell.rowHeight
     }
     
-    override func viewWillAppear(_ animated: Bool)
-    {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         refresh()
         subscribeToHealthUpdates()
     }
     
-    override func viewDidAppear(_ animated: Bool)
-    {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if HealthCache.getGoalReachedCount() >= Constants.goalReachedCountForRating
-        {
-            let twoSecondsFromNow = DispatchTime.now() + 2.0
-            DispatchQueue.main.asyncAfter(deadline: twoSecondsFromNow)
-            {
+        if HealthCache.getGoalReachedCount() >= Constants.goalReachedCountForRating {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
                 AppRater.askToRate()
             }
         }
@@ -61,50 +51,41 @@ class MainTableViewController: UITableViewController
         unsubscribeToHealthUpdates()
     }
     
-    func heightForHeader() -> CGFloat
-    {
+    func heightForHeader() -> CGFloat {
         let safeArea : CGFloat = view.safeAreaInsets.top        
         let availableRealEstate = UIScreen.main.bounds.height - UIApplication.shared.statusBarFrame.size.height - safeArea
         let amountOfTableToShow = tableView.estimatedSectionHeaderHeight + (tableView.rowHeight * 1.1);
         return ceil(availableRealEstate - amountOfTableToShow)
     }
     
-    override func viewWillLayoutSubviews()
-    {
+    override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
-        if tableView.tableHeaderView == nil
-        {
-            if let header = TodayHeaderView.createView()
-            {
+        if tableView.tableHeaderView == nil {
+            if let header = TodayHeaderView.createView() {
                 header.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: heightForHeader())
                 tableView.tableHeaderView = header
             }
         }
         
-        if tableView.tableFooterView == nil
-        {
-            if let footer = AboutFooterView.createView()
-            {
+        if tableView.tableFooterView == nil {
+            if let footer = AboutFooterView.createView() {
                 footer.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 120.0)
-                footer.aboutButton?.addTarget(self, action: #selector(openAboutPressed), for: .touchUpInside)
+                footer.aboutButton?.addTarget(self, action: #selector(openAbout), for: .touchUpInside)
                 tableView.tableFooterView = footer
             }
         }
         
-        if let aboutFooter = tableView.tableFooterView as? AboutFooterView
-        {
+        if let aboutFooter = tableView.tableFooterView as? AboutFooterView {
             aboutFooter.separatorIsVisible = stepsByDay.count > 0
         }
     }
     
-    private func getHeader() -> TodayHeaderView?
-    {
+    private func getHeader() -> TodayHeaderView? {
         return tableView.tableHeaderView as? TodayHeaderView
     }
     
-    func refresh()
-    {
+    func refresh() {
         isLoading = true
         
         HealthKitService.getInstance().authorize { [weak self] success in
@@ -115,20 +96,14 @@ class MainTableViewController: UITableViewController
                     switch result {
                     case .success(let stepsCollection):
                         DispatchQueue.main.async { [weak self] in
-                            if let weakSelf = self
-                            {
+                            if let weakSelf = self {
                                 weakSelf.isLoading = false
                                 weakSelf.goal = HealthCache.getStepsDailyGoal()
                                 weakSelf.stepsByDay = stepsCollection
                                 weakSelf.sortedKeys = stepsCollection.keys.sorted(by: >)
                                 weakSelf.tableView?.separatorStyle = stepsCollection.count == 0 ? .none : .singleLine
                                 weakSelf.tableView?.reloadData()
-                                
-                                if let header = weakSelf.getHeader()
-                                {
-                                    header.refresh()
-                                }
-                                
+                                weakSelf.getHeader()?.refresh()
                                 weakSelf.maybeRestartObservers()
                                 weakSelf.maybeAskForCoreMotionPermission()
                             }
@@ -179,56 +154,39 @@ class MainTableViewController: UITableViewController
         HealthKitService.getInstance().unsubscribe(from: HKQuantityTypeIdentifier.stepCount)
     }
     
-    private func openHistory()
-    {
+    private func openHistory() {
         present(ModalNavigationController(rootViewController: HistoryTableViewController()), animated: true, completion: nil)
     }
     
-    private func openAbout()
-    {
+    @objc private func openAbout() {
         present(ModalNavigationController(rootViewController: AboutTableViewController()), animated: true, completion: nil)
     }
-    
-    @IBAction private func openAboutPressed()
-    {
-        openAbout()
-    }
 
-    override func numberOfSections(in tableView: UITableView) -> Int
-    {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int
-    {
-        if (isLoading)
-        {
-            return 0
-        }
-        
-        return (stepsByDay.count == 0 ? 1 : stepsByDay.count)
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        guard !isLoading else { return 0 }
+        return stepsByDay.count > 0 ? stepsByDay.count : 1
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: SECTION_ID) as? MainSectionHeaderView else { return nil }
+        guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: String(describing: MainSectionHeaderView.self)) as? MainSectionHeaderView else { return nil }
         header.setOpenHistory { [weak self] in self?.openHistory() }
         return header
     }
 
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
-    {
-        if (indexPath.row == 0 && stepsByDay.count == 0)
-        {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if indexPath.row == 0 && stepsByDay.count == 0 {
             let plainCell = UITableViewCell(style: .default, reuseIdentifier: nil)
             plainCell.textLabel?.textAlignment = .center
             plainCell.textLabel?.textColor = Globals.lightGrayColor()
             plainCell.selectionStyle = .none
             plainCell.textLabel?.text = NSLocalizedString("No data for the previous week", comment: "")
             return plainCell
-        }
-        else
-        {
-            let cell = tableView.dequeueReusableCell(withIdentifier: CELL_ID, for: indexPath) as! PreviousValueTableViewCell
+        } else {
+            let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PreviousValueTableViewCell.self), for: indexPath) as! PreviousValueTableViewCell
             let currentDate = sortedKeys[indexPath.row];
             if let steps = stepsByDay[currentDate] {
                 cell.bind(toDate: currentDate, steps: steps, goal: goal)

@@ -11,7 +11,7 @@ import DuffyFramework
 
 class HistoryTableViewController: UITableViewController {
     private enum Constants {
-        static let ROW_HEIGHT : CGFloat = 44.0
+        static let ROW_HEIGHT : CGFloat = PreviousValueTableViewCell.rowHeight
         static let PAGE_SIZE_DAYS: Int = 30
     }
     
