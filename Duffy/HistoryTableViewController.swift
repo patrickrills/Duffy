@@ -143,6 +143,10 @@ class HistoryTableViewController: UITableViewController {
         toggleLoading(false)
     }
     
+    private func showChartOptions() {
+        present(ModalNavigationController(rootViewController: HistoryTrendChartOptionsTableViewController(), doneButtonSystemImageName: "checkmark.circle", onDismiss: { [weak self] in self?.tableView.reloadSections(IndexSet(integer: 0), with: .fade) }), animated: true, completion: nil)
+    }
+    
     //MARK: Table view datasource
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -194,7 +198,7 @@ class HistoryTableViewController: UITableViewController {
         switch section {
         case 0:
             sectionTitle = NSLocalizedString("Trend", comment: "")
-            action = { print("Show Options for Chart") }
+            action = { [weak self] in self?.showChartOptions() }
         case 1:
             sectionTitle = NSLocalizedString("Details", comment: "")
         default:
