@@ -26,6 +26,15 @@ class HistoryTrendChartOptionsTableViewController: UITableViewController {
         tableView.sectionHeaderHeight = 16.0
         tableView.register(HistoryTrendChartOptionTableViewCell.self, forCellReuseIdentifier: String(describing: HistoryTrendChartOptionTableViewCell.self))
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        //Don't allow user to turn off all options. Enable at least data line if no options selected
+        if !settings.contains(where: { $0.isEnabled() }) {
+            HistoryTrendChartOption.actualDataLine.setEnabled(true)
+        }
+    }
 
     // MARK: - Table view data source
 
