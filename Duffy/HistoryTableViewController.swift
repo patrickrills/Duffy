@@ -62,6 +62,7 @@ class HistoryTableViewController: UITableViewController {
         tableView.register(HistorySectionHeaderView.self, forHeaderFooterViewReuseIdentifier: String(describing: HistorySectionHeaderView.self))
         tableView.register(PreviousValueTableViewCell.self, forCellReuseIdentifier: String(describing: PreviousValueTableViewCell.self))
         tableView.register(UINib(nibName: String(describing: HistoryTrendChartTableViewCell.self), bundle: Bundle.main), forCellReuseIdentifier: String(describing: HistoryTrendChartTableViewCell.self))
+        tableView.register(UINib(nibName: String(describing: HistorySummaryTableViewCell.self), bundle: Bundle.main), forCellReuseIdentifier: String(describing: HistorySummaryTableViewCell.self))
         clearsSelectionOnViewWillAppear = true
         
         if let footer = HistoryTableViewFooter.createView() {
@@ -150,12 +151,12 @@ class HistoryTableViewController: UITableViewController {
     //MARK: Table view datasource
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
-        case 1:
+        case 2:
             return filteredDates.count
         default:
             return 1
@@ -164,7 +165,7 @@ class HistoryTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.section {
-        case 1:
+        case 2:
             return Constants.ROW_HEIGHT
         default:
             return UITableView.automaticDimension
@@ -178,6 +179,10 @@ class HistoryTableViewController: UITableViewController {
             let graphCell = tableView.dequeueReusableCell(withIdentifier: String(describing: HistoryTrendChartTableViewCell.self), for: indexPath) as! HistoryTrendChartTableViewCell
             graphCell.bind(to: pastSteps.filter { filteredDates.contains($0.key) && !Calendar.current.isDate($0.key, inSameDayAs:Date()) })
             return graphCell
+        case 1:
+            let summaryCell = tableView.dequeueReusableCell(withIdentifier: String(describing: HistorySummaryTableViewCell.self), for: indexPath) as! HistorySummaryTableViewCell
+            summaryCell.bind(to: pastSteps.filter { filteredDates.contains($0.key) && !Calendar.current.isDate($0.key, inSameDayAs:Date()) })
+            return summaryCell
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PreviousValueTableViewCell.self), for: indexPath) as! PreviousValueTableViewCell
             let currentDate = filteredDates[indexPath.row];
@@ -200,6 +205,8 @@ class HistoryTableViewController: UITableViewController {
             sectionTitle = NSLocalizedString("Trend", comment: "")
             action = { [weak self] in self?.showChartOptions() }
         case 1:
+            sectionTitle = "Summary" //TODO: Japanese translation of "Summary"
+        case 2:
             sectionTitle = NSLocalizedString("Details", comment: "")
         default:
             return nil

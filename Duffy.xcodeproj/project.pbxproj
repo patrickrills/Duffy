@@ -80,6 +80,8 @@
 		09824A8C1EA66C74002A4A84 /* EditGoalInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09824A8B1EA66C74002A4A84 /* EditGoalInterfaceController.swift */; };
 		0985E6E924F162AC000B4A96 /* HistoryTrendChartOptionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0985E6E824F162AC000B4A96 /* HistoryTrendChartOptionsTableViewController.swift */; };
 		0985E6EB24F174C2000B4A96 /* HistoryTrendChartOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0985E6EA24F174C2000B4A96 /* HistoryTrendChartOption.swift */; };
+		0985E6EE24F2B4B1000B4A96 /* HistorySummaryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0985E6EC24F2B4B1000B4A96 /* HistorySummaryTableViewCell.xib */; };
+		0985E6EF24F2B4B1000B4A96 /* HistorySummaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0985E6ED24F2B4B1000B4A96 /* HistorySummaryTableViewCell.swift */; };
 		099497D8241EC84B005E167C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 099497D7241EC84B005E167C /* Assets.xcassets */; };
 		099497DA242191B9005E167C /* ProgressRingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099497D9242191B9005E167C /* ProgressRingView.swift */; };
 		099582C8234192A600AF6A96 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 099582CA234192A600AF6A96 /* Localizable.strings */; };
@@ -284,6 +286,8 @@
 		09824A8B1EA66C74002A4A84 /* EditGoalInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditGoalInterfaceController.swift; sourceTree = "<group>"; };
 		0985E6E824F162AC000B4A96 /* HistoryTrendChartOptionsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTrendChartOptionsTableViewController.swift; sourceTree = "<group>"; };
 		0985E6EA24F174C2000B4A96 /* HistoryTrendChartOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTrendChartOption.swift; sourceTree = "<group>"; };
+		0985E6EC24F2B4B1000B4A96 /* HistorySummaryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistorySummaryTableViewCell.xib; sourceTree = "<group>"; };
+		0985E6ED24F2B4B1000B4A96 /* HistorySummaryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistorySummaryTableViewCell.swift; sourceTree = "<group>"; };
 		099497D7241EC84B005E167C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		099497D9242191B9005E167C /* ProgressRingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressRingView.swift; sourceTree = "<group>"; };
 		099582C9234192A600AF6A96 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -419,6 +423,8 @@
 				09A7EEAF21A39D7100DEDE5C /* HistoryTrendChartView.swift */,
 				0985E6E824F162AC000B4A96 /* HistoryTrendChartOptionsTableViewController.swift */,
 				0985E6EA24F174C2000B4A96 /* HistoryTrendChartOption.swift */,
+				0985E6EC24F2B4B1000B4A96 /* HistorySummaryTableViewCell.xib */,
+				0985E6ED24F2B4B1000B4A96 /* HistorySummaryTableViewCell.swift */,
 				0935D17D21A8D8E100B91009 /* HistoryFilterTableViewController.swift */,
 				0900866E20F27D0C006540E7 /* PreviousValueTableViewCell.swift */,
 				0900867220FA7673006540E7 /* BoldActionSectionHeaderView.swift */,
@@ -763,6 +769,7 @@
 				09323C7B1D22C39700961822 /* LaunchScreen.storyboard in Resources */,
 				099582C8234192A600AF6A96 /* Localizable.strings in Resources */,
 				092276DB235549240015A1E6 /* HistoryTableViewFooter.xib in Resources */,
+				0985E6EE24F2B4B1000B4A96 /* HistorySummaryTableViewCell.xib in Resources */,
 				09323C781D22C39700961822 /* Assets.xcassets in Resources */,
 				0961D907216A9F2000F4AA88 /* duffy.ckcomplication in Resources */,
 				09BDDA6621978CE90078B749 /* AboutFooterView.xib in Resources */,
@@ -855,6 +862,7 @@
 				09289C7E20DDFF56005BF6B8 /* MainTableViewController.swift in Sources */,
 				09BDDA6421978CD20078B749 /* AboutFooterView.swift in Sources */,
 				09289C8020DE0AD8005BF6B8 /* TodayHeaderView.swift in Sources */,
+				0985E6EF24F2B4B1000B4A96 /* HistorySummaryTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
