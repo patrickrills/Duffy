@@ -11,7 +11,7 @@ import DuffyFramework
 
 class HistoryTableViewController: UITableViewController {
     private enum Constants {
-        static let ROW_HEIGHT : CGFloat = 44.0
+        static let ROW_HEIGHT : CGFloat = PreviousValueTableViewCell.rowHeight
         static let PAGE_SIZE_DAYS: Int = 30
     }
     
@@ -30,13 +30,21 @@ class HistoryTableViewController: UITableViewController {
     //MARK: Constructors
     
     init() {
-        super.init(style: .grouped)
+        super.init(style: HistoryTableViewController.tableStyle())
         self.modalPresentationStyle = .fullScreen
     }
     
     required init?(coder aDecoder: NSCoder) {
-        super.init(style: .grouped)
+        super.init(style: HistoryTableViewController.tableStyle())
         self.modalPresentationStyle = .fullScreen
+    }
+    
+    private class func tableStyle() -> UITableView.Style {
+        if #available(iOS 13.0, *) {
+            return .insetGrouped
+        }
+        
+        return .grouped
     }
     
     //MARK: View lifecycle
@@ -50,6 +58,8 @@ class HistoryTableViewController: UITableViewController {
             navigationItem.rightBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Filter", comment: ""), style: .plain, target: self, action: #selector(changeFilter))
         }
         
+        tableView.estimatedSectionHeaderHeight = HistorySectionHeaderView.estimatedHeight
+        tableView.register(HistorySectionHeaderView.self, forHeaderFooterViewReuseIdentifier: String(describing: HistorySectionHeaderView.self))
         tableView.register(PreviousValueTableViewCell.self, forCellReuseIdentifier: String(describing: PreviousValueTableViewCell.self))
         tableView.register(UINib(nibName: String(describing: HistoryTrendChartTableViewCell.self), bundle: Bundle.main), forCellReuseIdentifier: String(describing: HistoryTrendChartTableViewCell.self))
         clearsSelectionOnViewWillAppear = true
@@ -133,6 +143,10 @@ class HistoryTableViewController: UITableViewController {
         toggleLoading(false)
     }
     
+    private func showChartOptions() {
+        present(ModalNavigationController(rootViewController: HistoryTrendChartOptionsTableViewController(), doneButtonSystemImageName: "checkmark.circle", onDismiss: { [weak self] in self?.tableView.reloadSections(IndexSet(integer: 0), with: .fade) }), animated: true, completion: nil)
+    }
+    
     //MARK: Table view datasource
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -174,14 +188,24 @@ class HistoryTableViewController: UITableViewController {
         }
     }
     
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: String(describing: HistorySectionHeaderView.self)) as? HistorySectionHeaderView else { return nil }
+        
+        let sectionTitle: String
+        let actionTitle: String = "Options" //TODO: Japanese translation of "Options"
+        var action: (() -> ())?
+        
         switch section {
         case 0:
-            return NSLocalizedString("Trend", comment: "")
+            sectionTitle = NSLocalizedString("Trend", comment: "")
+            action = { [weak self] in self?.showChartOptions() }
         case 1:
-            return NSLocalizedString("Details", comment: "")
+            sectionTitle = NSLocalizedString("Details", comment: "")
         default:
             return nil
         }
+        
+        header.set(headerText: sectionTitle, actionText: (action != nil ? actionTitle : nil), action: action)
+        return header
     }
 }

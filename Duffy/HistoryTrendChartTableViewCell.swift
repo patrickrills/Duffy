@@ -23,13 +23,10 @@ class HistoryTrendChartTableViewCell: UITableViewCell
         let average = Int(stepsByDay.values.mean())
         let averageFormatted = Globals.stepsFormatter().string(from: NSNumber(value: average))!
         let averageAttributed = NSMutableAttributedString(string: String(format: NSLocalizedString("%@ daily average", comment: ""), averageFormatted))
+        averageAttributed.addAttribute(.foregroundColor, value: Globals.averageColor(), range: NSRange(location: 0, length: averageAttributed.string.count))
         
         if let numberRange = averageAttributed.string.range(of: averageFormatted) {
             averageAttributed.addAttribute(.font, value: UIFont.systemFont(ofSize: 24.0, weight: .medium), range: NSRange(numberRange, in: averageAttributed.string))
-        }
-        
-        if DebugService.isDebugModeEnabled() {
-            averageAttributed.addAttribute(.foregroundColor, value: Globals.averageColor(), range: NSRange(location: 0, length: averageAttributed.string.count))
         }
         
         averageLabel.attributedText = averageAttributed
