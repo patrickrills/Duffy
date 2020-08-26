@@ -14,6 +14,8 @@ class HistorySummaryTableViewCell: UITableViewCell {
     @IBOutlet private weak var averageLabel : UILabel!
     @IBOutlet private weak var maxValueLabel : UILabel!
     @IBOutlet private weak var minValueLabel : UILabel!
+    @IBOutlet private weak var maxDateLabel : UILabel!
+    @IBOutlet private weak var minDateLabel : UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -23,11 +25,17 @@ class HistorySummaryTableViewCell: UITableViewCell {
     func bind(to stepsByDay: [Date : Steps]) {
         let summary = stats(from: stepsByDay)
         displayAverage(summary.average)
-        displayMinMax(summary.min, summary.max)
+        displayExtreme(summary.min, minValueLabel, minDateLabel)
+        displayExtreme(summary.max, maxValueLabel, maxDateLabel)
     }
     
-    private func stats(from stepsByDay: [Date : Steps]) -> (average: Steps, min: Steps, max: Steps) {
-        return (average: Steps(stepsByDay.values.mean()), min: stepsByDay.values.min() ?? 0, max: stepsByDay.values.max() ?? 0)
+    typealias Extreme = (key: Date, value: Steps)
+    typealias Stats = (average: Steps, min: Extreme?, max: Extreme?)
+    
+    private func stats(from stepsByDay: [Date : Steps]) -> Stats {
+        return Stats(average: Steps(stepsByDay.values.mean()),
+                     min: stepsByDay.min(by: { $0.value < $1.value }),
+                     max: stepsByDay.max(by: { $0.value < $1.value }))
     }
     
     private func displayAverage(_ average: Steps) {
@@ -39,10 +47,17 @@ class HistorySummaryTableViewCell: UITableViewCell {
         }
         
         averageLabel.attributedText = averageAttributed
+        
+        //TODO: Place dot on average bar
     }
     
-    private func displayMinMax(_ min: Steps, _ max: Steps) {
-        minValueLabel.text = Globals.stepsFormatter().string(for: min)!
-        maxValueLabel.text = Globals.stepsFormatter().string(for: max)!
+    private func displayExtreme(_ x: Extreme?, _ valueLabel: UILabel, _ dateLabel: UILabel) {
+        if let x = x {
+            valueLabel.text = Globals.stepsFormatter().string(for: x.value)!
+            dateLabel.text = Globals.dayFormatter().string(from: x.key)
+        } else {
+            valueLabel.text = nil
+            dateLabel.text = nil
+        }
     }
 }
