@@ -16,10 +16,20 @@ class HistorySummaryTableViewCell: UITableViewCell {
     @IBOutlet private weak var minValueLabel : UILabel!
     @IBOutlet private weak var maxDateLabel : UILabel!
     @IBOutlet private weak var minDateLabel : UILabel!
+    @IBOutlet private weak var averageBar : UIView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         selectionStyle = .none
+        averageBar.clipsToBounds = true
+        if #available(iOS 13.0, *) {
+            averageBar.backgroundColor = .systemGray4
+        }
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        averageBar.layer.cornerRadius = averageBar.frame.size.height / 2.0
     }
 
     func bind(to stepsByDay: [Date : Steps]) {

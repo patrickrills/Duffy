@@ -69,20 +69,31 @@
                             </label>
                         </subviews>
                     </stackView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hZY-2w-ZYk">
+                        <rect key="frame" x="70.5" y="92.5" width="175.5" height="8"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="8" id="TL2-Gb-U1l"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="i5a-9r-GQu" firstAttribute="leading" secondItem="hZY-2w-ZYk" secondAttribute="trailing" constant="2" id="El3-vS-ReE"/>
                     <constraint firstItem="2Tl-xd-ZzT" firstAttribute="top" secondItem="7DO-u0-poD" secondAttribute="bottom" constant="4" id="GQc-0v-mtU"/>
                     <constraint firstItem="7DO-u0-poD" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="PeZ-cf-rKe"/>
                     <constraint firstItem="7DO-u0-poD" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="Q8J-ye-Ufu"/>
                     <constraint firstAttribute="trailingMargin" secondItem="i5a-9r-GQu" secondAttribute="trailing" id="QnT-rs-DDN"/>
                     <constraint firstAttribute="bottomMargin" secondItem="2Tl-xd-ZzT" secondAttribute="bottom" id="S6Y-88-E1Q"/>
+                    <constraint firstItem="hZY-2w-ZYk" firstAttribute="centerY" secondItem="Emj-Eo-zK7" secondAttribute="centerY" id="XaD-Ok-jFs"/>
                     <constraint firstItem="i5a-9r-GQu" firstAttribute="top" secondItem="2Tl-xd-ZzT" secondAttribute="top" id="c1q-2m-BoL"/>
                     <constraint firstItem="2Tl-xd-ZzT" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="eOy-VA-Vzm"/>
+                    <constraint firstItem="hZY-2w-ZYk" firstAttribute="leading" secondItem="2Tl-xd-ZzT" secondAttribute="trailing" constant="2" id="fKk-pM-ZJQ"/>
                     <constraint firstItem="7DO-u0-poD" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="mqu-Pl-Q38"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="averageBar" destination="hZY-2w-ZYk" id="8EL-5c-E1b"/>
                 <outlet property="averageLabel" destination="7DO-u0-poD" id="yvn-GE-6d5"/>
                 <outlet property="maxDateLabel" destination="Cjr-tf-gmV" id="zy2-bw-6eN"/>
                 <outlet property="maxValueLabel" destination="Qos-W7-iGo" id="wk4-5K-Ihc"/>
