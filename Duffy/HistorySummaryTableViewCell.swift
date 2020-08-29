@@ -21,6 +21,9 @@ class HistorySummaryTableViewCell: UITableViewCell {
     @IBOutlet private weak var averageBarHeightConstraint : NSLayoutConstraint!
     @IBOutlet private weak var averageDotHeightConstraint : NSLayoutConstraint!
     @IBOutlet private weak var averageDotPaddingConstraint : NSLayoutConstraint!
+    @IBOutlet private weak var averageDotLeadingConstraint : NSLayoutConstraint!
+    
+    private var averagePositionPercent: Double?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -29,6 +32,7 @@ class HistorySummaryTableViewCell: UITableViewCell {
         averageBar.layer.cornerRadius = averageBarHeightConstraint.constant / 2.0
         averageDot.layer.cornerRadius = averageDotHeightConstraint.constant / 2.0
         averageDot.subviews.forEach({ $0.layer.cornerRadius = (averageDotHeightConstraint.constant - (averageDotPaddingConstraint.constant * 2.0)) / 2.0 })
+        averageDot.isHidden = true
         
         if #available(iOS 13.0, *) {
             maxValueLabel.textColor = .label
@@ -51,6 +55,8 @@ class HistorySummaryTableViewCell: UITableViewCell {
         displayAverage(summary.average)
         displayExtreme(summary.min, minValueLabel, minDateLabel)
         displayExtreme(summary.max, maxValueLabel, maxDateLabel)
+        calculateDotPosition(summary)
+        setNeedsLayout()
     }
     
     typealias Extreme = (key: Date, value: Steps)
@@ -71,8 +77,6 @@ class HistorySummaryTableViewCell: UITableViewCell {
         }
         
         averageLabel.attributedText = averageAttributed
-        
-        //TODO: Place dot on average bar
     }
     
     private func displayExtreme(_ x: Extreme?, _ valueLabel: UILabel, _ dateLabel: UILabel) {
@@ -82,6 +86,32 @@ class HistorySummaryTableViewCell: UITableViewCell {
         } else {
             valueLabel.text = nil
             dateLabel.text = nil
+        }
+    }
+    
+    private func calculateDotPosition(_ stats: Stats) {
+        guard let min = stats.min,
+            let max = stats.max,
+            stats.average > 0
+        else {
+            averagePositionPercent = nil
+            return
+        }
+        
+        let span = max.value - min.value
+        averagePositionPercent = Double(stats.average - min.value) / Double(span)
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        if let averagePositionPercent = averagePositionPercent, averagePositionPercent > 0.0 {
+            let barWidth = averageBar.frame.size.width
+            let rawPosition = barWidth * CGFloat(averagePositionPercent)
+            averageDot.isHidden = false
+            averageDotLeadingConstraint.constant = rawPosition - (averageBarHeightConstraint.constant / 2.0)
+        } else {
+            averageDot.isHidden = true
         }
     }
 }

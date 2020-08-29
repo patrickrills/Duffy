@@ -78,7 +78,7 @@
                         </constraints>
                     </view>
                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jnr-mt-oZm">
-                        <rect key="frame" x="150.5" y="59.5" width="19" height="19"/>
+                        <rect key="frame" x="74" y="59.5" width="19" height="19"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4iG-uF-Yqb">
                                 <rect key="frame" x="2" y="2" width="15" height="15"/>
@@ -103,7 +103,6 @@
                     <constraint firstItem="2Tl-xd-ZzT" firstAttribute="top" secondItem="7DO-u0-poD" secondAttribute="bottom" constant="10" id="GQc-0v-mtU"/>
                     <constraint firstItem="7DO-u0-poD" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="PeZ-cf-rKe"/>
                     <constraint firstItem="7DO-u0-poD" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="Q8J-ye-Ufu"/>
-                    <constraint firstItem="jnr-mt-oZm" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="QAl-dS-IZx"/>
                     <constraint firstAttribute="trailingMargin" secondItem="i5a-9r-GQu" secondAttribute="trailing" id="QnT-rs-DDN"/>
                     <constraint firstAttribute="bottomMargin" secondItem="2Tl-xd-ZzT" secondAttribute="bottom" id="S6Y-88-E1Q"/>
                     <constraint firstItem="hZY-2w-ZYk" firstAttribute="centerY" secondItem="Emj-Eo-zK7" secondAttribute="centerY" id="XaD-Ok-jFs"/>
@@ -111,6 +110,7 @@
                     <constraint firstItem="2Tl-xd-ZzT" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="eOy-VA-Vzm"/>
                     <constraint firstItem="hZY-2w-ZYk" firstAttribute="leading" secondItem="2Tl-xd-ZzT" secondAttribute="trailing" constant="2" id="fKk-pM-ZJQ"/>
                     <constraint firstItem="7DO-u0-poD" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="mqu-Pl-Q38"/>
+                    <constraint firstItem="jnr-mt-oZm" firstAttribute="leading" secondItem="hZY-2w-ZYk" secondAttribute="leading" id="wxG-k7-nj9"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
@@ -119,6 +119,7 @@
                 <outlet property="averageBarHeightConstraint" destination="TL2-Gb-U1l" id="cXk-gs-Ou6"/>
                 <outlet property="averageDot" destination="jnr-mt-oZm" id="kQk-H0-9nB"/>
                 <outlet property="averageDotHeightConstraint" destination="He3-Yk-Lnz" id="0dz-dp-GKn"/>
+                <outlet property="averageDotLeadingConstraint" destination="wxG-k7-nj9" id="4bT-9i-vil"/>
                 <outlet property="averageDotPaddingConstraint" destination="F7O-W3-1oy" id="Xyk-i9-OyY"/>
                 <outlet property="averageLabel" destination="7DO-u0-poD" id="yvn-GE-6d5"/>
                 <outlet property="maxDateLabel" destination="Cjr-tf-gmV" id="zy2-bw-6eN"/>
