@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -24,22 +25,22 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillProportionally" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="2Tl-xd-ZzT">
-                        <rect key="frame" x="16" y="41.5" width="52.5" height="107.5"/>
+                        <rect key="frame" x="16" y="41.5" width="56" height="107.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="😐" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Emj-Eo-zK7">
-                                <rect key="frame" x="9.5" y="0.0" width="34" height="55.5"/>
+                                <rect key="frame" x="11" y="0.0" width="34" height="55.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" text="min val" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W7M-D5-24v">
-                                <rect key="frame" x="1.5" y="55.5" width="49.5" height="27.5"/>
+                                <rect key="frame" x="3.5" y="55.5" width="49.5" height="27.5"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="min date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qUd-ru-XVT">
-                                <rect key="frame" x="0.0" y="83" width="52.5" height="24.5"/>
+                                <rect key="frame" x="2" y="83" width="52.5" height="24.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -69,19 +70,40 @@
                             </label>
                         </subviews>
                     </stackView>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hZY-2w-ZYk">
-                        <rect key="frame" x="70.5" y="65" width="175.5" height="8"/>
+                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hZY-2w-ZYk">
+                        <rect key="frame" x="74" y="65" width="172" height="8"/>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="8" id="TL2-Gb-U1l"/>
                         </constraints>
                     </view>
+                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jnr-mt-oZm">
+                        <rect key="frame" x="150.5" y="59.5" width="19" height="19"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4iG-uF-Yqb">
+                                <rect key="frame" x="2" y="2" width="15" height="15"/>
+                                <color key="backgroundColor" name="AverageColor"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="19" id="33k-5p-iQR"/>
+                            <constraint firstItem="4iG-uF-Yqb" firstAttribute="top" secondItem="jnr-mt-oZm" secondAttribute="top" constant="2" id="BKa-3o-NLD"/>
+                            <constraint firstItem="4iG-uF-Yqb" firstAttribute="leading" secondItem="jnr-mt-oZm" secondAttribute="leading" constant="2" id="F7O-W3-1oy"/>
+                            <constraint firstAttribute="height" constant="19" id="He3-Yk-Lnz"/>
+                            <constraint firstAttribute="bottom" secondItem="4iG-uF-Yqb" secondAttribute="bottom" constant="2" id="PR9-0M-ckd"/>
+                            <constraint firstAttribute="trailing" secondItem="4iG-uF-Yqb" secondAttribute="trailing" constant="2" id="q4T-Wf-OJc"/>
+                        </constraints>
+                    </view>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="hZY-2w-ZYk" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="ADe-ev-Uhd"/>
                     <constraint firstItem="i5a-9r-GQu" firstAttribute="leading" secondItem="hZY-2w-ZYk" secondAttribute="trailing" constant="2" id="El3-vS-ReE"/>
+                    <constraint firstItem="jnr-mt-oZm" firstAttribute="centerY" secondItem="hZY-2w-ZYk" secondAttribute="centerY" id="FKV-tU-u88"/>
                     <constraint firstItem="2Tl-xd-ZzT" firstAttribute="top" secondItem="7DO-u0-poD" secondAttribute="bottom" constant="10" id="GQc-0v-mtU"/>
                     <constraint firstItem="7DO-u0-poD" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="PeZ-cf-rKe"/>
                     <constraint firstItem="7DO-u0-poD" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="Q8J-ye-Ufu"/>
+                    <constraint firstItem="jnr-mt-oZm" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="QAl-dS-IZx"/>
                     <constraint firstAttribute="trailingMargin" secondItem="i5a-9r-GQu" secondAttribute="trailing" id="QnT-rs-DDN"/>
                     <constraint firstAttribute="bottomMargin" secondItem="2Tl-xd-ZzT" secondAttribute="bottom" id="S6Y-88-E1Q"/>
                     <constraint firstItem="hZY-2w-ZYk" firstAttribute="centerY" secondItem="Emj-Eo-zK7" secondAttribute="centerY" id="XaD-Ok-jFs"/>
@@ -94,6 +116,10 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="averageBar" destination="hZY-2w-ZYk" id="8EL-5c-E1b"/>
+                <outlet property="averageBarHeightConstraint" destination="TL2-Gb-U1l" id="cXk-gs-Ou6"/>
+                <outlet property="averageDot" destination="jnr-mt-oZm" id="kQk-H0-9nB"/>
+                <outlet property="averageDotHeightConstraint" destination="He3-Yk-Lnz" id="0dz-dp-GKn"/>
+                <outlet property="averageDotPaddingConstraint" destination="F7O-W3-1oy" id="Xyk-i9-OyY"/>
                 <outlet property="averageLabel" destination="7DO-u0-poD" id="yvn-GE-6d5"/>
                 <outlet property="maxDateLabel" destination="Cjr-tf-gmV" id="zy2-bw-6eN"/>
                 <outlet property="maxValueLabel" destination="Qos-W7-iGo" id="wk4-5K-Ihc"/>
@@ -103,4 +129,9 @@
             <point key="canvasLocation" x="140.57971014492756" y="192.1875"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <namedColor name="AverageColor">
+            <color red="0.28235294117647058" green="0.10196078431372549" blue="0.71764705882352942" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
 </document>

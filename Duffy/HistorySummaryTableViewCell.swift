@@ -17,31 +17,33 @@ class HistorySummaryTableViewCell: UITableViewCell {
     @IBOutlet private weak var maxDateLabel : UILabel!
     @IBOutlet private weak var minDateLabel : UILabel!
     @IBOutlet private weak var averageBar : UIView!
+    @IBOutlet private weak var averageDot : UIView!
+    @IBOutlet private weak var averageBarHeightConstraint : NSLayoutConstraint!
+    @IBOutlet private weak var averageDotHeightConstraint : NSLayoutConstraint!
+    @IBOutlet private weak var averageDotPaddingConstraint : NSLayoutConstraint!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         selectionStyle = .none
-        averageBar.clipsToBounds = true
+        
+        averageBar.layer.cornerRadius = averageBarHeightConstraint.constant / 2.0
+        averageDot.layer.cornerRadius = averageDotHeightConstraint.constant / 2.0
+        averageDot.subviews.forEach({ $0.layer.cornerRadius = (averageDotHeightConstraint.constant - (averageDotPaddingConstraint.constant * 2.0)) / 2.0 })
         
         if #available(iOS 13.0, *) {
-            maxValueLabel?.textColor = .label
-            minValueLabel?.textColor = .label
-            maxDateLabel?.textColor = .secondaryLabel
-            minDateLabel?.textColor = .secondaryLabel
-            
+            maxValueLabel.textColor = .label
+            minValueLabel.textColor = .label
+            maxDateLabel.textColor = .secondaryLabel
+            minDateLabel.textColor = .secondaryLabel
             averageBar.backgroundColor = .systemGray4
-            
+            averageDot.backgroundColor = .secondarySystemGroupedBackground
         } else {
-            maxValueLabel?.textColor = .black
-            minValueLabel?.textColor = .black
-            maxDateLabel?.textColor = UIColor(red: 117.0/255.0, green: 117.0/255.0, blue: 117.0/255.0, alpha: 1.0)
+            maxValueLabel.textColor = .black
+            minValueLabel.textColor = .black
+            maxDateLabel.textColor = UIColor(red: 117.0/255.0, green: 117.0/255.0, blue: 117.0/255.0, alpha: 1.0)
             minDateLabel?.textColor = UIColor(red: 117.0/255.0, green: 117.0/255.0, blue: 117.0/255.0, alpha: 1.0)
+            averageDot.backgroundColor = .white
         }
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        averageBar.layer.cornerRadius = averageBar.frame.size.height / 2.0
     }
 
     func bind(to stepsByDay: [Date : Steps]) {
