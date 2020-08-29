@@ -14,6 +14,7 @@ enum Globals
     private static let decimalFormatter = NumberFormatter()
     private static let dateFormatter = DateFormatter()
     private static let fullFormatter = DateFormatter()
+    private static let shortFormatter = DateFormatter()
     private static let secondary = UIColor(red: 76.0/255.0, green: 142.0/255.0, blue: 218.0/255.0, alpha: 1.0)
     private static let lightText = UIColor(red: 196.0/255.0, green: 196.0/255.0, blue: 198.0/255.0, alpha: 1.0)
     private static let veryLightText = UIColor.black.withAlphaComponent(0.15)
@@ -53,6 +54,12 @@ enum Globals
     {
         fullFormatter.dateFormat = "MMM d, yyyy"
         return fullFormatter
+    }
+    
+    static func shortDateFormatter() -> DateFormatter
+    {
+        shortFormatter.dateFormat = "MMM d"
+        return shortFormatter
     }
  
     static func primaryColor() -> UIColor

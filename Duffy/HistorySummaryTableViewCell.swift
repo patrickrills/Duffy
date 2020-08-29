@@ -22,8 +22,20 @@ class HistorySummaryTableViewCell: UITableViewCell {
         super.awakeFromNib()
         selectionStyle = .none
         averageBar.clipsToBounds = true
+        
         if #available(iOS 13.0, *) {
+            maxValueLabel?.textColor = .label
+            minValueLabel?.textColor = .label
+            maxDateLabel?.textColor = .secondaryLabel
+            minDateLabel?.textColor = .secondaryLabel
+            
             averageBar.backgroundColor = .systemGray4
+            
+        } else {
+            maxValueLabel?.textColor = .black
+            minValueLabel?.textColor = .black
+            maxDateLabel?.textColor = UIColor(red: 117.0/255.0, green: 117.0/255.0, blue: 117.0/255.0, alpha: 1.0)
+            minDateLabel?.textColor = UIColor(red: 117.0/255.0, green: 117.0/255.0, blue: 117.0/255.0, alpha: 1.0)
         }
     }
     
@@ -64,7 +76,7 @@ class HistorySummaryTableViewCell: UITableViewCell {
     private func displayExtreme(_ x: Extreme?, _ valueLabel: UILabel, _ dateLabel: UILabel) {
         if let x = x {
             valueLabel.text = Globals.stepsFormatter().string(for: x.value)!
-            dateLabel.text = Globals.dayFormatter().string(from: x.key)
+            dateLabel.text = Globals.shortDateFormatter().string(from: x.key).uppercased()
         } else {
             valueLabel.text = nil
             dateLabel.text = nil
