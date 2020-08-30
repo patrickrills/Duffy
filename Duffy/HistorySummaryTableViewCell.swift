@@ -64,8 +64,8 @@ class HistorySummaryTableViewCell: UITableViewCell {
     
     private func stats(from stepsByDay: [Date : Steps]) -> Stats {
         return Stats(average: Steps(stepsByDay.values.mean()),
-                     min: stepsByDay.min(by: { $0.value < $1.value }),
-                     max: stepsByDay.max(by: { $0.value < $1.value }))
+                     min: stepsByDay.count > 1 ? stepsByDay.min(by: { $0.value < $1.value }) : nil,
+                     max: stepsByDay.count > 1 ? stepsByDay.max(by: { $0.value < $1.value }) : nil)
     }
     
     private func displayAverage(_ average: Steps) {
