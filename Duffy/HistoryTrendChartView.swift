@@ -16,6 +16,7 @@ class HistoryTrendChartView: UIView
         static let LABEL_WIDTH: CGFloat = 20.0
         static let DOTTED_LINE_MARGIN: CGFloat = (PADDING + LABEL_WIDTH + 2.0) //padding + Label width + extra so the line doesn't touch the label
         static let GRAPH_INSETS = UIEdgeInsets(top: 0.0, left: PADDING + 15.0, bottom: 0.0, right: PADDING + 15.0)
+        static let GRAPH_MAX_FACTOR: Double = 1.05
     }
     
     typealias Plot = (points: [CGPoint], goalY: CGFloat?, averageY: CGFloat?, trend: [CGPoint]?)
@@ -44,7 +45,7 @@ class HistoryTrendChartView: UIView
         
         if (dataSet.count > 0) {
             let maxSteps = dataSet.values.max()
-            let topRange = Double(max(maxSteps!, goalSteps)) * 1.2
+            let topRange = Double(max(maxSteps!, goalSteps)) * DrawingConstants.GRAPH_MAX_FACTOR
             let widthOfDay = Double(activeArea.width) / Double(dataSet.count)
             
             let translateY: (Steps) -> (CGFloat) = { steps in
