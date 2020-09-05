@@ -37,6 +37,7 @@ class HistoryTrendChartView: UIView
     
     private func plot(in rect: CGRect) -> Plot {
         let activeArea = CGRect(x: DrawingConstants.GRAPH_INSETS.left, y: DrawingConstants.GRAPH_INSETS.top, width: rect.width - (DrawingConstants.GRAPH_INSETS.left + DrawingConstants.GRAPH_INSETS.right), height: rect.height - (DrawingConstants.GRAPH_INSETS.top + DrawingConstants.GRAPH_INSETS.bottom))
+        
         let goalSteps = Steps(HealthCache.getStepsDailyGoal())
         var goalLineY: CGFloat? = nil
         var averageY: CGFloat? = nil
@@ -46,18 +47,21 @@ class HistoryTrendChartView: UIView
         if (dataSet.count > 0) {
             let maxSteps = dataSet.values.max()
             let topRange = Double(max(maxSteps!, goalSteps)) * DrawingConstants.GRAPH_MAX_FACTOR
-            let widthOfDay = Double(activeArea.width) / Double(dataSet.count)
+            let minDate = dataSet.keys.min() ?? Date()
+            let numberOfDaysInRange = max(1, minDate.differenceInDays(from: Date().previousDay()))
+            let widthOfDay = CGFloat(activeArea.width) / CGFloat(numberOfDaysInRange)
             
             let translateY: (Steps) -> (CGFloat) = { steps in
                 return activeArea.height - CGFloat(floor((Double(steps) / topRange) * Double(activeArea.height)))
             }
             
-            for (index, day) in dataSet.keys.sorted().enumerated() {
-                let stepsForDay = dataSet[day]!
-                let dayY: Double = Double(translateY(stepsForDay))
-                let dayX: Double = (widthOfDay * Double(index) + floor(widthOfDay * 0.5)) + Double(DrawingConstants.GRAPH_INSETS.left)
-                points.append(CGPoint(x: dayX, y: dayY))
+            let translateX: (Date) -> (CGFloat) = { date in
+                return CGFloat(abs(date.differenceInDays(from: minDate))) * widthOfDay + DrawingConstants.GRAPH_INSETS.left
             }
+                        
+            points = dataSet.reduce(into: points, { points, data in
+                points.append(CGPoint(x: translateX(data.key), y: translateY(data.value)))
+            }).sorted { $0.x < $1.x }
             
             if HistoryTrendChartOption.goalIndicator.isEnabled() {
                 goalLineY = translateY(goalSteps)
@@ -96,27 +100,33 @@ class HistoryTrendChartView: UIView
         guard HistoryTrendChartOption.actualDataLine.isEnabled() else { return }
         
         if plot.points.count > 0 {
-            let dataLine = UIBezierPath()
-            let xWidth = rect.width / CGFloat(plot.points.count)
-    
-            if (xWidth <= 0.5) {
-                dataLine.lineWidth = 0.5
-            } else if (xWidth < 2.0) {
-                dataLine.lineWidth = 1.0
+            if plot.points.count == 1, let onlyPoint = plot.points.first {
+                let singlePoint = UIBezierPath(ovalIn: CGRect(x: rect.midX, y: onlyPoint.y - 4.0, width: 8.0, height: 8.0))
+                Globals.primaryColor().setFill()
+                singlePoint.fill()
             } else {
-                dataLine.lineWidth = 2.0
-            }
-            
-            plot.points.forEach({
-                if dataLine.isEmpty {
-                    dataLine.move(to: $0)
+                let dataLine = UIBezierPath()
+                let xWidth = rect.width / CGFloat(plot.points.count)
+        
+                if (xWidth <= 0.5) {
+                    dataLine.lineWidth = 0.5
+                } else if (xWidth < 2.0) {
+                    dataLine.lineWidth = 1.0
                 } else {
-                    dataLine.addLine(to: $0)
+                    dataLine.lineWidth = 2.0
                 }
-            })
-            
-            Globals.primaryColor().setStroke()
-            dataLine.stroke()
+                
+                plot.points.forEach({
+                    if dataLine.isEmpty {
+                        dataLine.move(to: $0)
+                    } else {
+                        dataLine.addLine(to: $0)
+                    }
+                })
+                
+                Globals.primaryColor().setStroke()
+                dataLine.stroke()
+            }
         }
     }
     
