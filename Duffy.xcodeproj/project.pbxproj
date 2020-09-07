@@ -71,6 +71,7 @@
 		096A4EE61E58D39900CE3D5B /* DuffyFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09323D031D2303BC00961822 /* DuffyFramework.framework */; };
 		096FE09C2503CA6500838BEE /* DateDifference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096FE09B2503CA6500838BEE /* DateDifference.swift */; };
 		096FE09D2503CA6500838BEE /* DateDifference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096FE09B2503CA6500838BEE /* DateDifference.swift */; };
+		096FE0A825067FC700838BEE /* HistoryTrendChartLineOptionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096FE0A725067FC700838BEE /* HistoryTrendChartLineOptionsTableViewController.swift */; };
 		097085632127122B00790EC7 /* DistanceFlightsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097085612127122B00790EC7 /* DistanceFlightsDetailViewController.swift */; };
 		097085642127122B00790EC7 /* DistanceFlightsDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 097085622127122B00790EC7 /* DistanceFlightsDetailViewController.xib */; };
 		09708599214D7A8000790EC7 /* HourGraphDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09708597214D7A8000790EC7 /* HourGraphDetailViewController.swift */; };
@@ -279,6 +280,7 @@
 		0967EB751E7D88770073BF3F /* HealthEventDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthEventDelegate.swift; sourceTree = "<group>"; };
 		0967EB781E7F0ACE0073BF3F /* NotificationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		096FE09B2503CA6500838BEE /* DateDifference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateDifference.swift; sourceTree = "<group>"; };
+		096FE0A725067FC700838BEE /* HistoryTrendChartLineOptionsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTrendChartLineOptionsTableViewController.swift; sourceTree = "<group>"; };
 		097085612127122B00790EC7 /* DistanceFlightsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceFlightsDetailViewController.swift; sourceTree = "<group>"; };
 		097085622127122B00790EC7 /* DistanceFlightsDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DistanceFlightsDetailViewController.xib; sourceTree = "<group>"; };
 		09708597214D7A8000790EC7 /* HourGraphDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourGraphDetailViewController.swift; sourceTree = "<group>"; };
@@ -425,6 +427,7 @@
 				09A7EEAC21A1E89A00DEDE5C /* HistoryTrendChartTableViewCell.xib */,
 				09A7EEAF21A39D7100DEDE5C /* HistoryTrendChartView.swift */,
 				0985E6E824F162AC000B4A96 /* HistoryTrendChartOptionsTableViewController.swift */,
+				096FE0A725067FC700838BEE /* HistoryTrendChartLineOptionsTableViewController.swift */,
 				0985E6EA24F174C2000B4A96 /* HistoryTrendChartOption.swift */,
 				0985E6EC24F2B4B1000B4A96 /* HistorySummaryTableViewCell.xib */,
 				0985E6ED24F2B4B1000B4A96 /* HistorySummaryTableViewCell.swift */,
@@ -848,6 +851,7 @@
 				0900867320FA7673006540E7 /* BoldActionSectionHeaderView.swift in Sources */,
 				09A7EEAD21A1E89A00DEDE5C /* HistoryTrendChartTableViewCell.swift in Sources */,
 				0970859C214DAB8900790EC7 /* HourGraphBarView.swift in Sources */,
+				096FE0A825067FC700838BEE /* HistoryTrendChartLineOptionsTableViewController.swift in Sources */,
 				09CEA97F211F86DC0023786B /* HistoryTableViewFooter.swift in Sources */,
 				097085A0214F16B600790EC7 /* AppRater.swift in Sources */,
 				09323C711D22C39700961822 /* AppDelegate.swift in Sources */,
