@@ -55,5 +55,8 @@ class HistoryTrendChartLineOptionsTableViewController: UITableViewController {
         let option = lineOptions[indexPath.row]
         option.setEnabled()
         tableView.reloadData()
+        DispatchQueue.main.async {
+            self.navigateBack()
+        }
     }
 }
