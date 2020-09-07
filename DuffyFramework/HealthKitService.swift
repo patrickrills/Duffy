@@ -67,8 +67,7 @@ open class HealthKitService
                         }
                     }
                     
-                    if steps >= HealthCache.getStepsDailyGoal(),
-                        NotificationService.convertDayToKey(sampleDate) == NotificationService.convertDayToKey(Date())
+                    if steps >= HealthCache.getStepsDailyGoal(), sampleDate.isToday()
                     {
                         HealthCache.incrementGoalReachedCounter()
                         
@@ -377,8 +376,7 @@ open class HealthKitService
                     WCSessionService.getInstance().updateWatchFaceComplication(["stepsdataresponse" : HealthCache.getStepsDataFromCache() as AnyObject])
                 }
                 
-                if todaysSteps >= HealthCache.getStepsDailyGoal(),
-                    NotificationService.convertDayToKey(startDate) == NotificationService.convertDayToKey(Date())
+                if todaysSteps >= HealthCache.getStepsDailyGoal(), startDate.isToday()
                 {
                     HealthCache.incrementGoalReachedCounter()
                     

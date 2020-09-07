@@ -177,11 +177,11 @@ class HistoryTableViewController: UITableViewController {
         switch indexPath.section {
         case 0:
             let graphCell = tableView.dequeueReusableCell(withIdentifier: String(describing: HistoryTrendChartTableViewCell.self), for: indexPath) as! HistoryTrendChartTableViewCell
-            graphCell.bind(to: pastSteps.filter { filteredDates.contains($0.key) && !Calendar.current.isDate($0.key, inSameDayAs:Date()) })
+            graphCell.bind(to: pastSteps.filter { filteredDates.contains($0.key) && !$0.key.isToday() })
             return graphCell
         case 1:
             let summaryCell = tableView.dequeueReusableCell(withIdentifier: String(describing: HistorySummaryTableViewCell.self), for: indexPath) as! HistorySummaryTableViewCell
-            summaryCell.bind(to: pastSteps.filter { filteredDates.contains($0.key) && !Calendar.current.isDate($0.key, inSameDayAs:Date()) })
+            summaryCell.bind(to: pastSteps.filter { filteredDates.contains($0.key) && !$0.key.isToday() })
             return summaryCell
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PreviousValueTableViewCell.self), for: indexPath) as! PreviousValueTableViewCell

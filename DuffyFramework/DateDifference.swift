@@ -18,6 +18,10 @@ public extension Date {
         return components.day ?? NSNotFound
     }
     
+    func isToday() -> Bool {
+        return Calendar.current.isDateInToday(self)
+    }
+    
     func previousDay() -> Date {
         let calendar = Calendar.current
         return calendar.date(byAdding: .day, value: -1, to: calendar.startOfDay(for: self))!
