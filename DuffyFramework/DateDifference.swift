@@ -22,4 +22,15 @@ public extension Date {
         let calendar = Calendar.current
         return calendar.date(byAdding: .day, value: -1, to: calendar.startOfDay(for: self))!
     }
+    
+    func nextDay() -> Date {
+        let calendar = Calendar.current
+        return calendar.date(byAdding: .day, value: 1, to: calendar.startOfDay(for: self))!
+    }
+    
+    func stripTime() -> Date {
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.era, .year, .month, .day], from: self)
+        return Calendar.current.date(from: components)!
+    }
 }

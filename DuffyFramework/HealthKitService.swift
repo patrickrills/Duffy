@@ -35,21 +35,19 @@ open class HealthKitService
 
     open func getSteps(_ forDate: Date, onRetrieve: ((Int, Date) -> Void)?, onFailure:  ((Error?) -> Void)?)
     {
-        guard HKHealthStore.isHealthDataAvailable() && healthStore != nil else { return }
+        guard HKHealthStore.isHealthDataAvailable(), let store = healthStore else { return }
 
-        let startDate = getQueryDate(from: forDate)
-        guard startDate != nil else { return }
-
-        let forSpecificDay = HKQuery.predicateForSamples(withStart: startDate!, end: getQueryEndDate(fromStartDate: startDate!), options: [])
+        let startDate = forDate.stripTime()
+        let forSpecificDay = HKQuery.predicateForSamples(withStart: startDate, end: startDate.nextDay(), options: [])
         var interval = DateComponents()
         interval.day = 1
 
-        if let store = healthStore, let stepType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.stepCount)
+        if let stepType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.stepCount)
         {
             let query = HKStatisticsCollectionQuery(quantityType: stepType,
                     quantitySamplePredicate: forSpecificDay,
                     options: .cumulativeSum,
-                    anchorDate: startDate!,
+                    anchorDate: startDate,
                     intervalComponents: interval)
 
             query.initialResultsHandler = {
@@ -104,12 +102,8 @@ open class HealthKitService
             return
         }
         
-        guard let queryStartDate = getQueryDate(from: date),
-            let queryEndDate = Calendar.current.date(byAdding: .day, value: 1, to: queryStartDate)
-        else {
-            completionHandler(.failure(.invalidQuery))
-            return
-        }
+        let queryStartDate = date.stripTime()
+        let queryEndDate = queryStartDate.nextDay()
         
         let forSpecificDay = HKQuery.predicateForSamples(withStart: queryStartDate, end: queryEndDate, options: [])
         
@@ -163,15 +157,10 @@ open class HealthKitService
             return
         }
         
-        guard let queryStartDate = getQueryDate(from: startDate),
-            let queryEndDate = getQueryDate(from: endDate)
-        else {
-            completionHandler(.failure(.invalidQuery))
-            return
-        }
-        
-        let endDateFilter = getQueryEndDate(fromStartDate: queryEndDate)
-        let dateRangePredicate = HKQuery.predicateForSamples(withStart: queryStartDate, end: endDateFilter, options: .strictEndDate)
+        let queryStartDate = startDate.stripTime()
+        let queryEndDate = endDate.stripTime().nextDay()
+    
+        let dateRangePredicate = HKQuery.predicateForSamples(withStart: queryStartDate, end: queryEndDate, options: .strictEndDate)
         var interval = DateComponents()
         interval.day = 1
         
@@ -355,8 +344,7 @@ open class HealthKitService
             store.stop(oldQuery)
         }
         
-        let today = getQueryDate(from: Date())
-        guard let sinceDate = today else { return nil }
+        let sinceDate = Date().stripTime()
         
         var interval = DateComponents()
         interval.day = 1
@@ -369,13 +357,12 @@ open class HealthKitService
         
         let resultsHandler: (HKStatisticsCollectionQuery, HKStatisticsCollection?, Error?) -> Void = { [weak self] query, results, error in
             if let results = results,
-                error == nil,
-                let startDate = self?.getQueryDate(from: Date()),
-                let endDate = self?.getQueryEndDate(fromStartDate: startDate)
+                error == nil
             {
                 var todaysSteps: Int = 0
+                let startDate = Date().stripTime()
                 
-                results.enumerateStatistics(from: startDate, to: endDate) {
+                results.enumerateStatistics(from: startDate, to: startDate.nextDay()) {
                     statistics, stop in
                     
                     if let quantity = statistics.sumQuantity() {
@@ -519,10 +506,10 @@ open class HealthKitService
     {
         guard HKHealthStore.isHealthDataAvailable() && healthStore != nil else { return }
         
-        let startDate = getQueryDate(from: on)
-        guard startDate != nil else { return }
+        let startDate = on.stripTime()
+        let endDate = startDate.nextDay()
         
-        let forSpecificDay = HKQuery.predicateForSamples(withStart: startDate!, end: getQueryEndDate(fromStartDate: startDate!), options: .strictStartDate)
+        let forSpecificDay = HKQuery.predicateForSamples(withStart: startDate, end: endDate, options: .strictStartDate)
         var interval = DateComponents()
         interval.day = 1
         
@@ -531,7 +518,7 @@ open class HealthKitService
             let query = HKStatisticsCollectionQuery(quantityType: quantityType,
                                                     quantitySamplePredicate: forSpecificDay,
                                                     options: .cumulativeSum,
-                                                    anchorDate: startDate!,
+                                                    anchorDate: startDate,
                                                     intervalComponents: interval)
             
             query.initialResultsHandler = {
@@ -566,17 +553,6 @@ open class HealthKitService
             
             store.execute(query)
         }
-    }
-    
-    private func getQueryDate(from: Date) -> Date?
-    {
-        let components = Calendar.current.dateComponents([.era, .year, .month, .day], from: from)
-        return Calendar.current.date(from: components)
-    }
-    
-    private func getQueryEndDate(fromStartDate: Date) -> Date
-    {
-        return Calendar.current.date(byAdding: .day, value: 1, to: fromStartDate)!
     }
     
     open func subscribe(to dataType: HKQuantityTypeIdentifier, on updateHandler: @escaping (() -> Void)) {
