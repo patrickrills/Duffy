@@ -187,7 +187,7 @@ open class HealthKitService
         }
     }
     
-    open func initializeBackgroundQueries()
+    public func initializeBackgroundQueries()
     {
         if let store = healthStore, let stepsType = HKQuantityType.quantityType(forIdentifier: .stepCount)
         {
@@ -223,7 +223,7 @@ open class HealthKitService
         }
     }
     
-    open func stopBackgroundQueries() {
+    public func stopBackgroundQueries() {
         guard let healthStore = healthStore else { return }
         
         observerQueries.forEach({
@@ -374,33 +374,6 @@ open class HealthKitService
         
         return statsQuery
     }
-    
-    open func cacheTodaysStepsAndUpdateComplication(_ onComplete: ((_ success: Bool) -> (Void))?)
-    {
-        getSteps(Date(),
-            onRetrieve: {
-                (steps: Int, forDay: Date) in
-                        
-                if (HealthCache.saveStepsToCache(steps, forDay: forDay))
-                {
-                    //NSLog(String(format: "Fetch - update complication with %d steps", steps))
-                    WCSessionService.getInstance().updateWatchFaceComplication(["stepsdataresponse" : HealthCache.getStepsDataFromCache() as AnyObject])
-                }
-                
-                if let c = onComplete
-                {
-                    c(true)
-                }
-                
-            },
-            onFailure: {
-                (error: Error?) in
-                if let c = onComplete
-                {
-                    c(false)
-                }
-        })
-    }
         
     public func getFlightsClimbed(for date: Date, completionHandler: @escaping (FlightsForDayResult) -> ()) {
         guard HKHealthStore.isHealthDataAvailable(),
@@ -486,7 +459,7 @@ open class HealthKitService
         store.execute(query)
     }
     
-    open func subscribe(to dataType: HKQuantityTypeIdentifier, on updateHandler: @escaping (() -> Void)) {
+    public func subscribe(to dataType: HKQuantityTypeIdentifier, on updateHandler: @escaping (() -> Void)) {
         guard let sampleType = HKQuantityType.quantityType(forIdentifier: dataType) else {
             return
         }
@@ -495,7 +468,7 @@ open class HealthKitService
         subscribers[sampleType.identifier] = HealthKitSubscriber(for: dataType, with: updateHandler)
     }
     
-    open func unsubscribe(from dataType: HKQuantityTypeIdentifier) {
+    public func unsubscribe(from dataType: HKQuantityTypeIdentifier) {
         guard let sampleType = HKQuantityType.quantityType(forIdentifier: dataType) else {
             return
         }
@@ -503,7 +476,7 @@ open class HealthKitService
         subscribers.removeValue(forKey: sampleType.identifier)
     }
     
-    open func earliestQueryDate() -> Date? {
+    public func earliestQueryDate() -> Date? {
         return healthStore?.earliestPermittedSampleDate()
     }
 }
