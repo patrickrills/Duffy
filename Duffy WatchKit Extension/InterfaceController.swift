@@ -157,26 +157,24 @@ class InterfaceController: WKInterfaceController
     }
     
     func displayTodaysDistanceFromHealth(_ completion: @escaping (Bool) -> Void) {
-        HealthKitService.getInstance().getDistanceCovered(Date(), onRetrieve: {
-            distance, units, date in
-            
-            DispatchQueue.main.async {
-                [weak self] in
+        HealthKitService.getInstance().getDistanceCovered(for: Date()) { result in
+            switch result {
+            case .success(let distanceResult):
                 let formatter = InterfaceController.getNumberFormatter()
                 formatter.maximumFractionDigits = 1
-                let unitsFormatted = units == .mile ? NSLocalizedString("mi", comment: "") : NSLocalizedString("km", comment: "")
-                if let weakSelf = self, let valueFormatted = formatter.string(from: NSNumber(value: distance)) {
+                let unitsFormatted = distanceResult.formatter == .mile ? NSLocalizedString("mi", comment: "") : NSLocalizedString("km", comment: "")
+                if let valueFormatted = formatter.string(for: distanceResult.distance) {
                     let distanceAttributed = NSMutableAttributedString(string: String(format: "%@ %@", valueFormatted, unitsFormatted))
                     distanceAttributed.addAttribute(.font, value: UIFont.systemFont(ofSize: 10.0), range: NSRange(location: distanceAttributed.string.count - unitsFormatted.count, length: unitsFormatted.count))
-                    weakSelf.distanceValueLabel?.setAttributedText(distanceAttributed)
+                    DispatchQueue.main.async { [weak self] in
+                        self?.distanceValueLabel?.setAttributedText(distanceAttributed)
+                    }
                 }
                 completion(true)
+            case .failure(_):
+                completion(false)
             }
-            
-        }, onFailure: {
-            error in
-            completion(false)
-        })
+        }
     }
     
     func updateInterfaceFromSnapshot()

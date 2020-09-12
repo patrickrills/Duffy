@@ -47,19 +47,21 @@ class DistanceFlightsDetailViewController: DetailDataViewPageViewController
             
         }, onFailure: nil)
         
-        HealthKitService.getInstance().getDistanceCovered(Date(), onRetrieve: {
-            [weak self] distance, lengthUnit, forDate in
-            
-            self?.lastDistanceValue = distance
-            self?.lastDistanceUnits = lengthUnit
-            
-            DispatchQueue.main.async
-            {
-                [weak self] in
-                self?.updateDistance()
+        HealthKitService.getInstance().getDistanceCovered(for: Date()) { [weak self] result in
+            switch result {
+            case .success(let distanceResult):
+                self?.lastDistanceValue = distanceResult.distance
+                self?.lastDistanceUnits = distanceResult.formatter
+                
+                DispatchQueue.main.async {
+                    self?.updateDistance()
+                }
+                
+            case .failure(let error):
+                LoggingService.log(error: error)
             }
             
-        }, onFailure: nil)
+        }
     }
     
     private func updateFlights()

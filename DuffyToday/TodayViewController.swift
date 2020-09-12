@@ -65,18 +65,22 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             }
         }, onFailure: nil)
         
-        HealthKitService.getInstance().getDistanceCovered(Date(), onRetrieve: {
-            [weak self] distance, units, date in
-            let unitsFormatted = units == .mile ? NSLocalizedString("mi", comment: "") : NSLocalizedString("km", comment: "")
-            
-            if let valueFormatted = self?.numFormatter.string(for: distance) {
-                let distanceAttributed = NSMutableAttributedString(string: String(format: "%@ %@", valueFormatted, unitsFormatted))
-                distanceAttributed.addAttribute(.font, value: UIFont.systemFont(ofSize: 13.0), range: NSRange(location: distanceAttributed.string.count - unitsFormatted.count, length: unitsFormatted.count))
-                DispatchQueue.main.async {
-                    self?.distanceValueLabel.attributedText = distanceAttributed
+        HealthKitService.getInstance().getDistanceCovered(for: Date()) { [weak self] result in
+            switch result {
+            case .success(let distanceResult):
+                let unitsFormatted = distanceResult.formatter == .mile ? NSLocalizedString("mi", comment: "") : NSLocalizedString("km", comment: "")
+                
+                if let valueFormatted = self?.numFormatter.string(for: distanceResult.distance) {
+                    let distanceAttributed = NSMutableAttributedString(string: String(format: "%@ %@", valueFormatted, unitsFormatted))
+                    distanceAttributed.addAttribute(.font, value: UIFont.systemFont(ofSize: 13.0), range: NSRange(location: distanceAttributed.string.count - unitsFormatted.count, length: unitsFormatted.count))
+                    DispatchQueue.main.async {
+                        self?.distanceValueLabel.attributedText = distanceAttributed
+                    }
                 }
+            case .failure(let error):
+                LoggingService.log(error: error)
             }
-        }, onFailure: nil)
+        }
     }
     
     override func viewWillLayoutSubviews() {

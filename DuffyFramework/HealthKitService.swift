@@ -417,7 +417,7 @@ open class HealthKitService
         }
     }
     
-    public func getDistanceCovered(_ forDate: Date, onRetrieve: ((Double, LengthFormatter.Unit, Date) -> Void)?, onFailure: ((Error?) -> Void)?) {
+    public func getDistanceCovered(for date: Date, completionHandler: @escaping (DistanceForDayResult) -> ()) {
         guard HKHealthStore.isHealthDataAvailable(),
             let store = healthStore,
             let distanceType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.distanceWalkingRunning)
@@ -425,7 +425,7 @@ open class HealthKitService
         
         store.preferredUnits(for: [distanceType]) { [weak self] units, error in
             if let error = error {
-                onFailure?(error)
+                completionHandler(.failure(.wrapped(error)))
                 return
             }
             
@@ -434,12 +434,12 @@ open class HealthKitService
                 distanceUnits = preferred
             }
             
-            self?.get(quantityType: distanceType, measuredIn: distanceUnits, on: forDate) { result in
+            self?.get(quantityType: distanceType, measuredIn: distanceUnits, on: date) { result in
                 switch result {
                 case .success(let sumValue):
-                    onRetrieve?(sumValue.sum, HKUnit.lengthFormatterUnit(from: distanceUnits), sumValue.day)
+                    completionHandler(.success((day: sumValue.day, formatter: HKUnit.lengthFormatterUnit(from: distanceUnits), distance: sumValue.sum)))
                 case .failure(let error):
-                    onFailure?(error)
+                    completionHandler(.failure(error))
                 }
             }
         }
