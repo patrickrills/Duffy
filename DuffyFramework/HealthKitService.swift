@@ -20,7 +20,7 @@ open class HealthKitService
     public private(set) var shouldRestartObservers: Bool = false
     
     init() {
-        if (HKHealthStore.isHealthDataAvailable()) {
+        if HKHealthStore.isHealthDataAvailable() {
             healthStore = HKHealthStore()
         }
     }
@@ -39,17 +39,22 @@ open class HealthKitService
             let stepType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.stepCount)
         else { return }
         
-        get(quantityType: stepType, measuredIn: HKUnit.count(), on: forDate, onRetrieve: { [weak self] sum, sampleDate in
-            let steps = Steps(sum)
-            if steps >= HealthCache.getStepsDailyGoal(), sampleDate.isToday() {
-                HealthCache.incrementGoalReachedCounter()
-    
-                if let del = self?.eventDelegate {
-                    del.dailyStepsGoalWasReached()
+        get(quantityType: stepType, measuredIn: HKUnit.count(), on: forDate) { [weak self] result in
+            switch result {
+            case .success(let sumValue):
+                let steps = Steps(sumValue.sum)
+                if steps >= HealthCache.getStepsDailyGoal(), sumValue.day.isToday() {
+                    HealthCache.incrementGoalReachedCounter()
+        
+                    if let del = self?.eventDelegate {
+                        del.dailyStepsGoalWasReached()
+                    }
                 }
+                onRetrieve?(Int(steps), sumValue.day)
+            case .failure(let error):
+                onFailure?(error)
             }
-            onRetrieve?(Int(steps), sampleDate)
-        }, onFailure: onFailure)
+        }
     }
     
     public func getStepsByHour(for date: Date, completionHandler: @escaping (StepsByHourResult) -> ()) {
@@ -401,10 +406,15 @@ open class HealthKitService
         guard HKHealthStore.isHealthDataAvailable(),
             let flightType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.flightsClimbed)
         else { return }
-
-        get(quantityType: flightType, measuredIn: HKUnit.count(), on: forDate, onRetrieve: { sum, sampleDate in
-            onRetrieve?(Int(sum), sampleDate)
-        }, onFailure: onFailure)
+        
+        get(quantityType: flightType, measuredIn: HKUnit.count(), on: forDate) { result in
+            switch result {
+            case .success(let sumValue):
+                onRetrieve?(Int(sumValue.sum), sumValue.day)
+            case .failure(let error):
+                onFailure?(error)
+            }
+        }
     }
     
     public func getDistanceCovered(_ forDate: Date, onRetrieve: ((Double, LengthFormatter.Unit, Date) -> Void)?, onFailure: ((Error?) -> Void)?) {
@@ -424,13 +434,18 @@ open class HealthKitService
                 distanceUnits = preferred
             }
             
-            self?.get(quantityType: distanceType, measuredIn: distanceUnits, on: forDate, onRetrieve: { sum, sampleDate in
-                onRetrieve?(sum, HKUnit.lengthFormatterUnit(from: distanceUnits), sampleDate)
-            }, onFailure: onFailure)
+            self?.get(quantityType: distanceType, measuredIn: distanceUnits, on: forDate) { result in
+                switch result {
+                case .success(let sumValue):
+                    onRetrieve?(sumValue.sum, HKUnit.lengthFormatterUnit(from: distanceUnits), sumValue.day)
+                case .failure(let error):
+                    onFailure?(error)
+                }
+            }
         }
     }
     
-    private func get(quantityType: HKQuantityType, measuredIn: HKUnit, on: Date, onRetrieve: ((Double, Date) -> Void)?, onFailure: ((Error?) -> Void)?) {
+    private func get(quantityType: HKQuantityType, measuredIn: HKUnit, on: Date, completionHandler: @escaping (Result<(day: Date, sum: Double), HealthKitError>) -> ()) {
         guard HKHealthStore.isHealthDataAvailable(), let store = healthStore else { return }
         
         let startDate = on.stripTime()
@@ -457,10 +472,14 @@ open class HealthKitService
                         sum += quantity.doubleValue(for: measuredIn)
                     }
                 }
-                    
-                onRetrieve?(sum, sampleDate)
+                
+                completionHandler(.success((day: sampleDate, sum: sum)))
             } else {
-                onFailure?(error)
+                var errorResult: HealthKitError = .invalidResults
+                if let error = error {
+                    errorResult = .wrapped(error)
+                }
+                completionHandler(.failure(errorResult))
             }
         }
             
