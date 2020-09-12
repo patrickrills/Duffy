@@ -52,18 +52,21 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             }
         }, onFailure: nil)
         
-        HealthKitService.getInstance().getFlightsClimbed(Date(), onRetrieve: {
-            [weak self] flights, date in
-            
-            if let valueFormatted = self?.numFormatter.string(for: flights) {
-                let flightsLocalized = NSLocalizedString("floors", comment: "")
-                let flightsAttributed = NSMutableAttributedString(string: String(format: "%@ %@", valueFormatted, flightsLocalized))
-                flightsAttributed.addAttribute(.font, value: UIFont.systemFont(ofSize: 13.0), range: NSRange(location: flightsAttributed.string.count - flightsLocalized.count, length: flightsLocalized.count))
-                DispatchQueue.main.async {
-                    self?.flightsValueLabel.attributedText = flightsAttributed
+        HealthKitService.getInstance().getFlightsClimbed(for: Date()) { [weak self] result in
+            switch result {
+            case .success(let flightsResult):
+                if let valueFormatted = self?.numFormatter.string(for: flightsResult.flights) {
+                    let flightsLocalized = NSLocalizedString("floors", comment: "")
+                    let flightsAttributed = NSMutableAttributedString(string: String(format: "%@ %@", valueFormatted, flightsLocalized))
+                    flightsAttributed.addAttribute(.font, value: UIFont.systemFont(ofSize: 13.0), range: NSRange(location: flightsAttributed.string.count - flightsLocalized.count, length: flightsLocalized.count))
+                    DispatchQueue.main.async {
+                        self?.flightsValueLabel.attributedText = flightsAttributed
+                    }
                 }
+            case .failure(let error):
+                LoggingService.log(error: error)
             }
-        }, onFailure: nil)
+        }
         
         HealthKitService.getInstance().getDistanceCovered(for: Date()) { [weak self] result in
             switch result {

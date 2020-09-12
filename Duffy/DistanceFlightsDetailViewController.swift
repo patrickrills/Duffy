@@ -16,9 +16,9 @@ class DistanceFlightsDetailViewController: DetailDataViewPageViewController
     @IBOutlet weak var flightsNameLabel : UILabel?
     @IBOutlet weak var distanceNameLabel : UILabel?
     
-    var lastDistanceValue : Double = 0.0
+    var lastDistanceValue : DistanceTravelled = 0.0
     var lastDistanceUnits : LengthFormatter.Unit = LengthFormatter.Unit.mile
-    var lastFlightsValue : Int = 0
+    var lastFlightsValue : FlightsClimbed = 0
     
     override func viewWillLayoutSubviews()
     {
@@ -34,18 +34,17 @@ class DistanceFlightsDetailViewController: DetailDataViewPageViewController
     
     override func refresh()
     {
-        HealthKitService.getInstance().getFlightsClimbed(Date(), onRetrieve: {
-            [weak self] flights, forDate in
-            
-            self?.lastFlightsValue = flights
-            
-            DispatchQueue.main.async
-            {
-                [weak self] in
-                self?.updateFlights()
+        HealthKitService.getInstance().getFlightsClimbed(for: Date()) { [weak self] result in
+            switch result {
+            case .success(let flightsResult):
+                self?.lastFlightsValue = flightsResult.flights
+                DispatchQueue.main.async {
+                    self?.updateFlights()
+                }
+            case .failure(let error):
+                LoggingService.log(error: error)
             }
-            
-        }, onFailure: nil)
+        }
         
         HealthKitService.getInstance().getDistanceCovered(for: Date()) { [weak self] result in
             switch result {
@@ -70,11 +69,7 @@ class DistanceFlightsDetailViewController: DetailDataViewPageViewController
         {
             flightLabel.font = UIFont.systemFont(ofSize: valueFontSize())
             
-            if (lastFlightsValue < 0)
-            {
-                flightLabel.text = "?"
-            }
-            else if let displayFlights = Globals.flightsFormatter().string(from: NSNumber(value: lastFlightsValue))
+            if let displayFlights = Globals.flightsFormatter().string(from: NSNumber(value: lastFlightsValue))
             {
                 if (!Globals.isNarrowPhone())
                 {

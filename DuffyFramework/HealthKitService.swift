@@ -402,17 +402,17 @@ open class HealthKitService
         })
     }
         
-    public func getFlightsClimbed(_ forDate: Date, onRetrieve: ((Int, Date) -> Void)?, onFailure: ((Error?) -> Void)?) {
+    public func getFlightsClimbed(for date: Date, completionHandler: @escaping (FlightsForDayResult) -> ()) {
         guard HKHealthStore.isHealthDataAvailable(),
             let flightType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.flightsClimbed)
         else { return }
         
-        get(quantityType: flightType, measuredIn: HKUnit.count(), on: forDate) { result in
+        get(quantityType: flightType, measuredIn: HKUnit.count(), on: date) { result in
             switch result {
             case .success(let sumValue):
-                onRetrieve?(Int(sumValue.sum), sumValue.day)
+                completionHandler(.success((day: sumValue.day, flights: FlightsClimbed(sumValue.sum))))
             case .failure(let error):
-                onFailure?(error)
+                completionHandler(.failure(error))
             }
         }
     }

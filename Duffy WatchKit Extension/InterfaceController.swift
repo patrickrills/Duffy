@@ -141,19 +141,18 @@ class InterfaceController: WKInterfaceController
     }
     
     private func displayTodaysFlightsFromHealth(_ completion: @escaping (Bool) -> Void) {
-        HealthKitService.getInstance().getFlightsClimbed(Date(), onRetrieve: {
-            flights, date in
-            
-            DispatchQueue.main.async {
-                [weak self] in
-                self?.flightsValueLabel?.setText(InterfaceController.getNumberFormatter().string(from: NSNumber(value: flights)))
-                completion(true)
+        HealthKitService.getInstance().getFlightsClimbed(for: Date()) { result in
+            switch result {
+            case .success(let flightsResult):
+                DispatchQueue.main.async {
+                    [weak self] in
+                    self?.flightsValueLabel?.setText(InterfaceController.getNumberFormatter().string(for: flightsResult.flights))
+                    completion(true)
+                }
+            case .failure(_):
+                completion(false)
             }
-            
-        }, onFailure: {
-            error in
-            completion(false)
-        })
+        }
     }
     
     func displayTodaysDistanceFromHealth(_ completion: @escaping (Bool) -> Void) {
