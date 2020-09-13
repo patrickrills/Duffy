@@ -264,18 +264,16 @@ open class WCSessionService : NSObject, WCSessionDelegate
         if CoreMotionService.getInstance().isEnabled() {
             CoreMotionService.getInstance().updateStepsForToday(from: "didReceiveUserInfo", completion: { LoggingService.log("Successfully refreshed steps on didReceiveUserInfo", at: .debug) })
         } else {
-            HealthKitService.getInstance().getSteps(Date(), onRetrieve: {
-                (steps: Int, forDay: Date) in
-                if (HealthCache.saveStepsToCache(steps, forDay: forDay)) {
-                    WCSessionService.getInstance().updateWatchFaceComplication(["stepsdataresponse" : HealthCache.getStepsDataFromCache() as AnyObject])
-                }
-            },
-            onFailure: {
-                (error: Error?) in
-                if let error = error {
+            HealthKitService.getInstance().getSteps(for: Date()) { result in
+                switch result {
+                case .success(let stepsResult):
+                    if (HealthCache.saveStepsToCache(Int(stepsResult.steps), forDay: stepsResult.day)) {
+                        WCSessionService.getInstance().updateWatchFaceComplication(["stepsdataresponse" : HealthCache.getStepsDataFromCache() as AnyObject])
+                    }
+                case .failure(let error):
                     LoggingService.log(error: error)
                 }
-            })
+            }
         }
     }
 }

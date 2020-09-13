@@ -21,8 +21,8 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     @IBOutlet weak var progressRingView: ProgressRingView!
     
     private let numFormatter = NumberFormatter()
-    private var stepCount: Int = 0
-    private var dailyGoal: Int = 0
+    private var stepCount: Steps = 0
+    private var dailyGoal: Steps = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,22 +35,25 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        stepCount = getCachedValue()
+        stepCount = Steps(getCachedValue())
         
         displaySteps()
         
-        HealthKitService.getInstance().getSteps(Date(), onRetrieve: {
-            [weak self] steps, date in
-            if let weakSelf = self {
-                weakSelf.stepCount = steps
-                weakSelf.dailyGoal = HealthCache.getStepsDailyGoalFromShared()
-                let _ = HealthCache.saveStepsToCache(steps, forDay: date)
-                DispatchQueue.main.async {
-                    [weak self] in
-                    self?.displaySteps()
+        HealthKitService.getInstance().getSteps(for: Date()) { [weak self] result in
+            switch result {
+            case .success(let stepsResult):
+                if let weakSelf = self {
+                    weakSelf.stepCount = stepsResult.steps
+                    weakSelf.dailyGoal = Steps(HealthCache.getStepsDailyGoalFromShared())
+                    HealthCache.saveStepsToCache(Int(stepsResult.steps), forDay: stepsResult.day)
+                    DispatchQueue.main.async {
+                        self?.displaySteps()
+                    }
                 }
+            case .failure(let error):
+                LoggingService.log(error: error)
             }
-        }, onFailure: nil)
+        }
         
         HealthKitService.getInstance().getFlightsClimbed(for: Date()) { [weak self] result in
             switch result {
@@ -105,7 +108,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             progressRingView.isHidden = false
             progressRingView.progress = CGFloat(stepCount) / CGFloat(dailyGoal)
             
-            let adornment = Trophy.trophy(for: stepCount).symbol()
+            let adornment = Trophy.trophy(for: Int(stepCount)).symbol()
             let localizedStepsDescription = NSLocalizedString("STEPS", comment: "")
             if adornment.count > 0 {
                 stepsDescriptionLabel.text = String(format: "%@%@", localizedStepsDescription, adornment)
@@ -118,15 +121,16 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     }
     
     func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
-        HealthKitService.getInstance().getSteps(Date(), onRetrieve: {
-            [weak self] steps, date in
-            self?.stepCount = steps
-            self?.dailyGoal = HealthCache.getStepsDailyGoalFromShared()
-            completionHandler(NCUpdateResult.newData)
-            }, onFailure: {
-                error in
-                completionHandler(NCUpdateResult.failed)
-        })
+        HealthKitService.getInstance().getSteps(for: Date()) { [weak self] result in
+            switch result {
+            case .success(let stepsResult):
+                self?.stepCount = stepsResult.steps
+                self?.dailyGoal = Steps(HealthCache.getStepsDailyGoalFromShared())
+                completionHandler(.newData)
+            case .failure(_):
+                completionHandler(.failed)
+            }
+        }
     }
     
     private func getCachedValue() -> Int {

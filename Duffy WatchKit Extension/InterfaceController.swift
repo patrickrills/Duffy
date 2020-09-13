@@ -13,10 +13,10 @@ import HealthKit
 
 class InterfaceController: WKInterfaceController
 {
-    @IBOutlet weak var stepsValueLabel : WKInterfaceLabel?
-    @IBOutlet weak var stepsGoalLabel : WKInterfaceLabel?
-    @IBOutlet weak var distanceValueLabel : WKInterfaceLabel?
-    @IBOutlet weak var flightsValueLabel : WKInterfaceLabel?
+    @IBOutlet weak var stepsValueLabel : WKInterfaceLabel!
+    @IBOutlet weak var stepsGoalLabel : WKInterfaceLabel!
+    @IBOutlet weak var distanceValueLabel : WKInterfaceLabel!
+    @IBOutlet weak var flightsValueLabel : WKInterfaceLabel!
     
     private var isQueryInProgress = false
     
@@ -115,29 +115,22 @@ class InterfaceController: WKInterfaceController
         }))
     }
     
-    private func displayTodaysStepsFromHealth(_ completion: @escaping (Bool) -> Void)
-    {
-        HealthKitService.getInstance().getSteps(Date(),
-            onRetrieve: {
-                [weak self] (stepsCount: Int, forDate: Date) in
-                
-                self?.maybeUpdateComplication(with: stepsCount, for: forDate)
-                
+    private func displayTodaysStepsFromHealth(_ completion: @escaping (Bool) -> Void) {
+        HealthKitService.getInstance().getSteps(for: Date()) { [weak self] result in
+            switch result {
+            case .success(let stepsResult):
+                self?.maybeUpdateComplication(with: stepsResult.steps, for: stepsResult.day)
                 DispatchQueue.main.async {
-                    [weak self] in
-                    self?.display(steps: stepsCount)
+                    self?.display(steps: stepsResult.steps)
                     completion(true)
                 }
-            },
-            onFailure: {
-                (error: Error?) in
-                
+            case .failure(_):
                 DispatchQueue.main.async {
-                    [weak self] in
                     self?.displayTodaysStepsFromCache()
                     completion(false)
                 }
-            })
+            }
+        }
     }
     
     private func displayTodaysFlightsFromHealth(_ completion: @escaping (Bool) -> Void) {
@@ -176,55 +169,40 @@ class InterfaceController: WKInterfaceController
         }
     }
     
-    func updateInterfaceFromSnapshot()
-    {
+    func updateInterfaceFromSnapshot() {
         displayTodaysStepsFromCache()
         LoggingService.log("Update UI from snapshot task")
     }
     
-    private func displayTodaysStepsFromCache()
-    {
-        DispatchQueue.main.async {
-            [weak self] in
+    private func displayTodaysStepsFromCache() {
+        DispatchQueue.main.async { [weak self] in
+            guard let weakSelf = self else { return }
             
-            if let weakSelf = self
-            {
-                var steps = 0
-                
-                if (!HealthCache.cacheIsForADifferentDay(Date()))
-                {
-                    let cacheData = HealthCache.getStepsDataFromCache()
-                    if let savedVal = cacheData["stepsCacheValue"] as? Int
-                    {
-                        steps = savedVal
-                    }
+            var steps: Steps = 0
+            
+            if !HealthCache.cacheIsForADifferentDay(Date()) {
+                let cacheData = HealthCache.getStepsDataFromCache()
+                if let savedVal = cacheData["stepsCacheValue"] as? Steps {
+                    steps = savedVal
                 }
-                
-                weakSelf.display(steps: steps)
             }
+            
+            weakSelf.display(steps: steps)
         }
     }
     
-    private func display(steps: Int)
-    {
-        stepsValueLabel?.setText(InterfaceController.getNumberFormatter().string(from: NSNumber(value: steps)))
+    private func display(steps: Steps) {
+        stepsValueLabel?.setText(InterfaceController.getNumberFormatter().string(for: steps))
         updateGoalDisplay(stepsForDay: steps)
     }
     
-    private func updateGoalDisplay(stepsForDay: Int)
-    {
-        if let lbl = stepsGoalLabel
-        {
-            let goalValue = HealthCache.getStepsDailyGoal()
-            if goalValue > 0, let formattedValue = InterfaceController.getNumberFormatter().string(from: NSNumber(value: goalValue))
-            {
-                lbl.setHidden(false)
-                lbl.setText(String(format: NSLocalizedString("of %@ goal %@", comment: ""), formattedValue, Trophy.trophy(for: stepsForDay).symbol()))
-            }
-            else
-            {
-                lbl.setHidden(true)
-            }
+    private func updateGoalDisplay(stepsForDay: Steps) {
+        let goalValue = HealthCache.getStepsDailyGoal()
+        if goalValue > 0, let formattedValue = InterfaceController.getNumberFormatter().string(for: goalValue) {
+            stepsGoalLabel.setHidden(false)
+            stepsGoalLabel.setText(String(format: NSLocalizedString("of %@ goal %@", comment: ""), formattedValue, Trophy.trophy(for: Int(stepsForDay)).symbol()))
+        } else {
+            stepsGoalLabel.setHidden(true)
         }
     }
     
@@ -266,8 +244,8 @@ class InterfaceController: WKInterfaceController
         }
     }
     
-    private func maybeUpdateComplication(with stepCount: Int, for day: Date) {
-        if HealthCache.saveStepsToCache(stepCount, forDay: day) {
+    private func maybeUpdateComplication(with stepCount: Steps, for day: Date) {
+        if HealthCache.saveStepsToCache(Int(stepCount), forDay: day) {
             LoggingService.log("Update complication from watch UI", with: "\(stepCount)")
             ComplicationController.refreshComplication()
         }

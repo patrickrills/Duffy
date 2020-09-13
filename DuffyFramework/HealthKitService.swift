@@ -33,13 +33,13 @@ open class HealthKitService
         eventDelegate = delegate
     }
 
-    public func getSteps(_ forDate: Date, onRetrieve: ((Int, Date) -> Void)?, onFailure:  ((Error?) -> Void)?)
+    public func getSteps(for date: Date, completionHandler: @escaping (StepsForDayResult) -> ())
     {
         guard HKHealthStore.isHealthDataAvailable(),
             let stepType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.stepCount)
         else { return }
         
-        get(quantityType: stepType, measuredIn: HKUnit.count(), on: forDate) { [weak self] result in
+        get(quantityType: stepType, measuredIn: HKUnit.count(), on: date) { [weak self] result in
             switch result {
             case .success(let sumValue):
                 let steps = Steps(sumValue.sum)
@@ -50,9 +50,9 @@ open class HealthKitService
                         del.dailyStepsGoalWasReached()
                     }
                 }
-                onRetrieve?(Int(steps), sumValue.day)
+                completionHandler(.success((day: sumValue.day, steps: steps)))
             case .failure(let error):
-                onFailure?(error)
+                completionHandler(.failure(error))
             }
         }
     }
@@ -262,19 +262,19 @@ open class HealthKitService
                 }
             }
             
-            self?.getSteps(Date(),
-                onRetrieve: {
-                    (steps: Int, forDay: Date) in
+            self?.getSteps(for: Date()) { result in
+                switch result {
+                case .success(let stepsResult):
+                    LoggingService.log(String(format: "Steps retrieved by %@ observer", key), with: String(format: "%d", stepsResult.steps))
                     
-                    LoggingService.log(String(format: "Steps retrieved by %@ observer", key), with: String(format: "%d", steps))
-                    
-                    if (HealthCache.saveStepsToCache(steps, forDay: forDay))
-                    {
-                        LoggingService.log(String(format: "updateWatchFaceComplication from %@ observer", key), with: String(format: "%d", steps))
+                    if (HealthCache.saveStepsToCache(Int(stepsResult.steps), forDay: stepsResult.day)) {
+                        LoggingService.log(String(format: "updateWatchFaceComplication from %@ observer", key), with: String(format: "%d", stepsResult.steps))
                         WCSessionService.getInstance().updateWatchFaceComplication(["stepsdataresponse" : HealthCache.getStepsDataFromCache() as AnyObject])
                     }
-                },
-                onFailure: nil)
+                case .failure(let error):
+                    LoggingService.log(error: error)
+                }
+            }
             
             if let sampleId = updateQuery.objectType?.identifier,
                 let subscriber = self?.subscribers[sampleId] {

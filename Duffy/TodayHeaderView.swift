@@ -74,47 +74,40 @@ class TodayHeaderView: UIView
         }
     }
     
-    func toggleLoading(isLoading: Bool)
-    {
+    func toggleLoading(isLoading: Bool) {
         refreshButton.setTitle((isLoading ? NSLocalizedString("Loading...", comment: "") : NSLocalizedString("STEPS", comment: "")), for: .normal)
     }
     
-    func refresh()
-    {
-        HealthKitService.getInstance().getSteps(Date(), onRetrieve: {
-            (stepsCount: Int, forDate: Date) in
-            
-            DispatchQueue.main.async {
-                [weak self] in
-                if let weakSelf = self
-                {
+    func refresh() {
+        HealthKitService.getInstance().getSteps(for: Date()) { [weak self] result in
+            switch result {
+            case .success(let stepsResult):
+                DispatchQueue.main.async {
+                    guard let weakSelf = self else { return }
                     weakSelf.toggleLoading(isLoading: false)
-                    weakSelf.stepsValueLabel.text = Globals.stepsFormatter().string(from: NSNumber(value: stepsCount))
-                    weakSelf.updateGoalDisplay(stepsForDay: stepsCount)
+                    weakSelf.stepsValueLabel.text = Globals.stepsFormatter().string(for: stepsResult.steps)
+                    weakSelf.updateGoalDisplay(stepsForDay: stepsResult.steps)
                 }
+            case .failure(_):
+                self?.toggleLoading(isLoading: false)
             }
-        }, onFailure: {
-            [weak self] (error: Error?) in
-            self?.toggleLoading(isLoading: false)
-        })
+        }
         
-        if detailContainer.subviews.count > 0, let details = detailContainer.subviews[0] as? DetailDataView
-        {
+        if detailContainer.subviews.count > 0, let details = detailContainer.subviews[0] as? DetailDataView {
             details.refresh()
         }
     }
     
-    private func updateGoalDisplay(stepsForDay: Int)
-    {
-        let goalValue = HealthCache.getStepsDailyGoal()
-        if goalValue > 0, let formattedValue = Globals.stepsFormatter().string(from: NSNumber(value: goalValue))
-        {
-            goalLabel.text = String(format: NSLocalizedString("of %@ goal %@", comment: ""), formattedValue, Trophy.trophy(for: stepsForDay).symbol())
-        }
-        else
-        {
+    private func updateGoalDisplay(stepsForDay: Steps) {
+        guard case let goalValue = HealthCache.getStepsDailyGoal(),
+            goalValue > 0,
+            let formattedValue = Globals.stepsFormatter().string(for: goalValue)
+        else {
             goalLabel.text = nil
+            return
         }
+        
+        goalLabel.text = String(format: NSLocalizedString("of %@ goal %@", comment: ""), formattedValue, Trophy.trophy(for: Int(stepsForDay)).symbol())
     }
     
     @IBAction func refreshPressed()

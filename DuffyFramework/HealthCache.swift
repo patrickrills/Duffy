@@ -10,6 +10,7 @@ import Foundation
 
 open class HealthCache
 {
+    @discardableResult
     open class func saveStepsToCache(_ stepCount: Int, forDay: Date) -> Bool
     {
         let todaysKey = convertDayToKey(forDay)
