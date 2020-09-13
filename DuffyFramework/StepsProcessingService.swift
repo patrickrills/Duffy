@@ -10,7 +10,7 @@ import Foundation
 
 internal class StepsProcessingService {
     
-    class func handleSteps(_ stepCount: Steps, for day: Date, from source: String, handler: HealthEventDelegate?) {
+    class func handleSteps(_ stepCount: Steps, for day: Date, from source: String) {
         if HealthCache.saveStepsToCache(Int(stepCount), forDay: day) {
             LoggingService.log(String(format: "updateWatchFaceComplication from %@", source), with: String(format: "%d", stepCount))
             WCSessionService.getInstance().updateWatchFaceComplication(with: stepCount)
@@ -18,10 +18,7 @@ internal class StepsProcessingService {
         
         if stepCount >= HealthCache.getStepsDailyGoal(), day.isToday() {
             HealthCache.incrementGoalReachedCounter()
-        
-            if let handler = handler {
-                handler.dailyStepsGoalWasReached()
-            }
+            NotificationService.sendDailyStepsGoalNotification()
         }
     }
     

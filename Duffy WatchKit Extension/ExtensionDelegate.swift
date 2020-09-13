@@ -11,7 +11,7 @@ import DuffyWatchFramework
 import UserNotifications
 import HealthKit
 
-class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate, HealthEventDelegate, UNUserNotificationCenterDelegate
+class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate, UNUserNotificationCenterDelegate
 {
     var currentBackgroundTasks: [String : AnyObject] = [:]
         
@@ -157,11 +157,6 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
         })
     }
     
-    func dailyStepsGoalWasReached()
-    {
-        NotificationService.sendDailyStepsGoalNotification()
-    }
-    
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 willPresent notification: UNNotification,
                                 withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
@@ -170,7 +165,6 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
     }
     
     private func startHealthKitBackgroundQueries() {
-        HealthKitService.getInstance().setEventDelegate(self)
         HealthKitService.getInstance().initializeBackgroundQueries()
     }
 }

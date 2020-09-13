@@ -64,8 +64,6 @@
 		0947AA9E1D4EB24A0040E1DD /* WeekRowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0947AA9D1D4EB24A0040E1DD /* WeekRowController.swift */; };
 		0961D905216A9BCF00F4AA88 /* ClockKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0961D904216A9BCF00F4AA88 /* ClockKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		0961D907216A9F2000F4AA88 /* duffy.ckcomplication in Resources */ = {isa = PBXBuildFile; fileRef = 0961D906216A9F2000F4AA88 /* duffy.ckcomplication */; };
-		0967EB761E7D88770073BF3F /* HealthEventDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0967EB751E7D88770073BF3F /* HealthEventDelegate.swift */; };
-		0967EB771E7D88770073BF3F /* HealthEventDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0967EB751E7D88770073BF3F /* HealthEventDelegate.swift */; };
 		0967EB791E7F0ACE0073BF3F /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0967EB781E7F0ACE0073BF3F /* NotificationService.swift */; };
 		0967EB7A1E7F0ACE0073BF3F /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0967EB781E7F0ACE0073BF3F /* NotificationService.swift */; };
 		096A4EE61E58D39900CE3D5B /* DuffyFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09323D031D2303BC00961822 /* DuffyFramework.framework */; };
@@ -279,7 +277,6 @@
 		0947AA9D1D4EB24A0040E1DD /* WeekRowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeekRowController.swift; sourceTree = "<group>"; };
 		0961D904216A9BCF00F4AA88 /* ClockKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ClockKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS5.0.sdk/System/Library/Frameworks/ClockKit.framework; sourceTree = DEVELOPER_DIR; };
 		0961D906216A9F2000F4AA88 /* duffy.ckcomplication */ = {isa = PBXFileReference; lastKnownFileType = folder; path = duffy.ckcomplication; sourceTree = "<group>"; };
-		0967EB751E7D88770073BF3F /* HealthEventDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthEventDelegate.swift; sourceTree = "<group>"; };
 		0967EB781E7F0ACE0073BF3F /* NotificationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		096FE09B2503CA6500838BEE /* DateDifference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateDifference.swift; sourceTree = "<group>"; };
 		096FE0A725067FC700838BEE /* HistoryTrendChartLineOptionsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTrendChartLineOptionsTableViewController.swift; sourceTree = "<group>"; };
@@ -509,7 +506,6 @@
 				09AACE291D318E5D0058A814 /* WCSessionService.swift */,
 				092B0E891D45841F00085F99 /* CoreMotionService.swift */,
 				09D7F1231E340EA7008FF0CC /* Constants.swift */,
-				0967EB751E7D88770073BF3F /* HealthEventDelegate.swift */,
 				0967EB781E7F0ACE0073BF3F /* NotificationService.swift */,
 				090829E124670EEF00F100D6 /* Trophy.swift */,
 				099FE6FF234EB5300092D219 /* LoggingService.swift */,
@@ -912,7 +908,6 @@
 				0929A6CD24E7128F00780004 /* Types.swift in Sources */,
 				09323D221D23040100961822 /* HealthKitService.swift in Sources */,
 				09177BC5241D466F0095ECB4 /* ExportService.swift in Sources */,
-				0967EB761E7D88770073BF3F /* HealthEventDelegate.swift in Sources */,
 				099FE700234EB5300092D219 /* LoggingService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -937,7 +932,6 @@
 				0929A6CE24E7128F00780004 /* Types.swift in Sources */,
 				09323D231D23040100961822 /* HealthKitService.swift in Sources */,
 				09177BC6241D466F0095ECB4 /* ExportService.swift in Sources */,
-				0967EB771E7D88770073BF3F /* HealthEventDelegate.swift in Sources */,
 				099FE701234EB5300092D219 /* LoggingService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -100,7 +100,7 @@ open class CoreMotionService
                         let cmSteps = stepData.numberOfSteps.intValue
                         let cmDate = stepData.endDate
                         LoggingService.log(String(format: "CMPedometer steps from %@", source), with: String(format: "%d", cmSteps))
-                        StepsProcessingService.handleSteps(Steps(cmSteps), for: cmDate, from: source, handler: nil)
+                        StepsProcessingService.handleSteps(Steps(cmSteps), for: cmDate, from: source)
                     }
                     
                     if let completion = completion {

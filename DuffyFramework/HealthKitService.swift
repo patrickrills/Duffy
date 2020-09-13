@@ -16,7 +16,6 @@ public class HealthKitService
     
     private static let instance: HealthKitService = HealthKitService()
     private var healthStore: HKHealthStore?
-    private var eventDelegate: HealthEventDelegate?
     private var observerQueries = [String : HKObserverQuery]()
     private var statisticsQueries = [String : HKStatisticsCollectionQuery]()
     private var subscribers = [String : HealthKitSubscriber]()
@@ -62,11 +61,11 @@ public class HealthKitService
             let stepType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.stepCount)
         else { return }
         
-        get(quantityType: stepType, measuredIn: HKUnit.count(), on: date) { [weak self] result in
+        get(quantityType: stepType, measuredIn: HKUnit.count(), on: date) { result in
             switch result {
             case .success(let sumValue):
                 let steps = Steps(sumValue.sum)
-                StepsProcessingService.handleSteps(steps, for: sumValue.day, from: "steps for day query", handler: self?.eventDelegate)
+                StepsProcessingService.handleSteps(steps, for: sumValue.day, from: "steps for day query")
                 completionHandler(.success((day: sumValue.day, steps: steps)))
             case .failure(let error):
                 completionHandler(.failure(error))
@@ -283,10 +282,6 @@ public class HealthKitService
 
 extension HealthKitService {
     
-    public func setEventDelegate(_ delegate: HealthEventDelegate) {
-        eventDelegate = delegate
-    }
-    
     public func initializeBackgroundQueries() {
         if let store = healthStore, let stepsType = HKQuantityType.quantityType(forIdentifier: .stepCount) {
             DispatchQueue.main.async {
@@ -421,7 +416,7 @@ extension HealthKitService {
                 let source = String(format: "%@ stats query", key)
                 LoggingService.log(String(format: "Steps retrieved by %@", source), with: String(format: "%d", todaysSteps))
                 
-                StepsProcessingService.handleSteps(todaysSteps, for: startDate, from: source, handler: self?.eventDelegate)
+                StepsProcessingService.handleSteps(todaysSteps, for: startDate, from: source)
                 
                 if let sampleId = query.objectType?.identifier,
                     let subscriber = self?.subscribers[sampleId]

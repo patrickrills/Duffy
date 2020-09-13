@@ -207,9 +207,6 @@ class InterfaceController: WKInterfaceController
     }
     
     func subscribeToHealthKitUpdates() {
-        if let healthDelegate = WKExtension.shared().delegate as? ExtensionDelegate {
-            HealthKitService.getInstance().setEventDelegate(healthDelegate)
-        }
         HealthKitService.getInstance().initializeBackgroundQueries()
         
         HealthKitService.getInstance().subscribe(to: HKQuantityTypeIdentifier.stepCount, on: {
