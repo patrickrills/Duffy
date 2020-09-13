@@ -37,7 +37,7 @@ class PreviousValueTableViewCell: UITableViewCell
         var detailWeight : UIFont.Weight = .regular
         
         if goal > 0, steps >= goal{
-            detailTextLabel?.text = String(format: "%@ %@", Trophy.trophy(for: Int(steps)).symbol(), stepsFormatted)
+            detailTextLabel?.text = String(format: "%@ %@", Trophy.trophy(for: steps).symbol(), stepsFormatted)
             detailWeight = .semibold
         } else {
             detailTextLabel?.text = stepsFormatted

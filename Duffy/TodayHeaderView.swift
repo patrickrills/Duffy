@@ -107,7 +107,7 @@ class TodayHeaderView: UIView
             return
         }
         
-        goalLabel.text = String(format: NSLocalizedString("of %@ goal %@", comment: ""), formattedValue, Trophy.trophy(for: Int(stepsForDay)).symbol())
+        goalLabel.text = String(format: NSLocalizedString("of %@ goal %@", comment: ""), formattedValue, Trophy.trophy(for: stepsForDay).symbol())
     }
     
     @IBAction func refreshPressed()

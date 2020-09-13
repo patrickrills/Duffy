@@ -67,7 +67,7 @@ public enum Trophy: CaseIterable {
         return Int(ceil(stepsGoal * self.factor()))
     }
     
-    public static func trophy(for stepsTotal: Int) -> Trophy {
+    public static func trophy(for stepsTotal: Steps) -> Trophy {
         let stepsGoal = Double(HealthCache.getStepsDailyGoal())
         let steps = Double(stepsTotal)
         
