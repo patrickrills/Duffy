@@ -66,13 +66,7 @@ public class HealthKitService
             switch result {
             case .success(let sumValue):
                 let steps = Steps(sumValue.sum)
-                if steps >= HealthCache.getStepsDailyGoal(), sumValue.day.isToday() {
-                    HealthCache.incrementGoalReachedCounter()
-        
-                    if let del = self?.eventDelegate {
-                        del.dailyStepsGoalWasReached()
-                    }
-                }
+                StepsProcessingService.handleSteps(steps, for: sumValue.day, from: "steps for day query", handler: self?.eventDelegate)
                 completionHandler(.success((day: sumValue.day, steps: steps)))
             case .failure(let error):
                 completionHandler(.failure(error))
@@ -368,11 +362,6 @@ extension HealthKitService {
                 switch result {
                 case .success(let stepsResult):
                     LoggingService.log(String(format: "Steps retrieved by %@ observer", key), with: String(format: "%d", stepsResult.steps))
-                    
-                    if (HealthCache.saveStepsToCache(Int(stepsResult.steps), forDay: stepsResult.day)) {
-                        LoggingService.log(String(format: "updateWatchFaceComplication from %@ observer", key), with: String(format: "%d", stepsResult.steps))
-                        WCSessionService.getInstance().updateWatchFaceComplication(["stepsdataresponse" : HealthCache.getStepsDataFromCache() as AnyObject])
-                    }
                 case .failure(let error):
                     LoggingService.log(error: error)
                 }
@@ -420,32 +409,19 @@ extension HealthKitService {
             if let results = results,
                 error == nil
             {
-                var todaysSteps: Int = 0
+                var todaysSteps: Steps = 0
                 let startDate = Date().stripTime()
                 
-                results.enumerateStatistics(from: startDate, to: startDate.nextDay()) {
-                    statistics, stop in
-                    
+                results.enumerateStatistics(from: startDate, to: startDate.nextDay()) { statistics, stop in
                     if let quantity = statistics.sumQuantity() {
-                        todaysSteps += Int(quantity.doubleValue(for: HKUnit.count()))
+                        todaysSteps += Steps(quantity.doubleValue(for: HKUnit.count()))
                     }
                 }
                 
-                LoggingService.log(String(format: "Steps retrieved by %@ stats query", key), with: String(format: "%d", todaysSteps))
+                let source = String(format: "%@ stats query", key)
+                LoggingService.log(String(format: "Steps retrieved by %@", source), with: String(format: "%d", todaysSteps))
                 
-                if (HealthCache.saveStepsToCache(todaysSteps, forDay: startDate)) {
-                    LoggingService.log(String(format: "updateWatchFaceComplication from %@ stats query", key), with: String(format: "%d", todaysSteps))
-                    WCSessionService.getInstance().updateWatchFaceComplication(["stepsdataresponse" : HealthCache.getStepsDataFromCache() as AnyObject])
-                }
-                
-                if todaysSteps >= HealthCache.getStepsDailyGoal(), startDate.isToday()
-                {
-                    HealthCache.incrementGoalReachedCounter()
-                    
-                    if let del = self?.eventDelegate {
-                        del.dailyStepsGoalWasReached()
-                    }
-                }
+                StepsProcessingService.handleSteps(todaysSteps, for: startDate, from: source, handler: self?.eventDelegate)
                 
                 if let sampleId = query.objectType?.identifier,
                     let subscriber = self?.subscribers[sampleId]

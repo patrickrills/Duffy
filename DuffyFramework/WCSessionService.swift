@@ -83,19 +83,19 @@ open class WCSessionService : NSObject, WCSessionDelegate
         return 0
     }
     
-    open func updateWatchFaceComplication(_ complicationData : [String : AnyObject])
-    {
+    public func updateWatchFaceComplication(with steps: Steps) {
+        let complicationData = ["stepsdataresponse" : steps as AnyObject]
+        
         #if os(iOS)
             sendComplicationDataToWatch(complicationData)
         #else
-            if let del = delegate
-            {
-                del.complicationUpdateRequested(complicationData)
+            if let delegate = delegate {
+                delegate.complicationUpdateRequested(complicationData)
             }
         #endif
     }
     
-    fileprivate func sendComplicationDataToWatch(_ complicationData : [String : AnyObject])
+    private func sendComplicationDataToWatch(_ complicationData : [String : AnyObject])
     {
         #if os(iOS)
             if (WCSession.isSupported())
@@ -266,10 +266,8 @@ open class WCSessionService : NSObject, WCSessionDelegate
         } else {
             HealthKitService.getInstance().getSteps(for: Date()) { result in
                 switch result {
-                case .success(let stepsResult):
-                    if (HealthCache.saveStepsToCache(Int(stepsResult.steps), forDay: stepsResult.day)) {
-                        WCSessionService.getInstance().updateWatchFaceComplication(["stepsdataresponse" : HealthCache.getStepsDataFromCache() as AnyObject])
-                    }
+                case .success(_):
+                    LoggingService.log("Successfully refreshed HK steps on didReceiveUserInfo", at: .debug)
                 case .failure(let error):
                     LoggingService.log(error: error)
                 }

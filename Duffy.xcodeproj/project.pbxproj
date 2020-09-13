@@ -72,6 +72,8 @@
 		096FE09C2503CA6500838BEE /* DateDifference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096FE09B2503CA6500838BEE /* DateDifference.swift */; };
 		096FE09D2503CA6500838BEE /* DateDifference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096FE09B2503CA6500838BEE /* DateDifference.swift */; };
 		096FE0A825067FC700838BEE /* HistoryTrendChartLineOptionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096FE0A725067FC700838BEE /* HistoryTrendChartLineOptionsTableViewController.swift */; };
+		096FE0AA250E75FF00838BEE /* StepsProcessingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096FE0A9250E75FF00838BEE /* StepsProcessingService.swift */; };
+		096FE0AB250E75FF00838BEE /* StepsProcessingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096FE0A9250E75FF00838BEE /* StepsProcessingService.swift */; };
 		097085632127122B00790EC7 /* DistanceFlightsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097085612127122B00790EC7 /* DistanceFlightsDetailViewController.swift */; };
 		097085642127122B00790EC7 /* DistanceFlightsDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 097085622127122B00790EC7 /* DistanceFlightsDetailViewController.xib */; };
 		09708599214D7A8000790EC7 /* HourGraphDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09708597214D7A8000790EC7 /* HourGraphDetailViewController.swift */; };
@@ -281,6 +283,7 @@
 		0967EB781E7F0ACE0073BF3F /* NotificationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		096FE09B2503CA6500838BEE /* DateDifference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateDifference.swift; sourceTree = "<group>"; };
 		096FE0A725067FC700838BEE /* HistoryTrendChartLineOptionsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTrendChartLineOptionsTableViewController.swift; sourceTree = "<group>"; };
+		096FE0A9250E75FF00838BEE /* StepsProcessingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepsProcessingService.swift; sourceTree = "<group>"; };
 		097085612127122B00790EC7 /* DistanceFlightsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceFlightsDetailViewController.swift; sourceTree = "<group>"; };
 		097085622127122B00790EC7 /* DistanceFlightsDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DistanceFlightsDetailViewController.xib; sourceTree = "<group>"; };
 		09708597214D7A8000790EC7 /* HourGraphDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourGraphDetailViewController.swift; sourceTree = "<group>"; };
@@ -499,6 +502,7 @@
 				0929A6C624E6F1DC00780004 /* AggregateCollections.swift */,
 				096FE09B2503CA6500838BEE /* DateDifference.swift */,
 				0929A6CC24E7128F00780004 /* Types.swift */,
+				096FE0A9250E75FF00838BEE /* StepsProcessingService.swift */,
 				0929A6C924E6FF3300780004 /* HealthKitError.swift */,
 				09323D211D23040100961822 /* HealthKitService.swift */,
 				09AACE261D318A390058A814 /* HealthCache.swift */,
@@ -894,6 +898,7 @@
 			files = (
 				09D7F1241E340EA7008FF0CC /* Constants.swift in Sources */,
 				0929A6C724E6F1DC00780004 /* AggregateCollections.swift in Sources */,
+				096FE0AA250E75FF00838BEE /* StepsProcessingService.swift in Sources */,
 				09AACE271D318A390058A814 /* HealthCache.swift in Sources */,
 				096FE09C2503CA6500838BEE /* DateDifference.swift in Sources */,
 				090829E224670EEF00F100D6 /* Trophy.swift in Sources */,
@@ -918,6 +923,7 @@
 			files = (
 				09D7F1251E340EA7008FF0CC /* Constants.swift in Sources */,
 				0929A6C824E6F1DC00780004 /* AggregateCollections.swift in Sources */,
+				096FE0AB250E75FF00838BEE /* StepsProcessingService.swift in Sources */,
 				09AACE281D318A390058A814 /* HealthCache.swift in Sources */,
 				096FE09D2503CA6500838BEE /* DateDifference.swift in Sources */,
 				090829E324670EEF00F100D6 /* Trophy.swift in Sources */,
