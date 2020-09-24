@@ -8,8 +8,12 @@
 
 import Foundation
 
-open class HealthCache
-{
+public class HealthCache {
+    
+    private enum CacheKeys: String {
+        case goalReachedDates = "goalReachedDates"
+    }
+    
     @discardableResult
     open class func saveStepsToCache(_ stepCount: Int, forDay: Date) -> Bool
     {
@@ -150,29 +154,24 @@ open class HealthCache
         #endif
     }
     
-    open class func incrementGoalReachedCounter()
-    {
+    public class func incrementGoalReachedCounter() {
         var dates = getGoalReachedDates()
         let today = convertDayToKey(Date())
-        if dates.count < 10 && !dates.contains(today)
-        {
+        if dates.count < 10 && !dates.contains(today) {
             dates.append(today)
-            UserDefaults.standard.set(dates, forKey: "goalReachedDates")
+            UserDefaults.standard.set(dates, forKey: CacheKeys.goalReachedDates.rawValue)
         }
     }
     
-    open class func getGoalReachedCount() -> Int
-    {
+    public class func getGoalReachedCount() -> Int {
         return getGoalReachedDates().count
     }
     
-    fileprivate class func getGoalReachedDates() -> [String]
-    {
-        if let dates = UserDefaults.standard.object(forKey: "goalReachedDates") as? [String]
-        {
-            return dates;
+    private class func getGoalReachedDates() -> [String] {
+        guard let goalReachedDates = UserDefaults.standard.object(forKey: CacheKeys.goalReachedDates.rawValue) as? [String] else {
+            return []
         }
         
-        return [String]()
+        return goalReachedDates
     }
 }
