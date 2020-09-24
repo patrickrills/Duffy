@@ -12,6 +12,8 @@ public class HealthCache {
     
     private enum CacheKeys: String {
         case goalReachedDates = "goalReachedDates"
+        
+        static let sharedGroupName = "group.com.bigbluefly.Duffy"
     }
     
     @discardableResult
@@ -101,15 +103,6 @@ public class HealthCache {
         
         return true
     }
-    
-    fileprivate class func convertDayToKey(_ day: Date) -> String
-    {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy_MM_dd"
-        return dateFormatter.string(from: day)
-    }
-    
-    fileprivate static let sharedGroupName = "group.com.bigbluefly.Duffy"
         
     open class func getStepsDailyGoal() -> Int
     {
@@ -127,7 +120,7 @@ public class HealthCache {
     open class func getStepsDailyGoalFromShared() -> Int
     {
         #if os(iOS)
-            if let sharedDefaults = UserDefaults(suiteName: sharedGroupName),
+            if let sharedDefaults = UserDefaults(suiteName: CacheKeys.sharedGroupName),
                 let goal = sharedDefaults.object(forKey: "stepsDailyGoal") as? Int {
                     return goal
             } else {
@@ -143,7 +136,7 @@ public class HealthCache {
         UserDefaults.standard.set(stepGoal, forKey: "stepsDailyGoal")
         
         #if os(iOS)
-            if let sharedDefaults = UserDefaults(suiteName: sharedGroupName) {
+            if let sharedDefaults = UserDefaults(suiteName: CacheKeys.sharedGroupName) {
                 sharedDefaults.set(stepGoal, forKey: "stepsDailyGoal")
             }
         #endif
@@ -174,4 +167,14 @@ public class HealthCache {
         
         return goalReachedDates
     }
+    
+    private class func convertDayToKey(_ day: Date) -> String {
+        return keyDayFormatter.string(from: day)
+    }
+    
+    private static var keyDayFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy_MM_dd"
+        return dateFormatter
+    }()
 }
