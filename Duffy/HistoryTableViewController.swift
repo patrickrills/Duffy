@@ -15,7 +15,7 @@ class HistoryTableViewController: UITableViewController {
         static let PAGE_SIZE_DAYS: Int = 30
     }
     
-    private let goal = HealthCache.getStepsDailyGoal()
+    private let goal = HealthCache.dailyGoal()
     
     private var pastSteps : [Date : Steps] = [:]
     private var lastDateInCache: Date {
@@ -187,7 +187,7 @@ class HistoryTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PreviousValueTableViewCell.self), for: indexPath) as! PreviousValueTableViewCell
             let currentDate = filteredDates[indexPath.row];
             if let steps = pastSteps[currentDate] {
-                cell.bind(toDate: currentDate, steps: steps, goal: goal)
+                cell.bind(to: currentDate, steps: steps, goal: goal)
             }
             return cell
         }

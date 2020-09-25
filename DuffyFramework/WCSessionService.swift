@@ -226,7 +226,7 @@ open class WCSessionService : NSObject, WCSessionDelegate
                             del.complicationUpdateRequested(dict)
                         }
                         
-                        if HealthCache.getStepsFromCache(Date()) >= HealthCache.getStepsDailyGoal()
+                        if HealthCache.getStepsFromCache(Date()) >= HealthCache.dailyGoal()
                         {
                             NotificationService.sendDailyStepsGoalNotification()
                         }

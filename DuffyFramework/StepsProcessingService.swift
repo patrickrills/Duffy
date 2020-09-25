@@ -16,7 +16,7 @@ internal class StepsProcessingService {
             WCSessionService.getInstance().updateWatchFaceComplication(with: stepCount)
         }
         
-        if stepCount >= HealthCache.getStepsDailyGoal(), day.isToday() {
+        if stepCount >= HealthCache.dailyGoal(), day.isToday() {
             HealthCache.incrementGoalReachedCounter()
             NotificationService.sendDailyStepsGoalNotification()
         }

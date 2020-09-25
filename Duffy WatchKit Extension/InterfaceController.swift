@@ -197,7 +197,7 @@ class InterfaceController: WKInterfaceController
     }
     
     private func updateGoalDisplay(stepsForDay: Steps) {
-        let goalValue = HealthCache.getStepsDailyGoal()
+        let goalValue = HealthCache.dailyGoal()
         if goalValue > 0, let formattedValue = InterfaceController.getNumberFormatter().string(for: goalValue) {
             stepsGoalLabel.setHidden(false)
             stepsGoalLabel.setText(String(format: NSLocalizedString("of %@ goal %@", comment: ""), formattedValue, Trophy.trophy(for: stepsForDay).symbol()))

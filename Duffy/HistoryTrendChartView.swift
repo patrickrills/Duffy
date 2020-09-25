@@ -38,7 +38,7 @@ class HistoryTrendChartView: UIView
     private func plot(in rect: CGRect) -> Plot {
         let activeArea = CGRect(x: DrawingConstants.GRAPH_INSETS.left, y: DrawingConstants.GRAPH_INSETS.top, width: rect.width - (DrawingConstants.GRAPH_INSETS.left + DrawingConstants.GRAPH_INSETS.right), height: rect.height - (DrawingConstants.GRAPH_INSETS.top + DrawingConstants.GRAPH_INSETS.bottom))
         
-        let goalSteps = Steps(HealthCache.getStepsDailyGoal())
+        let goalSteps = HealthCache.dailyGoal()
         var goalLineY: CGFloat? = nil
         var averageY: CGFloat? = nil
         var trend: [CGPoint]? = nil

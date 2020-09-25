@@ -12,48 +12,41 @@ import DuffyWatchFramework
 class EditGoalInterfaceController: WKInterfaceController
 {
     @IBOutlet weak var goalOptionsList: WKInterfacePicker?
-    private var stepsGoal: Int = 0
-    private var options: [Int] = []
+    private var stepsGoal: Steps = 0
+    private var options: [Steps] = []
     
-    override func awake(withContext context: Any?)
-    {
+    override func awake(withContext context: Any?) {
         super.awake(withContext: context)
         
-        if let picker = goalOptionsList
-        {
+        if let picker = goalOptionsList {
             var items: [WKPickerItem] = []
-            for i in stride(from: 500, to: 80250, by: 250)
-            {
+            for i in stride(from: 500, to: 80250, by: 250) {
                 let opt = WKPickerItem()
-                opt.title = InterfaceController.getNumberFormatter().string(from: NSNumber(value: i))
+                opt.title = InterfaceController.getNumberFormatter().string(for: i)
                 items.append(opt)
-                options.append(i)
+                options.append(Steps(i))
             }
             
             picker.setItems(items)
         }
     }
     
-    override func willActivate()
-    {
+    override func willActivate() {
         super.willActivate()
         
-        stepsGoal = HealthCache.getStepsDailyGoal()
+        stepsGoal = HealthCache.dailyGoal()
         
-        if let i = options.firstIndex(of: stepsGoal)
-        {
+        if let i = options.firstIndex(of: stepsGoal) {
             goalOptionsList?.setSelectedItemIndex(i)
         }
     }
     
-    @IBAction func pickerChanged(value: Int)
-    {
+    @IBAction func pickerChanged(value: Int) {
         stepsGoal = options[value]
     }
 
-    @IBAction func savePressed()
-    {
-        HealthCache.saveStepsGoalToCache(stepsGoal)
+    @IBAction func savePressed() {
+        HealthCache.saveStepsGoalToCache(Int(stepsGoal)) //TODO: Remove cast to Int
         dismiss()
     }
 }

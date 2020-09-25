@@ -67,7 +67,7 @@ class HourGraphDetailViewController: DetailDataViewPageViewController
                     
                     bar.percent = percent
                     
-                    if (runningStepTotal >= HealthCache.getStepsDailyGoal() && !reachedGoal) {
+                    if (runningStepTotal >= HealthCache.dailyGoal() && !reachedGoal) {
                         bar.color = Globals.successColor()
                         reachedGoal = true
                     } else {

@@ -62,9 +62,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WCSessionServiceDelegate
         LoggingService.log("App did become active")
         
         //Synchronize daily goal to shared defaults if its never been done so Today extension can know the goal
-        if HealthCache.getStepsDailyGoal() > 0,
-            HealthCache.getStepsDailyGoal() != HealthCache.getStepsDailyGoalFromShared() {
-            HealthCache.saveStepsGoalToCache(HealthCache.getStepsDailyGoal())
+        //TODO: This should be encapsulated in HealthCache
+        if HealthCache.dailyGoal() > 0,
+            HealthCache.dailyGoal() != HealthCache.getStepsDailyGoalFromShared() {
+            HealthCache.saveStepsGoalToCache(Int(HealthCache.dailyGoal())) //TODO: Remove Int cast
         }
         
         //TODO: If session is not paired, try to here?

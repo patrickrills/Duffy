@@ -99,7 +99,7 @@ class TodayHeaderView: UIView
     }
     
     private func updateGoalDisplay(stepsForDay: Steps) {
-        guard case let goalValue = HealthCache.getStepsDailyGoal(),
+        guard case let goalValue = HealthCache.dailyGoal(),
             goalValue > 0,
             let formattedValue = Globals.stepsFormatter().string(for: goalValue)
         else {

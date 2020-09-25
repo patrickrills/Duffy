@@ -11,6 +11,7 @@ import Foundation
 public class HealthCache {
     
     private enum CacheKeys: String {
+        case stepsDailyGoal = "stepsDailyGoal"
         case goalReachedDates = "goalReachedDates"
         
         static let sharedGroupName = "group.com.bigbluefly.Duffy"
@@ -103,18 +104,16 @@ public class HealthCache {
         
         return true
     }
+    
+    //MARK: Retrieving and saving the goal
         
-    open class func getStepsDailyGoal() -> Int
-    {
-        if let stepsGoal = UserDefaults.standard.object(forKey: "stepsDailyGoal") as? Int
-        {
-            return stepsGoal
-        }
-        else
-        {
-            saveStepsGoalToCache(Constants.stepsGoalDefault)
+    public class func dailyGoal() -> Steps {
+        guard let stepsGoal = UserDefaults.standard.object(forKey: CacheKeys.stepsDailyGoal.rawValue) as? Steps else {
+            saveStepsGoalToCache(Int(Constants.stepsGoalDefault)) //TODO: remove Int cast
             return Constants.stepsGoalDefault
         }
+        
+        return stepsGoal
     }
     
     open class func getStepsDailyGoalFromShared() -> Int
@@ -127,7 +126,7 @@ public class HealthCache {
                 return 0
             }
         #else
-            return getStepsDailyGoal()
+            return Int(dailyGoal()) //TODO: remove Int cast
         #endif
     }
     

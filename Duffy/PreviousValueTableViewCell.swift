@@ -21,8 +21,8 @@ class PreviousValueTableViewCell: UITableViewCell
         super.init(style: .value1, reuseIdentifier: reuseIdentifier)
     }
     
-    func bind(toDate: Date, steps: Steps, goal: Int) {
-        textLabel?.text = Globals.dayFormatter().string(from: toDate)
+    func bind(to date: Date, steps: Steps, goal: Steps) {
+        textLabel?.text = Globals.dayFormatter().string(from: date)
         textLabel?.font = UIFont.systemFont(ofSize: UIFont.labelFontSize, weight: .regular)
         
         if #available(iOS 13.0, *) {

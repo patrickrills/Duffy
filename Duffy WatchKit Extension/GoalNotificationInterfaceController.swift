@@ -16,23 +16,20 @@ class GoalNotificationInterfaceController: WKUserNotificationInterfaceController
     @IBOutlet weak var lblHeadline: WKInterfaceLabel?
     @IBOutlet weak var lblGoal: WKInterfaceLabel?
     
-    override func didReceive(_ notification: UNNotification, withCompletion completionHandler: @escaping (WKUserNotificationInterfaceType) -> Void)
-    {
+    override func didReceive(_ notification: UNNotification, withCompletion completionHandler: @escaping (WKUserNotificationInterfaceType) -> Void) {
         lblHeadline?.setText(getHeadline())
         
         let formatter = InterfaceController.getNumberFormatter()
-        let stepsGoal = formatter.string(from: NSNumber(value: HealthCache.getStepsDailyGoal()))
+        let stepsGoal = formatter.string(for: HealthCache.dailyGoal())
         lblGoal?.setText(stepsGoal)
         completionHandler(.custom)
     }
     
-    func getHeadline() -> String
-    {
+    func getHeadline() -> String {
         let maxRandom: UInt32 = 7
         let randomNumber = Int(arc4random_uniform(maxRandom))
         
-        switch randomNumber
-        {
+        switch randomNumber {
             case 1:
                 if #available(watchOS 5.0, *) {
                     return "You're a Shoe-per man 🦸‍♂️ or Run-der Woman 🦸‍♀️!"
