@@ -72,11 +72,11 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     {
         // Call the handler with the current timeline entry
         var steps: Steps = 0
-        if (!HealthCache.cacheIsForADifferentDay(Date())) {
-            steps = Steps(HealthCache.getStepsFromCache(Date())) //TODO: remove cast
+        if !HealthCache.cacheIsForADifferentDay(than: Date()) {
+            steps = HealthCache.lastSteps(for: Date())
         }
         
-        LoggingService.log("Complication getCurrentTimelineEntry", with: String(format: "%d", HealthCache.getStepsFromCache(Date())))
+        LoggingService.log("Complication getCurrentTimelineEntry", with: String(format: "%d", steps))
         
         handler(entry(for: complication, with: steps))
     }
@@ -577,7 +577,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
             }
             
             let log = allComplications.count > 0 ? "Complication reloadTimeline" : "Complication reloadTimeline but no active found"
-            LoggingService.log(log, with: String(format: "%d", HealthCache.getStepsFromCache(Date())))
+            LoggingService.log(log, with: String(format: "%d", HealthCache.lastSteps(for: Date())))
         }
         else
         {

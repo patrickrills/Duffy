@@ -133,12 +133,8 @@ class TodayViewController: UIViewController, NCWidgetProviding {
         }
     }
     
-    private func getCachedValue() -> Int {
-        guard !HealthCache.cacheIsForADifferentDay(Date()) else {
-            return 0
-        }
-        
-        return HealthCache.getStepsFromCache(Date())
+    private func getCachedValue() -> Steps {
+        return HealthCache.lastSteps(for: Date())
     }
     
     @IBAction private func launchParentApp() {

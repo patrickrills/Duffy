@@ -222,11 +222,11 @@ open class WCSessionService : NSObject, WCSessionDelegate
                     {
                         if let del = delegate
                         {
-                            LoggingService.log("Refreshing complication from received message", with: String(format: "%d", HealthCache.getStepsFromCache(Date())))
+                            LoggingService.log("Refreshing complication from received message", with: String(format: "%d", HealthCache.lastSteps(for: Date())))
                             del.complicationUpdateRequested(dict)
                         }
                         
-                        if HealthCache.getStepsFromCache(Date()) >= HealthCache.dailyGoal()
+                        if HealthCache.lastSteps(for: Date()) >= HealthCache.dailyGoal()
                         {
                             NotificationService.sendDailyStepsGoalNotification()
                         }

@@ -31,7 +31,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
             CoreMotionService.getInstance().initializeBackgroundUpdates()
         }
         
-        if (HealthCache.cacheIsForADifferentDay(Date())) {
+        if (HealthCache.cacheIsForADifferentDay(than: Date())) {
             complicationUpdateRequested([:])
         }
     }

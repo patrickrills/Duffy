@@ -11,19 +11,24 @@ import Foundation
 public class HealthCache {
     
     private enum CacheKeys: String {
+        case stepsCache = "stepsCache"
+        case stepsCacheValue = "stepsCacheValue"
+        case stepsCacheDay = "stepsCacheDay"
         case stepsDailyGoal = "stepsDailyGoal"
         case goalReachedDates = "goalReachedDates"
         
         static let sharedGroupName = "group.com.bigbluefly.Duffy"
     }
     
+    private typealias CachedSteps = (steps: Steps, day: String)
+    
     @discardableResult
     open class func saveStepsToCache(_ stepCount: Int, forDay: Date) -> Bool
     {
         let todaysKey = convertDayToKey(forDay)
-        let previousValueForDay = getStepsFromCache(forDay)
+        let previousValueForDay = lastSteps(for: forDay)
         
-        if (stepCount > previousValueForDay || cacheIsForADifferentDay(forDay))
+        if (stepCount > previousValueForDay || cacheIsForADifferentDay(than: forDay))
         {
             var latestValues = [String : AnyObject]()
             latestValues["stepsCacheDay"] = todaysKey as AnyObject?
@@ -61,48 +66,33 @@ public class HealthCache {
         return false
     }
     
-    open class func getStepsFromCache(_ forDay: Date) -> Int
-    {
-        var previousValueForDay: Int = 0
-        
-        if let stepsDict = UserDefaults.standard.object(forKey: "stepsCache") as? [String : AnyObject]
-        {
-            if let previousDay = stepsDict["stepsCacheDay"] as? String
-            {
-                if (previousDay == convertDayToKey(forDay))
-                {
-                    if let prev = stepsDict["stepsCacheValue"] as? Int
-                    {
-                        previousValueForDay = prev
-                    }
-                }
-            }
+    public class func lastSteps(for day: Date) -> Steps {
+        guard let cache = cache(),
+              cache.day == convertDayToKey(day)
+        else {
+            return 0
         }
         
-        return previousValueForDay
+        return cache.steps
     }
     
-    open class func getStepsDataFromCache() -> [String : AnyObject]
-    {
-        if let stepsDict = UserDefaults.standard.object(forKey: "stepsCache") as? [String : AnyObject]
-        {
-            return stepsDict
+    public class func cacheIsForADifferentDay(than day: Date) -> Bool {
+        guard let cache = cache() else {
+            return true
         }
         
-        return ["stepsCacheDay" : convertDayToKey(Date()) as AnyObject, "stepsCacheValue" : Int(0) as AnyObject]
+        return cache.day != convertDayToKey(day)
     }
     
-    open class func cacheIsForADifferentDay(_ currentDay: Date) -> Bool
-    {
-        if let stepsDict = UserDefaults.standard.object(forKey: "stepsCache") as? [String : AnyObject]
-        {
-            if let previousDay = stepsDict["stepsCacheDay"] as? String
-            {
-                return (previousDay != convertDayToKey(currentDay))
-            }
+    private class func cache() -> CachedSteps? {
+        guard let stepsDict = UserDefaults.standard.object(forKey: CacheKeys.stepsCache.rawValue) as? [String : AnyObject],
+            let cachedSteps = stepsDict[CacheKeys.stepsCacheValue.rawValue] as? Steps,
+            let cachedDay = stepsDict[CacheKeys.stepsCacheDay.rawValue] as? String
+        else {
+            return nil
         }
         
-        return true
+        return CachedSteps(steps: cachedSteps, day: cachedDay)
     }
     
     //MARK: Retrieving and saving the goal

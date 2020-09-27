@@ -177,17 +177,7 @@ class InterfaceController: WKInterfaceController
     private func displayTodaysStepsFromCache() {
         DispatchQueue.main.async { [weak self] in
             guard let weakSelf = self else { return }
-            
-            var steps: Steps = 0
-            
-            if !HealthCache.cacheIsForADifferentDay(Date()) {
-                let cacheData = HealthCache.getStepsDataFromCache()
-                if let savedVal = cacheData["stepsCacheValue"] as? Steps {
-                    steps = savedVal
-                }
-            }
-            
-            weakSelf.display(steps: steps)
+            weakSelf.display(steps: HealthCache.lastSteps(for: Date()))
         }
     }
     
@@ -235,7 +225,7 @@ class InterfaceController: WKInterfaceController
     
     private func maybeTurnOverComplicationDate() {
         //reset display if day turned over
-        if (HealthCache.cacheIsForADifferentDay(Date())) {
+        if HealthCache.cacheIsForADifferentDay(than: Date()) {
             display(steps: 0)
             maybeUpdateComplication(with: 0, for: Date())
         }
