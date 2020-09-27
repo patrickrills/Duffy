@@ -108,41 +108,35 @@ public class HealthCache {
     //MARK: Retrieving and saving the goal
         
     public class func dailyGoal() -> Steps {
-        guard let stepsGoal = UserDefaults.standard.object(forKey: CacheKeys.stepsDailyGoal.rawValue) as? Steps else {
-            saveStepsGoalToCache(Int(Constants.stepsGoalDefault)) //TODO: remove Int cast
-            return Constants.stepsGoalDefault
+        //Attempt to grab it from shared store first
+        if let sharedDefaults = UserDefaults(suiteName: CacheKeys.sharedGroupName),
+           let sharedGoal = sharedDefaults.object(forKey: CacheKeys.stepsDailyGoal.rawValue) as? Steps
+        {
+            return sharedGoal
         }
         
-        return stepsGoal
-    }
-    
-    open class func getStepsDailyGoalFromShared() -> Int
-    {
-        #if os(iOS)
-            if let sharedDefaults = UserDefaults(suiteName: CacheKeys.sharedGroupName),
-                let goal = sharedDefaults.object(forKey: "stepsDailyGoal") as? Int {
-                    return goal
-            } else {
-                return 0
-            }
-        #else
-            return Int(dailyGoal()) //TODO: remove Int cast
-        #endif
-    }
-    
-    open class func saveStepsGoalToCache(_ stepGoal: Int)
-    {
-        UserDefaults.standard.set(stepGoal, forKey: "stepsDailyGoal")
+        //See if it is stored locally next (legacy)
+        if let stepsGoal = UserDefaults.standard.object(forKey: CacheKeys.stepsDailyGoal.rawValue) as? Steps {
+            saveDailyGoal(stepsGoal)
+            return stepsGoal
+        }
         
-        #if os(iOS)
-            if let sharedDefaults = UserDefaults(suiteName: CacheKeys.sharedGroupName) {
-                sharedDefaults.set(stepGoal, forKey: "stepsDailyGoal")
-            }
-        #endif
+        //Return default
+        saveDailyGoal(Constants.stepsGoalDefault)
+        return Constants.stepsGoalDefault
+    }
+    
+    public class func saveDailyGoal(_ dailyStepGoal: Steps)
+    {
+        if let sharedDefaults = UserDefaults(suiteName: CacheKeys.sharedGroupName) {
+            sharedDefaults.set(dailyStepGoal, forKey: CacheKeys.stepsDailyGoal.rawValue)
+        } else {
+            UserDefaults.standard.set(dailyStepGoal, forKey: CacheKeys.stepsDailyGoal.rawValue)
+        }
         
         //if watchos, send to phone
         #if os(watchOS)
-            WCSessionService.getInstance().sendStepsGoal(goal: stepGoal)
+            WCSessionService.getInstance().sendStepsGoal(goal: dailyStepGoal)
         #endif
     }
     

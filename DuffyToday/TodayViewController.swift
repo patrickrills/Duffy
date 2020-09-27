@@ -44,7 +44,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             case .success(let stepsResult):
                 if let weakSelf = self {
                     weakSelf.stepCount = stepsResult.steps
-                    weakSelf.dailyGoal = Steps(HealthCache.getStepsDailyGoalFromShared())
+                    weakSelf.dailyGoal = HealthCache.dailyGoal()
                     HealthCache.saveStepsToCache(Int(stepsResult.steps), forDay: stepsResult.day)
                     DispatchQueue.main.async {
                         self?.displaySteps()
@@ -125,7 +125,7 @@ class TodayViewController: UIViewController, NCWidgetProviding {
             switch result {
             case .success(let stepsResult):
                 self?.stepCount = stepsResult.steps
-                self?.dailyGoal = Steps(HealthCache.getStepsDailyGoalFromShared())
+                self?.dailyGoal = HealthCache.dailyGoal()
                 completionHandler(.newData)
             case .failure(_):
                 completionHandler(.failed)

@@ -129,7 +129,7 @@ open class WCSessionService : NSObject, WCSessionDelegate
         }
     }
     
-    open func sendStepsGoal(goal: Int)
+    open func sendStepsGoal(goal: Steps)
     {
         if WCSession.isSupported()
         {
@@ -235,9 +235,9 @@ open class WCSessionService : NSObject, WCSessionDelegate
             }
             else if (key == "stepsGoal")
             {
-                if let goalVal = value as? Int
+                if let goalVal = value as? Steps
                 {
-                    HealthCache.saveStepsGoalToCache(goalVal)
+                    HealthCache.saveDailyGoal(goalVal)
                 }
             }
             else if (key == "goalNotificationSent")

@@ -46,7 +46,7 @@ class EditGoalInterfaceController: WKInterfaceController
     }
 
     @IBAction func savePressed() {
-        HealthCache.saveStepsGoalToCache(Int(stepsGoal)) //TODO: Remove cast to Int
+        HealthCache.saveDailyGoal(stepsGoal)
         dismiss()
     }
 }
