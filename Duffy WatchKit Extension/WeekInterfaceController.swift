@@ -13,17 +13,27 @@ import DuffyWatchFramework
 
 class WeekInterfaceController: WKInterfaceController
 {
+    @IBOutlet weak var loadingLabel: WKInterfaceLabel!
+    @IBOutlet weak var graphImage: WKInterfaceImage!
     @IBOutlet weak var stepsTable: WKInterfaceTable!
     
-    override func didAppear()
-    {
-        super.didAppear()
+    private var hasDrawnChart: Bool = false
+    
+    override func willActivate() {
+        super.willActivate()
         
+        if !DebugService.isDebugModeEnabled() {
+            loadingLabel.setHidden(true)
+            graphImage.setHidden(true)
+        }
+    }
+    
+    override func didAppear() {
+        super.didAppear()
         retrieveRecentSteps()
     }
 
-    private func retrieveRecentSteps()
-    {
+    private func retrieveRecentSteps() {
         guard let startDate = HealthKitService.getInstance().earliestQueryDate() else {
             showErrorState()
             return
@@ -64,6 +74,7 @@ class WeekInterfaceController: WKInterfaceController
         DispatchQueue.main.async { [weak self] in
             if let weakSelf = self {
                 if (data.count > 0) {
+                    weakSelf.drawChart(for: stepsCollection)
                     weakSelf.bindTable(to: data)
                 } else {
                     weakSelf.showErrorState()
@@ -85,6 +96,30 @@ class WeekInterfaceController: WKInterfaceController
     
     private func showErrorState() {
         bindTable(to: [WeekRowData(title: NSLocalizedString("No Data", comment: ""), formattedValue: "", adornment: "")])
+        graphImage.setImage(nil)
+    }
+    
+    private func drawChart(for data: [Date : Steps]) {
+        if DebugService.isDebugModeEnabled() {
+            if hasDrawnChart {
+                loadingLabel.setHidden(true)
+            } else {
+                loadingLabel.setText(NSLocalizedString("Loading...", comment: ""))
+            }
+            
+            let width: CGFloat = WKInterfaceDevice.current().screenBounds.width
+            let height: CGFloat = 100
+            
+            DispatchQueue.global(qos: .userInitiated).async {
+                let chartImage = ChartDrawer.drawChart(size: CGSize(width: width, height: height))
+                DispatchQueue.main.async { [weak self] in
+                    guard let weakSelf = self else { return }
+                    weakSelf.graphImage.setImage(chartImage)
+                    weakSelf.loadingLabel.setHidden(true)
+                    weakSelf.hasDrawnChart = true
+                }
+            }
+        }
     }
     
     struct WeekRowData {
