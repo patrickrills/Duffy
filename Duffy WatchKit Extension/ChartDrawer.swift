@@ -12,7 +12,14 @@ import WatchKit
 
 class ChartDrawer {
     
-    class func drawChart(size: CGSize) -> UIImage? {
+    private enum Constants {
+        static let CHART_HEIGHT: CGFloat = 80.0
+        static let LINE_WIDTH: CGFloat = 2.0
+        static let HORIZONTAL_MARGIN: CGFloat = 4.0
+    }
+    
+    class func drawChart(width: CGFloat) -> UIImage? {
+        let size = CGSize(width: width, height: Constants.CHART_HEIGHT)
         UIGraphicsBeginImageContext(size)
         let context = UIGraphicsGetCurrentContext()
         UIGraphicsPushContext(context!)
@@ -21,9 +28,9 @@ class ChartDrawer {
         lineColor.setStroke()
         
         let line = UIBezierPath()
-        line.lineWidth = 2.0
-        line.move(to: CGPoint(x: 4, y: size.height / 2.0))
-        line.addLine(to: CGPoint(x: size.width - 8, y: size.height / 2.0))
+        line.lineWidth = Constants.LINE_WIDTH
+        line.move(to: CGPoint(x: Constants.HORIZONTAL_MARGIN, y: size.height / 2.0))
+        line.addLine(to: CGPoint(x: size.width - (Constants.HORIZONTAL_MARGIN * 2.0), y: size.height / 2.0))
         line.stroke()
 
         let cgimage = context!.makeImage()

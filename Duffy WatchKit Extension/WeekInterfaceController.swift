@@ -10,7 +10,7 @@ import WatchKit
 import Foundation
 import DuffyWatchFramework
 
-
+ 
 class WeekInterfaceController: WKInterfaceController
 {
     @IBOutlet weak var loadingLabel: WKInterfaceLabel!
@@ -108,10 +108,9 @@ class WeekInterfaceController: WKInterfaceController
             }
             
             let width: CGFloat = WKInterfaceDevice.current().screenBounds.width
-            let height: CGFloat = 100
             
             DispatchQueue.global(qos: .userInitiated).async {
-                let chartImage = ChartDrawer.drawChart(size: CGSize(width: width, height: height))
+                let chartImage = ChartDrawer.drawChart(width: width)
                 DispatchQueue.main.async { [weak self] in
                     guard let weakSelf = self else { return }
                     weakSelf.graphImage.setImage(chartImage)
