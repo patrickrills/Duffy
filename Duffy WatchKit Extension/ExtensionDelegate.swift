@@ -107,7 +107,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
                         HealthKitService.getInstance().getSteps(for: Date()) { [weak self] result in
                             switch result {
                             case .success(let stepsResult):
-                                if HealthCache.saveStepsToCache(Int(stepsResult.steps), forDay: stepsResult.day) {
+                                if HealthCache.saveStepsToCache(stepsResult.steps, for: stepsResult.day) {
                                     LoggingService.log("Refresh complication in background task")
                                     ComplicationController.refreshComplication()
                                 }

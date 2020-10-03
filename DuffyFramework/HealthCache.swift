@@ -23,47 +23,33 @@ public class HealthCache {
     private typealias CachedSteps = (steps: Steps, day: String)
     
     @discardableResult
-    open class func saveStepsToCache(_ stepCount: Int, forDay: Date) -> Bool
-    {
-        let todaysKey = convertDayToKey(forDay)
-        let previousValueForDay = lastSteps(for: forDay)
+    public class func saveStepsToCache(_ stepCount: Steps, for day: Date) -> Bool {
+        let todaysKey = convertDayToKey(day)
+        let previousValueForDay = lastSteps(for: day)
         
-        if (stepCount > previousValueForDay || cacheIsForADifferentDay(than: forDay))
-        {
-            var latestValues = [String : AnyObject]()
-            latestValues["stepsCacheDay"] = todaysKey as AnyObject?
-            latestValues["stepsCacheValue"] = stepCount as AnyObject?
-            
-            if let _ = UserDefaults.standard.object(forKey: "stepsCache")
-            {
-                UserDefaults.standard.removeObject(forKey: "stepsCache")
-            }
-            
-            UserDefaults.standard.set(latestValues, forKey: "stepsCache")
-            UserDefaults.standard.synchronize()
-            
+        if stepCount > previousValueForDay || cacheIsForADifferentDay(than: day) {
+            var latestValues: [String : AnyObject] = [:]
+            latestValues[CacheKeys.stepsCacheDay.rawValue] = todaysKey as AnyObject
+            latestValues[CacheKeys.stepsCacheValue.rawValue] = stepCount as AnyObject
+            UserDefaults.standard.removeObject(forKey: CacheKeys.stepsCache.rawValue)
+            UserDefaults.standard.set(latestValues, forKey: CacheKeys.stepsCache.rawValue)
+    
             LoggingService.log("Save steps to cache", with: String(format: "%d", stepCount))
             
             return true
+        } else {
+            return false
         }
-        
-        return false
     }
     
-    open class func saveStepsDataToCache(_ data : [String : AnyObject]) -> Bool
-    {
-        if let dayKey = data["stepsCacheDay"] as? String
-        {
-            if (dayKey == convertDayToKey(Date()))
-            {
-                if let stepsCount = data["stepsCacheValue"] as? Int
-                {
-                    return saveStepsToCache(stepsCount, forDay: Date())
-                }
-            }
+    public class func saveStepsDataToCache(_ data : [String : AnyObject]) -> Bool {
+        guard let newCache = parse(dictionary: data),
+              newCache.day == convertDayToKey(Date())
+        else {
+            return false
         }
         
-        return false
+        return saveStepsToCache(newCache.steps, for: Date())
     }
     
     public class func lastSteps(for day: Date) -> Steps {
@@ -86,8 +72,18 @@ public class HealthCache {
     
     private class func cache() -> CachedSteps? {
         guard let stepsDict = UserDefaults.standard.object(forKey: CacheKeys.stepsCache.rawValue) as? [String : AnyObject],
-            let cachedSteps = stepsDict[CacheKeys.stepsCacheValue.rawValue] as? Steps,
-            let cachedDay = stepsDict[CacheKeys.stepsCacheDay.rawValue] as? String
+            let cache = parse(dictionary: stepsDict)
+        else {
+            return nil
+        }
+        
+        return cache
+    }
+    
+    private class func parse(dictionary: [String : AnyObject]) -> CachedSteps? {
+        guard
+            let cachedSteps = dictionary[CacheKeys.stepsCacheValue.rawValue] as? Steps,
+            let cachedDay = dictionary[CacheKeys.stepsCacheDay.rawValue] as? String
         else {
             return nil
         }

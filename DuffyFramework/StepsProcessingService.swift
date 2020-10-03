@@ -11,7 +11,7 @@ import Foundation
 internal class StepsProcessingService {
     
     class func handleSteps(_ stepCount: Steps, for day: Date, from source: String) {
-        if HealthCache.saveStepsToCache(Int(stepCount), forDay: day) {
+        if HealthCache.saveStepsToCache(stepCount, for: day) {
             LoggingService.log(String(format: "updateWatchFaceComplication from %@", source), with: String(format: "%d", stepCount))
             WCSessionService.getInstance().updateWatchFaceComplication(with: stepCount)
         }

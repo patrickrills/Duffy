@@ -232,7 +232,7 @@ class InterfaceController: WKInterfaceController
     }
     
     private func maybeUpdateComplication(with stepCount: Steps, for day: Date) {
-        if HealthCache.saveStepsToCache(Int(stepCount), forDay: day) {
+        if HealthCache.saveStepsToCache(stepCount, for: day) {
             LoggingService.log("Update complication from watch UI", with: "\(stepCount)")
             ComplicationController.refreshComplication()
         }
