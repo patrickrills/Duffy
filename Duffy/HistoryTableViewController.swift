@@ -65,18 +65,26 @@ class HistoryTableViewController: UITableViewController {
         tableView.register(UINib(nibName: String(describing: HistorySummaryTableViewCell.self), bundle: Bundle.main), forCellReuseIdentifier: String(describing: HistorySummaryTableViewCell.self))
         clearsSelectionOnViewWillAppear = true
         
-        if let footer = HistoryTableViewFooter.createView() {
-            footer.loadMoreButton.addTarget(self, action: #selector(loadMorePressed), for: .touchUpInside)
-            tableView.tableFooterView = footer
-        }
-        
         getNextPage()
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
+        layoutFooter()
+    }
+    
+    private func layoutFooter() {
+        var footer: UIView?
         
-        if let footer = tableView.tableFooterView {
+        if let existingFooter = tableView.tableFooterView {
+            footer = existingFooter
+        } else if let newFooter = HistoryTableViewFooter.createView() {
+            newFooter.loadMoreButton.addTarget(self, action: #selector(loadMorePressed), for: .touchUpInside)
+            tableView.tableFooterView = newFooter
+            footer = newFooter
+        }
+        
+        if let footer = footer {
             footer.frame = CGRect(x: footer.frame.origin.x, y: footer.frame.origin.y, width: tableView.frame.size.width, height: Constants.ROW_HEIGHT)
         }
     }
