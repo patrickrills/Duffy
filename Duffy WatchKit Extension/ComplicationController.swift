@@ -60,7 +60,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         
         if date < tomorrow,
             let oneSecondAfterMidnight = Calendar.current.date(from: components),
-            let tomorrowsEntry = entry(for: complication, withStepsCount: 0) {
+            let tomorrowsEntry = entry(for: complication, with: 0) {
             tomorrowsEntry.date = oneSecondAfterMidnight
             handler([tomorrowsEntry])
         } else {
@@ -71,48 +71,48 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     func getCurrentTimelineEntry(for complication: CLKComplication, withHandler handler: (@escaping (CLKComplicationTimelineEntry?) -> Void))
     {
         // Call the handler with the current timeline entry
-        var steps = 0
-        if (!HealthCache.cacheIsForADifferentDay(Date())) {
-            steps = HealthCache.getStepsFromCache(Date())
+        var steps: Steps = 0
+        if !HealthCache.cacheIsForADifferentDay(than: Date()) {
+            steps = HealthCache.lastSteps(for: Date())
         }
         
-        LoggingService.log("Complication getCurrentTimelineEntry", with: String(format: "%d", HealthCache.getStepsFromCache(Date())))
+        LoggingService.log("Complication getCurrentTimelineEntry", with: String(format: "%d", steps))
         
-        handler(entry(for: complication, withStepsCount: steps))
+        handler(entry(for: complication, with: steps))
     }
     
-    private func entry(for complication: CLKComplication, withStepsCount steps: Int) -> CLKComplicationTimelineEntry?
+    private func entry(for complication: CLKComplication, with steps: Steps) -> CLKComplicationTimelineEntry?
     {
         var entry: CLKComplicationTimelineEntry?
         
         if (complication.family == .modularSmall)
         {
-            entry = getEntryForModularSmall(NSNumber(value: steps as Int))
+            entry = getEntryForModularSmall(NSNumber(value: steps))
         }
         else if (complication.family == .modularLarge)
         {
-            entry = getEntryForModularLarge(NSNumber(value: steps as Int))
+            entry = getEntryForModularLarge(NSNumber(value: steps))
         }
         else if (complication.family == .circularSmall)
         {
-            entry = getEntryForCircularSmall(NSNumber(value: steps as Int))
+            entry = getEntryForCircularSmall(NSNumber(value: steps))
         }
         else if (complication.family == .utilitarianLarge)
         {
-            entry = getEntryForUtilitarianLarge(NSNumber(value: steps as Int))
+            entry = getEntryForUtilitarianLarge(NSNumber(value: steps))
         }
         else if (complication.family == .utilitarianSmall || complication.family == .utilitarianSmallFlat)
         {
-            entry = getEntryForUtilitarianSmall(NSNumber(value: steps as Int))
+            entry = getEntryForUtilitarianSmall(NSNumber(value: steps))
         }
         else if (complication.family == .extraLarge)
         {
-            entry = getEntryForExtraLarge(NSNumber(value: steps as Int))
+            entry = getEntryForExtraLarge(NSNumber(value: steps))
         }
         
         if #available(watchOS 5.0, *)
         {
-            let stepsGoal = HealthCache.getStepsDailyGoal()
+            let stepsGoal = HealthCache.dailyGoal()
             
             if (complication.family == .graphicCorner)
             {
@@ -332,14 +332,14 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     }
     
     @available(watchOSApplicationExtension 5.0, *)
-    func getEntryForGraphicCorner(_ totalSteps: Int, _ goal: Int) -> CLKComplicationTimelineEntry
+    func getEntryForGraphicCorner(_ totalSteps: Steps, _ goal: Steps) -> CLKComplicationTimelineEntry
     {
         let gc = getTemplateForGraphicCorner(totalSteps, goal)
         return CLKComplicationTimelineEntry(date: Date(), complicationTemplate: gc)
     }
     
     @available(watchOSApplicationExtension 5.0, *)
-    func getTemplateForGraphicCorner(_ totalSteps: Int, _ goal: Int) -> CLKComplicationTemplateGraphicCornerGaugeText
+    func getTemplateForGraphicCorner(_ totalSteps: Steps, _ goal: Steps) -> CLKComplicationTemplateGraphicCornerGaugeText
     {
         let gc = CLKComplicationTemplateGraphicCornerGaugeText()
         
@@ -357,14 +357,14 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     }
     
     @available(watchOSApplicationExtension 5.0, *)
-    func getEntryForGraphicCircular(_ totalSteps: Int, _ goal: Int) -> CLKComplicationTimelineEntry
+    func getEntryForGraphicCircular(_ totalSteps: Steps, _ goal: Steps) -> CLKComplicationTimelineEntry
     {
         let gc = getTemplateForTextCircular(totalSteps, goal)
         return CLKComplicationTimelineEntry(date: Date(), complicationTemplate: gc)
     }
     
     @available(watchOSApplicationExtension 5.0, *)
-    func  getTemplateForTextCircular(_ totalSteps: Int, _ goal: Int) -> CLKComplicationTemplateGraphicCircularClosedGaugeText
+    func  getTemplateForTextCircular(_ totalSteps: Steps, _ goal: Steps) -> CLKComplicationTemplateGraphicCircularClosedGaugeText
     {
         let gc = CLKComplicationTemplateGraphicCircularClosedGaugeText()
         
@@ -373,30 +373,30 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         text.tintColor = .white
         
         gc.centerTextProvider = text
-        gc.gaugeProvider = getGauge(forTotalSteps: totalSteps, goal: goal)
+        gc.gaugeProvider = getGauge(for: totalSteps, goal: goal)
         
         return gc;
     }
     
     @available(watchOSApplicationExtension 5.0, *)
-    func  getTemplateForGraphicCircular(_ totalSteps: Int, _ goal: Int) -> CLKComplicationTemplateGraphicCircularClosedGaugeImage
+    func  getTemplateForGraphicCircular(_ totalSteps: Steps, _ goal: Steps) -> CLKComplicationTemplateGraphicCircularClosedGaugeImage
     {
         let gc = CLKComplicationTemplateGraphicCircularClosedGaugeImage()
         let shoe = UIImage(named: "GraphicCircularShoe")!
         gc.imageProvider = CLKFullColorImageProvider.init(fullColorImage: shoe)
-        gc.gaugeProvider = getGauge(forTotalSteps: totalSteps, goal: goal)
+        gc.gaugeProvider = getGauge(for: totalSteps, goal: goal)
         return gc;
     }
     
     @available(watchOSApplicationExtension 5.0, *)
-    func getEntryForGraphicBezel(_ totalSteps: Int, _ goal: Int) -> CLKComplicationTimelineEntry
+    func getEntryForGraphicBezel(_ totalSteps: Steps, _ goal: Steps) -> CLKComplicationTimelineEntry
     {
         let gb = getTemplateForGraphicBezel(totalSteps, goal)
         return CLKComplicationTimelineEntry(date: Date(), complicationTemplate: gb)
     }
     
     @available(watchOSApplicationExtension 5.0, *)
-    func getTemplateForGraphicBezel(_ totalSteps: Int, _ goal: Int) -> CLKComplicationTemplateGraphicBezelCircularText
+    func getTemplateForGraphicBezel(_ totalSteps: Steps, _ goal: Steps) -> CLKComplicationTemplateGraphicBezelCircularText
     {
         let text = CLKSimpleTextProvider()
         text.text = String(format: NSLocalizedString("%@ STEPS", comment: ""), formatStepsForLarge(NSNumber(value: totalSteps)))
@@ -409,14 +409,14 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     }
     
     @available(watchOSApplicationExtension 5.0, *)
-    func getEntryForGraphicRectangle(_ totalSteps: Int, _ goal: Int) -> CLKComplicationTimelineEntry
+    func getEntryForGraphicRectangle(_ totalSteps: Steps, _ goal: Steps) -> CLKComplicationTimelineEntry
     {
         let gb = getTemplateForGraphicRectangle(totalSteps, goal)
         return CLKComplicationTimelineEntry(date: Date(), complicationTemplate: gb)
     }
     
     @available(watchOSApplicationExtension 5.0, *)
-    func getTemplateForGraphicRectangle(_ totalSteps: Int, _ goal: Int) -> CLKComplicationTemplateGraphicRectangularTextGauge
+    func getTemplateForGraphicRectangle(_ totalSteps: Steps, _ goal: Steps) -> CLKComplicationTemplateGraphicRectangularTextGauge
     {
         let shoe = UIImage(named: "GraphicRectShoe")!
         let image = CLKFullColorImageProvider(fullColorImage: shoe)
@@ -440,14 +440,14 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         template.headerImageProvider = image
         template.headerTextProvider = text
         template.body1TextProvider = toGoText
-        template.gaugeProvider = getGauge(forTotalSteps: totalSteps, goal: goal)
+        template.gaugeProvider = getGauge(for: totalSteps, goal: goal)
         return template
     }
     
     @available(watchOSApplicationExtension 5.0, *)
-    func getGauge(forTotalSteps: Int, goal: Int) -> CLKSimpleGaugeProvider
+    func getGauge(for totalSteps: Steps, goal: Steps) -> CLKSimpleGaugeProvider
     {
-        return CLKSimpleGaugeProvider(style: .fill, gaugeColor: UIColor(red: 81.0/255.0, green: 153.0/255.0, blue: 238.0/255.0, alpha: 1), fillFraction: Float(min(forTotalSteps, goal)) / Float(goal))
+        return CLKSimpleGaugeProvider(style: .fill, gaugeColor: UIColor(red: 81.0/255.0, green: 153.0/255.0, blue: 238.0/255.0, alpha: 1), fillFraction: Float(min(totalSteps, goal)) / Float(goal))
     }
     
     func formatStepsForLarge(_ totalSteps: NSNumber) -> String
@@ -543,7 +543,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         
         if #available(watchOS 5.0, *)
         {
-            let sampleStepsGoal = 10000
+            let sampleStepsGoal: Steps = 10000
             
             if (complication.family == .graphicCorner)
             {
@@ -577,7 +577,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
             }
             
             let log = allComplications.count > 0 ? "Complication reloadTimeline" : "Complication reloadTimeline but no active found"
-            LoggingService.log(log, with: String(format: "%d", HealthCache.getStepsFromCache(Date())))
+            LoggingService.log(log, with: String(format: "%d", HealthCache.lastSteps(for: Date())))
         }
         else
         {

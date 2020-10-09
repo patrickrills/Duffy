@@ -95,16 +95,12 @@ open class CoreMotionService
             components.second = 1
             components.timeZone = TimeZone.current
             if let todayAtMidnight = Calendar.current.date(from: components) {
-                pedometer.queryPedometerData(from: todayAtMidnight, to: now, withHandler: {
-                    [weak self] data, error in
+                pedometer.queryPedometerData(from: todayAtMidnight, to: now, withHandler: { data, error in
                     if let stepData = data {
                         let cmSteps = stepData.numberOfSteps.intValue
                         let cmDate = stepData.endDate
                         LoggingService.log(String(format: "CMPedometer steps from %@", source), with: String(format: "%d", cmSteps))
-                        if (HealthCache.saveStepsToCache(cmSteps, forDay: cmDate)) {
-                            self?.forceComplicationUpdate(from: String(format: "CMPedometer steps from %@", source))
-                            self?.maybeSendGoalNotification(for: cmSteps, on: cmDate)
-                        }
+                        StepsProcessingService.handleSteps(Steps(cmSteps), for: cmDate, from: source)
                     }
                     
                     if let completion = completion {
@@ -120,47 +116,14 @@ open class CoreMotionService
         }
     }
     
-    private func queryHealthKit(from source: String)
-    {
-        HealthKitService.getInstance().getSteps(Date(),
-        onRetrieve: {
-            [weak self] (steps: Int, forDay: Date) in
-            
-            LoggingService.log(String(format: "Steps retrieved from HK by %@", source), with: String(format: "%d", steps))
-            
-            if (HealthCache.saveStepsToCache(steps, forDay: forDay))
-            {
-                self?.forceComplicationUpdate(from: source)
-                self?.maybeSendGoalNotification(for: steps, on: forDay)
-            }
-            else
-            {
-                LoggingService.log(String(format: "Steps not saved to cache from HK by %@", source), with: String(format: "%d", steps))
-            }
-        },
-        onFailure: {
-            error in
-            if let error = error {
+    private func queryHealthKit(from source: String) {
+        HealthKitService.getInstance().getSteps(for: Date()) { result in
+            switch result {
+            case .success(let stepsResult):
+                LoggingService.log(String(format: "Steps retrieved from HK by %@", source), with: String(format: "%d", stepsResult.steps))
+            case .failure(let error):
                 LoggingService.log(error: error)
             }
-        })
-    }
-    
-    private func forceComplicationUpdate(from source: String)
-    {
-        let cache = HealthCache.getStepsDataFromCache()
-        var logSteps = "?"
-        if let steps = cache["stepsCacheValue"] as? Int {
-            logSteps = String(format: "%d", steps)
-        }
-        LoggingService.log(String(format: "updateWatchFaceComplication from %@", source), with: logSteps)
-        WCSessionService.getInstance().updateWatchFaceComplication(["stepsdataresponse" : cache as AnyObject])
-    }
-    
-    private func maybeSendGoalNotification(for steps: Int, on day: Date) {
-        if steps >= HealthCache.getStepsDailyGoal(), NotificationService.convertDayToKey(day) == NotificationService.convertDayToKey(Date()) {
-            HealthCache.incrementGoalReachedCounter()
-            NotificationService.sendDailyStepsGoalNotification()
         }
     }
 }

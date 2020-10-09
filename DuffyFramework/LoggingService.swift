@@ -9,25 +9,27 @@
 import Foundation
 import os.log
 
-open class LoggingService {
+public class LoggingService {
     
-    open class func log(_ message: String) {
+    public class func log(_ message: String) {
         log(level: .tracing, message: message, extra: nil)
     }
     
-    open class func log(_ message: String, at level: LogLevel) {
+    public class func log(_ message: String, at level: LogLevel) {
         log(level: level, message: message, extra: nil)
     }
     
-    open class func log(_ message: String, with extra: String) {
+    public class func log(_ message: String, with extra: String) {
         log(level: .debug, message: message, extra: extra)
     }
     
-    open class func log(error: Error) {
+    public class func log(error: Error) {
         let nsError = error as NSError
         log(level: .error, message: "Error", extra: String(format: "%@ (%d)", nsError.localizedDescription, nsError.code))
     }
     
+    private static let MAX_DAYS_WATCH = 1
+    private static let MAX_DAYS_PHONE = 3
     private static var LOGGING_PREFIX = "Duffy"
     private static let logger = OSLog(subsystem: "com.bigbluefly.Duffy", category: LOGGING_PREFIX)
     
@@ -66,13 +68,23 @@ open class LoggingService {
             formattedMessage = prefix
         }
         
-        var log = getFullDebugLog()
+        var log = purge(log: getFullDebugLog())
         log.append(DebugLogEntry(message: formattedMessage, timestampInterval: Date().timeIntervalSinceReferenceDate))
         let serialized = log.map({ $0.serialize() })
         UserDefaults.standard.set(serialized, forKey: "debugLog")
     }
     
-    open class func getFullDebugLog() -> [DebugLogEntry] {
+    private class func purge(log: [DebugLogEntry]) -> [DebugLogEntry] {
+        var maxDays = MAX_DAYS_WATCH
+        #if os(iOS)
+            maxDays = MAX_DAYS_PHONE
+        #endif
+        
+        let filterDate = Calendar.current.date(byAdding: .day, value: -maxDays, to: Date().stripTime())!
+        return log.filter({ $0.timestamp > filterDate })
+    }
+    
+    public class func getFullDebugLog() -> [DebugLogEntry] {
         if let logDict = UserDefaults.standard.object(forKey: "debugLog") as? [[String : Any]]
         {
             return logDict.map({dict in
@@ -85,7 +97,7 @@ open class LoggingService {
         return []
     }
     
-    open class func getPartialDebugLog(from startDate: Date, to endDate: Date) -> [DebugLogEntry] {
+    public class func getPartialDebugLog(from startDate: Date, to endDate: Date) -> [DebugLogEntry] {
         let startComponents = Calendar.current.dateComponents([.era, .year, .month, .day], from: startDate)
         let endDateCompentents = Calendar.current.dateComponents([.era, .year, .month, .day], from: endDate)
         
@@ -101,7 +113,7 @@ open class LoggingService {
         })
     }
     
-    open class func getDatesFromDebugLog() -> [Date] {
+    public class func getDatesFromDebugLog() -> [Date] {
         let allDates:[Date] = getFullDebugLog().compactMap({
             let components = Calendar.current.dateComponents([.era, .year, .month, .day], from: $0.timestamp)
             return Calendar.current.date(from: components)
@@ -109,7 +121,7 @@ open class LoggingService {
         return Array(Set(allDates)).sorted(by: >)
     }
     
-    open class func mergeLog(newEntries: [DebugLogEntry]) {
+    public class func mergeLog(newEntries: [DebugLogEntry]) {
         var log = getFullDebugLog()
         let deltas = newEntries.filter({ !log.contains($0) })
         log.append(contentsOf: deltas)
@@ -117,7 +129,7 @@ open class LoggingService {
         UserDefaults.standard.set(serialized, forKey: "debugLog")
     }
     
-    open class func clearLog() {
+    public class func clearLog() {
         UserDefaults.standard.removeObject(forKey: "debugLog")
     }
 }

@@ -33,7 +33,7 @@ class GoalChangeHowToViewController: UIViewController {
 
         self.title = NSLocalizedString("Change Your Goal", comment: "")
         
-        self.headerLabel.text = String(format: NSLocalizedString("This guide describes how to change your daily steps goal (currently %@ steps). Your goal can only be changed from the Duffy Apple Watch app.", comment: ""), Globals.stepsFormatter().string(from: NSNumber(value: HealthCache.getStepsDailyGoal()))!)
+        self.headerLabel.text = String(format: NSLocalizedString("This guide describes how to change your daily steps goal (currently %@ steps). Your goal can only be changed from the Duffy Apple Watch app.", comment: ""), Globals.stepsFormatter().string(from: NSNumber(value: HealthCache.dailyGoal()))!)
         self.oneInstructionsLabel.text = NSLocalizedString("From the Today view of the Apple Watch app, force-touch (press slightly harder) anywhere on the screen.", comment: "")
         self.twoInstructionsLabel.text = NSLocalizedString("Tap 'Change Daily Goal' from the menu that appears.", comment: "")
         self.threeInstructionsLabel.text = NSLocalizedString("Select a new goal by swiping with your finger or turning the digital crown. Then tap the 'Set Goal' button to save it.", comment: "")

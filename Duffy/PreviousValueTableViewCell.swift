@@ -21,8 +21,8 @@ class PreviousValueTableViewCell: UITableViewCell
         super.init(style: .value1, reuseIdentifier: reuseIdentifier)
     }
     
-    func bind(toDate: Date, steps: Steps, goal: Int) {
-        textLabel?.text = Globals.dayFormatter().string(from: toDate)
+    func bind(to date: Date, steps: Steps, goal: Steps) {
+        textLabel?.text = Globals.dayFormatter().string(from: date)
         textLabel?.font = UIFont.systemFont(ofSize: UIFont.labelFontSize, weight: .regular)
         
         if #available(iOS 13.0, *) {
@@ -37,7 +37,7 @@ class PreviousValueTableViewCell: UITableViewCell
         var detailWeight : UIFont.Weight = .regular
         
         if goal > 0, steps >= goal{
-            detailTextLabel?.text = String(format: "%@ %@", Trophy.trophy(for: Int(steps)).symbol(), stepsFormatted)
+            detailTextLabel?.text = String(format: "%@ %@", Trophy.trophy(for: steps).symbol(), stepsFormatted)
             detailWeight = .semibold
         } else {
             detailTextLabel?.text = stepsFormatted

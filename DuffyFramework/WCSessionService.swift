@@ -83,19 +83,19 @@ open class WCSessionService : NSObject, WCSessionDelegate
         return 0
     }
     
-    open func updateWatchFaceComplication(_ complicationData : [String : AnyObject])
-    {
+    public func updateWatchFaceComplication(with steps: Steps) {
+        let complicationData = ["stepsdataresponse" : steps as AnyObject]
+        
         #if os(iOS)
             sendComplicationDataToWatch(complicationData)
         #else
-            if let del = delegate
-            {
-                del.complicationUpdateRequested(complicationData)
+            if let delegate = delegate {
+                delegate.complicationUpdateRequested(complicationData)
             }
         #endif
     }
     
-    fileprivate func sendComplicationDataToWatch(_ complicationData : [String : AnyObject])
+    private func sendComplicationDataToWatch(_ complicationData : [String : AnyObject])
     {
         #if os(iOS)
             if (WCSession.isSupported())
@@ -129,7 +129,7 @@ open class WCSessionService : NSObject, WCSessionDelegate
         }
     }
     
-    open func sendStepsGoal(goal: Int)
+    open func sendStepsGoal(goal: Steps)
     {
         if WCSession.isSupported()
         {
@@ -222,11 +222,11 @@ open class WCSessionService : NSObject, WCSessionDelegate
                     {
                         if let del = delegate
                         {
-                            LoggingService.log("Refreshing complication from received message", with: String(format: "%d", HealthCache.getStepsFromCache(Date())))
+                            LoggingService.log("Refreshing complication from received message", with: String(format: "%d", HealthCache.lastSteps(for: Date())))
                             del.complicationUpdateRequested(dict)
                         }
                         
-                        if HealthCache.getStepsFromCache(Date()) >= HealthCache.getStepsDailyGoal()
+                        if HealthCache.lastSteps(for: Date()) >= HealthCache.dailyGoal()
                         {
                             NotificationService.sendDailyStepsGoalNotification()
                         }
@@ -235,9 +235,9 @@ open class WCSessionService : NSObject, WCSessionDelegate
             }
             else if (key == "stepsGoal")
             {
-                if let goalVal = value as? Int
+                if let goalVal = value as? Steps
                 {
-                    HealthCache.saveStepsGoalToCache(goalVal)
+                    HealthCache.saveDailyGoal(goalVal)
                 }
             }
             else if (key == "goalNotificationSent")
@@ -264,18 +264,14 @@ open class WCSessionService : NSObject, WCSessionDelegate
         if CoreMotionService.getInstance().isEnabled() {
             CoreMotionService.getInstance().updateStepsForToday(from: "didReceiveUserInfo", completion: { LoggingService.log("Successfully refreshed steps on didReceiveUserInfo", at: .debug) })
         } else {
-            HealthKitService.getInstance().getSteps(Date(), onRetrieve: {
-                (steps: Int, forDay: Date) in
-                if (HealthCache.saveStepsToCache(steps, forDay: forDay)) {
-                    WCSessionService.getInstance().updateWatchFaceComplication(["stepsdataresponse" : HealthCache.getStepsDataFromCache() as AnyObject])
-                }
-            },
-            onFailure: {
-                (error: Error?) in
-                if let error = error {
+            HealthKitService.getInstance().getSteps(for: Date()) { result in
+                switch result {
+                case .success(_):
+                    LoggingService.log("Successfully refreshed HK steps on didReceiveUserInfo", at: .debug)
+                case .failure(let error):
                     LoggingService.log(error: error)
                 }
-            })
+            }
         }
     }
 }

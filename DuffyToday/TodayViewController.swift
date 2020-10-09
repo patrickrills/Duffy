@@ -21,8 +21,8 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     @IBOutlet weak var progressRingView: ProgressRingView!
     
     private let numFormatter = NumberFormatter()
-    private var stepCount: Int = 0
-    private var dailyGoal: Int = 0
+    private var stepCount: Steps = 0
+    private var dailyGoal: Steps = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,48 +35,58 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        stepCount = getCachedValue()
+        stepCount = Steps(getCachedValue())
         
         displaySteps()
         
-        HealthKitService.getInstance().getSteps(Date(), onRetrieve: {
-            [weak self] steps, date in
-            if let weakSelf = self {
-                weakSelf.stepCount = steps
-                weakSelf.dailyGoal = HealthCache.getStepsDailyGoalFromShared()
-                let _ = HealthCache.saveStepsToCache(steps, forDay: date)
-                DispatchQueue.main.async {
-                    [weak self] in
-                    self?.displaySteps()
+        HealthKitService.getInstance().getSteps(for: Date()) { [weak self] result in
+            switch result {
+            case .success(let stepsResult):
+                if let weakSelf = self {
+                    weakSelf.stepCount = stepsResult.steps
+                    weakSelf.dailyGoal = HealthCache.dailyGoal()
+                    HealthCache.saveStepsToCache(stepsResult.steps, for: stepsResult.day)
+                    DispatchQueue.main.async {
+                        self?.displaySteps()
+                    }
                 }
+            case .failure(let error):
+                LoggingService.log(error: error)
             }
-        }, onFailure: nil)
+        }
         
-        HealthKitService.getInstance().getFlightsClimbed(Date(), onRetrieve: {
-            [weak self] flights, date in
-            
-            if let valueFormatted = self?.numFormatter.string(for: flights) {
-                let flightsLocalized = NSLocalizedString("floors", comment: "")
-                let flightsAttributed = NSMutableAttributedString(string: String(format: "%@ %@", valueFormatted, flightsLocalized))
-                flightsAttributed.addAttribute(.font, value: UIFont.systemFont(ofSize: 13.0), range: NSRange(location: flightsAttributed.string.count - flightsLocalized.count, length: flightsLocalized.count))
-                DispatchQueue.main.async {
-                    self?.flightsValueLabel.attributedText = flightsAttributed
+        HealthKitService.getInstance().getFlightsClimbed(for: Date()) { [weak self] result in
+            switch result {
+            case .success(let flightsResult):
+                if let valueFormatted = self?.numFormatter.string(for: flightsResult.flights) {
+                    let flightsLocalized = NSLocalizedString("floors", comment: "")
+                    let flightsAttributed = NSMutableAttributedString(string: String(format: "%@ %@", valueFormatted, flightsLocalized))
+                    flightsAttributed.addAttribute(.font, value: UIFont.systemFont(ofSize: 13.0), range: NSRange(location: flightsAttributed.string.count - flightsLocalized.count, length: flightsLocalized.count))
+                    DispatchQueue.main.async {
+                        self?.flightsValueLabel.attributedText = flightsAttributed
+                    }
                 }
+            case .failure(let error):
+                LoggingService.log(error: error)
             }
-        }, onFailure: nil)
+        }
         
-        HealthKitService.getInstance().getDistanceCovered(Date(), onRetrieve: {
-            [weak self] distance, units, date in
-            let unitsFormatted = units == .mile ? NSLocalizedString("mi", comment: "") : NSLocalizedString("km", comment: "")
-            
-            if let valueFormatted = self?.numFormatter.string(for: distance) {
-                let distanceAttributed = NSMutableAttributedString(string: String(format: "%@ %@", valueFormatted, unitsFormatted))
-                distanceAttributed.addAttribute(.font, value: UIFont.systemFont(ofSize: 13.0), range: NSRange(location: distanceAttributed.string.count - unitsFormatted.count, length: unitsFormatted.count))
-                DispatchQueue.main.async {
-                    self?.distanceValueLabel.attributedText = distanceAttributed
+        HealthKitService.getInstance().getDistanceCovered(for: Date()) { [weak self] result in
+            switch result {
+            case .success(let distanceResult):
+                let unitsFormatted = distanceResult.formatter == .mile ? NSLocalizedString("mi", comment: "") : NSLocalizedString("km", comment: "")
+                
+                if let valueFormatted = self?.numFormatter.string(for: distanceResult.distance) {
+                    let distanceAttributed = NSMutableAttributedString(string: String(format: "%@ %@", valueFormatted, unitsFormatted))
+                    distanceAttributed.addAttribute(.font, value: UIFont.systemFont(ofSize: 13.0), range: NSRange(location: distanceAttributed.string.count - unitsFormatted.count, length: unitsFormatted.count))
+                    DispatchQueue.main.async {
+                        self?.distanceValueLabel.attributedText = distanceAttributed
+                    }
                 }
+            case .failure(let error):
+                LoggingService.log(error: error)
             }
-        }, onFailure: nil)
+        }
     }
     
     override func viewWillLayoutSubviews() {
@@ -111,23 +121,20 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     }
     
     func widgetPerformUpdate(completionHandler: (@escaping (NCUpdateResult) -> Void)) {
-        HealthKitService.getInstance().getSteps(Date(), onRetrieve: {
-            [weak self] steps, date in
-            self?.stepCount = steps
-            self?.dailyGoal = HealthCache.getStepsDailyGoalFromShared()
-            completionHandler(NCUpdateResult.newData)
-            }, onFailure: {
-                error in
-                completionHandler(NCUpdateResult.failed)
-        })
+        HealthKitService.getInstance().getSteps(for: Date()) { [weak self] result in
+            switch result {
+            case .success(let stepsResult):
+                self?.stepCount = stepsResult.steps
+                self?.dailyGoal = HealthCache.dailyGoal()
+                completionHandler(.newData)
+            case .failure(_):
+                completionHandler(.failed)
+            }
+        }
     }
     
-    private func getCachedValue() -> Int {
-        guard !HealthCache.cacheIsForADifferentDay(Date()) else {
-            return 0
-        }
-        
-        return HealthCache.getStepsFromCache(Date())
+    private func getCachedValue() -> Steps {
+        return HealthCache.lastSteps(for: Date())
     }
     
     @IBAction private func launchParentApp() {

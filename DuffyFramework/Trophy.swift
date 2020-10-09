@@ -62,13 +62,13 @@ public enum Trophy: CaseIterable {
         }
     }
     
-    public func stepsRequired() -> Int {
-        let stepsGoal = Double(HealthCache.getStepsDailyGoal())
-        return Int(ceil(stepsGoal * self.factor()))
+    public func stepsRequired() -> Steps {
+        let stepsGoal = Double(HealthCache.dailyGoal())
+        return Steps(ceil(stepsGoal * self.factor()))
     }
     
-    public static func trophy(for stepsTotal: Int) -> Trophy {
-        let stepsGoal = Double(HealthCache.getStepsDailyGoal())
+    public static func trophy(for stepsTotal: Steps) -> Trophy {
+        let stepsGoal = Double(HealthCache.dailyGoal())
         let steps = Double(stepsTotal)
         
         return Trophy.allCases.reversed().filter({ return steps >= (stepsGoal * $0.factor()) }).first ?? .none

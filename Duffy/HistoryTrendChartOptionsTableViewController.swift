@@ -10,7 +10,7 @@ import UIKit
 
 class HistoryTrendChartOptionsTableViewController: UITableViewController {
 
-    private let settings = HistoryTrendChartOption.allCases
+    private let indicators: [HistoryTrendChartOption] = [.goalIndicator, .averageIndicator]
     
     init() {
         super.init(style: .grouped)
@@ -22,39 +22,53 @@ class HistoryTrendChartOptionsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Options" //TODO: Japanese translation of Options
-        tableView.sectionHeaderHeight = 16.0
+        title = "Graph Options" //TODO: Japanese translation of Options
+        clearsSelectionOnViewWillAppear = true
         tableView.register(HistoryTrendChartOptionTableViewCell.self, forCellReuseIdentifier: String(describing: HistoryTrendChartOptionTableViewCell.self))
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        //Don't allow user to turn off all options. Enable at least data line if no options selected
-        if !settings.contains(where: { $0.isEnabled() }) {
-            HistoryTrendChartOption.actualDataLine.setEnabled(true)
-        }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
     }
 
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 2
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return settings.count
+        if section == 1 {
+            return indicators.count
+        }
+        
+        return 1
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        //TODO: Japanese translation
+        return section == 0 ? "Data" : "Indicators"
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: HistoryTrendChartOptionTableViewCell.self), for: indexPath) as? HistoryTrendChartOptionTableViewCell else { return UITableViewCell() }
-        cell.setting = settings[indexPath.row]
-        return cell
+        if indexPath.section == 0 {
+            let lineCell = UITableViewCell(style: .value1, reuseIdentifier: nil)
+            lineCell.textLabel?.text = "Lines" //TODO: Japanese translation
+            lineCell.detailTextLabel?.text = HistoryTrendChartLineOption.currentValue().displayName()
+            lineCell.accessoryType = .disclosureIndicator
+            return lineCell
+        } else {
+            guard let indicatorCell = tableView.dequeueReusableCell(withIdentifier: String(describing: HistoryTrendChartOptionTableViewCell.self), for: indexPath) as? HistoryTrendChartOptionTableViewCell else { return UITableViewCell() }
+            indicatorCell.setting = indicators[indexPath.row]
+            return indicatorCell
+        }
     }
     
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        //Add some spacing between the navigation title and the first row (combined with sectionHeaderHeight)
-        return UIView()
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.section == 0 {
+            navigationController?.pushViewController(HistoryTrendChartLineOptionsTableViewController(), animated: true)
+        }
     }
 }
 

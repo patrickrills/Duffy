@@ -55,7 +55,7 @@ class WeekInterfaceController: WKInterfaceController
                 let formattedSteps = numFormatter.string(for: steps) {
 
                 value = formattedSteps
-                adornment = Trophy.trophy(for: Int(steps)).symbol()
+                adornment = Trophy.trophy(for: steps).symbol()
             }
 
             return WeekRowData(title: title, formattedValue: value, adornment: adornment)

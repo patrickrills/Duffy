@@ -9,18 +9,22 @@
 import Foundation
 import HealthKit
 
-open class HealthKitService
+public class HealthKitService
 {
+    
+    //MARK: Variables
+    
     private static let instance: HealthKitService = HealthKitService()
     private var healthStore: HKHealthStore?
-    private var eventDelegate: HealthEventDelegate?
     private var observerQueries = [String : HKObserverQuery]()
     private var statisticsQueries = [String : HKStatisticsCollectionQuery]()
     private var subscribers = [String : HealthKitSubscriber]()
     public private(set) var shouldRestartObservers: Bool = false
     
+    //MARK: Constructors
+    
     init() {
-        if (HKHealthStore.isHealthDataAvailable()) {
+        if HKHealthStore.isHealthDataAvailable() {
             healthStore = HKHealthStore()
         }
     }
@@ -29,72 +33,43 @@ open class HealthKitService
         return instance
     }
     
-    public func setEventDelegate(_ delegate: HealthEventDelegate) {
-        eventDelegate = delegate
+    //MARK: Authorize HealthKit
+    
+    public func authorize(completionHandler: @escaping (Bool) -> ()) {
+        guard HKHealthStore.isHealthDataAvailable(),
+            let store = healthStore,
+            let stepType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.stepCount),
+            let distanceType = HKQuantityType.quantityType(forIdentifier: .distanceWalkingRunning),
+            let flightType = HKQuantityType.quantityType(forIdentifier: .flightsClimbed),
+            let activeType = HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned)
+        else {
+            completionHandler(false)
+            return
+        }
+        
+        let readDataTypes: Set<HKObjectType> = [stepType, distanceType, flightType, activeType]
+        store.requestAuthorization(toShare: nil, read: readDataTypes) { success, error in
+            completionHandler(success && error == nil)
+        }
     }
+    
+    //MARK: Steps Queries
 
-    open func getSteps(_ forDate: Date, onRetrieve: ((Int, Date) -> Void)?, onFailure:  ((Error?) -> Void)?)
+    public func getSteps(for date: Date, completionHandler: @escaping (StepsForDayResult) -> ())
     {
-        guard HKHealthStore.isHealthDataAvailable() && healthStore != nil else { return }
-
-        let startDate = getQueryDate(from: forDate)
-        guard startDate != nil else { return }
-
-        let forSpecificDay = HKQuery.predicateForSamples(withStart: startDate!, end: getQueryEndDate(fromStartDate: startDate!), options: [])
-        var interval = DateComponents()
-        interval.day = 1
-
-        if let store = healthStore, let stepType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.stepCount)
-        {
-            let query = HKStatisticsCollectionQuery(quantityType: stepType,
-                    quantitySamplePredicate: forSpecificDay,
-                    options: .cumulativeSum,
-                    anchorDate: startDate!,
-                    intervalComponents: interval)
-
-            query.initialResultsHandler = {
-                [weak self] (query: HKStatisticsCollectionQuery, results: HKStatisticsCollection?, error: Error?) in
-
-                if let r = results , error == nil
-                {
-                    var steps: Int = 0
-                    var sampleDate = Date()
-
-                    r.enumerateStatistics(from: query.anchorDate, to: query.anchorDate) {
-                        statistics, stop in
-
-                        if let quantity = statistics.sumQuantity() {
-                            sampleDate = statistics.startDate
-                            steps += Int(quantity.doubleValue(for: HKUnit.count()))
-                        }
-                    }
-                    
-                    if steps >= HealthCache.getStepsDailyGoal(),
-                        NotificationService.convertDayToKey(sampleDate) == NotificationService.convertDayToKey(Date())
-                    {
-                        HealthCache.incrementGoalReachedCounter()
-                        
-                        if let del = self?.eventDelegate
-                        {
-                            del.dailyStepsGoalWasReached()
-                        }
-                    }
-
-                    if let successBlock = onRetrieve
-                    {
-                        successBlock(steps, sampleDate)
-                    }
-                }
-                else
-                {
-                    if let failBlock = onFailure
-                    {
-                        failBlock(error)
-                    }
-                }
+        guard HKHealthStore.isHealthDataAvailable(),
+            let stepType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.stepCount)
+        else { return }
+        
+        get(quantityType: stepType, measuredIn: HKUnit.count(), on: date) { result in
+            switch result {
+            case .success(let sumValue):
+                let steps = Steps(sumValue.sum)
+                StepsProcessingService.handleSteps(steps, for: sumValue.day, from: "steps for day query")
+                completionHandler(.success((day: sumValue.day, steps: steps)))
+            case .failure(let error):
+                completionHandler(.failure(error))
             }
-
-            store.execute(query)
         }
     }
     
@@ -104,12 +79,8 @@ open class HealthKitService
             return
         }
         
-        guard let queryStartDate = getQueryDate(from: date),
-            let queryEndDate = Calendar.current.date(byAdding: .day, value: 1, to: queryStartDate)
-        else {
-            completionHandler(.failure(.invalidQuery))
-            return
-        }
+        let queryStartDate = date.stripTime()
+        let queryEndDate = queryStartDate.nextDay()
         
         let forSpecificDay = HKQuery.predicateForSamples(withStart: queryStartDate, end: queryEndDate, options: [])
         
@@ -163,15 +134,10 @@ open class HealthKitService
             return
         }
         
-        guard let queryStartDate = getQueryDate(from: startDate),
-            let queryEndDate = getQueryDate(from: endDate)
-        else {
-            completionHandler(.failure(.invalidQuery))
-            return
-        }
-        
-        let endDateFilter = getQueryEndDate(fromStartDate: queryEndDate)
-        let dateRangePredicate = HKQuery.predicateForSamples(withStart: queryStartDate, end: endDateFilter, options: .strictEndDate)
+        let queryStartDate = startDate.stripTime()
+        let queryEndDate = endDate.stripTime().nextDay()
+    
+        let dateRangePredicate = HKQuery.predicateForSamples(withStart: queryStartDate, end: queryEndDate, options: .strictEndDate)
         var interval = DateComponents()
         interval.day = 1
         
@@ -218,29 +184,106 @@ open class HealthKitService
             store.execute(query)
         }
     }
-
-    public func authorize(completionHandler: @escaping (Bool) -> ()) {
-        guard HKHealthStore.isHealthDataAvailable(),
-            let store = healthStore,
-            let stepType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.stepCount),
-            let distanceType = HKQuantityType.quantityType(forIdentifier: .distanceWalkingRunning),
-            let flightType = HKQuantityType.quantityType(forIdentifier: .flightsClimbed),
-            let activeType = HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned)
-        else {
-            completionHandler(false)
-            return
-        }
+    
+    //MARK: Flights and Distance Queries
         
-        let readDataTypes: Set<HKObjectType> = [stepType, distanceType, flightType, activeType]
-        store.requestAuthorization(toShare: nil, read: readDataTypes) { success, error in
-            completionHandler(success && error == nil)
+    public func getFlightsClimbed(for date: Date, completionHandler: @escaping (FlightsForDayResult) -> ()) {
+        guard HKHealthStore.isHealthDataAvailable(),
+            let flightType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.flightsClimbed)
+        else { return }
+        
+        get(quantityType: flightType, measuredIn: HKUnit.count(), on: date) { result in
+            switch result {
+            case .success(let sumValue):
+                completionHandler(.success((day: sumValue.day, flights: FlightsClimbed(sumValue.sum))))
+            case .failure(let error):
+                completionHandler(.failure(error))
+            }
         }
     }
     
-    open func initializeBackgroundQueries()
-    {
-        if let store = healthStore, let stepsType = HKQuantityType.quantityType(forIdentifier: .stepCount)
-        {
+    public func getDistanceCovered(for date: Date, completionHandler: @escaping (DistanceForDayResult) -> ()) {
+        guard HKHealthStore.isHealthDataAvailable(),
+            let store = healthStore,
+            let distanceType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.distanceWalkingRunning)
+        else { return }
+        
+        store.preferredUnits(for: [distanceType]) { [weak self] units, error in
+            if let error = error {
+                completionHandler(.failure(.wrapped(error)))
+                return
+            }
+            
+            var distanceUnits = HKUnit.mile()
+            if let preferred = units[distanceType] {
+                distanceUnits = preferred
+            }
+            
+            self?.get(quantityType: distanceType, measuredIn: distanceUnits, on: date) { result in
+                switch result {
+                case .success(let sumValue):
+                    completionHandler(.success((day: sumValue.day, formatter: HKUnit.lengthFormatterUnit(from: distanceUnits), distance: sumValue.sum)))
+                case .failure(let error):
+                    completionHandler(.failure(error))
+                }
+            }
+        }
+    }
+    
+    //MARK: Helpers
+    
+    private func get(quantityType: HKQuantityType, measuredIn: HKUnit, on: Date, completionHandler: @escaping (Result<(day: Date, sum: Double), HealthKitError>) -> ()) {
+        guard HKHealthStore.isHealthDataAvailable(), let store = healthStore else { return }
+        
+        let startDate = on.stripTime()
+        let endDate = startDate.nextDay()
+        
+        let forSpecificDay = HKQuery.predicateForSamples(withStart: startDate, end: endDate, options: .strictStartDate)
+        var interval = DateComponents()
+        interval.day = 1
+        
+        let query = HKStatisticsCollectionQuery(quantityType: quantityType,
+                                                quantitySamplePredicate: forSpecificDay,
+                                                options: .cumulativeSum,
+                                                anchorDate: startDate,
+                                                intervalComponents: interval)
+            
+        query.initialResultsHandler = { query, results, error in
+            if let r = results , error == nil {
+                var sum: Double = 0.0
+                var sampleDate: Date = Date.distantPast
+                    
+                r.enumerateStatistics(from: query.anchorDate, to: query.anchorDate) { statistics, stop in
+                    if let quantity = statistics.sumQuantity() {
+                        sampleDate = statistics.startDate
+                        sum += quantity.doubleValue(for: measuredIn)
+                    }
+                }
+                
+                completionHandler(.success((day: sampleDate, sum: sum)))
+            } else {
+                var errorResult: HealthKitError = .invalidResults
+                if let error = error {
+                    errorResult = .wrapped(error)
+                }
+                completionHandler(.failure(errorResult))
+            }
+        }
+            
+        store.execute(query)
+    }
+    
+    public func earliestQueryDate() -> Date? {
+        return healthStore?.earliestPermittedSampleDate()
+    }
+}
+
+//MARK: Observing
+
+extension HealthKitService {
+    
+    public func initializeBackgroundQueries() {
+        if let store = healthStore, let stepsType = HKQuantityType.quantityType(forIdentifier: .stepCount) {
             DispatchQueue.main.async {
                 self.shouldRestartObservers = false
             }
@@ -273,7 +316,7 @@ open class HealthKitService
         }
     }
     
-    open func stopBackgroundQueries() {
+    public func stopBackgroundQueries() {
         guard let healthStore = healthStore else { return }
         
         observerQueries.forEach({
@@ -287,10 +330,8 @@ open class HealthKitService
         statisticsQueries.removeAll()
     }
     
-    private func createObserverQuery(key: String, sampleType: HKSampleType, store: HKHealthStore) -> HKObserverQuery
-    {
-        if let oldQuery = observerQueries[key]
-        {
+    private func createObserverQuery(key: String, sampleType: HKSampleType, store: HKHealthStore) -> HKObserverQuery {
+        if let oldQuery = observerQueries[key] {
             store.stop(oldQuery)
             observerQueries.removeValue(forKey: key)
         }
@@ -312,19 +353,14 @@ open class HealthKitService
                 }
             }
             
-            self?.getSteps(Date(),
-                onRetrieve: {
-                    (steps: Int, forDay: Date) in
-                    
-                    LoggingService.log(String(format: "Steps retrieved by %@ observer", key), with: String(format: "%d", steps))
-                    
-                    if (HealthCache.saveStepsToCache(steps, forDay: forDay))
-                    {
-                        LoggingService.log(String(format: "updateWatchFaceComplication from %@ observer", key), with: String(format: "%d", steps))
-                        WCSessionService.getInstance().updateWatchFaceComplication(["stepsdataresponse" : HealthCache.getStepsDataFromCache() as AnyObject])
-                    }
-                },
-                onFailure: nil)
+            self?.getSteps(for: Date()) { result in
+                switch result {
+                case .success(let stepsResult):
+                    LoggingService.log(String(format: "Steps retrieved by %@ observer", key), with: String(format: "%d", stepsResult.steps))
+                case .failure(let error):
+                    LoggingService.log(error: error)
+                }
+            }
             
             if let sampleId = updateQuery.objectType?.identifier,
                 let subscriber = self?.subscribers[sampleId] {
@@ -337,8 +373,7 @@ open class HealthKitService
         return query
     }
     
-    private func enableBackgroundQueryOnPhone(for sampleType: HKSampleType, at frequency: HKUpdateFrequency, in store: HKHealthStore)
-    {
+    private func enableBackgroundQueryOnPhone(for sampleType: HKSampleType, at frequency: HKUpdateFrequency, in store: HKHealthStore) {
         #if os(iOS)
             store.enableBackgroundDelivery(for: sampleType, frequency: frequency, withCompletion: {
                 (success: Bool, error: Error?) in
@@ -349,14 +384,12 @@ open class HealthKitService
         #endif
     }
     
-    private func createUpdatingStatisticsQuery(key: String, quantityType: HKQuantityType, store: HKHealthStore) -> HKStatisticsCollectionQuery?
-    {
+    private func createUpdatingStatisticsQuery(key: String, quantityType: HKQuantityType, store: HKHealthStore) -> HKStatisticsCollectionQuery? {
         if let oldQuery = statisticsQueries.removeValue(forKey: key) {
             store.stop(oldQuery)
         }
         
-        let today = getQueryDate(from: Date())
-        guard let sinceDate = today else { return nil }
+        let sinceDate = Date().stripTime()
         
         var interval = DateComponents()
         interval.day = 1
@@ -369,36 +402,21 @@ open class HealthKitService
         
         let resultsHandler: (HKStatisticsCollectionQuery, HKStatisticsCollection?, Error?) -> Void = { [weak self] query, results, error in
             if let results = results,
-                error == nil,
-                let startDate = self?.getQueryDate(from: Date()),
-                let endDate = self?.getQueryEndDate(fromStartDate: startDate)
+                error == nil
             {
-                var todaysSteps: Int = 0
+                var todaysSteps: Steps = 0
+                let startDate = Date().stripTime()
                 
-                results.enumerateStatistics(from: startDate, to: endDate) {
-                    statistics, stop in
-                    
+                results.enumerateStatistics(from: startDate, to: startDate.nextDay()) { statistics, stop in
                     if let quantity = statistics.sumQuantity() {
-                        todaysSteps += Int(quantity.doubleValue(for: HKUnit.count()))
+                        todaysSteps += Steps(quantity.doubleValue(for: HKUnit.count()))
                     }
                 }
                 
-                LoggingService.log(String(format: "Steps retrieved by %@ stats query", key), with: String(format: "%d", todaysSteps))
+                let source = String(format: "%@ stats query", key)
+                LoggingService.log(String(format: "Steps retrieved by %@", source), with: String(format: "%d", todaysSteps))
                 
-                if (HealthCache.saveStepsToCache(todaysSteps, forDay: startDate)) {
-                    LoggingService.log(String(format: "updateWatchFaceComplication from %@ stats query", key), with: String(format: "%d", todaysSteps))
-                    WCSessionService.getInstance().updateWatchFaceComplication(["stepsdataresponse" : HealthCache.getStepsDataFromCache() as AnyObject])
-                }
-                
-                if todaysSteps >= HealthCache.getStepsDailyGoal(),
-                    NotificationService.convertDayToKey(startDate) == NotificationService.convertDayToKey(Date())
-                {
-                    HealthCache.incrementGoalReachedCounter()
-                    
-                    if let del = self?.eventDelegate {
-                        del.dailyStepsGoalWasReached()
-                    }
-                }
+                StepsProcessingService.handleSteps(todaysSteps, for: startDate, from: source)
                 
                 if let sampleId = query.objectType?.identifier,
                     let subscriber = self?.subscribers[sampleId]
@@ -428,158 +446,7 @@ open class HealthKitService
         return statsQuery
     }
     
-    open func cacheTodaysStepsAndUpdateComplication(_ onComplete: ((_ success: Bool) -> (Void))?)
-    {
-        getSteps(Date(),
-            onRetrieve: {
-                (steps: Int, forDay: Date) in
-                        
-                if (HealthCache.saveStepsToCache(steps, forDay: forDay))
-                {
-                    //NSLog(String(format: "Fetch - update complication with %d steps", steps))
-                    WCSessionService.getInstance().updateWatchFaceComplication(["stepsdataresponse" : HealthCache.getStepsDataFromCache() as AnyObject])
-                }
-                
-                if let c = onComplete
-                {
-                    c(true)
-                }
-                
-            },
-            onFailure: {
-                (error: Error?) in
-                if let c = onComplete
-                {
-                    c(false)
-                }
-        })
-    }
-        
-    open func getFlightsClimbed(_ forDate: Date, onRetrieve: ((Int, Date) -> Void)?, onFailure: ((Error?) -> Void)?)
-    {
-        if let flightType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.flightsClimbed)
-        {
-            get(quantityType: flightType, measuredIn: HKUnit.count(), on: forDate, onRetrieve: { flightsClimbed, onDate in
-                if let success = onRetrieve
-                {
-                    success(Int(flightsClimbed), onDate)
-                }
-            }, onFailure: onFailure)
-        }
-        else if let fail = onFailure
-        {
-            fail(nil)
-        }
-    }
-    
-    open func getDistanceCovered(_ forDate: Date, onRetrieve: ((Double, LengthFormatter.Unit, Date) -> Void)?, onFailure: ((Error?) -> Void)?)
-    {
-        guard HKHealthStore.isHealthDataAvailable() && healthStore != nil else { return }
-        
-        if let store = healthStore, let distanceType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.distanceWalkingRunning)
-        {
-            store.preferredUnits(for: [distanceType], completion: {
-                [weak self] units, error in
-                if let e = error
-                {
-                    if let fail = onFailure
-                    {
-                        fail(e)
-                    }
-                    
-                    return
-                }
-                else
-                {
-                    var distanceUnits = HKUnit.mile()
-                    if let preferred = units[distanceType]
-                    {
-                        distanceUnits = preferred
-                    }
-                    
-                    let units = HKUnit.lengthFormatterUnit(from: distanceUnits)
-                    
-                    self?.get(quantityType: distanceType, measuredIn: distanceUnits, on: forDate, onRetrieve: {
-                        distance, date in
-                        if let success = onRetrieve
-                        {
-                            success(distance, units, date)
-                        }
-                    }, onFailure: onFailure)
-                }
-            })
-        }
-        else if let fail = onFailure
-        {
-            fail(nil)
-        }
-    }
-    
-    open func get(quantityType: HKQuantityType, measuredIn: HKUnit, on: Date, onRetrieve: ((Double, Date) -> Void)?, onFailure: ((Error?) -> Void)?)
-    {
-        guard HKHealthStore.isHealthDataAvailable() && healthStore != nil else { return }
-        
-        let startDate = getQueryDate(from: on)
-        guard startDate != nil else { return }
-        
-        let forSpecificDay = HKQuery.predicateForSamples(withStart: startDate!, end: getQueryEndDate(fromStartDate: startDate!), options: .strictStartDate)
-        var interval = DateComponents()
-        interval.day = 1
-        
-        if let store = healthStore
-        {
-            let query = HKStatisticsCollectionQuery(quantityType: quantityType,
-                                                    quantitySamplePredicate: forSpecificDay,
-                                                    options: .cumulativeSum,
-                                                    anchorDate: startDate!,
-                                                    intervalComponents: interval)
-            
-            query.initialResultsHandler = {
-                (query: HKStatisticsCollectionQuery, results: HKStatisticsCollection?, error: Error?) in
-                
-                if let r = results , error == nil
-                {
-                    var sum: Double = 0.0
-                    var sampleDate: Date = Date.distantPast
-                    
-                    r.enumerateStatistics(from: query.anchorDate, to: query.anchorDate) { statistics, stop in
-                        if let quantity = statistics.sumQuantity()
-                        {
-                            sampleDate = statistics.startDate
-                            sum += quantity.doubleValue(for: measuredIn)
-                        }
-                    }
-                    
-                    if let successBlock = onRetrieve
-                    {
-                        successBlock(sum ,sampleDate)
-                    }
-                }
-                else
-                {
-                    if let failBlock = onFailure
-                    {
-                        failBlock(error)
-                    }
-                }
-            }
-            
-            store.execute(query)
-        }
-    }
-    
-    private func getQueryDate(from: Date) -> Date?
-    {
-        let components = Calendar.current.dateComponents([.era, .year, .month, .day], from: from)
-        return Calendar.current.date(from: components)
-    }
-    
-    private func getQueryEndDate(fromStartDate: Date) -> Date
-    {
-        return Calendar.current.date(byAdding: .day, value: 1, to: fromStartDate)!
-    }
-    
-    open func subscribe(to dataType: HKQuantityTypeIdentifier, on updateHandler: @escaping (() -> Void)) {
+    public func subscribe(to dataType: HKQuantityTypeIdentifier, on updateHandler: @escaping (() -> Void)) {
         guard let sampleType = HKQuantityType.quantityType(forIdentifier: dataType) else {
             return
         }
@@ -588,16 +455,12 @@ open class HealthKitService
         subscribers[sampleType.identifier] = HealthKitSubscriber(for: dataType, with: updateHandler)
     }
     
-    open func unsubscribe(from dataType: HKQuantityTypeIdentifier) {
+    public func unsubscribe(from dataType: HKQuantityTypeIdentifier) {
         guard let sampleType = HKQuantityType.quantityType(forIdentifier: dataType) else {
             return
         }
         
         subscribers.removeValue(forKey: sampleType.identifier)
-    }
-    
-    open func earliestQueryDate() -> Date? {
-        return healthStore?.earliestPermittedSampleDate()
     }
 }
 

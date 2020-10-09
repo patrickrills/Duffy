@@ -13,10 +13,10 @@ import HealthKit
 
 class InterfaceController: WKInterfaceController
 {
-    @IBOutlet weak var stepsValueLabel : WKInterfaceLabel?
-    @IBOutlet weak var stepsGoalLabel : WKInterfaceLabel?
-    @IBOutlet weak var distanceValueLabel : WKInterfaceLabel?
-    @IBOutlet weak var flightsValueLabel : WKInterfaceLabel?
+    @IBOutlet weak var stepsValueLabel : WKInterfaceLabel!
+    @IBOutlet weak var stepsGoalLabel : WKInterfaceLabel!
+    @IBOutlet weak var distanceValueLabel : WKInterfaceLabel!
+    @IBOutlet weak var flightsValueLabel : WKInterfaceLabel!
     
     private var isQueryInProgress = false
     
@@ -115,126 +115,88 @@ class InterfaceController: WKInterfaceController
         }))
     }
     
-    private func displayTodaysStepsFromHealth(_ completion: @escaping (Bool) -> Void)
-    {
-        HealthKitService.getInstance().getSteps(Date(),
-            onRetrieve: {
-                [weak self] (stepsCount: Int, forDate: Date) in
-                
-                self?.maybeUpdateComplication(with: stepsCount, for: forDate)
-                
+    private func displayTodaysStepsFromHealth(_ completion: @escaping (Bool) -> Void) {
+        HealthKitService.getInstance().getSteps(for: Date()) { [weak self] result in
+            switch result {
+            case .success(let stepsResult):
+                self?.maybeUpdateComplication(with: stepsResult.steps, for: stepsResult.day)
                 DispatchQueue.main.async {
-                    [weak self] in
-                    self?.display(steps: stepsCount)
+                    self?.display(steps: stepsResult.steps)
                     completion(true)
                 }
-            },
-            onFailure: {
-                (error: Error?) in
-                
+            case .failure(_):
                 DispatchQueue.main.async {
-                    [weak self] in
                     self?.displayTodaysStepsFromCache()
                     completion(false)
                 }
-            })
+            }
+        }
     }
     
     private func displayTodaysFlightsFromHealth(_ completion: @escaping (Bool) -> Void) {
-        HealthKitService.getInstance().getFlightsClimbed(Date(), onRetrieve: {
-            flights, date in
-            
-            DispatchQueue.main.async {
-                [weak self] in
-                self?.flightsValueLabel?.setText(InterfaceController.getNumberFormatter().string(from: NSNumber(value: flights)))
-                completion(true)
+        HealthKitService.getInstance().getFlightsClimbed(for: Date()) { result in
+            switch result {
+            case .success(let flightsResult):
+                DispatchQueue.main.async {
+                    [weak self] in
+                    self?.flightsValueLabel?.setText(InterfaceController.getNumberFormatter().string(for: flightsResult.flights))
+                    completion(true)
+                }
+            case .failure(_):
+                completion(false)
             }
-            
-        }, onFailure: {
-            error in
-            completion(false)
-        })
+        }
     }
     
     func displayTodaysDistanceFromHealth(_ completion: @escaping (Bool) -> Void) {
-        HealthKitService.getInstance().getDistanceCovered(Date(), onRetrieve: {
-            distance, units, date in
-            
-            DispatchQueue.main.async {
-                [weak self] in
+        HealthKitService.getInstance().getDistanceCovered(for: Date()) { result in
+            switch result {
+            case .success(let distanceResult):
                 let formatter = InterfaceController.getNumberFormatter()
                 formatter.maximumFractionDigits = 1
-                let unitsFormatted = units == .mile ? NSLocalizedString("mi", comment: "") : NSLocalizedString("km", comment: "")
-                if let weakSelf = self, let valueFormatted = formatter.string(from: NSNumber(value: distance)) {
+                let unitsFormatted = distanceResult.formatter == .mile ? NSLocalizedString("mi", comment: "") : NSLocalizedString("km", comment: "")
+                if let valueFormatted = formatter.string(for: distanceResult.distance) {
                     let distanceAttributed = NSMutableAttributedString(string: String(format: "%@ %@", valueFormatted, unitsFormatted))
                     distanceAttributed.addAttribute(.font, value: UIFont.systemFont(ofSize: 10.0), range: NSRange(location: distanceAttributed.string.count - unitsFormatted.count, length: unitsFormatted.count))
-                    weakSelf.distanceValueLabel?.setAttributedText(distanceAttributed)
+                    DispatchQueue.main.async { [weak self] in
+                        self?.distanceValueLabel?.setAttributedText(distanceAttributed)
+                    }
                 }
                 completion(true)
+            case .failure(_):
+                completion(false)
             }
-            
-        }, onFailure: {
-            error in
-            completion(false)
-        })
+        }
     }
     
-    func updateInterfaceFromSnapshot()
-    {
+    func updateInterfaceFromSnapshot() {
         displayTodaysStepsFromCache()
         LoggingService.log("Update UI from snapshot task")
     }
     
-    private func displayTodaysStepsFromCache()
-    {
-        DispatchQueue.main.async {
-            [weak self] in
-            
-            if let weakSelf = self
-            {
-                var steps = 0
-                
-                if (!HealthCache.cacheIsForADifferentDay(Date()))
-                {
-                    let cacheData = HealthCache.getStepsDataFromCache()
-                    if let savedVal = cacheData["stepsCacheValue"] as? Int
-                    {
-                        steps = savedVal
-                    }
-                }
-                
-                weakSelf.display(steps: steps)
-            }
+    private func displayTodaysStepsFromCache() {
+        DispatchQueue.main.async { [weak self] in
+            guard let weakSelf = self else { return }
+            weakSelf.display(steps: HealthCache.lastSteps(for: Date()))
         }
     }
     
-    private func display(steps: Int)
-    {
-        stepsValueLabel?.setText(InterfaceController.getNumberFormatter().string(from: NSNumber(value: steps)))
+    private func display(steps: Steps) {
+        stepsValueLabel?.setText(InterfaceController.getNumberFormatter().string(for: steps))
         updateGoalDisplay(stepsForDay: steps)
     }
     
-    private func updateGoalDisplay(stepsForDay: Int)
-    {
-        if let lbl = stepsGoalLabel
-        {
-            let goalValue = HealthCache.getStepsDailyGoal()
-            if goalValue > 0, let formattedValue = InterfaceController.getNumberFormatter().string(from: NSNumber(value: goalValue))
-            {
-                lbl.setHidden(false)
-                lbl.setText(String(format: NSLocalizedString("of %@ goal %@", comment: ""), formattedValue, Trophy.trophy(for: stepsForDay).symbol()))
-            }
-            else
-            {
-                lbl.setHidden(true)
-            }
+    private func updateGoalDisplay(stepsForDay: Steps) {
+        let goalValue = HealthCache.dailyGoal()
+        if goalValue > 0, let formattedValue = InterfaceController.getNumberFormatter().string(for: goalValue) {
+            stepsGoalLabel.setHidden(false)
+            stepsGoalLabel.setText(String(format: NSLocalizedString("of %@ goal %@", comment: ""), formattedValue, Trophy.trophy(for: stepsForDay).symbol()))
+        } else {
+            stepsGoalLabel.setHidden(true)
         }
     }
     
     func subscribeToHealthKitUpdates() {
-        if let healthDelegate = WKExtension.shared().delegate as? ExtensionDelegate {
-            HealthKitService.getInstance().setEventDelegate(healthDelegate)
-        }
         HealthKitService.getInstance().initializeBackgroundQueries()
         
         HealthKitService.getInstance().subscribe(to: HKQuantityTypeIdentifier.stepCount, on: {
@@ -263,14 +225,14 @@ class InterfaceController: WKInterfaceController
     
     private func maybeTurnOverComplicationDate() {
         //reset display if day turned over
-        if (HealthCache.cacheIsForADifferentDay(Date())) {
+        if HealthCache.cacheIsForADifferentDay(than: Date()) {
             display(steps: 0)
             maybeUpdateComplication(with: 0, for: Date())
         }
     }
     
-    private func maybeUpdateComplication(with stepCount: Int, for day: Date) {
-        if HealthCache.saveStepsToCache(stepCount, forDay: day) {
+    private func maybeUpdateComplication(with stepCount: Steps, for day: Date) {
+        if HealthCache.saveStepsToCache(stepCount, for: day) {
             LoggingService.log("Update complication from watch UI", with: "\(stepCount)")
             ComplicationController.refreshComplication()
         }

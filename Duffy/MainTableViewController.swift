@@ -14,7 +14,7 @@ class MainTableViewController: UITableViewController
 {
     var stepsByDay : [Date : Steps] = [:]
     var sortedKeys : [Date] = []
-    var goal : Int = 0
+    var goal : Steps = 0
     var isLoading : Bool = false {
         didSet {
             getHeader()?.toggleLoading(isLoading: isLoading)
@@ -98,7 +98,7 @@ class MainTableViewController: UITableViewController
                         DispatchQueue.main.async { [weak self] in
                             if let weakSelf = self {
                                 weakSelf.isLoading = false
-                                weakSelf.goal = HealthCache.getStepsDailyGoal()
+                                weakSelf.goal = HealthCache.dailyGoal()
                                 weakSelf.stepsByDay = stepsCollection
                                 weakSelf.sortedKeys = stepsCollection.keys.sorted(by: >)
                                 weakSelf.tableView?.separatorStyle = stepsCollection.count == 0 ? .none : .singleLine
@@ -189,7 +189,7 @@ class MainTableViewController: UITableViewController
             let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PreviousValueTableViewCell.self), for: indexPath) as! PreviousValueTableViewCell
             let currentDate = sortedKeys[indexPath.row];
             if let steps = stepsByDay[currentDate] {
-                cell.bind(toDate: currentDate, steps: steps, goal: goal)
+                cell.bind(to: currentDate, steps: steps, goal: goal)
             }
             return cell
         }

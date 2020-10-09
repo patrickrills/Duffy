@@ -11,7 +11,7 @@ import DuffyWatchFramework
 import UserNotifications
 import HealthKit
 
-class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate, HealthEventDelegate, UNUserNotificationCenterDelegate
+class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate, UNUserNotificationCenterDelegate
 {
     var currentBackgroundTasks: [String : AnyObject] = [:]
         
@@ -31,7 +31,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
             CoreMotionService.getInstance().initializeBackgroundUpdates()
         }
         
-        if (HealthCache.cacheIsForADifferentDay(Date())) {
+        if (HealthCache.cacheIsForADifferentDay(than: Date())) {
             complicationUpdateRequested([:])
         }
     }
@@ -104,23 +104,19 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
                         })
                     } else {
                         //Fallback to using Healthkit if core motion not enabled
-                        HealthKitService.getInstance().getSteps(Date(), onRetrieve: {
-                            [weak self] (steps: Int, forDay: Date) in
-                                                                    
-                            if (HealthCache.saveStepsToCache(steps, forDay: forDay)) {
-                                LoggingService.log("Refresh complication in background task")
-                                ComplicationController.refreshComplication()
-                            }
-                                            
-                            self?.complete(task: t)
-                        },
-                        onFailure: {
-                            [weak self] (error: Error?) in
-                            if let error = error {
+                        HealthKitService.getInstance().getSteps(for: Date()) { [weak self] result in
+                            switch result {
+                            case .success(let stepsResult):
+                                if HealthCache.saveStepsToCache(stepsResult.steps, for: stepsResult.day) {
+                                    LoggingService.log("Refresh complication in background task")
+                                    ComplicationController.refreshComplication()
+                                }
+                                self?.complete(task: t)
+                            case .failure(let error):
                                 LoggingService.log(error: error)
+                                self?.complete(task: t)
                             }
-                            self?.complete(task: t)
-                        })
+                        }
                     }
                 }
             }
@@ -161,11 +157,6 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
         })
     }
     
-    func dailyStepsGoalWasReached()
-    {
-        NotificationService.sendDailyStepsGoalNotification()
-    }
-    
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 willPresent notification: UNNotification,
                                 withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
@@ -174,7 +165,6 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
     }
     
     private func startHealthKitBackgroundQueries() {
-        HealthKitService.getInstance().setEventDelegate(self)
         HealthKitService.getInstance().initializeBackgroundQueries()
     }
 }

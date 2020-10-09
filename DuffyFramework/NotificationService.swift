@@ -27,7 +27,7 @@ open class NotificationService
         
             let content = UNMutableNotificationContent()
             content.title = NSLocalizedString("Way to go!", comment: "")
-            content.body = String(format: NSLocalizedString("You've reached your goal of %@ steps.", comment: ""), numberFormatter.string(from: NSNumber(value: HealthCache.getStepsDailyGoal()))!)
+            content.body = String(format: NSLocalizedString("You've reached your goal of %@ steps.", comment: ""), numberFormatter.string(for: HealthCache.dailyGoal())!)
             content.sound = UNNotificationSound.default
             content.categoryIdentifier = "goal-notification"
         
