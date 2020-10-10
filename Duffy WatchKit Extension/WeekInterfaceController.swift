@@ -110,7 +110,7 @@ class WeekInterfaceController: WKInterfaceController
             let width: CGFloat = WKInterfaceDevice.current().screenBounds.width
             
             DispatchQueue.global(qos: .userInitiated).async {
-                let chartImage = ChartDrawer.drawChart(data, width: width)
+                let chartImage = ChartDrawer.drawChart(data.filter({ !$0.key.isToday() }), width: width)
                 DispatchQueue.main.async { [weak self] in
                     guard let weakSelf = self else { return }
                     weakSelf.graphImage.setImage(chartImage)
