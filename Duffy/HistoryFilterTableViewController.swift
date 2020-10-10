@@ -32,6 +32,7 @@ class HistoryFilterTableViewController: UITableViewController {
         
         title = NSLocalizedString("Filter", comment: "")
         tableView.isScrollEnabled = false
+        tableView.sectionHeaderHeight = 16.0
         
         if #available(iOS 13.0, *) {
             navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "checkmark.circle"), style: .plain, target: self, action: #selector(saveFilter))
@@ -121,5 +122,9 @@ class HistoryFilterTableViewController: UITableViewController {
         }
         
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return UIView()
     }
 }
