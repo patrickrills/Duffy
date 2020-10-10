@@ -13,6 +13,50 @@ class HistoryFilterTableViewController: UITableViewController {
     private var sinceDateFilter : Date = Date()
     private let onDateSelected: (Date) -> ()
     
+    //MARK: Layout mode and constants
+    
+    private enum DateMode {
+        case spinner, calendar
+        
+        func backgroundColor() -> UIColor {
+            if #available(iOS 13.0, *) {
+                if self == .calendar {
+                    return .secondarySystemGroupedBackground
+                }
+            }
+            
+            return UIColor(named: "SpinnerBackgroundColor")!
+        }
+        
+        func pickerHeight() -> CGFloat {
+            switch self {
+            case .spinner:
+                return 200.0
+            case .calendar:
+                return 352.0
+            }
+        }
+        
+        func horizontalMargin() -> CGFloat {
+            switch self {
+            case .spinner:
+                return 0.0
+            case .calendar:
+                return 16.0
+            }
+        }
+        
+        static func mode() -> DateMode {
+            if #available(iOS 14.0, *) {
+                if !Globals.isNarrowPhone() {
+                    return .calendar
+                }
+            }
+            
+            return .spinner
+        }
+    }
+    
     //MARK: Constructors
     
     init(selectedDate: Date, onDateSelected: @escaping (Date) -> ()) {
@@ -44,9 +88,11 @@ class HistoryFilterTableViewController: UITableViewController {
     }
     
     private func addDatePicker() {
+        let mode = DateMode.mode()
+        
         let container = UIView()
         container.translatesAutoresizingMaskIntoConstraints = false
-        container.backgroundColor = UIColor(named: "SpinnerBackgroundColor")
+        container.backgroundColor = mode.backgroundColor()
         tableView.addSubview(container)
         
         let spinner = UIDatePicker()
@@ -57,23 +103,23 @@ class HistoryFilterTableViewController: UITableViewController {
         spinner.addTarget(self, action: #selector(dateSelected(_:)), for: .valueChanged)
         container.addSubview(spinner)
         
-        if #available(iOS 14.0, *) {
-            spinner.preferredDatePickerStyle = .wheels
-        }
-        
         let safeAreaSpacer = UIView()
         safeAreaSpacer.translatesAutoresizingMaskIntoConstraints = false
         safeAreaSpacer.backgroundColor = container.backgroundColor
         tableView.addSubview(safeAreaSpacer)
         
+        if #available(iOS 14.0, *) {
+            spinner.preferredDatePickerStyle = mode == .calendar ? .inline : .wheels
+        }
+        
         NSLayoutConstraint.activate([
             container.bottomAnchor.constraint(equalTo: tableView.layoutMarginsGuide.bottomAnchor),
             container.leadingAnchor.constraint(equalTo: tableView.frameLayoutGuide.leadingAnchor),
             container.trailingAnchor.constraint(equalTo: tableView.frameLayoutGuide.trailingAnchor),
-            container.heightAnchor.constraint(equalToConstant: 200.0),
+            container.heightAnchor.constraint(equalToConstant: mode.pickerHeight()),
             spinner.topAnchor.constraint(equalTo: container.topAnchor),
-            spinner.leadingAnchor.constraint(equalTo: container.leadingAnchor),
-            spinner.trailingAnchor.constraint(equalTo: container.trailingAnchor),
+            spinner.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: mode.horizontalMargin()),
+            spinner.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -mode.horizontalMargin()),
             spinner.bottomAnchor.constraint(equalTo: container.bottomAnchor),
             safeAreaSpacer.bottomAnchor.constraint(equalTo: tableView.frameLayoutGuide.bottomAnchor),
             safeAreaSpacer.leadingAnchor.constraint(equalTo: tableView.frameLayoutGuide.leadingAnchor),
