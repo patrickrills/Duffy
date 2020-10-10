@@ -56,6 +56,10 @@ class HistoryFilterTableViewController: UITableViewController {
         spinner.addTarget(self, action: #selector(dateSelected(_:)), for: .valueChanged)
         container.addSubview(spinner)
         
+        if #available(iOS 14.0, *) {
+            spinner.preferredDatePickerStyle = .wheels
+        }
+        
         let safeAreaSpacer = UIView()
         safeAreaSpacer.translatesAutoresizingMaskIntoConstraints = false
         safeAreaSpacer.backgroundColor = container.backgroundColor
