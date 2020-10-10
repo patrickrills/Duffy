@@ -33,16 +33,29 @@ class ChartDrawer {
         let plot = ChartDrawer.plot(data, width: width)
         
         if plot.points.count > 0 {
-            //TODO: Draw line
-//            let lineColor = UIColor(named: "PrimaryColor")!
-//            lineColor.setStroke()
-
-//            let line = UIBezierPath()
-//            line.lineWidth = DrawingConstants.LINE_WIDTH
-//            line.move(to: CGPoint(x: DrawingConstants.HORIZONTAL_MARGIN, y: size.height / 2.0))
-//            line.addLine(to: CGPoint(x: size.width - (DrawingConstants.HORIZONTAL_MARGIN * 2.0), y: size.height / 2.0))
-//            line.stroke()
+            let lineColor = UIColor(named: "PrimaryColor")!
+            
+            if plot.points.count == 1, let onlyPoint = plot.points.first {
+                let singlePoint = UIBezierPath(ovalIn: CGRect(x: width / 2.0, y: onlyPoint.y - 4.0, width: 8.0, height: 8.0))
+                lineColor.setFill()
+                singlePoint.fill()
+            } else {
+                let dataLine = UIBezierPath()
+                dataLine.lineWidth = DrawingConstants.LINE_WIDTH
+                
+                plot.points.forEach({
+                    if dataLine.isEmpty {
+                        dataLine.move(to: $0)
+                    } else {
+                        dataLine.addLine(to: $0)
+                    }
+                })
+                
+                lineColor.setStroke()
+                dataLine.stroke()
+            }
         }
+        
         
         if let goalY = plot.goalY {
             DrawingConstants.GOAL_LINE_COLOR.setStroke()
@@ -67,15 +80,26 @@ class ChartDrawer {
         let activeArea = CGRect(x: DrawingConstants.GRAPH_INSETS.left, y: DrawingConstants.GRAPH_INSETS.top, width: width - (DrawingConstants.GRAPH_INSETS.left + DrawingConstants.GRAPH_INSETS.right), height: DrawingConstants.CHART_HEIGHT - (DrawingConstants.GRAPH_INSETS.top + DrawingConstants.GRAPH_INSETS.bottom))
         let goalSteps = Steps(HealthCache.dailyGoal())
         var goalLineY: CGFloat? = nil
-        let points = [CGPoint]()
+        var points = [CGPoint]()
         
         if data.count > 0 {
             let maxSteps = data.values.max()
             let topRange = Double(max(maxSteps!, goalSteps)) * DrawingConstants.GRAPH_MAX_FACTOR
+            let minDate = data.keys.min() ?? Date()
+            let numberOfDaysInRange = max(1, minDate.differenceInDays(from: Date().previousDay()))
+            let widthOfDay = CGFloat(activeArea.width) / CGFloat(numberOfDaysInRange)
             
             let translateY: (Steps) -> (CGFloat) = { steps in
                 return activeArea.height - CGFloat(floor((Double(steps) / topRange) * Double(activeArea.height)))
             }
+            
+            let translateX: (Date) -> (CGFloat) = { date in
+                return CGFloat(abs(date.differenceInDays(from: minDate))) * widthOfDay + DrawingConstants.GRAPH_INSETS.left
+            }
+            
+            points = data.reduce(into: points, { points, data in
+                points.append(CGPoint(x: translateX(data.key), y: translateY(data.value)))
+            }).sorted { $0.x < $1.x }
             
             goalLineY = translateY(goalSteps)
         } else {
