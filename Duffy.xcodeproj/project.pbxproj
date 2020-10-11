@@ -20,6 +20,8 @@
 		090829EB246A225C00F100D6 /* TrophiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090829EA246A225C00F100D6 /* TrophiesViewController.swift */; };
 		090829ED246A26E400F100D6 /* TrophiesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 090829EC246A26E400F100D6 /* TrophiesViewController.xib */; };
 		091714CF25290B8D001062E0 /* ChartDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091714CE25290B8D001062E0 /* ChartDrawer.swift */; };
+		091714F125326B40001062E0 /* Plot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091714F025326B40001062E0 /* Plot.swift */; };
+		091714F225326B40001062E0 /* Plot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091714F025326B40001062E0 /* Plot.swift */; };
 		09177BC5241D466F0095ECB4 /* ExportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09177BC4241D466E0095ECB4 /* ExportService.swift */; };
 		09177BC6241D466F0095ECB4 /* ExportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09177BC4241D466E0095ECB4 /* ExportService.swift */; };
 		092276DB235549240015A1E6 /* HistoryTableViewFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = 092276DD235549240015A1E6 /* HistoryTableViewFooter.xib */; };
@@ -239,6 +241,7 @@
 		090829EA246A225C00F100D6 /* TrophiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrophiesViewController.swift; sourceTree = "<group>"; };
 		090829EC246A26E400F100D6 /* TrophiesViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TrophiesViewController.xib; sourceTree = "<group>"; };
 		091714CE25290B8D001062E0 /* ChartDrawer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartDrawer.swift; sourceTree = "<group>"; };
+		091714F025326B40001062E0 /* Plot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plot.swift; sourceTree = "<group>"; };
 		09177BC4241D466E0095ECB4 /* ExportService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportService.swift; sourceTree = "<group>"; };
 		092276DC235549240015A1E6 /* ja */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ja; path = ja.lproj/HistoryTableViewFooter.xib; sourceTree = "<group>"; };
 		092276E623569EB20015A1E6 /* ja */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ja; path = ja.lproj/HourGraphDetailViewController.xib; sourceTree = "<group>"; };
@@ -517,6 +520,7 @@
 				093A5F0423AEC870007D11E3 /* DebugLogEntry.swift */,
 				09177BC4241D466E0095ECB4 /* ExportService.swift */,
 				099582D0234192C400AF6A96 /* Localizable.strings */,
+				091714F025326B40001062E0 /* Plot.swift */,
 			);
 			path = DuffyFramework;
 			sourceTree = "<group>";
@@ -912,6 +916,7 @@
 				0929A6CD24E7128F00780004 /* Types.swift in Sources */,
 				09323D221D23040100961822 /* HealthKitService.swift in Sources */,
 				09177BC5241D466F0095ECB4 /* ExportService.swift in Sources */,
+				091714F125326B40001062E0 /* Plot.swift in Sources */,
 				099FE700234EB5300092D219 /* LoggingService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -936,6 +941,7 @@
 				0929A6CE24E7128F00780004 /* Types.swift in Sources */,
 				09323D231D23040100961822 /* HealthKitService.swift in Sources */,
 				09177BC6241D466F0095ECB4 /* ExportService.swift in Sources */,
+				091714F225326B40001062E0 /* Plot.swift in Sources */,
 				099FE701234EB5300092D219 /* LoggingService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
