@@ -19,15 +19,6 @@ class WeekInterfaceController: WKInterfaceController
     
     private var hasDrawnChart: Bool = false
     
-    override func willActivate() {
-        super.willActivate()
-        
-        if !DebugService.isDebugModeEnabled() {
-            loadingLabel.setHidden(true)
-            graphImage.setHidden(true)
-        }
-    }
-    
     override func didAppear() {
         super.didAppear()
         retrieveRecentSteps()
