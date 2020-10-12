@@ -100,23 +100,21 @@ class WeekInterfaceController: WKInterfaceController
     }
     
     private func drawChart(for data: [Date : Steps]) {
-        if DebugService.isDebugModeEnabled() {
-            if hasDrawnChart {
-                loadingLabel.setHidden(true)
-            } else {
-                loadingLabel.setText(NSLocalizedString("Loading...", comment: ""))
-            }
-            
-            let width: CGFloat = WKInterfaceDevice.current().screenBounds.width
-            
-            DispatchQueue.global(qos: .userInitiated).async {
-                let chartImage = ChartDrawer.drawChart(data.filter({ !$0.key.isToday() }), width: width)
-                DispatchQueue.main.async { [weak self] in
-                    guard let weakSelf = self else { return }
-                    weakSelf.graphImage.setImage(chartImage)
-                    weakSelf.loadingLabel.setHidden(true)
-                    weakSelf.hasDrawnChart = true
-                }
+        if hasDrawnChart {
+            loadingLabel.setHidden(true)
+        } else {
+            loadingLabel.setText(NSLocalizedString("Loading...", comment: ""))
+        }
+        
+        let width: CGFloat = WKInterfaceDevice.current().screenBounds.width
+        
+        DispatchQueue.global(qos: .userInitiated).async {
+            let chartImage = ChartDrawer.drawChart(data.filter({ !$0.key.isToday() }), width: width)
+            DispatchQueue.main.async { [weak self] in
+                guard let weakSelf = self else { return }
+                weakSelf.graphImage.setImage(chartImage)
+                weakSelf.loadingLabel.setHidden(true)
+                weakSelf.hasDrawnChart = true
             }
         }
     }
