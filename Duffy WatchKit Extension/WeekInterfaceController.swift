@@ -56,7 +56,7 @@ class WeekInterfaceController: WKInterfaceController
         
         let sortedKeys = stepsCollection.keys.sorted(by: >)
         
-        let data: [WeekRowData] = sortedKeys.map({
+        let data: [WeekRowData] = sortedKeys.filter({ !$0.isToday() }).map({
             let title = dateFormatter.string(from: $0).uppercased()
             var value = "0"
             var adornment = ""
@@ -74,7 +74,7 @@ class WeekInterfaceController: WKInterfaceController
         DispatchQueue.main.async { [weak self] in
             if let weakSelf = self {
                 if (data.count > 0) {
-                    weakSelf.drawChart(for: stepsCollection)
+                    weakSelf.drawChart(for: stepsCollection.filter({ !$0.key.isToday() }))
                     weakSelf.bindTable(to: data)
                 } else {
                     weakSelf.showErrorState()
@@ -109,7 +109,7 @@ class WeekInterfaceController: WKInterfaceController
         let width: CGFloat = WKInterfaceDevice.current().screenBounds.width
         
         DispatchQueue.global(qos: .userInitiated).async {
-            let chartImage = ChartDrawer.drawChart(data.filter({ !$0.key.isToday() }), width: width)
+            let chartImage = ChartDrawer.drawChart(data, width: width)
             DispatchQueue.main.async { [weak self] in
                 guard let weakSelf = self else { return }
                 weakSelf.graphImage.setImage(chartImage)
