@@ -16,10 +16,7 @@ class HistoryTrendChartView: UIView
         static let LABEL_WIDTH: CGFloat = 20.0
         static let DOTTED_LINE_MARGIN: CGFloat = (PADDING + LABEL_WIDTH + 2.0) //padding + Label width + extra so the line doesn't touch the label
         static let GRAPH_INSETS = UIEdgeInsets(top: 0.0, left: PADDING + 15.0, bottom: 0.0, right: PADDING + 15.0)
-        static let GRAPH_MAX_FACTOR: Double = 1.05
     }
-    
-    typealias Plot = (points: [CGPoint], goalY: CGFloat?, averageY: CGFloat?, trend: [CGPoint]?)
     
     var dataSet : [Date : Steps] = [:] {
         didSet {
@@ -28,72 +25,11 @@ class HistoryTrendChartView: UIView
     }
     
     override func draw(_ rect: CGRect) {
-        let graphPlot = plot(in: rect)
+        let graphPlot = Plot.generate(for: dataSet, in: rect, with: DrawingConstants.GRAPH_INSETS)
         drawDataLine(with: graphPlot, in: rect)
         drawTrendLine(with: graphPlot, in: rect)
         drawGoalLine(with: graphPlot, in: rect)
         drawAverageLine(with: graphPlot, in: rect)
-    }
-    
-    private func plot(in rect: CGRect) -> Plot {
-        let activeArea = CGRect(x: DrawingConstants.GRAPH_INSETS.left, y: DrawingConstants.GRAPH_INSETS.top, width: rect.width - (DrawingConstants.GRAPH_INSETS.left + DrawingConstants.GRAPH_INSETS.right), height: rect.height - (DrawingConstants.GRAPH_INSETS.top + DrawingConstants.GRAPH_INSETS.bottom))
-        
-        let goalSteps = HealthCache.dailyGoal()
-        var goalLineY: CGFloat? = nil
-        var averageY: CGFloat? = nil
-        var trend: [CGPoint]? = nil
-        var points = [CGPoint]()
-        
-        if (dataSet.count > 0) {
-            let maxSteps = dataSet.values.max()
-            let topRange = Double(max(maxSteps!, goalSteps)) * DrawingConstants.GRAPH_MAX_FACTOR
-            let minDate = dataSet.keys.min() ?? Date()
-            let numberOfDaysInRange = max(1, minDate.differenceInDays(from: Date().previousDay()))
-            let widthOfDay = CGFloat(activeArea.width) / CGFloat(numberOfDaysInRange)
-            
-            let translateY: (Steps) -> (CGFloat) = { steps in
-                return activeArea.height - CGFloat(floor((Double(steps) / topRange) * Double(activeArea.height)))
-            }
-            
-            let translateX: (Date) -> (CGFloat) = { date in
-                return CGFloat(abs(date.differenceInDays(from: minDate))) * widthOfDay + DrawingConstants.GRAPH_INSETS.left
-            }
-                        
-            points = dataSet.reduce(into: points, { points, data in
-                points.append(CGPoint(x: translateX(data.key), y: translateY(data.value)))
-            }).sorted { $0.x < $1.x }
-            
-            if HistoryTrendChartOption.goalIndicator.isEnabled() {
-                goalLineY = translateY(goalSteps)
-            }
-            
-            if HistoryTrendChartOption.averageIndicator.isEnabled() {
-                averageY = translateY(Steps(dataSet.values.mean()))
-            }
-            
-            if HistoryTrendChartOption.trendLine.isEnabled() {
-                let xMean = points.map(\.x).mean()
-                let yMean = points.map(\.y).mean()
-                let calculateSlope: ([CGPoint]) -> (CGFloat) = { p in
-                    var slopeParts: (numerator: CGFloat, demoninator: CGFloat) = (0.0, 0.0)
-                    slopeParts = p.reduce(into: slopeParts, { result, point in
-                        result.numerator += (point.x - xMean) * (point.y - yMean)
-                        result.demoninator += pow((point.x - xMean), 2)
-                    })
-                    return slopeParts.numerator / slopeParts.demoninator
-                }
-                let slope = calculateSlope(points)
-                let yIntercept = yMean - (slope * xMean)
-                trend = points.map({
-                    CGPoint(x: $0.x, y: (slope * $0.x) + yIntercept)
-                })
-            }
-        } else {
-            //If there is no data, at least show the goal line so the chart isn't completely empty
-            goalLineY = rect.size.height / 2.0
-        }
-        
-        return Plot(points: points, goalY: goalLineY, averageY: averageY, trend: trend)
     }
     
     private func drawDataLine(with plot: Plot, in rect: CGRect) {
@@ -131,7 +67,12 @@ class HistoryTrendChartView: UIView
     }
     
     private func drawTrendLine(with plot: Plot, in rect: CGRect) {
-        guard let trendPoints = plot.trend, trendPoints.count > 0 else { return }
+        guard HistoryTrendChartOption.trendLine.isEnabled(),
+            let trendPoints = plot.trend,
+            trendPoints.count > 0
+        else {
+            return
+        }
         
         let trendLine = UIBezierPath()
         trendLine.lineWidth = 2.5
@@ -147,7 +88,8 @@ class HistoryTrendChartView: UIView
     }
     
     private func drawGoalLine(with plot: Plot, in rect: CGRect) {
-        guard let goalY = plot.goalY else { return }
+        guard HistoryTrendChartOption.goalIndicator.isEnabled() else { return }
+        let goalY = plot.goalY
         let shoe = NSAttributedString(string: Trophy.shoe.symbol(), attributes: [.font : UIFont.systemFont(ofSize: UIFont.systemFontSize)])
         let shoeSize = shoe.size()
         let shoeOrigin = CGPoint(x: DrawingConstants.PADDING, y: goalY - (shoeSize.height / 2.0))
@@ -156,7 +98,7 @@ class HistoryTrendChartView: UIView
     }
     
     private func drawAverageLine(with plot: Plot, in rect: CGRect) {
-        guard let averageY = plot.averageY else { return }
+        guard HistoryTrendChartOption.averageIndicator.isEnabled(), let averageY = plot.averageY else { return }
         //TODO: find japanese translation of average
         let avgText = NSAttributedString(string: "avg", attributes: [.font : UIFont.systemFont(ofSize: 12.0), .foregroundColor: Globals.averageColor()])
         let avgTextOrigin = CGPoint(x: rect.width - DrawingConstants.LABEL_WIDTH - DrawingConstants.PADDING, y: averageY - (avgText.size().height / 2.0) - 1.0)

@@ -10,20 +10,21 @@ import WatchKit
 import Foundation
 import DuffyWatchFramework
 
-
+ 
 class WeekInterfaceController: WKInterfaceController
 {
+    @IBOutlet weak var loadingLabel: WKInterfaceLabel!
+    @IBOutlet weak var graphImage: WKInterfaceImage!
     @IBOutlet weak var stepsTable: WKInterfaceTable!
     
-    override func didAppear()
-    {
+    private var hasDrawnChart: Bool = false
+    
+    override func didAppear() {
         super.didAppear()
-        
         retrieveRecentSteps()
     }
 
-    private func retrieveRecentSteps()
-    {
+    private func retrieveRecentSteps() {
         guard let startDate = HealthKitService.getInstance().earliestQueryDate() else {
             showErrorState()
             return
@@ -46,7 +47,7 @@ class WeekInterfaceController: WKInterfaceController
         
         let sortedKeys = stepsCollection.keys.sorted(by: >)
         
-        let data: [WeekRowData] = sortedKeys.map({
+        let data: [WeekRowData] = sortedKeys.filter({ !$0.isToday() }).map({
             let title = dateFormatter.string(from: $0).uppercased()
             var value = "0"
             var adornment = ""
@@ -64,6 +65,7 @@ class WeekInterfaceController: WKInterfaceController
         DispatchQueue.main.async { [weak self] in
             if let weakSelf = self {
                 if (data.count > 0) {
+                    weakSelf.drawChart(for: stepsCollection.filter({ !$0.key.isToday() }))
                     weakSelf.bindTable(to: data)
                 } else {
                     weakSelf.showErrorState()
@@ -85,6 +87,27 @@ class WeekInterfaceController: WKInterfaceController
     
     private func showErrorState() {
         bindTable(to: [WeekRowData(title: NSLocalizedString("No Data", comment: ""), formattedValue: "", adornment: "")])
+        graphImage.setImage(nil)
+    }
+    
+    private func drawChart(for data: [Date : Steps]) {
+        if hasDrawnChart {
+            loadingLabel.setHidden(true)
+        } else {
+            loadingLabel.setText(NSLocalizedString("Loading...", comment: ""))
+        }
+        
+        let width: CGFloat = WKInterfaceDevice.current().screenBounds.width
+        
+        DispatchQueue.global(qos: .userInitiated).async {
+            let chartImage = ChartDrawer.drawChart(data, width: width)
+            DispatchQueue.main.async { [weak self] in
+                guard let weakSelf = self else { return }
+                weakSelf.graphImage.setImage(chartImage)
+                weakSelf.loadingLabel.setHidden(true)
+                weakSelf.hasDrawnChart = true
+            }
+        }
     }
     
     struct WeekRowData {
