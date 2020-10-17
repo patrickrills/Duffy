@@ -205,7 +205,7 @@ class HistoryTableViewController: UITableViewController {
         guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: String(describing: HistorySectionHeaderView.self)) as? HistorySectionHeaderView else { return nil }
         
         let sectionTitle: String
-        let actionTitle: String = "Options" //TODO: Japanese translation of "Options"
+        let actionTitle: String = NSLocalizedString("Options", comment: "Title of a button that changes display options of a chart")
         var action: (() -> ())?
         
         switch section {
@@ -213,7 +213,7 @@ class HistoryTableViewController: UITableViewController {
             sectionTitle = NSLocalizedString("Trend", comment: "")
             action = { [weak self] in self?.showChartOptions() }
         case 1:
-            sectionTitle = "Summary" //TODO: Japanese translation of "Summary"
+            sectionTitle = NSLocalizedString("Summary", comment: "Header of a section that summarizes aggregate data")
         case 2:
             sectionTitle = NSLocalizedString("Details", comment: "")
         default:

@@ -22,7 +22,7 @@ class HistoryTrendChartOptionsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Graph Options" //TODO: Japanese translation of Options
+        title = NSLocalizedString("Graph Options", comment: "Title of screen that allows the user to change display options of a chart/graph")
         clearsSelectionOnViewWillAppear = true
         tableView.register(HistoryTrendChartOptionTableViewCell.self, forCellReuseIdentifier: String(describing: HistoryTrendChartOptionTableViewCell.self))
     }
@@ -47,14 +47,15 @@ class HistoryTrendChartOptionsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        //TODO: Japanese translation
-        return section == 0 ? "Data" : "Indicators"
+        return section == 0
+                ? NSLocalizedString("Data", comment: "Title of section of options changing how to display your data on a chart/graph")
+                : NSLocalizedString("Indicators", comment: "Title of section of options changing which markers are shown on a chart/graph")
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
             let lineCell = UITableViewCell(style: .value1, reuseIdentifier: nil)
-            lineCell.textLabel?.text = "Lines" //TODO: Japanese translation
+            lineCell.textLabel?.text = NSLocalizedString("Lines", comment: "Option to change how the lines on a chart are drawn")
             lineCell.detailTextLabel?.text = HistoryTrendChartLineOption.currentValue().displayName()
             lineCell.accessoryType = .disclosureIndicator
             return lineCell

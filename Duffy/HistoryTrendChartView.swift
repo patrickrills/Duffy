@@ -99,8 +99,7 @@ class HistoryTrendChartView: UIView
     
     private func drawAverageLine(with plot: Plot, in rect: CGRect) {
         guard HistoryTrendChartOption.averageIndicator.isEnabled(), let averageY = plot.averageY else { return }
-        //TODO: find japanese translation of average
-        let avgText = NSAttributedString(string: "avg", attributes: [.font : UIFont.systemFont(ofSize: 12.0), .foregroundColor: Globals.averageColor()])
+        let avgText = NSAttributedString(string: NSLocalizedString("avg", comment: "1 to 3 character abbreviation of 'average'"), attributes: [.font : UIFont.systemFont(ofSize: 12.0), .foregroundColor: Globals.averageColor()])
         let avgTextOrigin = CGPoint(x: rect.width - DrawingConstants.LABEL_WIDTH - DrawingConstants.PADDING, y: averageY - (avgText.size().height / 2.0) - 1.0)
         drawDottedLine(at: averageY, in: Globals.averageColor())
         avgText.draw(at: avgTextOrigin)

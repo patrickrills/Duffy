@@ -14,16 +14,16 @@ enum HistoryTrendChartOption: String, CaseIterable {
     case goalIndicator = "goalIndicator"
     case averageIndicator = "averageIndicator"
     
-    func displayName() -> String { //TODO: Japanese translations
+    func displayName() -> String {
         switch self {
         case .actualDataLine:
-            return "Detail"
+            return NSLocalizedString("Detail", comment: "Option describing a graph line that plots every data point")
         case .trendLine:
-            return "Trend"
+            return NSLocalizedString("Trend", comment: "Option describing a graph line that shows the trend of your data but not every point")
         case .averageIndicator:
-            return "Average"
+            return NSLocalizedString("Average", comment: "Option describing whether or not to show an indicator on the graph showing where the average of data points is")
         case .goalIndicator:
-            return "Goal"
+            return NSLocalizedString("Goal", comment: "Option describing whether or not to show an indicator on the graph showing where your goal is")
         }
     }
     
@@ -40,14 +40,14 @@ enum HistoryTrendChartOption: String, CaseIterable {
 enum HistoryTrendChartLineOption: CaseIterable {
     case actual, trend, both
     
-    func displayName() -> String { //TODO: Japanese translations
+    func displayName() -> String {
         switch self {
         case .actual:
             return HistoryTrendChartOption.actualDataLine.displayName()
         case .trend:
             return HistoryTrendChartOption.trendLine.displayName()
         case .both:
-            return String(format: "%@ & %@", HistoryTrendChartLineOption.actual.displayName(), HistoryTrendChartLineOption.trend.displayName())
+            return String(format: NSLocalizedString("%@ & %@", comment: "Concatenate to options together with 'and'"), HistoryTrendChartLineOption.actual.displayName(), HistoryTrendChartLineOption.trend.displayName())
         }
     }
     
