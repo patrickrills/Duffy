@@ -27,6 +27,7 @@ class MainTableViewController: UITableViewController
         tableView.register(PreviousValueTableViewCell.self, forCellReuseIdentifier: String(describing: PreviousValueTableViewCell.self))
         tableView.register(MainSectionHeaderView.self, forHeaderFooterViewReuseIdentifier: String(describing: MainSectionHeaderView.self))
         tableView.estimatedSectionHeaderHeight = MainSectionHeaderView.estimatedHeight
+        tableView.sectionHeaderHeight = UITableView.automaticDimension
         tableView.rowHeight = PreviousValueTableViewCell.rowHeight
     }
     
