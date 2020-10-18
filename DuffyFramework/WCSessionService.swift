@@ -9,11 +9,11 @@
 import Foundation
 import WatchConnectivity
 
-@objc public protocol WCSessionServiceDelegate
+public protocol WCSessionServiceDelegate: class
 {
-    func complicationUpdateRequested(_ complicationData : [String : AnyObject])
-    @objc optional func sessionWasActivated()
-    @objc optional func sessionWasNotActivated()
+    func complicationUpdateRequested()
+    func sessionWasActivated()
+    func sessionWasNotActivated()
 }
 
 public class WCSessionService : NSObject
@@ -42,7 +42,7 @@ public class WCSessionService : NSObject
         if (WCSession.isSupported()) {
             WCSession.default.activate()
         } else {
-            delegate.sessionWasNotActivated?()
+            delegate.sessionWasNotActivated()
         }
     }
    
@@ -54,9 +54,7 @@ public class WCSessionService : NSObject
         #if os(iOS)
             sendComplicationDataToWatch(complicationData)
         #else
-            if let delegate = delegate {
-                delegate.complicationUpdateRequested(complicationData)
-            }
+            delegate?.complicationUpdateRequested()
         #endif
     }
     
@@ -144,7 +142,7 @@ public class WCSessionService : NSObject
                         if let del = delegate
                         {
                             LoggingService.log("Refreshing complication from received message", with: String(format: "%d", HealthCache.lastSteps(for: Date())))
-                            del.complicationUpdateRequested(dict)
+                            del.complicationUpdateRequested()
                         }
                         
                         if HealthCache.lastSteps(for: Date()) >= HealthCache.dailyGoal()
@@ -216,12 +214,12 @@ extension WCSessionService: WCSessionDelegate {
     
     public func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
         if activationState == .activated {
-            delegate?.sessionWasActivated?()
+            delegate?.sessionWasActivated()
         } else {
             if let e = error {
                 LoggingService.log(error: e)
             }
-            delegate?.sessionWasNotActivated?()
+            delegate?.sessionWasNotActivated()
         }
     }
     

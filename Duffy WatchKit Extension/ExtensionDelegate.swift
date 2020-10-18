@@ -11,7 +11,7 @@ import DuffyWatchFramework
 import UserNotifications
 import HealthKit
 
-class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate, UNUserNotificationCenterDelegate
+class ExtensionDelegate: NSObject, WKExtensionDelegate, UNUserNotificationCenterDelegate
 {
     var currentBackgroundTasks: [String : AnyObject] = [:]
         
@@ -32,7 +32,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
         }
         
         if (HealthCache.cacheIsForADifferentDay(than: Date())) {
-            complicationUpdateRequested([:])
+            complicationUpdateRequested()
         }
     }
     
@@ -64,12 +64,6 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
         if let c = WKExtension.shared().rootInterfaceController as? InterfaceController {
             c.unsubscribeToHealthKitUpdates()
         }
-    }
-
-    func complicationUpdateRequested(_ complicationData : [String : AnyObject])
-    {
-        ComplicationController.refreshComplication()
-        scheduleSnapshotNow()
     }
     
     func handle(_ backgroundTasks: Set<WKRefreshBackgroundTask>)
@@ -167,4 +161,21 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
     private func startHealthKitBackgroundQueries() {
         HealthKitService.getInstance().initializeBackgroundQueries()
     }
+}
+
+extension ExtensionDelegate: WCSessionServiceDelegate {
+    
+    func complicationUpdateRequested() {
+        ComplicationController.refreshComplication()
+        scheduleSnapshotNow()
+    }
+    
+    func sessionWasActivated() {
+        //Do nothing
+    }
+    
+    func sessionWasNotActivated() {
+        //Do nothing
+    }
+    
 }
