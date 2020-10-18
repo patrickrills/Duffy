@@ -16,55 +16,28 @@ import WatchConnectivity
     @objc optional func sessionWasNotActivated()
 }
 
-open class WCSessionService : NSObject, WCSessionDelegate
+public class WCSessionService : NSObject
 {
-    #if os(iOS)
-    /** Called when all delegate callbacks for the previously selected watch has occurred. The session can be re-activated for the now selected watch using activateSession. */
-    @available(iOS 9.3, *)
-    public func sessionDidDeactivate(_ session: WCSession) {
-        
-   }
+    //MARK: instance properties
     
-    /** Called when the session can no longer be used to modify or add any new transfers and, all interactive messages will be cancelled, but delegate callbacks for background transfers can still occur. This will happen when the selected watch is being changed. */
-    @available(iOS 9.3, *)
-    public func sessionDidBecomeInactive(_ session: WCSession) {
-        
-    }
-    #endif
-   
-   /** Called when the session has completed activation. If session state is WCSessionActivationStateNotActivated there will be an error with more details. */
-    @available(watchOS 2.2, *)
-    public func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
-        if activationState == .activated {
-            delegate?.sessionWasActivated?()
-        } else {
-            if let e = error {
-                LoggingService.log(error: e)
-            }
-            delegate?.sessionWasNotActivated?()
-        }
-    }
+    private static let instance: WCSessionService = WCSessionService()
+    private weak var delegate: WCSessionServiceDelegate?
     
-    fileprivate static let instance: WCSessionService = WCSessionService()
-    fileprivate var delegate: WCSessionServiceDelegate?
+    //MARK: Constructors and initialization
     
-    override init()
-    {
+    override init() {
         super.init()
         
-        if (WCSession.isSupported())
-        {
+        if (WCSession.isSupported()) {
             WCSession.default.delegate = self
         }
     }
     
-    open class func getInstance() -> WCSessionService
-    {
+    public class func getInstance() -> WCSessionService {
         return instance
     }
     
-    open func activate(with delegate: WCSessionServiceDelegate)
-    {
+    public func activate(with delegate: WCSessionServiceDelegate) {
         self.delegate = delegate
         if (WCSession.isSupported()) {
             WCSession.default.activate()
@@ -72,16 +45,8 @@ open class WCSessionService : NSObject, WCSessionDelegate
             delegate.sessionWasNotActivated?()
         }
     }
-    
-    open func transfersRemaining() -> Int {
-        #if os(iOS)
-            if (WCSession.isSupported()) {
-                return WCSession.default.remainingComplicationUserInfoTransfers
-            }
-        #endif
-        
-        return 0
-    }
+   
+    //MARK: Transfer functions
     
     public func updateWatchFaceComplication(with steps: Steps) {
         let complicationData = ["stepsdataresponse" : steps as AnyObject]
@@ -95,123 +60,79 @@ open class WCSessionService : NSObject, WCSessionDelegate
         #endif
     }
     
-    private func sendComplicationDataToWatch(_ complicationData : [String : AnyObject])
-    {
+    private func sendComplicationDataToWatch(_ complicationData : [String : AnyObject]) {
         #if os(iOS)
-            if (WCSession.isSupported())
-            {
-                if WCSession.default.activationState == .activated
-                {
-                    if WCSession.default.isComplicationEnabled {
-                        WCSession.default.transferCurrentComplicationUserInfo(complicationData)
-                        let remaining = WCSession.default.remainingComplicationUserInfoTransfers
-                        LoggingService.log("Requested to send data to watch, remaining transfers", with: remaining.description)
-                    } else {
-                        LoggingService.log("Complication NOT enabled", at: .debug)
-                    }
-                }
-                else
-                {
-                    LoggingService.log("WCSession NOT activated", at: .debug)
-                }
+            guard WCSession.isSupported(),
+                  WCSession.default.activationState == .activated
+            else {
+                LoggingService.log("WCSession NOT activated", at: .debug)
+                return
+            }
+        
+            if WCSession.default.isComplicationEnabled {
+                WCSession.default.transferCurrentComplicationUserInfo(complicationData)
+                LoggingService.log("Requested to send data to watch, remaining transfers", with: transfersRemaining().description)
+            } else {
+                LoggingService.log("Complication NOT enabled", at: .debug)
             }
         #endif
     }
     
-    open func notifyOtherDeviceOfGoalNotificaton()
-    {
-        if WCSession.isSupported()
-        {
-            if WCSession.default.activationState == .activated
-            {
-                WCSession.default.sendMessage(["goalNotificationSent" : NotificationService.convertDayToKey(Date()) as AnyObject], replyHandler: nil, errorHandler: nil)
-            }
+    public func notifyOtherDeviceOfGoalNotificaton() {
+        guard WCSession.isSupported(),
+              WCSession.default.activationState == .activated
+        else {
+            return
         }
+        
+        WCSession.default.sendMessage(["goalNotificationSent" : NotificationService.convertDayToKey(Date()) as AnyObject], replyHandler: nil, errorHandler: nil)
     }
     
-    open func sendStepsGoal(goal: Steps)
-    {
-        if WCSession.isSupported()
-        {
-            if WCSession.default.activationState == .activated
-            {
-                WCSession.default.sendMessage(["stepsGoal" : goal], replyHandler: nil, errorHandler: {
-                    (err: Error?) in
-                    if let e = err
-                    {
-                        print("send error:" + e.localizedDescription)
-                    }
-                })
-            }
+    public func sendStepsGoal(goal: Steps) {
+        guard WCSession.isSupported(),
+              WCSession.default.activationState == .activated
+        else {
+            return
         }
+        
+        WCSession.default.sendMessage(["stepsGoal" : goal], replyHandler: nil, errorHandler: { (err: Error?) in
+            if let e = err {
+                LoggingService.log(error: e)
+            }
+        })
     }
     
-    open func sendDebugLog(_ log: [DebugLogEntry], onCompletion: @escaping (Bool)->(Void)) {
+    public func sendDebugLog(_ log: [DebugLogEntry], onCompletion: @escaping (Bool) -> ()) {
         let serializedLog = log.map({ $0.serialize() })
-        WCSessionService.getInstance().send(message: "watchDebugLog", payload: serializedLog, onCompletion: {
-            (success) in
+        send(message: "watchDebugLog", payload: serializedLog, onCompletion: { success in
             onCompletion(success)
         })
     }
     
-    open func send(message name: String, payload: Any, onCompletion: @escaping (Bool) -> (Void)) {
-        if WCSession.isSupported()
-        {
-            if WCSession.default.activationState == .activated
-            {
-                WCSession.default.sendMessage([name : payload],
-                                              replyHandler: { (_) in
-                                                onCompletion(true)
-                                              },
-                                              errorHandler: { (err: Error?) in
-                                                if let e = err {
-                                                    LoggingService.log(error: e)
-                                                }
-                                                onCompletion(false)
-                })
-            }
+    public func toggleDebugMode(_ isOn: Bool) {
+        send(message: "debugMode", payload: (isOn ? 1 : 0), onCompletion: { _ in })
+    }
+    
+    private func send(message name: String, payload: Any, onCompletion: @escaping (Bool) -> ()) {
+        guard WCSession.isSupported(),
+              WCSession.default.activationState == .activated
+        else {
+            return
         }
-    }
-    
-    open func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Void) {
-        handle(message: message)
-        replyHandler(["received" : Int(1)])
-    }
-    
-    open func session(_ session: WCSession, didReceiveMessage message: [String : Any])
-    {
-        handle(message: message)
-    }
-    
-    open func session(_ session: WCSession, didReceiveUserInfo userInfo: [String : Any])
-    {
-        LoggingService.log("Message received didReceiveUserInfo")
-        #if os(watchOS)
-            updateSteps()
-        #endif
-        handle(message: userInfo)
-    }
-
-    open func session(_ session: WCSession, didFinish userInfoTransfer: WCSessionUserInfoTransfer, error: Error?) {
-        var dataTransferred = "?"
         
-        #if os(iOS)
-            if userInfoTransfer.isCurrentComplicationInfo,
-                let stepsDict = userInfoTransfer.userInfo["stepsdataresponse"] as? [String : Any],
-                let steps = stepsDict["stepsCacheValue"] as? Int {
-                
-                dataTransferred = "\(steps)"
-            }
-        #endif
-        
-        if let error = error {
-            LoggingService.log("WCSession transfer userInfo FAILED", with: error.localizedDescription)
-        } else {
-            LoggingService.log("WCSession transferred userInfo", with: dataTransferred)
-        }
+        WCSession.default.sendMessage([name : payload],
+                                      replyHandler: { _ in
+                                        onCompletion(true)
+                                      },
+                                      errorHandler: { err in
+                                        LoggingService.log(error: err)
+                                        onCompletion(false)
+        })
     }
     
-    fileprivate func handle(message: [String : Any]) {
+    //MARK: Message parsing
+    
+    private func handle(message: [String : Any]) {
         for (key, value) in message
         {
             if (key == "stepsdataresponse")
@@ -260,7 +181,7 @@ open class WCSessionService : NSObject, WCSessionDelegate
         }
     }
     
-    fileprivate func updateSteps() {
+    private func updateSteps() {
         if CoreMotionService.getInstance().isEnabled() {
             CoreMotionService.getInstance().updateStepsForToday(from: "didReceiveUserInfo", completion: { LoggingService.log("Successfully refreshed steps on didReceiveUserInfo", at: .debug) })
         } else {
@@ -274,4 +195,79 @@ open class WCSessionService : NSObject, WCSessionDelegate
             }
         }
     }
+    
+    //MARK: Diagnostics
+    
+    public func transfersRemaining() -> Int {
+        #if os(iOS)
+            if (WCSession.isSupported()) {
+                return WCSession.default.remainingComplicationUserInfoTransfers
+            }
+        #endif
+        
+        return 0
+    }
+}
+
+
+extension WCSessionService: WCSessionDelegate {
+    
+    //MARK: WCSessionDelegate conformance
+    
+    public func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+        if activationState == .activated {
+            delegate?.sessionWasActivated?()
+        } else {
+            if let e = error {
+                LoggingService.log(error: e)
+            }
+            delegate?.sessionWasNotActivated?()
+        }
+    }
+    
+    public func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Void) {
+        handle(message: message)
+        replyHandler(["received" : Int(1)])
+    }
+    
+    public func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
+        handle(message: message)
+    }
+    
+    public func session(_ session: WCSession, didReceiveUserInfo userInfo: [String : Any]) {
+        LoggingService.log("Message received didReceiveUserInfo")
+        #if os(watchOS)
+            updateSteps()
+        #endif
+        handle(message: userInfo)
+    }
+
+    public func session(_ session: WCSession, didFinish userInfoTransfer: WCSessionUserInfoTransfer, error: Error?) {
+        var dataTransferred = "?"
+        
+        #if os(iOS)
+            if userInfoTransfer.isCurrentComplicationInfo,
+                let stepsDict = userInfoTransfer.userInfo["stepsdataresponse"] as? [String : Any],
+                let steps = stepsDict["stepsCacheValue"] as? Int {
+                
+                dataTransferred = "\(steps)"
+            }
+        #endif
+        
+        if let error = error {
+            LoggingService.log("WCSession transfer userInfo FAILED", with: error.localizedDescription)
+        } else {
+            LoggingService.log("WCSession transferred userInfo", with: dataTransferred)
+        }
+    }
+    
+    #if os(iOS)
+        public func sessionDidDeactivate(_ session: WCSession) {
+            //Do nothing - protocol conformance
+        }
+        
+        public func sessionDidBecomeInactive(_ session: WCSession) {
+            //Do nothing - protocol conformance
+        }
+    #endif
 }
