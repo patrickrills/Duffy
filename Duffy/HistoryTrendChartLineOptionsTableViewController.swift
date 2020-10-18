@@ -15,7 +15,7 @@ class HistoryTrendChartLineOptionsTableViewController: UITableViewController {
     init() {
         super.init(style: .grouped)
         
-        title = "Show Lines" //TODO: Translate to Japanese
+        title = NSLocalizedString("Show Lines", comment: "Title of a screen where user selects which lines are shown on a graph")
         
         if #available(iOS 13.0, *) {
             navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "checkmark.circle"), style: .plain, target: self, action: #selector(navigateBack))
