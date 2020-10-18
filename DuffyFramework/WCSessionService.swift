@@ -48,17 +48,15 @@ public class WCSessionService : NSObject
    
     //MARK: Transfer functions
     
-    public func updateWatchFaceComplication(with steps: Steps) {
-        let complicationData = ["stepsdataresponse" : steps as AnyObject]
-        
+    public func updateWatchFaceComplication(with steps: Steps, for day: Date) {
         #if os(iOS)
-            sendComplicationDataToWatch(complicationData)
+            sendComplicationDataToWatch(steps, day: day)
         #else
             delegate?.complicationUpdateRequested()
         #endif
     }
     
-    private func sendComplicationDataToWatch(_ complicationData : [String : AnyObject]) {
+    private func sendComplicationDataToWatch(_ steps: Steps, day: Date) {
         #if os(iOS)
             guard WCSession.isSupported(),
                   WCSession.default.activationState == .activated
@@ -68,6 +66,7 @@ public class WCSessionService : NSObject
             }
         
             if WCSession.default.isComplicationEnabled {
+                let complicationData = ["stepsdataresponse" : ["steps" : steps, "day" : day.timeIntervalSinceReferenceDate ]]
                 WCSession.default.transferCurrentComplicationUserInfo(complicationData)
                 LoggingService.log("Requested to send data to watch, remaining transfers", with: transfersRemaining().description)
             } else {
@@ -135,20 +134,15 @@ public class WCSessionService : NSObject
         {
             if (key == "stepsdataresponse")
             {
-                if let dict = value as? [String: AnyObject]
+                if let dict = value as? [String: Any]
                 {
-                    if (HealthCache.saveStepsDataToCache(dict))
+                    if let stepsValue = dict["steps"] as? Steps,
+                       let dayInterval = dict["day"] as? TimeInterval,
+                       case let day = Date(timeIntervalSinceReferenceDate: dayInterval),
+                       day.isToday()
                     {
-                        if let del = delegate
-                        {
-                            LoggingService.log("Refreshing complication from received message", with: String(format: "%d", HealthCache.lastSteps(for: Date())))
-                            del.complicationUpdateRequested()
-                        }
-                        
-                        if HealthCache.lastSteps(for: Date()) >= HealthCache.dailyGoal()
-                        {
-                            NotificationService.sendDailyStepsGoalNotification()
-                        }
+                        LoggingService.log("Refreshing complication from received message", with: String(format: "%d", stepsValue))
+                        StepsProcessingService.handleSteps(stepsValue, for: day, from: "didReceiveUserInfo")
                     }
                 }
             }

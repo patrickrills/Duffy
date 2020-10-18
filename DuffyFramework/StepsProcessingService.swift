@@ -13,7 +13,7 @@ internal class StepsProcessingService {
     class func handleSteps(_ stepCount: Steps, for day: Date, from source: String) {
         if HealthCache.saveStepsToCache(stepCount, for: day) {
             LoggingService.log(String(format: "updateWatchFaceComplication from %@", source), with: String(format: "%d", stepCount))
-            WCSessionService.getInstance().updateWatchFaceComplication(with: stepCount)
+            WCSessionService.getInstance().updateWatchFaceComplication(with: stepCount, for: day)
         }
         
         if stepCount >= HealthCache.dailyGoal(), day.isToday() {
