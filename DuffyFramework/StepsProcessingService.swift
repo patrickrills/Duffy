@@ -8,7 +8,7 @@
 
 import Foundation
 
-internal class StepsProcessingService {
+public class StepsProcessingService {
     
     class func handleSteps(_ stepCount: Steps, for day: Date, from source: String) {
         if HealthCache.saveStepsToCache(stepCount, for: day) {
@@ -22,4 +22,25 @@ internal class StepsProcessingService {
         }
     }
     
+    public class func triggerUpdate(from source: String, completion: @escaping () -> ()) {
+        var isWatch = true
+        #if os(iOS)
+            isWatch = false
+        #endif
+        
+        if CoreMotionService.getInstance().isEnabled() && isWatch {
+            CoreMotionService.getInstance().updateStepsForToday(from: source, completion: { completion() })
+        } else {
+            HealthKitService.getInstance().getSteps(for: Date()) { result in
+                switch result {
+                case .success(_):
+                    LoggingService.log(String(format: "Successfully refreshed HK steps on %@", source), at: .debug)
+                case .failure(let error):
+                    LoggingService.log(error: error)
+                }
+                
+                completion()
+            }
+        }
+    }
 }

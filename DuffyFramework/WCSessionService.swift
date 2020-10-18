@@ -173,21 +173,6 @@ public class WCSessionService : NSObject
         }
     }
     
-    private func updateSteps() {
-        if CoreMotionService.getInstance().isEnabled() {
-            CoreMotionService.getInstance().updateStepsForToday(from: "didReceiveUserInfo", completion: { LoggingService.log("Successfully refreshed steps on didReceiveUserInfo", at: .debug) })
-        } else {
-            HealthKitService.getInstance().getSteps(for: Date()) { result in
-                switch result {
-                case .success(_):
-                    LoggingService.log("Successfully refreshed HK steps on didReceiveUserInfo", at: .debug)
-                case .failure(let error):
-                    LoggingService.log(error: error)
-                }
-            }
-        }
-    }
-    
     //MARK: Diagnostics
     
     public func transfersRemaining() -> Int {
@@ -229,7 +214,7 @@ extension WCSessionService: WCSessionDelegate {
     public func session(_ session: WCSession, didReceiveUserInfo userInfo: [String : Any]) {
         LoggingService.log("Message received didReceiveUserInfo")
         #if os(watchOS)
-            updateSteps()
+            StepsProcessingService.triggerUpdate(from: "didReceiveUserInfo") { }
         #endif
         handle(message: userInfo)
     }
