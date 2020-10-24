@@ -220,21 +220,10 @@ extension WCSessionService: WCSessionDelegate {
     }
 
     public func session(_ session: WCSession, didFinish userInfoTransfer: WCSessionUserInfoTransfer, error: Error?) {
-        var dataTransferred = "?"
-        
-        #if os(iOS)
-            if userInfoTransfer.isCurrentComplicationInfo,
-                let stepsDict = userInfoTransfer.userInfo["stepsdataresponse"] as? [String : Any],
-                let steps = stepsDict["stepsCacheValue"] as? Int {
-                
-                dataTransferred = "\(steps)"
-            }
-        #endif
-        
         if let error = error {
             LoggingService.log("WCSession transfer userInfo FAILED", with: error.localizedDescription)
         } else {
-            LoggingService.log("WCSession transferred userInfo", with: dataTransferred)
+            LoggingService.log("WCSession transferred userInfo", with: userInfoTransfer.userInfo.keys.joined(separator: ", "))
         }
     }
     
