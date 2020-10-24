@@ -28,7 +28,7 @@ public class WCSessionService : NSObject
     override init() {
         super.init()
         
-        if (WCSession.isSupported()) {
+        if WCSession.isSupported() {
             WCSession.default.delegate = self
         }
     }
@@ -39,7 +39,7 @@ public class WCSessionService : NSObject
     
     public func activate(with delegate: WCSessionServiceDelegate) {
         self.delegate = delegate
-        if (WCSession.isSupported()) {
+        if WCSession.isSupported() {
             WCSession.default.activate()
         } else {
             delegate.sessionWasNotActivated()
