@@ -66,8 +66,8 @@ public class WCSessionService : NSObject
             }
         
             if WCSession.default.isComplicationEnabled {
-                let complicationData = ["stepsdataresponse" : ["steps" : steps, "day" : day.timeIntervalSinceReferenceDate ]]
-                WCSession.default.transferCurrentComplicationUserInfo(complicationData)
+                let complicationData = WCSessionMessage.complicationUpdate(steps: steps, day: day)
+                WCSession.default.transferCurrentComplicationUserInfo(complicationData.message())
                 LoggingService.log("Requested to send data to watch, remaining transfers", with: transfersRemaining().description)
             } else {
                 LoggingService.log("Complication NOT enabled", at: .debug)
@@ -76,100 +76,64 @@ public class WCSessionService : NSObject
     }
     
     public func notifyOtherDeviceOfGoalNotificaton() {
-        guard WCSession.isSupported(),
-              WCSession.default.activationState == .activated
-        else {
-            return
-        }
-        
-        WCSession.default.sendMessage(["goalNotificationSent" : NotificationService.convertDayToKey(Date()) as AnyObject], replyHandler: nil, errorHandler: nil)
+        send(message: WCSessionMessage.goalNotificationSent(dayKey: NotificationService.convertDayToKey(Date())).message(), completionHandler: nil)
     }
     
     public func sendStepsGoal(goal: Steps) {
-        guard WCSession.isSupported(),
-              WCSession.default.activationState == .activated
-        else {
-            return
-        }
-        
-        WCSession.default.sendMessage(["stepsGoal" : goal], replyHandler: nil, errorHandler: { (err: Error?) in
-            if let e = err {
-                LoggingService.log(error: e)
-            }
-        })
+        send(message: WCSessionMessage.goalUpdate(goal: goal).message(), completionHandler: nil)
     }
     
     public func sendDebugLog(_ log: [DebugLogEntry], onCompletion: @escaping (Bool) -> ()) {
-        let serializedLog = log.map({ $0.serialize() })
-        send(message: "watchDebugLog", payload: serializedLog, onCompletion: { success in
-            onCompletion(success)
-        })
+        send(message: WCSessionMessage.debugLog(entries: log).message(), completionHandler: onCompletion)
     }
     
     public func toggleDebugMode(_ isOn: Bool) {
-        send(message: "debugMode", payload: (isOn ? 1 : 0), onCompletion: { _ in })
+        send(message: WCSessionMessage.debugMode(isOn: isOn).message(), completionHandler: nil)
     }
     
-    private func send(message name: String, payload: Any, onCompletion: @escaping (Bool) -> ()) {
+    private func send(message: [String : Any], completionHandler: ((Bool) -> ())?) {
         guard WCSession.isSupported(),
               WCSession.default.activationState == .activated
         else {
             return
         }
         
-        WCSession.default.sendMessage([name : payload],
+        WCSession.default.sendMessage(message,
                                       replyHandler: { _ in
-                                        onCompletion(true)
+                                        completionHandler?(true)
                                       },
                                       errorHandler: { err in
                                         LoggingService.log(error: err)
-                                        onCompletion(false)
+                                        completionHandler?(false)
         })
     }
     
     //MARK: Message parsing
     
     private func handle(message: [String : Any]) {
-        for (key, value) in message
-        {
-            if (key == "stepsdataresponse")
-            {
-                if let dict = value as? [String: Any]
-                {
-                    if let stepsValue = dict["steps"] as? Steps,
-                       let dayInterval = dict["day"] as? TimeInterval,
-                       case let day = Date(timeIntervalSinceReferenceDate: dayInterval),
-                       day.isToday()
-                    {
-                        LoggingService.log("Refreshing complication from received message", with: String(format: "%d", stepsValue))
-                        StepsProcessingService.handleSteps(stepsValue, for: day, from: "didReceiveUserInfo")
-                    }
-                }
-            }
-            else if (key == "stepsGoal")
-            {
-                if let goalVal = value as? Steps
-                {
-                    HealthCache.saveDailyGoal(goalVal)
-                }
-            }
-            else if (key == "goalNotificationSent")
-            {
-                if let dayKey = value as? String
-                {
-                    NotificationService.markNotificationSentByOtherDevice(forKey: dayKey)
-                }
-            }
-            else if (key == "watchDebugLog")
-            {
-                if let log = value as? [[String : Any]] {
-                    LoggingService.mergeLog(newEntries: log.map({ DebugLogEntry(deseralized: $0) }))
-                }
-            }
-            else if (key == "debugMode")
-            {
-                DebugService.toggleDebugMode()
-            }
+        guard let wcMessage = WCSessionMessage(rawMessage: message) else { return }
+        
+        switch wcMessage {
+        
+        case .complicationUpdate(let steps, let day) where day.isToday():
+            LoggingService.log("Refreshing complication from received message", with: String(format: "%d", steps))
+            StepsProcessingService.handleSteps(steps, for: day, from: "didReceiveUserInfo")
+            
+        case .goalUpdate(let goal):
+            HealthCache.saveDailyGoal(goal)
+        
+        case .debugLog(let entries):
+            LoggingService.mergeLog(newEntries: entries)
+            
+        case .debugMode(_):
+            DebugService.toggleDebugMode()
+            
+        case .goalNotificationSent(let dayKey):
+            NotificationService.markNotificationSentByOtherDevice(forKey: dayKey)
+        
+        default:
+            return
+            
         }
     }
     
