@@ -140,7 +140,7 @@ public class WCSessionService : NSObject
             DebugService.toggleDebugMode()
             
         case .goalNotificationSent(let dayKey):
-            NotificationService.markNotificationSentByOtherDevice(forKey: dayKey)
+            NotificationService.markNotificationSentByOtherDevice(for: dayKey)
             
         case .goalTrigger(let day) where day.isToday() && isWatch:
             NotificationService.sendDailyStepsGoalNotification()

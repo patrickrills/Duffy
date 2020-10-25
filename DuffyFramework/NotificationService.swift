@@ -9,10 +9,9 @@
 import Foundation
 import UserNotifications
 
-open class NotificationService
+public class NotificationService
 {
-    open class func sendDailyStepsGoalNotification()
-    {
+    public class func sendDailyStepsGoalNotification() {
         #if os(iOS)
             WCSessionService.getInstance().triggerGoalNotificationOnWatch(day: Date())
             LoggingService.log("Send goal trigger to watch")
@@ -41,50 +40,42 @@ open class NotificationService
         #endif
     }
     
-    open class func maybeAskForNotificationPermission(_ delegate : UNUserNotificationCenterDelegate?)
-    {
-
+    public class func maybeAskForNotificationPermission(_ delegate : UNUserNotificationCenterDelegate?) {
         let center = UNUserNotificationCenter.current()
         center.delegate = delegate
-        center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in }
+        center.requestAuthorization(options: [.alert, .sound]) { _, _ in }
     }
     
-    open class func dailyStepsGoalNotificationWasAlreadySent() -> Bool
-    {
-        if let lastSent = UserDefaults.standard.object(forKey: "lastGoalNotificationSent") as? String
+    private static let CACHE_KEY = "lastGoalNotificationSent"
+    
+    public class func dailyStepsGoalNotificationWasAlreadySent() -> Bool {
+        if let lastSent = UserDefaults.standard.object(forKey: CACHE_KEY) as? String,
+           lastSent == convertDayToKey(Date())
         {
-            if lastSent == convertDayToKey(Date())
-            {
-                return true
-            }
+            return true
         }
         
-        return false;
+        return false
     }
     
-    fileprivate class func setDailyStepsGoalNotificationSent()
-    {
+    private class func setDailyStepsGoalNotificationSent() {
         cacheLastDaySent()
         WCSessionService.getInstance().notifyOtherDeviceOfGoalNotificaton()
     }
     
-    fileprivate class func cacheLastDaySent()
-    {
-        UserDefaults.standard.set(convertDayToKey(Date()), forKey: "lastGoalNotificationSent")
+    private class func cacheLastDaySent() {
+        UserDefaults.standard.set(convertDayToKey(Date()), forKey: CACHE_KEY)
         UserDefaults.standard.synchronize()
     }
     
-    open class func convertDayToKey(_ day: Date) -> String
-    {
+    public class func convertDayToKey(_ day: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy_MM_dd"
         return dateFormatter.string(from: day)
     }
     
-    open class func markNotificationSentByOtherDevice(forKey: String)
-    {
-        if (forKey == convertDayToKey(Date()))
-        {
+    public class func markNotificationSentByOtherDevice(for key: String) {
+        if key == convertDayToKey(Date()) {
             cacheLastDaySent()
         }
     }
