@@ -14,6 +14,7 @@ enum WCSessionMessage {
     case debugLog(entries: [DebugLogEntry])
     case debugMode(isOn: Bool)
     case goalNotificationSent(dayKey: String)
+    case goalTrigger(day: Date)
     
     init?(rawMessage: [String : Any]) {
         guard let messageKey = rawMessage.keys.first else { return nil }
@@ -60,6 +61,13 @@ enum WCSessionMessage {
                 fallthrough
             }
             
+        case WCSessionMessageKeys.goalTrigger.rawValue:
+            if let dayInterval = rawMessage[messageKey] as? TimeInterval {
+                self = .goalTrigger(day: Date(timeIntervalSinceReferenceDate: dayInterval))
+            } else {
+                fallthrough
+            }
+            
         default:
             return nil
         }
@@ -78,6 +86,8 @@ enum WCSessionMessage {
             return [WCSessionMessageKeys.debugMode.rawValue : isOn ? 1 : 0]
         case .goalNotificationSent(let dayKey):
             return [WCSessionMessageKeys.goalNotificationSent.rawValue : dayKey]
+        case .goalTrigger(let day):
+            return [WCSessionMessageKeys.goalTrigger.rawValue : day.timeIntervalSinceReferenceDate]
         }
     }
 }
@@ -88,4 +98,5 @@ fileprivate enum WCSessionMessageKeys: String {
     case debugLog = "watchDebugLog"
     case debugMode = "debugMode"
     case goalNotificationSent = "goalNotificationSent"
+    case goalTrigger = "goalTrigger"
 }

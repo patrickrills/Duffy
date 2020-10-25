@@ -83,6 +83,12 @@ public class WCSessionService : NSObject
         send(message: WCSessionMessage.goalUpdate(goal: goal).message(), completionHandler: nil)
     }
     
+    public func triggerGoalNotificationOnWatch(day: Date) {
+        #if os(iOS)
+            send(message: WCSessionMessage.goalTrigger(day: day).message(), completionHandler: nil)
+        #endif
+    }
+    
     public func sendDebugLog(_ log: [DebugLogEntry], onCompletion: @escaping (Bool) -> ()) {
         send(message: WCSessionMessage.debugLog(entries: log).message(), completionHandler: onCompletion)
     }
@@ -113,6 +119,11 @@ public class WCSessionService : NSObject
     private func handle(message: [String : Any]) {
         guard let wcMessage = WCSessionMessage(rawMessage: message) else { return }
         
+        var isWatch = true
+        #if os(iOS)
+            isWatch = false
+        #endif
+        
         switch wcMessage {
         
         case .complicationUpdate(let steps, let day) where day.isToday():
@@ -130,6 +141,9 @@ public class WCSessionService : NSObject
             
         case .goalNotificationSent(let dayKey):
             NotificationService.markNotificationSentByOtherDevice(forKey: dayKey)
+            
+        case .goalTrigger(let day) where day.isToday() && isWatch:
+            NotificationService.sendDailyStepsGoalNotification()
         
         default:
             return

@@ -14,7 +14,8 @@ open class NotificationService
     open class func sendDailyStepsGoalNotification()
     {
         #if os(iOS)
-            return
+            WCSessionService.getInstance().triggerGoalNotificationOnWatch(day: Date())
+            LoggingService.log("Send goal trigger to watch")
         #else
             if (dailyStepsGoalNotificationWasAlreadySent()) {
                 return
