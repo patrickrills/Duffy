@@ -76,35 +76,35 @@ public class WCSessionService : NSObject
     }
     
     public func notifyOtherDeviceOfGoalNotificaton() {
-        send(message: WCSessionMessage.goalNotificationSent(dayKey: NotificationService.convertDayToKey(Date())).message(), completionHandler: nil)
+        send(message: WCSessionMessage.goalNotificationSent(dayKey: NotificationService.convertDayToKey(Date())), completionHandler: nil)
     }
     
     public func sendStepsGoal(goal: Steps) {
-        send(message: WCSessionMessage.goalUpdate(goal: goal).message(), completionHandler: nil)
+        send(message: WCSessionMessage.goalUpdate(goal: goal), completionHandler: nil)
     }
     
     public func triggerGoalNotificationOnWatch(day: Date) {
         #if os(iOS)
-            send(message: WCSessionMessage.goalTrigger(day: day).message(), completionHandler: nil)
+            send(message: WCSessionMessage.goalTrigger(day: day), completionHandler: nil)
         #endif
     }
     
     public func sendDebugLog(_ log: [DebugLogEntry], onCompletion: @escaping (Bool) -> ()) {
-        send(message: WCSessionMessage.debugLog(entries: log).message(), completionHandler: onCompletion)
+        send(message: WCSessionMessage.debugLog(entries: log), completionHandler: onCompletion)
     }
     
     public func toggleDebugMode(_ isOn: Bool) {
-        send(message: WCSessionMessage.debugMode(isOn: isOn).message(), completionHandler: nil)
+        send(message: WCSessionMessage.debugMode(isOn: isOn), completionHandler: nil)
     }
     
-    private func send(message: [String : Any], completionHandler: ((Bool) -> ())?) {
+    private func send(message: WCSessionMessage, completionHandler: ((Bool) -> ())?) {
         guard WCSession.isSupported(),
               WCSession.default.activationState == .activated
         else {
             return
         }
         
-        WCSession.default.sendMessage(message,
+        WCSession.default.sendMessage(message.message(),
                                       replyHandler: { _ in
                                         completionHandler?(true)
                                       },
