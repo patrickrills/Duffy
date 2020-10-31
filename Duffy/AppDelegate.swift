@@ -128,18 +128,8 @@ extension AppDelegate {
         
         scheduleTask()
         
-        //TODO: StepsProcessingService?
-        HealthKitService.getInstance().getSteps(for: Date()) { result in
-            var success: Bool
-            switch result {
-            case .success(let stepsResult):
-                success = true
-                LoggingService.log("Got steps from BGAppRefreshTask", with: "\(stepsResult.steps)")
-            case .failure(let error):
-                success = false
-                LoggingService.log(error: error)
-            }
-            task.setTaskCompleted(success: success)
+        StepsProcessingService.triggerUpdate(from: "BGAppRefreshTask") {
+            task.setTaskCompleted(success: true)
         }
     }
     
@@ -150,6 +140,7 @@ extension AppDelegate {
             
             do {
                 try BGTaskScheduler.shared.submit(request)
+                LoggingService.log("BG Task Scheduled", with: "\(request.earliestBeginDate ?? Date())")
             } catch {
                 LoggingService.log(error: error)
             }
