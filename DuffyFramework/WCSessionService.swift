@@ -9,71 +9,151 @@
 import Foundation
 import WatchConnectivity
 
-@objc public protocol WCSessionServiceDelegate
+public protocol WCSessionServiceDelegate: class
 {
-    func complicationUpdateRequested(_ complicationData : [String : AnyObject])
-    @objc optional func sessionWasActivated()
-    @objc optional func sessionWasNotActivated()
+    func complicationUpdateRequested()
+    func sessionWasActivated()
+    func sessionWasNotActivated()
 }
 
-open class WCSessionService : NSObject, WCSessionDelegate
+public class WCSessionService : NSObject
 {
-    #if os(iOS)
-    /** Called when all delegate callbacks for the previously selected watch has occurred. The session can be re-activated for the now selected watch using activateSession. */
-    @available(iOS 9.3, *)
-    public func sessionDidDeactivate(_ session: WCSession) {
-        
-   }
+    //MARK: instance properties
     
-    /** Called when the session can no longer be used to modify or add any new transfers and, all interactive messages will be cancelled, but delegate callbacks for background transfers can still occur. This will happen when the selected watch is being changed. */
-    @available(iOS 9.3, *)
-    public func sessionDidBecomeInactive(_ session: WCSession) {
-        
-    }
-    #endif
-   
-   /** Called when the session has completed activation. If session state is WCSessionActivationStateNotActivated there will be an error with more details. */
-    @available(watchOS 2.2, *)
-    public func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
-        if activationState == .activated {
-            delegate?.sessionWasActivated?()
-        } else {
-            if let e = error {
-                LoggingService.log(error: e)
-            }
-            delegate?.sessionWasNotActivated?()
-        }
-    }
+    private static let instance: WCSessionService = WCSessionService()
+    private weak var delegate: WCSessionServiceDelegate?
     
-    fileprivate static let instance: WCSessionService = WCSessionService()
-    fileprivate var delegate: WCSessionServiceDelegate?
+    //MARK: Constructors and initialization
     
-    override init()
-    {
+    override init() {
         super.init()
         
-        if (WCSession.isSupported())
-        {
+        if WCSession.isSupported() {
             WCSession.default.delegate = self
         }
     }
     
-    open class func getInstance() -> WCSessionService
-    {
+    public class func getInstance() -> WCSessionService {
         return instance
     }
     
-    open func activate(with delegate: WCSessionServiceDelegate)
-    {
+    public func activate(with delegate: WCSessionServiceDelegate) {
         self.delegate = delegate
-        if (WCSession.isSupported()) {
+        if WCSession.isSupported() {
             WCSession.default.activate()
         } else {
-            delegate.sessionWasNotActivated?()
+            delegate.sessionWasNotActivated()
+        }
+    }
+   
+    //MARK: Transfer functions
+    
+    public func updateWatchFaceComplication(with steps: Steps, for day: Date) {
+        #if os(iOS)
+            sendComplicationDataToWatch(steps, day: day)
+        #else
+            delegate?.complicationUpdateRequested()
+        #endif
+    }
+    
+    private func sendComplicationDataToWatch(_ steps: Steps, day: Date) {
+        #if os(iOS)
+            guard WCSession.isSupported(),
+                  WCSession.default.activationState == .activated
+            else {
+                LoggingService.log("WCSession NOT activated", at: .debug)
+                return
+            }
+        
+            if WCSession.default.isComplicationEnabled {
+                let complicationData = WCSessionMessage.complicationUpdate(steps: steps, day: day)
+                WCSession.default.transferCurrentComplicationUserInfo(complicationData.message())
+                LoggingService.log("Requested to send data to watch, remaining transfers", with: transfersRemaining().description)
+            } else {
+                LoggingService.log("Complication NOT enabled", at: .debug)
+            }
+        #endif
+    }
+    
+    public func notifyOtherDeviceOfGoalNotificaton() {
+        send(message: WCSessionMessage.goalNotificationSent(dayKey: NotificationService.convertDayToKey(Date())), completionHandler: nil)
+    }
+    
+    public func sendStepsGoal(goal: Steps) {
+        send(message: WCSessionMessage.goalUpdate(goal: goal), completionHandler: nil)
+    }
+    
+    public func triggerGoalNotificationOnWatch(day: Date) {
+        #if os(iOS)
+            send(message: WCSessionMessage.goalTrigger(day: day), completionHandler: nil)
+        #endif
+    }
+    
+    public func sendDebugLog(_ log: [DebugLogEntry], onCompletion: @escaping (Bool) -> ()) {
+        send(message: WCSessionMessage.debugLog(entries: log), completionHandler: onCompletion)
+    }
+    
+    public func toggleDebugMode(_ isOn: Bool) {
+        send(message: WCSessionMessage.debugMode(isOn: isOn), completionHandler: nil)
+    }
+    
+    private func send(message: WCSessionMessage, completionHandler: ((Bool) -> ())?) {
+        guard WCSession.isSupported(),
+              WCSession.default.activationState == .activated
+        else {
+            return
+        }
+        
+        WCSession.default.sendMessage(message.message(),
+                                      replyHandler: { _ in
+                                        completionHandler?(true)
+                                      },
+                                      errorHandler: { err in
+                                        LoggingService.log(error: err)
+                                        completionHandler?(false)
+        })
+    }
+    
+    //MARK: Message parsing
+    
+    private func handle(message: [String : Any]) {
+        guard let wcMessage = WCSessionMessage(rawMessage: message) else { return }
+        
+        var isWatch = true
+        #if os(iOS)
+            isWatch = false
+        #endif
+        
+        switch wcMessage {
+        
+        case .complicationUpdate(let steps, let day) where day.isToday():
+            LoggingService.log("Refreshing complication from received message", with: String(format: "%d", steps))
+            StepsProcessingService.handleSteps(steps, for: day, from: "didReceiveUserInfo")
+            
+        case .goalUpdate(let goal):
+            HealthCache.saveDailyGoal(goal)
+        
+        case .debugLog(let entries):
+            LoggingService.mergeLog(newEntries: entries)
+            
+        case .debugMode(_):
+            DebugService.toggleDebugMode()
+            
+        case .goalNotificationSent(let dayKey):
+            NotificationService.markNotificationSentByOtherDevice(for: dayKey)
+            
+        case .goalTrigger(let day) where day.isToday() && isWatch:
+            NotificationService.sendDailyStepsGoalNotification()
+        
+        default:
+            return
+            
         }
     }
     
-    open func transfersRemaining() -> Int {
+    //MARK: Diagnostics
+    
+    public func transfersRemaining() -> Int {
         #if os(iOS)
             if (WCSession.isSupported()) {
                 return WCSession.default.remainingComplicationUserInfoTransfers
@@ -82,196 +162,56 @@ open class WCSessionService : NSObject, WCSessionDelegate
         
         return 0
     }
+}
+
+
+extension WCSessionService: WCSessionDelegate {
     
-    public func updateWatchFaceComplication(with steps: Steps) {
-        let complicationData = ["stepsdataresponse" : steps as AnyObject]
-        
-        #if os(iOS)
-            sendComplicationDataToWatch(complicationData)
-        #else
-            if let delegate = delegate {
-                delegate.complicationUpdateRequested(complicationData)
-            }
-        #endif
-    }
+    //MARK: WCSessionDelegate conformance
     
-    private func sendComplicationDataToWatch(_ complicationData : [String : AnyObject])
-    {
-        #if os(iOS)
-            if (WCSession.isSupported())
-            {
-                if WCSession.default.activationState == .activated
-                {
-                    if WCSession.default.isComplicationEnabled {
-                        WCSession.default.transferCurrentComplicationUserInfo(complicationData)
-                        let remaining = WCSession.default.remainingComplicationUserInfoTransfers
-                        LoggingService.log("Requested to send data to watch, remaining transfers", with: remaining.description)
-                    } else {
-                        LoggingService.log("Complication NOT enabled", at: .debug)
-                    }
-                }
-                else
-                {
-                    LoggingService.log("WCSession NOT activated", at: .debug)
-                }
+    public func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+        if activationState == .activated {
+            delegate?.sessionWasActivated()
+        } else {
+            if let e = error {
+                LoggingService.log(error: e)
             }
-        #endif
-    }
-    
-    open func notifyOtherDeviceOfGoalNotificaton()
-    {
-        if WCSession.isSupported()
-        {
-            if WCSession.default.activationState == .activated
-            {
-                WCSession.default.sendMessage(["goalNotificationSent" : NotificationService.convertDayToKey(Date()) as AnyObject], replyHandler: nil, errorHandler: nil)
-            }
+            delegate?.sessionWasNotActivated()
         }
     }
     
-    open func sendStepsGoal(goal: Steps)
-    {
-        if WCSession.isSupported()
-        {
-            if WCSession.default.activationState == .activated
-            {
-                WCSession.default.sendMessage(["stepsGoal" : goal], replyHandler: nil, errorHandler: {
-                    (err: Error?) in
-                    if let e = err
-                    {
-                        print("send error:" + e.localizedDescription)
-                    }
-                })
-            }
-        }
-    }
-    
-    open func sendDebugLog(_ log: [DebugLogEntry], onCompletion: @escaping (Bool)->(Void)) {
-        let serializedLog = log.map({ $0.serialize() })
-        WCSessionService.getInstance().send(message: "watchDebugLog", payload: serializedLog, onCompletion: {
-            (success) in
-            onCompletion(success)
-        })
-    }
-    
-    open func send(message name: String, payload: Any, onCompletion: @escaping (Bool) -> (Void)) {
-        if WCSession.isSupported()
-        {
-            if WCSession.default.activationState == .activated
-            {
-                WCSession.default.sendMessage([name : payload],
-                                              replyHandler: { (_) in
-                                                onCompletion(true)
-                                              },
-                                              errorHandler: { (err: Error?) in
-                                                if let e = err {
-                                                    LoggingService.log(error: e)
-                                                }
-                                                onCompletion(false)
-                })
-            }
-        }
-    }
-    
-    open func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Void) {
+    public func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Void) {
         handle(message: message)
         replyHandler(["received" : Int(1)])
     }
     
-    open func session(_ session: WCSession, didReceiveMessage message: [String : Any])
-    {
+    public func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
         handle(message: message)
     }
     
-    open func session(_ session: WCSession, didReceiveUserInfo userInfo: [String : Any])
-    {
+    public func session(_ session: WCSession, didReceiveUserInfo userInfo: [String : Any]) {
         LoggingService.log("Message received didReceiveUserInfo")
         #if os(watchOS)
-            updateSteps()
+            StepsProcessingService.triggerUpdate(from: "didReceiveUserInfo") { }
         #endif
         handle(message: userInfo)
     }
 
-    open func session(_ session: WCSession, didFinish userInfoTransfer: WCSessionUserInfoTransfer, error: Error?) {
-        var dataTransferred = "?"
-        
-        #if os(iOS)
-            if userInfoTransfer.isCurrentComplicationInfo,
-                let stepsDict = userInfoTransfer.userInfo["stepsdataresponse"] as? [String : Any],
-                let steps = stepsDict["stepsCacheValue"] as? Int {
-                
-                dataTransferred = "\(steps)"
-            }
-        #endif
-        
+    public func session(_ session: WCSession, didFinish userInfoTransfer: WCSessionUserInfoTransfer, error: Error?) {
         if let error = error {
             LoggingService.log("WCSession transfer userInfo FAILED", with: error.localizedDescription)
         } else {
-            LoggingService.log("WCSession transferred userInfo", with: dataTransferred)
+            LoggingService.log("WCSession transferred userInfo", with: userInfoTransfer.userInfo.keys.joined(separator: ", "))
         }
     }
     
-    fileprivate func handle(message: [String : Any]) {
-        for (key, value) in message
-        {
-            if (key == "stepsdataresponse")
-            {
-                if let dict = value as? [String: AnyObject]
-                {
-                    if (HealthCache.saveStepsDataToCache(dict))
-                    {
-                        if let del = delegate
-                        {
-                            LoggingService.log("Refreshing complication from received message", with: String(format: "%d", HealthCache.lastSteps(for: Date())))
-                            del.complicationUpdateRequested(dict)
-                        }
-                        
-                        if HealthCache.lastSteps(for: Date()) >= HealthCache.dailyGoal()
-                        {
-                            NotificationService.sendDailyStepsGoalNotification()
-                        }
-                    }
-                }
-            }
-            else if (key == "stepsGoal")
-            {
-                if let goalVal = value as? Steps
-                {
-                    HealthCache.saveDailyGoal(goalVal)
-                }
-            }
-            else if (key == "goalNotificationSent")
-            {
-                if let dayKey = value as? String
-                {
-                    NotificationService.markNotificationSentByOtherDevice(forKey: dayKey)
-                }
-            }
-            else if (key == "watchDebugLog")
-            {
-                if let log = value as? [[String : Any]] {
-                    LoggingService.mergeLog(newEntries: log.map({ DebugLogEntry(deseralized: $0) }))
-                }
-            }
-            else if (key == "debugMode")
-            {
-                DebugService.toggleDebugMode()
-            }
+    #if os(iOS)
+        public func sessionDidDeactivate(_ session: WCSession) {
+            //Do nothing - protocol conformance
         }
-    }
-    
-    fileprivate func updateSteps() {
-        if CoreMotionService.getInstance().isEnabled() {
-            CoreMotionService.getInstance().updateStepsForToday(from: "didReceiveUserInfo", completion: { LoggingService.log("Successfully refreshed steps on didReceiveUserInfo", at: .debug) })
-        } else {
-            HealthKitService.getInstance().getSteps(for: Date()) { result in
-                switch result {
-                case .success(_):
-                    LoggingService.log("Successfully refreshed HK steps on didReceiveUserInfo", at: .debug)
-                case .failure(let error):
-                    LoggingService.log(error: error)
-                }
-            }
+        
+        public func sessionDidBecomeInactive(_ session: WCSession) {
+            //Do nothing - protocol conformance
         }
-    }
+    #endif
 }

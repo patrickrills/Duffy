@@ -42,16 +42,6 @@ public class HealthCache {
         }
     }
     
-    public class func saveStepsDataToCache(_ data : [String : AnyObject]) -> Bool {
-        guard let newCache = parse(dictionary: data),
-              newCache.day == convertDayToKey(Date())
-        else {
-            return false
-        }
-        
-        return saveStepsToCache(newCache.steps, for: Date())
-    }
-    
     public class func lastSteps(for day: Date) -> Steps {
         guard let cache = cache(),
               cache.day == convertDayToKey(day)

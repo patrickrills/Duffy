@@ -29,8 +29,7 @@ open class DebugService {
         let newMode = !mode
         UserDefaults.standard.set(newMode, forKey: DEBUG_MODE_KEY)
         #if os(iOS)
-            let newModeInt = newMode ? 1 : 0
-            WCSessionService.getInstance().send(message: DEBUG_MODE_KEY, payload: newModeInt, onCompletion:{ (_) in })
+            WCSessionService.getInstance().toggleDebugMode(newMode)
         #endif
     }
     

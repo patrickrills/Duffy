@@ -11,7 +11,7 @@ import DuffyWatchFramework
 import UserNotifications
 import HealthKit
 
-class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate, UNUserNotificationCenterDelegate
+class ExtensionDelegate: NSObject, WKExtensionDelegate, UNUserNotificationCenterDelegate
 {
     var currentBackgroundTasks: [String : AnyObject] = [:]
         
@@ -32,7 +32,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
         }
         
         if (HealthCache.cacheIsForADifferentDay(than: Date())) {
-            complicationUpdateRequested([:])
+            complicationUpdateRequested()
         }
     }
     
@@ -65,12 +65,6 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
             c.unsubscribeToHealthKitUpdates()
         }
     }
-
-    func complicationUpdateRequested(_ complicationData : [String : AnyObject])
-    {
-        ComplicationController.refreshComplication()
-        scheduleSnapshotNow()
-    }
     
     func handle(_ backgroundTasks: Set<WKRefreshBackgroundTask>)
     {
@@ -85,8 +79,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
                 {
                     LoggingService.log("Snapshot task handled")
                     
-                    if let c = WKExtension.shared().rootInterfaceController as? InterfaceController
-                    {
+                    if let c = WKExtension.shared().rootInterfaceController as? InterfaceController {
                         c.updateInterfaceFromSnapshot()
                     }
                     
@@ -96,27 +89,8 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
                 {
                     LoggingService.log("Background update task handled")
                     
-                    //Try to update steps from CoreMotion first unless its not enabled
-                    if CoreMotionService.getInstance().isEnabled() {
-                        CoreMotionService.getInstance().updateStepsForToday(from: "WKRefreshBackgroundTask", completion: {
-                            [weak self] in
-                            self?.complete(task: t)
-                        })
-                    } else {
-                        //Fallback to using Healthkit if core motion not enabled
-                        HealthKitService.getInstance().getSteps(for: Date()) { [weak self] result in
-                            switch result {
-                            case .success(let stepsResult):
-                                if HealthCache.saveStepsToCache(stepsResult.steps, for: stepsResult.day) {
-                                    LoggingService.log("Refresh complication in background task")
-                                    ComplicationController.refreshComplication()
-                                }
-                                self?.complete(task: t)
-                            case .failure(let error):
-                                LoggingService.log(error: error)
-                                self?.complete(task: t)
-                            }
-                        }
+                    StepsProcessingService.triggerUpdate(from: "WKRefreshBackgroundTask") { [weak self] in
+                        self?.complete(task: t)
                     }
                 }
             }
@@ -167,4 +141,21 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionServiceDelegate
     private func startHealthKitBackgroundQueries() {
         HealthKitService.getInstance().initializeBackgroundQueries()
     }
+}
+
+extension ExtensionDelegate: WCSessionServiceDelegate {
+    
+    func complicationUpdateRequested() {
+        ComplicationController.refreshComplication()
+        scheduleSnapshotNow()
+    }
+    
+    func sessionWasActivated() {
+        //Do nothing
+    }
+    
+    func sessionWasNotActivated() {
+        //Do nothing
+    }
+    
 }

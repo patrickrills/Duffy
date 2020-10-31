@@ -10,7 +10,7 @@ import UIKit
 import DuffyFramework
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, WCSessionServiceDelegate
+class AppDelegate: UIResponder, UIApplicationDelegate
 {
     var window: UIWindow?
 
@@ -82,8 +82,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WCSessionServiceDelegate
         
         return true
     }
+}
+
+extension AppDelegate: WCSessionServiceDelegate {
     
-    func complicationUpdateRequested(_ complicationData: [String : AnyObject]) {
+    func complicationUpdateRequested() {
         //do nothing
     }
     
@@ -96,5 +99,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate, WCSessionServiceDelegate
         HealthKitService.getInstance().initializeBackgroundQueries()
         CoreMotionService.getInstance().initializeBackgroundUpdates()
     }
+    
 }
-
