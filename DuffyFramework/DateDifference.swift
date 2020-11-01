@@ -18,8 +18,18 @@ public extension Date {
         return components.day ?? NSNotFound
     }
     
+    func dateByAdding(days: Int) -> Date {
+        let calendar = Calendar.current
+        return calendar.date(byAdding: .day, value: days, to: calendar.startOfDay(for: self))!
+    }
+    
     func isToday() -> Bool {
         return Calendar.current.isDateInToday(self)
+    }
+    
+    func isSunday() -> Bool {
+        let components = Calendar.current.dateComponents([.weekday], from: self)
+        return components.weekday == 1
     }
     
     func previousDay() -> Date {

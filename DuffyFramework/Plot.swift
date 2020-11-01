@@ -32,10 +32,12 @@ public struct Plot {
         var trend: [CGPoint]? = nil
         var points = [CGPoint]()
         
-        if (dataSet.count > 0) {
-            let maxSteps = dataSet.values.max()
+        let lineDataSet = coalesce(dataSet: dataSet, for: activeArea.width)
+        
+        if (lineDataSet.count > 0) {
+            let maxSteps = lineDataSet.values.max()
             let topRange = Double(max(maxSteps!, goalSteps)) * GRAPH_MAX_FACTOR
-            let minDate = dataSet.keys.min() ?? Date()
+            let minDate = lineDataSet.keys.min() ?? Date()
             let numberOfDaysInRange = max(1, minDate.differenceInDays(from: Date().previousDay()))
             let widthOfDay = CGFloat(activeArea.width) / CGFloat(numberOfDaysInRange)
             
@@ -47,7 +49,7 @@ public struct Plot {
                 return CGFloat(abs(date.differenceInDays(from: minDate))) * widthOfDay + insets.left
             }
                         
-            points = dataSet.reduce(into: points, { points, data in
+            points = lineDataSet.reduce(into: points, { points, data in
                 points.append(CGPoint(x: translateX(data.key), y: translateY(data.value)))
             }).sorted { $0.x < $1.x }
             
@@ -75,5 +77,25 @@ public struct Plot {
         }
         
         return Plot(points: points, goalY: goalLineY, averageY: averageY, trend: trend)
+    }
+    
+    private static func coalesce(dataSet: [Date : Steps], for width: CGFloat) -> [Date : Steps] {
+        guard dataSet.count > Int(width) else { return dataSet }
+
+        let sundays = dataSet.keys.filter({ $0.isSunday() })
+        var coalesced: [Date : Steps] = sundays.reduce(into: [:], { result, sunday in
+            let weeklyMean = dataSet.filter({ $0.key >= sunday && $0.key < sunday.dateByAdding(days: 7) }).map({ $0.value }).mean()
+            let weeklyKey = sunday.dateByAdding(days: 6)
+            result[weeklyKey] = Steps(weeklyMean)
+        })
+
+        if let minSunday = sundays.min(),
+           let minFilter = dataSet.keys.min(),
+           minSunday > minFilter
+        {
+            coalesced[minFilter] = Steps(dataSet.filter({ $0.key >= minFilter && $0.key < minSunday }).map({ $0.value }).mean())
+        }
+
+        return coalesced
     }
 }
