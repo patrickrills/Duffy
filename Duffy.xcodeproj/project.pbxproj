@@ -72,8 +72,8 @@
 		0967EB791E7F0ACE0073BF3F /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0967EB781E7F0ACE0073BF3F /* NotificationService.swift */; };
 		0967EB7A1E7F0ACE0073BF3F /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0967EB781E7F0ACE0073BF3F /* NotificationService.swift */; };
 		096A4EE61E58D39900CE3D5B /* DuffyFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09323D031D2303BC00961822 /* DuffyFramework.framework */; };
-		096FE09C2503CA6500838BEE /* DateDifference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096FE09B2503CA6500838BEE /* DateDifference.swift */; };
-		096FE09D2503CA6500838BEE /* DateDifference.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096FE09B2503CA6500838BEE /* DateDifference.swift */; };
+		096FE09C2503CA6500838BEE /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096FE09B2503CA6500838BEE /* Date.swift */; };
+		096FE09D2503CA6500838BEE /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096FE09B2503CA6500838BEE /* Date.swift */; };
 		096FE0A825067FC700838BEE /* HistoryTrendChartLineOptionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096FE0A725067FC700838BEE /* HistoryTrendChartLineOptionsTableViewController.swift */; };
 		096FE0AA250E75FF00838BEE /* StepsProcessingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096FE0A9250E75FF00838BEE /* StepsProcessingService.swift */; };
 		096FE0AB250E75FF00838BEE /* StepsProcessingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096FE0A9250E75FF00838BEE /* StepsProcessingService.swift */; };
@@ -286,7 +286,7 @@
 		0961D904216A9BCF00F4AA88 /* ClockKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ClockKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS5.0.sdk/System/Library/Frameworks/ClockKit.framework; sourceTree = DEVELOPER_DIR; };
 		0961D906216A9F2000F4AA88 /* duffy.ckcomplication */ = {isa = PBXFileReference; lastKnownFileType = folder; path = duffy.ckcomplication; sourceTree = "<group>"; };
 		0967EB781E7F0ACE0073BF3F /* NotificationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
-		096FE09B2503CA6500838BEE /* DateDifference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateDifference.swift; sourceTree = "<group>"; };
+		096FE09B2503CA6500838BEE /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		096FE0A725067FC700838BEE /* HistoryTrendChartLineOptionsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTrendChartLineOptionsTableViewController.swift; sourceTree = "<group>"; };
 		096FE0A9250E75FF00838BEE /* StepsProcessingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepsProcessingService.swift; sourceTree = "<group>"; };
 		097085612127122B00790EC7 /* DistanceFlightsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceFlightsDetailViewController.swift; sourceTree = "<group>"; };
@@ -506,7 +506,7 @@
 				09323D051D2303BC00961822 /* DuffyFramework.h */,
 				09323D071D2303BC00961822 /* Info.plist */,
 				0929A6C624E6F1DC00780004 /* AggregateCollections.swift */,
-				096FE09B2503CA6500838BEE /* DateDifference.swift */,
+				096FE09B2503CA6500838BEE /* Date.swift */,
 				0929A6CC24E7128F00780004 /* Types.swift */,
 				096FE0A9250E75FF00838BEE /* StepsProcessingService.swift */,
 				0929A6C924E6FF3300780004 /* HealthKitError.swift */,
@@ -909,7 +909,7 @@
 				096FE0AA250E75FF00838BEE /* StepsProcessingService.swift in Sources */,
 				0937CA3E25447A1700BDDDD3 /* WCSessionMessage.swift in Sources */,
 				09AACE271D318A390058A814 /* HealthCache.swift in Sources */,
-				096FE09C2503CA6500838BEE /* DateDifference.swift in Sources */,
+				096FE09C2503CA6500838BEE /* Date.swift in Sources */,
 				090829E224670EEF00F100D6 /* Trophy.swift in Sources */,
 				0929A6CA24E6FF3300780004 /* HealthKitError.swift in Sources */,
 				0967EB791E7F0ACE0073BF3F /* NotificationService.swift in Sources */,
@@ -935,7 +935,7 @@
 				096FE0AB250E75FF00838BEE /* StepsProcessingService.swift in Sources */,
 				0937CA3F25447A1700BDDDD3 /* WCSessionMessage.swift in Sources */,
 				09AACE281D318A390058A814 /* HealthCache.swift in Sources */,
-				096FE09D2503CA6500838BEE /* DateDifference.swift in Sources */,
+				096FE09D2503CA6500838BEE /* Date.swift in Sources */,
 				090829E324670EEF00F100D6 /* Trophy.swift in Sources */,
 				0929A6CB24E6FF3300780004 /* HealthKitError.swift in Sources */,
 				0967EB7A1E7F0ACE0073BF3F /* NotificationService.swift in Sources */,

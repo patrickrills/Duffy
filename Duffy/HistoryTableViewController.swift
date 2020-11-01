@@ -16,15 +16,20 @@ class HistoryTableViewController: UITableViewController {
     }
     
     private let goal = HealthCache.dailyGoal()
+    private let defaultEndDate = Date().previousDay()
     
     private var pastSteps : [Date : Steps] = [:]
     private var lastDateInCache: Date {
-        return pastSteps.keys.sorted(by: <).first ?? Date()
+        return pastSteps.keys.sorted(by: <).first ?? defaultEndDate
     }
     
     private var filteredDates : [Date] = []
     private var currentFilterDate: Date {
-        return filteredDates.last ?? Date()
+        return filteredDates.last ?? defaultEndDate
+    }
+    
+    private var filteredSteps: [Date : Steps] {
+        return pastSteps.filter({ filteredDates.contains($0.key) })
     }
     
     //MARK: Constructors
@@ -185,11 +190,11 @@ class HistoryTableViewController: UITableViewController {
         switch indexPath.section {
         case 0:
             let graphCell = tableView.dequeueReusableCell(withIdentifier: String(describing: HistoryTrendChartTableViewCell.self), for: indexPath) as! HistoryTrendChartTableViewCell
-            graphCell.bind(to: pastSteps.filter { filteredDates.contains($0.key) && !$0.key.isToday() })
+            graphCell.bind(to: filteredSteps)
             return graphCell
         case 1:
             let summaryCell = tableView.dequeueReusableCell(withIdentifier: String(describing: HistorySummaryTableViewCell.self), for: indexPath) as! HistorySummaryTableViewCell
-            summaryCell.bind(to: pastSteps.filter { filteredDates.contains($0.key) && !$0.key.isToday() })
+            summaryCell.bind(to: filteredSteps)
             return summaryCell
         default:
             let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PreviousValueTableViewCell.self), for: indexPath) as! PreviousValueTableViewCell
