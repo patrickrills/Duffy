@@ -9,16 +9,30 @@
 import UIKit
 import DuffyFramework
 
+#if canImport(BackgroundTasks)
+import BackgroundTasks
+#endif
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate
 {
     var window: UIWindow?
+    
+    private let TASK_ID = "com.bigbluefly.Duffy.get-steps"
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         LoggingService.log("App did finish launching")
+        
         let session = WCSessionService.getInstance()
         session.activate(with: self)
+        
+        if #available(iOS 13.0, *) {
+            BGTaskScheduler.shared.register(forTaskWithIdentifier: TASK_ID, using: nil) { task in
+                self.handle(task: task as! BGAppRefreshTask)
+            }
+        }
+        
         return true
     }
 
@@ -41,6 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
         LoggingService.log("App did enter background")
+        scheduleTask()
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
@@ -84,6 +99,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate
     }
 }
 
+//MARK: WCSessionServiceDelegate Implements
+
 extension AppDelegate: WCSessionServiceDelegate {
     
     func complicationUpdateRequested() {
@@ -99,5 +116,34 @@ extension AppDelegate: WCSessionServiceDelegate {
         HealthKitService.getInstance().initializeBackgroundQueries()
         CoreMotionService.getInstance().initializeBackgroundUpdates()
     }
+}
+
+//MARK: BGTask Handling
+
+extension AppDelegate {
+
+    @available(iOS 13.0, *)
+    func handle(task: BGAppRefreshTask) {
+        LoggingService.log("Handle BG Task")
+        
+        scheduleTask()
+        
+        StepsProcessingService.triggerUpdate(from: "BGAppRefreshTask") {
+            task.setTaskCompleted(success: true)
+        }
+    }
     
+    func scheduleTask() {
+        if #available(iOS 13.0, *) {
+            let request = BGAppRefreshTaskRequest(identifier: TASK_ID)
+            request.earliestBeginDate = Date(timeIntervalSinceNow: 30 * 60)
+            
+            do {
+                try BGTaskScheduler.shared.submit(request)
+            } catch {
+                LoggingService.log(error: error)
+            }
+        }
+    }
+
 }
