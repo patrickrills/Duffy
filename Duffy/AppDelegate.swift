@@ -140,7 +140,6 @@ extension AppDelegate {
             
             do {
                 try BGTaskScheduler.shared.submit(request)
-                LoggingService.log("BG Task Scheduled", with: "\(request.earliestBeginDate ?? Date())")
             } catch {
                 LoggingService.log(error: error)
             }
