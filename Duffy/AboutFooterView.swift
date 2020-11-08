@@ -25,7 +25,23 @@ class AboutFooterView: UIView
         super.awakeFromNib()
         aboutButton.setTitleColor(Globals.secondaryColor(), for: .normal)
         aboutButton.setTitleColor(Globals.secondaryColor().withAlphaComponent(0.4), for: .highlighted)
-        aboutButton.setTitle(NSLocalizedString("About Duffy", comment: "").uppercased(), for: .normal)
+        aboutButton.titleLabel?.font = UIFont.preferredFont(forTextStyle: .body)
+        
+        let attributedText = NSMutableAttributedString()
+        
+        if #available(iOS 13.0, *) {
+            let symbolConfiguration = UIImage.SymbolConfiguration(font: UIFont.preferredFont(forTextStyle: .body))
+            let symbolImage = UIImage(systemName: "info.circle.fill", withConfiguration: symbolConfiguration)?.withRenderingMode(.alwaysTemplate)
+            let symbolTextAttachment = NSTextAttachment()
+            symbolTextAttachment.image = symbolImage
+            let attachmentString = NSMutableAttributedString(attachment: symbolTextAttachment)
+            attributedText.append(attachmentString)
+            attributedText.append(NSAttributedString(string: " "))
+        }
+        
+        attributedText.append(NSAttributedString(string: NSLocalizedString("About Duffy", comment: "")))
+        
+        aboutButton.setAttributedTitle(attributedText, for: .normal)
     }
     
     class func createView() -> AboutFooterView?
