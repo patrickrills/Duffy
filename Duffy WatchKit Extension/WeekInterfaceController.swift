@@ -88,6 +88,7 @@ class WeekInterfaceController: WKInterfaceController
     private func showErrorState() {
         bindTable(to: [WeekRowData(title: NSLocalizedString("No Data", comment: ""), formattedValue: "", adornment: "")])
         graphImage.setImage(nil)
+        loadingLabel.setHidden(true)
     }
     
     private func drawChart(for data: [Date : Steps]) {
