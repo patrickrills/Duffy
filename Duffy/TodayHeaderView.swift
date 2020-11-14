@@ -61,6 +61,10 @@ class TodayHeaderView: UIView
             topMargin.constant = 24.0
             bottomMargin.constant = 8.0
         }
+        
+        if #available(iOS 13.0, *) {
+            goalInfoButton.setImage(UIImage(systemName: "questionmark.circle"), for: .normal)
+        }
     }
     
     override func layoutSubviews() {

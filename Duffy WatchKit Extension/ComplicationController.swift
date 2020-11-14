@@ -11,56 +11,40 @@ import DuffyWatchFramework
 
 class ComplicationController: NSObject, CLKComplicationDataSource {
     
-    // MARK: - Timeline Configuration
+    // MARK: Timeline Configuration
     
-    func getPrivacyBehavior(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationPrivacyBehavior) -> Void)
-    {
+    func getPrivacyBehavior(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationPrivacyBehavior) -> Void) {
         handler(.showOnLockScreen)
     }
     
-    func getSupportedTimeTravelDirections(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTimeTravelDirections) -> Void)
-    {
-        handler(.forward)
+    // MARK: Timeline Population
+    
+    class func refreshComplication() {
+        let server = CLKComplicationServer.sharedInstance()
+        if let allComplications = server.activeComplications {
+            allComplications.forEach { server.reloadTimeline(for: $0) }
+            let log = allComplications.count > 0 ? "Complication reloadTimeline" : "Complication reloadTimeline but no active found"
+            LoggingService.log(log, with: String(format: "%d", HealthCache.lastSteps(for: Date())))
+        } else {
+            LoggingService.log("Complication reloadTimeline but no active found", at: .debug)
+        }
     }
     
-    // MARK: - Timeline Population
-    
-    func getTimelineEndDate(for complication: CLKComplication, withHandler handler: @escaping (Date?) -> Void)
-    {
-        guard let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: Date()) else {
-            handler(nil)
-            return
-        }
-        
-        var components = Calendar.current.dateComponents([.era, .year, .month, .day], from: tomorrow)
-        components.hour = 0
-        components.minute = 1
-        components.second = 0
-        components.timeZone = TimeZone.current
-        
-        if let oneMinuteAfterMidnight = Calendar.current.date(from: components) {
+    func getTimelineEndDate(for complication: CLKComplication, withHandler handler: @escaping (Date?) -> Void) {
+        if let oneMinuteAfterMidnight = Date().nextDay().changeTime(hour: 0, minute: 1, second: 0) {
             handler(oneMinuteAfterMidnight)
         } else {
             handler(nil)
         }
     }
     
-    func getTimelineEntries(for complication: CLKComplication, after date: Date, limit: Int, withHandler handler: @escaping ([CLKComplicationTimelineEntry]?) -> Void)
-    {
-        guard let tomorrow = Calendar.current.date(byAdding: .day, value: 1, to: Date()) else {
-            handler(nil)
-            return
-        }
-        
-        var components = Calendar.current.dateComponents([.era, .year, .month, .day], from: tomorrow)
-        components.hour = 0
-        components.minute = 0
-        components.second = 1
-        components.timeZone = TimeZone.current
-        
+    func getTimelineEntries(for complication: CLKComplication, after date: Date, limit: Int, withHandler handler: @escaping ([CLKComplicationTimelineEntry]?) -> Void) {
+        let tomorrow = Date().nextDay()
+                
         if date < tomorrow,
-            let oneSecondAfterMidnight = Calendar.current.date(from: components),
-            let tomorrowsEntry = entry(for: complication, with: 0) {
+           let oneSecondAfterMidnight = tomorrow.changeTime(hour: 0, minute: 0, second: 1),
+           let tomorrowsEntry = entry(for: complication, with: 0)
+        {
             tomorrowsEntry.date = oneSecondAfterMidnight
             handler([tomorrowsEntry])
         } else {
@@ -68,9 +52,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         }
     }
     
-    func getCurrentTimelineEntry(for complication: CLKComplication, withHandler handler: (@escaping (CLKComplicationTimelineEntry?) -> Void))
-    {
-        // Call the handler with the current timeline entry
+    func getCurrentTimelineEntry(for complication: CLKComplication, withHandler handler: (@escaping (CLKComplicationTimelineEntry?) -> Void)) {
         var steps: Steps = 0
         if !HealthCache.cacheIsForADifferentDay(than: Date()) {
             steps = HealthCache.lastSteps(for: Date())
@@ -81,124 +63,100 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         handler(entry(for: complication, with: steps))
     }
     
-    private func entry(for complication: CLKComplication, with steps: Steps) -> CLKComplicationTimelineEntry?
-    {
-        var entry: CLKComplicationTimelineEntry?
-        
-        if (complication.family == .modularSmall)
-        {
-            entry = getEntryForModularSmall(NSNumber(value: steps))
-        }
-        else if (complication.family == .modularLarge)
-        {
-            entry = getEntryForModularLarge(NSNumber(value: steps))
-        }
-        else if (complication.family == .circularSmall)
-        {
-            entry = getEntryForCircularSmall(NSNumber(value: steps))
-        }
-        else if (complication.family == .utilitarianLarge)
-        {
-            entry = getEntryForUtilitarianLarge(NSNumber(value: steps))
-        }
-        else if (complication.family == .utilitarianSmall || complication.family == .utilitarianSmallFlat)
-        {
-            entry = getEntryForUtilitarianSmall(NSNumber(value: steps))
-        }
-        else if (complication.family == .extraLarge)
-        {
-            entry = getEntryForExtraLarge(NSNumber(value: steps))
+    private func entry(for complication: CLKComplication, with steps: Steps) -> CLKComplicationTimelineEntry? {
+        switch complication.family {
+        case .modularSmall:
+            return getEntryForModularSmall(steps)
+        case .modularLarge:
+            return getEntryForModularLarge(steps)
+        case .circularSmall:
+            return getEntryForCircularSmall(steps)
+        case .utilitarianLarge:
+            return getEntryForUtilitarianLarge(steps)
+        case .utilitarianSmall, .utilitarianSmallFlat:
+            return getEntryForUtilitarianSmall(steps)
+        case .extraLarge:
+            return getEntryForExtraLarge(steps)
+        default:
+            break
         }
         
-        if #available(watchOS 5.0, *)
-        {
+        if #available(watchOS 5.0, *) {
             let stepsGoal = HealthCache.dailyGoal()
-            
-            if (complication.family == .graphicCorner)
-            {
-                entry = getEntryForGraphicCorner(steps, stepsGoal)
-            }
-            else if (complication.family == .graphicCircular)
-            {
-                entry = getEntryForGraphicCircular(steps, stepsGoal)
-            }
-            else if (complication.family == .graphicBezel)
-            {
-                entry = getEntryForGraphicBezel(steps, stepsGoal)
-            }
-            else if (complication.family == .graphicRectangular)
-            {
-                entry = getEntryForGraphicRectangle(steps, stepsGoal)
+            switch complication.family {
+            case .graphicRectangular:
+                return getEntryForGraphicRectangle(steps, stepsGoal)
+            case .graphicCorner:
+                return getEntryForGraphicCorner(steps, stepsGoal)
+            case .graphicCircular:
+                return getEntryForGraphicCircular(steps, stepsGoal)
+            case .graphicBezel:
+                return getEntryForGraphicBezel(steps, stepsGoal)
+            default:
+                break
             }
         }
         
-        return entry
+        return nil
     }
     
     // MARK: - Placeholder Templates
     
-    func getPlaceholderTemplate(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTemplate?) -> Void)
-    {
-        // This method will be called once per supported complication, and the results will be cached
+    func getLocalizableSampleTemplate(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTemplate?) -> Swift.Void) {
+        let sampleSteps: Steps = 5000
+        let sampleStepsGoal: Steps = 10000
+        
         var template: CLKComplicationTemplate?
-        if (complication.family == .modularSmall)
-        {
-            template = getTemplateForModularSmall(NSNumber(value: 0 as Int))
-        }
-        else if (complication.family == .modularLarge)
-        {
-            template = getTemplateForModularLarge(NSNumber(value: 0 as Int))
-        }
-        else if (complication.family == .circularSmall)
-        {
-            template = getTemplateForCircularSmall(NSNumber(value: 0 as Int))
-        }
-        else if (complication.family == .utilitarianLarge)
-        {
-            template = getTemplateForUtilitarianLarge(NSNumber(value: 0 as Int))
-        }
-        else if (complication.family == .utilitarianSmall || complication.family == .utilitarianSmallFlat)
-        {
-            template = getTemplateForUtilitarianSmall(NSNumber(value: 0 as Int))
-        }
-        else if (complication.family == .extraLarge)
-        {
-            template = getTemplateForExtraLarge(NSNumber(value: 0 as Int))
+        
+        switch complication.family {
+        case .modularSmall:
+            template = getTemplateForModularSmall(sampleSteps)
+        case .modularLarge:
+            template = getTemplateForModularLarge(sampleSteps)
+        case .circularSmall:
+            template = getTemplateForCircularSmall(sampleSteps)
+        case .utilitarianLarge:
+            template = getTemplateForUtilitarianLarge(sampleSteps)
+        case .utilitarianSmall, .utilitarianSmallFlat:
+            template = getTemplateForUtilitarianSmall(sampleSteps)
+        case .extraLarge:
+            template = getTemplateForExtraLarge(sampleSteps)
+        default:
+            break
         }
         
-        if #available(watchOS 5.0, *)
-        {
-            if (complication.family == .graphicCorner)
-            {
-                template = getTemplateForGraphicCorner(0, 10000)
-            }
-            else if (complication.family == .graphicCircular)
-            {
-                template = getTemplateForGraphicCircular(0, 10000)
-            }
-            else if (complication.family == .graphicBezel)
-            {
-                template = getTemplateForGraphicBezel(0, 10000)
-            }
-            else if (complication.family == .graphicRectangular)
-            {
-                template = getTemplateForGraphicRectangle(0, 10000)
+        if #available(watchOS 5.0, *) {
+            switch complication.family {
+            case .graphicRectangular:
+                template = getTemplateForGraphicRectangle(sampleSteps, sampleStepsGoal)
+            case .graphicCorner:
+                template = getTemplateForGraphicCorner(sampleSteps, sampleStepsGoal)
+            case .graphicCircular:
+                template = getTemplateForTextCircular(sampleSteps, sampleStepsGoal)
+            case .graphicBezel:
+                template = getTemplateForGraphicBezel(sampleSteps, sampleStepsGoal)
+            default:
+                break
             }
         }
         
         handler(template)
     }
     
-    //MARK: - templates for various complication types
+    //MARK: - Templates for various complication types
     
-    func getEntryForModularSmall(_ totalSteps: NSNumber) -> CLKComplicationTimelineEntry
-    {
+    //MARK: Colors
+    
+    private let BLUE_TINT = UIColor(red: 81.0/255.0, green: 153.0/255.0, blue: 238.0/255.0, alpha: 1)
+    
+    //MARK: Modular Small
+    
+    func getEntryForModularSmall(_ totalSteps: Steps) -> CLKComplicationTimelineEntry {
         let small = getTemplateForModularSmall(totalSteps)
         return CLKComplicationTimelineEntry(date: Date(), complicationTemplate: small)
     }
     
-    func getTemplateForModularSmall(_ totalSteps: NSNumber) -> CLKComplicationTemplateModularSmallStackText
-    {
+    func getTemplateForModularSmall(_ totalSteps: Steps) -> CLKComplicationTemplateModularSmallStackText {
         let smallStack = CLKComplicationTemplateModularSmallStackText()
         
         let line1 = CLKSimpleTextProvider()
@@ -210,30 +168,29 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         let line2 = CLKSimpleTextProvider()
         line2.text =  NSLocalizedString("steps", comment: "")
         line2.shortText = line2.text
-        line2.tintColor = UIColor(red: 81.0/255.0, green: 153.0/255.0, blue: 238.0/255.0, alpha: 1)
         smallStack.line2TextProvider = line2
         
         return smallStack
     }
     
-    func getEntryForModularLarge(_ totalSteps: NSNumber) -> CLKComplicationTimelineEntry
-    {
+    //MARK: Modular Large
+    
+    func getEntryForModularLarge(_ totalSteps: Steps) -> CLKComplicationTimelineEntry {
         let large = getTemplateForModularLarge(totalSteps)
         return CLKComplicationTimelineEntry(date: Date(), complicationTemplate: large)
     }
     
-    func getTemplateForModularLarge(_ totalSteps: NSNumber) -> CLKComplicationTemplateModularLargeTallBody
-    {
+    func getTemplateForModularLarge(_ totalSteps: Steps) -> CLKComplicationTemplateModularLargeTallBody {
         let tall = CLKComplicationTemplateModularLargeTallBody()
         
         let header = CLKSimpleTextProvider()
         header.text = NSLocalizedString("Steps", comment: "")
         header.shortText = header.text
-        header.tintColor = UIColor(red: 81.0/255.0, green: 153.0/255.0, blue: 238.0/255.0, alpha: 1)
+        header.tintColor = BLUE_TINT
         tall.headerTextProvider = header
         
         let body = CLKSimpleTextProvider()
-        body.text = String(format: "%@", formatStepsForLarge(totalSteps))
+        body.text = formatStepsForLarge(totalSteps)
         body.shortText = body.text
         body.tintColor = .white
         tall.bodyTextProvider = body
@@ -241,39 +198,37 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         return tall
     }
     
-    func getEntryForCircularSmall(_ totalSteps: NSNumber) -> CLKComplicationTimelineEntry
-    {
+    //MARK: Circular Small
+    
+    func getEntryForCircularSmall(_ totalSteps: Steps) -> CLKComplicationTimelineEntry {
         let circular = getTemplateForCircularSmall(totalSteps)
         return CLKComplicationTimelineEntry(date: Date(), complicationTemplate: circular)
     }
     
-    func getTemplateForCircularSmall(_ totalSteps: NSNumber) -> CLKComplicationTemplateCircularSmallStackText
-    {
+    func getTemplateForCircularSmall(_ totalSteps: Steps) -> CLKComplicationTemplateCircularSmallStackText {
         let circularStack = CLKComplicationTemplateCircularSmallStackText()
         
         let line1 = CLKSimpleTextProvider()
-        line1.text = String(format: "%@", formatStepsForSmall(totalSteps))
+        line1.text = formatStepsForSmall(totalSteps)
         line1.shortText = line1.text
-        line1.tintColor = .white
         circularStack.line1TextProvider = line1
         
         let line2 = CLKSimpleTextProvider()
         line2.text =  NSLocalizedString("steps", comment: "")
         line2.shortText = line2.text
-        line2.tintColor = UIColor(red: 81.0/255.0, green: 153.0/255.0, blue: 238.0/255.0, alpha: 1)
         circularStack.line2TextProvider = line2
         
         return circularStack
     }
     
-    func getEntryForUtilitarianLarge(_ totalSteps: NSNumber) -> CLKComplicationTimelineEntry
-    {
+    //MARK: Utilitarian Large
+    
+    func getEntryForUtilitarianLarge(_ totalSteps: Steps) -> CLKComplicationTimelineEntry {
         let large = getTemplateForUtilitarianLarge(totalSteps)
         return CLKComplicationTimelineEntry(date: Date(), complicationTemplate: large)
     }
     
-    func getTemplateForUtilitarianLarge(_ totalSteps: NSNumber) -> CLKComplicationTemplateUtilitarianLargeFlat
-    {
+    func getTemplateForUtilitarianLarge(_ totalSteps: Steps) -> CLKComplicationTemplateUtilitarianLargeFlat {
         let flat = CLKComplicationTemplateUtilitarianLargeFlat()
         let formattedStepsLong = formatStepsForLarge(totalSteps)
         let formattedStepsShort = formatStepsForSmall(totalSteps)
@@ -281,125 +236,115 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         let text = CLKSimpleTextProvider()
         text.text = String(format: NSLocalizedString("%@ STEPS", comment: ""), formattedStepsLong)
         text.shortText = String(format: NSLocalizedString("%@ STEPS", comment: ""), formattedStepsShort)
-        text.tintColor = .white
+        
         flat.textProvider = text
         
         return flat
     }
     
-    func getEntryForUtilitarianSmall(_ totalSteps: NSNumber) -> CLKComplicationTimelineEntry
-    {
+    //MARK: Utilitarian Small
+    
+    func getEntryForUtilitarianSmall(_ totalSteps: Steps) -> CLKComplicationTimelineEntry {
         let small = getTemplateForUtilitarianSmall(totalSteps)
         return CLKComplicationTimelineEntry(date: Date(), complicationTemplate: small)
     }
     
-    func getTemplateForUtilitarianSmall(_ totalSteps: NSNumber) -> CLKComplicationTemplateUtilitarianSmallFlat
-    {
+    func getTemplateForUtilitarianSmall(_ totalSteps: Steps) -> CLKComplicationTemplateUtilitarianSmallFlat {
         let flat = CLKComplicationTemplateUtilitarianSmallFlat()
         
         let text = CLKSimpleTextProvider()
-        text.text = String(format: "%@", formatStepsForSmall(totalSteps))
-        text.shortText = text.text
-        text.tintColor = .white
+        text.text = String(format: NSLocalizedString("%@ STEPS", comment: ""), formatStepsForSmall(totalSteps))
+        text.shortText = formatStepsForSmall(totalSteps)
+
         flat.textProvider = text
         
         return flat
     }
     
-    func getEntryForExtraLarge(_ totalSteps: NSNumber) -> CLKComplicationTimelineEntry
-    {
+    //MARK: Extra Large
+    
+    func getEntryForExtraLarge(_ totalSteps: Steps) -> CLKComplicationTimelineEntry {
         let xLarge = getTemplateForExtraLarge(totalSteps)
         return CLKComplicationTimelineEntry(date: Date(), complicationTemplate: xLarge)
     }
     
-    func getTemplateForExtraLarge(_ totalSteps: NSNumber) -> CLKComplicationTemplateExtraLargeStackText
-    {
-        let xLarge = CLKComplicationTemplateExtraLargeStackText()
-
-        let header = CLKSimpleTextProvider()
-        header.text = NSLocalizedString("Steps", comment: "")
-        header.shortText = header.text
-        header.tintColor = UIColor(red: 81.0/255.0, green: 153.0/255.0, blue: 238.0/255.0, alpha: 1)
-        xLarge.line1TextProvider = header
+    func getTemplateForExtraLarge(_ totalSteps: Steps) -> CLKComplicationTemplate {
+        let xLarge = CLKComplicationTemplateExtraLargeStackImage()
+        
+        xLarge.line1ImageProvider = CLKImageProvider(onePieceImage: RingDrawer.drawRing(totalSteps, goal: HealthCache.dailyGoal(), width: 120)!)
+        xLarge.tintColor = BLUE_TINT
         
         let body = CLKSimpleTextProvider()
-        body.text = String(format: "%@", formatStepsForLarge(totalSteps))
-        body.shortText = body.text
-        body.tintColor = .white
+        body.text = formatStepsForLarge(totalSteps)
+        body.shortText = formatStepsForSmall(totalSteps)
         xLarge.line2TextProvider = body
         
         return xLarge
     }
     
+    //MARK: Graphic Corner
+    
     @available(watchOSApplicationExtension 5.0, *)
-    func getEntryForGraphicCorner(_ totalSteps: Steps, _ goal: Steps) -> CLKComplicationTimelineEntry
-    {
+    func getEntryForGraphicCorner(_ totalSteps: Steps, _ goal: Steps) -> CLKComplicationTimelineEntry {
         let gc = getTemplateForGraphicCorner(totalSteps, goal)
         return CLKComplicationTimelineEntry(date: Date(), complicationTemplate: gc)
     }
     
     @available(watchOSApplicationExtension 5.0, *)
-    func getTemplateForGraphicCorner(_ totalSteps: Steps, _ goal: Steps) -> CLKComplicationTemplateGraphicCornerGaugeText
-    {
-        let gc = CLKComplicationTemplateGraphicCornerGaugeText()
+    func getTemplateForGraphicCorner(_ totalSteps: Steps, _ goal: Steps) -> CLKComplicationTemplate {
+        let goalReached = totalSteps >= goal
         
-        let text = CLKSimpleTextProvider()
-        text.text = formatStepsForLarge(NSNumber(value: totalSteps))
-        text.shortText = formatStepsForSmall(NSNumber(value: totalSteps))
-        text.tintColor = .white
+        let stepsText = CLKSimpleTextProvider()
+        stepsText.text = formatStepsForLarge(totalSteps)
+        stepsText.shortText = formatStepsForSmall(totalSteps)
         
-        let provider = CLKSimpleGaugeProvider(style: .fill, gaugeColor: UIColor(red: 81.0/255.0, green: 153.0/255.0, blue: 238.0/255.0, alpha: 1), fillFraction: Float(min(totalSteps, goal)) / Float(goal))
-        
-        gc.outerTextProvider = text
-        gc.gaugeProvider = provider
-        
-        return gc;
+        if goalReached {
+            let gcText = CLKComplicationTemplateGraphicCornerStackText()
+            gcText.outerTextProvider = stepsText
+            gcText.innerTextProvider = CLKSimpleTextProvider(text: NSLocalizedString("Goal achieved!", comment: ""))
+            return gcText
+        } else {
+            let gcGauge = CLKComplicationTemplateGraphicCornerGaugeText()
+            gcGauge.outerTextProvider = stepsText
+            gcGauge.gaugeProvider = getGauge(for: totalSteps, goal: goal)
+            gcGauge.trailingTextProvider = CLKSimpleTextProvider(text: formatStepsForVerySmall(goal))
+            return gcGauge
+        }
     }
     
+    //MARK: Graphic Circular
+    
     @available(watchOSApplicationExtension 5.0, *)
-    func getEntryForGraphicCircular(_ totalSteps: Steps, _ goal: Steps) -> CLKComplicationTimelineEntry
-    {
+    func getEntryForGraphicCircular(_ totalSteps: Steps, _ goal: Steps) -> CLKComplicationTimelineEntry {
         let gc = getTemplateForTextCircular(totalSteps, goal)
         return CLKComplicationTimelineEntry(date: Date(), complicationTemplate: gc)
     }
     
     @available(watchOSApplicationExtension 5.0, *)
-    func  getTemplateForTextCircular(_ totalSteps: Steps, _ goal: Steps) -> CLKComplicationTemplateGraphicCircularClosedGaugeText
-    {
+    func  getTemplateForTextCircular(_ totalSteps: Steps, _ goal: Steps) -> CLKComplicationTemplateGraphicCircularClosedGaugeText {
         let gc = CLKComplicationTemplateGraphicCircularClosedGaugeText()
         
         let text = CLKSimpleTextProvider()
-        text.text = formatStepsForVerySmall(NSNumber(value: totalSteps))
-        text.tintColor = .white
+        text.text = formatStepsForVerySmall(totalSteps)
         
         gc.centerTextProvider = text
         gc.gaugeProvider = getGauge(for: totalSteps, goal: goal)
         
-        return gc;
+        return gc
     }
     
-    @available(watchOSApplicationExtension 5.0, *)
-    func  getTemplateForGraphicCircular(_ totalSteps: Steps, _ goal: Steps) -> CLKComplicationTemplateGraphicCircularClosedGaugeImage
-    {
-        let gc = CLKComplicationTemplateGraphicCircularClosedGaugeImage()
-        let shoe = UIImage(named: "GraphicCircularShoe")!
-        gc.imageProvider = CLKFullColorImageProvider.init(fullColorImage: shoe)
-        gc.gaugeProvider = getGauge(for: totalSteps, goal: goal)
-        return gc;
-    }
+    //MARK: Graphic Bezel
     
     @available(watchOSApplicationExtension 5.0, *)
-    func getEntryForGraphicBezel(_ totalSteps: Steps, _ goal: Steps) -> CLKComplicationTimelineEntry
-    {
+    func getEntryForGraphicBezel(_ totalSteps: Steps, _ goal: Steps) -> CLKComplicationTimelineEntry {
         let gb = getTemplateForGraphicBezel(totalSteps, goal)
         return CLKComplicationTimelineEntry(date: Date(), complicationTemplate: gb)
     }
     
     @available(watchOSApplicationExtension 5.0, *)
-    func getTemplateForGraphicBezel(_ totalSteps: Steps, _ goal: Steps) -> CLKComplicationTemplateGraphicBezelCircularText
-    {
+    func getTemplateForGraphicBezel(_ totalSteps: Steps, _ goal: Steps) -> CLKComplicationTemplateGraphicBezelCircularText {
         let text = CLKSimpleTextProvider()
-        text.text = String(format: NSLocalizedString("%@ STEPS", comment: ""), formatStepsForLarge(NSNumber(value: totalSteps)))
+        text.text = String(format: NSLocalizedString("%@ STEPS", comment: ""), formatStepsForLarge(totalSteps))
         text.tintColor = .white
         
         let template = CLKComplicationTemplateGraphicBezelCircularText()
@@ -409,180 +354,112 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     }
     
     @available(watchOSApplicationExtension 5.0, *)
-    func getEntryForGraphicRectangle(_ totalSteps: Steps, _ goal: Steps) -> CLKComplicationTimelineEntry
-    {
+    func  getTemplateForGraphicCircular(_ totalSteps: Steps, _ goal: Steps) -> CLKComplicationTemplateGraphicCircularClosedGaugeImage {
+        let gc = CLKComplicationTemplateGraphicCircularClosedGaugeImage()
+        let shoe = UIImage(named: "GraphicCircularShoe")!
+        gc.imageProvider = CLKFullColorImageProvider.init(fullColorImage: shoe)
+        gc.gaugeProvider = getGauge(for: totalSteps, goal: goal)
+        return gc;
+    }
+    
+    //MARK: Graphic Rectangle
+    
+    @available(watchOSApplicationExtension 5.0, *)
+    func getEntryForGraphicRectangle(_ totalSteps: Steps, _ goal: Steps) -> CLKComplicationTimelineEntry {
         let gb = getTemplateForGraphicRectangle(totalSteps, goal)
         return CLKComplicationTimelineEntry(date: Date(), complicationTemplate: gb)
     }
     
     @available(watchOSApplicationExtension 5.0, *)
-    func getTemplateForGraphicRectangle(_ totalSteps: Steps, _ goal: Steps) -> CLKComplicationTemplateGraphicRectangularTextGauge
-    {
+    func getTemplateForGraphicRectangle(_ totalSteps: Steps, _ goal: Steps) -> CLKComplicationTemplate {
+        let goalReached = totalSteps >= goal
+        
         let shoe = UIImage(named: "GraphicRectShoe")!
         let image = CLKFullColorImageProvider(fullColorImage: shoe)
         
-        let text = CLKSimpleTextProvider()
-        text.text = String(format: NSLocalizedString("%@ STEPS", comment: ""), formatStepsForLarge(NSNumber(value: totalSteps)))
-        text.tintColor = UIColor(red: 81.0/255.0, green: 153.0/255.0, blue: 238.0/255.0, alpha: 1)
+        let stepsText = CLKSimpleTextProvider()
+        stepsText.text = String(format: NSLocalizedString("%@ STEPS", comment: ""), formatStepsForLarge(totalSteps))
+        stepsText.tintColor = BLUE_TINT
+    
+        let progressText = CLKSimpleTextProvider()
+        progressText.text = goalReached
+                                ? Trophy.trophy(for: totalSteps).symbol() + " +" + formatStepsForSmall(totalSteps - goal)
+                                : String(format: NSLocalizedString("%@ to go", comment: ""), formatStepsForSmall(goal - totalSteps))
         
-        let toGoText = CLKSimpleTextProvider()
-        if (totalSteps >= goal)
-        {
-            toGoText.text = NSLocalizedString("Goal achieved!", comment: "")
+        if goalReached {
+            let textTemplate = CLKComplicationTemplateGraphicRectangularStandardBody()
+            textTemplate.headerImageProvider = image
+            textTemplate.headerTextProvider = stepsText
+            textTemplate.body1TextProvider = CLKSimpleTextProvider(text: NSLocalizedString("Goal achieved!", comment: ""))
+            textTemplate.body2TextProvider = progressText
+            return textTemplate
+        } else {
+            let gaugeTemplate = CLKComplicationTemplateGraphicRectangularTextGauge()
+            gaugeTemplate.headerImageProvider = image
+            gaugeTemplate.headerTextProvider = stepsText
+            gaugeTemplate.body1TextProvider = progressText
+            gaugeTemplate.gaugeProvider = getGauge(for: totalSteps, goal: goal)
+            return gaugeTemplate
         }
-        else
-        {
-            let toGo = goal - totalSteps
-            toGoText.text = String(format: NSLocalizedString("%@ to go", comment: ""), formatStepsForSmall(NSNumber(value: toGo)))
-        }
-        
-        let template = CLKComplicationTemplateGraphicRectangularTextGauge()
-        template.headerImageProvider = image
-        template.headerTextProvider = text
-        template.body1TextProvider = toGoText
-        template.gaugeProvider = getGauge(for: totalSteps, goal: goal)
-        return template
     }
+    
+    //MARK: Gauge
     
     @available(watchOSApplicationExtension 5.0, *)
-    func getGauge(for totalSteps: Steps, goal: Steps) -> CLKSimpleGaugeProvider
-    {
-        return CLKSimpleGaugeProvider(style: .fill, gaugeColor: UIColor(red: 81.0/255.0, green: 153.0/255.0, blue: 238.0/255.0, alpha: 1), fillFraction: Float(min(totalSteps, goal)) / Float(goal))
+    func getGauge(for totalSteps: Steps, goal: Steps) -> CLKSimpleGaugeProvider {
+        return CLKSimpleGaugeProvider(style: .fill, gaugeColor: BLUE_TINT, fillFraction: Float(min(totalSteps, goal)) / Float(goal))
     }
     
-    func formatStepsForLarge(_ totalSteps: NSNumber) -> String
-    {
+    //MARK: Number Formatters
+    
+    func formatStepsForLarge(_ totalSteps: Steps) -> String {
         let numberFormatter = NumberFormatter()
-        numberFormatter.numberStyle = NumberFormatter.Style.decimal
+        numberFormatter.numberStyle = .decimal
         numberFormatter.locale = Locale.current
-        if let format = numberFormatter.string(from: totalSteps)
-        {
+        if let format = numberFormatter.string(for: totalSteps) {
             return format
         }
         
         return "0"
     }
     
-    func formatStepsForSmall(_ totalSteps: NSNumber) -> String
-    {
-        if (totalSteps.intValue >= 1000)
-        {
-            let totalStepsReduced = NSNumber(value: totalSteps.doubleValue / 1000.0 as Double)
-            let numberFormatter = NumberFormatter()
-            numberFormatter.numberStyle = NumberFormatter.Style.decimal
-            numberFormatter.locale = Locale.current
-            numberFormatter.maximumFractionDigits = 1
-            if let format = numberFormatter.string(from: totalStepsReduced)
-            {
-                return String(format: "%@k", format)
-            }
+    private func formatStepsForSmall(_ totalSteps: Steps) -> String {
+        let moreThan1000 = totalSteps >= 1000
+        
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = .decimal
+        numberFormatter.locale = Locale.current
+        numberFormatter.maximumFractionDigits = moreThan1000 ? 1 : 0
+        numberFormatter.roundingMode = moreThan1000 ? .down : .ceiling
+        
+        var displaySteps: Double = Double(totalSteps)
+        var suffix = ""
+        
+        if moreThan1000 {
+            displaySteps /= 1000.0
+            suffix = "k"
         }
-        else
-        {
-            let numberFormatter = NumberFormatter()
-            numberFormatter.numberStyle = NumberFormatter.Style.decimal
-            numberFormatter.locale = Locale.current
-            numberFormatter.maximumFractionDigits = 0
-            if let format = numberFormatter.string(from: totalSteps)
-            {
-                return String(format: "%@", format)
-            }
+        
+        if let format = numberFormatter.string(for: displaySteps) {
+            return String(format: "%@%@", format, suffix)
         }
         
         return "0"
     }
     
-    func formatStepsForVerySmall(_ totalSteps: NSNumber) -> String
-    {
-        if (totalSteps.intValue >= 1000)
-        {
-            let totalStepsReduced = NSNumber(value: totalSteps.doubleValue / Double(1000))
+    func formatStepsForVerySmall(_ totalSteps: Steps) -> String {
+        if totalSteps >= 1000 {
+            let displaySteps: Double = Double(totalSteps) / 1000.0
             let numberFormatter = NumberFormatter()
-            numberFormatter.roundingMode = .floor
-            numberFormatter.numberStyle = NumberFormatter.Style.decimal
+            numberFormatter.roundingMode = .down
+            numberFormatter.numberStyle = .decimal
             numberFormatter.locale = Locale.current
-            numberFormatter.maximumFractionDigits = totalSteps.intValue >= 10000 ? 0 : 1
-            if let format = numberFormatter.string(from: totalStepsReduced)
-            {
+            numberFormatter.maximumFractionDigits = totalSteps >= 10000 ? 0 : 1
+            if let format = numberFormatter.string(for: displaySteps) {
                 return format.count <= 2 ? String(format: "%@k", format) : format
             }
         }
         
-        return totalSteps.intValue > 0 ? "<1k" : "0"
+        return totalSteps > 0 ? "<1k" : "0"
     }
-
-    
-    func getLocalizableSampleTemplate(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTemplate?) -> Swift.Void)
-    {
-        let sampleDisplaySteps = NSNumber(value: 12500 as Int)
-        var template: CLKComplicationTemplate?
-        if (complication.family == .modularSmall)
-        {
-            template = getTemplateForModularSmall(sampleDisplaySteps)
-        }
-        else if (complication.family == .modularLarge)
-        {
-            template = getTemplateForModularLarge(sampleDisplaySteps)
-        }
-        else if (complication.family == .circularSmall)
-        {
-            template = getTemplateForCircularSmall(sampleDisplaySteps)
-        }
-        else if (complication.family == .utilitarianLarge)
-        {
-            template = getTemplateForUtilitarianLarge(sampleDisplaySteps)
-        }
-        else if (complication.family == .utilitarianSmall || complication.family == .utilitarianSmallFlat)
-        {
-            template = getTemplateForUtilitarianSmall(sampleDisplaySteps)
-        }
-        else if (complication.family == .extraLarge)
-        {
-            template = getTemplateForExtraLarge(sampleDisplaySteps)
-        }
-        
-        if #available(watchOS 5.0, *)
-        {
-            let sampleStepsGoal: Steps = 10000
-            
-            if (complication.family == .graphicCorner)
-            {
-                template = getTemplateForGraphicCorner(12500, sampleStepsGoal)
-            }
-            else if (complication.family == .graphicCircular)
-            {
-                template = getTemplateForGraphicCircular(12500, sampleStepsGoal)
-            }
-            else if (complication.family == .graphicBezel)
-            {
-                template = getTemplateForGraphicBezel(12500, sampleStepsGoal)
-            }
-            else if (complication.family == .graphicRectangular)
-            {
-                template = getTemplateForGraphicRectangle(12500, sampleStepsGoal)
-            }
-        }
-        
-        handler(template)
-    }
-    
-    class func refreshComplication()
-    {
-        let server = CLKComplicationServer.sharedInstance()
-        if let allComplications = server.activeComplications
-        {
-            for complication in allComplications
-            {
-                server.reloadTimeline(for: complication)
-            }
-            
-            let log = allComplications.count > 0 ? "Complication reloadTimeline" : "Complication reloadTimeline but no active found"
-            LoggingService.log(log, with: String(format: "%d", HealthCache.lastSteps(for: Date())))
-        }
-        else
-        {
-            LoggingService.log("Complication reloadTimeline but no active found", at: .debug)
-        }
-    }
-    
 }

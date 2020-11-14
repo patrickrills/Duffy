@@ -47,4 +47,13 @@ public extension Date {
         let components = calendar.dateComponents([.era, .year, .month, .day], from: self)
         return Calendar.current.date(from: components)!
     }
+    
+    func changeTime(hour: Int, minute: Int, second: Int) -> Date? {
+        var components = Calendar.current.dateComponents([.era, .year, .month, .day], from: self)
+        components.hour = hour
+        components.minute = minute
+        components.second = second
+        components.timeZone = TimeZone.current
+        return Calendar.current.date(from: components)
+    }
 }
