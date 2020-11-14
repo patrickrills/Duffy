@@ -37,8 +37,10 @@ class RingDrawer {
             ring.fill()
         }
         
-        let imageSize = insetRect.size.height / 2.0
-        UIImage(named: "GraphicCircularShoe")!.draw(in: CGRect(x: (size.width / 2.0) - (imageSize / 2.0), y: (size.height / 2.0) - (imageSize / 2.0), width: imageSize, height: imageSize))
+        if let image = UIImage(named: "GraphicCircularShoe") { //Asset libraries are not available to complication on older watchOS versions (< 5.0)
+            let imageSize = insetRect.size.height / 2.0
+            image.draw(in: CGRect(x: (size.width / 2.0) - (imageSize / 2.0), y: (size.height / 2.0) - (imageSize / 2.0), width: imageSize, height: imageSize))
+        }
         
         let cgimage = context!.makeImage()
         let uiimage = UIImage(cgImage: cgimage!)
