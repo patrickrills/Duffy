@@ -13,24 +13,16 @@ class LegacyEditGoalInterfaceController: WKInterfaceController
 {
     public static let IDENTIFIER = "LegacyEditGoalInterfaceController"
     
-    @IBOutlet weak var goalOptionsList: WKInterfacePicker?
+    @IBOutlet weak var goalOptionsList: WKInterfacePicker!
     private var stepsGoal: Steps = 0
     private var options: [Steps] = []
     
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
         
-        if let picker = goalOptionsList {
-            var items: [WKPickerItem] = []
-            for i in stride(from: 500, to: 80250, by: 250) {
-                let opt = WKPickerItem()
-                opt.title = InterfaceController.getNumberFormatter().string(for: i)
-                items.append(opt)
-                options.append(Steps(i))
-            }
-            
-            picker.setItems(items)
-        }
+        let items = SetGoalInterfaceController.populateGoalItems(includeTitle: true)
+        options = items.options
+        goalOptionsList.setItems(items.pickerItems)
     }
     
     override func willActivate() {
@@ -39,7 +31,7 @@ class LegacyEditGoalInterfaceController: WKInterfaceController
         stepsGoal = HealthCache.dailyGoal()
         
         if let i = options.firstIndex(of: stepsGoal) {
-            goalOptionsList?.setSelectedItemIndex(i)
+            goalOptionsList.setSelectedItemIndex(i)
         }
     }
     

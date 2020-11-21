@@ -71,7 +71,62 @@
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="139" y="852"/>
+            <point key="canvasLocation" x="313" y="804"/>
+        </scene>
+        <!--Cancel-->
+        <scene sceneID="ROL-wV-fnb">
+            <objects>
+                <controller identifier="SetGoalInterfaceController" title="Cancel" id="4xO-Gf-sN4" customClass="SetGoalInterfaceController" customModule="Duffy_WatchKit_Extension">
+                    <items>
+                        <picker height="2" alignment="left" id="lxQ-31-QF5">
+                            <connections>
+                                <action selector="pickerIndexChangedWithIndex:" destination="4xO-Gf-sN4" id="9hQ-n0-BBS"/>
+                            </connections>
+                        </picker>
+                        <group width="1" alignment="left" verticalAlignment="center" layout="vertical" id="LJ8-sM-nqT">
+                            <items>
+                                <group width="1" alignment="left" id="vYK-jD-U9E">
+                                    <items>
+                                        <button alignment="left" verticalAlignment="center" id="oru-5d-tbX">
+                                            <group key="contentGroup" alignment="left" id="BQ4-dw-OOc">
+                                                <items>
+                                                    <imageView alignment="left" verticalAlignment="center" id="64F-R3-w77"/>
+                                                </items>
+                                            </group>
+                                            <connections>
+                                                <action selector="minusPressed" destination="4xO-Gf-sN4" id="O62-QT-M00"/>
+                                            </connections>
+                                        </button>
+                                        <button alignment="right" verticalAlignment="center" id="vX5-fg-N1J">
+                                            <group key="contentGroup" alignment="left" id="lFJ-DG-tkG">
+                                                <items>
+                                                    <imageView alignment="right" verticalAlignment="center" id="6Zp-jl-uAN"/>
+                                                </items>
+                                            </group>
+                                            <connections>
+                                                <action selector="plusPressed" destination="4xO-Gf-sN4" id="1qR-9h-b8o"/>
+                                            </connections>
+                                        </button>
+                                    </items>
+                                </group>
+                                <label width="1" alignment="center" text="Label" textAlignment="center" id="vBt-wx-NMQ"/>
+                                <button width="1" alignment="left" title="Set Goal" id="kXU-CC-2sB">
+                                    <connections>
+                                        <action selector="savePressed" destination="4xO-Gf-sN4" id="laO-uX-HbD"/>
+                                    </connections>
+                                </button>
+                            </items>
+                        </group>
+                    </items>
+                    <connections>
+                        <outlet property="invisiblePicker" destination="lxQ-31-QF5" id="XBy-ST-CTl"/>
+                        <outlet property="minusImage" destination="64F-R3-w77" id="iA6-Ow-ViX"/>
+                        <outlet property="plusImage" destination="6Zp-jl-uAN" id="NBS-k2-r6v"/>
+                        <outlet property="selectedStepsLabel" destination="vBt-wx-NMQ" id="55R-Uf-WrI"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="313" y="1103"/>
         </scene>
         <!--Cancel-->
         <scene sceneID="xdF-XR-FCq">
@@ -94,7 +149,7 @@
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="345" y="1120"/>
+            <point key="canvasLocation" x="604" y="1102"/>
         </scene>
         <!--Static Notification Interface Controller-->
         <scene sceneID="x9Y-1d-Uel">
@@ -158,7 +213,7 @@
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="565" y="840"/>
+            <point key="canvasLocation" x="605" y="803"/>
         </scene>
         <!--Goal Notification Interface Controller-->
         <scene sceneID="Khe-dC-FsF">
