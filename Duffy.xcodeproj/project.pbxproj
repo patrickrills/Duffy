@@ -86,7 +86,7 @@
 		097085A0214F16B600790EC7 /* AppRater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0970859F214F16B600790EC7 /* AppRater.swift */; };
 		097FB10F23CDEAF5001621D4 /* DebugService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097FB10E23CDEAF5001621D4 /* DebugService.swift */; };
 		097FB11023CDEAF5001621D4 /* DebugService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097FB10E23CDEAF5001621D4 /* DebugService.swift */; };
-		09824A8C1EA66C74002A4A84 /* EditGoalInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09824A8B1EA66C74002A4A84 /* EditGoalInterfaceController.swift */; };
+		09824A8C1EA66C74002A4A84 /* LegacyEditGoalInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09824A8B1EA66C74002A4A84 /* LegacyEditGoalInterfaceController.swift */; };
 		0985E6E924F162AC000B4A96 /* HistoryTrendChartOptionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0985E6E824F162AC000B4A96 /* HistoryTrendChartOptionsTableViewController.swift */; };
 		0985E6EB24F174C2000B4A96 /* HistoryTrendChartOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0985E6EA24F174C2000B4A96 /* HistoryTrendChartOption.swift */; };
 		0985E6EE24F2B4B1000B4A96 /* HistorySummaryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0985E6EC24F2B4B1000B4A96 /* HistorySummaryTableViewCell.xib */; };
@@ -298,7 +298,7 @@
 		0970859D214EAEB200790EC7 /* HourGraphMaxIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourGraphMaxIndicatorView.swift; sourceTree = "<group>"; };
 		0970859F214F16B600790EC7 /* AppRater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRater.swift; sourceTree = "<group>"; };
 		097FB10E23CDEAF5001621D4 /* DebugService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugService.swift; sourceTree = "<group>"; };
-		09824A8B1EA66C74002A4A84 /* EditGoalInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditGoalInterfaceController.swift; sourceTree = "<group>"; };
+		09824A8B1EA66C74002A4A84 /* LegacyEditGoalInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LegacyEditGoalInterfaceController.swift; sourceTree = "<group>"; };
 		0985E6E824F162AC000B4A96 /* HistoryTrendChartOptionsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTrendChartOptionsTableViewController.swift; sourceTree = "<group>"; };
 		0985E6EA24F174C2000B4A96 /* HistoryTrendChartOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTrendChartOption.swift; sourceTree = "<group>"; };
 		0985E6EC24F2B4B1000B4A96 /* HistorySummaryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistorySummaryTableViewCell.xib; sourceTree = "<group>"; };
@@ -490,7 +490,7 @@
 				091714CE25290B8D001062E0 /* ChartDrawer.swift */,
 				0955EBF2255851820047D791 /* RingDrawer.swift */,
 				0947AA9D1D4EB24A0040E1DD /* WeekRowController.swift */,
-				09824A8B1EA66C74002A4A84 /* EditGoalInterfaceController.swift */,
+				09824A8B1EA66C74002A4A84 /* LegacyEditGoalInterfaceController.swift */,
 				09323C951D22C39700961822 /* ExtensionDelegate.swift */,
 				09323C971D22C39700961822 /* ComplicationController.swift */,
 				09289C7720D873F9005BF6B8 /* GoalNotificationInterfaceController.swift */,
@@ -898,7 +898,7 @@
 				09289C7820D873F9005BF6B8 /* GoalNotificationInterfaceController.swift in Sources */,
 				091714CF25290B8D001062E0 /* ChartDrawer.swift in Sources */,
 				0947AA9E1D4EB24A0040E1DD /* WeekRowController.swift in Sources */,
-				09824A8C1EA66C74002A4A84 /* EditGoalInterfaceController.swift in Sources */,
+				09824A8C1EA66C74002A4A84 /* LegacyEditGoalInterfaceController.swift in Sources */,
 				09323C941D22C39700961822 /* InterfaceController.swift in Sources */,
 				09323C981D22C39700961822 /* ComplicationController.swift in Sources */,
 			);

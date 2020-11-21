@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="17156" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="17506" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
     <device id="watch42"/>
     <dependencies>
         <deployment identifier="watchOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="17034"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="17500"/>
     </dependencies>
     <scenes>
         <!--Today-->
@@ -76,7 +76,7 @@
         <!--Cancel-->
         <scene sceneID="xdF-XR-FCq">
             <objects>
-                <controller identifier="editGoalInterfaceController" title="Cancel" id="NnG-6h-E9i" customClass="EditGoalInterfaceController" customModule="Duffy_WatchKit_Extension">
+                <controller identifier="LegacyEditGoalInterfaceController" title="Cancel" id="NnG-6h-E9i" customClass="LegacyEditGoalInterfaceController" customModule="Duffy_WatchKit_Extension">
                     <items>
                         <picker height="90" alignment="center" verticalAlignment="center" focusStyle="stack" id="Vgb-3m-FEt">
                             <connections>

@@ -63,7 +63,7 @@ class InterfaceController: WKInterfaceController
     }
     
     @IBAction func changeGoalMenuItemPressed() {
-        presentController(withName: "editGoalInterfaceController", context: nil)
+        presentController(withName: LegacyEditGoalInterfaceController.IDENTIFIER, context: nil)
     }
     
     //MARK: Update UI

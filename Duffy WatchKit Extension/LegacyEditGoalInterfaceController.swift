@@ -9,8 +9,10 @@
 import WatchKit
 import DuffyWatchFramework
 
-class EditGoalInterfaceController: WKInterfaceController
+class LegacyEditGoalInterfaceController: WKInterfaceController
 {
+    public static let IDENTIFIER = "LegacyEditGoalInterfaceController"
+    
     @IBOutlet weak var goalOptionsList: WKInterfacePicker?
     private var stepsGoal: Steps = 0
     private var options: [Steps] = []
