@@ -20,6 +20,18 @@ class InterfaceController: WKInterfaceController
     
     private var isQueryInProgress = false
     
+    //MARK: Globals
+    
+    public class func getNumberFormatter() -> NumberFormatter {
+        let numberFormatter = NumberFormatter()
+        numberFormatter.numberStyle = NumberFormatter.Style.decimal
+        numberFormatter.locale = Locale.current
+        numberFormatter.maximumFractionDigits = 0
+        return numberFormatter
+    }
+    
+    //MARK: Controller Lifecycle
+    
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
         if DebugService.isDebugModeEnabled() {
@@ -33,8 +45,7 @@ class InterfaceController: WKInterfaceController
         refresh()
     }
     
-    override func didAppear()
-    {
+    override func didAppear() {
         super.didAppear()
         askForHealthKitPermissionAndRefresh()
         subscribeToHealthKitUpdates()
@@ -45,8 +56,46 @@ class InterfaceController: WKInterfaceController
         unsubscribeToHealthKitUpdates()
     }
     
-    private func askForHealthKitPermissionAndRefresh()
-    {
+    //MARK: Menu Button Handlers
+    
+    @IBAction func refreshPressed() {
+        refresh()
+    }
+    
+    @IBAction func changeGoalMenuItemPressed() {
+        presentController(withName: "editGoalInterfaceController", context: nil)
+    }
+    
+    //MARK: Update UI
+    
+    private func refresh() {
+        refreshTodayFromHealth({
+            [weak self] success in
+            
+            if let weakSelf = self, success {
+                weakSelf.scheduleSnapshot()
+            }
+        })
+    }
+    
+    private func display(steps: Steps) {
+        stepsValueLabel?.setText(InterfaceController.getNumberFormatter().string(for: steps))
+        updateGoalDisplay(stepsForDay: steps)
+    }
+    
+    private func updateGoalDisplay(stepsForDay: Steps) {
+        let goalValue = HealthCache.dailyGoal()
+        if goalValue > 0, let formattedValue = InterfaceController.getNumberFormatter().string(for: goalValue) {
+            stepsGoalLabel.setHidden(false)
+            stepsGoalLabel.setText(String(format: NSLocalizedString("of %@ goal %@", comment: ""), formattedValue, Trophy.trophy(for: stepsForDay).symbol()))
+        } else {
+            stepsGoalLabel.setHidden(true)
+        }
+    }
+    
+    //MARK: Apple Health Integration
+    
+    private func askForHealthKitPermissionAndRefresh() {
         maybeTurnOverComplicationDate()
         
         HealthKitService.getInstance().authorize { success in
@@ -57,26 +106,7 @@ class InterfaceController: WKInterfaceController
         }
     }
     
-    private func refresh()
-    {
-        refreshTodayFromHealth({
-            [weak self] success in
-            
-            if let weakSelf = self, success {
-                weakSelf.scheduleSnapshot()
-            }
-        })
-    }
-    
-    private func scheduleSnapshot() {
-        if let d = WKExtension.shared().delegate as? ExtensionDelegate
-        {
-            d.scheduleNextBackgroundRefresh()
-            d.scheduleSnapshotNow()
-        }
-    }
-    
-    private func refreshTodayFromHealth(_ completion: @escaping (Bool) -> Void) {
+    private func refreshTodayFromHealth(_ completion: @escaping (Bool) -> ()) {
         guard !isQueryInProgress else { return }
         
         isQueryInProgress = true
@@ -107,12 +137,12 @@ class InterfaceController: WKInterfaceController
             refreshGroup.leave()
         })
         
-        refreshGroup.notify(queue: DispatchQueue.main, work: DispatchWorkItem(block: { [weak self] in
+        refreshGroup.notify(queue: DispatchQueue.main) { [weak self] in
             if let self = self {
                 self.isQueryInProgress = false
             }
             completion(stepsSuccess && flightsSuccess && distanceSuccess)
-        }))
+        }
     }
     
     private func displayTodaysStepsFromHealth(_ completion: @escaping (Bool) -> Void) {
@@ -137,8 +167,7 @@ class InterfaceController: WKInterfaceController
         HealthKitService.getInstance().getFlightsClimbed(for: Date()) { result in
             switch result {
             case .success(let flightsResult):
-                DispatchQueue.main.async {
-                    [weak self] in
+                DispatchQueue.main.async { [weak self] in
                     self?.flightsValueLabel?.setText(InterfaceController.getNumberFormatter().string(for: flightsResult.flights))
                     completion(true)
                 }
@@ -169,32 +198,7 @@ class InterfaceController: WKInterfaceController
         }
     }
     
-    func updateInterfaceFromSnapshot() {
-        displayTodaysStepsFromCache()
-        LoggingService.log("Update UI from snapshot task")
-    }
-    
-    private func displayTodaysStepsFromCache() {
-        DispatchQueue.main.async { [weak self] in
-            guard let weakSelf = self else { return }
-            weakSelf.display(steps: HealthCache.lastSteps(for: Date()))
-        }
-    }
-    
-    private func display(steps: Steps) {
-        stepsValueLabel?.setText(InterfaceController.getNumberFormatter().string(for: steps))
-        updateGoalDisplay(stepsForDay: steps)
-    }
-    
-    private func updateGoalDisplay(stepsForDay: Steps) {
-        let goalValue = HealthCache.dailyGoal()
-        if goalValue > 0, let formattedValue = InterfaceController.getNumberFormatter().string(for: goalValue) {
-            stepsGoalLabel.setHidden(false)
-            stepsGoalLabel.setText(String(format: NSLocalizedString("of %@ goal %@", comment: ""), formattedValue, Trophy.trophy(for: stepsForDay).symbol()))
-        } else {
-            stepsGoalLabel.setHidden(true)
-        }
-    }
+    //MARK: Apple Health Subscription
     
     func subscribeToHealthKitUpdates() {
         HealthKitService.getInstance().initializeBackgroundQueries()
@@ -223,6 +227,27 @@ class InterfaceController: WKInterfaceController
         isQueryInProgress = false
     }
     
+    //MARK: Snapshot and Complication Updating
+    
+    private func scheduleSnapshot() {
+        if let d = WKExtension.shared().delegate as? ExtensionDelegate {
+            d.scheduleNextBackgroundRefresh()
+            d.scheduleSnapshotNow()
+        }
+    }
+    
+    func updateInterfaceFromSnapshot() {
+        displayTodaysStepsFromCache()
+        LoggingService.log("Update UI from snapshot task")
+    }
+    
+    private func displayTodaysStepsFromCache() {
+        DispatchQueue.main.async { [weak self] in
+            guard let weakSelf = self else { return }
+            weakSelf.display(steps: HealthCache.lastSteps(for: Date()))
+        }
+    }
+    
     private func maybeTurnOverComplicationDate() {
         //reset display if day turned over
         if HealthCache.cacheIsForADifferentDay(than: Date()) {
@@ -238,18 +263,9 @@ class InterfaceController: WKInterfaceController
         }
     }
     
-    @IBAction func refreshPressed()
-    {
-        refresh()
-    }
+    //MARK: DEBUG
     
-    @IBAction func changeGoalMenuItemPressed()
-    {
-        presentController(withName: "editGoalInterfaceController", context: nil)
-    }
-    
-    @IBAction func debugPressed()
-    {
+    @IBAction func debugPressed() {
         let log = LoggingService.getFullDebugLog()
         if log.count > 0 {
             var actions = [WKAlertAction]()
@@ -312,14 +328,5 @@ class InterfaceController: WKInterfaceController
     
     private func clearDebugLog() {
         LoggingService.clearLog()
-    }
-    
-    open class func getNumberFormatter() -> NumberFormatter
-    {
-        let numberFormatter = NumberFormatter()
-        numberFormatter.numberStyle = NumberFormatter.Style.decimal
-        numberFormatter.locale = Locale.current
-        numberFormatter.maximumFractionDigits = 0
-        return numberFormatter
     }
 }
