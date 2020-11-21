@@ -172,7 +172,7 @@
                                     <fontDescription key="font" type="system" weight="semibold" pointSize="34"/>
                                 </label>
                                 <label width="1" alignment="left" text="STEPS" textAlignment="center" id="yjy-MT-lTv">
-                                    <color key="textColor" red="0.31764705882352939" green="0.59999999999999998" blue="0.93333333333333335" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="textColor" red="0.12549019607843137" green="0.58039215686274503" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
                                 </label>
                                 <label width="1" alignment="left" text="Label" textAlignment="center" numberOfLines="0" id="4L3-DK-j5d"/>
                             </items>
@@ -187,7 +187,7 @@
             <point key="canvasLocation" x="613" y="1451"/>
         </scene>
     </scenes>
-    <color key="tintColor" red="0.0" green="0.30980392156862746" blue="0.85098039215686272" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+    <color key="tintColor" red="0.12549019607843137" green="0.58039215686274503" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
     <resources>
         <image name="Distance" width="16" height="16"/>
         <image name="Flights" width="30" height="30"/>
