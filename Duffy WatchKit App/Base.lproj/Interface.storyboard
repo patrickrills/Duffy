@@ -136,6 +136,7 @@
                         </group>
                     </items>
                     <connections>
+                        <outlet property="descrStepsLabel" destination="mKZ-Td-TUq" id="Wgi-5I-qkn"/>
                         <outlet property="invisiblePicker" destination="lxQ-31-QF5" id="XBy-ST-CTl"/>
                         <outlet property="minusImage" destination="64F-R3-w77" id="iA6-Ow-ViX"/>
                         <outlet property="plusImage" destination="6Zp-jl-uAN" id="NBS-k2-r6v"/>

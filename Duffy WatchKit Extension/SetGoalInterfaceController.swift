@@ -33,6 +33,7 @@ class SetGoalInterfaceController: WKInterfaceController
     @IBOutlet weak var minusImage: WKInterfaceImage!
     @IBOutlet weak var plusImage: WKInterfaceImage!
     @IBOutlet weak var selectedStepsLabel: WKInterfaceLabel!
+    @IBOutlet weak var descrStepsLabel: WKInterfaceLabel!
     
     private var options: [Steps] = []
     private var selectedGoal: Steps = 0
@@ -80,12 +81,30 @@ class SetGoalInterfaceController: WKInterfaceController
     @IBAction private func pickerIndexChanged(index: Int) {
         selectedIndex = index
         selectedGoal = options[index]
-        selectedStepsLabel.setText(InterfaceController.getNumberFormatter().string(for: selectedGoal))
+        updateDisplayedSteps()
     }
     
     @IBAction func savePressed() {
         HealthCache.saveDailyGoal(selectedGoal)
         ComplicationController.refreshComplication()
         dismiss()
+    }
+    
+    private func updateDisplayedSteps() {
+        guard let goalFormatted = InterfaceController.getNumberFormatter().string(for: selectedGoal) else { return }
+        
+        if #available(watchOS 6.0, *) {
+            let valueFontSize: CGFloat = 44.0
+            let descrFontSize: CGFloat = UIFont.preferredFont(forTextStyle: .body).pointSize
+            if let valueFontDescriptor = UIFont.systemFont(ofSize: valueFontSize, weight: .black).fontDescriptor.withDesign(.rounded),
+               let descrFontDescriptor = UIFont.preferredFont(forTextStyle: .body).fontDescriptor.withDesign(.rounded)
+            {
+                selectedStepsLabel.setAttributedText(NSAttributedString(string: goalFormatted, attributes: [ .font : UIFont(descriptor: valueFontDescriptor, size: valueFontSize) ]))
+                descrStepsLabel.setAttributedText(NSAttributedString(string: NSLocalizedString("STEPS", comment: ""), attributes: [.font : UIFont(descriptor: descrFontDescriptor, size: descrFontSize)]))
+                return
+            }
+        }
+        
+        selectedStepsLabel.setText(goalFormatted)
     }
 }
