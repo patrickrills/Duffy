@@ -77,40 +77,47 @@
         <!--Cancel-->
         <scene sceneID="ROL-wV-fnb">
             <objects>
-                <controller identifier="SetGoalInterfaceController" title="Cancel" id="4xO-Gf-sN4" customClass="SetGoalInterfaceController" customModule="Duffy_WatchKit_Extension">
+                <controller identifier="SetGoalInterfaceController" title="Cancel" fullBounds="YES" id="4xO-Gf-sN4" customClass="SetGoalInterfaceController" customModule="Duffy_WatchKit_Extension">
                     <items>
                         <picker height="2" alignment="left" id="lxQ-31-QF5">
                             <connections>
                                 <action selector="pickerIndexChangedWithIndex:" destination="4xO-Gf-sN4" id="9hQ-n0-BBS"/>
                             </connections>
                         </picker>
-                        <group width="1" alignment="left" verticalAlignment="center" layout="vertical" id="LJ8-sM-nqT">
+                        <group width="1" alignment="left" verticalAlignment="center" layout="vertical" spacing="12" id="LJ8-sM-nqT">
                             <items>
-                                <group width="1" alignment="left" id="vYK-jD-U9E">
+                                <group width="1" alignment="left" layout="vertical" spacing="2" id="OZ4-Ef-Va1">
                                     <items>
-                                        <button alignment="left" verticalAlignment="center" id="oru-5d-tbX">
-                                            <group key="contentGroup" alignment="left" id="BQ4-dw-OOc">
-                                                <items>
-                                                    <imageView alignment="left" verticalAlignment="center" id="64F-R3-w77"/>
-                                                </items>
-                                            </group>
-                                            <connections>
-                                                <action selector="minusPressed" destination="4xO-Gf-sN4" id="O62-QT-M00"/>
-                                            </connections>
-                                        </button>
-                                        <button alignment="right" verticalAlignment="center" id="vX5-fg-N1J">
-                                            <group key="contentGroup" alignment="left" id="lFJ-DG-tkG">
-                                                <items>
-                                                    <imageView alignment="right" verticalAlignment="center" id="6Zp-jl-uAN"/>
-                                                </items>
-                                            </group>
-                                            <connections>
-                                                <action selector="plusPressed" destination="4xO-Gf-sN4" id="1qR-9h-b8o"/>
-                                            </connections>
-                                        </button>
+                                        <group width="1" alignment="left" id="vYK-jD-U9E">
+                                            <items>
+                                                <button alignment="left" verticalAlignment="center" id="oru-5d-tbX">
+                                                    <group key="contentGroup" alignment="left" id="BQ4-dw-OOc">
+                                                        <items>
+                                                            <imageView alignment="left" verticalAlignment="center" id="64F-R3-w77"/>
+                                                        </items>
+                                                    </group>
+                                                    <connections>
+                                                        <action selector="minusPressed" destination="4xO-Gf-sN4" id="O62-QT-M00"/>
+                                                    </connections>
+                                                </button>
+                                                <button alignment="right" verticalAlignment="center" id="vX5-fg-N1J">
+                                                    <group key="contentGroup" alignment="left" id="lFJ-DG-tkG">
+                                                        <items>
+                                                            <imageView alignment="right" verticalAlignment="center" id="6Zp-jl-uAN"/>
+                                                        </items>
+                                                    </group>
+                                                    <connections>
+                                                        <action selector="plusPressed" destination="4xO-Gf-sN4" id="1qR-9h-b8o"/>
+                                                    </connections>
+                                                </button>
+                                            </items>
+                                        </group>
+                                        <label width="1" height="45" alignment="center" text="0,000" textAlignment="center" baselineAdjustment="alignCenters" minimumScaleFactor="0.5" id="vBt-wx-NMQ">
+                                            <fontDescription key="font" type="system" weight="black" pointSize="44"/>
+                                        </label>
+                                        <label width="1" alignment="left" text="STEPS" textAlignment="center" id="mKZ-Td-TUq"/>
                                     </items>
                                 </group>
-                                <label width="1" alignment="center" text="Label" textAlignment="center" id="vBt-wx-NMQ"/>
                                 <button alignment="left" id="kXU-CC-2sB">
                                     <group key="contentGroup" width="1" height="40" alignment="left" radius="20" id="IIy-an-MZt">
                                         <items>
@@ -125,6 +132,7 @@
                                     </connections>
                                 </button>
                             </items>
+                            <variation key="device=watch38mm" spacing="4"/>
                         </group>
                     </items>
                     <connections>

@@ -46,7 +46,7 @@ class SetGoalInterfaceController: WKInterfaceController
         invisiblePicker.setItems(items.pickerItems)
         
         if #available(watchOS 6.0, *) {
-            let buttonConfig = UIImage.SymbolConfiguration(font: UIFont.systemFont(ofSize: 34.0))
+            let buttonConfig = UIImage.SymbolConfiguration(font: UIFont.systemFont(ofSize: 30.0))
             minusImage.setImage(UIImage(systemName: "minus.circle.fill", withConfiguration: buttonConfig))
             plusImage.setImage(UIImage(systemName: "plus.circle.fill", withConfiguration: buttonConfig))
         }
