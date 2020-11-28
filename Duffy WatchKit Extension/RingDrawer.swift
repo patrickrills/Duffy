@@ -26,6 +26,16 @@ class RingDrawer {
         let radius = insetRect.size.width / 2.0
         let start: CGFloat = 270.0
         let progress: CGFloat = CGFloat(steps) / CGFloat(goal)
+        
+        if progress < 1.0 {
+            let emptyRing = UIBezierPath(arcCenter: center, radius: radius, startAngle: 0, endAngle: .pi * 2, clockwise: true)
+            emptyRing.lineWidth = lineWidth
+            UIColor.white.withAlphaComponent(0.3).setStroke()
+            emptyRing.stroke()
+            UIColor.clear.setFill()
+            emptyRing.fill()
+        }
+        
         let startAngle: CGFloat = start * .pi / 180.0
         let endAngle: CGFloat = ((progress * 360.0) + start)  * .pi / 180.0
         if endAngle > startAngle {
