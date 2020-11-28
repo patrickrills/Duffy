@@ -147,7 +147,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     
     //MARK: Colors
     
-    private let BLUE_TINT = UIColor(red: 81.0/255.0, green: 153.0/255.0, blue: 238.0/255.0, alpha: 1)
+    private let BLUE_TINT = UIColor(red: 32.0/255.0, green: 148.0/255.0, blue: 250.0/255.0, alpha: 1)
     
     //MARK: Modular Small
     

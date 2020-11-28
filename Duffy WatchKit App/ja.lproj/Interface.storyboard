@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="17156" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="17506" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
     <device id="watch42"/>
     <dependencies>
         <deployment identifier="watchOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="17035"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="17500"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
     </dependencies>
     <scenes>
         <!--今日-->
@@ -76,7 +77,7 @@
         <!--キャンセル-->
         <scene sceneID="xdF-XR-FCq">
             <objects>
-                <controller identifier="editGoalInterfaceController" title="キャンセル" id="NnG-6h-E9i" customClass="EditGoalInterfaceController" customModule="Duffy_WatchKit_Extension">
+                <controller identifier="LegacyEditGoalInterfaceController" title="キャンセル" id="NnG-6h-E9i" customClass="LegacyEditGoalInterfaceController" customModule="Duffy_WatchKit_Extension">
                     <items>
                         <picker height="90" alignment="center" verticalAlignment="center" focusStyle="stack" id="Vgb-3m-FEt">
                             <connections>
@@ -172,7 +173,7 @@
                                     <fontDescription key="font" type="system" weight="semibold" pointSize="34"/>
                                 </label>
                                 <label width="1" alignment="left" text="歩数" textAlignment="center" id="yjy-MT-lTv">
-                                    <color key="textColor" red="0.31764705882352939" green="0.59999999999999998" blue="0.93333333333333335" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <color key="textColor" red="0.12549019607843137" green="0.58039215686274503" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
                                 </label>
                                 <label width="1" alignment="left" text="Label" textAlignment="center" numberOfLines="0" id="4L3-DK-j5d"/>
                             </items>
@@ -186,12 +187,87 @@
             </objects>
             <point key="canvasLocation" x="613" y="1451"/>
         </scene>
+        <!--キャンセル-->
+        <scene sceneID="ff3-5X-HxB">
+            <objects>
+                <controller identifier="SetGoalInterfaceController" title="キャンセル" fullBounds="YES" id="f2q-pD-53u" customClass="SetGoalInterfaceController" customModule="Duffy_WatchKit_Extension">
+                    <items>
+                        <picker height="2" alignment="left" id="beI-rC-siX">
+                            <connections>
+                                <action selector="pickerIndexChangedWithIndex:" destination="f2q-pD-53u" id="Wms-en-aGk"/>
+                            </connections>
+                        </picker>
+                        <group width="1" alignment="left" verticalAlignment="center" layout="vertical" spacing="12" id="FBA-4A-YGs">
+                            <items>
+                                <group width="1" alignment="left" layout="vertical" spacing="2" id="zyM-uN-fI1">
+                                    <items>
+                                        <group width="1" alignment="left" id="926-Rh-xXo">
+                                            <items>
+                                                <button alignment="left" verticalAlignment="center" id="piM-Q7-X9p">
+                                                    <group key="contentGroup" alignment="left" id="4e5-Eh-rbe">
+                                                        <items>
+                                                            <imageView alignment="left" verticalAlignment="center" id="DNK-r2-AJS"/>
+                                                        </items>
+                                                    </group>
+                                                    <connections>
+                                                        <action selector="minusPressed" destination="f2q-pD-53u" id="MWc-4U-l0x"/>
+                                                    </connections>
+                                                </button>
+                                                <button alignment="right" verticalAlignment="center" id="gsf-HN-HKG">
+                                                    <group key="contentGroup" alignment="left" id="40g-8X-V6x">
+                                                        <items>
+                                                            <imageView alignment="right" verticalAlignment="center" id="PFH-3R-r62"/>
+                                                        </items>
+                                                    </group>
+                                                    <connections>
+                                                        <action selector="plusPressed" destination="f2q-pD-53u" id="DAU-BH-l3Q"/>
+                                                    </connections>
+                                                </button>
+                                            </items>
+                                        </group>
+                                        <label width="1" height="45" alignment="center" text="0,000" textAlignment="center" baselineAdjustment="alignCenters" minimumScaleFactor="0.5" id="th0-2h-mLS">
+                                            <fontDescription key="font" type="system" weight="black" pointSize="44"/>
+                                        </label>
+                                        <label width="1" alignment="left" text="歩数" textAlignment="center" id="gDF-sN-lGI"/>
+                                    </items>
+                                </group>
+                                <button alignment="left" id="1Kq-Nc-8Gf">
+                                    <group key="contentGroup" width="1" height="40" alignment="left" radius="20" id="xac-OY-dfH">
+                                        <items>
+                                            <label alignment="center" verticalAlignment="center" text="目標を設定" id="rT0-S4-64Y">
+                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </label>
+                                        </items>
+                                        <color key="backgroundColor" name="PrimaryColor"/>
+                                    </group>
+                                    <connections>
+                                        <action selector="savePressed" destination="f2q-pD-53u" id="LeX-u8-w18"/>
+                                    </connections>
+                                </button>
+                            </items>
+                            <variation key="device=watch38mm" spacing="4"/>
+                        </group>
+                    </items>
+                    <connections>
+                        <outlet property="descrStepsLabel" destination="gDF-sN-lGI" id="urM-70-PFB"/>
+                        <outlet property="invisiblePicker" destination="beI-rC-siX" id="dbo-XX-Rt9"/>
+                        <outlet property="minusImage" destination="DNK-r2-AJS" id="PeC-4u-YTP"/>
+                        <outlet property="plusImage" destination="PFH-3R-r62" id="plj-kU-98m"/>
+                        <outlet property="selectedStepsLabel" destination="th0-2h-mLS" id="bFV-YJ-Yme"/>
+                    </connections>
+                </controller>
+            </objects>
+            <point key="canvasLocation" x="107" y="1128"/>
+        </scene>
     </scenes>
-    <color key="tintColor" red="0.0" green="0.30980392156862746" blue="0.85098039215686272" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+    <color key="tintColor" red="0.12549019607843137" green="0.58039215686274503" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
     <resources>
         <image name="Distance" width="16" height="16"/>
-        <image name="Flights" width="16" height="16"/>
+        <image name="Flights" width="30" height="30"/>
         <image name="GoalMenu" width="40" height="40"/>
+        <namedColor name="PrimaryColor">
+            <color red="0.12549019607843137" green="0.58039215686274515" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="lightTextColor">
             <color white="1" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
