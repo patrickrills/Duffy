@@ -253,9 +253,9 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         let flat = CLKComplicationTemplateUtilitarianSmallFlat()
         
         let text = CLKSimpleTextProvider()
-        text.text = String(format: NSLocalizedString("%@ STEPS", comment: ""), formatStepsForSmall(totalSteps))
-        text.shortText = formatStepsForSmall(totalSteps)
-
+        text.text = formatStepsForSmall(totalSteps)
+        text.shortText = text.text
+    
         flat.textProvider = text
         
         return flat
