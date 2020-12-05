@@ -18,7 +18,11 @@ class GoalChangeHowToViewController: UIViewController {
     @IBOutlet private var twoInstructionsLabel: UILabel!
     @IBOutlet private var threeLabel: UILabel!
     @IBOutlet private var threeInstructionsLabel: UILabel!
+    @IBOutlet private var threeInstructionsImageView: UIImageView!
     @IBOutlet private var legendContainer: UIView!
+    
+    private let step3Insutructions = NSLocalizedString("Select a new goal by tapping the plus (+) or minus (-) buttons or turning the digital crown. Then tap the 'Set Goal' button to save it.", comment: "")
+//    private let step3InstructionsLegacy = NSLocalizedString("Select a new goal by swiping with your finger or turning the digital crown. Then tap the 'Set Goal' button to save it.", comment: "")
     
     init() {
         super.init(nibName: "GoalChangeHowToViewController", bundle: nil)
@@ -36,7 +40,7 @@ class GoalChangeHowToViewController: UIViewController {
         self.headerLabel.text = String(format: NSLocalizedString("This guide describes how to change your daily steps goal (currently %@ steps). Your goal can only be changed from the Duffy Apple Watch app.", comment: ""), Globals.stepsFormatter().string(from: NSNumber(value: HealthCache.dailyGoal()))!)
         self.oneInstructionsLabel.text = NSLocalizedString("From the Today view of the Apple Watch app, force-touch (press slightly harder) anywhere on the screen.", comment: "")
         self.twoInstructionsLabel.text = NSLocalizedString("Tap 'Change Daily Goal' from the menu that appears.", comment: "")
-        self.threeInstructionsLabel.text = NSLocalizedString("Select a new goal by swiping with your finger or turning the digital crown. Then tap the 'Set Goal' button to save it.", comment: "")
+        self.threeInstructionsLabel.text = step3Insutructions
         
         if let trophyView = TrophyLegendView.createView(showInstructionNumber: true) {
             self.legendContainer.addSubview(trophyView)
