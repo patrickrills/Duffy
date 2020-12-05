@@ -158,4 +158,8 @@ extension ExtensionDelegate: WCSessionServiceDelegate {
         //Do nothing
     }
     
+    func systemVersion() -> Double {
+        return Double(WKInterfaceDevice.current().systemVersion) ?? 4.0
+    }
+    
 }

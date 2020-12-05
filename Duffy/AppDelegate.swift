@@ -116,6 +116,10 @@ extension AppDelegate: WCSessionServiceDelegate {
         HealthKitService.getInstance().initializeBackgroundQueries()
         CoreMotionService.getInstance().initializeBackgroundUpdates()
     }
+    
+    func systemVersion() -> Double {
+        return Double(UIDevice.current.systemVersion) ?? 11.0
+    }
 }
 
 //MARK: BGTask Handling
