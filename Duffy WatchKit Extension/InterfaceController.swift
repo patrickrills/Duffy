@@ -63,7 +63,10 @@ class InterfaceController: WKInterfaceController
     }
     
     @IBAction func changeGoalMenuItemPressed() {
-        let controllerId = DebugService.isDebugModeEnabled() ? SetGoalInterfaceController.IDENTIFIER : LegacyEditGoalInterfaceController.IDENTIFIER
+        var controllerId = LegacyEditGoalInterfaceController.IDENTIFIER
+        if #available(watchOS 6.0, *) {
+            controllerId = SetGoalInterfaceController.IDENTIFIER
+        }
         presentController(withName: controllerId, context: nil)
     }
     
