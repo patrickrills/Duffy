@@ -5,36 +5,36 @@
       "scale" : "1x"
     },
     {
-      "filename" : "Instructions03-en@2x.png",
       "idiom" : "universal",
+      "scale" : "1x",
+      "locale" : "ja"
+    },
+    {
+      "idiom" : "universal",
+      "filename" : "Instructions03@2x.png",
       "scale" : "2x"
     },
     {
-      "filename" : "Instructions03-en@3x.png",
+      "locale" : "ja",
       "idiom" : "universal",
+      "filename" : "Instructions03-Japan@2x.png",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "filename" : "Instructions03@3x.png",
       "scale" : "3x"
     },
     {
-      "idiom" : "universal",
       "locale" : "ja",
-      "scale" : "1x"
-    },
-    {
-      "filename" : "Instructions03-jp@2x.png",
       "idiom" : "universal",
-      "locale" : "ja",
-      "scale" : "2x"
-    },
-    {
-      "filename" : "Instructions03-jp@3x.png",
-      "idiom" : "universal",
-      "locale" : "ja",
+      "filename" : "Instructions03-Japan@3x.png",
       "scale" : "3x"
     }
   ],
   "info" : {
-    "author" : "xcode",
-    "version" : 1
+    "version" : 1,
+    "author" : "xcode"
   },
   "properties" : {
     "localizable" : true
