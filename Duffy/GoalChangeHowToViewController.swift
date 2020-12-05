@@ -22,7 +22,8 @@ class GoalChangeHowToViewController: UIViewController {
     @IBOutlet private var legendContainer: UIView!
     
     private var useLegacyInstructions: Bool {
-        return Globals.watchSystemVersion() < 6.0
+        let cachedWatchVersion = Globals.watchSystemVersion()
+        return cachedWatchVersion > 0.0 && cachedWatchVersion < 6.0
     }
     
     private let step3Insutructions = NSLocalizedString("Select a new goal by tapping the plus (+) or minus (-) buttons or turning the digital crown. Then tap the 'Set Goal' button to save it.", comment: "")
