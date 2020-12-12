@@ -174,4 +174,16 @@ enum Globals
         
         return "Unknown"
     }
+    
+    private static let WATCH_VERSION_KEY = "WatchVersion"
+    
+    static func watchSystemVersion() -> Double {
+        return UserDefaults.standard.double(forKey: WATCH_VERSION_KEY)
+    }
+    
+    static func setWatchSystemVersion(_ version: Double) {
+        if version > 0.0 {
+            UserDefaults.standard.set(version, forKey: WATCH_VERSION_KEY)
+        }
+    }
 }

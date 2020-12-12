@@ -14,6 +14,7 @@ public protocol WCSessionServiceDelegate: class
     func complicationUpdateRequested()
     func sessionWasActivated()
     func sessionWasNotActivated()
+    func systemVersion() -> Double
 }
 
 public class WCSessionService : NSObject
@@ -97,6 +98,23 @@ public class WCSessionService : NSObject
         send(message: WCSessionMessage.debugMode(isOn: isOn), completionHandler: nil)
     }
     
+    public func askForSystemVersion(onCompletion: @escaping (Double) -> ()) {
+        guard WCSession.isSupported(),
+              WCSession.default.activationState == .activated
+        else {
+            return
+        }
+        
+        WCSession.default.sendMessage(WCSessionMessage.systemVersionRequest.message(),
+                                      replyHandler: { response in
+                                        onCompletion(response.values.first as? Double ?? 0.0)
+                                      },
+                                      errorHandler: { err in
+                                        LoggingService.log(error: err)
+                                        onCompletion(0.0)
+        })
+    }
+    
     private func send(message: WCSessionMessage, completionHandler: ((Bool) -> ())?) {
         guard WCSession.isSupported(),
               WCSession.default.activationState == .activated
@@ -116,8 +134,9 @@ public class WCSessionService : NSObject
     
     //MARK: Message parsing
     
-    private func handle(message: [String : Any]) {
-        guard let wcMessage = WCSessionMessage(rawMessage: message) else { return }
+    @discardableResult
+    private func handle(message: [String : Any]) -> [String : Any]? {
+        guard let wcMessage = WCSessionMessage(rawMessage: message) else { return nil }
         
         var isWatch = true
         #if os(iOS)
@@ -144,11 +163,16 @@ public class WCSessionService : NSObject
             
         case .goalTrigger(let day) where day.isToday() && isWatch:
             NotificationService.sendDailyStepsGoalNotification()
+            
+        case .systemVersionRequest where delegate != nil:
+            return ["version" : delegate!.systemVersion()]
         
         default:
-            return
+            return nil
             
         }
+        
+        return nil
     }
     
     //MARK: Diagnostics
@@ -181,8 +205,11 @@ extension WCSessionService: WCSessionDelegate {
     }
     
     public func session(_ session: WCSession, didReceiveMessage message: [String : Any], replyHandler: @escaping ([String : Any]) -> Void) {
-        handle(message: message)
-        replyHandler(["received" : Int(1)])
+        var response: [String : Any] = ["received" : Int(1)]
+        if let reply = handle(message: message) {
+            response = reply
+        }
+        replyHandler(response)
     }
     
     public func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {

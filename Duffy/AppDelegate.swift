@@ -110,11 +110,21 @@ extension AppDelegate: WCSessionServiceDelegate {
     func sessionWasActivated() {
         HealthKitService.getInstance().initializeBackgroundQueries()
         CoreMotionService.getInstance().initializeBackgroundUpdates()
+        
+        if Globals.watchSystemVersion() < 6.0 {
+            WCSessionService.getInstance().askForSystemVersion() { watchVersion in
+                Globals.setWatchSystemVersion(watchVersion)
+            }
+        }
     }
     
     func sessionWasNotActivated() {
         HealthKitService.getInstance().initializeBackgroundQueries()
         CoreMotionService.getInstance().initializeBackgroundUpdates()
+    }
+    
+    func systemVersion() -> Double {
+        return Double(UIDevice.current.systemVersion) ?? 11.0
     }
 }
 

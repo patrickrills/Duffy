@@ -15,6 +15,7 @@ enum WCSessionMessage {
     case debugMode(isOn: Bool)
     case goalNotificationSent(dayKey: String)
     case goalTrigger(day: Date)
+    case systemVersionRequest
     
     init?(rawMessage: [String : Any]) {
         guard let messageKey = rawMessage.keys.first else { return nil }
@@ -68,6 +69,9 @@ enum WCSessionMessage {
                 fallthrough
             }
             
+        case WCSessionMessageKeys.systemVersionRequest.rawValue:
+            self = .systemVersionRequest
+            
         default:
             return nil
         }
@@ -88,6 +92,8 @@ enum WCSessionMessage {
             return [WCSessionMessageKeys.goalNotificationSent.rawValue : dayKey]
         case .goalTrigger(let day):
             return [WCSessionMessageKeys.goalTrigger.rawValue : day.timeIntervalSinceReferenceDate]
+        case .systemVersionRequest:
+            return [WCSessionMessageKeys.systemVersionRequest.rawValue : "1"]
         }
     }
 }
@@ -99,4 +105,5 @@ fileprivate enum WCSessionMessageKeys: String {
     case debugMode = "debugMode"
     case goalNotificationSent = "goalNotificationSent"
     case goalTrigger = "goalTrigger"
+    case systemVersionRequest = "systemVersionRequest"
 }

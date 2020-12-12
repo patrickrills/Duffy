@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -14,6 +14,7 @@
                 <outlet property="legendContainer" destination="74i-mx-hJ2" id="kaI-e9-umk"/>
                 <outlet property="oneInstructionsLabel" destination="6Ih-H5-y7t" id="S5U-yZ-kWO"/>
                 <outlet property="oneLabel" destination="iid-26-d89" id="O6D-kV-sXV"/>
+                <outlet property="threeInstructionsImageView" destination="kDL-19-wvh" id="HmS-It-Hv7"/>
                 <outlet property="threeInstructionsLabel" destination="12h-uc-CHh" id="g1P-59-KZn"/>
                 <outlet property="threeLabel" destination="kbb-UF-1Zx" id="by8-VF-OJH"/>
                 <outlet property="twoInstructionsLabel" destination="NfE-xM-prm" id="gzx-cG-XyJ"/>
@@ -146,6 +147,7 @@
                     </constraints>
                 </scrollView>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="dCy-S7-4Jg" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="S0r-P8-EUs"/>
@@ -154,7 +156,6 @@
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="dCy-S7-4Jg" secondAttribute="trailing" id="xvH-RU-v3p"/>
             </constraints>
             <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
-            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <point key="canvasLocation" x="73.913043478260875" y="58.928571428571423"/>
         </view>
     </objects>
