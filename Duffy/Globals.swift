@@ -118,11 +118,11 @@ enum Globals
     
     static func successColor() -> UIColor
     {
-        if #available(iOS 13.0, *) {
-            return .systemGreen
+        if let successColor = UIColor(named: "SuccessColor") {
+            return successColor
         }
         
-        return success
+        return .systemYellow
     }
     
     static func separatorColor() -> UIColor
