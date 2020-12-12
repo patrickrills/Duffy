@@ -47,7 +47,7 @@ class HistoryTrendChartLineOptionsTableViewController: UITableViewController {
         let option = lineOptions[indexPath.row]
         cell.textLabel?.text = option.displayName()
         cell.accessoryType = option.isEnabled() ? .checkmark : .none
-        cell.tintColor = Globals.primaryColor()
+        cell.tintColor = Globals.secondaryColor()
         return cell
     }
     

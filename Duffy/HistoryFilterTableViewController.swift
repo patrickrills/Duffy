@@ -101,6 +101,7 @@ class HistoryFilterTableViewController: UITableViewController {
         spinner.maximumDate = Date().addingTimeInterval(-1*60*60*24*7)
         spinner.date = sinceDateFilter
         spinner.addTarget(self, action: #selector(dateSelected(_:)), for: .valueChanged)
+        spinner.tintColor = Globals.secondaryColor()
         container.addSubview(spinner)
         
         let safeAreaSpacer = UIView()
