@@ -1,5 +1,5 @@
 //
-//  WeekInterfaceController.swift
+//  SummaryInterfaceController.swift
 //  Duffy
 //
 //  Created by Patrick Rills on 7/31/16.
@@ -11,7 +11,7 @@ import Foundation
 import DuffyWatchFramework
 
  
-class WeekInterfaceController: WKInterfaceController
+class SummaryInterfaceController: WKInterfaceController
 {
     @IBOutlet weak var loadingLabel: WKInterfaceLabel!
     @IBOutlet weak var graphImage: WKInterfaceImage!

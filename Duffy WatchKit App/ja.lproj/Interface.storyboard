@@ -114,7 +114,7 @@
         <!--最近-->
         <scene sceneID="LZl-Pd-feh">
             <objects>
-                <controller identifier="weekInterfaceController" title="最近" id="jZc-PD-Him" customClass="WeekInterfaceController" customModule="Duffy_WatchKit_Extension">
+                <controller identifier="weekInterfaceController" title="最近" id="jZc-PD-Him" customClass="SummaryInterfaceController" customModule="Duffy_WatchKit_Extension">
                     <items>
                         <group width="1" alignment="left" layout="vertical" id="Cho-IL-5YQ">
                             <items>
