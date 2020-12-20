@@ -19,7 +19,7 @@ class GoalNotificationInterfaceController: WKUserNotificationInterfaceController
     override func didReceive(_ notification: UNNotification, withCompletion completionHandler: @escaping (WKUserNotificationInterfaceType) -> Void) {
         lblHeadline?.setText(getHeadline())
         
-        let formatter = InterfaceController.getNumberFormatter()
+        let formatter = MainInterfaceController.getNumberFormatter()
         let stepsGoal = formatter.string(for: HealthCache.dailyGoal())
         lblGoal?.setText(stepsGoal)
         completionHandler(.custom)

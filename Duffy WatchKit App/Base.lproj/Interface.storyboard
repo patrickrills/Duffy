@@ -11,7 +11,7 @@
         <!--Today-->
         <scene sceneID="aou-V4-d1y">
             <objects>
-                <controller identifier="mainInterfaceController" title="Today" id="AgC-eL-Hgc" customClass="InterfaceController" customModule="Duffy_WatchKit_App" customModuleProvider="target">
+                <controller identifier="mainInterfaceController" title="Today" id="AgC-eL-Hgc" customClass="MainInterfaceController" customModule="Duffy_WatchKit_App" customModuleProvider="target">
                     <items>
                         <group width="1" alignment="center" verticalAlignment="center" layout="vertical" spacing="2" id="JsD-K4-SSk">
                             <items>
@@ -262,7 +262,7 @@
     </scenes>
     <color key="tintColor" red="0.12549019607843137" green="0.58039215686274503" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
     <resources>
-        <image name="Distance" width="16" height="16"/>
+        <image name="Distance" width="30" height="30"/>
         <image name="Flights" width="30" height="30"/>
         <image name="GoalMenu" width="40" height="40"/>
         <namedColor name="PrimaryColor">

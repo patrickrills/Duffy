@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="17506" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
-    <device id="watch42"/>
     <dependencies>
-        <deployment identifier="watchOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="17500"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
@@ -11,7 +9,7 @@
         <!--今日-->
         <scene sceneID="aou-V4-d1y">
             <objects>
-                <controller identifier="mainInterfaceController" title="今日" id="AgC-eL-Hgc" customClass="InterfaceController" customModule="Duffy_WatchKit_App" customModuleProvider="target">
+                <controller identifier="mainInterfaceController" title="今日" id="AgC-eL-Hgc" customClass="MainInterfaceController" customModule="Duffy_WatchKit_App" customModuleProvider="target">
                     <items>
                         <group width="1" alignment="center" verticalAlignment="center" layout="vertical" spacing="2" id="JsD-K4-SSk">
                             <items>

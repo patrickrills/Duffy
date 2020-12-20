@@ -11,7 +11,7 @@ import Foundation
 import DuffyWatchFramework
 import HealthKit
 
-class InterfaceController: WKInterfaceController
+class MainInterfaceController: WKInterfaceController
 {
     @IBOutlet weak var stepsValueLabel : WKInterfaceLabel!
     @IBOutlet weak var stepsGoalLabel : WKInterfaceLabel!
@@ -83,13 +83,13 @@ class InterfaceController: WKInterfaceController
     }
     
     private func display(steps: Steps) {
-        stepsValueLabel?.setText(InterfaceController.getNumberFormatter().string(for: steps))
+        stepsValueLabel?.setText(MainInterfaceController.getNumberFormatter().string(for: steps))
         updateGoalDisplay(stepsForDay: steps)
     }
     
     private func updateGoalDisplay(stepsForDay: Steps) {
         let goalValue = HealthCache.dailyGoal()
-        if goalValue > 0, let formattedValue = InterfaceController.getNumberFormatter().string(for: goalValue) {
+        if goalValue > 0, let formattedValue = MainInterfaceController.getNumberFormatter().string(for: goalValue) {
             stepsGoalLabel.setHidden(false)
             stepsGoalLabel.setText(String(format: NSLocalizedString("of %@ goal %@", comment: ""), formattedValue, Trophy.trophy(for: stepsForDay).symbol()))
         } else {
@@ -172,7 +172,7 @@ class InterfaceController: WKInterfaceController
             switch result {
             case .success(let flightsResult):
                 DispatchQueue.main.async { [weak self] in
-                    self?.flightsValueLabel?.setText(InterfaceController.getNumberFormatter().string(for: flightsResult.flights))
+                    self?.flightsValueLabel?.setText(MainInterfaceController.getNumberFormatter().string(for: flightsResult.flights))
                     completion(true)
                 }
             case .failure(_):
@@ -185,7 +185,7 @@ class InterfaceController: WKInterfaceController
         HealthKitService.getInstance().getDistanceCovered(for: Date()) { result in
             switch result {
             case .success(let distanceResult):
-                let formatter = InterfaceController.getNumberFormatter()
+                let formatter = MainInterfaceController.getNumberFormatter()
                 formatter.maximumFractionDigits = 1
                 let unitsFormatted = distanceResult.formatter == .mile ? NSLocalizedString("mi", comment: "") : NSLocalizedString("km", comment: "")
                 if let valueFormatted = formatter.string(for: distanceResult.distance) {

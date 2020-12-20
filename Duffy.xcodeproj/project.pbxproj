@@ -49,7 +49,7 @@
 		09323C861D22C39700961822 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09323C841D22C39700961822 /* Interface.storyboard */; };
 		09323C881D22C39700961822 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09323C871D22C39700961822 /* Assets.xcassets */; };
 		09323C8F1D22C39700961822 /* Duffy WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 09323C8E1D22C39700961822 /* Duffy WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		09323C941D22C39700961822 /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09323C931D22C39700961822 /* InterfaceController.swift */; };
+		09323C941D22C39700961822 /* MainInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09323C931D22C39700961822 /* MainInterfaceController.swift */; };
 		09323C961D22C39700961822 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09323C951D22C39700961822 /* ExtensionDelegate.swift */; };
 		09323C981D22C39700961822 /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09323C971D22C39700961822 /* ComplicationController.swift */; };
 		09323C9A1D22C39700961822 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09323C991D22C39700961822 /* Assets.xcassets */; };
@@ -267,7 +267,7 @@
 		09323C871D22C39700961822 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		09323C891D22C39700961822 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		09323C8E1D22C39700961822 /* Duffy WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Duffy WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
-		09323C931D22C39700961822 /* InterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceController.swift; sourceTree = "<group>"; };
+		09323C931D22C39700961822 /* MainInterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainInterfaceController.swift; sourceTree = "<group>"; };
 		09323C951D22C39700961822 /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
 		09323C971D22C39700961822 /* ComplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplicationController.swift; sourceTree = "<group>"; };
 		09323C991D22C39700961822 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -487,7 +487,7 @@
 			isa = PBXGroup;
 			children = (
 				09323CFB1D2302A800961822 /* Duffy WatchKit Extension.entitlements */,
-				09323C931D22C39700961822 /* InterfaceController.swift */,
+				09323C931D22C39700961822 /* MainInterfaceController.swift */,
 				0947AA9B1D4EB1D80040E1DD /* WeekInterfaceController.swift */,
 				091714CE25290B8D001062E0 /* ChartDrawer.swift */,
 				0955EBF2255851820047D791 /* RingDrawer.swift */,
@@ -903,7 +903,7 @@
 				091714CF25290B8D001062E0 /* ChartDrawer.swift in Sources */,
 				0947AA9E1D4EB24A0040E1DD /* WeekRowController.swift in Sources */,
 				09824A8C1EA66C74002A4A84 /* LegacyEditGoalInterfaceController.swift in Sources */,
-				09323C941D22C39700961822 /* InterfaceController.swift in Sources */,
+				09323C941D22C39700961822 /* MainInterfaceController.swift in Sources */,
 				09323C981D22C39700961822 /* ComplicationController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
