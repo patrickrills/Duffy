@@ -13,40 +13,54 @@
             <objects>
                 <controller identifier="mainInterfaceController" title="Today" id="AgC-eL-Hgc" customClass="MainInterfaceController" customModule="Duffy_WatchKit_App" customModuleProvider="target">
                     <items>
-                        <group width="1" alignment="center" verticalAlignment="center" layout="vertical" spacing="2" id="JsD-K4-SSk">
+                        <group width="1" alignment="center" verticalAlignment="center" layout="vertical" id="jbM-NJ-5AL">
                             <items>
-                                <label alignment="center" verticalAlignment="center" text="STEPS" minimumScaleFactor="0.75" id="p5D-H6-XOj">
-                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <fontDescription key="font" type="system" weight="light" pointSize="16"/>
-                                </label>
-                                <label height="46" alignment="center" verticalAlignment="center" text="0" minimumScaleFactor="0.5" id="G6E-Dy-R0M">
-                                    <fontDescription key="font" type="system" weight="medium" pointSize="46"/>
-                                </label>
-                                <label width="1" alignment="left" verticalAlignment="center" text="today" textAlignment="center" id="npA-ct-HjH">
-                                    <color key="textColor" systemColor="lightTextColor"/>
-                                    <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
-                                </label>
-                            </items>
-                            <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
-                        </group>
-                        <group width="1" alignment="left" verticalAlignment="center" id="7fr-Yb-KoG">
-                            <items>
-                                <group alignment="left" id="yG0-a4-sTu">
+                                <group width="1" alignment="center" verticalAlignment="center" layout="vertical" spacing="2" id="JsD-K4-SSk">
                                     <items>
-                                        <imageView width="21" height="16" alignment="left" image="Distance" contentMode="scaleAspectFit" id="kBg-Kd-5vZ">
-                                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </imageView>
-                                        <label alignment="left" text="0" id="ir6-ZB-MA8"/>
+                                        <label alignment="center" verticalAlignment="center" text="STEPS" minimumScaleFactor="0.75" id="p5D-H6-XOj">
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <fontDescription key="font" type="system" weight="light" pointSize="16"/>
+                                        </label>
+                                        <label height="46" alignment="center" verticalAlignment="center" text="0" minimumScaleFactor="0.5" id="G6E-Dy-R0M">
+                                            <fontDescription key="font" type="system" weight="medium" pointSize="46"/>
+                                        </label>
+                                        <label width="1" alignment="left" verticalAlignment="center" text="today" textAlignment="center" id="npA-ct-HjH">
+                                            <color key="textColor" systemColor="lightTextColor"/>
+                                            <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
+                                        </label>
                                     </items>
+                                    <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
                                 </group>
-                                <group alignment="right" id="lmG-lm-j7m">
+                                <group width="1" alignment="center" verticalAlignment="center" id="7fr-Yb-KoG">
                                     <items>
-                                        <label alignment="right" text="0" id="cnX-fS-dbw"/>
-                                        <imageView width="18" height="13" alignment="right" verticalAlignment="center" image="Flights" contentMode="scaleAspectFit" id="5fg-Yj-r1K"/>
+                                        <group alignment="left" id="yG0-a4-sTu">
+                                            <items>
+                                                <imageView width="21" height="16" alignment="left" image="Distance" contentMode="scaleAspectFit" id="kBg-Kd-5vZ">
+                                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </imageView>
+                                                <label alignment="left" text="0" id="ir6-ZB-MA8"/>
+                                            </items>
+                                        </group>
+                                        <group alignment="right" id="lmG-lm-j7m">
+                                            <items>
+                                                <label alignment="right" text="0" id="cnX-fS-dbw"/>
+                                                <imageView width="18" height="13" alignment="right" verticalAlignment="center" image="Flights" contentMode="scaleAspectFit" id="5fg-Yj-r1K"/>
+                                            </items>
+                                        </group>
                                     </items>
+                                    <edgeInsets key="margins" left="0.0" right="0.0" top="16" bottom="0.0"/>
+                                </group>
+                                <group width="1" alignment="center" verticalAlignment="bottom" id="Snk-xZ-rxC">
+                                    <items>
+                                        <button width="1" alignment="left" title="Weekly Summary" id="aOK-LR-YMM">
+                                            <connections>
+                                                <action selector="openSummary" destination="AgC-eL-Hgc" id="thl-dP-lfs"/>
+                                            </connections>
+                                        </button>
+                                    </items>
+                                    <edgeInsets key="margins" left="0.0" right="0.0" top="8" bottom="0.0"/>
                                 </group>
                             </items>
-                            <edgeInsets key="margins" left="0.0" right="0.0" top="16" bottom="0.0"/>
                         </group>
                     </items>
                     <menu key="menu" id="XKt-9c-iyP">
@@ -68,7 +82,6 @@
                         <outlet property="flightsValueLabel" destination="cnX-fS-dbw" id="ywQ-48-ydb"/>
                         <outlet property="stepsGoalLabel" destination="npA-ct-HjH" id="PtN-ob-TDp"/>
                         <outlet property="stepsValueLabel" destination="G6E-Dy-R0M" id="K2a-Ej-vfL"/>
-                        <segue destination="jZc-PD-Him" kind="relationship" relationship="nextPage" id="Ckp-Pq-aOB"/>
                     </connections>
                 </controller>
             </objects>
@@ -185,10 +198,10 @@
             </objects>
             <point key="canvasLocation" x="313" y="1451"/>
         </scene>
-        <!--Recent-->
+        <!--Done-->
         <scene sceneID="LZl-Pd-feh">
             <objects>
-                <controller identifier="weekInterfaceController" title="Recent" id="jZc-PD-Him" customClass="SummaryInterfaceController" customModule="Duffy_WatchKit_Extension">
+                <controller identifier="summaryInterfaceController" title="Done" id="jZc-PD-Him" customClass="SummaryInterfaceController" customModule="Duffy_WatchKit_Extension">
                     <items>
                         <group width="1" alignment="left" layout="vertical" id="onG-8A-2OF">
                             <items>

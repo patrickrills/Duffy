@@ -13,6 +13,8 @@ import DuffyWatchFramework
  
 class SummaryInterfaceController: WKInterfaceController
 {
+    static let IDENTIFIER = "summaryInterfaceController"
+    
     @IBOutlet weak var loadingLabel: WKInterfaceLabel!
     @IBOutlet weak var graphImage: WKInterfaceImage!
     @IBOutlet weak var stepsTable: WKInterfaceTable!

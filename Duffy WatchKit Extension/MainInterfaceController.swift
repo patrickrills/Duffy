@@ -58,6 +58,10 @@ class MainInterfaceController: WKInterfaceController
     
     //MARK: Menu Button Handlers
     
+    @IBAction func openSummary() {
+        presentController(withName: SummaryInterfaceController.IDENTIFIER, context: nil)
+    }
+    
     @IBAction func refreshPressed() {
         refresh()
     }
