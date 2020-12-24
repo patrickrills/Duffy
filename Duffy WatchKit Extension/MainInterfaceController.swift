@@ -61,10 +61,6 @@ class MainInterfaceController: WKInterfaceController
         presentController(withName: SummaryInterfaceController.IDENTIFIER, context: nil)
     }
     
-    @IBAction func refreshPressed() {
-        refresh()
-    }
-    
     @IBAction func openSetGoal() {
         var controllerId = LegacyEditGoalInterfaceController.IDENTIFIER
         if #available(watchOS 6.0, *) {
@@ -75,7 +71,7 @@ class MainInterfaceController: WKInterfaceController
     
     //MARK: Update UI
     
-    private func refresh() {
+    func refresh() {
         refreshTodayFromHealth({
             [weak self] success in
             

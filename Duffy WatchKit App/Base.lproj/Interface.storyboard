@@ -75,20 +75,6 @@
                             </items>
                         </group>
                     </items>
-                    <menu key="menu" id="XKt-9c-iyP">
-                        <items>
-                            <menuItem title="Refresh" icon="resume" id="5ux-Gk-yx0">
-                                <connections>
-                                    <action selector="refreshPressed" destination="AgC-eL-Hgc" id="KBs-We-be5"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Change Daily Goal" image="GoalMenu" id="736-fc-wZC">
-                                <connections>
-                                    <action selector="openSetGoal" destination="AgC-eL-Hgc" id="iRy-rX-0Qi"/>
-                                </connections>
-                            </menuItem>
-                        </items>
-                    </menu>
                     <connections>
                         <outlet property="debugButton" destination="l5P-5P-TIU" id="6ae-vh-koR"/>
                         <outlet property="distanceValueLabel" destination="ir6-ZB-MA8" id="ZJD-L0-R7A"/>
@@ -290,7 +276,6 @@
     <resources>
         <image name="Distance" width="30" height="30"/>
         <image name="Flights" width="30" height="30"/>
-        <image name="GoalMenu" width="40" height="40"/>
         <namedColor name="AverageColor">
             <color red="0.28235294117647058" green="0.10196078431372549" blue="0.71764705882352942" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

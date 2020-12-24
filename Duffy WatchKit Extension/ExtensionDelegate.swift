@@ -41,7 +41,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, UNUserNotificationCenter
         
         if let c = WKExtension.shared().rootInterfaceController as? MainInterfaceController {
             if WKExtension.shared().isApplicationRunningInDock {
-                c.refreshPressed()
+                c.refresh()
             }
             
             c.subscribeToHealthKitUpdates()
