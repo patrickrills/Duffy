@@ -14,11 +14,16 @@ class LegacyEditGoalInterfaceController: WKInterfaceController
     public static let IDENTIFIER = "LegacyEditGoalInterfaceController"
     
     @IBOutlet weak var goalOptionsList: WKInterfacePicker!
+    @IBOutlet weak var goalButton: WKInterfaceButton!
+    
     private var stepsGoal: Steps = 0
     private var options: [Steps] = []
     
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
+        
+        setTitle(NSLocalizedString("Cancel", comment: ""))
+        goalButton.setTitle(NSLocalizedString("Set Goal", comment: ""))
         
         let items = SetGoalInterfaceController.populateGoalItems(includeTitle: true)
         options = items.options

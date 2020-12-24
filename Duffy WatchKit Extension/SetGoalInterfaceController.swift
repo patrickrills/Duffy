@@ -34,6 +34,7 @@ class SetGoalInterfaceController: WKInterfaceController
     @IBOutlet weak var plusImage: WKInterfaceImage!
     @IBOutlet weak var selectedStepsLabel: WKInterfaceLabel!
     @IBOutlet weak var descrStepsLabel: WKInterfaceLabel!
+    @IBOutlet weak var setGoalButtonLabel: WKInterfaceLabel!
     
     private var options: [Steps] = []
     private var selectedGoal: Steps = 0
@@ -41,6 +42,9 @@ class SetGoalInterfaceController: WKInterfaceController
     
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
+        
+        setTitle(NSLocalizedString("Cancel", comment: ""))
+        setGoalButtonLabel.setText(NSLocalizedString("Set Goal", comment: ""))
         
         let items = SetGoalInterfaceController.populateGoalItems(includeTitle: false)
         options = items.options

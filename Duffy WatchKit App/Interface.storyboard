@@ -181,6 +181,7 @@
                         <outlet property="minusImage" destination="64F-R3-w77" id="iA6-Ow-ViX"/>
                         <outlet property="plusImage" destination="6Zp-jl-uAN" id="NBS-k2-r6v"/>
                         <outlet property="selectedStepsLabel" destination="vBt-wx-NMQ" id="55R-Uf-WrI"/>
+                        <outlet property="setGoalButtonLabel" destination="dRb-eU-AGa" id="sfH-vC-cjj"/>
                     </connections>
                 </controller>
             </objects>
@@ -203,6 +204,7 @@
                         </button>
                     </items>
                     <connections>
+                        <outlet property="goalButton" destination="jWh-lg-j16" id="g1U-0C-7W7"/>
                         <outlet property="goalOptionsList" destination="Vgb-3m-FEt" id="f2T-tu-Tm4"/>
                     </connections>
                 </controller>
