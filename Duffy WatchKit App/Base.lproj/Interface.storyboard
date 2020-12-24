@@ -52,13 +52,36 @@
                                 </group>
                                 <group width="1" alignment="center" verticalAlignment="bottom" layout="vertical" id="Snk-xZ-rxC">
                                     <items>
-                                        <button width="1" alignment="left" title="Weekly Summary" id="aOK-LR-YMM">
+                                        <button alignment="left" id="aOK-LR-YMM">
+                                            <group key="contentGroup" width="1" alignment="left" spacing="4" id="KTs-Kp-1lg">
+                                                <items>
+                                                    <imageView width="20" height="20" alignment="left" verticalAlignment="center" contentMode="center" id="EDR-lh-Pg9">
+                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </imageView>
+                                                    <label alignment="left" verticalAlignment="center" text="Summary" minimumScaleFactor="0.69999999999999996" id="wSn-zY-LnX">
+                                                        <fontDescription key="font" type="system" weight="semibold" pointSize="16"/>
+                                                    </label>
+                                                </items>
+                                                <color key="backgroundColor" name="ButtonBackground"/>
+                                                <edgeInsets key="margins" left="10" right="10" top="12" bottom="12"/>
+                                            </group>
                                             <connections>
                                                 <action selector="openSummary" destination="AgC-eL-Hgc" id="thl-dP-lfs"/>
                                             </connections>
                                         </button>
-                                        <button width="1" alignment="left" title="Change Goal" id="ja9-sV-8EC">
-                                            <color key="backgroundColor" name="PrimaryColor"/>
+                                        <button alignment="left" id="ja9-sV-8EC">
+                                            <group key="contentGroup" width="1" alignment="left" spacing="4" id="yj0-Bc-7mY">
+                                                <items>
+                                                    <imageView width="20" height="20" alignment="left" verticalAlignment="center" contentMode="center" id="2Ig-aE-VeV">
+                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </imageView>
+                                                    <label alignment="left" verticalAlignment="center" text="Goal" minimumScaleFactor="0.69999999999999996" id="WLh-oY-lA5">
+                                                        <fontDescription key="font" type="system" weight="semibold" pointSize="16"/>
+                                                    </label>
+                                                </items>
+                                                <color key="backgroundColor" name="PrimaryColor"/>
+                                                <edgeInsets key="margins" left="10" right="10" top="12" bottom="12"/>
+                                            </group>
                                             <connections>
                                                 <action selector="openSetGoal" destination="AgC-eL-Hgc" id="Yf0-XG-PSY"/>
                                             </connections>
@@ -79,8 +102,12 @@
                         <outlet property="debugButton" destination="l5P-5P-TIU" id="6ae-vh-koR"/>
                         <outlet property="distanceValueLabel" destination="ir6-ZB-MA8" id="ZJD-L0-R7A"/>
                         <outlet property="flightsValueLabel" destination="cnX-fS-dbw" id="ywQ-48-ydb"/>
+                        <outlet property="goalButtonImage" destination="2Ig-aE-VeV" id="PFS-u3-9UC"/>
+                        <outlet property="goalButtonLabel" destination="WLh-oY-lA5" id="KKM-vs-FF2"/>
                         <outlet property="stepsGoalLabel" destination="npA-ct-HjH" id="PtN-ob-TDp"/>
                         <outlet property="stepsValueLabel" destination="G6E-Dy-R0M" id="K2a-Ej-vfL"/>
+                        <outlet property="summaryButtonImage" destination="EDR-lh-Pg9" id="8le-LU-2Ra"/>
+                        <outlet property="summaryButtonLabel" destination="wSn-zY-LnX" id="533-3N-UgR"/>
                     </connections>
                 </controller>
             </objects>
@@ -278,6 +305,9 @@
         <image name="Flights" width="30" height="30"/>
         <namedColor name="AverageColor">
             <color red="0.28235294117647058" green="0.10196078431372549" blue="0.71764705882352942" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="ButtonBackground">
+            <color red="0.94901960784313721" green="0.95686274509803926" blue="1" alpha="0.14000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="PrimaryColor">
             <color red="0.12549019607843137" green="0.58039215686274515" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

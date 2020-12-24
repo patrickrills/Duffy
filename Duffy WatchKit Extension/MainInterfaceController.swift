@@ -17,6 +17,10 @@ class MainInterfaceController: WKInterfaceController
     @IBOutlet weak var stepsGoalLabel : WKInterfaceLabel!
     @IBOutlet weak var distanceValueLabel : WKInterfaceLabel!
     @IBOutlet weak var flightsValueLabel : WKInterfaceLabel!
+    @IBOutlet weak var summaryButtonImage : WKInterfaceImage!
+    @IBOutlet weak var summaryButtonLabel : WKInterfaceLabel!
+    @IBOutlet weak var goalButtonImage : WKInterfaceImage!
+    @IBOutlet weak var goalButtonLabel : WKInterfaceLabel!
     @IBOutlet weak var debugButton: WKInterfaceButton!
     
     private var isQueryInProgress = false
@@ -35,7 +39,7 @@ class MainInterfaceController: WKInterfaceController
     
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
-        debugButton.setHidden(!DebugService.isDebugModeEnabled())
+        initializeUI()
     }
     
     override func willActivate() {
@@ -263,6 +267,40 @@ class MainInterfaceController: WKInterfaceController
         if HealthCache.saveStepsToCache(stepCount, for: day) {
             LoggingService.log("Update complication from watch UI", with: "\(stepCount)")
             ComplicationController.refreshComplication()
+        }
+    }
+    
+    //MARK: Build UI
+    
+    private let BUTTON_FONT_SIZE: CGFloat = 16.0
+    private let BUTTON_FONT_WEIGHT: UIFont.Weight = .semibold
+    
+    private func initializeUI() {
+        debugButton.setHidden(!DebugService.isDebugModeEnabled())
+        
+        let summaryButtonText = NSLocalizedString("View Summary", comment: "")
+        let goalButtonText = NSLocalizedString("Change Goal", comment: "")
+        
+        if #available(watchOS 6.0, *) {
+            let rawFont = UIFont.systemFont(ofSize: BUTTON_FONT_SIZE, weight: BUTTON_FONT_WEIGHT)
+            let buttonFontDescriptor = rawFont.fontDescriptor.withDesign(.rounded)
+            let buttonFont = buttonFontDescriptor != nil ? UIFont(descriptor: buttonFontDescriptor!, size: BUTTON_FONT_SIZE) : rawFont
+            let symbolConfiguration = UIImage.SymbolConfiguration(font: buttonFont)
+            
+            summaryButtonImage.setImage(UIImage(systemName: "calendar", withConfiguration: symbolConfiguration)?.withRenderingMode(.alwaysTemplate))
+            summaryButtonLabel.setAttributedText(NSAttributedString(string: summaryButtonText, attributes: [.font : buttonFont]))
+            
+            var goalImageName = "speedometer"
+            if #available(watchOS 7.0, *) {
+                goalImageName = "figure.walk"
+            }
+            goalButtonImage.setImage(UIImage(systemName: goalImageName, withConfiguration: symbolConfiguration)?.withRenderingMode(.alwaysTemplate))
+            goalButtonLabel.setAttributedText(NSAttributedString(string: goalButtonText, attributes: [.font : buttonFont]))
+        } else {
+            summaryButtonImage.setHidden(true)
+            summaryButtonLabel.setText(summaryButtonText)
+            goalButtonImage.setHidden(true)
+            goalButtonLabel.setText(goalButtonText)
         }
     }
     
