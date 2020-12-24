@@ -21,6 +21,11 @@ class SummaryInterfaceController: WKInterfaceController
     
     private var hasDrawnChart: Bool = false
     
+    override func awake(withContext context: Any?) {
+        super.awake(withContext: context)
+        setTitle(NSLocalizedString("Cancel", comment: ""))
+    }
+    
     override func didAppear() {
         super.didAppear()
         retrieveRecentSteps()
