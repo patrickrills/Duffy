@@ -17,6 +17,7 @@ class MainInterfaceController: WKInterfaceController
     @IBOutlet weak var stepsGoalLabel : WKInterfaceLabel!
     @IBOutlet weak var distanceValueLabel : WKInterfaceLabel!
     @IBOutlet weak var flightsValueLabel : WKInterfaceLabel!
+    @IBOutlet weak var debugButton: WKInterfaceButton!
     
     private var isQueryInProgress = false
     
@@ -34,9 +35,7 @@ class MainInterfaceController: WKInterfaceController
     
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
-        if DebugService.isDebugModeEnabled() {
-            addMenuItem(with: .info, title: "Debug", action: #selector(debugPressed))
-        }
+        debugButton.setHidden(!DebugService.isDebugModeEnabled())
     }
     
     override func willActivate() {
@@ -273,7 +272,7 @@ class MainInterfaceController: WKInterfaceController
     
     //MARK: DEBUG
     
-    @IBAction func debugPressed() {
+    @IBAction func openDebug() {
         let log = LoggingService.getFullDebugLog()
         if log.count > 0 {
             var actions = [WKAlertAction]()
