@@ -66,7 +66,7 @@ class MainInterfaceController: WKInterfaceController
         refresh()
     }
     
-    @IBAction func changeGoalMenuItemPressed() {
+    @IBAction func openSetGoal() {
         var controllerId = LegacyEditGoalInterfaceController.IDENTIFIER
         if #available(watchOS 6.0, *) {
             controllerId = SetGoalInterfaceController.IDENTIFIER

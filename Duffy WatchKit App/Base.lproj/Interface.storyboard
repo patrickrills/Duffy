@@ -50,11 +50,17 @@
                                     </items>
                                     <edgeInsets key="margins" left="0.0" right="0.0" top="16" bottom="0.0"/>
                                 </group>
-                                <group width="1" alignment="center" verticalAlignment="bottom" id="Snk-xZ-rxC">
+                                <group width="1" alignment="center" verticalAlignment="bottom" layout="vertical" id="Snk-xZ-rxC">
                                     <items>
                                         <button width="1" alignment="left" title="Weekly Summary" id="aOK-LR-YMM">
                                             <connections>
                                                 <action selector="openSummary" destination="AgC-eL-Hgc" id="thl-dP-lfs"/>
+                                            </connections>
+                                        </button>
+                                        <button width="1" alignment="left" title="Change Goal" id="ja9-sV-8EC">
+                                            <color key="backgroundColor" name="PrimaryColor"/>
+                                            <connections>
+                                                <action selector="openSetGoal" destination="AgC-eL-Hgc" id="Yf0-XG-PSY"/>
                                             </connections>
                                         </button>
                                     </items>
@@ -72,7 +78,7 @@
                             </menuItem>
                             <menuItem title="Change Daily Goal" image="GoalMenu" id="736-fc-wZC">
                                 <connections>
-                                    <action selector="changeGoalMenuItemPressed" destination="AgC-eL-Hgc" id="COs-lf-9cK"/>
+                                    <action selector="openSetGoal" destination="AgC-eL-Hgc" id="iRy-rX-0Qi"/>
                                 </connections>
                             </menuItem>
                         </items>
