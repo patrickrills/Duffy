@@ -13,6 +13,7 @@ import HealthKit
 
 class MainInterfaceController: WKInterfaceController
 {
+    @IBOutlet weak var stepsTitleLabel : WKInterfaceLabel!
     @IBOutlet weak var stepsValueLabel : WKInterfaceLabel!
     @IBOutlet weak var stepsGoalLabel : WKInterfaceLabel!
     @IBOutlet weak var distanceValueLabel : WKInterfaceLabel!
@@ -276,6 +277,8 @@ class MainInterfaceController: WKInterfaceController
     private let BUTTON_FONT_WEIGHT: UIFont.Weight = .semibold
     
     private func initializeUI() {
+        setTitle(NSLocalizedString("Today", comment: ""))
+        stepsTitleLabel.setText(NSLocalizedString("STEPS", comment: ""))
         debugButton.setHidden(!DebugService.isDebugModeEnabled())
         
         let summaryButtonText = NSLocalizedString("View Summary", comment: "")

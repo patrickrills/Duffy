@@ -105,6 +105,7 @@
                         <outlet property="goalButtonImage" destination="2Ig-aE-VeV" id="PFS-u3-9UC"/>
                         <outlet property="goalButtonLabel" destination="WLh-oY-lA5" id="KKM-vs-FF2"/>
                         <outlet property="stepsGoalLabel" destination="npA-ct-HjH" id="PtN-ob-TDp"/>
+                        <outlet property="stepsTitleLabel" destination="p5D-H6-XOj" id="ghN-Wh-gx5"/>
                         <outlet property="stepsValueLabel" destination="G6E-Dy-R0M" id="K2a-Ej-vfL"/>
                         <outlet property="summaryButtonImage" destination="EDR-lh-Pg9" id="8le-LU-2Ra"/>
                         <outlet property="summaryButtonLabel" destination="wSn-zY-LnX" id="533-3N-UgR"/>
