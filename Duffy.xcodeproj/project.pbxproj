@@ -46,7 +46,6 @@
 		09323C781D22C39700961822 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09323C771D22C39700961822 /* Assets.xcassets */; };
 		09323C7B1D22C39700961822 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09323C791D22C39700961822 /* LaunchScreen.storyboard */; };
 		09323C801D22C39700961822 /* Duffy WatchKit App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 09323C7F1D22C39700961822 /* Duffy WatchKit App.app */; };
-		09323C861D22C39700961822 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09323C841D22C39700961822 /* Interface.storyboard */; };
 		09323C881D22C39700961822 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09323C871D22C39700961822 /* Assets.xcassets */; };
 		09323C8F1D22C39700961822 /* Duffy WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 09323C8E1D22C39700961822 /* Duffy WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		09323C941D22C39700961822 /* MainInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09323C931D22C39700961822 /* MainInterfaceController.swift */; };
@@ -102,6 +101,7 @@
 		099FE700234EB5300092D219 /* LoggingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099FE6FF234EB5300092D219 /* LoggingService.swift */; };
 		099FE701234EB5300092D219 /* LoggingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099FE6FF234EB5300092D219 /* LoggingService.swift */; };
 		099FE702234EBA3C0092D219 /* DuffyWatchFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09323D141D2303DE00961822 /* DuffyWatchFramework.framework */; };
+		09A0D63125951273008977BD /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09A0D63025951273008977BD /* Interface.storyboard */; };
 		09A7EEAD21A1E89A00DEDE5C /* HistoryTrendChartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A7EEAB21A1E89A00DEDE5C /* HistoryTrendChartTableViewCell.swift */; };
 		09A7EEAE21A1E89A00DEDE5C /* HistoryTrendChartTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09A7EEAC21A1E89A00DEDE5C /* HistoryTrendChartTableViewCell.xib */; };
 		09A7EEB021A39D7100DEDE5C /* HistoryTrendChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A7EEAF21A39D7100DEDE5C /* HistoryTrendChartView.swift */; };
@@ -234,7 +234,6 @@
 		0903E604235BCAED0049E071 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/HourGraphDetailViewController.xib; sourceTree = "<group>"; };
 		0903E606235BCAED0049E071 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0903E607235BCAED0049E071 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		0903E608235BCAED0049E071 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		0903E609235BCAED0049E071 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		090829DD2465BB1B00F100D6 /* TrophyLegendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrophyLegendView.swift; sourceTree = "<group>"; };
 		090829DF2465BB2C00F100D6 /* TrophyLegendView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TrophyLegendView.xib; sourceTree = "<group>"; };
@@ -313,12 +312,12 @@
 		099582D1234192E900AF6A96 /* ja */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = ja; path = ja.lproj/Main.storyboard; sourceTree = "<group>"; };
 		099582D2234192E900AF6A96 /* ja */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = ja; path = ja.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		099582D3234192E900AF6A96 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
-		099582D4234192EA00AF6A96 /* ja */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = ja; path = ja.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		099582D5234192EA00AF6A96 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		099582D6234192EA00AF6A96 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		099C13101DA336C80007C72F /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		099C13121DA336D50007C72F /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS3.0.sdk/System/Library/Frameworks/HealthKit.framework; sourceTree = DEVELOPER_DIR; };
 		099FE6FF234EB5300092D219 /* LoggingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggingService.swift; sourceTree = "<group>"; };
+		09A0D63025951273008977BD /* Interface.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Interface.storyboard; sourceTree = "<group>"; };
 		09A7EEAB21A1E89A00DEDE5C /* HistoryTrendChartTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTrendChartTableViewCell.swift; sourceTree = "<group>"; };
 		09A7EEAC21A1E89A00DEDE5C /* HistoryTrendChartTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryTrendChartTableViewCell.xib; sourceTree = "<group>"; };
 		09A7EEAF21A39D7100DEDE5C /* HistoryTrendChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTrendChartView.swift; sourceTree = "<group>"; };
@@ -476,7 +475,7 @@
 		09323C831D22C39700961822 /* Duffy WatchKit App */ = {
 			isa = PBXGroup;
 			children = (
-				09323C841D22C39700961822 /* Interface.storyboard */,
+				09A0D63025951273008977BD /* Interface.storyboard */,
 				09323C871D22C39700961822 /* Assets.xcassets */,
 				09323C891D22C39700961822 /* Info.plist */,
 			);
@@ -811,8 +810,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09A0D63125951273008977BD /* Interface.storyboard in Resources */,
 				09323C881D22C39700961822 /* Assets.xcassets in Resources */,
-				09323C861D22C39700961822 /* Interface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1042,15 +1041,6 @@
 				0903E607235BCAED0049E071 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-		09323C841D22C39700961822 /* Interface.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				099582D4234192EA00AF6A96 /* ja */,
-				0903E608235BCAED0049E071 /* Base */,
-			);
-			name = Interface.storyboard;
 			sourceTree = "<group>";
 		};
 		099582CA234192A600AF6A96 /* Localizable.strings */ = {
