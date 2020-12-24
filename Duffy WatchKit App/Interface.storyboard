@@ -296,6 +296,8 @@
                     <connections>
                         <outlet property="lblGoal" destination="XyQ-Md-7bW" id="Wdd-df-GHq"/>
                         <outlet property="lblHeadline" destination="4L3-DK-j5d" id="fTv-hR-ODU"/>
+                        <outlet property="lblSteps" destination="yjy-MT-lTv" id="ZGy-yX-UoM"/>
+                        <outlet property="lblTitle" destination="H2z-2w-NkC" id="uZF-x9-1cA"/>
                     </connections>
                 </controller>
             </objects>

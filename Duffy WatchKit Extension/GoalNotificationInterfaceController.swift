@@ -15,8 +15,12 @@ class GoalNotificationInterfaceController: WKUserNotificationInterfaceController
 {
     @IBOutlet weak var lblHeadline: WKInterfaceLabel?
     @IBOutlet weak var lblGoal: WKInterfaceLabel?
+    @IBOutlet weak var lblSteps: WKInterfaceLabel?
+    @IBOutlet weak var lblTitle: WKInterfaceLabel?
     
     override func didReceive(_ notification: UNNotification, withCompletion completionHandler: @escaping (WKUserNotificationInterfaceType) -> Void) {
+        lblTitle?.setText(NSLocalizedString("Goal!", comment: ""))
+        lblSteps?.setText(NSLocalizedString("STEPS", comment: ""))
         lblHeadline?.setText(getHeadline())
         
         let formatter = MainInterfaceController.getNumberFormatter()
