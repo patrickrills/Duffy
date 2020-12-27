@@ -43,8 +43,8 @@ class GoalChangeHowToViewController: UIViewController {
         self.title = NSLocalizedString("Change Your Goal", comment: "")
         
         self.headerLabel.text = String(format: NSLocalizedString("This guide describes how to change your daily steps goal (currently %@ steps). Your goal can only be changed from the Duffy Apple Watch app.", comment: ""), Globals.stepsFormatter().string(from: NSNumber(value: HealthCache.dailyGoal()))!)
-        self.oneInstructionsLabel.text = NSLocalizedString("From the Today view of the Apple Watch app, force-touch (press slightly harder) anywhere on the screen.", comment: "")
-        self.twoInstructionsLabel.text = NSLocalizedString("Tap 'Change Daily Goal' from the menu that appears.", comment: "")
+        self.oneInstructionsLabel.text = NSLocalizedString("From the Today view of the Apple Watch app, scroll the screen by swiping upward your finger or turning the digital crown.", comment: "")
+        self.twoInstructionsLabel.text = NSLocalizedString("Tap the 'Change Goal' button that appears at the bottom of the screen.", comment: "")
         self.threeInstructionsLabel.text = useLegacyInstructions ? step3InstructionsLegacy : step3Insutructions
         self.threeInstructionsImageView.image = UIImage(named: (useLegacyInstructions ? "Instructions03-Legacy" : "Instructions03"))
         
