@@ -26,16 +26,6 @@ class MainInterfaceController: WKInterfaceController
     
     private var isQueryInProgress = false
     
-    //MARK: Globals
-    
-    public class func getNumberFormatter() -> NumberFormatter {
-        let numberFormatter = NumberFormatter()
-        numberFormatter.numberStyle = NumberFormatter.Style.decimal
-        numberFormatter.locale = Locale.current
-        numberFormatter.maximumFractionDigits = 0
-        return numberFormatter
-    }
-    
     //MARK: Controller Lifecycle
     
     override func awake(withContext context: Any?) {
@@ -87,13 +77,13 @@ class MainInterfaceController: WKInterfaceController
     }
     
     private func display(steps: Steps) {
-        stepsValueLabel?.setText(MainInterfaceController.getNumberFormatter().string(for: steps))
+        stepsValueLabel?.setText(Globals.integerFormatter.string(for: steps))
         updateGoalDisplay(stepsForDay: steps)
     }
     
     private func updateGoalDisplay(stepsForDay: Steps) {
         let goalValue = HealthCache.dailyGoal()
-        if goalValue > 0, let formattedValue = MainInterfaceController.getNumberFormatter().string(for: goalValue) {
+        if goalValue > 0, let formattedValue = Globals.integerFormatter.string(for: goalValue) {
             stepsGoalLabel.setHidden(false)
             stepsGoalLabel.setText(String(format: NSLocalizedString("of %@ goal %@", comment: ""), formattedValue, Trophy.trophy(for: stepsForDay).symbol()))
         } else {
@@ -176,7 +166,7 @@ class MainInterfaceController: WKInterfaceController
             switch result {
             case .success(let flightsResult):
                 DispatchQueue.main.async { [weak self] in
-                    self?.flightsValueLabel?.setText(MainInterfaceController.getNumberFormatter().string(for: flightsResult.flights))
+                    self?.flightsValueLabel?.setText(Globals.integerFormatter.string(for: flightsResult.flights))
                     completion(true)
                 }
             case .failure(_):
@@ -189,7 +179,7 @@ class MainInterfaceController: WKInterfaceController
         HealthKitService.getInstance().getDistanceCovered(for: Date()) { result in
             switch result {
             case .success(let distanceResult):
-                let formatter = MainInterfaceController.getNumberFormatter()
+                let formatter = Globals.decimalFormatter
                 formatter.maximumFractionDigits = 1
                 let unitsFormatted = distanceResult.formatter == .mile ? NSLocalizedString("mi", comment: "") : NSLocalizedString("km", comment: "")
                 if let valueFormatted = formatter.string(for: distanceResult.distance) {

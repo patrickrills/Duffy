@@ -48,7 +48,7 @@ class SummaryInterfaceController: WKInterfaceController
     }
     
     private func processSteps(_ stepsCollection: [Date : Steps]) {
-        let numFormatter = MainInterfaceController.getNumberFormatter()
+        let numFormatter = Globals.integerFormatter
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "eee"
         

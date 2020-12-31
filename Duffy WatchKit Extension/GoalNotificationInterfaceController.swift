@@ -23,7 +23,7 @@ class GoalNotificationInterfaceController: WKUserNotificationInterfaceController
         lblSteps?.setText(NSLocalizedString("STEPS", comment: ""))
         lblHeadline?.setText(getHeadline())
         
-        let formatter = MainInterfaceController.getNumberFormatter()
+        let formatter = Globals.integerFormatter
         let stepsGoal = formatter.string(for: HealthCache.dailyGoal())
         lblGoal?.setText(stepsGoal)
         completionHandler(.custom)

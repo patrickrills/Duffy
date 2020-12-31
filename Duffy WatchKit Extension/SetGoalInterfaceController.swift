@@ -20,7 +20,7 @@ class SetGoalInterfaceController: WKInterfaceController
         for i in stride(from: 500, to: 80250, by: 250) {
             let opt = WKPickerItem()
             if includeTitle {
-                opt.title = MainInterfaceController.getNumberFormatter().string(for: i)
+                opt.title = Globals.integerFormatter.string(for: i)
             }
             items.append(opt)
             options.append(Steps(i))
@@ -95,7 +95,7 @@ class SetGoalInterfaceController: WKInterfaceController
     }
     
     private func updateDisplayedSteps() {
-        guard let goalFormatted = MainInterfaceController.getNumberFormatter().string(for: selectedGoal) else { return }
+        guard let goalFormatted = Globals.integerFormatter.string(for: selectedGoal) else { return }
         
         if #available(watchOS 6.0, *) {
             let valueFontSize: CGFloat = 44.0
