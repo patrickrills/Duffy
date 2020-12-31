@@ -39,9 +39,9 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, UNUserNotificationCenter
     func applicationWillEnterForeground() {
         LoggingService.log("App will enter foreground")
         
-        if let c = WKExtension.shared().rootInterfaceController as? InterfaceController {
+        if let c = WKExtension.shared().rootInterfaceController as? MainInterfaceController {
             if WKExtension.shared().isApplicationRunningInDock {
-                c.refreshPressed()
+                c.refresh()
             }
             
             c.subscribeToHealthKitUpdates()
@@ -61,7 +61,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, UNUserNotificationCenter
     func applicationDidEnterBackground() {
         LoggingService.log("App will enter background")
         
-        if let c = WKExtension.shared().rootInterfaceController as? InterfaceController {
+        if let c = WKExtension.shared().rootInterfaceController as? MainInterfaceController {
             c.unsubscribeToHealthKitUpdates()
         }
     }
@@ -79,7 +79,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, UNUserNotificationCenter
                 {
                     LoggingService.log("Snapshot task handled")
                     
-                    if let c = WKExtension.shared().rootInterfaceController as? InterfaceController {
+                    if let c = WKExtension.shared().rootInterfaceController as? MainInterfaceController {
                         c.updateInterfaceFromSnapshot()
                     }
                     

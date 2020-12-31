@@ -46,10 +46,9 @@
 		09323C781D22C39700961822 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09323C771D22C39700961822 /* Assets.xcassets */; };
 		09323C7B1D22C39700961822 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09323C791D22C39700961822 /* LaunchScreen.storyboard */; };
 		09323C801D22C39700961822 /* Duffy WatchKit App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 09323C7F1D22C39700961822 /* Duffy WatchKit App.app */; };
-		09323C861D22C39700961822 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09323C841D22C39700961822 /* Interface.storyboard */; };
 		09323C881D22C39700961822 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09323C871D22C39700961822 /* Assets.xcassets */; };
 		09323C8F1D22C39700961822 /* Duffy WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 09323C8E1D22C39700961822 /* Duffy WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		09323C941D22C39700961822 /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09323C931D22C39700961822 /* InterfaceController.swift */; };
+		09323C941D22C39700961822 /* MainInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09323C931D22C39700961822 /* MainInterfaceController.swift */; };
 		09323C961D22C39700961822 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09323C951D22C39700961822 /* ExtensionDelegate.swift */; };
 		09323C981D22C39700961822 /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09323C971D22C39700961822 /* ComplicationController.swift */; };
 		09323C9A1D22C39700961822 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09323C991D22C39700961822 /* Assets.xcassets */; };
@@ -66,7 +65,7 @@
 		093A5F0523AEC870007D11E3 /* DebugLogEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093A5F0423AEC870007D11E3 /* DebugLogEntry.swift */; };
 		093A5F0623AEC870007D11E3 /* DebugLogEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093A5F0423AEC870007D11E3 /* DebugLogEntry.swift */; };
 		093A5F0823B26C1A007D11E3 /* DebugLogTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093A5F0723B26C1A007D11E3 /* DebugLogTableViewController.swift */; };
-		0947AA9C1D4EB1D80040E1DD /* WeekInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0947AA9B1D4EB1D80040E1DD /* WeekInterfaceController.swift */; };
+		0947AA9C1D4EB1D80040E1DD /* SummaryInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0947AA9B1D4EB1D80040E1DD /* SummaryInterfaceController.swift */; };
 		0947AA9E1D4EB24A0040E1DD /* WeekRowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0947AA9D1D4EB24A0040E1DD /* WeekRowController.swift */; };
 		0955EBF3255851820047D791 /* RingDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0955EBF2255851820047D791 /* RingDrawer.swift */; };
 		0961D905216A9BCF00F4AA88 /* ClockKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0961D904216A9BCF00F4AA88 /* ClockKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -92,6 +91,7 @@
 		0985E6EB24F174C2000B4A96 /* HistoryTrendChartOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0985E6EA24F174C2000B4A96 /* HistoryTrendChartOption.swift */; };
 		0985E6EE24F2B4B1000B4A96 /* HistorySummaryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0985E6EC24F2B4B1000B4A96 /* HistorySummaryTableViewCell.xib */; };
 		0985E6EF24F2B4B1000B4A96 /* HistorySummaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0985E6ED24F2B4B1000B4A96 /* HistorySummaryTableViewCell.swift */; };
+		098D0091259E188A005FE945 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098D0090259E188A005FE945 /* Globals.swift */; };
 		099497D8241EC84B005E167C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 099497D7241EC84B005E167C /* Assets.xcassets */; };
 		099497DA242191B9005E167C /* ProgressRingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099497D9242191B9005E167C /* ProgressRingView.swift */; };
 		099582C8234192A600AF6A96 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 099582CA234192A600AF6A96 /* Localizable.strings */; };
@@ -102,6 +102,7 @@
 		099FE700234EB5300092D219 /* LoggingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099FE6FF234EB5300092D219 /* LoggingService.swift */; };
 		099FE701234EB5300092D219 /* LoggingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099FE6FF234EB5300092D219 /* LoggingService.swift */; };
 		099FE702234EBA3C0092D219 /* DuffyWatchFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09323D141D2303DE00961822 /* DuffyWatchFramework.framework */; };
+		09A0D63125951273008977BD /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09A0D63025951273008977BD /* Interface.storyboard */; };
 		09A7EEAD21A1E89A00DEDE5C /* HistoryTrendChartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A7EEAB21A1E89A00DEDE5C /* HistoryTrendChartTableViewCell.swift */; };
 		09A7EEAE21A1E89A00DEDE5C /* HistoryTrendChartTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09A7EEAC21A1E89A00DEDE5C /* HistoryTrendChartTableViewCell.xib */; };
 		09A7EEB021A39D7100DEDE5C /* HistoryTrendChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A7EEAF21A39D7100DEDE5C /* HistoryTrendChartView.swift */; };
@@ -234,7 +235,6 @@
 		0903E604235BCAED0049E071 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/HourGraphDetailViewController.xib; sourceTree = "<group>"; };
 		0903E606235BCAED0049E071 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0903E607235BCAED0049E071 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		0903E608235BCAED0049E071 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		0903E609235BCAED0049E071 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		090829DD2465BB1B00F100D6 /* TrophyLegendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrophyLegendView.swift; sourceTree = "<group>"; };
 		090829DF2465BB2C00F100D6 /* TrophyLegendView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TrophyLegendView.xib; sourceTree = "<group>"; };
@@ -267,7 +267,7 @@
 		09323C871D22C39700961822 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		09323C891D22C39700961822 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		09323C8E1D22C39700961822 /* Duffy WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Duffy WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
-		09323C931D22C39700961822 /* InterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceController.swift; sourceTree = "<group>"; };
+		09323C931D22C39700961822 /* MainInterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainInterfaceController.swift; sourceTree = "<group>"; };
 		09323C951D22C39700961822 /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
 		09323C971D22C39700961822 /* ComplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplicationController.swift; sourceTree = "<group>"; };
 		09323C991D22C39700961822 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -284,7 +284,7 @@
 		0937CA3D25447A1700BDDDD3 /* WCSessionMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCSessionMessage.swift; sourceTree = "<group>"; };
 		093A5F0423AEC870007D11E3 /* DebugLogEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugLogEntry.swift; sourceTree = "<group>"; };
 		093A5F0723B26C1A007D11E3 /* DebugLogTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugLogTableViewController.swift; sourceTree = "<group>"; };
-		0947AA9B1D4EB1D80040E1DD /* WeekInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeekInterfaceController.swift; sourceTree = "<group>"; };
+		0947AA9B1D4EB1D80040E1DD /* SummaryInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SummaryInterfaceController.swift; sourceTree = "<group>"; };
 		0947AA9D1D4EB24A0040E1DD /* WeekRowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeekRowController.swift; sourceTree = "<group>"; };
 		0955EBF2255851820047D791 /* RingDrawer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingDrawer.swift; sourceTree = "<group>"; };
 		0961D904216A9BCF00F4AA88 /* ClockKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ClockKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS5.0.sdk/System/Library/Frameworks/ClockKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -305,6 +305,7 @@
 		0985E6EA24F174C2000B4A96 /* HistoryTrendChartOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTrendChartOption.swift; sourceTree = "<group>"; };
 		0985E6EC24F2B4B1000B4A96 /* HistorySummaryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistorySummaryTableViewCell.xib; sourceTree = "<group>"; };
 		0985E6ED24F2B4B1000B4A96 /* HistorySummaryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistorySummaryTableViewCell.swift; sourceTree = "<group>"; };
+		098D0090259E188A005FE945 /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		099497D7241EC84B005E167C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		099497D9242191B9005E167C /* ProgressRingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressRingView.swift; sourceTree = "<group>"; };
 		099582C9234192A600AF6A96 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -313,12 +314,12 @@
 		099582D1234192E900AF6A96 /* ja */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = ja; path = ja.lproj/Main.storyboard; sourceTree = "<group>"; };
 		099582D2234192E900AF6A96 /* ja */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = ja; path = ja.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		099582D3234192E900AF6A96 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
-		099582D4234192EA00AF6A96 /* ja */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = ja; path = ja.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		099582D5234192EA00AF6A96 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		099582D6234192EA00AF6A96 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		099C13101DA336C80007C72F /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		099C13121DA336D50007C72F /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS3.0.sdk/System/Library/Frameworks/HealthKit.framework; sourceTree = DEVELOPER_DIR; };
 		099FE6FF234EB5300092D219 /* LoggingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggingService.swift; sourceTree = "<group>"; };
+		09A0D63025951273008977BD /* Interface.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Interface.storyboard; sourceTree = "<group>"; };
 		09A7EEAB21A1E89A00DEDE5C /* HistoryTrendChartTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTrendChartTableViewCell.swift; sourceTree = "<group>"; };
 		09A7EEAC21A1E89A00DEDE5C /* HistoryTrendChartTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistoryTrendChartTableViewCell.xib; sourceTree = "<group>"; };
 		09A7EEAF21A39D7100DEDE5C /* HistoryTrendChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTrendChartView.swift; sourceTree = "<group>"; };
@@ -476,7 +477,7 @@
 		09323C831D22C39700961822 /* Duffy WatchKit App */ = {
 			isa = PBXGroup;
 			children = (
-				09323C841D22C39700961822 /* Interface.storyboard */,
+				09A0D63025951273008977BD /* Interface.storyboard */,
 				09323C871D22C39700961822 /* Assets.xcassets */,
 				09323C891D22C39700961822 /* Info.plist */,
 			);
@@ -487,8 +488,9 @@
 			isa = PBXGroup;
 			children = (
 				09323CFB1D2302A800961822 /* Duffy WatchKit Extension.entitlements */,
-				09323C931D22C39700961822 /* InterfaceController.swift */,
-				0947AA9B1D4EB1D80040E1DD /* WeekInterfaceController.swift */,
+				098D0090259E188A005FE945 /* Globals.swift */,
+				09323C931D22C39700961822 /* MainInterfaceController.swift */,
+				0947AA9B1D4EB1D80040E1DD /* SummaryInterfaceController.swift */,
 				091714CE25290B8D001062E0 /* ChartDrawer.swift */,
 				0955EBF2255851820047D791 /* RingDrawer.swift */,
 				0947AA9D1D4EB24A0040E1DD /* WeekRowController.swift */,
@@ -811,8 +813,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09A0D63125951273008977BD /* Interface.storyboard in Resources */,
 				09323C881D22C39700961822 /* Assets.xcassets in Resources */,
-				09323C861D22C39700961822 /* Interface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -898,12 +900,13 @@
 				0955EBF3255851820047D791 /* RingDrawer.swift in Sources */,
 				09323C961D22C39700961822 /* ExtensionDelegate.swift in Sources */,
 				0930F7DF25696C7B006123FB /* SetGoalInterfaceController.swift in Sources */,
-				0947AA9C1D4EB1D80040E1DD /* WeekInterfaceController.swift in Sources */,
+				0947AA9C1D4EB1D80040E1DD /* SummaryInterfaceController.swift in Sources */,
 				09289C7820D873F9005BF6B8 /* GoalNotificationInterfaceController.swift in Sources */,
+				098D0091259E188A005FE945 /* Globals.swift in Sources */,
 				091714CF25290B8D001062E0 /* ChartDrawer.swift in Sources */,
 				0947AA9E1D4EB24A0040E1DD /* WeekRowController.swift in Sources */,
 				09824A8C1EA66C74002A4A84 /* LegacyEditGoalInterfaceController.swift in Sources */,
-				09323C941D22C39700961822 /* InterfaceController.swift in Sources */,
+				09323C941D22C39700961822 /* MainInterfaceController.swift in Sources */,
 				09323C981D22C39700961822 /* ComplicationController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1042,15 +1045,6 @@
 				0903E607235BCAED0049E071 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-		09323C841D22C39700961822 /* Interface.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				099582D4234192EA00AF6A96 /* ja */,
-				0903E608235BCAED0049E071 /* Base */,
-			);
-			name = Interface.storyboard;
 			sourceTree = "<group>";
 		};
 		099582CA234192A600AF6A96 /* Localizable.strings */ = {
@@ -1206,7 +1200,7 @@
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_ENTITLEMENTS = "Duffy WatchKit Extension/Duffy WatchKit Extension.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 6;
 				INFOPLIST_FILE = "Duffy WatchKit Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MARKETING_VERSION = 3.5.1;
@@ -1227,7 +1221,7 @@
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_ENTITLEMENTS = "Duffy WatchKit Extension/Duffy WatchKit Extension.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 6;
 				INFOPLIST_FILE = "Duffy WatchKit Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MARKETING_VERSION = 3.5.1;
@@ -1247,7 +1241,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 6;
 				IBSC_MODULE = Duffy_WatchKit_Extension;
 				INFOPLIST_FILE = "Duffy WatchKit App/Info.plist";
 				MARKETING_VERSION = 3.5.1;
@@ -1267,7 +1261,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 6;
 				IBSC_MODULE = Duffy_WatchKit_Extension;
 				INFOPLIST_FILE = "Duffy WatchKit App/Info.plist";
 				MARKETING_VERSION = 3.5.1;
@@ -1288,7 +1282,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Duffy/Duffy.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = 2ZMUDMBY38;
 				INFOPLIST_FILE = Duffy/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -1307,7 +1301,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Duffy/Duffy.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = 2ZMUDMBY38;
 				INFOPLIST_FILE = Duffy/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -1432,7 +1426,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CODE_SIGN_ENTITLEMENTS = DuffyToday/DuffyToday.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = 2ZMUDMBY38;
 				INFOPLIST_FILE = DuffyToday/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -1453,7 +1447,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CODE_SIGN_ENTITLEMENTS = DuffyToday/DuffyToday.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = 2ZMUDMBY38;
 				INFOPLIST_FILE = DuffyToday/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;

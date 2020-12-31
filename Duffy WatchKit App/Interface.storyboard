@@ -11,64 +11,104 @@
         <!--Today-->
         <scene sceneID="aou-V4-d1y">
             <objects>
-                <controller identifier="mainInterfaceController" title="Today" id="AgC-eL-Hgc" customClass="InterfaceController" customModule="Duffy_WatchKit_App" customModuleProvider="target">
+                <controller identifier="mainInterfaceController" title="Today" id="AgC-eL-Hgc" customClass="MainInterfaceController" customModule="Duffy_WatchKit_App" customModuleProvider="target">
                     <items>
-                        <group width="1" alignment="center" verticalAlignment="center" layout="vertical" spacing="2" id="JsD-K4-SSk">
+                        <group width="1" alignment="center" verticalAlignment="center" layout="vertical" id="jbM-NJ-5AL">
                             <items>
-                                <label alignment="center" verticalAlignment="center" text="STEPS" minimumScaleFactor="0.75" id="p5D-H6-XOj">
-                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <fontDescription key="font" type="system" weight="light" pointSize="16"/>
-                                </label>
-                                <label height="46" alignment="center" verticalAlignment="center" text="0" minimumScaleFactor="0.5" id="G6E-Dy-R0M">
-                                    <fontDescription key="font" type="system" weight="medium" pointSize="46"/>
-                                </label>
-                                <label width="1" alignment="left" verticalAlignment="center" text="today" textAlignment="center" id="npA-ct-HjH">
-                                    <color key="textColor" systemColor="lightTextColor"/>
-                                    <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
-                                </label>
-                            </items>
-                            <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
-                        </group>
-                        <group width="1" alignment="left" verticalAlignment="center" id="7fr-Yb-KoG">
-                            <items>
-                                <group alignment="left" id="yG0-a4-sTu">
+                                <group width="1" alignment="center" verticalAlignment="center" layout="vertical" spacing="2" id="JsD-K4-SSk">
                                     <items>
-                                        <imageView width="21" height="16" alignment="left" image="Distance" contentMode="scaleAspectFit" id="kBg-Kd-5vZ">
-                                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </imageView>
-                                        <label alignment="left" text="0" id="ir6-ZB-MA8"/>
+                                        <label alignment="center" verticalAlignment="center" text="STEPS" minimumScaleFactor="0.75" id="p5D-H6-XOj">
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <fontDescription key="font" type="system" weight="light" pointSize="16"/>
+                                        </label>
+                                        <label height="46" alignment="center" verticalAlignment="center" text="0" minimumScaleFactor="0.5" id="G6E-Dy-R0M">
+                                            <fontDescription key="font" type="system" weight="medium" pointSize="46"/>
+                                        </label>
+                                        <label width="1" alignment="left" verticalAlignment="center" text="today" textAlignment="center" id="npA-ct-HjH">
+                                            <color key="textColor" systemColor="lightTextColor"/>
+                                            <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
+                                        </label>
                                     </items>
+                                    <edgeInsets key="margins" left="0.0" right="0.0" top="8" bottom="0.0"/>
                                 </group>
-                                <group alignment="right" id="lmG-lm-j7m">
+                                <group width="1" alignment="center" verticalAlignment="center" id="7fr-Yb-KoG">
                                     <items>
-                                        <label alignment="right" text="0" id="cnX-fS-dbw"/>
-                                        <imageView width="18" height="13" alignment="right" verticalAlignment="center" image="Flights" contentMode="scaleAspectFit" id="5fg-Yj-r1K"/>
+                                        <group alignment="left" id="yG0-a4-sTu">
+                                            <items>
+                                                <imageView width="21" height="16" alignment="left" image="Distance" contentMode="scaleAspectFit" id="kBg-Kd-5vZ">
+                                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                </imageView>
+                                                <label alignment="left" text="0" id="ir6-ZB-MA8"/>
+                                            </items>
+                                        </group>
+                                        <group alignment="right" id="lmG-lm-j7m">
+                                            <items>
+                                                <label alignment="right" text="0" id="cnX-fS-dbw"/>
+                                                <imageView width="18" height="13" alignment="right" verticalAlignment="center" image="Flights" contentMode="scaleAspectFit" id="5fg-Yj-r1K"/>
+                                            </items>
+                                        </group>
                                     </items>
+                                    <edgeInsets key="margins" left="0.0" right="0.0" top="16" bottom="0.0"/>
+                                </group>
+                                <group width="1" alignment="center" verticalAlignment="bottom" layout="vertical" id="Snk-xZ-rxC">
+                                    <items>
+                                        <button alignment="left" id="aOK-LR-YMM">
+                                            <group key="contentGroup" width="1" alignment="left" spacing="4" id="KTs-Kp-1lg">
+                                                <items>
+                                                    <imageView width="20" height="20" alignment="left" verticalAlignment="center" contentMode="center" id="EDR-lh-Pg9">
+                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </imageView>
+                                                    <label alignment="left" verticalAlignment="center" text="Summary" minimumScaleFactor="0.69999999999999996" id="wSn-zY-LnX">
+                                                        <fontDescription key="font" type="system" weight="semibold" pointSize="16"/>
+                                                    </label>
+                                                </items>
+                                                <color key="backgroundColor" name="ButtonBackground"/>
+                                                <edgeInsets key="margins" left="10" right="10" top="12" bottom="12"/>
+                                            </group>
+                                            <connections>
+                                                <action selector="openSummary" destination="AgC-eL-Hgc" id="thl-dP-lfs"/>
+                                            </connections>
+                                        </button>
+                                        <button alignment="left" id="ja9-sV-8EC">
+                                            <group key="contentGroup" width="1" alignment="left" spacing="4" id="yj0-Bc-7mY">
+                                                <items>
+                                                    <imageView width="20" height="20" alignment="left" verticalAlignment="center" contentMode="center" id="2Ig-aE-VeV">
+                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </imageView>
+                                                    <label alignment="left" verticalAlignment="center" text="Goal" minimumScaleFactor="0.69999999999999996" id="WLh-oY-lA5">
+                                                        <fontDescription key="font" type="system" weight="semibold" pointSize="16"/>
+                                                    </label>
+                                                </items>
+                                                <color key="backgroundColor" name="PrimaryColor"/>
+                                                <edgeInsets key="margins" left="10" right="10" top="12" bottom="12"/>
+                                            </group>
+                                            <connections>
+                                                <action selector="openSetGoal" destination="AgC-eL-Hgc" id="Yf0-XG-PSY"/>
+                                            </connections>
+                                        </button>
+                                        <button width="1" alignment="left" title="Debug" id="l5P-5P-TIU">
+                                            <color key="backgroundColor" name="AverageColor"/>
+                                            <connections>
+                                                <action selector="openDebug" destination="AgC-eL-Hgc" id="sSf-Sf-Yui"/>
+                                            </connections>
+                                        </button>
+                                    </items>
+                                    <edgeInsets key="margins" left="0.0" right="0.0" top="16" bottom="0.0"/>
                                 </group>
                             </items>
-                            <edgeInsets key="margins" left="0.0" right="0.0" top="16" bottom="0.0"/>
                         </group>
                     </items>
-                    <menu key="menu" id="XKt-9c-iyP">
-                        <items>
-                            <menuItem title="Refresh" icon="resume" id="5ux-Gk-yx0">
-                                <connections>
-                                    <action selector="refreshPressed" destination="AgC-eL-Hgc" id="KBs-We-be5"/>
-                                </connections>
-                            </menuItem>
-                            <menuItem title="Change Daily Goal" image="GoalMenu" id="736-fc-wZC">
-                                <connections>
-                                    <action selector="changeGoalMenuItemPressed" destination="AgC-eL-Hgc" id="COs-lf-9cK"/>
-                                </connections>
-                            </menuItem>
-                        </items>
-                    </menu>
                     <connections>
+                        <outlet property="debugButton" destination="l5P-5P-TIU" id="6ae-vh-koR"/>
                         <outlet property="distanceValueLabel" destination="ir6-ZB-MA8" id="ZJD-L0-R7A"/>
                         <outlet property="flightsValueLabel" destination="cnX-fS-dbw" id="ywQ-48-ydb"/>
+                        <outlet property="goalButtonImage" destination="2Ig-aE-VeV" id="PFS-u3-9UC"/>
+                        <outlet property="goalButtonLabel" destination="WLh-oY-lA5" id="KKM-vs-FF2"/>
                         <outlet property="stepsGoalLabel" destination="npA-ct-HjH" id="PtN-ob-TDp"/>
+                        <outlet property="stepsTitleLabel" destination="p5D-H6-XOj" id="ghN-Wh-gx5"/>
                         <outlet property="stepsValueLabel" destination="G6E-Dy-R0M" id="K2a-Ej-vfL"/>
-                        <segue destination="jZc-PD-Him" kind="relationship" relationship="nextPage" id="Ckp-Pq-aOB"/>
+                        <outlet property="summaryButtonImage" destination="EDR-lh-Pg9" id="8le-LU-2Ra"/>
+                        <outlet property="summaryButtonLabel" destination="wSn-zY-LnX" id="533-3N-UgR"/>
                     </connections>
                 </controller>
             </objects>
@@ -141,6 +181,7 @@
                         <outlet property="minusImage" destination="64F-R3-w77" id="iA6-Ow-ViX"/>
                         <outlet property="plusImage" destination="6Zp-jl-uAN" id="NBS-k2-r6v"/>
                         <outlet property="selectedStepsLabel" destination="vBt-wx-NMQ" id="55R-Uf-WrI"/>
+                        <outlet property="setGoalButtonLabel" destination="dRb-eU-AGa" id="sfH-vC-cjj"/>
                     </connections>
                 </controller>
             </objects>
@@ -163,6 +204,7 @@
                         </button>
                     </items>
                     <connections>
+                        <outlet property="goalButton" destination="jWh-lg-j16" id="g1U-0C-7W7"/>
                         <outlet property="goalOptionsList" destination="Vgb-3m-FEt" id="f2T-tu-Tm4"/>
                     </connections>
                 </controller>
@@ -185,10 +227,10 @@
             </objects>
             <point key="canvasLocation" x="313" y="1451"/>
         </scene>
-        <!--Recent-->
+        <!--Done-->
         <scene sceneID="LZl-Pd-feh">
             <objects>
-                <controller identifier="weekInterfaceController" title="Recent" id="jZc-PD-Him" customClass="WeekInterfaceController" customModule="Duffy_WatchKit_Extension">
+                <controller identifier="summaryInterfaceController" title="Done" id="jZc-PD-Him" customClass="SummaryInterfaceController" customModule="Duffy_WatchKit_Extension">
                     <items>
                         <group width="1" alignment="left" layout="vertical" id="onG-8A-2OF">
                             <items>
@@ -254,6 +296,8 @@
                     <connections>
                         <outlet property="lblGoal" destination="XyQ-Md-7bW" id="Wdd-df-GHq"/>
                         <outlet property="lblHeadline" destination="4L3-DK-j5d" id="fTv-hR-ODU"/>
+                        <outlet property="lblSteps" destination="yjy-MT-lTv" id="ZGy-yX-UoM"/>
+                        <outlet property="lblTitle" destination="H2z-2w-NkC" id="uZF-x9-1cA"/>
                     </connections>
                 </controller>
             </objects>
@@ -262,9 +306,14 @@
     </scenes>
     <color key="tintColor" red="0.12549019607843137" green="0.58039215686274503" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
     <resources>
-        <image name="Distance" width="16" height="16"/>
+        <image name="Distance" width="30" height="30"/>
         <image name="Flights" width="30" height="30"/>
-        <image name="GoalMenu" width="40" height="40"/>
+        <namedColor name="AverageColor">
+            <color red="0.28235294117647058" green="0.10196078431372549" blue="0.71764705882352942" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="ButtonBackground">
+            <color red="0.94901960784313721" green="0.95686274509803926" blue="1" alpha="0.14000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <namedColor name="PrimaryColor">
             <color red="0.12549019607843137" green="0.58039215686274515" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

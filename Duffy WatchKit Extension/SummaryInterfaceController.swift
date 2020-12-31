@@ -1,5 +1,5 @@
 //
-//  WeekInterfaceController.swift
+//  SummaryInterfaceController.swift
 //  Duffy
 //
 //  Created by Patrick Rills on 7/31/16.
@@ -11,13 +11,20 @@ import Foundation
 import DuffyWatchFramework
 
  
-class WeekInterfaceController: WKInterfaceController
+class SummaryInterfaceController: WKInterfaceController
 {
+    static let IDENTIFIER = "summaryInterfaceController"
+    
     @IBOutlet weak var loadingLabel: WKInterfaceLabel!
     @IBOutlet weak var graphImage: WKInterfaceImage!
     @IBOutlet weak var stepsTable: WKInterfaceTable!
     
     private var hasDrawnChart: Bool = false
+    
+    override func awake(withContext context: Any?) {
+        super.awake(withContext: context)
+        setTitle(NSLocalizedString("Cancel", comment: ""))
+    }
     
     override func didAppear() {
         super.didAppear()
@@ -41,7 +48,7 @@ class WeekInterfaceController: WKInterfaceController
     }
     
     private func processSteps(_ stepsCollection: [Date : Steps]) {
-        let numFormatter = InterfaceController.getNumberFormatter()
+        let numFormatter = Globals.integerFormatter
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "eee"
         

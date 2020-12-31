@@ -11,32 +11,26 @@ import Foundation
 import DuffyWatchFramework
 import HealthKit
 
-class InterfaceController: WKInterfaceController
+class MainInterfaceController: WKInterfaceController
 {
+    @IBOutlet weak var stepsTitleLabel : WKInterfaceLabel!
     @IBOutlet weak var stepsValueLabel : WKInterfaceLabel!
     @IBOutlet weak var stepsGoalLabel : WKInterfaceLabel!
     @IBOutlet weak var distanceValueLabel : WKInterfaceLabel!
     @IBOutlet weak var flightsValueLabel : WKInterfaceLabel!
+    @IBOutlet weak var summaryButtonImage : WKInterfaceImage!
+    @IBOutlet weak var summaryButtonLabel : WKInterfaceLabel!
+    @IBOutlet weak var goalButtonImage : WKInterfaceImage!
+    @IBOutlet weak var goalButtonLabel : WKInterfaceLabel!
+    @IBOutlet weak var debugButton: WKInterfaceButton!
     
     private var isQueryInProgress = false
-    
-    //MARK: Globals
-    
-    public class func getNumberFormatter() -> NumberFormatter {
-        let numberFormatter = NumberFormatter()
-        numberFormatter.numberStyle = NumberFormatter.Style.decimal
-        numberFormatter.locale = Locale.current
-        numberFormatter.maximumFractionDigits = 0
-        return numberFormatter
-    }
     
     //MARK: Controller Lifecycle
     
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
-        if DebugService.isDebugModeEnabled() {
-            addMenuItem(with: .info, title: "Debug", action: #selector(debugPressed))
-        }
+        initializeUI()
     }
     
     override func willActivate() {
@@ -58,11 +52,11 @@ class InterfaceController: WKInterfaceController
     
     //MARK: Menu Button Handlers
     
-    @IBAction func refreshPressed() {
-        refresh()
+    @IBAction func openSummary() {
+        presentController(withName: SummaryInterfaceController.IDENTIFIER, context: nil)
     }
     
-    @IBAction func changeGoalMenuItemPressed() {
+    @IBAction func openSetGoal() {
         var controllerId = LegacyEditGoalInterfaceController.IDENTIFIER
         if #available(watchOS 6.0, *) {
             controllerId = SetGoalInterfaceController.IDENTIFIER
@@ -72,7 +66,7 @@ class InterfaceController: WKInterfaceController
     
     //MARK: Update UI
     
-    private func refresh() {
+    func refresh() {
         refreshTodayFromHealth({
             [weak self] success in
             
@@ -83,13 +77,13 @@ class InterfaceController: WKInterfaceController
     }
     
     private func display(steps: Steps) {
-        stepsValueLabel?.setText(InterfaceController.getNumberFormatter().string(for: steps))
+        stepsValueLabel?.setText(Globals.integerFormatter.string(for: steps))
         updateGoalDisplay(stepsForDay: steps)
     }
     
     private func updateGoalDisplay(stepsForDay: Steps) {
         let goalValue = HealthCache.dailyGoal()
-        if goalValue > 0, let formattedValue = InterfaceController.getNumberFormatter().string(for: goalValue) {
+        if goalValue > 0, let formattedValue = Globals.integerFormatter.string(for: goalValue) {
             stepsGoalLabel.setHidden(false)
             stepsGoalLabel.setText(String(format: NSLocalizedString("of %@ goal %@", comment: ""), formattedValue, Trophy.trophy(for: stepsForDay).symbol()))
         } else {
@@ -172,7 +166,7 @@ class InterfaceController: WKInterfaceController
             switch result {
             case .success(let flightsResult):
                 DispatchQueue.main.async { [weak self] in
-                    self?.flightsValueLabel?.setText(InterfaceController.getNumberFormatter().string(for: flightsResult.flights))
+                    self?.flightsValueLabel?.setText(Globals.integerFormatter.string(for: flightsResult.flights))
                     completion(true)
                 }
             case .failure(_):
@@ -185,7 +179,7 @@ class InterfaceController: WKInterfaceController
         HealthKitService.getInstance().getDistanceCovered(for: Date()) { result in
             switch result {
             case .success(let distanceResult):
-                let formatter = InterfaceController.getNumberFormatter()
+                let formatter = Globals.decimalFormatter
                 formatter.maximumFractionDigits = 1
                 let unitsFormatted = distanceResult.formatter == .mile ? NSLocalizedString("mi", comment: "") : NSLocalizedString("km", comment: "")
                 if let valueFormatted = formatter.string(for: distanceResult.distance) {
@@ -267,9 +261,43 @@ class InterfaceController: WKInterfaceController
         }
     }
     
+    //MARK: Build UI
+    
+    private let BUTTON_FONT_SIZE: CGFloat = 16.0
+    private let BUTTON_FONT_WEIGHT: UIFont.Weight = .semibold
+    
+    private func initializeUI() {
+        setTitle(NSLocalizedString("Today", comment: ""))
+        stepsTitleLabel.setText(NSLocalizedString("STEPS", comment: ""))
+        debugButton.setHidden(!DebugService.isDebugModeEnabled())
+        
+        let summaryButtonText = NSLocalizedString("View Summary", comment: "")
+        let goalButtonText = NSLocalizedString("Change Goal", comment: "")
+        
+        if #available(watchOS 6.0, *) {
+            let buttonFont = Globals.roundedFont(of: BUTTON_FONT_SIZE, weight: BUTTON_FONT_WEIGHT)
+            let symbolConfiguration = UIImage.SymbolConfiguration(font: buttonFont)
+            
+            summaryButtonImage.setImage(UIImage(systemName: "calendar", withConfiguration: symbolConfiguration)?.withRenderingMode(.alwaysTemplate))
+            summaryButtonLabel.setAttributedText(NSAttributedString(string: summaryButtonText, attributes: [.font : buttonFont]))
+            
+            var goalImageName = "speedometer"
+            if #available(watchOS 7.0, *) {
+                goalImageName = "figure.walk"
+            }
+            goalButtonImage.setImage(UIImage(systemName: goalImageName, withConfiguration: symbolConfiguration)?.withRenderingMode(.alwaysTemplate))
+            goalButtonLabel.setAttributedText(NSAttributedString(string: goalButtonText, attributes: [.font : buttonFont]))
+        } else {
+            summaryButtonImage.setHidden(true)
+            summaryButtonLabel.setText(summaryButtonText)
+            goalButtonImage.setHidden(true)
+            goalButtonLabel.setText(goalButtonText)
+        }
+    }
+    
     //MARK: DEBUG
     
-    @IBAction func debugPressed() {
+    @IBAction func openDebug() {
         let log = LoggingService.getFullDebugLog()
         if log.count > 0 {
             var actions = [WKAlertAction]()
