@@ -15,6 +15,7 @@ class MainInterfaceController: WKInterfaceController
 {
     @IBOutlet weak var stepsTitleLabel : WKInterfaceLabel!
     @IBOutlet weak var stepsValueLabel : WKInterfaceLabel!
+    @IBOutlet weak var ringImage: WKInterfaceImage!
     @IBOutlet weak var stepsGoalLabel : WKInterfaceLabel!
     @IBOutlet weak var distanceValueLabel : WKInterfaceLabel!
     @IBOutlet weak var flightsValueLabel : WKInterfaceLabel!
@@ -77,13 +78,15 @@ class MainInterfaceController: WKInterfaceController
     }
     
     private func display(steps: Steps) {
-        stepsValueLabel?.setText(Globals.integerFormatter.string(for: steps))
+        let stepsFormatted = Globals.integerFormatter.string(for: steps)!
+        stepsValueLabel.setAttributedText(NSAttributedString(string: stepsFormatted, attributes: [.font : Globals.roundedFont(of: 40, weight: .regular), .foregroundColor: UIColor.white]))
         updateGoalDisplay(stepsForDay: steps)
     }
     
     private func updateGoalDisplay(stepsForDay: Steps) {
         let goalValue = HealthCache.dailyGoal()
         if goalValue > 0, let formattedValue = Globals.integerFormatter.string(for: goalValue) {
+            ringImage.setImage(RingDrawer.drawRing(stepsForDay, goal: goalValue, width: 60, includeCenterImage: false)?.withRenderingMode(.alwaysTemplate))
             stepsGoalLabel.setHidden(false)
             stepsGoalLabel.setText(String(format: NSLocalizedString("of %@ goal %@", comment: ""), formattedValue, Trophy.trophy(for: stepsForDay).symbol()))
         } else {
@@ -268,11 +271,12 @@ class MainInterfaceController: WKInterfaceController
     
     private func initializeUI() {
         setTitle(NSLocalizedString("Today", comment: ""))
-        stepsTitleLabel.setText(NSLocalizedString("STEPS", comment: ""))
         debugButton.setHidden(!DebugService.isDebugModeEnabled())
+        ringImage.setTintColor(Globals.secondaryColor())
         
         let summaryButtonText = NSLocalizedString("View Summary", comment: "")
         let goalButtonText = NSLocalizedString("Change Goal", comment: "")
+        let stepsTitle = NSLocalizedString("Steps", comment: "")
         
         if #available(watchOS 6.0, *) {
             let buttonFont = Globals.roundedFont(of: BUTTON_FONT_SIZE, weight: BUTTON_FONT_WEIGHT)
@@ -287,11 +291,15 @@ class MainInterfaceController: WKInterfaceController
             }
             goalButtonImage.setImage(UIImage(systemName: goalImageName, withConfiguration: symbolConfiguration)?.withRenderingMode(.alwaysTemplate))
             goalButtonLabel.setAttributedText(NSAttributedString(string: goalButtonText, attributes: [.font : buttonFont]))
+            
+            stepsTitleLabel.setAttributedText(NSAttributedString(string: stepsTitle, attributes: [.font : Globals.roundedFont(of: 16, weight: .regular), .foregroundColor: Globals.secondaryColor()]))
         } else {
             summaryButtonImage.setHidden(true)
             summaryButtonLabel.setText(summaryButtonText)
             goalButtonImage.setHidden(true)
             goalButtonLabel.setText(goalButtonText)
+            stepsTitleLabel.setText(stepsTitle)
+            stepsTitleLabel.setTextColor(Globals.secondaryColor())
         }
     }
     

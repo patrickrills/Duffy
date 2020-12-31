@@ -13,6 +13,10 @@ import DuffyWatchFramework
 class RingDrawer {
     
     class func drawRing(_ steps: Steps, goal: Steps, width: CGFloat) -> UIImage? {
+        Self.drawRing(steps, goal: goal, width: width, includeCenterImage: true)
+    }
+    
+    class func drawRing(_ steps: Steps, goal: Steps, width: CGFloat, includeCenterImage: Bool) -> UIImage? {
         let size = CGSize(width: width, height: width)
         UIGraphicsBeginImageContext(size)
         let context = UIGraphicsGetCurrentContext()
@@ -47,7 +51,7 @@ class RingDrawer {
             ring.fill()
         }
         
-        if let image = UIImage(named: "XLargeShoe") { //Asset libraries are not available to complication on older watchOS versions (< 5.0)
+        if includeCenterImage, let image = UIImage(named: "XLargeShoe") { //Asset libraries are not available to complication on older watchOS versions (< 5.0)
             let imageSize = insetRect.size.height / 2.0
             image.draw(in: CGRect(x: (size.width / 2.0) - (imageSize / 2.0), y: (size.height / 2.0) - (imageSize / 2.0), width: imageSize, height: imageSize))
         }

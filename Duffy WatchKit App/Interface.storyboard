@@ -17,19 +17,32 @@
                             <items>
                                 <group width="1" alignment="center" verticalAlignment="center" layout="vertical" spacing="2" id="JsD-K4-SSk">
                                     <items>
-                                        <label alignment="center" verticalAlignment="center" text="STEPS" minimumScaleFactor="0.75" id="p5D-H6-XOj">
-                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <fontDescription key="font" type="system" weight="light" pointSize="16"/>
-                                        </label>
-                                        <label height="46" alignment="center" verticalAlignment="center" text="0" minimumScaleFactor="0.5" id="G6E-Dy-R0M">
-                                            <fontDescription key="font" type="system" weight="medium" pointSize="46"/>
-                                        </label>
-                                        <label width="1" alignment="left" verticalAlignment="center" text="today" textAlignment="center" id="npA-ct-HjH">
-                                            <color key="textColor" systemColor="lightTextColor"/>
-                                            <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
-                                        </label>
+                                        <group width="1" alignment="left" layout="vertical" spacing="0.0" id="29y-5b-2my">
+                                            <items>
+                                                <label alignment="left" text="Steps" minimumScaleFactor="0.75" id="p5D-H6-XOj">
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <fontDescription key="font" type="system" weight="light" pointSize="16"/>
+                                                </label>
+                                                <group width="1" alignment="left" id="5uu-5g-ikw">
+                                                    <items>
+                                                        <label height="40" alignment="left" verticalAlignment="center" text="0" minimumScaleFactor="0.59999999999999998" id="G6E-Dy-R0M">
+                                                            <fontDescription key="font" type="system" weight="medium" pointSize="40"/>
+                                                        </label>
+                                                        <imageView width="20" height="20" alignment="right" verticalAlignment="center" id="KCZ-jt-kjN"/>
+                                                    </items>
+                                                </group>
+                                            </items>
+                                        </group>
+                                        <group width="1" alignment="left" layout="vertical" id="Rsx-rk-suD">
+                                            <items>
+                                                <label width="1" alignment="left" text="today" textAlignment="left" id="npA-ct-HjH">
+                                                    <color key="textColor" systemColor="lightTextColor"/>
+                                                    <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
+                                                </label>
+                                            </items>
+                                        </group>
                                     </items>
-                                    <edgeInsets key="margins" left="0.0" right="0.0" top="8" bottom="0.0"/>
+                                    <edgeInsets key="margins" left="16" right="16" top="8" bottom="0.0"/>
                                 </group>
                                 <group width="1" alignment="center" verticalAlignment="center" id="7fr-Yb-KoG">
                                     <items>
@@ -48,7 +61,7 @@
                                             </items>
                                         </group>
                                     </items>
-                                    <edgeInsets key="margins" left="0.0" right="0.0" top="16" bottom="0.0"/>
+                                    <edgeInsets key="margins" left="16" right="16" top="16" bottom="0.0"/>
                                 </group>
                                 <group width="1" alignment="center" verticalAlignment="bottom" layout="vertical" id="Snk-xZ-rxC">
                                     <items>
@@ -104,6 +117,7 @@
                         <outlet property="flightsValueLabel" destination="cnX-fS-dbw" id="ywQ-48-ydb"/>
                         <outlet property="goalButtonImage" destination="2Ig-aE-VeV" id="PFS-u3-9UC"/>
                         <outlet property="goalButtonLabel" destination="WLh-oY-lA5" id="KKM-vs-FF2"/>
+                        <outlet property="ringImage" destination="KCZ-jt-kjN" id="V6h-YA-cci"/>
                         <outlet property="stepsGoalLabel" destination="npA-ct-HjH" id="PtN-ob-TDp"/>
                         <outlet property="stepsTitleLabel" destination="p5D-H6-XOj" id="ghN-Wh-gx5"/>
                         <outlet property="stepsValueLabel" destination="G6E-Dy-R0M" id="K2a-Ej-vfL"/>
@@ -307,12 +321,12 @@
     <color key="tintColor" red="0.12549019607843137" green="0.58039215686274503" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
     <resources>
         <image name="Distance" width="30" height="30"/>
-        <image name="Flights" width="30" height="30"/>
+        <image name="Flights" width="16" height="16"/>
         <namedColor name="AverageColor">
             <color red="0.28235294117647058" green="0.10196078431372549" blue="0.71764705882352942" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="ButtonBackground">
-            <color red="0.94901960784313721" green="0.95686274509803926" blue="1" alpha="0.14000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.94901960784313721" green="0.95686274509803926" blue="1" alpha="0.14000000059604645" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="PrimaryColor">
             <color red="0.12549019607843137" green="0.58039215686274515" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

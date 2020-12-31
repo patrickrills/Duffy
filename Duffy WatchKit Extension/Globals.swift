@@ -38,4 +38,20 @@ enum Globals
         
         return UIFont(descriptor: roundedFontDescriptor, size: pointSize)
     }
+    
+    static func primaryColor() -> UIColor {
+        guard let primary = UIColor(named: "PrimaryColor") else {
+            return .blue
+        }
+        
+        return primary
+    }
+    
+    static func secondaryColor() -> UIColor {
+        guard let secondary = UIColor(named: "SecondaryColor") else {
+            return .darkGray
+        }
+        
+        return secondary
+    }
 }
