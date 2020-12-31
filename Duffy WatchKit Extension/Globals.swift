@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import WatchKit
 
 enum Globals
 {
@@ -25,4 +26,16 @@ enum Globals
         numberFormatter.maximumFractionDigits = 1
         return numberFormatter
     }()
+    
+    static func roundedFont(of pointSize: CGFloat, weight: UIFont.Weight) -> UIFont {
+        let rawFont = UIFont.systemFont(ofSize: pointSize, weight: weight)
+        
+        guard #available(watchOS 6.0, *),
+              let roundedFontDescriptor = rawFont.fontDescriptor.withDesign(.rounded)
+        else {
+            return rawFont
+        }
+        
+        return UIFont(descriptor: roundedFontDescriptor, size: pointSize)
+    }
 }

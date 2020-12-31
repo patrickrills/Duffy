@@ -100,15 +100,13 @@ class SetGoalInterfaceController: WKInterfaceController
         if #available(watchOS 6.0, *) {
             let valueFontSize: CGFloat = 44.0
             let descrFontSize: CGFloat = UIFont.preferredFont(forTextStyle: .body).pointSize
-            if let valueFontDescriptor = UIFont.systemFont(ofSize: valueFontSize, weight: .black).fontDescriptor.withDesign(.rounded),
-               let descrFontDescriptor = UIFont.preferredFont(forTextStyle: .body).fontDescriptor.withDesign(.rounded)
-            {
-                selectedStepsLabel.setAttributedText(NSAttributedString(string: goalFormatted, attributes: [ .font : UIFont(descriptor: valueFontDescriptor, size: valueFontSize) ]))
-                descrStepsLabel.setAttributedText(NSAttributedString(string: NSLocalizedString("STEPS", comment: ""), attributes: [.font : UIFont(descriptor: descrFontDescriptor, size: descrFontSize)]))
-                return
-            }
+            let valueFont = Globals.roundedFont(of: valueFontSize, weight: .black)
+            let descrFont = Globals.roundedFont(of: descrFontSize, weight: .regular)
+            
+            selectedStepsLabel.setAttributedText(NSAttributedString(string: goalFormatted, attributes: [ .font : valueFont ]))
+            descrStepsLabel.setAttributedText(NSAttributedString(string: NSLocalizedString("STEPS", comment: ""), attributes: [.font : descrFont]))
+        } else {
+            selectedStepsLabel.setText(goalFormatted)
         }
-        
-        selectedStepsLabel.setText(goalFormatted)
     }
 }

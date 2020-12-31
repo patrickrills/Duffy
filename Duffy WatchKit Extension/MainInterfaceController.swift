@@ -275,9 +275,7 @@ class MainInterfaceController: WKInterfaceController
         let goalButtonText = NSLocalizedString("Change Goal", comment: "")
         
         if #available(watchOS 6.0, *) {
-            let rawFont = UIFont.systemFont(ofSize: BUTTON_FONT_SIZE, weight: BUTTON_FONT_WEIGHT)
-            let buttonFontDescriptor = rawFont.fontDescriptor.withDesign(.rounded)
-            let buttonFont = buttonFontDescriptor != nil ? UIFont(descriptor: buttonFontDescriptor!, size: BUTTON_FONT_SIZE) : rawFont
+            let buttonFont = Globals.roundedFont(of: BUTTON_FONT_SIZE, weight: BUTTON_FONT_WEIGHT)
             let symbolConfiguration = UIImage.SymbolConfiguration(font: buttonFont)
             
             summaryButtonImage.setImage(UIImage(systemName: "calendar", withConfiguration: symbolConfiguration)?.withRenderingMode(.alwaysTemplate))
