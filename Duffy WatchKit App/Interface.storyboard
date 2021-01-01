@@ -34,7 +34,7 @@
                                                                 <label width="20" height="20" alignment="center" verticalAlignment="center" textAlignment="center" baselineAdjustment="alignCenters" id="EZT-72-tht">
                                                                     <fontDescription key="font" type="system" pointSize="15"/>
                                                                 </label>
-                                                                <imageView width="20" height="20" alignment="center" verticalAlignment="center" id="KCZ-jt-kjN"/>
+                                                                <imageView width="20" height="20" alignment="center" verticalAlignment="center" contentMode="scaleAspectFit" id="KCZ-jt-kjN"/>
                                                             </items>
                                                         </group>
                                                     </items>
