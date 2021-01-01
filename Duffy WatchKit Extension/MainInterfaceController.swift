@@ -16,6 +16,7 @@ class MainInterfaceController: WKInterfaceController
     @IBOutlet weak var stepsTitleLabel : WKInterfaceLabel!
     @IBOutlet weak var stepsValueLabel : WKInterfaceLabel!
     @IBOutlet weak var ringImage: WKInterfaceImage!
+    @IBOutlet weak var trophyLabel: WKInterfaceLabel!
     @IBOutlet weak var stepsGoalTitleLabel : WKInterfaceLabel!
     @IBOutlet weak var stepsGoalLabel : WKInterfaceLabel!
     @IBOutlet weak var distanceTitleLabel : WKInterfaceLabel!
@@ -91,9 +92,18 @@ class MainInterfaceController: WKInterfaceController
     private func updateGoalDisplay(stepsForDay: Steps) {
         let goalValue = HealthCache.dailyGoal()
         if goalValue > 0, let formattedValue = Globals.integerFormatter.string(for: goalValue) {
-            ringImage.setImage(RingDrawer.drawRing(stepsForDay, goal: goalValue, width: 60, includeCenterImage: false)?.withRenderingMode(.alwaysTemplate))
+            let trophy = Trophy.trophy(for: stepsForDay)
+            if trophy == .none {
+                trophyLabel.setHidden(true)
+                ringImage.setHidden(false)
+                ringImage.setImage(RingDrawer.drawRing(stepsForDay, goal: goalValue, width: 60, includeCenterImage: false)?.withRenderingMode(.alwaysTemplate))
+            } else {
+                ringImage.setHidden(true)
+                trophyLabel.setHidden(false)
+                trophyLabel.setText(trophy.symbol())
+            }
+            
             stepsGoalLabel.setHidden(false)
-//            stepsGoalLabel.setText(String(format: NSLocalizedString("of %@ goal %@", comment: ""), formattedValue, Trophy.trophy(for: stepsForDay).symbol()))
             setRoundedText(formattedValue, for: stepsGoalLabel, in: .white)
         } else {
             stepsGoalLabel.setHidden(true)
@@ -287,6 +297,8 @@ class MainInterfaceController: WKInterfaceController
         ringImage.setTintColor(Globals.secondaryColor())
         initializeSeparator(topSeparator)
         initializeSeparator(bottomSeparator)
+        ringImage.setHidden(true)
+        trophyLabel.setHidden(true)
         
         stepsGoalLabel.setTextColor(.white)
         flightsValueLabel.setTextColor(Globals.secondaryColor())
