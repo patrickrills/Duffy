@@ -15,7 +15,7 @@
                     <items>
                         <group width="1" alignment="center" verticalAlignment="center" layout="vertical" id="jbM-NJ-5AL">
                             <items>
-                                <group width="1" alignment="center" verticalAlignment="center" layout="vertical" spacing="2" id="JsD-K4-SSk">
+                                <group width="1" alignment="center" verticalAlignment="center" layout="vertical" id="JsD-K4-SSk">
                                     <items>
                                         <group width="1" alignment="left" layout="vertical" spacing="0.0" id="29y-5b-2my">
                                             <items>
@@ -23,14 +23,17 @@
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="font" type="system" weight="light" pointSize="16"/>
                                                 </label>
-                                                <group width="1" alignment="left" id="5uu-5g-ikw">
+                                                <group width="1" alignment="left" spacing="2" id="5uu-5g-ikw">
                                                     <items>
-                                                        <label height="40" alignment="left" verticalAlignment="center" text="0" minimumScaleFactor="0.59999999999999998" id="G6E-Dy-R0M">
+                                                        <label width="120" height="40" alignment="left" verticalAlignment="center" text="55,555" minimumScaleFactor="0.59999999999999998" id="G6E-Dy-R0M">
                                                             <fontDescription key="font" type="system" weight="medium" pointSize="40"/>
+                                                            <variation key="device=watch38mm" width="110"/>
                                                         </label>
                                                         <group alignment="right" verticalAlignment="center" layout="overlap" id="h6l-DS-sAe">
                                                             <items>
-                                                                <label width="20" height="20" alignment="center" verticalAlignment="center" textAlignment="center" baselineAdjustment="alignCenters" id="EZT-72-tht"/>
+                                                                <label width="20" height="20" alignment="center" verticalAlignment="center" textAlignment="center" baselineAdjustment="alignCenters" id="EZT-72-tht">
+                                                                    <fontDescription key="font" type="system" pointSize="15"/>
+                                                                </label>
                                                                 <imageView width="20" height="20" alignment="center" verticalAlignment="center" id="KCZ-jt-kjN"/>
                                                             </items>
                                                         </group>
@@ -75,10 +78,16 @@
                                                     </items>
                                                 </group>
                                             </items>
-                                            <edgeInsets key="margins" left="0.0" right="0.0" top="8" bottom="0.0"/>
+                                            <edgeInsets key="margins" left="0.0" right="0.0" top="4" bottom="0.0"/>
                                         </group>
                                     </items>
-                                    <edgeInsets key="margins" left="16" right="16" top="8" bottom="0.0"/>
+                                    <edgeInsets key="margins" left="10" right="10" top="6" bottom="0.0"/>
+                                    <variation key="device=watch38mm">
+                                        <edgeInsets key="margins" left="0.0" right="0.0" top="6" bottom="0.0"/>
+                                    </variation>
+                                    <variation key="device=watch44mm">
+                                        <edgeInsets key="margins" left="16" right="16" top="8" bottom="0.0"/>
+                                    </variation>
                                 </group>
                                 <group width="1" alignment="center" verticalAlignment="bottom" layout="vertical" id="Snk-xZ-rxC">
                                     <items>
@@ -124,6 +133,9 @@
                                         </button>
                                     </items>
                                     <edgeInsets key="margins" left="0.0" right="0.0" top="8" bottom="0.0"/>
+                                    <variation key="device=watch44mm">
+                                        <edgeInsets key="margins" left="0.0" right="0.0" top="16" bottom="0.0"/>
+                                    </variation>
                                 </group>
                             </items>
                         </group>
