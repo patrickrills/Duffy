@@ -25,8 +25,8 @@
                                                 </label>
                                                 <group width="1" alignment="left" spacing="2" id="5uu-5g-ikw">
                                                     <items>
-                                                        <label width="120" height="40" alignment="left" verticalAlignment="center" text="55,555" minimumScaleFactor="0.59999999999999998" id="G6E-Dy-R0M">
-                                                            <fontDescription key="font" type="system" weight="medium" pointSize="40"/>
+                                                        <label width="120" height="40" alignment="left" verticalAlignment="center" text="0" minimumScaleFactor="0.59999999999999998" id="G6E-Dy-R0M">
+                                                            <fontDescription key="font" type="system" pointSize="40"/>
                                                             <variation key="device=watch38mm" width="110"/>
                                                         </label>
                                                         <group alignment="right" verticalAlignment="center" layout="overlap" id="h6l-DS-sAe">
