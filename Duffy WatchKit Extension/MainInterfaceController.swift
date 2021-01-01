@@ -16,14 +16,19 @@ class MainInterfaceController: WKInterfaceController
     @IBOutlet weak var stepsTitleLabel : WKInterfaceLabel!
     @IBOutlet weak var stepsValueLabel : WKInterfaceLabel!
     @IBOutlet weak var ringImage: WKInterfaceImage!
+    @IBOutlet weak var stepsGoalTitleLabel : WKInterfaceLabel!
     @IBOutlet weak var stepsGoalLabel : WKInterfaceLabel!
+    @IBOutlet weak var distanceTitleLabel : WKInterfaceLabel!
     @IBOutlet weak var distanceValueLabel : WKInterfaceLabel!
+    @IBOutlet weak var flightsTitleLabel : WKInterfaceLabel!
     @IBOutlet weak var flightsValueLabel : WKInterfaceLabel!
     @IBOutlet weak var summaryButtonImage : WKInterfaceImage!
     @IBOutlet weak var summaryButtonLabel : WKInterfaceLabel!
     @IBOutlet weak var goalButtonImage : WKInterfaceImage!
     @IBOutlet weak var goalButtonLabel : WKInterfaceLabel!
     @IBOutlet weak var debugButton: WKInterfaceButton!
+    @IBOutlet weak var topSeparator: WKInterfaceGroup!
+    @IBOutlet weak var bottomSeparator: WKInterfaceGroup!
     
     private var isQueryInProgress = false
     
@@ -88,7 +93,8 @@ class MainInterfaceController: WKInterfaceController
         if goalValue > 0, let formattedValue = Globals.integerFormatter.string(for: goalValue) {
             ringImage.setImage(RingDrawer.drawRing(stepsForDay, goal: goalValue, width: 60, includeCenterImage: false)?.withRenderingMode(.alwaysTemplate))
             stepsGoalLabel.setHidden(false)
-            stepsGoalLabel.setText(String(format: NSLocalizedString("of %@ goal %@", comment: ""), formattedValue, Trophy.trophy(for: stepsForDay).symbol()))
+//            stepsGoalLabel.setText(String(format: NSLocalizedString("of %@ goal %@", comment: ""), formattedValue, Trophy.trophy(for: stepsForDay).symbol()))
+            stepsGoalLabel.setText(formattedValue)
         } else {
             stepsGoalLabel.setHidden(true)
         }
@@ -183,13 +189,11 @@ class MainInterfaceController: WKInterfaceController
             switch result {
             case .success(let distanceResult):
                 let formatter = Globals.decimalFormatter
-                formatter.maximumFractionDigits = 1
-                let unitsFormatted = distanceResult.formatter == .mile ? NSLocalizedString("mi", comment: "") : NSLocalizedString("km", comment: "")
+                let unitsFormatted = distanceResult.formatter == .mile ? NSLocalizedString("Miles", comment: "") : NSLocalizedString("Kilometers", comment: "")
                 if let valueFormatted = formatter.string(for: distanceResult.distance) {
-                    let distanceAttributed = NSMutableAttributedString(string: String(format: "%@ %@", valueFormatted, unitsFormatted))
-                    distanceAttributed.addAttribute(.font, value: UIFont.systemFont(ofSize: 10.0), range: NSRange(location: distanceAttributed.string.count - unitsFormatted.count, length: unitsFormatted.count))
                     DispatchQueue.main.async { [weak self] in
-                        self?.distanceValueLabel?.setAttributedText(distanceAttributed)
+                        self?.distanceValueLabel.setText(valueFormatted)
+                        self?.distanceTitleLabel.setText(unitsFormatted)
                     }
                 }
                 completion(true)
@@ -273,6 +277,12 @@ class MainInterfaceController: WKInterfaceController
         setTitle(NSLocalizedString("Today", comment: ""))
         debugButton.setHidden(!DebugService.isDebugModeEnabled())
         ringImage.setTintColor(Globals.secondaryColor())
+        initializeSeparator(topSeparator)
+        initializeSeparator(bottomSeparator)
+        
+        stepsGoalTitleLabel.setText(NSLocalizedString("Goal", comment: ""))
+        flightsTitleLabel.setText(NSLocalizedString("Flights", comment: ""))
+        distanceTitleLabel.setText(NSLocalizedString("Distance", comment: ""))
         
         let summaryButtonText = NSLocalizedString("View Summary", comment: "")
         let goalButtonText = NSLocalizedString("Change Goal", comment: "")
@@ -301,6 +311,12 @@ class MainInterfaceController: WKInterfaceController
             stepsTitleLabel.setText(stepsTitle)
             stepsTitleLabel.setTextColor(Globals.secondaryColor())
         }
+    }
+    
+    private func initializeSeparator(_ separator: WKInterfaceGroup) {
+        separator.setHeight(1.0)
+        separator.setCornerRadius(1.0)
+        separator.setBackgroundColor(Globals.dividerColor())
     }
     
     //MARK: DEBUG

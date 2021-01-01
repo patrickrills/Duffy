@@ -54,4 +54,12 @@ enum Globals
         
         return secondary
     }
+    
+    static func dividerColor() -> UIColor {
+        guard let divider = UIColor(named: "DividerColor") else {
+            return .lightGray
+        }
+        
+        return divider
+    }
 }
