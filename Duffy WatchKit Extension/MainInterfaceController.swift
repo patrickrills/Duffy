@@ -91,22 +91,33 @@ class MainInterfaceController: WKInterfaceController
     
     private func updateGoalDisplay(stepsForDay: Steps) {
         let goalValue = HealthCache.dailyGoal()
-        if goalValue > 0, let formattedValue = Globals.integerFormatter.string(for: goalValue) {
+        if goalValue > 0,
+           case let diff = abs(Int(goalValue) - Int(stepsForDay)),
+           let formattedDiff = Globals.integerFormatter.string(for: diff)
+        {
             let trophy = Trophy.trophy(for: stepsForDay)
+            
+            var goalColor: UIColor
+            var goalText: String
+            
             if trophy == .none {
                 trophyLabel.setHidden(true)
                 ringImage.setHidden(false)
                 ringImage.setImage(RingDrawer.drawRing(stepsForDay, goal: goalValue, width: 60, includeCenterImage: false)?.withRenderingMode(.alwaysTemplate))
+                goalColor = .white
+                goalText = NSLocalizedString("To go", comment: "")
             } else {
                 ringImage.setHidden(true)
                 trophyLabel.setHidden(false)
                 trophyLabel.setText(trophy.symbol())
+                goalColor = Globals.goalColor()
+                goalText = String(format: "%@+", NSLocalizedString("Goal", comment: ""))
             }
             
-            stepsGoalLabel.setHidden(false)
-            setRoundedText(formattedValue, for: stepsGoalLabel, in: .white)
+            setRoundedText(formattedDiff, for: stepsGoalLabel, in: goalColor)
+            setRoundedText(goalText, for: stepsGoalTitleLabel, in: goalColor)
         } else {
-            stepsGoalLabel.setHidden(true)
+            stepsGoalLabel.setText("?")
         }
     }
     

@@ -62,4 +62,12 @@ enum Globals
         
         return divider
     }
+    
+    static func goalColor() -> UIColor {
+        guard let goalColor = UIColor(named: "GoalColor") else {
+            return .yellow
+        }
+        
+        return goalColor
+    }
 }
