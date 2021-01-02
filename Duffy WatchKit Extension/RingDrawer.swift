@@ -22,7 +22,7 @@ class RingDrawer {
         let context = UIGraphicsGetCurrentContext()
         UIGraphicsPushContext(context!)
         
-        let lineWidth: CGFloat = 8.0
+        let lineWidth: CGFloat = 8.0 //TODO: width / 4.0
         let inset: CGFloat = lineWidth / 2.0
         let insetRect = CGRect(x: 0, y: 0, width: size.width, height: size.height).inset(by: UIEdgeInsets(top: inset, left: inset, bottom: inset, right: inset))
         

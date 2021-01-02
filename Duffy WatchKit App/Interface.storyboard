@@ -25,17 +25,18 @@
                                                 </label>
                                                 <group width="1" alignment="left" spacing="2" id="5uu-5g-ikw">
                                                     <items>
-                                                        <label width="120" height="40" alignment="left" verticalAlignment="center" text="0" minimumScaleFactor="0.59999999999999998" id="G6E-Dy-R0M">
+                                                        <label width="118" height="40" alignment="left" verticalAlignment="center" text="0" minimumScaleFactor="0.59999999999999998" id="G6E-Dy-R0M">
                                                             <fontDescription key="font" type="system" pointSize="40"/>
                                                             <variation key="device=watch38mm" width="110"/>
                                                         </label>
-                                                        <group alignment="right" verticalAlignment="center" layout="overlap" id="h6l-DS-sAe">
+                                                        <group width="20" height="20" alignment="right" verticalAlignment="center" layout="overlap" spacing="0.0" id="h6l-DS-sAe">
                                                             <items>
                                                                 <label width="20" height="20" alignment="center" verticalAlignment="center" textAlignment="center" baselineAdjustment="alignCenters" id="EZT-72-tht">
                                                                     <fontDescription key="font" type="system" pointSize="15"/>
                                                                 </label>
                                                                 <imageView width="20" height="20" alignment="center" verticalAlignment="center" contentMode="scaleAspectFit" id="KCZ-jt-kjN"/>
                                                             </items>
+                                                            <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
                                                         </group>
                                                     </items>
                                                 </group>
@@ -156,6 +157,7 @@
                         <outlet property="stepsValueLabel" destination="G6E-Dy-R0M" id="K2a-Ej-vfL"/>
                         <outlet property="summaryButtonImage" destination="EDR-lh-Pg9" id="8le-LU-2Ra"/>
                         <outlet property="summaryButtonLabel" destination="wSn-zY-LnX" id="533-3N-UgR"/>
+                        <outlet property="todayGroup" destination="JsD-K4-SSk" id="Gl9-6T-45X"/>
                         <outlet property="topSeparator" destination="vgs-x6-YKE" id="Twt-sy-xsM"/>
                         <outlet property="trophyLabel" destination="EZT-72-tht" id="FEo-6Z-psd"/>
                     </connections>

@@ -30,6 +30,7 @@ class MainInterfaceController: WKInterfaceController
     @IBOutlet weak var debugButton: WKInterfaceButton!
     @IBOutlet weak var topSeparator: WKInterfaceGroup!
     @IBOutlet weak var bottomSeparator: WKInterfaceGroup!
+    @IBOutlet weak var todayGroup: WKInterfaceGroup!
     
     private var isQueryInProgress = false
     
@@ -310,6 +311,12 @@ class MainInterfaceController: WKInterfaceController
         initializeSeparator(bottomSeparator)
         ringImage.setHidden(true)
         trophyLabel.setHidden(true)
+        
+        if #available(watchOS 6.0, *) {
+            //Use margins set in storyboard
+        } else {
+            todayGroup.setContentInset(UIEdgeInsets(top: 4.0, left: 0.0, bottom: 0.0, right: 0.0))
+        }
         
         stepsGoalLabel.setTextColor(.white)
         flightsValueLabel.setTextColor(Globals.secondaryColor())
