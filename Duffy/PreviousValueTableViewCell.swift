@@ -16,36 +16,40 @@ class PreviousValueTableViewCell: UITableViewCell
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: .value1, reuseIdentifier: reuseIdentifier)
+        if #available(iOS 14.0, *) {
+            super.init(style: style, reuseIdentifier: reuseIdentifier) //Handled in iOS 14 by contentConfiguration
+        } else {
+            super.init(style: .value1, reuseIdentifier: reuseIdentifier)
+        }
     }
     
     func bind(to date: Date, steps: Steps, goal: Steps) {
-        textLabel?.text = Globals.dayFormatter().string(from: date)
-        textLabel?.font = UIFont.systemFont(ofSize: UIFont.labelFontSize, weight: .regular)
-        
-        if #available(iOS 13.0, *) {
-            detailTextLabel?.textColor = .label
-            textLabel?.textColor = .secondaryLabel
-        } else {
-            detailTextLabel?.textColor = .black
-            textLabel?.textColor = UIColor(red: 117.0/255.0, green: 117.0/255.0, blue: 117.0/255.0, alpha: 1.0)
-        }
-        
-        let stepsFormatted = Globals.stepsFormatter().string(from: NSNumber(value: steps))!
-        var detailWeight : UIFont.Weight = .regular
-        
-        if goal > 0, steps >= goal{
-            detailTextLabel?.text = String(format: "%@ %@", Trophy.trophy(for: steps).symbol(), stepsFormatted)
-            detailWeight = .semibold
-        } else {
-            detailTextLabel?.text = stepsFormatted
-        }
-        
-        detailTextLabel?.font = UIFont.systemFont(ofSize: UIFont.labelFontSize, weight: detailWeight)
+        let trophy = Trophy.trophy(for: steps)
+        let stepsFormatted = Globals.stepsFormatter().string(for: steps)!
+        let primaryText = trophy == .none ? stepsFormatted : String(format: "%@ %@", trophy.symbol(), stepsFormatted)
+        let secondaryText = Globals.dayFormatter().string(from: date)
+        let primaryFont = font(for: trophy)
         
         selectionStyle = .none
         accessoryType = .none
+        
+        if #available(iOS 14.0, *) {
+            var valueContentConfig = UIListContentConfiguration.valueCell()
+            valueContentConfig.text = primaryText
+            valueContentConfig.secondaryText = secondaryText
+            valueContentConfig.textProperties.font = primaryFont
+            contentConfiguration = valueContentConfig
+        } else {
+            textLabel?.font = primaryFont
+            textLabel?.text = primaryText
+            detailTextLabel?.text = secondaryText
+        }
+    }
+    
+    private func font(for trophy: Trophy) -> UIFont {
+        let weight: UIFont.Weight = trophy == .none ? .regular : .semibold
+        return UIFont.systemFont(ofSize: UIFont.labelFontSize, weight: weight)
     }
 }
