@@ -27,6 +27,13 @@ enum Globals
         return numberFormatter
     }()
     
+    static let summaryDateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEEEEE" //TODO: One letter? "EEEEE"
+        dateFormatter.locale = Locale.current
+        return dateFormatter
+    }()
+    
     static func roundedFont(of pointSize: CGFloat, weight: UIFont.Weight) -> UIFont {
         let rawFont = UIFont.systemFont(ofSize: pointSize, weight: weight)
         

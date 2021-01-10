@@ -45,9 +45,7 @@ class SummaryInterfaceController: WKInterfaceController
     
     private func processSteps(_ stepsCollection: [Date : Steps]) {
         let numFormatter = Globals.integerFormatter
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "eee"
-        
+        let dateFormatter = Globals.summaryDateFormatter
         let sortedKeys = stepsCollection.keys.sorted(by: >)
         
         let data: [WeekRowData] = sortedKeys.map({
