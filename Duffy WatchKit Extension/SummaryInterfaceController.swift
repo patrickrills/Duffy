@@ -32,12 +32,8 @@ class SummaryInterfaceController: WKInterfaceController
     }
 
     private func retrieveRecentSteps() {
-        guard let startDate = HealthKitService.getInstance().earliestQueryDate() else {
-            showErrorState()
-            return
-        }
-        
-        HealthKitService.getInstance().getSteps(from: startDate, to: Date()) { [weak self] result in
+        let startDate = Date().dateByAdding(days: -7)
+        HealthKitService.getInstance().getSteps(from: startDate, to: Date().previousDay()) { [weak self] result in
             switch result {
             case .success(let stepsCollection):
                 self?.processSteps(stepsCollection)
@@ -54,7 +50,7 @@ class SummaryInterfaceController: WKInterfaceController
         
         let sortedKeys = stepsCollection.keys.sorted(by: >)
         
-        let data: [WeekRowData] = sortedKeys.filter({ !$0.isToday() }).map({
+        let data: [WeekRowData] = sortedKeys.map({
             let title = dateFormatter.string(from: $0).uppercased()
             var value = "0"
             var adornment = ""
