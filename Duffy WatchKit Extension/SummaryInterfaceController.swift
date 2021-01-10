@@ -88,7 +88,7 @@ class SummaryInterfaceController: WKInterfaceController
     }
     
     private func showErrorState() {
-        bindTable(to: [WeekRowData(title: NSLocalizedString("No Data", comment: ""), formattedValue: "", adornment: "")])
+        bindTable(to: [WeekRowData(title: "", formattedValue: NSLocalizedString("No Data", comment: ""), adornment: "")])
         graphImage.setImage(nil)
         loadingLabel.setHidden(true)
     }
