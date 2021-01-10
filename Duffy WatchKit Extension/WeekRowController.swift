@@ -11,7 +11,6 @@ import WatchKit
 
 class WeekRowController : NSObject
 {
-    @IBOutlet weak var dateLabel: WKInterfaceLabel?
-    @IBOutlet weak var stepsLabel: WKInterfaceLabel?
-    @IBOutlet weak var adornmentLabel: WKInterfaceLabel?
+    @IBOutlet weak var dateLabel: WKInterfaceLabel!
+    @IBOutlet weak var stepsLabel: WKInterfaceLabel!
 }

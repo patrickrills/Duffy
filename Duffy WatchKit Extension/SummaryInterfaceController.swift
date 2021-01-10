@@ -82,9 +82,8 @@ class SummaryInterfaceController: WKInterfaceController
         
         for (index, row) in data.enumerated() {
             let stepRow = stepsTable.rowController(at: index) as! WeekRowController
-            stepRow.dateLabel?.setText(row.title)
-            stepRow.stepsLabel?.setText(row.formattedValue)
-            stepRow.adornmentLabel?.setText(row.adornment)
+            stepRow.dateLabel.setText(row.title)
+            stepRow.stepsLabel.setText((row.adornment + " " + row.formattedValue).trimmingCharacters(in: .whitespaces))
         }
     }
     
@@ -114,7 +113,7 @@ class SummaryInterfaceController: WKInterfaceController
         }
     }
     
-    struct WeekRowData {
+    fileprivate struct WeekRowData {
         var title: String
         var formattedValue: String
         var adornment: String

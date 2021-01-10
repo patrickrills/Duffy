@@ -295,22 +295,15 @@
                                 <tableRow identifier="WeekRowController" selectable="NO" id="I9v-3l-d5r" customClass="WeekRowController" customModule="Duffy_WatchKit_Extension">
                                     <group key="rootItem" width="1" alignment="left" id="fva-XT-2Zw">
                                         <items>
-                                            <label alignment="left" verticalAlignment="bottom" text="XXX" id="tNq-At-nqT">
-                                                <fontDescription key="font" type="system" weight="thin" pointSize="18"/>
+                                            <label alignment="right" verticalAlignment="center" text="XXX" id="tNq-At-nqT">
+                                                <fontDescription key="font" type="system" pointSize="16"/>
                                             </label>
-                                            <label alignment="right" verticalAlignment="center" text="x" textAlignment="right" id="1Cv-hI-uyl">
-                                                <fontDescription key="font" type="system" pointSize="12"/>
-                                            </label>
-                                            <label alignment="right" verticalAlignment="bottom" text="00,000" textAlignment="right" id="fxo-fl-i6s">
-                                                <fontDescription key="font" type="system" weight="medium" pointSize="26"/>
-                                                <variation key="device=watch38mm">
-                                                    <fontDescription key="font" type="system" weight="medium" pointSize="22"/>
-                                                </variation>
+                                            <label alignment="left" verticalAlignment="center" text="00,000" textAlignment="right" id="fxo-fl-i6s">
+                                                <fontDescription key="font" type="system" weight="semibold" pointSize="16"/>
                                             </label>
                                         </items>
                                     </group>
                                     <connections>
-                                        <outlet property="adornmentLabel" destination="1Cv-hI-uyl" id="cxJ-Br-9pd"/>
                                         <outlet property="dateLabel" destination="tNq-At-nqT" id="MQn-Qf-25a"/>
                                         <outlet property="stepsLabel" destination="fxo-fl-i6s" id="dwe-AM-kS5"/>
                                     </connections>
