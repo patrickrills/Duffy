@@ -52,15 +52,19 @@ class SummaryInterfaceController: WKInterfaceController
             let title = dateFormatter.string(from: $0).uppercased()
             var value = "0"
             var adornment = ""
+            var goal = false
 
             if let steps = stepsCollection[$0],
                 let formattedSteps = numFormatter.string(for: steps) {
 
                 value = formattedSteps
-                adornment = Trophy.trophy(for: steps).symbol()
+                
+                let trophy = Trophy.trophy(for: steps)
+                adornment = trophy.symbol()
+                goal = trophy != .none
             }
 
-            return WeekRowData(title: title, formattedValue: value, adornment: adornment)
+            return WeekRowData(title: title, formattedValue: value, adornment: adornment, isOverGoal: goal)
         })
         
         DispatchQueue.main.async { [weak self] in
@@ -82,13 +86,18 @@ class SummaryInterfaceController: WKInterfaceController
         
         for (index, row) in data.enumerated() {
             let stepRow = stepsTable.rowController(at: index) as! WeekRowController
-            stepRow.dateLabel.setAttributedText(NSAttributedString(string: row.title, attributes: [.font : Globals.roundedFont(of: FONT_SIZE, weight: .regular)]))
-            stepRow.stepsLabel.setAttributedText(NSAttributedString(string: (row.adornment + " " + row.formattedValue).trimmingCharacters(in: .whitespaces), attributes: [.font : Globals.roundedFont(of: FONT_SIZE, weight: .semibold)]))
+            let textColor: UIColor = row.isOverGoal ? UIColor.black : UIColor.white
+            stepRow.dateLabel.setAttributedText(NSAttributedString(string: row.title, attributes: [.font : Globals.roundedFont(of: FONT_SIZE, weight: .regular), .foregroundColor : textColor]))
+            stepRow.stepsLabel.setAttributedText(NSAttributedString(string: (row.adornment + " " + row.formattedValue).trimmingCharacters(in: .whitespaces), attributes: [.font : Globals.roundedFont(of: FONT_SIZE, weight: .medium), .foregroundColor : textColor]))
+            
+            if row.isOverGoal {
+                stepRow.backgroundGroup.setBackgroundColor(UIColor(named: "SecondaryColor")!)
+            }
         }
     }
     
     private func showErrorState() {
-        bindTable(to: [WeekRowData(title: "", formattedValue: NSLocalizedString("No Data", comment: ""), adornment: "")])
+        bindTable(to: [WeekRowData(title: "", formattedValue: NSLocalizedString("No Data", comment: ""), adornment: "", isOverGoal: false)])
         graphImage.setImage(nil)
         loadingLabel.setHidden(true)
     }
@@ -119,5 +128,6 @@ class SummaryInterfaceController: WKInterfaceController
         var title: String
         var formattedValue: String
         var adornment: String
+        var isOverGoal: Bool
     }
 }

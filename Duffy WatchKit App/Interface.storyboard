@@ -304,6 +304,7 @@
                                         </items>
                                     </group>
                                     <connections>
+                                        <outlet property="backgroundGroup" destination="fva-XT-2Zw" id="fvi-9z-caz"/>
                                         <outlet property="dateLabel" destination="tNq-At-nqT" id="MQn-Qf-25a"/>
                                         <outlet property="stepsLabel" destination="fxo-fl-i6s" id="dwe-AM-kS5"/>
                                     </connections>
