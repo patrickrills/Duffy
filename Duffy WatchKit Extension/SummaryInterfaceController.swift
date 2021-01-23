@@ -75,7 +75,7 @@ class SummaryInterfaceController: WKInterfaceController
         }
     }
     
-    private let FONT_SIZE: CGFloat = 16.0
+    private let FONT_SIZE: CGFloat = 18.0
     
     private func bindTable(to data: [WeekRowData]) {
         stepsTable.setRowTypes(Array(repeating: "WeekRowController", count: data.count))
