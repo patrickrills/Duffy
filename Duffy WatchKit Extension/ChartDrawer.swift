@@ -19,7 +19,6 @@ class ChartDrawer {
         static let BAR_WIDTH: CGFloat = 8.0
         static let HORIZONTAL_MARGIN: CGFloat = 4.0
         static let DASH_SIZE: Int = 2
-        static let GOAL_LINE_COLOR: UIColor = .lightGray
     }
     
     class func drawChart(_ data: [Date : Steps], width: CGFloat, scale: CGFloat) -> UIImage? {
@@ -28,7 +27,8 @@ class ChartDrawer {
         let horizontalMargin = DrawingConstants.HORIZONTAL_MARGIN * scale
         let insets = UIEdgeInsets(top: 0.0, left: horizontalMargin + (barWidth / 2.0), bottom: 0.0, right: horizontalMargin + (barWidth / 2.0))
         let lineWidth = DrawingConstants.LINE_WIDTH * scale
-        let lineColor = UIColor(named: "PrimaryColor")!
+        let goalColor = UIColor(named: "SecondaryColor")!
+        let unmetGoalColor = UIColor(named: "UnmetGoalColor")!
         
         UIGraphicsBeginImageContext(size)
         let context = UIGraphicsGetCurrentContext()
@@ -42,14 +42,18 @@ class ChartDrawer {
             plot.points.forEach({
                 let barRect = CGRect(x: $0.x - (barWidth / 2.0), y: $0.y, width: barWidth, height: barFloor - $0.y)
                 let bar = UIBezierPath(roundedRect: barRect, cornerRadius: barWidth / 4.0)
-                lineColor.setFill()
+                if $0.y <= plot.goalY {
+                    goalColor.setFill()
+                } else {
+                    unmetGoalColor.setFill()
+                }
                 bar.fill()
             })
         }
         
         let dashSize = CGFloat(DrawingConstants.DASH_SIZE) * scale
         let pattern: [CGFloat] = [dashSize, dashSize]
-        DrawingConstants.GOAL_LINE_COLOR.setStroke()
+        unmetGoalColor.setStroke()
         let line = UIBezierPath()
         line.setLineDash(pattern, count: pattern.count, phase: 0.0)
         line.lineWidth = lineWidth
