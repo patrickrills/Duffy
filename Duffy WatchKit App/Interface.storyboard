@@ -15,40 +15,81 @@
                     <items>
                         <group width="1" alignment="center" verticalAlignment="center" layout="vertical" id="jbM-NJ-5AL">
                             <items>
-                                <group width="1" alignment="center" verticalAlignment="center" layout="vertical" spacing="2" id="JsD-K4-SSk">
+                                <group width="1" alignment="center" verticalAlignment="center" layout="vertical" id="JsD-K4-SSk">
                                     <items>
-                                        <label alignment="center" verticalAlignment="center" text="STEPS" minimumScaleFactor="0.75" id="p5D-H6-XOj">
-                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <fontDescription key="font" type="system" weight="light" pointSize="16"/>
-                                        </label>
-                                        <label height="46" alignment="center" verticalAlignment="center" text="0" minimumScaleFactor="0.5" id="G6E-Dy-R0M">
-                                            <fontDescription key="font" type="system" weight="medium" pointSize="46"/>
-                                        </label>
-                                        <label width="1" alignment="left" verticalAlignment="center" text="today" textAlignment="center" id="npA-ct-HjH">
-                                            <color key="textColor" systemColor="lightTextColor"/>
-                                            <fontDescription key="font" style="UICTFontTextStyleFootnote"/>
-                                        </label>
-                                    </items>
-                                    <edgeInsets key="margins" left="0.0" right="0.0" top="8" bottom="0.0"/>
-                                </group>
-                                <group width="1" alignment="center" verticalAlignment="center" id="7fr-Yb-KoG">
-                                    <items>
-                                        <group alignment="left" id="yG0-a4-sTu">
+                                        <group width="1" alignment="left" layout="vertical" spacing="0.0" id="29y-5b-2my">
                                             <items>
-                                                <imageView width="21" height="16" alignment="left" image="Distance" contentMode="scaleAspectFit" id="kBg-Kd-5vZ">
-                                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                </imageView>
-                                                <label alignment="left" text="0" id="ir6-ZB-MA8"/>
+                                                <label alignment="left" text="Steps" minimumScaleFactor="0.75" id="p5D-H6-XOj">
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <fontDescription key="font" type="system" weight="light" pointSize="16"/>
+                                                </label>
+                                                <group width="1" alignment="left" spacing="2" id="5uu-5g-ikw">
+                                                    <items>
+                                                        <label width="118" height="40" alignment="left" verticalAlignment="center" text="0" baselineAdjustment="alignCenters" minimumScaleFactor="0.59999999999999998" id="G6E-Dy-R0M">
+                                                            <fontDescription key="font" type="system" pointSize="40"/>
+                                                            <variation key="device=watch38mm" width="110"/>
+                                                        </label>
+                                                        <group width="20" height="20" alignment="right" verticalAlignment="center" layout="overlap" spacing="0.0" id="h6l-DS-sAe">
+                                                            <items>
+                                                                <label width="20" height="20" alignment="center" verticalAlignment="center" textAlignment="center" baselineAdjustment="alignCenters" id="EZT-72-tht">
+                                                                    <fontDescription key="font" type="system" pointSize="15"/>
+                                                                </label>
+                                                                <imageView width="20" height="20" alignment="center" verticalAlignment="center" contentMode="scaleAspectFit" id="KCZ-jt-kjN"/>
+                                                            </items>
+                                                            <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
+                                                        </group>
+                                                    </items>
+                                                </group>
                                             </items>
                                         </group>
-                                        <group alignment="right" id="lmG-lm-j7m">
+                                        <group width="1" alignment="left" layout="vertical" spacing="1" id="Rsx-rk-suD">
                                             <items>
-                                                <label alignment="right" text="0" id="cnX-fS-dbw"/>
-                                                <imageView width="18" height="13" alignment="right" verticalAlignment="center" image="Flights" contentMode="scaleAspectFit" id="5fg-Yj-r1K"/>
+                                                <group width="1" alignment="left" id="75G-4x-PaR">
+                                                    <items>
+                                                        <label alignment="left" text="Goal" id="dzH-qD-vWU">
+                                                            <fontDescription key="font" type="system" pointSize="16"/>
+                                                        </label>
+                                                        <label alignment="right" text="0" textAlignment="left" id="npA-ct-HjH">
+                                                            <fontDescription key="font" type="system" pointSize="16"/>
+                                                        </label>
+                                                    </items>
+                                                </group>
+                                                <group width="1" height="2" alignment="left" radius="0.5" spacing="0.0" id="vgs-x6-YKE">
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
+                                                </group>
+                                                <group width="1" alignment="left" id="xgn-uk-RZ1">
+                                                    <items>
+                                                        <label alignment="left" text="Distance" id="Wmv-HT-BYO">
+                                                            <fontDescription key="font" type="system" pointSize="16"/>
+                                                        </label>
+                                                        <label alignment="right" text="0" id="ir6-ZB-MA8"/>
+                                                    </items>
+                                                </group>
+                                                <group width="1" height="2" alignment="left" radius="0.5" spacing="0.0" id="fqx-CN-Vrt">
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
+                                                </group>
+                                                <group width="1" alignment="left" id="4Ec-Na-6mS">
+                                                    <items>
+                                                        <label alignment="left" text="Flights" id="rci-mj-qwO">
+                                                            <fontDescription key="font" type="system" pointSize="16"/>
+                                                        </label>
+                                                        <label alignment="right" text="0" id="cnX-fS-dbw"/>
+                                                    </items>
+                                                </group>
                                             </items>
+                                            <edgeInsets key="margins" left="0.0" right="0.0" top="4" bottom="0.0"/>
+                                            <variation key="device=watch38mm" spacing="0.0"/>
                                         </group>
                                     </items>
-                                    <edgeInsets key="margins" left="0.0" right="0.0" top="16" bottom="0.0"/>
+                                    <edgeInsets key="margins" left="10" right="10" top="6" bottom="0.0"/>
+                                    <variation key="device=watch38mm">
+                                        <edgeInsets key="margins" left="0.0" right="0.0" top="6" bottom="0.0"/>
+                                    </variation>
+                                    <variation key="device=watch44mm">
+                                        <edgeInsets key="margins" left="16" right="16" top="8" bottom="0.0"/>
+                                    </variation>
                                 </group>
                                 <group width="1" alignment="center" verticalAlignment="bottom" layout="vertical" id="Snk-xZ-rxC">
                                     <items>
@@ -93,22 +134,33 @@
                                             </connections>
                                         </button>
                                     </items>
-                                    <edgeInsets key="margins" left="0.0" right="0.0" top="16" bottom="0.0"/>
+                                    <edgeInsets key="margins" left="0.0" right="0.0" top="8" bottom="0.0"/>
+                                    <variation key="device=watch44mm">
+                                        <edgeInsets key="margins" left="0.0" right="0.0" top="16" bottom="0.0"/>
+                                    </variation>
                                 </group>
                             </items>
                         </group>
                     </items>
                     <connections>
+                        <outlet property="bottomSeparator" destination="fqx-CN-Vrt" id="5Wj-fP-FWU"/>
                         <outlet property="debugButton" destination="l5P-5P-TIU" id="6ae-vh-koR"/>
+                        <outlet property="distanceTitleLabel" destination="Wmv-HT-BYO" id="Ps5-vn-HQt"/>
                         <outlet property="distanceValueLabel" destination="ir6-ZB-MA8" id="ZJD-L0-R7A"/>
+                        <outlet property="flightsTitleLabel" destination="rci-mj-qwO" id="e16-Hu-OrU"/>
                         <outlet property="flightsValueLabel" destination="cnX-fS-dbw" id="ywQ-48-ydb"/>
                         <outlet property="goalButtonImage" destination="2Ig-aE-VeV" id="PFS-u3-9UC"/>
                         <outlet property="goalButtonLabel" destination="WLh-oY-lA5" id="KKM-vs-FF2"/>
+                        <outlet property="ringImage" destination="KCZ-jt-kjN" id="V6h-YA-cci"/>
                         <outlet property="stepsGoalLabel" destination="npA-ct-HjH" id="PtN-ob-TDp"/>
+                        <outlet property="stepsGoalTitleLabel" destination="dzH-qD-vWU" id="Jra-aH-rOc"/>
                         <outlet property="stepsTitleLabel" destination="p5D-H6-XOj" id="ghN-Wh-gx5"/>
                         <outlet property="stepsValueLabel" destination="G6E-Dy-R0M" id="K2a-Ej-vfL"/>
                         <outlet property="summaryButtonImage" destination="EDR-lh-Pg9" id="8le-LU-2Ra"/>
                         <outlet property="summaryButtonLabel" destination="wSn-zY-LnX" id="533-3N-UgR"/>
+                        <outlet property="todayGroup" destination="JsD-K4-SSk" id="Gl9-6T-45X"/>
+                        <outlet property="topSeparator" destination="vgs-x6-YKE" id="Twt-sy-xsM"/>
+                        <outlet property="trophyLabel" destination="EZT-72-tht" id="FEo-6Z-psd"/>
                     </connections>
                 </controller>
             </objects>
@@ -243,22 +295,15 @@
                                 <tableRow identifier="WeekRowController" selectable="NO" id="I9v-3l-d5r" customClass="WeekRowController" customModule="Duffy_WatchKit_Extension">
                                     <group key="rootItem" width="1" alignment="left" id="fva-XT-2Zw">
                                         <items>
-                                            <label alignment="left" verticalAlignment="bottom" text="XXX" id="tNq-At-nqT">
-                                                <fontDescription key="font" type="system" weight="thin" pointSize="18"/>
+                                            <label alignment="right" verticalAlignment="center" text="XXX" id="tNq-At-nqT">
+                                                <fontDescription key="font" type="system" pointSize="16"/>
                                             </label>
-                                            <label alignment="right" verticalAlignment="center" text="x" textAlignment="right" id="1Cv-hI-uyl">
-                                                <fontDescription key="font" type="system" pointSize="12"/>
-                                            </label>
-                                            <label alignment="right" verticalAlignment="bottom" text="00,000" textAlignment="right" id="fxo-fl-i6s">
-                                                <fontDescription key="font" type="system" weight="medium" pointSize="26"/>
-                                                <variation key="device=watch38mm">
-                                                    <fontDescription key="font" type="system" weight="medium" pointSize="22"/>
-                                                </variation>
+                                            <label alignment="left" verticalAlignment="center" text="00,000" textAlignment="right" id="fxo-fl-i6s">
+                                                <fontDescription key="font" type="system" weight="semibold" pointSize="16"/>
                                             </label>
                                         </items>
                                     </group>
                                     <connections>
-                                        <outlet property="adornmentLabel" destination="1Cv-hI-uyl" id="cxJ-Br-9pd"/>
                                         <outlet property="dateLabel" destination="tNq-At-nqT" id="MQn-Qf-25a"/>
                                         <outlet property="stepsLabel" destination="fxo-fl-i6s" id="dwe-AM-kS5"/>
                                     </connections>
@@ -306,19 +351,14 @@
     </scenes>
     <color key="tintColor" red="0.12549019607843137" green="0.58039215686274503" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
     <resources>
-        <image name="Distance" width="30" height="30"/>
-        <image name="Flights" width="30" height="30"/>
         <namedColor name="AverageColor">
             <color red="0.28235294117647058" green="0.10196078431372549" blue="0.71764705882352942" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="ButtonBackground">
-            <color red="0.94901960784313721" green="0.95686274509803926" blue="1" alpha="0.14000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.94901960784313721" green="0.95686274509803926" blue="1" alpha="0.14000000059604645" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="PrimaryColor">
             <color red="0.12549019607843137" green="0.58039215686274515" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <systemColor name="lightTextColor">
-            <color white="1" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
     </resources>
 </document>

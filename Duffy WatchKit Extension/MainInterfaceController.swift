@@ -15,14 +15,22 @@ class MainInterfaceController: WKInterfaceController
 {
     @IBOutlet weak var stepsTitleLabel : WKInterfaceLabel!
     @IBOutlet weak var stepsValueLabel : WKInterfaceLabel!
+    @IBOutlet weak var ringImage: WKInterfaceImage!
+    @IBOutlet weak var trophyLabel: WKInterfaceLabel!
+    @IBOutlet weak var stepsGoalTitleLabel : WKInterfaceLabel!
     @IBOutlet weak var stepsGoalLabel : WKInterfaceLabel!
+    @IBOutlet weak var distanceTitleLabel : WKInterfaceLabel!
     @IBOutlet weak var distanceValueLabel : WKInterfaceLabel!
+    @IBOutlet weak var flightsTitleLabel : WKInterfaceLabel!
     @IBOutlet weak var flightsValueLabel : WKInterfaceLabel!
     @IBOutlet weak var summaryButtonImage : WKInterfaceImage!
     @IBOutlet weak var summaryButtonLabel : WKInterfaceLabel!
     @IBOutlet weak var goalButtonImage : WKInterfaceImage!
     @IBOutlet weak var goalButtonLabel : WKInterfaceLabel!
     @IBOutlet weak var debugButton: WKInterfaceButton!
+    @IBOutlet weak var topSeparator: WKInterfaceGroup!
+    @IBOutlet weak var bottomSeparator: WKInterfaceGroup!
+    @IBOutlet weak var todayGroup: WKInterfaceGroup!
     
     private var isQueryInProgress = false
     
@@ -77,17 +85,40 @@ class MainInterfaceController: WKInterfaceController
     }
     
     private func display(steps: Steps) {
-        stepsValueLabel?.setText(Globals.integerFormatter.string(for: steps))
+        let stepsFormatted = Globals.integerFormatter.string(for: steps)!
+        stepsValueLabel.setAttributedText(NSAttributedString(string: stepsFormatted, attributes: [.font : Globals.roundedFont(of: 40, weight: .regular), .foregroundColor: UIColor.white]))
         updateGoalDisplay(stepsForDay: steps)
     }
     
     private func updateGoalDisplay(stepsForDay: Steps) {
         let goalValue = HealthCache.dailyGoal()
-        if goalValue > 0, let formattedValue = Globals.integerFormatter.string(for: goalValue) {
-            stepsGoalLabel.setHidden(false)
-            stepsGoalLabel.setText(String(format: NSLocalizedString("of %@ goal %@", comment: ""), formattedValue, Trophy.trophy(for: stepsForDay).symbol()))
+        if goalValue > 0,
+           case let diff = abs(Int(goalValue) - Int(stepsForDay)),
+           let formattedDiff = Globals.integerFormatter.string(for: diff)
+        {
+            let trophy = Trophy.trophy(for: stepsForDay)
+            
+            var goalColor: UIColor
+            var goalText: String
+            
+            if trophy == .none {
+                trophyLabel.setHidden(true)
+                ringImage.setHidden(false)
+                ringImage.setImage(RingDrawer.drawRing(stepsForDay, goal: goalValue, width: 60, includeCenterImage: false)?.withRenderingMode(.alwaysTemplate))
+                goalColor = .white
+                goalText = NSLocalizedString("To go", comment: "")
+            } else {
+                ringImage.setHidden(true)
+                trophyLabel.setHidden(false)
+                trophyLabel.setText(trophy.symbol())
+                goalColor = Globals.goalColor()
+                goalText = String(format: "%@+", NSLocalizedString("Goal", comment: ""))
+            }
+            
+            setRoundedText(formattedDiff, for: stepsGoalLabel, in: goalColor)
+            setRoundedText(goalText, for: stepsGoalTitleLabel, in: goalColor)
         } else {
-            stepsGoalLabel.setHidden(true)
+            stepsGoalLabel.setText("?")
         }
     }
     
@@ -166,7 +197,11 @@ class MainInterfaceController: WKInterfaceController
             switch result {
             case .success(let flightsResult):
                 DispatchQueue.main.async { [weak self] in
-                    self?.flightsValueLabel?.setText(Globals.integerFormatter.string(for: flightsResult.flights))
+                    if let flightsValueLabel = self?.flightsValueLabel,
+                       let flightsFormatted = Globals.integerFormatter.string(for: flightsResult.flights)
+                    {
+                        self?.setRoundedText(flightsFormatted, for: flightsValueLabel)
+                    }
                     completion(true)
                 }
             case .failure(_):
@@ -180,13 +215,15 @@ class MainInterfaceController: WKInterfaceController
             switch result {
             case .success(let distanceResult):
                 let formatter = Globals.decimalFormatter
-                formatter.maximumFractionDigits = 1
-                let unitsFormatted = distanceResult.formatter == .mile ? NSLocalizedString("mi", comment: "") : NSLocalizedString("km", comment: "")
+                let unitsFormatted = distanceResult.formatter == .mile ? NSLocalizedString("Miles", comment: "") : NSLocalizedString("Kilometers", comment: "")
                 if let valueFormatted = formatter.string(for: distanceResult.distance) {
-                    let distanceAttributed = NSMutableAttributedString(string: String(format: "%@ %@", valueFormatted, unitsFormatted))
-                    distanceAttributed.addAttribute(.font, value: UIFont.systemFont(ofSize: 10.0), range: NSRange(location: distanceAttributed.string.count - unitsFormatted.count, length: unitsFormatted.count))
                     DispatchQueue.main.async { [weak self] in
-                        self?.distanceValueLabel?.setAttributedText(distanceAttributed)
+                        if let distanceValueLabel = self?.distanceValueLabel,
+                           let distanceTitleLabel = self?.distanceTitleLabel
+                        {
+                            self?.setRoundedText(valueFormatted, for: distanceValueLabel)
+                            self?.setRoundedText(unitsFormatted, for: distanceTitleLabel)
+                        }
                     }
                 }
                 completion(true)
@@ -268,11 +305,29 @@ class MainInterfaceController: WKInterfaceController
     
     private func initializeUI() {
         setTitle(NSLocalizedString("Today", comment: ""))
-        stepsTitleLabel.setText(NSLocalizedString("STEPS", comment: ""))
         debugButton.setHidden(!DebugService.isDebugModeEnabled())
+        ringImage.setTintColor(Globals.secondaryColor())
+        initializeSeparator(topSeparator)
+        initializeSeparator(bottomSeparator)
+        ringImage.setHidden(true)
+        trophyLabel.setHidden(true)
+        
+        if #available(watchOS 6.0, *) {
+            //Use margins set in storyboard
+        } else {
+            todayGroup.setContentInset(UIEdgeInsets(top: 4.0, left: 0.0, bottom: 0.0, right: 0.0))
+        }
+        
+        stepsGoalLabel.setTextColor(.white)
+        flightsValueLabel.setTextColor(Globals.secondaryColor())
+        distanceValueLabel.setTextColor(Globals.secondaryColor())
         
         let summaryButtonText = NSLocalizedString("View Summary", comment: "")
         let goalButtonText = NSLocalizedString("Change Goal", comment: "")
+        let stepsTitle = NSLocalizedString("Steps", comment: "")
+        let flightsTitle = NSLocalizedString("Flights", comment: "")
+        let distanceTitle = NSLocalizedString("Distance", comment: "")
+        let goalTitle = NSLocalizedString("Goal", comment: "")
         
         if #available(watchOS 6.0, *) {
             let buttonFont = Globals.roundedFont(of: BUTTON_FONT_SIZE, weight: BUTTON_FONT_WEIGHT)
@@ -287,12 +342,39 @@ class MainInterfaceController: WKInterfaceController
             }
             goalButtonImage.setImage(UIImage(systemName: goalImageName, withConfiguration: symbolConfiguration)?.withRenderingMode(.alwaysTemplate))
             goalButtonLabel.setAttributedText(NSAttributedString(string: goalButtonText, attributes: [.font : buttonFont]))
+            
+            setRoundedText(stepsTitle, for: stepsTitleLabel)
+            setRoundedText(goalTitle, for: stepsGoalTitleLabel, in: .white)
+            setRoundedText(flightsTitle, for: flightsTitleLabel)
+            setRoundedText(distanceTitle, for: distanceTitleLabel)
         } else {
             summaryButtonImage.setHidden(true)
             summaryButtonLabel.setText(summaryButtonText)
             goalButtonImage.setHidden(true)
             goalButtonLabel.setText(goalButtonText)
+            stepsTitleLabel.setText(stepsTitle)
+            stepsTitleLabel.setTextColor(Globals.secondaryColor())
+            flightsTitleLabel.setText(flightsTitle)
+            flightsTitleLabel.setTextColor(Globals.secondaryColor())
+            distanceTitleLabel.setText(distanceTitle)
+            distanceTitleLabel.setTextColor(Globals.secondaryColor())
+            stepsGoalTitleLabel.setText(goalTitle)
+            stepsGoalTitleLabel.setTextColor(.white)
         }
+    }
+    
+    private func initializeSeparator(_ separator: WKInterfaceGroup) {
+        separator.setHeight(1.0)
+        separator.setCornerRadius(1.0)
+        separator.setBackgroundColor(Globals.dividerColor())
+    }
+    
+    private func setRoundedText(_ text: String, for label: WKInterfaceLabel) {
+        setRoundedText(text, for: label, in: Globals.secondaryColor())
+    }
+    
+    private func setRoundedText(_ text: String, for label: WKInterfaceLabel, in color: UIColor) {
+        label.setAttributedText(NSAttributedString(string: text, attributes: [.font : Globals.roundedFont(of: 16, weight: .regular), .foregroundColor: color]))
     }
     
     //MARK: DEBUG

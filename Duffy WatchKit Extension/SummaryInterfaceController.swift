@@ -32,12 +32,8 @@ class SummaryInterfaceController: WKInterfaceController
     }
 
     private func retrieveRecentSteps() {
-        guard let startDate = HealthKitService.getInstance().earliestQueryDate() else {
-            showErrorState()
-            return
-        }
-        
-        HealthKitService.getInstance().getSteps(from: startDate, to: Date()) { [weak self] result in
+        let startDate = Date().dateByAdding(days: -7)
+        HealthKitService.getInstance().getSteps(from: startDate, to: Date().previousDay()) { [weak self] result in
             switch result {
             case .success(let stepsCollection):
                 self?.processSteps(stepsCollection)
@@ -49,12 +45,10 @@ class SummaryInterfaceController: WKInterfaceController
     
     private func processSteps(_ stepsCollection: [Date : Steps]) {
         let numFormatter = Globals.integerFormatter
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "eee"
-        
+        let dateFormatter = Globals.summaryDateFormatter
         let sortedKeys = stepsCollection.keys.sorted(by: >)
         
-        let data: [WeekRowData] = sortedKeys.filter({ !$0.isToday() }).map({
+        let data: [WeekRowData] = sortedKeys.map({
             let title = dateFormatter.string(from: $0).uppercased()
             var value = "0"
             var adornment = ""
@@ -81,19 +75,20 @@ class SummaryInterfaceController: WKInterfaceController
         }
     }
     
+    private let FONT_SIZE: CGFloat = 16.0
+    
     private func bindTable(to data: [WeekRowData]) {
         stepsTable.setRowTypes(Array(repeating: "WeekRowController", count: data.count))
         
         for (index, row) in data.enumerated() {
             let stepRow = stepsTable.rowController(at: index) as! WeekRowController
-            stepRow.dateLabel?.setText(row.title)
-            stepRow.stepsLabel?.setText(row.formattedValue)
-            stepRow.adornmentLabel?.setText(row.adornment)
+            stepRow.dateLabel.setAttributedText(NSAttributedString(string: row.title, attributes: [.font : Globals.roundedFont(of: FONT_SIZE, weight: .regular)]))
+            stepRow.stepsLabel.setAttributedText(NSAttributedString(string: (row.adornment + " " + row.formattedValue).trimmingCharacters(in: .whitespaces), attributes: [.font : Globals.roundedFont(of: FONT_SIZE, weight: .semibold)]))
         }
     }
     
     private func showErrorState() {
-        bindTable(to: [WeekRowData(title: NSLocalizedString("No Data", comment: ""), formattedValue: "", adornment: "")])
+        bindTable(to: [WeekRowData(title: "", formattedValue: NSLocalizedString("No Data", comment: ""), adornment: "")])
         graphImage.setImage(nil)
         loadingLabel.setHidden(true)
     }
@@ -118,7 +113,7 @@ class SummaryInterfaceController: WKInterfaceController
         }
     }
     
-    struct WeekRowData {
+    fileprivate struct WeekRowData {
         var title: String
         var formattedValue: String
         var adornment: String

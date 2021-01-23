@@ -27,6 +27,13 @@ enum Globals
         return numberFormatter
     }()
     
+    static let summaryDateFormatter: DateFormatter = {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEEEEE" //TODO: One letter? "EEEEE"
+        dateFormatter.locale = Locale.current
+        return dateFormatter
+    }()
+    
     static func roundedFont(of pointSize: CGFloat, weight: UIFont.Weight) -> UIFont {
         let rawFont = UIFont.systemFont(ofSize: pointSize, weight: weight)
         
@@ -37,5 +44,37 @@ enum Globals
         }
         
         return UIFont(descriptor: roundedFontDescriptor, size: pointSize)
+    }
+    
+    static func primaryColor() -> UIColor {
+        guard let primary = UIColor(named: "PrimaryColor") else {
+            return .blue
+        }
+        
+        return primary
+    }
+    
+    static func secondaryColor() -> UIColor {
+        guard let secondary = UIColor(named: "SecondaryColor") else {
+            return .darkGray
+        }
+        
+        return secondary
+    }
+    
+    static func dividerColor() -> UIColor {
+        guard let divider = UIColor(named: "DividerColor") else {
+            return .lightGray
+        }
+        
+        return divider
+    }
+    
+    static func goalColor() -> UIColor {
+        guard let goalColor = UIColor(named: "GoalColor") else {
+            return .yellow
+        }
+        
+        return goalColor
     }
 }
