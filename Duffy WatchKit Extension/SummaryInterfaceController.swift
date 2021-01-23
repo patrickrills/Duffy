@@ -100,10 +100,12 @@ class SummaryInterfaceController: WKInterfaceController
             loadingLabel.setText(NSLocalizedString("Loading...", comment: ""))
         }
         
-        let width: CGFloat = WKInterfaceDevice.current().screenBounds.width
+        let device = WKInterfaceDevice.current()
+        let width: CGFloat = device.screenBounds.width
+        let scale: CGFloat = device.screenScale
         
         DispatchQueue.global(qos: .userInitiated).async {
-            let chartImage = ChartDrawer.drawChart(data, width: width)
+            let chartImage = ChartDrawer.drawChart(data, width: width, scale: scale)
             DispatchQueue.main.async { [weak self] in
                 guard let weakSelf = self else { return }
                 weakSelf.graphImage.setImage(chartImage)

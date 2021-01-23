@@ -16,49 +16,45 @@ class ChartDrawer {
     private enum DrawingConstants {
         static let CHART_HEIGHT: CGFloat = 80.0
         static let LINE_WIDTH: CGFloat = 2.0
+        static let BAR_WIDTH: CGFloat = 8.0
         static let HORIZONTAL_MARGIN: CGFloat = 4.0
-        static let GRAPH_INSETS = UIEdgeInsets(top: 0.0, left: HORIZONTAL_MARGIN, bottom: 0.0, right: HORIZONTAL_MARGIN)
+        static let DASH_SIZE: Int = 2
         static let GOAL_LINE_COLOR: UIColor = .lightGray
     }
     
-    class func drawChart(_ data: [Date : Steps], width: CGFloat) -> UIImage? {
-        let size = CGSize(width: width, height: DrawingConstants.CHART_HEIGHT)
+    class func drawChart(_ data: [Date : Steps], width: CGFloat, scale: CGFloat) -> UIImage? {
+        let size = CGSize(width: width * scale, height: DrawingConstants.CHART_HEIGHT * scale)
+        let barWidth = DrawingConstants.BAR_WIDTH * scale
+        let horizontalMargin = DrawingConstants.HORIZONTAL_MARGIN * scale
+        let insets = UIEdgeInsets(top: 0.0, left: horizontalMargin + (barWidth / 2.0), bottom: 0.0, right: horizontalMargin + (barWidth / 2.0))
+        let lineWidth = DrawingConstants.LINE_WIDTH * scale
+        let lineColor = UIColor(named: "PrimaryColor")!
+        
         UIGraphicsBeginImageContext(size)
         let context = UIGraphicsGetCurrentContext()
         UIGraphicsPushContext(context!)
 
-        let plot = Plot.generate(for: data, in: CGRect(x: 0.0, y: 0.0, width: width, height: DrawingConstants.CHART_HEIGHT), with: DrawingConstants.GRAPH_INSETS)
+        let plot = Plot.generate(for: data, in: CGRect(x: 0.0, y: 0.0, width: size.width, height: size.height), with: insets)
         
         if plot.points.count > 0 {
-            let lineColor = UIColor(named: "PrimaryColor")!
+            let barFloor = size.height - insets.bottom
             
-            if plot.points.count == 1, let onlyPoint = plot.points.first {
-                let singlePoint = UIBezierPath(ovalIn: CGRect(x: width / 2.0, y: onlyPoint.y - 4.0, width: 8.0, height: 8.0))
+            plot.points.forEach({
+                let barRect = CGRect(x: $0.x - (barWidth / 2.0), y: $0.y, width: barWidth, height: barFloor - $0.y)
+                let bar = UIBezierPath(roundedRect: barRect, cornerRadius: barWidth / 4.0)
                 lineColor.setFill()
-                singlePoint.fill()
-            } else {
-                let dataLine = UIBezierPath()
-                dataLine.lineWidth = DrawingConstants.LINE_WIDTH
-                
-                plot.points.forEach({
-                    if dataLine.isEmpty {
-                        dataLine.move(to: $0)
-                    } else {
-                        dataLine.addLine(to: $0)
-                    }
-                })
-                
-                lineColor.setStroke()
-                dataLine.stroke()
-            }
+                bar.fill()
+            })
         }
         
+        let dashSize = CGFloat(DrawingConstants.DASH_SIZE) * scale
+        let pattern: [CGFloat] = [dashSize, dashSize]
         DrawingConstants.GOAL_LINE_COLOR.setStroke()
         let line = UIBezierPath()
-        line.setLineDash([2.0, 2.0], count: 2, phase: 0.0)
-        line.lineWidth = DrawingConstants.LINE_WIDTH
-        line.move(to: CGPoint(x: DrawingConstants.HORIZONTAL_MARGIN, y: plot.goalY))
-        line.addLine(to: CGPoint(x: size.width - (DrawingConstants.HORIZONTAL_MARGIN * 2.0), y: plot.goalY))
+        line.setLineDash(pattern, count: pattern.count, phase: 0.0)
+        line.lineWidth = lineWidth
+        line.move(to: CGPoint(x: horizontalMargin, y: plot.goalY))
+        line.addLine(to: CGPoint(x: size.width - horizontalMargin, y: plot.goalY))
         line.stroke()
         
         let cgimage = context!.makeImage()
