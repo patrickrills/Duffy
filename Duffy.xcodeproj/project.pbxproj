@@ -25,6 +25,7 @@
 		09177BC5241D466F0095ECB4 /* ExportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09177BC4241D466E0095ECB4 /* ExportService.swift */; };
 		09177BC6241D466F0095ECB4 /* ExportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09177BC4241D466E0095ECB4 /* ExportService.swift */; };
 		0921049E25BDC73500875BA9 /* LaunchShoe.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0921049D25BDC73500875BA9 /* LaunchShoe.storyboard */; };
+		092104B425BDD59800875BA9 /* GoalInstructions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092104B325BDD59800875BA9 /* GoalInstructions.swift */; };
 		092276DB235549240015A1E6 /* HistoryTableViewFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = 092276DD235549240015A1E6 /* HistoryTableViewFooter.xib */; };
 		092276DF23569A560015A1E6 /* GoalChangeHowToViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 092276E123569A560015A1E6 /* GoalChangeHowToViewController.xib */; };
 		092276E323569EB10015A1E6 /* HourGraphDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 092276E523569EB10015A1E6 /* HourGraphDetailViewController.xib */; };
@@ -247,6 +248,7 @@
 		091714F025326B40001062E0 /* Plot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plot.swift; sourceTree = "<group>"; };
 		09177BC4241D466E0095ECB4 /* ExportService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportService.swift; sourceTree = "<group>"; };
 		0921049D25BDC73500875BA9 /* LaunchShoe.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchShoe.storyboard; sourceTree = "<group>"; };
+		092104B325BDD59800875BA9 /* GoalInstructions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalInstructions.swift; sourceTree = "<group>"; };
 		092276DC235549240015A1E6 /* ja */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ja; path = ja.lproj/HistoryTableViewFooter.xib; sourceTree = "<group>"; };
 		092276E623569EB20015A1E6 /* ja */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ja; path = ja.lproj/HourGraphDetailViewController.xib; sourceTree = "<group>"; };
 		09289C7720D873F9005BF6B8 /* GoalNotificationInterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalNotificationInterfaceController.swift; sourceTree = "<group>"; };
@@ -456,6 +458,7 @@
 				092276E523569EB10015A1E6 /* HourGraphDetailViewController.xib */,
 				0970859B214DAB8900790EC7 /* HourGraphBarView.swift */,
 				0970859D214EAEB200790EC7 /* HourGraphMaxIndicatorView.swift */,
+				092104B325BDD59800875BA9 /* GoalInstructions.swift */,
 				09CC417823132C140029AAFB /* GoalChangeHowToViewController.swift */,
 				092276E123569A560015A1E6 /* GoalChangeHowToViewController.xib */,
 				090829DD2465BB1B00F100D6 /* TrophyLegendView.swift */,
@@ -870,6 +873,7 @@
 				09A7EEAD21A1E89A00DEDE5C /* HistoryTrendChartTableViewCell.swift in Sources */,
 				0970859C214DAB8900790EC7 /* HourGraphBarView.swift in Sources */,
 				096FE0A825067FC700838BEE /* HistoryTrendChartLineOptionsTableViewController.swift in Sources */,
+				092104B425BDD59800875BA9 /* GoalInstructions.swift in Sources */,
 				09CEA97F211F86DC0023786B /* HistoryTableViewFooter.swift in Sources */,
 				097085A0214F16B600790EC7 /* AppRater.swift in Sources */,
 				09323C711D22C39700961822 /* AppDelegate.swift in Sources */,
