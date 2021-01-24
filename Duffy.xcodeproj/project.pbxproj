@@ -24,6 +24,7 @@
 		091714F225326B40001062E0 /* Plot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091714F025326B40001062E0 /* Plot.swift */; };
 		09177BC5241D466F0095ECB4 /* ExportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09177BC4241D466E0095ECB4 /* ExportService.swift */; };
 		09177BC6241D466F0095ECB4 /* ExportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09177BC4241D466E0095ECB4 /* ExportService.swift */; };
+		0921049E25BDC73500875BA9 /* LaunchShoe.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0921049D25BDC73500875BA9 /* LaunchShoe.storyboard */; };
 		092276DB235549240015A1E6 /* HistoryTableViewFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = 092276DD235549240015A1E6 /* HistoryTableViewFooter.xib */; };
 		092276DF23569A560015A1E6 /* GoalChangeHowToViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 092276E123569A560015A1E6 /* GoalChangeHowToViewController.xib */; };
 		092276E323569EB10015A1E6 /* HourGraphDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 092276E523569EB10015A1E6 /* HourGraphDetailViewController.xib */; };
@@ -247,6 +248,7 @@
 		091714CE25290B8D001062E0 /* ChartDrawer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartDrawer.swift; sourceTree = "<group>"; };
 		091714F025326B40001062E0 /* Plot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plot.swift; sourceTree = "<group>"; };
 		09177BC4241D466E0095ECB4 /* ExportService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportService.swift; sourceTree = "<group>"; };
+		0921049D25BDC73500875BA9 /* LaunchShoe.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchShoe.storyboard; sourceTree = "<group>"; };
 		092276DC235549240015A1E6 /* ja */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ja; path = ja.lproj/HistoryTableViewFooter.xib; sourceTree = "<group>"; };
 		092276E623569EB20015A1E6 /* ja */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ja; path = ja.lproj/HourGraphDetailViewController.xib; sourceTree = "<group>"; };
 		09289C7720D873F9005BF6B8 /* GoalNotificationInterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalNotificationInterfaceController.swift; sourceTree = "<group>"; };
@@ -468,6 +470,7 @@
 				09323C741D22C39700961822 /* Main.storyboard */,
 				09323C771D22C39700961822 /* Assets.xcassets */,
 				09323C791D22C39700961822 /* LaunchScreen.storyboard */,
+				0921049D25BDC73500875BA9 /* LaunchShoe.storyboard */,
 				09323C7C1D22C39700961822 /* Info.plist */,
 				099582CA234192A600AF6A96 /* Localizable.strings */,
 			);
@@ -796,6 +799,7 @@
 				099582C8234192A600AF6A96 /* Localizable.strings in Resources */,
 				092276DB235549240015A1E6 /* HistoryTableViewFooter.xib in Resources */,
 				0985E6EE24F2B4B1000B4A96 /* HistorySummaryTableViewCell.xib in Resources */,
+				0921049E25BDC73500875BA9 /* LaunchShoe.storyboard in Resources */,
 				09323C781D22C39700961822 /* Assets.xcassets in Resources */,
 				0961D907216A9F2000F4AA88 /* duffy.ckcomplication in Resources */,
 				09BDDA6621978CE90078B749 /* AboutFooterView.xib in Resources */,
