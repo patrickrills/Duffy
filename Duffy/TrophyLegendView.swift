@@ -34,9 +34,7 @@ class TrophyLegendView: UIView {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        let stepGoal = HealthCache.dailyGoal()
-        let stepGoalFormatted = Globals.stepsFormatter().string(for: stepGoal)!
-        descriptionLabel.text = String(format: NSLocalizedString("When you've reached your goal, you'll earn a trophy based on how many steps you've taken beyond your goal (%@).", comment: "Placeholder is a number of steps: ie 10,000"), stepGoalFormatted)
+        descriptionLabel.text = GoalInstructions.step4.text(useLegacyInstructions: false)
         Trophy.allCases.filter({ $0 != .none }).forEach({
             [weak self] t in
             self?.createLegendEntry(for: t)

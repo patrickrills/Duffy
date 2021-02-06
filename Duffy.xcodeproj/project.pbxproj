@@ -24,6 +24,8 @@
 		091714F225326B40001062E0 /* Plot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091714F025326B40001062E0 /* Plot.swift */; };
 		09177BC5241D466F0095ECB4 /* ExportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09177BC4241D466E0095ECB4 /* ExportService.swift */; };
 		09177BC6241D466F0095ECB4 /* ExportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09177BC4241D466E0095ECB4 /* ExportService.swift */; };
+		0921049E25BDC73500875BA9 /* LaunchShoe.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0921049D25BDC73500875BA9 /* LaunchShoe.storyboard */; };
+		092104B425BDD59800875BA9 /* GoalInstructions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092104B325BDD59800875BA9 /* GoalInstructions.swift */; };
 		092276DB235549240015A1E6 /* HistoryTableViewFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = 092276DD235549240015A1E6 /* HistoryTableViewFooter.xib */; };
 		092276DF23569A560015A1E6 /* GoalChangeHowToViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 092276E123569A560015A1E6 /* GoalChangeHowToViewController.xib */; };
 		092276E323569EB10015A1E6 /* HourGraphDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 092276E523569EB10015A1E6 /* HourGraphDetailViewController.xib */; };
@@ -44,7 +46,6 @@
 		09323C711D22C39700961822 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09323C701D22C39700961822 /* AppDelegate.swift */; };
 		09323C761D22C39700961822 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09323C741D22C39700961822 /* Main.storyboard */; };
 		09323C781D22C39700961822 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09323C771D22C39700961822 /* Assets.xcassets */; };
-		09323C7B1D22C39700961822 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09323C791D22C39700961822 /* LaunchScreen.storyboard */; };
 		09323C801D22C39700961822 /* Duffy WatchKit App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 09323C7F1D22C39700961822 /* Duffy WatchKit App.app */; };
 		09323C881D22C39700961822 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09323C871D22C39700961822 /* Assets.xcassets */; };
 		09323C8F1D22C39700961822 /* Duffy WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 09323C8E1D22C39700961822 /* Duffy WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -234,7 +235,6 @@
 		0903E603235BCAEC0049E071 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/HistoryTableViewFooter.xib; sourceTree = "<group>"; };
 		0903E604235BCAED0049E071 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/HourGraphDetailViewController.xib; sourceTree = "<group>"; };
 		0903E606235BCAED0049E071 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		0903E607235BCAED0049E071 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0903E609235BCAED0049E071 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		090829DD2465BB1B00F100D6 /* TrophyLegendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrophyLegendView.swift; sourceTree = "<group>"; };
 		090829DF2465BB2C00F100D6 /* TrophyLegendView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TrophyLegendView.xib; sourceTree = "<group>"; };
@@ -247,6 +247,8 @@
 		091714CE25290B8D001062E0 /* ChartDrawer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartDrawer.swift; sourceTree = "<group>"; };
 		091714F025326B40001062E0 /* Plot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plot.swift; sourceTree = "<group>"; };
 		09177BC4241D466E0095ECB4 /* ExportService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportService.swift; sourceTree = "<group>"; };
+		0921049D25BDC73500875BA9 /* LaunchShoe.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchShoe.storyboard; sourceTree = "<group>"; };
+		092104B325BDD59800875BA9 /* GoalInstructions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalInstructions.swift; sourceTree = "<group>"; };
 		092276DC235549240015A1E6 /* ja */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ja; path = ja.lproj/HistoryTableViewFooter.xib; sourceTree = "<group>"; };
 		092276E623569EB20015A1E6 /* ja */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ja; path = ja.lproj/HourGraphDetailViewController.xib; sourceTree = "<group>"; };
 		09289C7720D873F9005BF6B8 /* GoalNotificationInterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalNotificationInterfaceController.swift; sourceTree = "<group>"; };
@@ -312,7 +314,6 @@
 		099582CC234192BE00AF6A96 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		099582CF234192C400AF6A96 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		099582D1234192E900AF6A96 /* ja */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = ja; path = ja.lproj/Main.storyboard; sourceTree = "<group>"; };
-		099582D2234192E900AF6A96 /* ja */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = ja; path = ja.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		099582D3234192E900AF6A96 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		099582D5234192EA00AF6A96 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		099582D6234192EA00AF6A96 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -457,6 +458,7 @@
 				092276E523569EB10015A1E6 /* HourGraphDetailViewController.xib */,
 				0970859B214DAB8900790EC7 /* HourGraphBarView.swift */,
 				0970859D214EAEB200790EC7 /* HourGraphMaxIndicatorView.swift */,
+				092104B325BDD59800875BA9 /* GoalInstructions.swift */,
 				09CC417823132C140029AAFB /* GoalChangeHowToViewController.swift */,
 				092276E123569A560015A1E6 /* GoalChangeHowToViewController.xib */,
 				090829DD2465BB1B00F100D6 /* TrophyLegendView.swift */,
@@ -467,7 +469,7 @@
 				090829EC246A26E400F100D6 /* TrophiesViewController.xib */,
 				09323C741D22C39700961822 /* Main.storyboard */,
 				09323C771D22C39700961822 /* Assets.xcassets */,
-				09323C791D22C39700961822 /* LaunchScreen.storyboard */,
+				0921049D25BDC73500875BA9 /* LaunchShoe.storyboard */,
 				09323C7C1D22C39700961822 /* Info.plist */,
 				099582CA234192A600AF6A96 /* Localizable.strings */,
 			);
@@ -792,10 +794,10 @@
 				09289C8220DE131E005BF6B8 /* TodayHeaderView.xib in Resources */,
 				09CC4181231F3DC70029AAFB /* AboutTableViewFooter.xib in Resources */,
 				090829E924684ED400F100D6 /* TrophyItemView.xib in Resources */,
-				09323C7B1D22C39700961822 /* LaunchScreen.storyboard in Resources */,
 				099582C8234192A600AF6A96 /* Localizable.strings in Resources */,
 				092276DB235549240015A1E6 /* HistoryTableViewFooter.xib in Resources */,
 				0985E6EE24F2B4B1000B4A96 /* HistorySummaryTableViewCell.xib in Resources */,
+				0921049E25BDC73500875BA9 /* LaunchShoe.storyboard in Resources */,
 				09323C781D22C39700961822 /* Assets.xcassets in Resources */,
 				0961D907216A9F2000F4AA88 /* duffy.ckcomplication in Resources */,
 				09BDDA6621978CE90078B749 /* AboutFooterView.xib in Resources */,
@@ -871,6 +873,7 @@
 				09A7EEAD21A1E89A00DEDE5C /* HistoryTrendChartTableViewCell.swift in Sources */,
 				0970859C214DAB8900790EC7 /* HourGraphBarView.swift in Sources */,
 				096FE0A825067FC700838BEE /* HistoryTrendChartLineOptionsTableViewController.swift in Sources */,
+				092104B425BDD59800875BA9 /* GoalInstructions.swift in Sources */,
 				09CEA97F211F86DC0023786B /* HistoryTableViewFooter.swift in Sources */,
 				097085A0214F16B600790EC7 /* AppRater.swift in Sources */,
 				09323C711D22C39700961822 /* AppDelegate.swift in Sources */,
@@ -1036,15 +1039,6 @@
 				0903E606235BCAED0049E071 /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		09323C791D22C39700961822 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				099582D2234192E900AF6A96 /* ja */,
-				0903E607235BCAED0049E071 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 		099582CA234192A600AF6A96 /* Localizable.strings */ = {

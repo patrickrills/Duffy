@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import DuffyFramework
 
 class GoalChangeHowToViewController: UIViewController {
 
@@ -25,10 +24,7 @@ class GoalChangeHowToViewController: UIViewController {
         let cachedWatchVersion = Globals.watchSystemVersion()
         return cachedWatchVersion > 0.0 && cachedWatchVersion < 6.0
     }
-    
-    private let step3Insutructions = NSLocalizedString("Select a new goal by tapping the plus (+) or minus (-) buttons or turning the digital crown. Then tap the 'Set Goal' button to save it.", comment: "")
-    private let step3InstructionsLegacy = NSLocalizedString("Select a new goal by swiping with your finger or turning the digital crown. Then tap the 'Set Goal' button to save it.", comment: "")
-    
+
     init() {
         super.init(nibName: "GoalChangeHowToViewController", bundle: nil)
     }
@@ -40,12 +36,14 @@ class GoalChangeHowToViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.title = NSLocalizedString("Change Your Goal", comment: "")
+        self.title = GoalInstructions.title()
         
-        self.headerLabel.text = String(format: NSLocalizedString("This guide describes how to change your daily steps goal (currently %@ steps). Your goal can only be changed from the Duffy Apple Watch app.", comment: ""), Globals.stepsFormatter().string(from: NSNumber(value: HealthCache.dailyGoal()))!)
-        self.oneInstructionsLabel.text = NSLocalizedString("From the Today view of the Apple Watch app, scroll the screen by swiping upward your finger or turning the digital crown.", comment: "")
-        self.twoInstructionsLabel.text = NSLocalizedString("Tap the 'Change Goal' button that appears at the bottom of the screen.", comment: "")
-        self.threeInstructionsLabel.text = useLegacyInstructions ? step3InstructionsLegacy : step3Insutructions
+        self.headerLabel.text = GoalInstructions.headline()
+        self.oneInstructionsLabel.text = GoalInstructions.step1.text(useLegacyInstructions: useLegacyInstructions)
+        self.twoInstructionsLabel.text = GoalInstructions.step2.text(useLegacyInstructions: useLegacyInstructions)
+        self.threeInstructionsLabel.text = GoalInstructions.step3.text(useLegacyInstructions: useLegacyInstructions)
+        
+        //TODO: move to enum
         self.threeInstructionsImageView.image = UIImage(named: (useLegacyInstructions ? "Instructions03-Legacy" : "Instructions03"))
         
         if let trophyView = TrophyLegendView.createView(showInstructionNumber: true) {
