@@ -41,8 +41,8 @@ class ChartDrawer {
             let onlyOnePoint = plot.points.count == 1
             
             plot.points.forEach({
-                let goalMet = $0.y <= plot.goalY
-                let barX = (onlyOnePoint ? size.width / 2.0 : $0.x) - (barWidth / 2.0)
+                let goalMet = $0.point.y <= plot.goalY
+                let barX = (onlyOnePoint ? size.width / 2.0 : $0.point.x) - (barWidth / 2.0)
                 
                 if !goalMet {
                     let ghostBar = UIBezierPath(roundedRect: CGRect(x: barX, y: plot.goalY, width: barWidth, height: barFloor - plot.goalY), cornerRadius: barWidth / 4.0)
@@ -50,7 +50,7 @@ class ChartDrawer {
                     ghostBar.fill()
                 }
                 
-                let barRect = CGRect(x: barX, y: $0.y, width: barWidth, height: barFloor - $0.y)
+                let barRect = CGRect(x: barX, y: $0.point.y, width: barWidth, height: barFloor - $0.point.y)
                 let bar = UIBezierPath(roundedRect: barRect, cornerRadius: barWidth / 4.0)
                 if goalMet {
                     goalColor.setFill()

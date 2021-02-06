@@ -37,7 +37,7 @@ class HistoryTrendChartView: UIView
         
         if plot.points.count > 0 {
             if plot.points.count == 1, let onlyPoint = plot.points.first {
-                let singlePoint = UIBezierPath(ovalIn: CGRect(x: rect.midX, y: onlyPoint.y - 4.0, width: 8.0, height: 8.0))
+                let singlePoint = UIBezierPath(ovalIn: CGRect(x: rect.midX, y: onlyPoint.point.y - 4.0, width: 8.0, height: 8.0))
                 Globals.primaryColor().setFill()
                 singlePoint.fill()
             } else {
@@ -54,9 +54,9 @@ class HistoryTrendChartView: UIView
                 
                 plot.points.forEach({
                     if dataLine.isEmpty {
-                        dataLine.move(to: $0)
+                        dataLine.move(to: $0.point)
                     } else {
-                        dataLine.addLine(to: $0)
+                        dataLine.addLine(to: $0.point)
                     }
                 })
                 
