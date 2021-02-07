@@ -21,6 +21,7 @@ class ChartDrawer {
         static let DASH_SIZE: Int = 2
         static let TEXT_HEIGHT: CGFloat = 12.0
         static let TEXT_WIDTH: CGFloat = 18.0
+        static let TEXT_PADDING: CGFloat = 2.0
         static let FONT_SIZE: CGFloat = 22.0
     }
     
@@ -47,7 +48,7 @@ class ChartDrawer {
         UIGraphicsPushContext(context!)
 
         let textFormatter = Globals.summaryDateFormatter
-        let textY = size.height - textHeight
+        let textY = size.height - textHeight + DrawingConstants.TEXT_PADDING
         let plot = Plot.generate(for: data, in: CGRect(x: 0.0, y: 0.0, width: size.width, height: size.height), with: insets)
         
         if plot.points.count > 0 {
