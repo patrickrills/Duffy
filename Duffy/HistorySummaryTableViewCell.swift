@@ -56,16 +56,19 @@ class HistorySummaryTableViewCell: UITableViewCell {
         displayExtreme(summary.min, minValueLabel, minDateLabel)
         displayExtreme(summary.max, maxValueLabel, maxDateLabel)
         calculateDotPosition(summary)
+        print("Days over \(summary.overDaysCount)")
         setNeedsLayout()
     }
     
     typealias Extreme = (key: Date, value: Steps)
-    typealias Stats = (average: Steps, min: Extreme?, max: Extreme?)
+    typealias Stats = (average: Steps, min: Extreme?, max: Extreme?, overDaysCount: Int)
     
     private func stats(from stepsByDay: [Date : Steps]) -> Stats {
+        let goal = HealthCache.dailyGoal()
         return Stats(average: Steps(stepsByDay.values.mean()),
                      min: stepsByDay.count > 1 ? stepsByDay.min(by: { $0.value < $1.value }) : nil,
-                     max: stepsByDay.count > 1 ? stepsByDay.max(by: { $0.value < $1.value }) : nil)
+                     max: stepsByDay.count > 1 ? stepsByDay.max(by: { $0.value < $1.value }) : nil,
+                     overDaysCount: stepsByDay.values.filter({ $0 >= goal }).count)
     }
     
     private func displayAverage(_ average: Steps) {
