@@ -22,6 +22,7 @@ class HistorySummaryTableViewCell: UITableViewCell {
     @IBOutlet private weak var averageDotHeightConstraint : NSLayoutConstraint!
     @IBOutlet private weak var averageDotPaddingConstraint : NSLayoutConstraint!
     @IBOutlet private weak var averageDotLeadingConstraint : NSLayoutConstraint!
+    @IBOutlet private weak var overLabel : UILabel!
     
     private var averagePositionPercent: Double?
     
@@ -56,7 +57,7 @@ class HistorySummaryTableViewCell: UITableViewCell {
         displayExtreme(summary.min, minValueLabel, minDateLabel)
         displayExtreme(summary.max, maxValueLabel, maxDateLabel)
         calculateDotPosition(summary)
-        print("Days over \(summary.overDaysCount)")
+        displayOverCount(summary.overDaysCount, since: stepsByDay.keys.min() ?? Date())
         setNeedsLayout()
     }
     
@@ -105,6 +106,10 @@ class HistorySummaryTableViewCell: UITableViewCell {
         averagePositionPercent = Double(stats.average - min.value) / Double(span)
     }
     
+    private func displayOverCount(_ overCount: Int, since startDate: Date) {
+        overLabel.text = String(format: "You hit your goal %@ times in the last %@ days.", Globals.stepsFormatter().string(for: overCount)!, Globals.stepsFormatter().string(for: startDate.differenceInDays(from: Date()))!)
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         
@@ -116,5 +121,15 @@ class HistorySummaryTableViewCell: UITableViewCell {
         } else {
             averageDot.isHidden = true
         }
+    }
+}
+
+class HistorySummarySeparatorView: UIView {
+    override func draw(_ rect: CGRect) {
+        super.draw(rect)
+        
+        let separator = UIBezierPath(rect: CGRect(x: 0, y: (rect.height / 2.0) - 0.165, width: rect.width, height: 0.33))
+        Globals.separatorColor().setFill()
+        separator.fill()
     }
 }
