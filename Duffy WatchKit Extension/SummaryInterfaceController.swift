@@ -90,7 +90,7 @@ class SummaryInterfaceController: WKInterfaceController
             let stepRow = stepsTable.rowController(at: index) as! WeekRowController
             let textColor: UIColor = row.isOverGoal ? goalColor : .white
             stepRow.dateLabel.setAttributedText(NSAttributedString(string: row.title, attributes: [.font : Globals.roundedFont(of: FONT_SIZE, weight: .regular), .foregroundColor : UIColor.white]))
-            stepRow.stepsLabel.setAttributedText(NSAttributedString(string: (row.adornment + " " + row.formattedValue).trimmingCharacters(in: .whitespaces), attributes: [.font : Globals.roundedFont(of: FONT_SIZE, weight: .semibold), .foregroundColor : textColor]))
+            stepRow.stepsLabel.setAttributedText(NSAttributedString(string: (row.formattedValue + " " + row.adornment).trimmingCharacters(in: .whitespaces), attributes: [.font : Globals.roundedFont(of: FONT_SIZE, weight: .semibold), .foregroundColor : textColor]))
         }
     }
     
