@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="17506" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="17701" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
     <device id="watch42"/>
     <dependencies>
         <deployment identifier="watchOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="17500"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
     </dependencies>
@@ -284,11 +284,12 @@
             <objects>
                 <controller identifier="summaryInterfaceController" title="Done" id="jZc-PD-Him" customClass="SummaryInterfaceController" customModule="Duffy_WatchKit_Extension">
                     <items>
-                        <group width="1" alignment="left" layout="vertical" id="onG-8A-2OF">
+                        <group width="1" alignment="center" layout="vertical" radius="0.0" id="onG-8A-2OF">
                             <items>
                                 <label alignment="center" text="Loading..." id="U1N-Vy-Hzc"/>
                                 <imageView alignment="center" id="eSI-DD-oHG"/>
                             </items>
+                            <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="4"/>
                         </group>
                         <table alignment="left" id="Xkh-TU-BTJ">
                             <items>
@@ -304,6 +305,7 @@
                                         </items>
                                     </group>
                                     <connections>
+                                        <outlet property="backgroundGroup" destination="fva-XT-2Zw" id="fvi-9z-caz"/>
                                         <outlet property="dateLabel" destination="tNq-At-nqT" id="MQn-Qf-25a"/>
                                         <outlet property="stepsLabel" destination="fxo-fl-i6s" id="dwe-AM-kS5"/>
                                     </connections>

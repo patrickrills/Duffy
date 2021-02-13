@@ -9,12 +9,12 @@
 import Foundation
 
 public struct Plot {
-    public let points: [CGPoint]
+    public let points: [PlotPoint]
     public let goalY: CGFloat
     public let averageY: CGFloat?
     public let trend: [CGPoint]?
 
-    init(points: [CGPoint], goalY: CGFloat, averageY: CGFloat?, trend: [CGPoint]?) {
+    init(points: [PlotPoint], goalY: CGFloat, averageY: CGFloat?, trend: [CGPoint]?) {
         self.points = points
         self.goalY = goalY
         self.averageY = averageY
@@ -30,7 +30,7 @@ public struct Plot {
         var goalLineY: CGFloat
         var averageY: CGFloat? = nil
         var trend: [CGPoint]? = nil
-        var points = [CGPoint]()
+        var points = [PlotPoint]()
         
         let lineDataSet = coalesce(dataSet: dataSet, for: activeArea.width)
         
@@ -50,14 +50,14 @@ public struct Plot {
             }
                         
             points = lineDataSet.reduce(into: points, { points, data in
-                points.append(CGPoint(x: translateX(data.key), y: translateY(data.value)))
-            }).sorted { $0.x < $1.x }
+                points.append(PlotPoint(point: CGPoint(x: translateX(data.key), y: translateY(data.value)), timestamp: data.key.timeIntervalSinceReferenceDate, value: Double(data.value)))
+            }).sorted { $0.point.x < $1.point.x }
             
             goalLineY = translateY(goalSteps)
             averageY = translateY(Steps(dataSet.values.mean()))
             
-            let xMean = points.map(\.x).mean()
-            let yMean = points.map(\.y).mean()
+            let xMean = points.map(\.point.x).mean()
+            let yMean = points.map(\.point.y).mean()
             let calculateSlope: ([CGPoint]) -> (CGFloat) = { p in
                 var slopeParts: (numerator: CGFloat, demoninator: CGFloat) = (0.0, 0.0)
                 slopeParts = p.reduce(into: slopeParts, { result, point in
@@ -66,10 +66,10 @@ public struct Plot {
                 })
                 return slopeParts.numerator / slopeParts.demoninator
             }
-            let slope = calculateSlope(points)
+            let slope = calculateSlope(points.map { $0.point })
             let yIntercept = yMean - (slope * xMean)
             trend = points.map({
-                CGPoint(x: $0.x, y: (slope * $0.x) + yIntercept)
+                CGPoint(x: $0.point.x, y: (slope * $0.point.x) + yIntercept)
             })
         } else {
             //If there is no data, at least show the goal line so the chart isn't completely empty
@@ -98,4 +98,10 @@ public struct Plot {
 
         return coalesced
     }
+}
+
+public struct PlotPoint {
+    public let point: CGPoint
+    public let timestamp: TimeInterval
+    public let value: Double
 }

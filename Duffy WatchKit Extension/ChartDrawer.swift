@@ -16,49 +16,78 @@ class ChartDrawer {
     private enum DrawingConstants {
         static let CHART_HEIGHT: CGFloat = 80.0
         static let LINE_WIDTH: CGFloat = 2.0
+        static let BAR_WIDTH: CGFloat = 8.0
         static let HORIZONTAL_MARGIN: CGFloat = 4.0
-        static let GRAPH_INSETS = UIEdgeInsets(top: 0.0, left: HORIZONTAL_MARGIN, bottom: 0.0, right: HORIZONTAL_MARGIN)
-        static let GOAL_LINE_COLOR: UIColor = .lightGray
+        static let DASH_SIZE: Int = 2
+        static let TEXT_HEIGHT: CGFloat = 12.0
+        static let TEXT_WIDTH: CGFloat = 18.0
+        static let TEXT_PADDING: CGFloat = 2.0
+        static let FONT_SIZE: CGFloat = 22.0
     }
     
-    class func drawChart(_ data: [Date : Steps], width: CGFloat) -> UIImage? {
-        let size = CGSize(width: width, height: DrawingConstants.CHART_HEIGHT)
+    class func drawChart(_ data: [Date : Steps], width: CGFloat, scale: CGFloat) -> UIImage? {
+        let size = CGSize(width: width * scale, height: DrawingConstants.CHART_HEIGHT * scale)
+        let barWidth = DrawingConstants.BAR_WIDTH * scale
+        let horizontalMargin = DrawingConstants.HORIZONTAL_MARGIN * scale
+        let textHeight = DrawingConstants.TEXT_HEIGHT * scale
+        let textWidth: CGFloat = DrawingConstants.TEXT_WIDTH * scale
+        let insets = UIEdgeInsets(top: 0.0, left: horizontalMargin + (barWidth / 2.0), bottom: textHeight, right: horizontalMargin + (barWidth / 2.0))
+        let lineWidth = DrawingConstants.LINE_WIDTH * scale
+        let goalColor = UIColor(named: "GoalColor")!
+        let unmetGoalColor = UIColor(named: "UnmetGoalColor")!
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = .center
+        let textAttributes = [
+            NSAttributedString.Key.font: Globals.roundedFont(of: DrawingConstants.FONT_SIZE, weight: .regular),
+            NSAttributedString.Key.paragraphStyle: paragraphStyle,
+            NSAttributedString.Key.foregroundColor : UIColor.white
+        ]
+        
         UIGraphicsBeginImageContext(size)
         let context = UIGraphicsGetCurrentContext()
         UIGraphicsPushContext(context!)
 
-        let plot = Plot.generate(for: data, in: CGRect(x: 0.0, y: 0.0, width: width, height: DrawingConstants.CHART_HEIGHT), with: DrawingConstants.GRAPH_INSETS)
+        let textFormatter = Globals.summaryDateFormatter
+        let textY = size.height - textHeight + DrawingConstants.TEXT_PADDING
+        let plot = Plot.generate(for: data, in: CGRect(x: 0.0, y: 0.0, width: size.width, height: size.height), with: insets)
         
         if plot.points.count > 0 {
-            let lineColor = UIColor(named: "PrimaryColor")!
+            let barFloor = size.height - insets.bottom
+            let onlyOnePoint = plot.points.count == 1
             
-            if plot.points.count == 1, let onlyPoint = plot.points.first {
-                let singlePoint = UIBezierPath(ovalIn: CGRect(x: width / 2.0, y: onlyPoint.y - 4.0, width: 8.0, height: 8.0))
-                lineColor.setFill()
-                singlePoint.fill()
-            } else {
-                let dataLine = UIBezierPath()
-                dataLine.lineWidth = DrawingConstants.LINE_WIDTH
+            plot.points.forEach {
+                let goalMet = $0.point.y <= plot.goalY
+                let rawX = onlyOnePoint ? size.width / 2.0 : $0.point.x
+                let barX = rawX - (barWidth / 2.0)
                 
-                plot.points.forEach({
-                    if dataLine.isEmpty {
-                        dataLine.move(to: $0)
-                    } else {
-                        dataLine.addLine(to: $0)
-                    }
-                })
+                if !goalMet {
+                    let ghostBar = UIBezierPath(roundedRect: CGRect(x: barX, y: plot.goalY, width: barWidth, height: barFloor - plot.goalY), cornerRadius: barWidth / 4.0)
+                    unmetGoalColor.withAlphaComponent(0.15).setFill()
+                    ghostBar.fill()
+                }
                 
-                lineColor.setStroke()
-                dataLine.stroke()
+                let barRect = CGRect(x: barX, y: $0.point.y, width: barWidth, height: barFloor - $0.point.y)
+                let bar = UIBezierPath(roundedRect: barRect, cornerRadius: barWidth / 4.0)
+                if goalMet {
+                    goalColor.setFill()
+                } else {
+                    unmetGoalColor.setFill()
+                }
+                bar.fill()
+                
+                let dateString = textFormatter.string(from: Date(timeIntervalSinceReferenceDate: $0.timestamp)).uppercased()
+                dateString.draw(with: CGRect(x: rawX - (textWidth / 2.0), y: textY, width: textWidth, height: textHeight), options: .usesLineFragmentOrigin, attributes: textAttributes, context: nil)
             }
         }
         
-        DrawingConstants.GOAL_LINE_COLOR.setStroke()
+        let dashSize = CGFloat(DrawingConstants.DASH_SIZE) * scale
+        let pattern: [CGFloat] = [dashSize, dashSize]
+        unmetGoalColor.setStroke()
         let line = UIBezierPath()
-        line.setLineDash([2.0, 2.0], count: 2, phase: 0.0)
-        line.lineWidth = DrawingConstants.LINE_WIDTH
-        line.move(to: CGPoint(x: DrawingConstants.HORIZONTAL_MARGIN, y: plot.goalY))
-        line.addLine(to: CGPoint(x: size.width - (DrawingConstants.HORIZONTAL_MARGIN * 2.0), y: plot.goalY))
+        line.setLineDash(pattern, count: pattern.count, phase: 0.0)
+        line.lineWidth = lineWidth
+        line.move(to: CGPoint(x: horizontalMargin, y: plot.goalY))
+        line.addLine(to: CGPoint(x: size.width - horizontalMargin, y: plot.goalY))
         line.stroke()
         
         let cgimage = context!.makeImage()

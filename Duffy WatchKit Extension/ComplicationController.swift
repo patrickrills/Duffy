@@ -148,6 +148,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     //MARK: Colors
     
     private let BLUE_TINT = UIColor(red: 32.0/255.0, green: 148.0/255.0, blue: 250.0/255.0, alpha: 1)
+    private let TEAL_TINT = UIColor(red: 45.0/255.0, green: 221.0/255.0, blue: 255.0/255.0, alpha: 1)
     
     //MARK: Modular Small
     
@@ -272,7 +273,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         let xLarge = CLKComplicationTemplateExtraLargeStackImage()
         
         xLarge.line1ImageProvider = CLKImageProvider(onePieceImage: RingDrawer.drawRing(totalSteps, goal: HealthCache.dailyGoal(), width: 120)!)
-        xLarge.tintColor = BLUE_TINT
+        xLarge.tintColor = TEAL_TINT
         
         let body = CLKSimpleTextProvider()
         body.text = formatStepsForLarge(totalSteps)
