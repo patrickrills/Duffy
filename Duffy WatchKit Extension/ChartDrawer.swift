@@ -33,7 +33,7 @@ class ChartDrawer {
         let textWidth: CGFloat = DrawingConstants.TEXT_WIDTH * scale
         let insets = UIEdgeInsets(top: 0.0, left: horizontalMargin + (barWidth / 2.0), bottom: textHeight, right: horizontalMargin + (barWidth / 2.0))
         let lineWidth = DrawingConstants.LINE_WIDTH * scale
-        let goalColor = UIColor(named: "SecondaryColor")!
+        let goalColor = UIColor(named: "GoalColor")!
         let unmetGoalColor = UIColor(named: "UnmetGoalColor")!
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = .center

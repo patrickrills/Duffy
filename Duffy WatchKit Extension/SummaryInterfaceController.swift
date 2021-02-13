@@ -84,15 +84,13 @@ class SummaryInterfaceController: WKInterfaceController
     private func bindTable(to data: [WeekRowData]) {
         stepsTable.setRowTypes(Array(repeating: "WeekRowController", count: data.count))
         
+        let goalColor = UIColor(named: "GoalColor")!
+        
         for (index, row) in data.enumerated() {
             let stepRow = stepsTable.rowController(at: index) as! WeekRowController
-            let textColor: UIColor = row.isOverGoal ? UIColor.black : UIColor.white
-            stepRow.dateLabel.setAttributedText(NSAttributedString(string: row.title, attributes: [.font : Globals.roundedFont(of: FONT_SIZE, weight: .regular), .foregroundColor : textColor]))
-            stepRow.stepsLabel.setAttributedText(NSAttributedString(string: (row.adornment + " " + row.formattedValue).trimmingCharacters(in: .whitespaces), attributes: [.font : Globals.roundedFont(of: FONT_SIZE, weight: .medium), .foregroundColor : textColor]))
-            
-            if row.isOverGoal {
-                stepRow.backgroundGroup.setBackgroundColor(UIColor(named: "SecondaryColor")!)
-            }
+            let textColor: UIColor = row.isOverGoal ? goalColor : .white
+            stepRow.dateLabel.setAttributedText(NSAttributedString(string: row.title, attributes: [.font : Globals.roundedFont(of: FONT_SIZE, weight: .regular), .foregroundColor : UIColor.white]))
+            stepRow.stepsLabel.setAttributedText(NSAttributedString(string: (row.adornment + " " + row.formattedValue).trimmingCharacters(in: .whitespaces), attributes: [.font : Globals.roundedFont(of: FONT_SIZE, weight: .semibold), .foregroundColor : textColor]))
         }
     }
     
