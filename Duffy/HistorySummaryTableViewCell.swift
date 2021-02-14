@@ -57,19 +57,19 @@ class HistorySummaryTableViewCell: UITableViewCell {
         displayExtreme(summary.min, minValueLabel, minDateLabel)
         displayExtreme(summary.max, maxValueLabel, maxDateLabel)
         calculateDotPosition(summary)
-        displayOverCount(summary.overDaysCount, since: stepsByDay.keys.min() ?? Date())
+        displayOverCount(summary.overDaysCount, since: stepsByDay.keys.min() ?? Date().dateByAdding(days: -1))
         setNeedsLayout()
     }
     
     typealias Extreme = (key: Date, value: Steps)
-    typealias Stats = (average: Steps, min: Extreme?, max: Extreme?, overDaysCount: Int)
+    typealias Stats = (average: Steps, min: Extreme?, max: Extreme?, overDaysCount: UInt)
     
     private func stats(from stepsByDay: [Date : Steps]) -> Stats {
         let goal = HealthCache.dailyGoal()
         return Stats(average: Steps(stepsByDay.values.mean()),
                      min: stepsByDay.count > 1 ? stepsByDay.min(by: { $0.value < $1.value }) : nil,
                      max: stepsByDay.count > 1 ? stepsByDay.max(by: { $0.value < $1.value }) : nil,
-                     overDaysCount: stepsByDay.values.filter({ $0 >= goal }).count)
+                     overDaysCount: UInt(stepsByDay.values.filter({ $0 >= goal }).count))
     }
     
     private func displayAverage(_ average: Steps) {
@@ -106,8 +106,10 @@ class HistorySummaryTableViewCell: UITableViewCell {
         averagePositionPercent = Double(stats.average - min.value) / Double(span)
     }
     
-    private func displayOverCount(_ overCount: Int, since startDate: Date) {
-        overLabel.text = String(format: "You hit your goal %@ times in the last %@ days.", Globals.stepsFormatter().string(for: overCount)!, Globals.stepsFormatter().string(for: startDate.differenceInDays(from: Date()))!)
+    private func displayOverCount(_ overCount: UInt, since startDate: Date) {
+        let countString = NSLocalizedString("summary_goal_count", comment: "")
+        let formatted = String.localizedStringWithFormat(countString, overCount, Globals.stepsFormatter().string(for: startDate.differenceInDays(from: Date()))!)
+        overLabel.text = formatted
     }
     
     override func layoutSubviews() {
