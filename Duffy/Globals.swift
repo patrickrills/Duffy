@@ -186,4 +186,12 @@ enum Globals
             UserDefaults.standard.set(version, forKey: WATCH_VERSION_KEY)
         }
     }
+    
+    static func tableViewStyle() -> UITableView.Style {
+        if #available(iOS 13.0, *) {
+            return .insetGrouped
+        }
+        
+        return .grouped
+    }
 }
