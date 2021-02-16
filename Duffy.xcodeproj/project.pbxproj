@@ -462,14 +462,7 @@
 				0970859B214DAB8900790EC7 /* HourGraphBarView.swift */,
 				0970859D214EAEB200790EC7 /* HourGraphMaxIndicatorView.swift */,
 				092104B325BDD59800875BA9 /* GoalInstructions.swift */,
-				09CC417823132C140029AAFB /* GoalChangeHowToViewController.swift */,
-				092276E123569A560015A1E6 /* GoalChangeHowToViewController.xib */,
-				090829DD2465BB1B00F100D6 /* TrophyLegendView.swift */,
-				090829DF2465BB2C00F100D6 /* TrophyLegendView.xib */,
-				090829E624684EB900F100D6 /* TrophyItemView.swift */,
-				090829E824684ED400F100D6 /* TrophyItemView.xib */,
-				090829EA246A225C00F100D6 /* TrophiesViewController.swift */,
-				090829EC246A26E400F100D6 /* TrophiesViewController.xib */,
+				097E84F925DC62B3008D9205 /* Old Instructions */,
 				09323C741D22C39700961822 /* Main.storyboard */,
 				09323C771D22C39700961822 /* Assets.xcassets */,
 				0921049D25BDC73500875BA9 /* LaunchShoe.storyboard */,
@@ -541,6 +534,21 @@
 				099582D0234192C400AF6A96 /* Localizable.strings */,
 			);
 			path = DuffyFramework;
+			sourceTree = "<group>";
+		};
+		097E84F925DC62B3008D9205 /* Old Instructions */ = {
+			isa = PBXGroup;
+			children = (
+				09CC417823132C140029AAFB /* GoalChangeHowToViewController.swift */,
+				092276E123569A560015A1E6 /* GoalChangeHowToViewController.xib */,
+				090829DD2465BB1B00F100D6 /* TrophyLegendView.swift */,
+				090829DF2465BB2C00F100D6 /* TrophyLegendView.xib */,
+				090829E624684EB900F100D6 /* TrophyItemView.swift */,
+				090829E824684ED400F100D6 /* TrophyItemView.xib */,
+				090829EA246A225C00F100D6 /* TrophiesViewController.swift */,
+				090829EC246A26E400F100D6 /* TrophiesViewController.xib */,
+			);
+			name = "Old Instructions";
 			sourceTree = "<group>";
 		};
 		099C130F1DA336C80007C72F /* Frameworks */ = {
