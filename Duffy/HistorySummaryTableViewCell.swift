@@ -57,7 +57,7 @@ class HistorySummaryTableViewCell: UITableViewCell {
         displayExtreme(summary.min, minValueLabel, minDateLabel)
         displayExtreme(summary.max, maxValueLabel, maxDateLabel)
         calculateDotPosition(summary)
-        displayOverCount(summary.overDaysCount, since: stepsByDay.keys.min() ?? Date().dateByAdding(days: -1))
+        displayOverCount(summary.overDaysCount, since: stepsByDay.keys.min() ?? Date().previousDay())
         setNeedsLayout()
     }
     
@@ -108,7 +108,7 @@ class HistorySummaryTableViewCell: UITableViewCell {
     
     private func displayOverCount(_ overCount: UInt, since startDate: Date) {
         let countString = NSLocalizedString("summary_goal_count", comment: "")
-        let formatted = String.localizedStringWithFormat(countString, overCount, Globals.stepsFormatter().string(for: startDate.differenceInDays(from: Date()))!)
+        let formatted = String.localizedStringWithFormat(countString, overCount, Globals.stepsFormatter().string(for: startDate.differenceInDays(from: Date().previousDay()))!)
         
         let attributedText = NSMutableAttributedString()
         var textColor: UIColor = .systemGray
