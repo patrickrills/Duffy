@@ -86,6 +86,7 @@
 		0970859C214DAB8900790EC7 /* HourGraphBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0970859B214DAB8900790EC7 /* HourGraphBarView.swift */; };
 		0970859E214EAEB200790EC7 /* HourGraphMaxIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0970859D214EAEB200790EC7 /* HourGraphMaxIndicatorView.swift */; };
 		097085A0214F16B600790EC7 /* AppRater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0970859F214F16B600790EC7 /* AppRater.swift */; };
+		097E84FF25DC65D1008D9205 /* GoalInstructionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097E84FE25DC65D1008D9205 /* GoalInstructionsTableViewController.swift */; };
 		097FB10F23CDEAF5001621D4 /* DebugService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097FB10E23CDEAF5001621D4 /* DebugService.swift */; };
 		097FB11023CDEAF5001621D4 /* DebugService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097FB10E23CDEAF5001621D4 /* DebugService.swift */; };
 		09824A8C1EA66C74002A4A84 /* LegacyEditGoalInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09824A8B1EA66C74002A4A84 /* LegacyEditGoalInterfaceController.swift */; };
@@ -304,6 +305,7 @@
 		0970859B214DAB8900790EC7 /* HourGraphBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourGraphBarView.swift; sourceTree = "<group>"; };
 		0970859D214EAEB200790EC7 /* HourGraphMaxIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourGraphMaxIndicatorView.swift; sourceTree = "<group>"; };
 		0970859F214F16B600790EC7 /* AppRater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRater.swift; sourceTree = "<group>"; };
+		097E84FE25DC65D1008D9205 /* GoalInstructionsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalInstructionsTableViewController.swift; sourceTree = "<group>"; };
 		097FB10E23CDEAF5001621D4 /* DebugService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugService.swift; sourceTree = "<group>"; };
 		09824A8B1EA66C74002A4A84 /* LegacyEditGoalInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LegacyEditGoalInterfaceController.swift; sourceTree = "<group>"; };
 		0985E6E824F162AC000B4A96 /* HistoryTrendChartOptionsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTrendChartOptionsTableViewController.swift; sourceTree = "<group>"; };
@@ -462,6 +464,7 @@
 				0970859B214DAB8900790EC7 /* HourGraphBarView.swift */,
 				0970859D214EAEB200790EC7 /* HourGraphMaxIndicatorView.swift */,
 				092104B325BDD59800875BA9 /* GoalInstructions.swift */,
+				097E84FE25DC65D1008D9205 /* GoalInstructionsTableViewController.swift */,
 				097E84F925DC62B3008D9205 /* Old Instructions */,
 				09323C741D22C39700961822 /* Main.storyboard */,
 				09323C771D22C39700961822 /* Assets.xcassets */,
@@ -903,6 +906,7 @@
 				09CC417A23132C140029AAFB /* GoalChangeHowToViewController.swift in Sources */,
 				093A5F0823B26C1A007D11E3 /* DebugLogTableViewController.swift in Sources */,
 				09289C7E20DDFF56005BF6B8 /* MainTableViewController.swift in Sources */,
+				097E84FF25DC65D1008D9205 /* GoalInstructionsTableViewController.swift in Sources */,
 				09BDDA6421978CD20078B749 /* AboutFooterView.swift in Sources */,
 				09289C8020DE0AD8005BF6B8 /* TodayHeaderView.swift in Sources */,
 				0985E6EF24F2B4B1000B4A96 /* HistorySummaryTableViewCell.swift in Sources */,
