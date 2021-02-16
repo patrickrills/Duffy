@@ -35,21 +35,13 @@ class HistoryTableViewController: UITableViewController {
     //MARK: Constructors
     
     init() {
-        super.init(style: HistoryTableViewController.tableStyle())
+        super.init(style: Globals.tableViewStyle())
         self.modalPresentationStyle = .fullScreen
     }
     
     required init?(coder aDecoder: NSCoder) {
-        super.init(style: HistoryTableViewController.tableStyle())
+        super.init(style: Globals.tableViewStyle())
         self.modalPresentationStyle = .fullScreen
-    }
-    
-    private class func tableStyle() -> UITableView.Style {
-        if #available(iOS 13.0, *) {
-            return .insetGrouped
-        }
-        
-        return .grouped
     }
     
     //MARK: View lifecycle
