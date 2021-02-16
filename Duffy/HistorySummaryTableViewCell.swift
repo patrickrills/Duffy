@@ -109,7 +109,19 @@ class HistorySummaryTableViewCell: UITableViewCell {
     private func displayOverCount(_ overCount: UInt, since startDate: Date) {
         let countString = NSLocalizedString("summary_goal_count", comment: "")
         let formatted = String.localizedStringWithFormat(countString, overCount, Globals.stepsFormatter().string(for: startDate.differenceInDays(from: Date()))!)
-        overLabel.text = formatted
+        
+        let attributedText = NSMutableAttributedString()
+        var textColor: UIColor = .systemGray
+        
+        if #available(iOS 13.0, *) {
+            textColor = UIColor.label.withAlphaComponent(0.7)
+        }
+        
+        attributedText.append(NSAttributedString(string: formatted))
+        attributedText.addAttribute(.foregroundColor, value: textColor, range: NSRange(location: 0, length: attributedText.length))
+        attributedText.addAttribute(.font, value: UIFont.preferredFont(forTextStyle: .body), range: NSRange(location: 0, length: attributedText.length))
+        
+        overLabel.attributedText = attributedText
     }
     
     override func layoutSubviews() {
