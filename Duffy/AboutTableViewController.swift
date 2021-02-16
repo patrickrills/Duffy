@@ -30,6 +30,7 @@ class AboutTableViewController: UITableViewController {
         
         title = NSLocalizedString("About Duffy", comment: "")
         
+        tableView.register(HistorySectionHeaderView.self, forHeaderFooterViewReuseIdentifier: String(describing: HistorySectionHeaderView.self))
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: Constants.CELL_ID)
         tableView.estimatedRowHeight = Constants.ESTIMATED_ROW_HEIGHT
     }
@@ -64,7 +65,7 @@ class AboutTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var text: String
+        let text: String
         
         switch (indexPath.section, indexPath.row) {
         case (0, 0):
@@ -92,23 +93,25 @@ class AboutTableViewController: UITableViewController {
         
         return cell
     }
-    
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String?
-    {
-        switch (section)
-        {
-            case 0:
-                return NSLocalizedString("Help", comment: "")
-            
-            case 1:
-                return NSLocalizedString("Feedback", comment: "")
-
-            case 2:
-                return NSLocalizedString("Published By", comment: "")
-            
-            default:
-                return nil
+        
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: String(describing: HistorySectionHeaderView.self)) as? HistorySectionHeaderView else { return nil }
+        
+        let sectionTitle: String
+        
+        switch section {
+        case 0:
+            sectionTitle = NSLocalizedString("Help", comment: "")
+        case 1:
+            sectionTitle = NSLocalizedString("Feedback", comment: "")
+        case 2:
+            sectionTitle = NSLocalizedString("Published By", comment: "")
+        default:
+            return nil
         }
+        
+        header.set(headerText: sectionTitle, actionText: nil, action: nil)
+        return header
     }
     
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
