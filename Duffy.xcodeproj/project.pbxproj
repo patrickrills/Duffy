@@ -69,6 +69,7 @@
 		0947AA9E1D4EB24A0040E1DD /* WeekRowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0947AA9D1D4EB24A0040E1DD /* WeekRowController.swift */; };
 		094AAF8225D977EB00B145B8 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 094AAF8425D977EB00B145B8 /* Localizable.stringsdict */; };
 		094DE71D25E088E7002C31FC /* AboutFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094DE71C25E088E7002C31FC /* AboutFooterView.swift */; };
+		094DE73725E1716D002C31FC /* GoalInstructionsTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094DE73625E1716D002C31FC /* GoalInstructionsTableViewHeader.swift */; };
 		0955EBF3255851820047D791 /* RingDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0955EBF2255851820047D791 /* RingDrawer.swift */; };
 		0961D905216A9BCF00F4AA88 /* ClockKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0961D904216A9BCF00F4AA88 /* ClockKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		0961D907216A9F2000F4AA88 /* duffy.ckcomplication in Resources */ = {isa = PBXBuildFile; fileRef = 0961D906216A9F2000F4AA88 /* duffy.ckcomplication */; };
@@ -290,6 +291,7 @@
 		094AAF8325D977EB00B145B8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		094AAF8925D977EF00B145B8 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ja; path = ja.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		094DE71C25E088E7002C31FC /* AboutFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutFooterView.swift; sourceTree = "<group>"; };
+		094DE73625E1716D002C31FC /* GoalInstructionsTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalInstructionsTableViewHeader.swift; sourceTree = "<group>"; };
 		0955EBF2255851820047D791 /* RingDrawer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingDrawer.swift; sourceTree = "<group>"; };
 		0961D904216A9BCF00F4AA88 /* ClockKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ClockKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS5.0.sdk/System/Library/Frameworks/ClockKit.framework; sourceTree = DEVELOPER_DIR; };
 		0961D906216A9F2000F4AA88 /* duffy.ckcomplication */ = {isa = PBXFileReference; lastKnownFileType = folder; path = duffy.ckcomplication; sourceTree = "<group>"; };
@@ -461,6 +463,7 @@
 				0970859D214EAEB200790EC7 /* HourGraphMaxIndicatorView.swift */,
 				092104B325BDD59800875BA9 /* GoalInstructions.swift */,
 				097E84FE25DC65D1008D9205 /* GoalInstructionsTableViewController.swift */,
+				094DE73625E1716D002C31FC /* GoalInstructionsTableViewHeader.swift */,
 				097E84F925DC62B3008D9205 /* Old Instructions */,
 				09323C741D22C39700961822 /* Main.storyboard */,
 				09323C771D22C39700961822 /* Assets.xcassets */,
@@ -892,6 +895,7 @@
 				09A7EEB021A39D7100DEDE5C /* HistoryTrendChartView.swift in Sources */,
 				09CEA981212259040023786B /* DetailDataView.swift in Sources */,
 				090829E724684EBA00F100D6 /* TrophyItemView.swift in Sources */,
+				094DE73725E1716D002C31FC /* GoalInstructionsTableViewHeader.swift in Sources */,
 				09BDDA6821979A940078B749 /* ModalNavigationController.swift in Sources */,
 				0985E6E924F162AC000B4A96 /* HistoryTrendChartOptionsTableViewController.swift in Sources */,
 				09BDDA5E219116740078B749 /* AboutTableViewController.swift in Sources */,

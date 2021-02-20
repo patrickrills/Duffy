@@ -28,7 +28,8 @@ class GoalInstructionsTableViewController: UITableViewController {
         
         self.title = GoalInstructions.title()
         
-        //TODO: Create header
+        let header = GoalInstructionsTableViewHeader()
+        tableView.tableHeaderView = header
         
         let footer = ButtonFooterView()
         footer.buttonAttributedText = NSAttributedString(string: "See the Trophies")
@@ -39,6 +40,12 @@ class GoalInstructionsTableViewController: UITableViewController {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
+        
+        if let header = tableView.tableHeaderView {
+            let width = tableView.layoutMarginsGuide.layoutFrame.width;
+            let calculatedSize = header.systemLayoutSizeFitting(CGSize(width: width, height: CGFloat.greatestFiniteMagnitude), withHorizontalFittingPriority: .required, verticalFittingPriority: .defaultLow)
+            header.frame = CGRect(x: (tableView.frame.size.width / 2.0) - (width / 2.0), y: header.frame.origin.y, width: width, height: calculatedSize.height)
+        }
         
         if let footer = tableView.tableFooterView {
             footer.frame = CGRect(x: 0, y: footer.frame.origin.y, width: self.view.frame.width, height: 44.0)
