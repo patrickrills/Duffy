@@ -70,6 +70,8 @@
 		094AAF8225D977EB00B145B8 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 094AAF8425D977EB00B145B8 /* Localizable.stringsdict */; };
 		094DE71D25E088E7002C31FC /* AboutFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094DE71C25E088E7002C31FC /* AboutFooterView.swift */; };
 		094DE73725E1716D002C31FC /* GoalInstructionsTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094DE73625E1716D002C31FC /* GoalInstructionsTableViewHeader.swift */; };
+		094DE74225E1C9C6002C31FC /* GoalInstructionsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 094DE74025E1C9C6002C31FC /* GoalInstructionsTableViewCell.xib */; };
+		094DE74325E1C9C6002C31FC /* GoalInstructionsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094DE74125E1C9C6002C31FC /* GoalInstructionsTableViewCell.swift */; };
 		0955EBF3255851820047D791 /* RingDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0955EBF2255851820047D791 /* RingDrawer.swift */; };
 		0961D905216A9BCF00F4AA88 /* ClockKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0961D904216A9BCF00F4AA88 /* ClockKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		0961D907216A9F2000F4AA88 /* duffy.ckcomplication in Resources */ = {isa = PBXBuildFile; fileRef = 0961D906216A9F2000F4AA88 /* duffy.ckcomplication */; };
@@ -292,6 +294,8 @@
 		094AAF8925D977EF00B145B8 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ja; path = ja.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		094DE71C25E088E7002C31FC /* AboutFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutFooterView.swift; sourceTree = "<group>"; };
 		094DE73625E1716D002C31FC /* GoalInstructionsTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalInstructionsTableViewHeader.swift; sourceTree = "<group>"; };
+		094DE74025E1C9C6002C31FC /* GoalInstructionsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GoalInstructionsTableViewCell.xib; sourceTree = "<group>"; };
+		094DE74125E1C9C6002C31FC /* GoalInstructionsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalInstructionsTableViewCell.swift; sourceTree = "<group>"; };
 		0955EBF2255851820047D791 /* RingDrawer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingDrawer.swift; sourceTree = "<group>"; };
 		0961D904216A9BCF00F4AA88 /* ClockKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ClockKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS5.0.sdk/System/Library/Frameworks/ClockKit.framework; sourceTree = DEVELOPER_DIR; };
 		0961D906216A9F2000F4AA88 /* duffy.ckcomplication */ = {isa = PBXFileReference; lastKnownFileType = folder; path = duffy.ckcomplication; sourceTree = "<group>"; };
@@ -464,6 +468,8 @@
 				092104B325BDD59800875BA9 /* GoalInstructions.swift */,
 				097E84FE25DC65D1008D9205 /* GoalInstructionsTableViewController.swift */,
 				094DE73625E1716D002C31FC /* GoalInstructionsTableViewHeader.swift */,
+				094DE74025E1C9C6002C31FC /* GoalInstructionsTableViewCell.xib */,
+				094DE74125E1C9C6002C31FC /* GoalInstructionsTableViewCell.swift */,
 				097E84F925DC62B3008D9205 /* Old Instructions */,
 				09323C741D22C39700961822 /* Main.storyboard */,
 				09323C771D22C39700961822 /* Assets.xcassets */,
@@ -813,6 +819,7 @@
 				0921049E25BDC73500875BA9 /* LaunchShoe.storyboard in Resources */,
 				09323C781D22C39700961822 /* Assets.xcassets in Resources */,
 				0961D907216A9F2000F4AA88 /* duffy.ckcomplication in Resources */,
+				094DE74225E1C9C6002C31FC /* GoalInstructionsTableViewCell.xib in Resources */,
 				09CEA983212259200023786B /* DetailDataView.xib in Resources */,
 				090829ED246A26E400F100D6 /* TrophiesViewController.xib in Resources */,
 				097085642127122B00790EC7 /* DistanceFlightsDetailViewController.xib in Resources */,
@@ -875,6 +882,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				094DE74325E1C9C6002C31FC /* GoalInstructionsTableViewCell.swift in Sources */,
 				090829EB246A225C00F100D6 /* TrophiesViewController.swift in Sources */,
 				0900866F20F27D0C006540E7 /* PreviousValueTableViewCell.swift in Sources */,
 				090829DE2465BB1B00F100D6 /* TrophyLegendView.swift in Sources */,

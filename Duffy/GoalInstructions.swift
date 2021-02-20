@@ -9,8 +9,11 @@
 import Foundation
 import DuffyFramework
 
-enum GoalInstructions: CaseIterable {
-    case step1, step2, step3, step4
+enum GoalInstructions: Int, CaseIterable {
+    case step1 = 1
+    case step2 = 2
+    case step3 = 3
+    case step4 = 4
     
     static func title() -> String {
         return NSLocalizedString("Change Your Goal", comment: "")

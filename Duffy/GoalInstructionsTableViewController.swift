@@ -28,6 +28,9 @@ class GoalInstructionsTableViewController: UITableViewController {
         
         self.title = GoalInstructions.title()
         
+        tableView.register(UINib(nibName: String(describing: GoalInstructionsTableViewCell.self), bundle: Bundle.main), forCellReuseIdentifier: String(describing: GoalInstructionsTableViewCell.self))
+        tableView.rowHeight = GoalInstructionsTableViewCell.CELL_HEIGHT
+        
         let header = GoalInstructionsTableViewHeader()
         tableView.tableHeaderView = header
         
@@ -69,11 +72,13 @@ class GoalInstructionsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let step = GoalInstructions.allCases[indexPath.section]
         
-        //let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: GoalInstructionsTableViewCell.self), for: indexPath) as! GoalInstructionsTableViewCell
         
-        let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
-        cell.textLabel?.text = step.text(useLegacyInstructions: useLegacyInstructions)
-        cell.textLabel?.numberOfLines = 0
+        cell.bind(to: step, useLegacyInstructions: useLegacyInstructions)
+        
+//        let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
+//        cell.textLabel?.text = step.text(useLegacyInstructions: useLegacyInstructions)
+//        cell.textLabel?.numberOfLines = 0
         return cell
     }
 }
