@@ -75,8 +75,9 @@ class HistoryTableViewController: UITableViewController {
         
         if let existingFooter = tableView.tableFooterView {
             footer = existingFooter
-        } else if let newFooter = HistoryTableViewFooter.createView() {
-            newFooter.loadMoreButton.addTarget(self, action: #selector(loadMorePressed), for: .touchUpInside)
+        } else {
+            let newFooter = HistoryTableViewFooter()
+            newFooter.addTarget(self, action: #selector(loadMorePressed))
             tableView.tableFooterView = newFooter
             footer = newFooter
         }
@@ -132,7 +133,7 @@ class HistoryTableViewController: UITableViewController {
                             let hideFooter = fetchedRowCount == 0 || weakSelf.lastDateInCache == previousLastCacheDate
 
                             if let footer = weakSelf.tableView.tableFooterView as? HistoryTableViewFooter, hideFooter {
-                                footer.loadMoreButton.isHidden = true
+                                footer.isButtonHidden = true
                             }
                         }
                     }

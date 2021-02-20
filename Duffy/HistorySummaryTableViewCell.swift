@@ -22,6 +22,7 @@ class HistorySummaryTableViewCell: UITableViewCell {
     @IBOutlet private weak var averageDotHeightConstraint : NSLayoutConstraint!
     @IBOutlet private weak var averageDotPaddingConstraint : NSLayoutConstraint!
     @IBOutlet private weak var averageDotLeadingConstraint : NSLayoutConstraint!
+    @IBOutlet private weak var overLabel : UILabel!
     
     private var averagePositionPercent: Double?
     
@@ -56,16 +57,19 @@ class HistorySummaryTableViewCell: UITableViewCell {
         displayExtreme(summary.min, minValueLabel, minDateLabel)
         displayExtreme(summary.max, maxValueLabel, maxDateLabel)
         calculateDotPosition(summary)
+        displayOverCount(summary.overDaysCount, since: stepsByDay.keys.min() ?? Date().previousDay())
         setNeedsLayout()
     }
     
     typealias Extreme = (key: Date, value: Steps)
-    typealias Stats = (average: Steps, min: Extreme?, max: Extreme?)
+    typealias Stats = (average: Steps, min: Extreme?, max: Extreme?, overDaysCount: UInt)
     
     private func stats(from stepsByDay: [Date : Steps]) -> Stats {
+        let goal = HealthCache.dailyGoal()
         return Stats(average: Steps(stepsByDay.values.mean()),
                      min: stepsByDay.count > 1 ? stepsByDay.min(by: { $0.value < $1.value }) : nil,
-                     max: stepsByDay.count > 1 ? stepsByDay.max(by: { $0.value < $1.value }) : nil)
+                     max: stepsByDay.count > 1 ? stepsByDay.max(by: { $0.value < $1.value }) : nil,
+                     overDaysCount: UInt(stepsByDay.values.filter({ $0 >= goal }).count))
     }
     
     private func displayAverage(_ average: Steps) {
@@ -102,6 +106,24 @@ class HistorySummaryTableViewCell: UITableViewCell {
         averagePositionPercent = Double(stats.average - min.value) / Double(span)
     }
     
+    private func displayOverCount(_ overCount: UInt, since startDate: Date) {
+        let countString = NSLocalizedString("summary_goal_count", comment: "")
+        let formatted = String.localizedStringWithFormat(countString, overCount, Globals.stepsFormatter().string(for: startDate.differenceInDays(from: Date().previousDay()))!)
+        
+        let attributedText = NSMutableAttributedString()
+        var textColor: UIColor = .systemGray
+        
+        if #available(iOS 13.0, *) {
+            textColor = UIColor.label.withAlphaComponent(0.7)
+        }
+        
+        attributedText.append(NSAttributedString(string: formatted))
+        attributedText.addAttribute(.foregroundColor, value: textColor, range: NSRange(location: 0, length: attributedText.length))
+        attributedText.addAttribute(.font, value: UIFont.preferredFont(forTextStyle: .body), range: NSRange(location: 0, length: attributedText.length))
+        
+        overLabel.attributedText = attributedText
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         
@@ -113,5 +135,15 @@ class HistorySummaryTableViewCell: UITableViewCell {
         } else {
             averageDot.isHidden = true
         }
+    }
+}
+
+class HistorySummarySeparatorView: UIView {
+    override func draw(_ rect: CGRect) {
+        super.draw(rect)
+        
+        let separator = UIBezierPath(rect: CGRect(x: 0, y: (rect.height / 2.0) - 0.165, width: rect.width, height: 0.33))
+        Globals.separatorColor().setFill()
+        separator.fill()
     }
 }

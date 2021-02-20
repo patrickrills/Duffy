@@ -8,24 +8,20 @@
 
 import UIKit
 
-class HistoryTableViewFooter: UIView
-{
-    @IBOutlet weak var loadMoreButton : UIButton!
+class HistoryTableViewFooter: ButtonFooterView {
     
-    class func createView() -> HistoryTableViewFooter? {
-        if let nibViews = Bundle.main.loadNibNamed("HistoryTableViewFooter", owner:nil, options:nil),
-            let footer = nibViews[0] as? HistoryTableViewFooter
-        {
-            return footer
-        }
-        
-        return nil
+    override init() {
+        super.init()
+        separatorIsVisible = false
     }
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-        backgroundColor = UIColor.clear
-        loadMoreButton.setTitleColor(Globals.secondaryColor(), for: .normal)
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        separatorIsVisible = false
     }
+    
+    override var buttonAttributedText: NSAttributedString {
+        return NSAttributedString(string: NSLocalizedString("Show More", comment: ""))
+    }
+    
 }

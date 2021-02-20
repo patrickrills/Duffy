@@ -70,14 +70,13 @@ class MainTableViewController: UITableViewController
         }
         
         if tableView.tableFooterView == nil {
-            if let footer = AboutFooterView.createView() {
-                footer.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 120.0)
-                footer.aboutButton?.addTarget(self, action: #selector(openAbout), for: .touchUpInside)
-                tableView.tableFooterView = footer
-            }
+            let footer = AboutFooterView()
+            footer.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 120.0)
+            footer.addTarget(self, action: #selector(openAbout))
+            tableView.tableFooterView = footer
         }
         
-        if let aboutFooter = tableView.tableFooterView as? AboutFooterView {
+        if let aboutFooter = tableView.tableFooterView as? ButtonFooterView {
             aboutFooter.separatorIsVisible = stepsByDay.count > 0
         }
     }

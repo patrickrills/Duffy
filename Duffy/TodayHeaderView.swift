@@ -122,7 +122,7 @@ class TodayHeaderView: UIView
     
     @IBAction func goalInfoPressed() {
         if let root = UIApplication.shared.delegate?.window??.rootViewController {
-            root.present(ModalNavigationController(rootViewController: GoalChangeHowToViewController()), animated: true, completion: nil)
+            root.present(ModalNavigationController(rootViewController: (DebugService.isDebugModeEnabled() ? GoalInstructionsTableViewController() : GoalChangeHowToViewController())), animated: true, completion: nil)
         }
     }
 }
