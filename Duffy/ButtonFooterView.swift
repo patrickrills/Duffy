@@ -24,9 +24,15 @@ class ButtonFooterView: UIView {
         return NSAttributedString(string: "")
     }
     
-    var separatorIsVisible : Bool = true {
+    var separatorIsVisible: Bool = true {
         didSet {
             setNeedsDisplay()
+        }
+    }
+    
+    var isButtonHidden: Bool = false {
+        didSet {
+            footerButton.isHidden = isButtonHidden
         }
     }
     

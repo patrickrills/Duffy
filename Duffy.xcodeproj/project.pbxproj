@@ -26,7 +26,6 @@
 		09177BC6241D466F0095ECB4 /* ExportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09177BC4241D466E0095ECB4 /* ExportService.swift */; };
 		0921049E25BDC73500875BA9 /* LaunchShoe.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0921049D25BDC73500875BA9 /* LaunchShoe.storyboard */; };
 		092104B425BDD59800875BA9 /* GoalInstructions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092104B325BDD59800875BA9 /* GoalInstructions.swift */; };
-		092276DB235549240015A1E6 /* HistoryTableViewFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = 092276DD235549240015A1E6 /* HistoryTableViewFooter.xib */; };
 		092276DF23569A560015A1E6 /* GoalChangeHowToViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 092276E123569A560015A1E6 /* GoalChangeHowToViewController.xib */; };
 		092276E323569EB10015A1E6 /* HourGraphDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 092276E523569EB10015A1E6 /* HourGraphDetailViewController.xib */; };
 		0924297724311B580098B0AF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 099582CA234192A600AF6A96 /* Localizable.strings */; };
@@ -234,7 +233,6 @@
 		0900866E20F27D0C006540E7 /* PreviousValueTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviousValueTableViewCell.swift; sourceTree = "<group>"; };
 		0900867020F282DE006540E7 /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		0900867220FA7673006540E7 /* BoldActionSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoldActionSectionHeaderView.swift; sourceTree = "<group>"; };
-		0903E603235BCAEC0049E071 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/HistoryTableViewFooter.xib; sourceTree = "<group>"; };
 		0903E604235BCAED0049E071 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/HourGraphDetailViewController.xib; sourceTree = "<group>"; };
 		0903E606235BCAED0049E071 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0903E609235BCAED0049E071 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
@@ -251,7 +249,6 @@
 		09177BC4241D466E0095ECB4 /* ExportService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportService.swift; sourceTree = "<group>"; };
 		0921049D25BDC73500875BA9 /* LaunchShoe.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchShoe.storyboard; sourceTree = "<group>"; };
 		092104B325BDD59800875BA9 /* GoalInstructions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalInstructions.swift; sourceTree = "<group>"; };
-		092276DC235549240015A1E6 /* ja */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ja; path = ja.lproj/HistoryTableViewFooter.xib; sourceTree = "<group>"; };
 		092276E623569EB20015A1E6 /* ja */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ja; path = ja.lproj/HourGraphDetailViewController.xib; sourceTree = "<group>"; };
 		09289C7720D873F9005BF6B8 /* GoalNotificationInterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalNotificationInterfaceController.swift; sourceTree = "<group>"; };
 		09289C7920D87856005BF6B8 /* GoalNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = GoalNotificationPayload.apns; sourceTree = "<group>"; };
@@ -454,7 +451,6 @@
 				0900866E20F27D0C006540E7 /* PreviousValueTableViewCell.swift */,
 				0900867220FA7673006540E7 /* BoldActionSectionHeaderView.swift */,
 				09CEA97E211F86DC0023786B /* HistoryTableViewFooter.swift */,
-				092276DD235549240015A1E6 /* HistoryTableViewFooter.xib */,
 				09CEA980212259040023786B /* DetailDataView.swift */,
 				09CEA982212259200023786B /* DetailDataView.xib */,
 				097085612127122B00790EC7 /* DistanceFlightsDetailViewController.swift */,
@@ -810,7 +806,6 @@
 				09CC4181231F3DC70029AAFB /* AboutTableViewFooter.xib in Resources */,
 				090829E924684ED400F100D6 /* TrophyItemView.xib in Resources */,
 				099582C8234192A600AF6A96 /* Localizable.strings in Resources */,
-				092276DB235549240015A1E6 /* HistoryTableViewFooter.xib in Resources */,
 				0985E6EE24F2B4B1000B4A96 /* HistorySummaryTableViewCell.xib in Resources */,
 				0921049E25BDC73500875BA9 /* LaunchShoe.storyboard in Resources */,
 				09323C781D22C39700961822 /* Assets.xcassets in Resources */,
@@ -1023,15 +1018,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		092276DD235549240015A1E6 /* HistoryTableViewFooter.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				092276DC235549240015A1E6 /* ja */,
-				0903E603235BCAEC0049E071 /* Base */,
-			);
-			name = HistoryTableViewFooter.xib;
-			sourceTree = "<group>";
-		};
 		092276E123569A560015A1E6 /* GoalChangeHowToViewController.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
