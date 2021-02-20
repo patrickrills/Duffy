@@ -12,16 +12,17 @@ class HistoryTableViewFooter: ButtonFooterView {
     
     override init() {
         super.init()
-        separatorIsVisible = false
+        initialize()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        separatorIsVisible = false
+        initialize()
     }
     
-    override var buttonAttributedText: NSAttributedString {
-        return NSAttributedString(string: NSLocalizedString("Show More", comment: ""))
+    private func initialize() {
+        separatorIsVisible = false
+        buttonAttributedText = NSAttributedString(string: NSLocalizedString("Show More", comment: ""))
     }
     
 }

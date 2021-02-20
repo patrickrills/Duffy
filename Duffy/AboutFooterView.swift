@@ -10,7 +10,17 @@ import UIKit
 
 class AboutFooterView: ButtonFooterView {
 
-    override var buttonAttributedText: NSAttributedString {
+    override init() {
+        super.init()
+        initialize()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        initialize()
+    }
+    
+    private func initialize() {
         let attributedText = NSMutableAttributedString()
         
         if #available(iOS 13.0, *) {
@@ -25,7 +35,7 @@ class AboutFooterView: ButtonFooterView {
         
         attributedText.append(NSAttributedString(string: NSLocalizedString("About Duffy", comment: "")))
         
-        return attributedText
+        buttonAttributedText = attributedText
     }
 
 }

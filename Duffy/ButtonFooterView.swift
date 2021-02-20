@@ -20,8 +20,10 @@ class ButtonFooterView: UIView {
         createView()
     }
     
-    var buttonAttributedText: NSAttributedString {
-        return NSAttributedString(string: "")
+    var buttonAttributedText: NSAttributedString? {
+        didSet {
+            footerButton.setAttributedTitle(buttonAttributedText, for: .normal)
+        }
     }
     
     var separatorIsVisible: Bool = true {

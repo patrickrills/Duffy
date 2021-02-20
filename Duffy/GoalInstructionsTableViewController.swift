@@ -30,7 +30,23 @@ class GoalInstructionsTableViewController: UITableViewController {
         
         //TODO: Create header
         
-        //TODO: Create footer
+        let footer = ButtonFooterView()
+        footer.buttonAttributedText = NSAttributedString(string: "See the Trophies")
+        footer.addTarget(self, action: #selector(viewTrophies))
+        footer.separatorIsVisible = false
+        tableView.tableFooterView = footer
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        if let footer = tableView.tableFooterView {
+            footer.frame = CGRect(x: 0, y: footer.frame.origin.y, width: self.view.frame.width, height: 44.0)
+        }
+    }
+    
+    @IBAction func viewTrophies() {
+        navigationController?.pushViewController(TrophiesViewController(), animated: true)
     }
 
     // MARK: - Table view data source
