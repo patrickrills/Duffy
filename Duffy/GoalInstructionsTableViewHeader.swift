@@ -52,11 +52,6 @@ class GoalInstructionsTableViewHeader: UIView {
         lbl.text = GoalInstructions.headline()
         lbl.numberOfLines = 0
         lbl.font = UIFont.systemFont(ofSize: 17.0)
-        lbl.setContentHuggingPriority(.required, for: .vertical)
-        lbl.setContentCompressionResistancePriority(.required, for: .vertical)
-        let height = lbl.heightAnchor.constraint(greaterThanOrEqualToConstant: Constants.MIN_DESCR_HEIGHT)
-        height.isActive = true
-        height.priority = .defaultHigh
         return lbl
     }()
     
@@ -79,9 +74,9 @@ class GoalInstructionsTableViewHeader: UIView {
         
         NSLayoutConstraint.activate([
             top,
+            bottom,
             contentView.leadingAnchor.constraint(equalTo: leadingAnchor),
             contentView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            bottom,
             goalCaptionLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
             goalCaptionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             goalCaptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
@@ -94,5 +89,4 @@ class GoalInstructionsTableViewHeader: UIView {
             goalDescriptionLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
-
 }

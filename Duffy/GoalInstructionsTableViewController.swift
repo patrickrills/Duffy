@@ -31,23 +31,20 @@ class GoalInstructionsTableViewController: UITableViewController {
         tableView.register(UINib(nibName: String(describing: GoalInstructionsTableViewCell.self), bundle: Bundle.main), forCellReuseIdentifier: String(describing: GoalInstructionsTableViewCell.self))
         tableView.rowHeight = GoalInstructionsTableViewCell.CELL_HEIGHT
         
-        let header = GoalInstructionsTableViewHeader()
-        tableView.tableHeaderView = header
-        
-        let footer = ButtonFooterView()
-        footer.buttonAttributedText = NSAttributedString(string: "See the Trophies")
-        footer.addTarget(self, action: #selector(viewTrophies))
-        footer.separatorIsVisible = false
-        tableView.tableFooterView = footer
+        buildHeader()
+        buildFooter()
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
-        if let header = tableView.tableHeaderView {
-            let width = tableView.layoutMarginsGuide.layoutFrame.width;
-            let calculatedSize = header.systemLayoutSizeFitting(CGSize(width: width, height: CGFloat.greatestFiniteMagnitude), withHorizontalFittingPriority: .required, verticalFittingPriority: .defaultLow)
-            header.frame = CGRect(x: (tableView.frame.size.width / 2.0) - (width / 2.0), y: header.frame.origin.y, width: width, height: calculatedSize.height)
+        if let container = tableView.tableHeaderView,
+           let header = container.subviews.first
+        {
+            let widthWithMargin = tableView.layoutMarginsGuide.layoutFrame.width
+            let calculatedSize = header.systemLayoutSizeFitting(CGSize(width: widthWithMargin, height: 0), withHorizontalFittingPriority: .required, verticalFittingPriority: .defaultLow)
+            let roundedHeight = CGFloat(ceil(Double(calculatedSize.height)))
+            container.frame = CGRect(x: 0, y: header.frame.origin.y, width: tableView.frame.size.width, height: roundedHeight)
         }
         
         if let footer = tableView.tableFooterView {
@@ -57,6 +54,32 @@ class GoalInstructionsTableViewController: UITableViewController {
     
     @IBAction func viewTrophies() {
         navigationController?.pushViewController(TrophiesViewController(), animated: true)
+    }
+    
+    private func buildHeader() {
+        let container = UIView()
+        container.backgroundColor = .groupTableViewBackground
+        
+        let header = GoalInstructionsTableViewHeader()
+        header.translatesAutoresizingMaskIntoConstraints = false
+        container.addSubview(header)
+        
+        tableView.tableHeaderView = container
+        
+        NSLayoutConstraint.activate([
+            header.topAnchor.constraint(equalTo: container.topAnchor),
+            header.bottomAnchor.constraint(equalTo: container.bottomAnchor),
+            header.leadingAnchor.constraint(equalTo: tableView.layoutMarginsGuide.leadingAnchor),
+            header.trailingAnchor.constraint(equalTo: tableView.layoutMarginsGuide.trailingAnchor)
+        ])
+    }
+    
+    private func buildFooter() {
+        let footer = ButtonFooterView()
+        footer.buttonAttributedText = NSAttributedString(string: "See the Trophies")
+        footer.addTarget(self, action: #selector(viewTrophies))
+        footer.separatorIsVisible = false
+        tableView.tableFooterView = footer
     }
 
     // MARK: - Table view data source
@@ -70,15 +93,9 @@ class GoalInstructionsTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let step = GoalInstructions.allCases[indexPath.section]
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: GoalInstructionsTableViewCell.self), for: indexPath) as! GoalInstructionsTableViewCell
-        
+        let step = GoalInstructions.allCases[indexPath.section]
         cell.bind(to: step, useLegacyInstructions: useLegacyInstructions)
-        
-//        let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
-//        cell.textLabel?.text = step.text(useLegacyInstructions: useLegacyInstructions)
-//        cell.textLabel?.numberOfLines = 0
         return cell
     }
 }
