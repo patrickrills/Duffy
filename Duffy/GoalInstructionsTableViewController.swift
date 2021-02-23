@@ -98,4 +98,23 @@ class GoalInstructionsTableViewController: UITableViewController {
         cell.bind(to: step, useLegacyInstructions: useLegacyInstructions)
         return cell
     }
+    
+    private let STEP_SPACING: CGFloat = 20.0
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return STEP_SPACING / 2.0
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return STEP_SPACING / 2.0
+    }
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard section > 0 else { return nil }
+        return UIView()
+    }
+    
+    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return UIView()
+    }
 }
