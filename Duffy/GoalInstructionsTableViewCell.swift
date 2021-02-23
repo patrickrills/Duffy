@@ -25,6 +25,6 @@ class GoalInstructionsTableViewCell: UITableViewCell {
     func bind(to step: GoalInstructions, useLegacyInstructions: Bool) {
         numberLabel.text = Globals.stepsFormatter().string(for: step.rawValue)
         instructionsLabel.text = step.text(useLegacyInstructions: useLegacyInstructions)
-//        screenshot.image = step.
+        screenshot.image = step.screenshot(useLegacyInstructions: useLegacyInstructions)
     }
 }

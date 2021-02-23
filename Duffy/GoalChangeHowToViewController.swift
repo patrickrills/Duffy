@@ -43,7 +43,6 @@ class GoalChangeHowToViewController: UIViewController {
         self.twoInstructionsLabel.text = GoalInstructions.step2.text(useLegacyInstructions: useLegacyInstructions)
         self.threeInstructionsLabel.text = GoalInstructions.step3.text(useLegacyInstructions: useLegacyInstructions)
         
-        //TODO: move to enum
         self.threeInstructionsImageView.image = UIImage(named: (useLegacyInstructions ? "Instructions03-Legacy" : "Instructions03"))
         
         if let trophyView = TrophyLegendView.createView(showInstructionNumber: true) {

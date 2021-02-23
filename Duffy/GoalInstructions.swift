@@ -38,6 +38,19 @@ enum GoalInstructions: Int, CaseIterable {
         }
     }
     
+    func screenshot(useLegacyInstructions: Bool) -> UIImage {
+        let imageName: String
+        
+        switch self {
+        case .step3:
+            imageName = useLegacyInstructions ? "Instructions03-Legacy" : "Instructions03"
+        default:
+            imageName = "Instructions0\(self.rawValue)"
+        }
+        
+        return UIImage(named: imageName)!
+    }
+    
     private static func formattedGoal() -> String {
         return Globals.stepsFormatter().string(for: HealthCache.dailyGoal())!
     }
