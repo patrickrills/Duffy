@@ -29,7 +29,6 @@ class GoalInstructionsTableViewController: UITableViewController {
         self.title = GoalInstructions.title()
         
         tableView.register(UINib(nibName: String(describing: GoalInstructionsTableViewCell.self), bundle: Bundle.main), forCellReuseIdentifier: String(describing: GoalInstructionsTableViewCell.self))
-        tableView.rowHeight = GoalInstructionsTableViewCell.CELL_HEIGHT
         
         buildHeader()
         buildFooter()

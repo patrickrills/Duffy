@@ -10,8 +10,6 @@ import UIKit
 
 class GoalInstructionsTableViewCell: UITableViewCell {
     
-    static let CELL_HEIGHT: CGFloat = 131.0
-    
     @IBOutlet private weak var numberLabel: UILabel!
     @IBOutlet private weak var instructionsLabel: UILabel!
     @IBOutlet private weak var screenshot: UIImageView!
@@ -19,7 +17,10 @@ class GoalInstructionsTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        numberLabel.textColor = Globals.primaryColor()
+        numberLabel.textColor = Globals.lightGrayColor()
+        
+        screenshot.clipsToBounds = true
+        screenshot.layer.cornerRadius = 8.0
     }
  
     func bind(to step: GoalInstructions, useLegacyInstructions: Bool) {
@@ -27,4 +28,5 @@ class GoalInstructionsTableViewCell: UITableViewCell {
         instructionsLabel.text = step.text(useLegacyInstructions: useLegacyInstructions)
         screenshot.image = step.screenshot(useLegacyInstructions: useLegacyInstructions)
     }
+    
 }
