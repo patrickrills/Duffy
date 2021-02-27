@@ -5,12 +5,12 @@
       "scale" : "1x"
     },
     {
-      "filename" : "instructions01-en@2x.png",
+      "filename" : "Instructions01b-en@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "instructions01-en@3x.png",
+      "filename" : "Instructions01b-en@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     },
@@ -20,13 +20,13 @@
       "scale" : "1x"
     },
     {
-      "filename" : "instructions01-jp@2x.png",
+      "filename" : "Instructions01b-jp@2x.png",
       "idiom" : "universal",
       "locale" : "ja",
       "scale" : "2x"
     },
     {
-      "filename" : "instructions01-jp@3x.png",
+      "filename" : "Instructions01b-jp@3x.png",
       "idiom" : "universal",
       "locale" : "ja",
       "scale" : "3x"
