@@ -40,6 +40,6 @@ class TrophiesViewController: UIViewController {
     }
     
     @IBAction func howToChangeGoal() {
-        self.navigationController?.pushViewController(GoalChangeHowToViewController(), animated: true)
+        self.navigationController?.pushViewController(GoalInstructionsTableViewController(), animated: true)
     }
 }

@@ -123,7 +123,7 @@ class AboutTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch (indexPath.section, indexPath.row) {
         case (0, 0):
-            navigationController?.pushViewController(GoalChangeHowToViewController(), animated: true)
+            navigationController?.pushViewController(GoalInstructionsTableViewController(), animated: true)
         case (0, 1):
             navigationController?.pushViewController(TrophiesViewController(), animated: true)
         case (0, 2):
