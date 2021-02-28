@@ -71,6 +71,7 @@
 		094DE73725E1716D002C31FC /* GoalInstructionsTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094DE73625E1716D002C31FC /* GoalInstructionsTableViewHeader.swift */; };
 		094DE74225E1C9C6002C31FC /* GoalInstructionsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 094DE74025E1C9C6002C31FC /* GoalInstructionsTableViewCell.xib */; };
 		094DE74325E1C9C6002C31FC /* GoalInstructionsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094DE74125E1C9C6002C31FC /* GoalInstructionsTableViewCell.swift */; };
+		094F1C5225EC60F0006A1E97 /* UINavigationController+URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094F1C5125EC60F0006A1E97 /* UINavigationController+URL.swift */; };
 		0955EBF3255851820047D791 /* RingDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0955EBF2255851820047D791 /* RingDrawer.swift */; };
 		0961D905216A9BCF00F4AA88 /* ClockKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0961D904216A9BCF00F4AA88 /* ClockKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		0961D907216A9F2000F4AA88 /* duffy.ckcomplication in Resources */ = {isa = PBXBuildFile; fileRef = 0961D906216A9F2000F4AA88 /* duffy.ckcomplication */; };
@@ -293,6 +294,7 @@
 		094DE73625E1716D002C31FC /* GoalInstructionsTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalInstructionsTableViewHeader.swift; sourceTree = "<group>"; };
 		094DE74025E1C9C6002C31FC /* GoalInstructionsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GoalInstructionsTableViewCell.xib; sourceTree = "<group>"; };
 		094DE74125E1C9C6002C31FC /* GoalInstructionsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalInstructionsTableViewCell.swift; sourceTree = "<group>"; };
+		094F1C5125EC60F0006A1E97 /* UINavigationController+URL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+URL.swift"; sourceTree = "<group>"; };
 		0955EBF2255851820047D791 /* RingDrawer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingDrawer.swift; sourceTree = "<group>"; };
 		0961D904216A9BCF00F4AA88 /* ClockKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ClockKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS5.0.sdk/System/Library/Frameworks/ClockKit.framework; sourceTree = DEVELOPER_DIR; };
 		0961D906216A9F2000F4AA88 /* duffy.ckcomplication */ = {isa = PBXFileReference; lastKnownFileType = folder; path = duffy.ckcomplication; sourceTree = "<group>"; };
@@ -436,6 +438,7 @@
 				09BDDA6321978CD20078B749 /* ButtonFooterView.swift */,
 				094DE71C25E088E7002C31FC /* AboutFooterView.swift */,
 				09BDDA6721979A940078B749 /* ModalNavigationController.swift */,
+				094F1C5125EC60F0006A1E97 /* UINavigationController+URL.swift */,
 				09BDDA5D219116740078B749 /* AboutTableViewController.swift */,
 				09CC417E231F3DAD0029AAFB /* AboutTableViewFooter.swift */,
 				09CC4180231F3DC70029AAFB /* AboutTableViewFooter.xib */,
@@ -876,6 +879,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				094DE74325E1C9C6002C31FC /* GoalInstructionsTableViewCell.swift in Sources */,
+				094F1C5225EC60F0006A1E97 /* UINavigationController+URL.swift in Sources */,
 				090829EB246A225C00F100D6 /* TrophiesViewController.swift in Sources */,
 				0900866F20F27D0C006540E7 /* PreviousValueTableViewCell.swift in Sources */,
 				090829DE2465BB1B00F100D6 /* TrophyLegendView.swift in Sources */,
