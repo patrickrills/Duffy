@@ -28,9 +28,57 @@ class GoalInstructionsTableViewController: UITableViewController {
         
         self.title = GoalInstructions.title()
         
-        //TODO: Create header
+        tableView.register(UINib(nibName: String(describing: GoalInstructionsTableViewCell.self), bundle: Bundle.main), forCellReuseIdentifier: String(describing: GoalInstructionsTableViewCell.self))
         
-        //TODO: Create footer
+        buildHeader()
+        buildFooter()
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        
+        if let container = tableView.tableHeaderView,
+           let header = container.subviews.first
+        {
+            let widthWithMargin = tableView.layoutMarginsGuide.layoutFrame.width
+            let calculatedSize = header.systemLayoutSizeFitting(CGSize(width: widthWithMargin, height: 0), withHorizontalFittingPriority: .required, verticalFittingPriority: .defaultLow)
+            let roundedHeight = CGFloat(ceil(Double(calculatedSize.height)))
+            container.frame = CGRect(x: 0, y: header.frame.origin.y, width: tableView.frame.size.width, height: roundedHeight)
+        }
+        
+        if let footer = tableView.tableFooterView {
+            footer.frame = CGRect(x: 0, y: footer.frame.origin.y, width: self.view.frame.width, height: 44.0)
+        }
+    }
+    
+    @IBAction func viewTrophies() {
+        navigationController?.pushViewController(TrophiesViewController(), animated: true)
+    }
+    
+    private func buildHeader() {
+        let container = UIView()
+        container.backgroundColor = .groupTableViewBackground
+        
+        let header = GoalInstructionsTableViewHeader()
+        header.translatesAutoresizingMaskIntoConstraints = false
+        container.addSubview(header)
+        
+        tableView.tableHeaderView = container
+        
+        NSLayoutConstraint.activate([
+            header.topAnchor.constraint(equalTo: container.topAnchor),
+            header.bottomAnchor.constraint(equalTo: container.bottomAnchor),
+            header.leadingAnchor.constraint(equalTo: tableView.layoutMarginsGuide.leadingAnchor),
+            header.trailingAnchor.constraint(equalTo: tableView.layoutMarginsGuide.trailingAnchor)
+        ])
+    }
+    
+    private func buildFooter() {
+        let footer = ButtonFooterView()
+        footer.buttonAttributedText = NSAttributedString(string: "See the Trophies")
+        footer.addTarget(self, action: #selector(viewTrophies))
+        footer.separatorIsVisible = false
+        tableView.tableFooterView = footer
     }
 
     // MARK: - Table view data source
@@ -44,13 +92,28 @@ class GoalInstructionsTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: GoalInstructionsTableViewCell.self), for: indexPath) as! GoalInstructionsTableViewCell
         let step = GoalInstructions.allCases[indexPath.section]
-        
-        //let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-        
-        let cell = UITableViewCell(style: .default, reuseIdentifier: nil)
-        cell.textLabel?.text = step.text(useLegacyInstructions: useLegacyInstructions)
-        cell.textLabel?.numberOfLines = 0
+        cell.bind(to: step, useLegacyInstructions: useLegacyInstructions)
         return cell
+    }
+    
+    private let STEP_SPACING: CGFloat = 20.0
+    
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return STEP_SPACING / 2.0
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return STEP_SPACING / 2.0
+    }
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard section > 0 else { return nil }
+        return UIView()
+    }
+    
+    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        return UIView()
     }
 }

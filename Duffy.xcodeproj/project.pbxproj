@@ -26,7 +26,6 @@
 		09177BC6241D466F0095ECB4 /* ExportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09177BC4241D466E0095ECB4 /* ExportService.swift */; };
 		0921049E25BDC73500875BA9 /* LaunchShoe.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0921049D25BDC73500875BA9 /* LaunchShoe.storyboard */; };
 		092104B425BDD59800875BA9 /* GoalInstructions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092104B325BDD59800875BA9 /* GoalInstructions.swift */; };
-		092276DF23569A560015A1E6 /* GoalChangeHowToViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 092276E123569A560015A1E6 /* GoalChangeHowToViewController.xib */; };
 		092276E323569EB10015A1E6 /* HourGraphDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 092276E523569EB10015A1E6 /* HourGraphDetailViewController.xib */; };
 		0924297724311B580098B0AF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 099582CA234192A600AF6A96 /* Localizable.strings */; };
 		09289C7820D873F9005BF6B8 /* GoalNotificationInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09289C7720D873F9005BF6B8 /* GoalNotificationInterfaceController.swift */; };
@@ -69,6 +68,9 @@
 		0947AA9E1D4EB24A0040E1DD /* WeekRowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0947AA9D1D4EB24A0040E1DD /* WeekRowController.swift */; };
 		094AAF8225D977EB00B145B8 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 094AAF8425D977EB00B145B8 /* Localizable.stringsdict */; };
 		094DE71D25E088E7002C31FC /* AboutFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094DE71C25E088E7002C31FC /* AboutFooterView.swift */; };
+		094DE73725E1716D002C31FC /* GoalInstructionsTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094DE73625E1716D002C31FC /* GoalInstructionsTableViewHeader.swift */; };
+		094DE74225E1C9C6002C31FC /* GoalInstructionsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 094DE74025E1C9C6002C31FC /* GoalInstructionsTableViewCell.xib */; };
+		094DE74325E1C9C6002C31FC /* GoalInstructionsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094DE74125E1C9C6002C31FC /* GoalInstructionsTableViewCell.swift */; };
 		0955EBF3255851820047D791 /* RingDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0955EBF2255851820047D791 /* RingDrawer.swift */; };
 		0961D905216A9BCF00F4AA88 /* ClockKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0961D904216A9BCF00F4AA88 /* ClockKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		0961D907216A9F2000F4AA88 /* duffy.ckcomplication in Resources */ = {isa = PBXBuildFile; fileRef = 0961D906216A9F2000F4AA88 /* duffy.ckcomplication */; };
@@ -118,7 +120,6 @@
 		09BDDA5E219116740078B749 /* AboutTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BDDA5D219116740078B749 /* AboutTableViewController.swift */; };
 		09BDDA6421978CD20078B749 /* ButtonFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BDDA6321978CD20078B749 /* ButtonFooterView.swift */; };
 		09BDDA6821979A940078B749 /* ModalNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BDDA6721979A940078B749 /* ModalNavigationController.swift */; };
-		09CC417A23132C140029AAFB /* GoalChangeHowToViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CC417823132C140029AAFB /* GoalChangeHowToViewController.swift */; };
 		09CC417F231F3DAD0029AAFB /* AboutTableViewFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CC417E231F3DAD0029AAFB /* AboutTableViewFooter.swift */; };
 		09CC4181231F3DC70029AAFB /* AboutTableViewFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09CC4180231F3DC70029AAFB /* AboutTableViewFooter.xib */; };
 		09CE42C11E353E7100A6E587 /* HistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CE42C01E353E7100A6E587 /* HistoryTableViewController.swift */; };
@@ -239,7 +240,6 @@
 		090829DD2465BB1B00F100D6 /* TrophyLegendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrophyLegendView.swift; sourceTree = "<group>"; };
 		090829DF2465BB2C00F100D6 /* TrophyLegendView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TrophyLegendView.xib; sourceTree = "<group>"; };
 		090829E124670EEF00F100D6 /* Trophy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trophy.swift; sourceTree = "<group>"; };
-		090829E52467566B00F100D6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/GoalChangeHowToViewController.xib; sourceTree = "<group>"; };
 		090829E624684EB900F100D6 /* TrophyItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrophyItemView.swift; sourceTree = "<group>"; };
 		090829E824684ED400F100D6 /* TrophyItemView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TrophyItemView.xib; sourceTree = "<group>"; };
 		090829EA246A225C00F100D6 /* TrophiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrophiesViewController.swift; sourceTree = "<group>"; };
@@ -290,6 +290,9 @@
 		094AAF8325D977EB00B145B8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		094AAF8925D977EF00B145B8 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ja; path = ja.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		094DE71C25E088E7002C31FC /* AboutFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutFooterView.swift; sourceTree = "<group>"; };
+		094DE73625E1716D002C31FC /* GoalInstructionsTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalInstructionsTableViewHeader.swift; sourceTree = "<group>"; };
+		094DE74025E1C9C6002C31FC /* GoalInstructionsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GoalInstructionsTableViewCell.xib; sourceTree = "<group>"; };
+		094DE74125E1C9C6002C31FC /* GoalInstructionsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalInstructionsTableViewCell.swift; sourceTree = "<group>"; };
 		0955EBF2255851820047D791 /* RingDrawer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingDrawer.swift; sourceTree = "<group>"; };
 		0961D904216A9BCF00F4AA88 /* ClockKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ClockKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS5.0.sdk/System/Library/Frameworks/ClockKit.framework; sourceTree = DEVELOPER_DIR; };
 		0961D906216A9F2000F4AA88 /* duffy.ckcomplication */ = {isa = PBXFileReference; lastKnownFileType = folder; path = duffy.ckcomplication; sourceTree = "<group>"; };
@@ -333,7 +336,6 @@
 		09BDDA5D219116740078B749 /* AboutTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutTableViewController.swift; sourceTree = "<group>"; };
 		09BDDA6321978CD20078B749 /* ButtonFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonFooterView.swift; sourceTree = "<group>"; };
 		09BDDA6721979A940078B749 /* ModalNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalNavigationController.swift; sourceTree = "<group>"; };
-		09CC417823132C140029AAFB /* GoalChangeHowToViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalChangeHowToViewController.swift; sourceTree = "<group>"; };
 		09CC417E231F3DAD0029AAFB /* AboutTableViewFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutTableViewFooter.swift; sourceTree = "<group>"; };
 		09CC4180231F3DC70029AAFB /* AboutTableViewFooter.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AboutTableViewFooter.xib; sourceTree = "<group>"; };
 		09CE42C01E353E7100A6E587 /* HistoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryTableViewController.swift; sourceTree = "<group>"; };
@@ -461,6 +463,9 @@
 				0970859D214EAEB200790EC7 /* HourGraphMaxIndicatorView.swift */,
 				092104B325BDD59800875BA9 /* GoalInstructions.swift */,
 				097E84FE25DC65D1008D9205 /* GoalInstructionsTableViewController.swift */,
+				094DE73625E1716D002C31FC /* GoalInstructionsTableViewHeader.swift */,
+				094DE74025E1C9C6002C31FC /* GoalInstructionsTableViewCell.xib */,
+				094DE74125E1C9C6002C31FC /* GoalInstructionsTableViewCell.swift */,
 				097E84F925DC62B3008D9205 /* Old Instructions */,
 				09323C741D22C39700961822 /* Main.storyboard */,
 				09323C771D22C39700961822 /* Assets.xcassets */,
@@ -538,8 +543,6 @@
 		097E84F925DC62B3008D9205 /* Old Instructions */ = {
 			isa = PBXGroup;
 			children = (
-				09CC417823132C140029AAFB /* GoalChangeHowToViewController.swift */,
-				092276E123569A560015A1E6 /* GoalChangeHowToViewController.xib */,
 				090829DD2465BB1B00F100D6 /* TrophyLegendView.swift */,
 				090829DF2465BB2C00F100D6 /* TrophyLegendView.xib */,
 				090829E624684EB900F100D6 /* TrophyItemView.swift */,
@@ -810,12 +813,12 @@
 				0921049E25BDC73500875BA9 /* LaunchShoe.storyboard in Resources */,
 				09323C781D22C39700961822 /* Assets.xcassets in Resources */,
 				0961D907216A9F2000F4AA88 /* duffy.ckcomplication in Resources */,
+				094DE74225E1C9C6002C31FC /* GoalInstructionsTableViewCell.xib in Resources */,
 				09CEA983212259200023786B /* DetailDataView.xib in Resources */,
 				090829ED246A26E400F100D6 /* TrophiesViewController.xib in Resources */,
 				097085642127122B00790EC7 /* DistanceFlightsDetailViewController.xib in Resources */,
 				094AAF8225D977EB00B145B8 /* Localizable.stringsdict in Resources */,
 				09323C761D22C39700961822 /* Main.storyboard in Resources */,
-				092276DF23569A560015A1E6 /* GoalChangeHowToViewController.xib in Resources */,
 				09A7EEAE21A1E89A00DEDE5C /* HistoryTrendChartTableViewCell.xib in Resources */,
 				092276E323569EB10015A1E6 /* HourGraphDetailViewController.xib in Resources */,
 			);
@@ -872,6 +875,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				094DE74325E1C9C6002C31FC /* GoalInstructionsTableViewCell.swift in Sources */,
 				090829EB246A225C00F100D6 /* TrophiesViewController.swift in Sources */,
 				0900866F20F27D0C006540E7 /* PreviousValueTableViewCell.swift in Sources */,
 				090829DE2465BB1B00F100D6 /* TrophyLegendView.swift in Sources */,
@@ -892,12 +896,12 @@
 				09A7EEB021A39D7100DEDE5C /* HistoryTrendChartView.swift in Sources */,
 				09CEA981212259040023786B /* DetailDataView.swift in Sources */,
 				090829E724684EBA00F100D6 /* TrophyItemView.swift in Sources */,
+				094DE73725E1716D002C31FC /* GoalInstructionsTableViewHeader.swift in Sources */,
 				09BDDA6821979A940078B749 /* ModalNavigationController.swift in Sources */,
 				0985E6E924F162AC000B4A96 /* HistoryTrendChartOptionsTableViewController.swift in Sources */,
 				09BDDA5E219116740078B749 /* AboutTableViewController.swift in Sources */,
 				0900867120F282DE006540E7 /* Globals.swift in Sources */,
 				0935D17E21A8D8E100B91009 /* HistoryFilterTableViewController.swift in Sources */,
-				09CC417A23132C140029AAFB /* GoalChangeHowToViewController.swift in Sources */,
 				093A5F0823B26C1A007D11E3 /* DebugLogTableViewController.swift in Sources */,
 				094DE71D25E088E7002C31FC /* AboutFooterView.swift in Sources */,
 				09289C7E20DDFF56005BF6B8 /* MainTableViewController.swift in Sources */,
@@ -1018,14 +1022,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		092276E123569A560015A1E6 /* GoalChangeHowToViewController.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				090829E52467566B00F100D6 /* Base */,
-			);
-			name = GoalChangeHowToViewController.xib;
-			sourceTree = "<group>";
-		};
 		092276E523569EB10015A1E6 /* HourGraphDetailViewController.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1206,7 +1202,7 @@
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_ENTITLEMENTS = "Duffy WatchKit Extension/Duffy WatchKit Extension.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 17;
+				CURRENT_PROJECT_VERSION = 18;
 				INFOPLIST_FILE = "Duffy WatchKit Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MARKETING_VERSION = 3.5.1;
@@ -1227,7 +1223,7 @@
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_ENTITLEMENTS = "Duffy WatchKit Extension/Duffy WatchKit Extension.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 17;
+				CURRENT_PROJECT_VERSION = 18;
 				INFOPLIST_FILE = "Duffy WatchKit Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MARKETING_VERSION = 3.5.1;
@@ -1247,7 +1243,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 17;
+				CURRENT_PROJECT_VERSION = 18;
 				IBSC_MODULE = Duffy_WatchKit_Extension;
 				INFOPLIST_FILE = "Duffy WatchKit App/Info.plist";
 				MARKETING_VERSION = 3.5.1;
@@ -1267,7 +1263,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 17;
+				CURRENT_PROJECT_VERSION = 18;
 				IBSC_MODULE = Duffy_WatchKit_Extension;
 				INFOPLIST_FILE = "Duffy WatchKit App/Info.plist";
 				MARKETING_VERSION = 3.5.1;
@@ -1288,7 +1284,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Duffy/Duffy.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 17;
+				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_TEAM = 2ZMUDMBY38;
 				INFOPLIST_FILE = Duffy/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -1307,7 +1303,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Duffy/Duffy.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 17;
+				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_TEAM = 2ZMUDMBY38;
 				INFOPLIST_FILE = Duffy/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -1432,7 +1428,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CODE_SIGN_ENTITLEMENTS = DuffyToday/DuffyToday.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 17;
+				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_TEAM = 2ZMUDMBY38;
 				INFOPLIST_FILE = DuffyToday/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -1453,7 +1449,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CODE_SIGN_ENTITLEMENTS = DuffyToday/DuffyToday.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 17;
+				CURRENT_PROJECT_VERSION = 18;
 				DEVELOPMENT_TEAM = 2ZMUDMBY38;
 				INFOPLIST_FILE = DuffyToday/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;

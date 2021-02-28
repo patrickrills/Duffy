@@ -9,8 +9,11 @@
 import Foundation
 import DuffyFramework
 
-enum GoalInstructions: CaseIterable {
-    case step1, step2, step3, step4
+enum GoalInstructions: Int, CaseIterable {
+    case step1 = 1
+    case step2 = 2
+    case step3 = 3
+    case step4 = 4
     
     static func title() -> String {
         return NSLocalizedString("Change Your Goal", comment: "")
@@ -33,6 +36,19 @@ enum GoalInstructions: CaseIterable {
         case .step4:
             return String(format: NSLocalizedString("When you've reached your goal, you'll earn a trophy based on how many steps you've taken beyond your goal (%@).", comment: "Placeholder is a number of steps: ie 10,000"), Self.formattedGoal())
         }
+    }
+    
+    func screenshot(useLegacyInstructions: Bool) -> UIImage {
+        let imageName: String
+        
+        switch self {
+        case .step3:
+            imageName = useLegacyInstructions ? "Instructions03-Legacy" : "Instructions03"
+        default:
+            imageName = "Instructions0\(self.rawValue)"
+        }
+        
+        return UIImage(named: imageName)!
     }
     
     private static func formattedGoal() -> String {
