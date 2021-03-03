@@ -64,9 +64,26 @@ enum AboutOption: CaseIterable {
         case .askAQuestion:
             return NSLocalizedString("Ask a Question", comment: "")
         case .bigbluefly:
-            return "Big Blue Fly"
+            return "Big Blue Fly (code)"
         case .isral:
-            return "isral Duke"
+            return "isral Duke (design)"
+        }
+    }
+    
+    func icon() -> UIImage? {
+        switch self {
+        case .goalHowTo:
+            return UIImage(named: "QuestionMark")
+        case .trophies:
+            return UIImage(named: "Trophy")
+        case .rate:
+            return UIImage(named: "Star")
+        case .askAQuestion:
+            return UIImage(named: "Chat")
+        case .bigbluefly:
+            return UIImage(named: "BigBlueFly")
+        case .isral:
+            return UIImage(named: "isral")
         }
     }
     
@@ -140,9 +157,11 @@ class AboutTableViewController: UITableViewController {
         if #available(iOS 14.0, *) {
             var contentConfig = UIListContentConfiguration.cell()
             contentConfig.text = option.localizedTitle()
+            contentConfig.image = option.icon()
             cell.contentConfiguration = contentConfig
         } else {
             cell.textLabel?.text = option.localizedTitle()
+            cell.imageView?.image = option.icon()
         }
         
         return cell
