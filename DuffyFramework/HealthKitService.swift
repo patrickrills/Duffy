@@ -185,6 +185,51 @@ public class HealthKitService
         }
     }
     
+    public func getSteps(greaterThanOrEqualTo threshold: Steps, limitTo limit: UInt, completionHandler: @escaping (StepsByDateResult) -> ()) {
+        guard HKHealthStore.isHealthDataAvailable(),
+              let store = healthStore,
+              let stepType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.stepCount)
+        else {
+            completionHandler(.failure(.unsupported))
+            return
+        }
+        
+        let queryStartDate = Date().dateByAdding(days: -365).stripTime() //Cap to previous year
+        let pred = HKQuery.predicateForSamples(withStart: queryStartDate, end: Date().nextDay().stripTime(), options: .strictEndDate)
+        
+        var interval = DateComponents()
+        interval.day = 1
+        
+        let query = HKStatisticsCollectionQuery(quantityType: stepType,
+                                                quantitySamplePredicate: pred,
+                                                options: .cumulativeSum,
+                                                anchorDate: Date().stripTime(),
+                                                intervalComponents: interval)
+        
+        query.initialResultsHandler = { query, results, error in
+            var stepsCollection = [Date : Steps]()
+            var loopDate = Date().stripTime()
+            
+            while loopDate > queryStartDate,
+                  limit > stepsCollection.count
+            {
+                if let stats = results?.statistics(for: loopDate),
+                   let quantity = stats.sumQuantity(),
+                   case let sum = quantity.doubleValue(for: .count()),
+                   sum >= Double(threshold)
+                {
+                    stepsCollection[loopDate] = Steps(sum)
+                }
+                
+                loopDate = loopDate.dateByAdding(days: -1)
+            }
+            
+            completionHandler(.success(stepsCollection))
+        }
+        
+        store.execute(query)
+    }
+    
     //MARK: Flights and Distance Queries
         
     public func getFlightsClimbed(for date: Date, completionHandler: @escaping (FlightsForDayResult) -> ()) {
