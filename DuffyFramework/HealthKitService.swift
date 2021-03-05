@@ -185,7 +185,7 @@ public class HealthKitService
         }
     }
     
-    public func getSteps(greaterThanOrEqualTo threshold: Steps, limitTo limit: UInt, completionHandler: @escaping (StepsByDateResult) -> ()) {
+    public func lastAward(of trophy: Trophy, completionHandler: @escaping (LastTrophyAwardResult) -> ()) {
         guard HKHealthStore.isHealthDataAvailable(),
               let store = healthStore,
               let stepType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.stepCount)
@@ -207,24 +207,25 @@ public class HealthKitService
                                                 intervalComponents: interval)
         
         query.initialResultsHandler = { query, results, error in
-            var stepsCollection = [Date : Steps]()
+            var lastAward: (day: Date, steps: Steps)?
             var loopDate = Date().stripTime()
             
             while loopDate > queryStartDate,
-                  limit > stepsCollection.count
+                  lastAward == nil
             {
                 if let stats = results?.statistics(for: loopDate),
                    let quantity = stats.sumQuantity(),
-                   case let sum = quantity.doubleValue(for: .count()),
-                   sum >= Double(threshold)
+                   case let sum = Steps(quantity.doubleValue(for: .count())),
+                   trophy == Trophy.trophy(for: sum)
                 {
-                    stepsCollection[loopDate] = Steps(sum)
+                    lastAward = (day: loopDate, steps: sum)
+                    break
                 }
                 
                 loopDate = loopDate.dateByAdding(days: -1)
             }
             
-            completionHandler(.success(stepsCollection))
+            completionHandler(.success((trophy: trophy, lastAward: lastAward)))
         }
         
         store.execute(query)
