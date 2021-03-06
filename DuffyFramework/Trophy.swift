@@ -11,7 +11,7 @@ import Foundation
 public enum Trophy: CaseIterable {
     case none, shoe, medal, award, star, rocket
     
-    private func factor() -> Double {
+    public func factor() -> Double {
         switch self {
         case .none:
             return 0.0

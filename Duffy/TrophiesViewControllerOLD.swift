@@ -24,7 +24,7 @@ class TrophiesViewControllerOLD: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.title = "Trophies"
+        self.title = NSLocalizedString("Trophies", comment: "")
         self.helpButton.setTitle(NSLocalizedString("How To Change Your Goal", comment: ""), for: .normal)
         self.helpButton.tintColor = Globals.secondaryColor()
         

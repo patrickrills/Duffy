@@ -133,6 +133,7 @@
 		09CEA983212259200023786B /* DetailDataView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09CEA982212259200023786B /* DetailDataView.xib */; };
 		09D7F1241E340EA7008FF0CC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7F1231E340EA7008FF0CC /* Constants.swift */; };
 		09D7F1251E340EA7008FF0CC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7F1231E340EA7008FF0CC /* Constants.swift */; };
+		09E1778F25F3F6810034A58F /* TrophiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E1778E25F3F6810034A58F /* TrophiesViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -350,6 +351,7 @@
 		09CEA980212259040023786B /* DetailDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailDataView.swift; sourceTree = "<group>"; };
 		09CEA982212259200023786B /* DetailDataView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailDataView.xib; sourceTree = "<group>"; };
 		09D7F1231E340EA7008FF0CC /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		09E1778E25F3F6810034A58F /* TrophiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrophiesViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -469,6 +471,7 @@
 				094DE73625E1716D002C31FC /* GoalInstructionsTableViewHeader.swift */,
 				094DE74025E1C9C6002C31FC /* GoalInstructionsTableViewCell.xib */,
 				094DE74125E1C9C6002C31FC /* GoalInstructionsTableViewCell.swift */,
+				09E1778E25F3F6810034A58F /* TrophiesViewController.swift */,
 				097E84F925DC62B3008D9205 /* Old Instructions */,
 				09323C741D22C39700961822 /* Main.storyboard */,
 				09323C771D22C39700961822 /* Assets.xcassets */,
@@ -878,6 +881,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09E1778F25F3F6810034A58F /* TrophiesViewController.swift in Sources */,
 				094DE74325E1C9C6002C31FC /* GoalInstructionsTableViewCell.swift in Sources */,
 				094F1C5225EC60F0006A1E97 /* UINavigationController+URL.swift in Sources */,
 				090829EB246A225C00F100D6 /* TrophiesViewController.swift in Sources */,
