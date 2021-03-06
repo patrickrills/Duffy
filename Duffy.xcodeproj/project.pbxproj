@@ -17,7 +17,7 @@
 		090829E324670EEF00F100D6 /* Trophy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090829E124670EEF00F100D6 /* Trophy.swift */; };
 		090829E724684EBA00F100D6 /* TrophyItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090829E624684EB900F100D6 /* TrophyItemView.swift */; };
 		090829E924684ED400F100D6 /* TrophyItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 090829E824684ED400F100D6 /* TrophyItemView.xib */; };
-		090829EB246A225C00F100D6 /* TrophiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090829EA246A225C00F100D6 /* TrophiesViewController.swift */; };
+		090829EB246A225C00F100D6 /* TrophiesViewControllerOLD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090829EA246A225C00F100D6 /* TrophiesViewControllerOLD.swift */; };
 		090829ED246A26E400F100D6 /* TrophiesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 090829EC246A26E400F100D6 /* TrophiesViewController.xib */; };
 		091714CF25290B8D001062E0 /* ChartDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091714CE25290B8D001062E0 /* ChartDrawer.swift */; };
 		091714F125326B40001062E0 /* Plot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091714F025326B40001062E0 /* Plot.swift */; };
@@ -243,7 +243,7 @@
 		090829E124670EEF00F100D6 /* Trophy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trophy.swift; sourceTree = "<group>"; };
 		090829E624684EB900F100D6 /* TrophyItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrophyItemView.swift; sourceTree = "<group>"; };
 		090829E824684ED400F100D6 /* TrophyItemView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TrophyItemView.xib; sourceTree = "<group>"; };
-		090829EA246A225C00F100D6 /* TrophiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrophiesViewController.swift; sourceTree = "<group>"; };
+		090829EA246A225C00F100D6 /* TrophiesViewControllerOLD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrophiesViewControllerOLD.swift; sourceTree = "<group>"; };
 		090829EC246A26E400F100D6 /* TrophiesViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TrophiesViewController.xib; sourceTree = "<group>"; };
 		091714CE25290B8D001062E0 /* ChartDrawer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartDrawer.swift; sourceTree = "<group>"; };
 		091714F025326B40001062E0 /* Plot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plot.swift; sourceTree = "<group>"; };
@@ -550,7 +550,7 @@
 				090829DF2465BB2C00F100D6 /* TrophyLegendView.xib */,
 				090829E624684EB900F100D6 /* TrophyItemView.swift */,
 				090829E824684ED400F100D6 /* TrophyItemView.xib */,
-				090829EA246A225C00F100D6 /* TrophiesViewController.swift */,
+				090829EA246A225C00F100D6 /* TrophiesViewControllerOLD.swift */,
 				090829EC246A26E400F100D6 /* TrophiesViewController.xib */,
 			);
 			name = "Old Instructions";
@@ -881,6 +881,7 @@
 				094DE74325E1C9C6002C31FC /* GoalInstructionsTableViewCell.swift in Sources */,
 				094F1C5225EC60F0006A1E97 /* UINavigationController+URL.swift in Sources */,
 				090829EB246A225C00F100D6 /* TrophiesViewController.swift in Sources */,
+				090829EB246A225C00F100D6 /* TrophiesViewControllerOLD.swift in Sources */,
 				0900866F20F27D0C006540E7 /* PreviousValueTableViewCell.swift in Sources */,
 				090829DE2465BB1B00F100D6 /* TrophyLegendView.swift in Sources */,
 				09CE42C11E353E7100A6E587 /* HistoryTableViewController.swift in Sources */,

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TrophiesViewController: UIViewController {
+class TrophiesViewControllerOLD: UIViewController {
     
     @IBOutlet private weak var legendContainer: UIView!
     @IBOutlet private weak var helpButton: UIButton!
