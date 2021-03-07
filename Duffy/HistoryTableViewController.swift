@@ -132,8 +132,8 @@ class HistoryTableViewController: UITableViewController {
                             let fetchedRowCount = stepsCollection.count
                             let hideFooter = fetchedRowCount == 0 || weakSelf.lastDateInCache == previousLastCacheDate
 
-                            if let footer = weakSelf.tableView.tableFooterView as? HistoryTableViewFooter, hideFooter {
-                                footer.isButtonHidden = true
+                            if let footer = weakSelf.tableView.tableFooterView as? HistoryTableViewFooter {
+                                footer.isButtonHidden = hideFooter
                             }
                         }
                     }
