@@ -11,8 +11,10 @@ import DuffyFramework
 
 class HistoryTableViewController: UITableViewController {
     private enum Constants {
-        static let ROW_HEIGHT : CGFloat = PreviousValueTableViewCell.rowHeight
+        static let ROW_HEIGHT: CGFloat = PreviousValueTableViewCell.rowHeight
         static let PAGE_SIZE_DAYS: Int = 30
+        static let FOOTER_HEIGHT: CGFloat = 80.0
+        static let FOOTER_MARGIN: CGFloat = 16.0
     }
     
     private let goal = HealthCache.dailyGoal()
@@ -83,7 +85,7 @@ class HistoryTableViewController: UITableViewController {
         }
         
         if let footer = footer {
-            footer.frame = CGRect(x: footer.frame.origin.x, y: footer.frame.origin.y, width: tableView.frame.size.width, height: Constants.ROW_HEIGHT)
+            footer.frame = CGRect(x: footer.frame.origin.x, y: footer.frame.origin.y, width: tableView.frame.size.width, height: Constants.FOOTER_HEIGHT)
         }
     }
     
@@ -220,5 +222,21 @@ class HistoryTableViewController: UITableViewController {
         
         header.set(headerText: sectionTitle, actionText: (action != nil ? actionTitle : nil), action: action)
         return header
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        guard section == numberOfSections(in: tableView) - 1 else {
+            return Constants.FOOTER_MARGIN
+        }
+        
+        return 0.0
+    }
+    
+    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        guard section == numberOfSections(in: tableView) - 1 else {
+            return nil
+        }
+        
+        return UIView()
     }
 }
