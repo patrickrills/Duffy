@@ -134,6 +134,8 @@
 		09D7F1241E340EA7008FF0CC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7F1231E340EA7008FF0CC /* Constants.swift */; };
 		09D7F1251E340EA7008FF0CC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7F1231E340EA7008FF0CC /* Constants.swift */; };
 		09E1778F25F3F6810034A58F /* TrophiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E1778E25F3F6810034A58F /* TrophiesViewController.swift */; };
+		09E1779A25F513EA0034A58F /* TrophyCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09E1779825F513EA0034A58F /* TrophyCollectionViewCell.xib */; };
+		09E1779B25F513EA0034A58F /* TrophyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E1779925F513EA0034A58F /* TrophyCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -352,6 +354,8 @@
 		09CEA982212259200023786B /* DetailDataView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailDataView.xib; sourceTree = "<group>"; };
 		09D7F1231E340EA7008FF0CC /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		09E1778E25F3F6810034A58F /* TrophiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrophiesViewController.swift; sourceTree = "<group>"; };
+		09E1779825F513EA0034A58F /* TrophyCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TrophyCollectionViewCell.xib; sourceTree = "<group>"; };
+		09E1779925F513EA0034A58F /* TrophyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrophyCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -472,6 +476,8 @@
 				094DE74025E1C9C6002C31FC /* GoalInstructionsTableViewCell.xib */,
 				094DE74125E1C9C6002C31FC /* GoalInstructionsTableViewCell.swift */,
 				09E1778E25F3F6810034A58F /* TrophiesViewController.swift */,
+				09E1779925F513EA0034A58F /* TrophyCollectionViewCell.swift */,
+				09E1779825F513EA0034A58F /* TrophyCollectionViewCell.xib */,
 				097E84F925DC62B3008D9205 /* Old Instructions */,
 				09323C741D22C39700961822 /* Main.storyboard */,
 				09323C771D22C39700961822 /* Assets.xcassets */,
@@ -810,6 +816,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09E1779A25F513EA0034A58F /* TrophyCollectionViewCell.xib in Resources */,
 				090829E02465BB2C00F100D6 /* TrophyLegendView.xib in Resources */,
 				09289C8220DE131E005BF6B8 /* TodayHeaderView.xib in Resources */,
 				09CC4181231F3DC70029AAFB /* AboutTableViewFooter.xib in Resources */,
@@ -893,6 +900,7 @@
 				09708599214D7A8000790EC7 /* HourGraphDetailViewController.swift in Sources */,
 				09CC417F231F3DAD0029AAFB /* AboutTableViewFooter.swift in Sources */,
 				0900867320FA7673006540E7 /* BoldActionSectionHeaderView.swift in Sources */,
+				09E1779B25F513EA0034A58F /* TrophyCollectionViewCell.swift in Sources */,
 				09A7EEAD21A1E89A00DEDE5C /* HistoryTrendChartTableViewCell.swift in Sources */,
 				0970859C214DAB8900790EC7 /* HourGraphBarView.swift in Sources */,
 				096FE0A825067FC700838BEE /* HistoryTrendChartLineOptionsTableViewController.swift in Sources */,

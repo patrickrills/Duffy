@@ -9,8 +9,6 @@
 import UIKit
 import DuffyFramework
 
-private let reuseIdentifier = "Cell"
-
 class TrophiesViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     init() {
@@ -42,7 +40,7 @@ class TrophiesViewController: UICollectionViewController, UICollectionViewDelega
             collectionView.backgroundColor = Globals.lightGrayColor()
         }
         
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
+        collectionView.register(UINib(nibName: String(describing: TrophyCollectionViewCell.self), bundle: Bundle.main), forCellWithReuseIdentifier: String(describing: TrophyCollectionViewCell.self))
     }
 
     // MARK: - UICollectionViewDataSource
@@ -56,22 +54,11 @@ class TrophiesViewController: UICollectionViewController, UICollectionViewDelega
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
-        let trophy = trophies[indexPath.item]
-    
-        if #available(iOS 13.0, *) {
-            cell.backgroundColor = .secondarySystemGroupedBackground
-        } else {
-            cell.backgroundColor = .white
-        }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: TrophyCollectionViewCell.self), for: indexPath) as? TrophyCollectionViewCell else { fatalError("Cell is not TrophyCollectionViewCell") }
         
-        if #available(iOS 14.0, *) {
-            var contentConfig = UIListContentConfiguration.subtitleCell()
-            contentConfig.text = "\(trophy.symbol()): \(trophy.stepsRequired()) steps"
-            contentConfig.secondaryText = Globals.distanceFormatter().string(for: trophy.factor())
-            cell.contentConfiguration = contentConfig
-        }
-    
+        let trophy = trophies[indexPath.item]
+        cell.bind(to: trophy)
+
         return cell
     }
     
@@ -95,7 +82,7 @@ class TrophyLayout: UICollectionViewFlowLayout {
     
     private enum Constants {
         static let SPACING: CGFloat = 20.0
-        static let CELL_HEIGHT: CGFloat = 84.0
+        static let CELL_HEIGHT: CGFloat = 85.0
     }
     
     var firstItemSize: CGSize = .zero

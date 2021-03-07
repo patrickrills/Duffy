@@ -37,9 +37,18 @@ enum Globals
     
     static func distanceFormatter() -> NumberFormatter
     {
-        decimalFormatter.numberStyle = NumberFormatter.Style.decimal
-        decimalFormatter.locale = Locale.current
+        decimalFormatter.numberStyle = .decimal
+        decimalFormatter.locale = .current
         decimalFormatter.maximumFractionDigits = 1
+        
+        return decimalFormatter
+    }
+    
+    static func trophyFactorFormatter() -> NumberFormatter
+    {
+        decimalFormatter.numberStyle = .decimal
+        decimalFormatter.locale = .current
+        decimalFormatter.maximumFractionDigits = 2
         
         return decimalFormatter
     }
