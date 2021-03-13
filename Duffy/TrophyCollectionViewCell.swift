@@ -33,6 +33,30 @@ class TrophyCollectionViewCell: UICollectionViewCell {
         symbolLabel.text = trophy.symbol()
         factorLabel.text = Globals.trophyFactorFormatter().string(for: trophy.factor())! + "x!"
         descriptionLabel.text = "Your Goal".uppercased()
-        lastAwardLabel.text = "TODO"
+        
+        let lastTemplate = "Last: %@"
+        lastAwardLabel.text = String(format: lastTemplate, "...")
+        
+        HealthKitService.getInstance().lastAward(of: trophy) { [weak lastAwardLabel] result in
+            let text: String
+            var textColor: UIColor = .black
+            switch result {
+            case .success(let award) where award.trophy == trophy && award.lastAward != nil:
+                text = String(format: lastTemplate, Globals.dayFormatter().string(from: award.lastAward!.day))
+                if #available(iOS 13.0, *) {
+                    textColor = .label
+                }
+            default:
+                text = "Not awarded yet"
+                if #available(iOS 13.0, *) {
+                    textColor = .secondaryLabel
+                }
+            }
+            
+            DispatchQueue.main.async {
+                lastAwardLabel?.text = text
+                lastAwardLabel?.textColor = textColor
+            }
+        }
     }
 }

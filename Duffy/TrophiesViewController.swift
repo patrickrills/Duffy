@@ -82,7 +82,7 @@ class TrophyLayout: UICollectionViewFlowLayout {
     
     private enum Constants {
         static let SPACING: CGFloat = 20.0
-        static let CELL_HEIGHT: CGFloat = 85.0
+        static let CELL_HEIGHT: CGFloat = 82.0
     }
     
     var firstItemSize: CGSize = .zero
