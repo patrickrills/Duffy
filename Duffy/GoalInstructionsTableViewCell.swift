@@ -21,6 +21,7 @@ class GoalInstructionsTableViewCell: UITableViewCell {
         
         screenshot.clipsToBounds = true
         screenshot.layer.cornerRadius = 8.0
+        selectionStyle = .none
     }
  
     func bind(to step: GoalInstructions, useLegacyInstructions: Bool) {
