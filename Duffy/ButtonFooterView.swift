@@ -22,7 +22,11 @@ class ButtonFooterView: UIView {
     
     var buttonAttributedText: NSAttributedString? {
         didSet {
-            footerButton.setAttributedTitle(buttonAttributedText, for: .normal)
+            if #available(iOS 13.0, *) {
+                footerButton.setAttributedTitle(buttonAttributedText, for: .normal)
+            } else {
+                footerButton.setTitle(buttonAttributedText?.string, for: .normal)
+            }
         }
     }
     

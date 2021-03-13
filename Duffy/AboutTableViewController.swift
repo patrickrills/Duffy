@@ -7,13 +7,108 @@
 //
 
 import UIKit
-import SafariServices
 import DuffyFramework
+
+enum AboutCategory: Int, CaseIterable {
+    case help, feedback, publishers
+    
+    func localizedTitle() -> String {
+        switch self {
+        case .help:
+            return NSLocalizedString("Help", comment: "")
+        case .feedback:
+            return NSLocalizedString("Feedback", comment: "")
+        case .publishers:
+            return NSLocalizedString("Published By", comment: "")
+        }
+    }
+    
+    func options() -> [AboutOption] {
+        return AboutOption.allCases.filter { $0.category() == self }
+    }
+    
+    static func option(for indexPath: IndexPath) -> AboutOption {
+        guard let category = AboutCategory(rawValue: indexPath.section),
+              case let options = category.options(),
+              options.count > indexPath.row
+        else {
+            fatalError("Invalid index path: \(indexPath)")
+        }
+        
+        return category.options()[indexPath.row]
+    }
+}
+
+enum AboutOption: CaseIterable {
+    case goalHowTo, trophies, rate, askAQuestion, bigbluefly, isral
+    
+    func category() -> AboutCategory {
+        switch self {
+        case .goalHowTo, .trophies:
+            return .help
+        case .rate, .askAQuestion:
+            return .feedback
+        case .bigbluefly, .isral:
+            return .publishers
+        }
+    }
+    
+    func localizedTitle() -> String {
+        switch self {
+        case .goalHowTo:
+            return NSLocalizedString("How To Change Your Goal", comment: "")
+        case .trophies:
+            return NSLocalizedString("Trophies", comment: "")
+        case .rate:
+            return NSLocalizedString("Rate Duffy", comment: "")
+        case .askAQuestion:
+            return NSLocalizedString("Ask a Question", comment: "")
+        case .bigbluefly:
+            return "Big Blue Fly (code)"
+        case .isral:
+            return "isral Duke (design)"
+        }
+    }
+    
+    func icon() -> UIImage? {
+        switch self {
+        case .goalHowTo:
+            return UIImage(named: "QuestionMark")
+        case .trophies:
+            return UIImage(named: "Trophy")
+        case .rate:
+            return UIImage(named: "Star")
+        case .askAQuestion:
+            return UIImage(named: "Chat")
+        case .bigbluefly:
+            return UIImage(named: "BigBlueFly")
+        case .isral:
+            return UIImage(named: "isral")
+        }
+    }
+    
+    func select(_ parent: UINavigationController?) {
+        switch self {
+        case .goalHowTo:
+            parent?.pushViewController(GoalInstructionsTableViewController(), animated: true)
+        case .trophies:
+            parent?.pushViewController(TrophiesViewController(), animated: true)
+        case .askAQuestion:
+            parent?.openURL("http://www.bigbluefly.com/duffy?contact=1")
+        case .rate:
+            AppRater.redirectToAppStore()
+        case .bigbluefly:
+            parent?.openURL("http://www.bigbluefly.com/duffy")
+        case .isral:
+            parent?.openURL("http://www.isralduke.com")
+        }
+    }
+}
 
 class AboutTableViewController: UITableViewController {
 
     private enum Constants {
-        static let ESTIMATED_ROW_HEIGHT : CGFloat = 44.0
+        static let ESTIMATED_ROW_HEIGHT: CGFloat = 44.0
         static let CELL_ID = "AboutCell"
     }
     
@@ -35,14 +130,8 @@ class AboutTableViewController: UITableViewController {
         tableView.estimatedRowHeight = Constants.ESTIMATED_ROW_HEIGHT
     }
     
-    private func openURL(_ urlAsString: String) {
-        guard let url = URL(string: urlAsString) else { return }
-        
-        navigationController?.present(SFSafariViewController(url: url), animated: true, completion: nil)
-    }
-    
     @objc private func openPrivacyPolicy() {
-        openURL("http://www.bigbluefly.com/duffy/privacy")
+        navigationController?.openURL("http://www.bigbluefly.com/duffy/privacy")
     }
     
     @objc private func openDebugLog() {
@@ -52,43 +141,27 @@ class AboutTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return AboutCategory.allCases.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch (section) {
-        case 0:
-            return 3
-        default:
-            return 1
-        }
+        let category = AboutCategory.allCases[section]
+        return AboutOption.allCases.filter { $0.category() == category }.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let text: String
-        
-        switch (indexPath.section, indexPath.row) {
-        case (0, 0):
-            text = NSLocalizedString("How To Change Your Goal", comment: "")
-        case (0, 1):
-            text = NSLocalizedString("Trophies", comment: "")
-        case (0, 2):
-            text = NSLocalizedString("Ask a Question", comment: "")
-        case (1, 0):
-            text = NSLocalizedString("Rate Duffy", comment: "")
-        default:
-            text = "Big Blue Fly"
-        }
-
+        let option = AboutCategory.option(for: indexPath)
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.CELL_ID, for: indexPath)
         cell.accessoryType = .disclosureIndicator
         
         if #available(iOS 14.0, *) {
             var contentConfig = UIListContentConfiguration.cell()
-            contentConfig.text = text
+            contentConfig.text = option.localizedTitle()
+            contentConfig.image = option.icon()
             cell.contentConfiguration = contentConfig
         } else {
-            cell.textLabel?.text = text
+            cell.textLabel?.text = option.localizedTitle()
+            cell.imageView?.image = option.icon()
         }
         
         return cell
@@ -97,20 +170,8 @@ class AboutTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: String(describing: HistorySectionHeaderView.self)) as? HistorySectionHeaderView else { return nil }
         
-        let sectionTitle: String
-        
-        switch section {
-        case 0:
-            sectionTitle = NSLocalizedString("Help", comment: "")
-        case 1:
-            sectionTitle = NSLocalizedString("Feedback", comment: "")
-        case 2:
-            sectionTitle = NSLocalizedString("Published By", comment: "")
-        default:
-            return nil
-        }
-        
-        header.set(headerText: sectionTitle, actionText: nil, action: nil)
+        let category = AboutCategory.allCases[section]
+        header.set(headerText: category.localizedTitle(), actionText: nil, action: nil)
         return header
     }
     
@@ -121,19 +182,8 @@ class AboutTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch (indexPath.section, indexPath.row) {
-        case (0, 0):
-            navigationController?.pushViewController(GoalInstructionsTableViewController(), animated: true)
-        case (0, 1):
-            navigationController?.pushViewController(TrophiesViewController(), animated: true)
-        case (0, 2):
-            openURL("http://www.bigbluefly.com/duffy?contact=1")
-        case (1, 0):
-            AppRater.redirectToAppStore()
-        default:
-            openURL("http://www.bigbluefly.com/duffy")
-        }
-        
+        let option = AboutCategory.option(for: indexPath)
+        option.select(navigationController)
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
