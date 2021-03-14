@@ -100,7 +100,8 @@ fileprivate class TrophyLayout: UICollectionViewFlowLayout {
     enum Constants {
         static let SPACING: CGFloat = 20.0
         static let CELL_HEIGHT: CGFloat = 82.0
-        static let FOOTER_HEIGHT: CGFloat = 48.0
+        static let FOOTER_HEIGHT: CGFloat = 100.0
+        static let FOOTER_BUTTON_HEIGHT: CGFloat = 48.0
         static let HEADER_ESTIMATED_HEIGHT: CGFloat = 64.0
     }
     
@@ -179,9 +180,9 @@ fileprivate class TrophiesFooterView: UICollectionReusableView {
         addSubview(buttonFooterView)
         NSLayoutConstraint.activate([
             buttonFooterView.topAnchor.constraint(equalTo: topAnchor),
-            buttonFooterView.bottomAnchor.constraint(equalTo: bottomAnchor),
             buttonFooterView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            buttonFooterView.trailingAnchor.constraint(equalTo: trailingAnchor)
+            buttonFooterView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            buttonFooterView.heightAnchor.constraint(equalToConstant: TrophyLayout.Constants.FOOTER_BUTTON_HEIGHT)
         ])
     }
     
