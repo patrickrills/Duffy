@@ -41,6 +41,7 @@ class TrophiesViewController: UICollectionViewController, UICollectionViewDelega
         }
         
         collectionView.register(UINib(nibName: String(describing: TrophyCollectionViewCell.self), bundle: Bundle.main), forCellWithReuseIdentifier: String(describing: TrophyCollectionViewCell.self))
+        collectionView.register(TrophiesFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: String(describing: TrophiesFooterView.self))
     }
 
     // MARK: - UICollectionViewDataSource
@@ -62,10 +63,22 @@ class TrophiesViewController: UICollectionViewController, UICollectionViewDelega
         return cell
     }
     
-    //TODO: Header and Footer
-//    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-//
-//    }
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        switch kind {
+        case UICollectionView.elementKindSectionFooter:
+            guard let buttonFooter = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: String(describing: TrophiesFooterView.self), for: indexPath) as? TrophiesFooterView else {
+                fallthrough
+            }
+            
+            buttonFooter.bind(NSLocalizedString("How To Change Your Goal", comment: ""), onPress: { [weak self] in
+                self?.navigationController?.pushViewController(GoalInstructionsTableViewController(), animated: true)
+            })
+            
+            return buttonFooter
+        default:
+            return super.collectionView(collectionView, viewForSupplementaryElementOfKind: kind, at: indexPath)
+        }
+    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         guard let trophyLayout = collectionViewLayout as? TrophyLayout else { fatalError("Layout is not TrophyLayout") }
@@ -78,11 +91,12 @@ class TrophiesViewController: UICollectionViewController, UICollectionViewDelega
     }
 }
 
-class TrophyLayout: UICollectionViewFlowLayout {
+fileprivate class TrophyLayout: UICollectionViewFlowLayout {
     
     private enum Constants {
         static let SPACING: CGFloat = 20.0
         static let CELL_HEIGHT: CGFloat = 82.0
+        static let FOOTER_HEIGHT: CGFloat = 48.0
     }
     
     var firstItemSize: CGSize = .zero
@@ -101,5 +115,52 @@ class TrophyLayout: UICollectionViewFlowLayout {
         let cellWidth = ((availableWidth - margin) / 2.0).rounded(.down)
         itemSize = CGSize(width: cellWidth, height: Constants.CELL_HEIGHT)
         firstItemSize = CGSize(width: availableWidth, height: Constants.CELL_HEIGHT * 2.0)
+        
+        footerReferenceSize = CGSize(width: availableWidth, height: Constants.FOOTER_HEIGHT)
+    }
+}
+
+fileprivate class TrophiesFooterView: UICollectionReusableView {
+    
+    private lazy var buttonFooterView: ButtonFooterView = {
+        let footer = ButtonFooterView()
+        footer.translatesAutoresizingMaskIntoConstraints = false
+        footer.buttonAttributedText = NSAttributedString(string: "")
+        footer.addTarget(self, action: #selector(pressed))
+        footer.separatorIsVisible = false
+        footer.backgroundColor = .clear
+        return footer
+    }()
+    
+    private var pressHandler: (() -> ())?
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        createView()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        createView()
+    }
+    
+    private func createView() {
+        backgroundColor = .clear
+        addSubview(buttonFooterView)
+        NSLayoutConstraint.activate([
+            buttonFooterView.topAnchor.constraint(equalTo: topAnchor),
+            buttonFooterView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            buttonFooterView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            buttonFooterView.trailingAnchor.constraint(equalTo: trailingAnchor)
+        ])
+    }
+    
+    @objc private func pressed() {
+        pressHandler?()
+    }
+    
+    func bind(_ buttonText: String, onPress: @escaping () -> ()) {
+        buttonFooterView.buttonAttributedText = NSAttributedString(string: buttonText)
+        pressHandler = onPress
     }
 }
