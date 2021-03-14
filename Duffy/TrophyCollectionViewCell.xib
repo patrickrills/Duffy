@@ -21,7 +21,7 @@
                         <rect key="frame" x="4" y="12" width="36" height="36"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="36" id="VVy-3b-cb9"/>
-                            <constraint firstAttribute="height" constant="36" id="sf4-xy-eUE"/>
+                            <constraint firstAttribute="height" secondItem="5Lq-QA-nV8" secondAttribute="width" multiplier="1:1" id="Zms-2k-Zm5"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="32"/>
                         <nil key="textColor"/>
@@ -74,9 +74,16 @@
             <size key="customSize" width="297" height="102"/>
             <connections>
                 <outlet property="descriptionLabel" destination="b9v-UR-tST" id="7yA-au-WtD"/>
+                <outlet property="descriptionTopConstraint" destination="PJl-qa-80v" id="qPl-XE-aVB"/>
+                <outlet property="factorHeight" destination="Aya-cD-QZH" id="Txk-Ek-8hq"/>
                 <outlet property="factorLabel" destination="ues-XI-aGv" id="W6B-Rc-O60"/>
+                <outlet property="factorMargin" destination="lJB-vK-7N1" id="Itf-U7-L4e"/>
+                <outlet property="factorTopConstraint" destination="Di9-CK-g5C" id="ka9-d3-ScL"/>
                 <outlet property="lastAwardLabel" destination="gO7-k2-6OT" id="wAR-8n-wlr"/>
+                <outlet property="lastAwardTopConstraint" destination="xGx-d2-ysI" id="PlM-OE-iGp"/>
                 <outlet property="symbolLabel" destination="5Lq-QA-nV8" id="qNv-Il-zlA"/>
+                <outlet property="symbolSize" destination="VVy-3b-cb9" id="JE5-kD-s0u"/>
+                <outlet property="topConstraint" destination="PyC-6U-BiS" id="Uli-uK-GcA"/>
             </connections>
             <point key="canvasLocation" x="277.536231884058" y="170.75892857142856"/>
         </collectionViewCell>

@@ -57,7 +57,7 @@ class TrophiesViewController: UICollectionViewController, UICollectionViewDelega
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: TrophyCollectionViewCell.self), for: indexPath) as? TrophyCollectionViewCell else { fatalError("Cell is not TrophyCollectionViewCell") }
         
         let trophy = trophies[indexPath.item]
-        cell.bind(to: trophy)
+        cell.bind(to: trophy, isBig: indexPath.row == 0)
 
         return cell
     }
