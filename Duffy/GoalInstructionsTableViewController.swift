@@ -52,7 +52,7 @@ class GoalInstructionsTableViewController: UITableViewController {
     }
     
     @IBAction func viewTrophies() {
-        navigationController?.pushViewController(TrophiesViewControllerOLD(), animated: true)
+        navigationController?.pushViewController(TrophiesViewController(), animated: true)
     }
     
     private func buildHeader() {

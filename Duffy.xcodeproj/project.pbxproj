@@ -11,13 +11,8 @@
 		0900867120F282DE006540E7 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0900867020F282DE006540E7 /* Globals.swift */; };
 		0900867320FA7673006540E7 /* BoldActionSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0900867220FA7673006540E7 /* BoldActionSectionHeaderView.swift */; };
 		0903E60A235CEFE00049E071 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 099582D0234192C400AF6A96 /* Localizable.strings */; };
-		090829DE2465BB1B00F100D6 /* TrophyLegendView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090829DD2465BB1B00F100D6 /* TrophyLegendView.swift */; };
-		090829E02465BB2C00F100D6 /* TrophyLegendView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 090829DF2465BB2C00F100D6 /* TrophyLegendView.xib */; };
 		090829E224670EEF00F100D6 /* Trophy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090829E124670EEF00F100D6 /* Trophy.swift */; };
 		090829E324670EEF00F100D6 /* Trophy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090829E124670EEF00F100D6 /* Trophy.swift */; };
-		090829E724684EBA00F100D6 /* TrophyItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090829E624684EB900F100D6 /* TrophyItemView.swift */; };
-		090829E924684ED400F100D6 /* TrophyItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 090829E824684ED400F100D6 /* TrophyItemView.xib */; };
-		090829ED246A26E400F100D6 /* TrophiesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 090829EC246A26E400F100D6 /* TrophiesViewController.xib */; };
 		091714CF25290B8D001062E0 /* ChartDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091714CE25290B8D001062E0 /* ChartDrawer.swift */; };
 		091714F125326B40001062E0 /* Plot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091714F025326B40001062E0 /* Plot.swift */; };
 		091714F225326B40001062E0 /* Plot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091714F025326B40001062E0 /* Plot.swift */; };
@@ -102,7 +97,6 @@
 		099582C8234192A600AF6A96 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 099582CA234192A600AF6A96 /* Localizable.strings */; };
 		099582CB234192BE00AF6A96 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 099582CD234192BE00AF6A96 /* Localizable.strings */; };
 		099582CE234192C400AF6A96 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 099582D0234192C400AF6A96 /* Localizable.strings */; };
-		099859AB25FE49DD002AFCAC /* TrophiesViewControllerOLD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090829EA246A225C00F100D6 /* TrophiesViewControllerOLD.swift */; };
 		099C13111DA336C80007C72F /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 099C13101DA336C80007C72F /* HealthKit.framework */; };
 		099C13131DA336D50007C72F /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 099C13121DA336D50007C72F /* HealthKit.framework */; };
 		099FE700234EB5300092D219 /* LoggingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099FE6FF234EB5300092D219 /* LoggingService.swift */; };
@@ -241,13 +235,7 @@
 		0903E604235BCAED0049E071 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/HourGraphDetailViewController.xib; sourceTree = "<group>"; };
 		0903E606235BCAED0049E071 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0903E609235BCAED0049E071 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
-		090829DD2465BB1B00F100D6 /* TrophyLegendView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrophyLegendView.swift; sourceTree = "<group>"; };
-		090829DF2465BB2C00F100D6 /* TrophyLegendView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TrophyLegendView.xib; sourceTree = "<group>"; };
 		090829E124670EEF00F100D6 /* Trophy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trophy.swift; sourceTree = "<group>"; };
-		090829E624684EB900F100D6 /* TrophyItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrophyItemView.swift; sourceTree = "<group>"; };
-		090829E824684ED400F100D6 /* TrophyItemView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TrophyItemView.xib; sourceTree = "<group>"; };
-		090829EA246A225C00F100D6 /* TrophiesViewControllerOLD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrophiesViewControllerOLD.swift; sourceTree = "<group>"; };
-		090829EC246A26E400F100D6 /* TrophiesViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TrophiesViewController.xib; sourceTree = "<group>"; };
 		091714CE25290B8D001062E0 /* ChartDrawer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartDrawer.swift; sourceTree = "<group>"; };
 		091714F025326B40001062E0 /* Plot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plot.swift; sourceTree = "<group>"; };
 		09177BC4241D466E0095ECB4 /* ExportService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportService.swift; sourceTree = "<group>"; };
@@ -478,7 +466,6 @@
 				09E1778E25F3F6810034A58F /* TrophiesViewController.swift */,
 				09E1779925F513EA0034A58F /* TrophyCollectionViewCell.swift */,
 				09E1779825F513EA0034A58F /* TrophyCollectionViewCell.xib */,
-				097E84F925DC62B3008D9205 /* Old Instructions */,
 				09323C741D22C39700961822 /* Main.storyboard */,
 				09323C771D22C39700961822 /* Assets.xcassets */,
 				0921049D25BDC73500875BA9 /* LaunchShoe.storyboard */,
@@ -550,19 +537,6 @@
 				099582D0234192C400AF6A96 /* Localizable.strings */,
 			);
 			path = DuffyFramework;
-			sourceTree = "<group>";
-		};
-		097E84F925DC62B3008D9205 /* Old Instructions */ = {
-			isa = PBXGroup;
-			children = (
-				090829DD2465BB1B00F100D6 /* TrophyLegendView.swift */,
-				090829DF2465BB2C00F100D6 /* TrophyLegendView.xib */,
-				090829E624684EB900F100D6 /* TrophyItemView.swift */,
-				090829E824684ED400F100D6 /* TrophyItemView.xib */,
-				090829EA246A225C00F100D6 /* TrophiesViewControllerOLD.swift */,
-				090829EC246A26E400F100D6 /* TrophiesViewController.xib */,
-			);
-			name = "Old Instructions";
 			sourceTree = "<group>";
 		};
 		099C130F1DA336C80007C72F /* Frameworks */ = {
@@ -817,10 +791,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				09E1779A25F513EA0034A58F /* TrophyCollectionViewCell.xib in Resources */,
-				090829E02465BB2C00F100D6 /* TrophyLegendView.xib in Resources */,
 				09289C8220DE131E005BF6B8 /* TodayHeaderView.xib in Resources */,
 				09CC4181231F3DC70029AAFB /* AboutTableViewFooter.xib in Resources */,
-				090829E924684ED400F100D6 /* TrophyItemView.xib in Resources */,
 				099582C8234192A600AF6A96 /* Localizable.strings in Resources */,
 				0985E6EE24F2B4B1000B4A96 /* HistorySummaryTableViewCell.xib in Resources */,
 				0921049E25BDC73500875BA9 /* LaunchShoe.storyboard in Resources */,
@@ -828,7 +800,6 @@
 				0961D907216A9F2000F4AA88 /* duffy.ckcomplication in Resources */,
 				094DE74225E1C9C6002C31FC /* GoalInstructionsTableViewCell.xib in Resources */,
 				09CEA983212259200023786B /* DetailDataView.xib in Resources */,
-				090829ED246A26E400F100D6 /* TrophiesViewController.xib in Resources */,
 				097085642127122B00790EC7 /* DistanceFlightsDetailViewController.xib in Resources */,
 				094AAF8225D977EB00B145B8 /* Localizable.stringsdict in Resources */,
 				09323C761D22C39700961822 /* Main.storyboard in Resources */,
@@ -892,7 +863,6 @@
 				094DE74325E1C9C6002C31FC /* GoalInstructionsTableViewCell.swift in Sources */,
 				094F1C5225EC60F0006A1E97 /* UINavigationController+URL.swift in Sources */,
 				0900866F20F27D0C006540E7 /* PreviousValueTableViewCell.swift in Sources */,
-				090829DE2465BB1B00F100D6 /* TrophyLegendView.swift in Sources */,
 				09CE42C11E353E7100A6E587 /* HistoryTableViewController.swift in Sources */,
 				097085632127122B00790EC7 /* DistanceFlightsDetailViewController.swift in Sources */,
 				09708599214D7A8000790EC7 /* HourGraphDetailViewController.swift in Sources */,
@@ -910,9 +880,7 @@
 				0985E6EB24F174C2000B4A96 /* HistoryTrendChartOption.swift in Sources */,
 				09A7EEB021A39D7100DEDE5C /* HistoryTrendChartView.swift in Sources */,
 				09CEA981212259040023786B /* DetailDataView.swift in Sources */,
-				090829E724684EBA00F100D6 /* TrophyItemView.swift in Sources */,
 				094DE73725E1716D002C31FC /* GoalInstructionsTableViewHeader.swift in Sources */,
-				099859AB25FE49DD002AFCAC /* TrophiesViewControllerOLD.swift in Sources */,
 				09BDDA6821979A940078B749 /* ModalNavigationController.swift in Sources */,
 				0985E6E924F162AC000B4A96 /* HistoryTrendChartOptionsTableViewController.swift in Sources */,
 				09BDDA5E219116740078B749 /* AboutTableViewController.swift in Sources */,

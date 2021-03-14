@@ -92,7 +92,7 @@ enum AboutOption: CaseIterable {
         case .goalHowTo:
             parent?.pushViewController(GoalInstructionsTableViewController(), animated: true)
         case .trophies:
-            parent?.pushViewController(TrophiesViewControllerOLD(), animated: true)
+            parent?.pushViewController(TrophiesViewController(), animated: true)
         case .askAQuestion:
             parent?.openURL("http://www.bigbluefly.com/duffy?contact=1")
         case .rate:
