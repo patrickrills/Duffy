@@ -56,9 +56,7 @@ public enum Trophy: CaseIterable {
         case .star:
             return NSLocalizedString("75% over your goal", comment: "")
         case .rocket:
-            return DebugService.isDebugModeEnabled()
-                ? NSLocalizedString("Get the rocket trophy when your step count is 2x your goal.", comment: "")
-                : NSLocalizedString("Double your goal", comment: "")
+            return NSLocalizedString("Get the rocket trophy when your step count is 2x your goal.", comment: "")
         default:
             return ""
         }
