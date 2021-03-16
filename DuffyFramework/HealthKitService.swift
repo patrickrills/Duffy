@@ -194,7 +194,7 @@ public class HealthKitService
             return
         }
         
-        let queryStartDate = Date().dateByAdding(days: -365).stripTime() //Cap to previous year
+        let queryStartDate = Date().dateByAdding(days: -730).stripTime() //Cap to previous 2 years
         let pred = HKQuery.predicateForSamples(withStart: queryStartDate, end: Date().nextDay().stripTime(), options: .strictEndDate)
         
         var interval = DateComponents()
@@ -210,10 +210,17 @@ public class HealthKitService
             var lastAward: (day: Date, steps: Steps)?
             var loopDate = Date().stripTime()
             
+            guard let results = results,
+                  error == nil
+            else {
+                completionHandler(.failure(.invalidResults))
+                return
+            }
+            
             while loopDate > queryStartDate,
                   lastAward == nil
             {
-                if let stats = results?.statistics(for: loopDate),
+                if let stats = results.statistics(for: loopDate),
                    let quantity = stats.sumQuantity(),
                    case let sum = Steps(quantity.doubleValue(for: .count())),
                    trophy == Trophy.trophy(for: sum)
