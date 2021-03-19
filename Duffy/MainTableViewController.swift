@@ -155,7 +155,8 @@ class MainTableViewController: UITableViewController
     }
     
     private func openHistory() {
-        present(ModalNavigationController(rootViewController: HistoryTableViewController()), animated: true, completion: nil)
+        //present(ModalNavigationController(rootViewController: HistoryTableViewController()), animated: true, completion: nil)
+        navigationController?.pushViewController(HistoryTableViewController(), animated: true)
     }
     
     @objc private func openAbout() {
