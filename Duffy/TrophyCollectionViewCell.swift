@@ -61,7 +61,11 @@ class TrophyCollectionViewCell: UICollectionViewCell {
             var textColor: UIColor = .black
             switch result {
             case .success(let award) where award.trophy == trophy && award.lastAward != nil:
-                text = String(format: lastTemplate, Globals.dayFormatter().string(from: award.lastAward!.day))
+                let awardDate = award.lastAward!.day
+                let dateFormatter = awardDate.differenceInDays(from: Date()) < 365
+                    ? Globals.dayFormatter()
+                    : Globals.monthYearFormatter()
+                text = String(format: lastTemplate, dateFormatter.string(from: awardDate))
                 if #available(iOS 13.0, *) {
                     textColor = .label
                 }
