@@ -185,7 +185,7 @@ public class HealthKitService
         }
     }
     
-    public func lastAward(of trophy: Trophy, completionHandler: @escaping (LastTrophyAwardResult) -> ()) {
+    public func lastTrophiesAwarded(completionHandler: @escaping (LastTrophyAwardResult) -> ()) {
         guard HKHealthStore.isHealthDataAvailable(),
               let store = healthStore,
               let stepType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.stepCount)
@@ -207,7 +207,8 @@ public class HealthKitService
                                                 intervalComponents: interval)
         
         query.initialResultsHandler = { query, results, error in
-            var lastAward: (day: Date, steps: Steps)?
+            let max = Trophy.allCases.filter { $0 != .none }.count
+            var awards = [Trophy : LastAward]()
             var loopDate = Date().stripTime()
             
             guard let results = results,
@@ -218,21 +219,22 @@ public class HealthKitService
             }
             
             while loopDate > queryStartDate,
-                  lastAward == nil
+                  awards.count < max
             {
                 if let stats = results.statistics(for: loopDate),
                    let quantity = stats.sumQuantity(),
                    case let sum = Steps(quantity.doubleValue(for: .count())),
-                   trophy == Trophy.trophy(for: sum)
+                   case let trophy = Trophy.trophy(for: sum),
+                   trophy != .none,
+                   !awards.keys.contains(trophy)
                 {
-                    lastAward = (day: loopDate, steps: sum)
-                    break
+                    awards[trophy] = (day: loopDate, steps: sum)
                 }
                 
                 loopDate = loopDate.dateByAdding(days: -1)
             }
             
-            completionHandler(.success((trophy: trophy, lastAward: lastAward)))
+            completionHandler(.success(awards))
         }
         
         store.execute(query)

@@ -38,7 +38,7 @@ class TrophyCollectionViewCell: UICollectionViewCell {
         clipsToBounds = true
     }
 
-    func bind(to trophy: Trophy, isBig: Bool) {
+    func bind(to trophy: Trophy, isBig: Bool, last: (isLoading: Bool, award: LastAward?)) {
         isBigMode = isBig
         setNeedsUpdateConstraints()
         
@@ -54,33 +54,29 @@ class TrophyCollectionViewCell: UICollectionViewCell {
                                 : "Your Goal".uppercased()
         
         let lastTemplate = "Last: %@"
-        lastAwardLabel.text = String(format: lastTemplate, "...")
+        let text: String
+        var textColor: UIColor = .black
         
-        HealthKitService.getInstance().lastAward(of: trophy) { [weak lastAwardLabel] result in
-            let text: String
-            var textColor: UIColor = .black
-            switch result {
-            case .success(let award) where award.trophy == trophy && award.lastAward != nil:
-                let awardDate = award.lastAward!.day
-                let dateFormatter = awardDate.differenceInDays(from: Date()) < 365
-                    ? Globals.dayFormatter()
-                    : Globals.monthYearFormatter()
-                text = String(format: lastTemplate, dateFormatter.string(from: awardDate))
-                if #available(iOS 13.0, *) {
-                    textColor = .label
-                }
-            default:
-                text = "Not awarded yet"
-                if #available(iOS 13.0, *) {
-                    textColor = .secondaryLabel
-                }
+        if last.isLoading {
+            text = String(format: lastTemplate, "...")
+        } else if let award = last.award {
+            let awardDate = award.day
+            let dateFormatter = awardDate.differenceInDays(from: Date()) < 365
+                ? Globals.dayFormatter()
+                : Globals.monthYearFormatter()
+            text = String(format: lastTemplate, dateFormatter.string(from: awardDate))
+            if #available(iOS 13.0, *) {
+                textColor = .label
             }
-            
-            DispatchQueue.main.async {
-                lastAwardLabel?.text = text
-                lastAwardLabel?.textColor = textColor
+        } else {
+            text = "Not awarded yet"
+            if #available(iOS 13.0, *) {
+                textColor = .secondaryLabel
             }
         }
+        
+        lastAwardLabel.text = text
+        lastAwardLabel.textColor = textColor
     }
     
     override func updateConstraints() {

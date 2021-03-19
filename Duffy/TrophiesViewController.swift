@@ -28,6 +28,8 @@ class TrophiesViewController: UICollectionViewController, UICollectionViewDelega
                     $0.factor() > $1.factor()
                 }
     }()
+    
+    private var awards: [Trophy : LastAward]?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,6 +45,18 @@ class TrophiesViewController: UICollectionViewController, UICollectionViewDelega
         collectionView.register(UINib(nibName: String(describing: TrophyCollectionViewCell.self), bundle: Bundle.main), forCellWithReuseIdentifier: String(describing: TrophyCollectionViewCell.self))
         collectionView.register(TrophiesFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: String(describing: TrophiesFooterView.self))
         collectionView.register(TrophiesHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: String(describing: TrophiesHeaderView.self))
+        
+        HealthKitService.getInstance().lastTrophiesAwarded { [weak self] result in
+            switch result {
+            case .success(let awards):
+                self?.awards = awards
+                DispatchQueue.main.async { [weak self] in
+                    self?.collectionView.reloadData()
+                }
+            default:
+                break
+            }
+        }
     }
 
     // MARK: - UICollectionViewDataSource
@@ -59,7 +73,7 @@ class TrophiesViewController: UICollectionViewController, UICollectionViewDelega
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: TrophyCollectionViewCell.self), for: indexPath) as? TrophyCollectionViewCell else { fatalError("Cell is not TrophyCollectionViewCell") }
         
         let trophy = trophies[indexPath.item]
-        cell.bind(to: trophy, isBig: indexPath.row == 0)
+        cell.bind(to: trophy, isBig: indexPath.row == 0, last: (isLoading: awards == nil, award: awards?[trophy]))
 
         return cell
     }
