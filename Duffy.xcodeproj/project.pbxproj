@@ -130,6 +130,8 @@
 		09E1778F25F3F6810034A58F /* TrophiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E1778E25F3F6810034A58F /* TrophiesViewController.swift */; };
 		09E1779A25F513EA0034A58F /* TrophyCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09E1779825F513EA0034A58F /* TrophyCollectionViewCell.xib */; };
 		09E1779B25F513EA0034A58F /* TrophyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E1779925F513EA0034A58F /* TrophyCollectionViewCell.swift */; };
+		09EEED8726063E69002731DB /* MainTodayTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09EEED8526063E69002731DB /* MainTodayTableViewCell.xib */; };
+		09EEED8826063E69002731DB /* MainTodayTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EEED8626063E69002731DB /* MainTodayTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -344,6 +346,8 @@
 		09E1778E25F3F6810034A58F /* TrophiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrophiesViewController.swift; sourceTree = "<group>"; };
 		09E1779825F513EA0034A58F /* TrophyCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TrophyCollectionViewCell.xib; sourceTree = "<group>"; };
 		09E1779925F513EA0034A58F /* TrophyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrophyCollectionViewCell.swift; sourceTree = "<group>"; };
+		09EEED8526063E69002731DB /* MainTodayTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainTodayTableViewCell.xib; sourceTree = "<group>"; };
+		09EEED8626063E69002731DB /* MainTodayTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTodayTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -428,6 +432,8 @@
 				0900867020F282DE006540E7 /* Globals.swift */,
 				09EEED8026063BE2002731DB /* Reusable */,
 				09289C7D20DDFF56005BF6B8 /* MainTableViewController.swift */,
+				09EEED8526063E69002731DB /* MainTodayTableViewCell.xib */,
+				09EEED8626063E69002731DB /* MainTodayTableViewCell.swift */,
 				09EEED7726063B98002731DB /* Old Today */,
 				09708597214D7A8000790EC7 /* HourGraphDetailViewController.swift */,
 				092276E523569EB10015A1E6 /* HourGraphDetailViewController.xib */,
@@ -810,6 +816,7 @@
 				09289C8220DE131E005BF6B8 /* TodayHeaderView.xib in Resources */,
 				09CC4181231F3DC70029AAFB /* AboutTableViewFooter.xib in Resources */,
 				099582C8234192A600AF6A96 /* Localizable.strings in Resources */,
+				09EEED8726063E69002731DB /* MainTodayTableViewCell.xib in Resources */,
 				0985E6EE24F2B4B1000B4A96 /* HistorySummaryTableViewCell.xib in Resources */,
 				0921049E25BDC73500875BA9 /* LaunchShoe.storyboard in Resources */,
 				09323C781D22C39700961822 /* Assets.xcassets in Resources */,
@@ -909,6 +916,7 @@
 				09BDDA6421978CD20078B749 /* ButtonFooterView.swift in Sources */,
 				09289C8020DE0AD8005BF6B8 /* TodayHeaderView.swift in Sources */,
 				0985E6EF24F2B4B1000B4A96 /* HistorySummaryTableViewCell.swift in Sources */,
+				09EEED8826063E69002731DB /* MainTodayTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
