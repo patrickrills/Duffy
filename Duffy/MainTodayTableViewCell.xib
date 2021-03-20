@@ -45,14 +45,14 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9OX-Ld-kkz">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9OX-Ld-kkz" customClass="MainTodayItemView" customModule="Duffy" customModuleProvider="target">
                         <rect key="frame" x="32" y="304" width="326" height="40"/>
                         <color key="backgroundColor" systemColor="systemYellowColor"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="40" id="O3m-94-Y0A"/>
                         </constraints>
                     </view>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dWV-Us-EIL">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dWV-Us-EIL" customClass="MainTodayItemView" customModule="Duffy" customModuleProvider="target">
                         <rect key="frame" x="32" y="346" width="326" height="40"/>
                         <color key="backgroundColor" systemColor="systemYellowColor"/>
                         <constraints>
@@ -73,7 +73,7 @@
                             <constraint firstAttribute="height" constant="2" id="r3n-6P-mPo"/>
                         </constraints>
                     </view>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FwI-0H-m9N">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FwI-0H-m9N" customClass="MainTodayItemView" customModule="Duffy" customModuleProvider="target">
                         <rect key="frame" x="32" y="388" width="326" height="40"/>
                         <color key="backgroundColor" systemColor="systemYellowColor"/>
                         <constraints>

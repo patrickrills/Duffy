@@ -132,6 +132,8 @@
 		09E1779B25F513EA0034A58F /* TrophyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E1779925F513EA0034A58F /* TrophyCollectionViewCell.swift */; };
 		09EEED8726063E69002731DB /* MainTodayTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09EEED8526063E69002731DB /* MainTodayTableViewCell.xib */; };
 		09EEED8826063E69002731DB /* MainTodayTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EEED8626063E69002731DB /* MainTodayTableViewCell.swift */; };
+		09EEED9226064BD2002731DB /* MainTodayItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EEED9126064BD2002731DB /* MainTodayItemView.swift */; };
+		09EEED9826064BE1002731DB /* MainTodayItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09EEED9726064BE1002731DB /* MainTodayItemView.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -348,6 +350,8 @@
 		09E1779925F513EA0034A58F /* TrophyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrophyCollectionViewCell.swift; sourceTree = "<group>"; };
 		09EEED8526063E69002731DB /* MainTodayTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainTodayTableViewCell.xib; sourceTree = "<group>"; };
 		09EEED8626063E69002731DB /* MainTodayTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTodayTableViewCell.swift; sourceTree = "<group>"; };
+		09EEED9126064BD2002731DB /* MainTodayItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTodayItemView.swift; sourceTree = "<group>"; };
+		09EEED9726064BE1002731DB /* MainTodayItemView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainTodayItemView.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -434,6 +438,8 @@
 				09289C7D20DDFF56005BF6B8 /* MainTableViewController.swift */,
 				09EEED8526063E69002731DB /* MainTodayTableViewCell.xib */,
 				09EEED8626063E69002731DB /* MainTodayTableViewCell.swift */,
+				09EEED9126064BD2002731DB /* MainTodayItemView.swift */,
+				09EEED9726064BE1002731DB /* MainTodayItemView.xib */,
 				09EEED7726063B98002731DB /* Old Today */,
 				09708597214D7A8000790EC7 /* HourGraphDetailViewController.swift */,
 				092276E523569EB10015A1E6 /* HourGraphDetailViewController.xib */,
@@ -826,6 +832,7 @@
 				097085642127122B00790EC7 /* DistanceFlightsDetailViewController.xib in Resources */,
 				094AAF8225D977EB00B145B8 /* Localizable.stringsdict in Resources */,
 				09323C761D22C39700961822 /* Main.storyboard in Resources */,
+				09EEED9826064BE1002731DB /* MainTodayItemView.xib in Resources */,
 				09A7EEAE21A1E89A00DEDE5C /* HistoryTrendChartTableViewCell.xib in Resources */,
 				092276E323569EB10015A1E6 /* HourGraphDetailViewController.xib in Resources */,
 			);
@@ -896,6 +903,7 @@
 				0970859C214DAB8900790EC7 /* HourGraphBarView.swift in Sources */,
 				096FE0A825067FC700838BEE /* HistoryTrendChartLineOptionsTableViewController.swift in Sources */,
 				092104B425BDD59800875BA9 /* GoalInstructions.swift in Sources */,
+				09EEED9226064BD2002731DB /* MainTodayItemView.swift in Sources */,
 				09CEA97F211F86DC0023786B /* HistoryTableViewFooter.swift in Sources */,
 				097085A0214F16B600790EC7 /* AppRater.swift in Sources */,
 				09323C711D22C39700961822 /* AppDelegate.swift in Sources */,
