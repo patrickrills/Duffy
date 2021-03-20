@@ -185,6 +185,61 @@ public class HealthKitService
         }
     }
     
+    public func lastTrophiesAwarded(completionHandler: @escaping (LastTrophyAwardResult) -> ()) {
+        guard HKHealthStore.isHealthDataAvailable(),
+              let store = healthStore,
+              let stepType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.stepCount)
+        else {
+            completionHandler(.failure(.unsupported))
+            return
+        }
+        
+        let queryStartDate = Date().dateByAdding(days: -730).stripTime() //Cap to previous 2 years
+        let pred = HKQuery.predicateForSamples(withStart: queryStartDate, end: Date().nextDay().stripTime(), options: .strictEndDate)
+        
+        var interval = DateComponents()
+        interval.day = 1
+        
+        let query = HKStatisticsCollectionQuery(quantityType: stepType,
+                                                quantitySamplePredicate: pred,
+                                                options: .cumulativeSum,
+                                                anchorDate: Date().stripTime(),
+                                                intervalComponents: interval)
+        
+        query.initialResultsHandler = { query, results, error in
+            let max = Trophy.allCases.filter { $0 != .none }.count
+            var awards = [Trophy : LastAward]()
+            var loopDate = Date().stripTime()
+            
+            guard let results = results,
+                  error == nil
+            else {
+                completionHandler(.failure(.invalidResults))
+                return
+            }
+            
+            while loopDate > queryStartDate,
+                  awards.count < max
+            {
+                if let stats = results.statistics(for: loopDate),
+                   let quantity = stats.sumQuantity(),
+                   case let sum = Steps(quantity.doubleValue(for: .count())),
+                   case let trophy = Trophy.trophy(for: sum),
+                   trophy != .none,
+                   !awards.keys.contains(trophy)
+                {
+                    awards[trophy] = (day: loopDate, steps: sum)
+                }
+                
+                loopDate = loopDate.dateByAdding(days: -1)
+            }
+            
+            completionHandler(.success(awards))
+        }
+        
+        store.execute(query)
+    }
+    
     //MARK: Flights and Distance Queries
         
     public func getFlightsClimbed(for date: Date, completionHandler: @escaping (FlightsForDayResult) -> ()) {

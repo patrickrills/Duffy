@@ -11,7 +11,7 @@ import Foundation
 public enum Trophy: CaseIterable {
     case none, shoe, medal, award, star, rocket
     
-    private func factor() -> Double {
+    public func factor() -> Double {
         switch self {
         case .none:
             return 0.0
@@ -56,7 +56,7 @@ public enum Trophy: CaseIterable {
         case .star:
             return NSLocalizedString("75% over your goal", comment: "")
         case .rocket:
-            return NSLocalizedString("Double your goal", comment: "")
+            return NSLocalizedString("Get the rocket trophy when your step count is 2x your goal.", comment: "")
         default:
             return ""
         }
