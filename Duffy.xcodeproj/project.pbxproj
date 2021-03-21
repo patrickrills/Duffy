@@ -134,6 +134,7 @@
 		09EEED8826063E69002731DB /* MainTodayTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EEED8626063E69002731DB /* MainTodayTableViewCell.swift */; };
 		09EEED9226064BD2002731DB /* MainTodayItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EEED9126064BD2002731DB /* MainTodayItemView.swift */; };
 		09EEED9826064BE1002731DB /* MainTodayItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09EEED9726064BE1002731DB /* MainTodayItemView.xib */; };
+		09EEEDA226078B6A002731DB /* ThinSeparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EEEDA126078B6A002731DB /* ThinSeparator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -352,6 +353,7 @@
 		09EEED8626063E69002731DB /* MainTodayTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTodayTableViewCell.swift; sourceTree = "<group>"; };
 		09EEED9126064BD2002731DB /* MainTodayItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTodayItemView.swift; sourceTree = "<group>"; };
 		09EEED9726064BE1002731DB /* MainTodayItemView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainTodayItemView.xib; sourceTree = "<group>"; };
+		09EEEDA126078B6A002731DB /* ThinSeparator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThinSeparator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -587,6 +589,7 @@
 				094F1C5125EC60F0006A1E97 /* UINavigationController+URL.swift */,
 				0900867220FA7673006540E7 /* BoldActionSectionHeaderView.swift */,
 				0900866E20F27D0C006540E7 /* PreviousValueTableViewCell.swift */,
+				09EEEDA126078B6A002731DB /* ThinSeparator.swift */,
 			);
 			path = Reusable;
 			sourceTree = "<group>";
@@ -890,6 +893,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				09E1778F25F3F6810034A58F /* TrophiesViewController.swift in Sources */,
+				09EEEDA226078B6A002731DB /* ThinSeparator.swift in Sources */,
 				094DE74325E1C9C6002C31FC /* GoalInstructionsTableViewCell.swift in Sources */,
 				094F1C5225EC60F0006A1E97 /* UINavigationController+URL.swift in Sources */,
 				0900866F20F27D0C006540E7 /* PreviousValueTableViewCell.swift in Sources */,

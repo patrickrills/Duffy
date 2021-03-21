@@ -110,7 +110,7 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p5M-ej-2YD" customClass="HistorySummarySeparatorView" customModule="Duffy" customModuleProvider="target">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p5M-ej-2YD" customClass="ThinSeparator" customModule="Duffy" customModuleProvider="target">
                         <rect key="frame" x="16" y="119.5" width="288" height="8"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
