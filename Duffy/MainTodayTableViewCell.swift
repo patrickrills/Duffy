@@ -9,16 +9,17 @@
 import UIKit
 
 class MainTodayTableViewCell: UITableViewCell {
+    
+    @IBOutlet weak var toGoItemView: MainTodayItemView!
+    @IBOutlet weak var flightsItemView: MainTodayItemView!
+    @IBOutlet weak var distanceItemView: MainTodayItemView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+        
+        toGoItemView.bind(title: "To Go", value: "0,000", systemImageName: "speedometer")
+        flightsItemView.bind(title: "Flights", value: "00", systemImageName: "building.fill")
+        distanceItemView.bind(title: "Miles", value: "00.0", systemImageName: "map.fill")
     }
     
 }

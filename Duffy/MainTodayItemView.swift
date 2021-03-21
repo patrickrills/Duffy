@@ -10,6 +10,23 @@ import UIKit
 
 class MainTodayItemView: UIView {
 
+    //MARK: - Binding
+    
+    @IBOutlet private weak var itemIcon: UIImageView!
+    @IBOutlet private weak var titleLabel: UILabel!
+    @IBOutlet private weak var valueLabel: UILabel!
+    
+    func bind(title: String, value: String, systemImageName: String) {
+        if #available(iOS 13.0, *) {
+            itemIcon.image = UIImage(systemName: systemImageName, withConfiguration: UIImage.SymbolConfiguration(pointSize: 18.0))
+            itemIcon.tintColor = .secondaryLabel
+        }
+        titleLabel.text = title
+        valueLabel.text = value
+    }
+    
+    //MARK: - Construction
+    
     // Required to use a xib in a xib
     // Reference: https://github.com/BareFeetWare/BFWControls/blob/develop/BFWControls/Modules/NibReplaceable/View/UIView%2BCopy.swift
     
@@ -28,6 +45,7 @@ class MainTodayItemView: UIView {
             fatalError("Could not find an instance of class MainTodayItemView in xib")
         }
         
+        nibView.backgroundColor = .clear
         nibView.copyConstraints(from: self)
         
         return nibView
