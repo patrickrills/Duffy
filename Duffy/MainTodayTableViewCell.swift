@@ -11,11 +11,12 @@ import DuffyFramework
 
 class MainTodayTableViewCell: UITableViewCell {
     
-    @IBOutlet weak var goalLabel: UILabel!
-    @IBOutlet weak var goalInfoButton: UIButton!
-    @IBOutlet weak var toGoItemView: MainTodayItemView!
-    @IBOutlet weak var flightsItemView: MainTodayItemView!
-    @IBOutlet weak var distanceItemView: MainTodayItemView!
+    @IBOutlet private weak var ringContainer: UIImageView!
+    @IBOutlet private weak var goalLabel: UILabel!
+    @IBOutlet private weak var goalInfoButton: UIButton!
+    @IBOutlet private weak var toGoItemView: MainTodayItemView!
+    @IBOutlet private weak var flightsItemView: MainTodayItemView!
+    @IBOutlet private weak var distanceItemView: MainTodayItemView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -47,6 +48,8 @@ class MainTodayTableViewCell: UITableViewCell {
             goalLabel.text = nil
             return
         }
+        
+        ringContainer.image = RingDrawer.drawRing(stepsForDay, goal: goalValue, width: ringContainer.frame.size.width)?.withRenderingMode(.alwaysTemplate)
         
         goalLabel.text = String(format: NSLocalizedString("of %@ goal %@", comment: ""), formattedGoal, Trophy.trophy(for: stepsForDay).symbol())
         toGoItemView.bind(title: "To Go", value: formattedToGo, systemImageName: "speedometer")

@@ -18,9 +18,10 @@
                 <rect key="frame" x="0.0" y="0.0" width="390" height="482"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tf8-yK-PYa">
+                    <view contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="Tf8-yK-PYa" customClass="UIImageView">
                         <rect key="frame" x="131" y="32" width="128" height="128"/>
-                        <color key="backgroundColor" name="PrimaryColor"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" name="RingColor"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="128" id="DgU-vL-d9t"/>
                             <constraint firstAttribute="height" constant="128" id="z06-uI-XXk"/>
@@ -124,14 +125,15 @@
                 <outlet property="flightsItemView" destination="dWV-Us-EIL" id="KK2-Vu-hXW"/>
                 <outlet property="goalInfoButton" destination="d3h-Lw-gTh" id="VdC-jF-4sT"/>
                 <outlet property="goalLabel" destination="yLY-4z-Loe" id="qNO-dK-u1c"/>
+                <outlet property="ringContainer" destination="Tf8-yK-PYa" id="V8y-O9-d6j"/>
                 <outlet property="toGoItemView" destination="9OX-Ld-kkz" id="X7I-sr-OyI"/>
             </connections>
             <point key="canvasLocation" x="191.30434782608697" y="299.33035714285711"/>
         </tableViewCell>
     </objects>
     <resources>
-        <namedColor name="PrimaryColor">
-            <color red="0.12549019607843137" green="0.58039215686274515" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="RingColor">
+            <color red="0.0" green="0.23921568627450981" blue="0.6470588235294118" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>
