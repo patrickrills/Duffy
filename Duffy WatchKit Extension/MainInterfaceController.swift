@@ -104,7 +104,7 @@ class MainInterfaceController: WKInterfaceController
             if trophy == .none {
                 trophyLabel.setHidden(true)
                 ringImage.setHidden(false)
-                ringImage.setImage(RingDrawer.drawRing(stepsForDay, goal: goalValue, width: 60, includeCenterImage: false)?.withRenderingMode(.alwaysTemplate))
+                ringImage.setImage(RingDrawer.drawRing(stepsForDay, goal: goalValue, width: 60)?.withRenderingMode(.alwaysTemplate))
                 goalColor = .white
                 goalText = NSLocalizedString("To go", comment: "")
             } else {

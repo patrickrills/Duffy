@@ -1,28 +1,27 @@
 //
 //  RingDrawer.swift
-//  Duffy WatchKit Extension
+//  Duffy
 //
-//  Created by Patrick Rills on 11/8/20.
-//  Copyright © 2020 Big Blue Fly. All rights reserved.
+//  Created by Patrick Rills on 3/27/21.
+//  Copyright © 2021 Big Blue Fly. All rights reserved.
 //
 
 import Foundation
 import CoreGraphics
-import DuffyWatchFramework
 
-class RingDrawer {
+public class RingDrawer {
     
-    class func drawRing(_ steps: Steps, goal: Steps, width: CGFloat) -> UIImage? {
-        Self.drawRing(steps, goal: goal, width: width, includeCenterImage: true)
+    public class func drawRing(_ steps: Steps, goal: Steps, width: CGFloat) -> UIImage? {
+        Self.drawRing(steps, goal: goal, width: width, centerImage: nil)
     }
     
-    class func drawRing(_ steps: Steps, goal: Steps, width: CGFloat, includeCenterImage: Bool) -> UIImage? {
+    public class func drawRing(_ steps: Steps, goal: Steps, width: CGFloat, centerImage: UIImage?) -> UIImage? {
         let size = CGSize(width: width, height: width)
         UIGraphicsBeginImageContext(size)
         let context = UIGraphicsGetCurrentContext()
         UIGraphicsPushContext(context!)
         
-        let lineWidth: CGFloat = width / (includeCenterImage ? 8.0 : 4.0)
+        let lineWidth: CGFloat = width / (centerImage != nil ? 8.0 : 4.0)
         let inset: CGFloat = lineWidth / 2.0
         let insetRect = CGRect(x: 0, y: 0, width: size.width, height: size.height).inset(by: UIEdgeInsets(top: inset, left: inset, bottom: inset, right: inset))
         
@@ -51,7 +50,7 @@ class RingDrawer {
             ring.fill()
         }
         
-        if includeCenterImage, let image = UIImage(named: "XLargeShoe") { //Asset libraries are not available to complication on older watchOS versions (< 5.0)
+        if let image = centerImage {
             let imageSize = ceil((insetRect.size.width - (lineWidth * 2.0)) / 2.0)
             image.draw(in: CGRect(x: (size.width / 2.0) - (imageSize / 2.0), y: (size.height / 2.0) - (imageSize / 2.0), width: imageSize, height: imageSize))
         }
