@@ -49,7 +49,7 @@ class MainTodayTableViewCell: UITableViewCell {
             return
         }
         
-        ringContainer.image = RingDrawer.drawRing(stepsForDay, goal: goalValue, width: ringContainer.frame.size.width)?.withRenderingMode(.alwaysTemplate)
+        ringContainer.image = RingDrawer.drawRing(stepsForDay, goal: goalValue, width: ringContainer.frame.size.width * UIScreen.main.scale)?.withRenderingMode(.alwaysTemplate)
         
         goalLabel.text = String(format: NSLocalizedString("of %@ goal %@", comment: ""), formattedGoal, Trophy.trophy(for: stepsForDay).symbol())
         toGoItemView.bind(title: "To Go", value: formattedToGo, systemImageName: "speedometer")

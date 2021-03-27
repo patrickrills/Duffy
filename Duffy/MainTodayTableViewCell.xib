@@ -18,7 +18,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="390" height="482"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="center" translatesAutoresizingMaskIntoConstraints="NO" id="Tf8-yK-PYa" customClass="UIImageView">
+                    <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="Tf8-yK-PYa" customClass="UIImageView">
                         <rect key="frame" x="131" y="32" width="128" height="128"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" name="PrimaryColor"/>
