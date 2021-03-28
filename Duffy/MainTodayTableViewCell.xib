@@ -126,6 +126,7 @@
                 <outlet property="goalInfoButton" destination="d3h-Lw-gTh" id="VdC-jF-4sT"/>
                 <outlet property="goalLabel" destination="yLY-4z-Loe" id="qNO-dK-u1c"/>
                 <outlet property="ringContainer" destination="Tf8-yK-PYa" id="V8y-O9-d6j"/>
+                <outlet property="stepsLabel" destination="fpF-3b-AZu" id="kt4-g3-dos"/>
                 <outlet property="toGoItemView" destination="9OX-Ld-kkz" id="X7I-sr-OyI"/>
             </connections>
             <point key="canvasLocation" x="191.30434782608697" y="299.33035714285711"/>

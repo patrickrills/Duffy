@@ -12,6 +12,7 @@ import DuffyFramework
 class MainTodayTableViewCell: UITableViewCell {
     
     @IBOutlet private weak var ringContainer: UIImageView!
+    @IBOutlet private weak var stepsLabel: UILabel!
     @IBOutlet private weak var goalLabel: UILabel!
     @IBOutlet private weak var goalInfoButton: UIButton!
     @IBOutlet private weak var toGoItemView: MainTodayItemView!
@@ -22,12 +23,6 @@ class MainTodayTableViewCell: UITableViewCell {
         super.awakeFromNib()
         
         selectionStyle = .none
-        
-        toGoItemView.bind(title: "To Go", value: "0", systemImageName: "speedometer")
-        flightsItemView.bind(title: "Flights", value: "0", systemImageName: "building.fill")
-        distanceItemView.bind(title: "Miles", value: "0", systemImageName: "map.fill")
-        updateGoalDisplay(stepsForDay: 0)
-        
         goalLabel.isUserInteractionEnabled = true
         goalLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(goalInfoPressed)))
         goalInfoButton.tintColor = Globals.secondaryColor()
@@ -37,22 +32,34 @@ class MainTodayTableViewCell: UITableViewCell {
         } else {
             goalLabel.textColor = Globals.lightGrayColor()
         }
+        
+        bind(steps: 0, flights: 0, distance: 0, distanceUnit: .mile)
     }
     
-    private func updateGoalDisplay(stepsForDay: Steps) {
+    func bind(steps: Steps, flights: FlightsClimbed, distance: DistanceTravelled, distanceUnit: LengthFormatter.Unit) {
+        
+        //TODO: What is the loading state?
+        
         guard case let goalValue = HealthCache.dailyGoal(),
             goalValue > 0,
             let formattedGoal = Globals.stepsFormatter().string(for: goalValue),
-            let formattedToGo = Globals.stepsFormatter().string(for: (goalValue - stepsForDay))
+            let formattedToGo = Globals.stepsFormatter().string(for: (goalValue - steps)),
+            let formattedSteps = Globals.stepsFormatter().string(for: steps),
+            let formattedFlights = Globals.flightsFormatter().string(for: flights),
+            let formattedDistance = Globals.distanceFormatter().string(for: distance)
         else {
             goalLabel.text = nil
             return
         }
         
-        ringContainer.image = RingDrawer.drawRing(stepsForDay, goal: goalValue, width: ringContainer.frame.size.width * UIScreen.main.scale)?.withRenderingMode(.alwaysTemplate)
-        
-        goalLabel.text = String(format: NSLocalizedString("of %@ goal %@", comment: ""), formattedGoal, Trophy.trophy(for: stepsForDay).symbol())
+        ringContainer.image = RingDrawer.drawRing(steps, goal: goalValue, width: ringContainer.frame.size.width * UIScreen.main.scale)?.withRenderingMode(.alwaysTemplate)
+        stepsLabel.text = formattedSteps
+        goalLabel.text = String(format: NSLocalizedString("of %@ goal %@", comment: ""), formattedGoal, Trophy.trophy(for: steps).symbol())
         toGoItemView.bind(title: "To Go", value: formattedToGo, systemImageName: "speedometer")
+        flightsItemView.bind(title: "Flights", value: formattedFlights, systemImageName: "building.fill")
+        
+        //TODO: Miles or Kilometers - add to string dict
+        distanceItemView.bind(title: "Miles", value: formattedDistance, systemImageName: "map.fill")
     }
     
     @IBAction private func goalInfoPressed() {
