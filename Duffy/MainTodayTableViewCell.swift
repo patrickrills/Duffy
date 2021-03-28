@@ -43,7 +43,7 @@ class MainTodayTableViewCell: UITableViewCell {
         guard case let goalValue = HealthCache.dailyGoal(),
             goalValue > 0,
             let formattedGoal = Globals.stepsFormatter().string(for: goalValue),
-            let formattedToGo = Globals.stepsFormatter().string(for: (goalValue - steps)),
+            let formattedToGo = Globals.stepsFormatter().string(for: abs(Int32(goalValue) - Int32(steps))),
             let formattedSteps = Globals.stepsFormatter().string(for: steps),
             let formattedFlights = Globals.flightsFormatter().string(for: flights),
             let formattedDistance = Globals.distanceFormatter().string(for: distance)
