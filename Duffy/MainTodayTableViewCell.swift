@@ -37,9 +37,6 @@ class MainTodayTableViewCell: UITableViewCell {
     }
     
     func bind(steps: Steps, flights: FlightsClimbed, distance: DistanceTravelled, distanceUnit: LengthFormatter.Unit) {
-        
-        //TODO: What is the loading state?
-        
         guard case let goalValue = HealthCache.dailyGoal(),
             goalValue > 0,
             let formattedGoal = Globals.stepsFormatter().string(for: goalValue),
@@ -55,11 +52,20 @@ class MainTodayTableViewCell: UITableViewCell {
         ringContainer.image = RingDrawer.drawRing(steps, goal: goalValue, width: ringContainer.frame.size.width * UIScreen.main.scale)?.withRenderingMode(.alwaysTemplate)
         stepsLabel.text = formattedSteps
         goalLabel.text = String(format: NSLocalizedString("of %@ goal %@", comment: ""), formattedGoal, Trophy.trophy(for: steps).symbol())
-        toGoItemView.bind(title: "To Go", value: formattedToGo, systemImageName: "speedometer")
-        flightsItemView.bind(title: "Flights", value: formattedFlights, systemImageName: "building.fill")
+        toGoItemView.bind(title: NSLocalizedString("To go", comment: ""), value: formattedToGo, systemImageName: "speedometer")
+        flightsItemView.bind(title: NSLocalizedString("Flights", comment: ""), value: formattedFlights, systemImageName: "building.fill")
         
-        //TODO: Miles or Kilometers - add to string dict
-        distanceItemView.bind(title: "Miles", value: formattedDistance, systemImageName: "map.fill")
+        let distanceTitle: String
+        switch distanceUnit {
+        case .kilometer:
+            distanceTitle = NSLocalizedString("Kilometers", comment: "")
+        case .mile:
+            distanceTitle = NSLocalizedString("Miles", comment: "")
+        default:
+            distanceTitle = NSLocalizedString("Distance", comment: "")
+        }
+        
+        distanceItemView.bind(title: distanceTitle, value: formattedDistance, systemImageName: "map.fill")
     }
     
     @IBAction private func goalInfoPressed() {
