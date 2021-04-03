@@ -15,6 +15,7 @@ class HistoryTableViewController: UITableViewController {
         static let PAGE_SIZE_DAYS: Int = 30
         static let FOOTER_HEIGHT: CGFloat = 80.0
         static let FOOTER_MARGIN: CGFloat = 16.0
+        static let MINIMUM_HEIGHT: CGFloat = 0.1
     }
     
     private let goal = HealthCache.dailyGoal()
@@ -229,7 +230,7 @@ class HistoryTableViewController: UITableViewController {
             return Constants.FOOTER_MARGIN
         }
         
-        return 0.0
+        return Constants.MINIMUM_HEIGHT
     }
     
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {

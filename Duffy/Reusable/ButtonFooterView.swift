@@ -30,7 +30,7 @@ class ButtonFooterView: UIView {
         }
     }
     
-    var separatorIsVisible: Bool = true {
+    var separatorIsVisible: Bool = false {
         didSet {
             setNeedsDisplay()
         }

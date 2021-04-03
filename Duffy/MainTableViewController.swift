@@ -32,13 +32,22 @@ class MainTableViewController: UITableViewController {
 //        }
 //    }
     
+    private enum Constants {
+        static let ESTIMATED_SECTION_HEIGHT: CGFloat = BoldActionSectionHeaderView.estimatedHeight
+        static let RATING_GOAL_COUNT: Int = DuffyFramework.Constants.goalReachedCountForRating
+        static let RATING_DELAY: Double = 2.0
+        static let FOOTER_HEIGHT: CGFloat = 80.0
+        static let FOOTER_MARGIN: CGFloat = 16.0
+        static let MINIMUM_HEIGHT: CGFloat = 0.1
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.register(UINib(nibName: String(describing: MainTodayTableViewCell.self), bundle: Bundle.main), forCellReuseIdentifier: String(describing: MainTodayTableViewCell.self))
         tableView.register(PreviousValueTableViewCell.self, forCellReuseIdentifier: String(describing: PreviousValueTableViewCell.self))
         tableView.register(BoldActionSectionHeaderView.self, forHeaderFooterViewReuseIdentifier: String(describing: BoldActionSectionHeaderView.self))
-        tableView.estimatedSectionHeaderHeight = BoldActionSectionHeaderView.estimatedHeight
+        tableView.estimatedSectionHeaderHeight = Constants.ESTIMATED_SECTION_HEIGHT
         tableView.sectionHeaderHeight = UITableView.automaticDimension
     }
     
@@ -50,8 +59,8 @@ class MainTableViewController: UITableViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if HealthCache.getGoalReachedCount() >= Constants.goalReachedCountForRating {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+        if HealthCache.getGoalReachedCount() >= Constants.RATING_GOAL_COUNT {
+            DispatchQueue.main.asyncAfter(deadline: .now() + Constants.RATING_DELAY) {
                 AppRater.askToRate()
             }
         }
@@ -72,11 +81,23 @@ class MainTableViewController: UITableViewController {
 //            }
 //        }
         
-        if tableView.tableFooterView == nil {
-            let footer = AboutFooterView()
-            footer.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 72.0)
-            footer.addTarget(self, action: #selector(openAbout))
-            tableView.tableFooterView = footer
+        layoutFooter()
+    }
+    
+    private func layoutFooter() {
+        var footer: UIView?
+        
+        if let existingFooter = tableView.tableFooterView {
+            footer = existingFooter
+        } else {
+            let newFooter = AboutFooterView()
+            newFooter.addTarget(self, action: #selector(openAbout))
+            tableView.tableFooterView = newFooter
+            footer = newFooter
+        }
+        
+        if let footer = footer {
+            footer.frame = CGRect(x: footer.frame.origin.x, y: footer.frame.origin.y, width: tableView.frame.size.width, height: Constants.FOOTER_HEIGHT)
         }
     }
     
@@ -255,6 +276,23 @@ class MainTableViewController: UITableViewController {
             fatalError("Unexpected section!")
         }
     }
+    
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        guard section == numberOfSections(in: tableView) - 1 else {
+            return Constants.FOOTER_MARGIN
+        }
+        
+        return Constants.MINIMUM_HEIGHT
+    }
+    
+    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        guard section == numberOfSections(in: tableView) - 1 else {
+            return nil
+        }
+        
+        return UIView()
+    }
+
 }
 
 fileprivate enum MainSection: Int, CaseIterable {
