@@ -9,6 +9,9 @@
 import UIKit
 
 class BoldActionSectionHeaderView: UITableViewHeaderFooterView {
+    
+    static let estimatedHeight: CGFloat = 50.0
+    
     private var button = UIButton(type: .custom)
     private var headerLabel = UILabel(frame: CGRect.zero)
     private var action: (() -> ())?
@@ -70,7 +73,12 @@ class BoldActionSectionHeaderView: UITableViewHeaderFooterView {
     }
     
     func layoutOptions() -> BoldActionSectionHeaderViewLayoutOptions {
-        return BoldActionSectionHeaderViewLayoutOptions(labelHeight: 32.0, useHorizontalLayoutMargins: true, horizontalInset: 0.0, topInset: 0.0, actionCenterOffset: 2.0)
+        var useLayoutMargins = true
+        if #available(iOS 13.0, *) {
+            useLayoutMargins = false
+        }
+        
+        return BoldActionSectionHeaderViewLayoutOptions(labelHeight: 26.0, useHorizontalLayoutMargins: useLayoutMargins, horizontalInset: 2.0, topInset: 8.0, actionCenterOffset: 6.0)
     }
     
     @objc private func onTouchUpInside() {
@@ -93,29 +101,4 @@ class BoldActionSectionHeaderView: UITableViewHeaderFooterView {
             self.action = nil
         }
     }
-}
-
-class MainSectionHeaderView: BoldActionSectionHeaderView {
-    
-    static let estimatedHeight: CGFloat = 48.0
-    
-    func setOpenHistory(_ openHistory: @escaping () -> ()) {
-        set(headerText: NSLocalizedString("Previous Week", comment: ""), actionText: NSLocalizedString("VIEW HISTORY", comment: ""), action: openHistory)
-    }
-    
-}
-
-class HistorySectionHeaderView: BoldActionSectionHeaderView {
-    
-    static let estimatedHeight: CGFloat = 50.0
-    
-    override func layoutOptions() -> BoldActionSectionHeaderViewLayoutOptions {
-        var useLayoutMargins = true
-        if #available(iOS 13.0, *) {
-            useLayoutMargins = false
-        }
-        
-        return BoldActionSectionHeaderViewLayoutOptions(labelHeight: 26.0, useHorizontalLayoutMargins: useLayoutMargins, horizontalInset: 2.0, topInset: 8.0, actionCenterOffset: 6.0)
-    }
-    
 }

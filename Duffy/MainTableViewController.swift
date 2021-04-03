@@ -37,8 +37,8 @@ class MainTableViewController: UITableViewController {
         
         tableView.register(UINib(nibName: String(describing: MainTodayTableViewCell.self), bundle: Bundle.main), forCellReuseIdentifier: String(describing: MainTodayTableViewCell.self))
         tableView.register(PreviousValueTableViewCell.self, forCellReuseIdentifier: String(describing: PreviousValueTableViewCell.self))
-        tableView.register(MainSectionHeaderView.self, forHeaderFooterViewReuseIdentifier: String(describing: MainSectionHeaderView.self))
-        tableView.estimatedSectionHeaderHeight = MainSectionHeaderView.estimatedHeight
+        tableView.register(BoldActionSectionHeaderView.self, forHeaderFooterViewReuseIdentifier: String(describing: BoldActionSectionHeaderView.self))
+        tableView.estimatedSectionHeaderHeight = BoldActionSectionHeaderView.estimatedHeight
         tableView.sectionHeaderHeight = UITableView.automaticDimension
     }
     
@@ -220,12 +220,12 @@ class MainTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard MainSection(rawValue: section) == .pastWeek,
-            let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: String(describing: MainSectionHeaderView.self)) as? MainSectionHeaderView
+            let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: String(describing: BoldActionSectionHeaderView.self)) as? BoldActionSectionHeaderView
         else {
             return super.tableView(tableView, viewForHeaderInSection: section)
         }
-
-        header.setOpenHistory { [weak self] in self?.openHistory() }
+        
+        header.set(headerText: NSLocalizedString("Previous Week", comment: ""), actionText: NSLocalizedString("VIEW HISTORY", comment: ""), action: { [weak self] in self?.openHistory() })
         return header
     }
 
