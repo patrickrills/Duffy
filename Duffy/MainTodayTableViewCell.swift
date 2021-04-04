@@ -11,7 +11,8 @@ import DuffyFramework
 
 class MainTodayTableViewCell: UITableViewCell {
     
-    @IBOutlet private weak var ringContainer: UIImageView!
+    @IBOutlet private weak var ringImage: UIImageView!
+    @IBOutlet private weak var trophyLabel: UILabel!
     @IBOutlet private weak var stepsLabel: UILabel!
     @IBOutlet private weak var goalLabel: UILabel!
     @IBOutlet private weak var goalInfoButton: UIButton!
@@ -49,10 +50,32 @@ class MainTodayTableViewCell: UITableViewCell {
             return
         }
         
-        ringContainer.image = RingDrawer.drawRing(steps, goal: goalValue, width: ringContainer.frame.size.width * UIScreen.main.scale)?.withRenderingMode(.alwaysTemplate)
+        let trophy = Trophy.trophy(for: steps)
+        
+        var goalColor: UIColor
+        var goalText: String
+        
+        if trophy == .none {
+            trophyLabel.isHidden = true
+            ringImage.isHidden = false
+            ringImage.image = RingDrawer.drawRing(steps, goal: goalValue, width: ringImage.frame.size.width * UIScreen.main.scale)?.withRenderingMode(.alwaysTemplate)
+            if #available(iOS 13.0, *) {
+                goalColor = .label
+            } else {
+                goalColor = .black
+            }
+            goalText = NSLocalizedString("To go", comment: "")
+        } else {
+            ringImage.isHidden = true
+            trophyLabel.isHidden = false
+            trophyLabel.text = trophy.symbol()
+            goalColor = Globals.successColor()
+            goalText = String(format: "%@+", NSLocalizedString("Goal", comment: ""))
+        }
+        
         stepsLabel.text = formattedSteps
-        goalLabel.text = String(format: NSLocalizedString("of %@ goal %@", comment: ""), formattedGoal, Trophy.trophy(for: steps).symbol())
-        toGoItemView.bind(title: NSLocalizedString("To go", comment: ""), value: formattedToGo, systemImageName: "speedometer")
+        goalLabel.text = String(format: NSLocalizedString("of %@ goal %@", comment: ""), formattedGoal, Trophy.none.symbol())
+        toGoItemView.bind(title: goalText, value: formattedToGo, systemImageName: "speedometer", textColor: goalColor)
         flightsItemView.bind(title: NSLocalizedString("Flights", comment: ""), value: formattedFlights, systemImageName: "building.fill")
         
         let distanceTitle: String

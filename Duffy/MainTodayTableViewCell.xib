@@ -18,12 +18,29 @@
                 <rect key="frame" x="0.0" y="0.0" width="390" height="482"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO" id="Tf8-yK-PYa" customClass="UIImageView">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tf8-yK-PYa">
                         <rect key="frame" x="131" y="32" width="128" height="128"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="🍔" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YMQ-zn-GhE">
+                                <rect key="frame" x="12" y="6.5" width="104" height="115"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="96"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="uSl-IR-j0s">
+                                <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" name="PrimaryColor"/>
                         <constraints>
+                            <constraint firstItem="YMQ-zn-GhE" firstAttribute="centerY" secondItem="Tf8-yK-PYa" secondAttribute="centerY" id="Bjx-h3-Te4"/>
+                            <constraint firstItem="uSl-IR-j0s" firstAttribute="top" secondItem="Tf8-yK-PYa" secondAttribute="top" id="D3v-gw-jaN"/>
                             <constraint firstAttribute="width" constant="128" id="DgU-vL-d9t"/>
+                            <constraint firstAttribute="trailing" secondItem="uSl-IR-j0s" secondAttribute="trailing" id="Nml-em-bpW"/>
+                            <constraint firstItem="uSl-IR-j0s" firstAttribute="leading" secondItem="Tf8-yK-PYa" secondAttribute="leading" id="g2i-gM-imc"/>
+                            <constraint firstAttribute="bottom" secondItem="uSl-IR-j0s" secondAttribute="bottom" id="jxz-qM-YUR"/>
+                            <constraint firstItem="YMQ-zn-GhE" firstAttribute="centerX" secondItem="Tf8-yK-PYa" secondAttribute="centerX" id="nzD-Z6-NUI"/>
                             <constraint firstAttribute="height" constant="128" id="z06-uI-XXk"/>
                         </constraints>
                     </view>
@@ -125,9 +142,10 @@
                 <outlet property="flightsItemView" destination="dWV-Us-EIL" id="KK2-Vu-hXW"/>
                 <outlet property="goalInfoButton" destination="d3h-Lw-gTh" id="VdC-jF-4sT"/>
                 <outlet property="goalLabel" destination="yLY-4z-Loe" id="qNO-dK-u1c"/>
-                <outlet property="ringContainer" destination="Tf8-yK-PYa" id="V8y-O9-d6j"/>
+                <outlet property="ringImage" destination="uSl-IR-j0s" id="OIC-Jr-ppo"/>
                 <outlet property="stepsLabel" destination="fpF-3b-AZu" id="kt4-g3-dos"/>
                 <outlet property="toGoItemView" destination="9OX-Ld-kkz" id="X7I-sr-OyI"/>
+                <outlet property="trophyLabel" destination="YMQ-zn-GhE" id="sOj-Ef-vOw"/>
             </connections>
             <point key="canvasLocation" x="191.30434782608697" y="299.33035714285711"/>
         </tableViewCell>

@@ -16,13 +16,28 @@ class MainTodayItemView: UIView {
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var valueLabel: UILabel!
     
+    private lazy var defaultTextColor: UIColor = {
+        if #available(iOS 13.0, *) {
+            return .label
+        } else {
+            return .darkText
+        }
+    }()
+    
     func bind(title: String, value: String, systemImageName: String) {
+        bind(title: title, value: value, systemImageName: systemImageName, textColor: defaultTextColor)
+    }
+    
+    func bind(title: String, value: String, systemImageName: String, textColor: UIColor) {
         if #available(iOS 13.0, *) {
             itemIcon.image = UIImage(systemName: systemImageName, withConfiguration: UIImage.SymbolConfiguration(pointSize: 18.0))
             itemIcon.tintColor = .secondaryLabel
         }
+        
         titleLabel.text = title
+        titleLabel.textColor = textColor
         valueLabel.text = value
+        valueLabel.textColor = textColor
     }
     
     //MARK: - Construction
