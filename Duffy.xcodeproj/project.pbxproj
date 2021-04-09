@@ -136,6 +136,7 @@
 		09EEEDA226078B6A002731DB /* ThinSeparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EEEDA126078B6A002731DB /* ThinSeparator.swift */; };
 		09EEEDA8260F76C6002731DB /* RingDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EEEDA7260F76C6002731DB /* RingDrawer.swift */; };
 		09EEEDA9260F76C6002731DB /* RingDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EEEDA7260F76C6002731DB /* RingDrawer.swift */; };
+		09EEEDB7261A2191002731DB /* MainTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EEEDB6261A2191002731DB /* MainTableViewHeader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -355,6 +356,7 @@
 		09EEED9726064BE1002731DB /* MainTodayItemView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainTodayItemView.xib; sourceTree = "<group>"; };
 		09EEEDA126078B6A002731DB /* ThinSeparator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThinSeparator.swift; sourceTree = "<group>"; };
 		09EEEDA7260F76C6002731DB /* RingDrawer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingDrawer.swift; sourceTree = "<group>"; };
+		09EEEDB6261A2191002731DB /* MainTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewHeader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -443,6 +445,7 @@
 				09EEED8626063E69002731DB /* MainTodayTableViewCell.swift */,
 				09EEED9126064BD2002731DB /* MainTodayItemView.swift */,
 				09EEED9726064BE1002731DB /* MainTodayItemView.xib */,
+				09EEEDB6261A2191002731DB /* MainTableViewHeader.swift */,
 				09EEED7726063B98002731DB /* Old Today */,
 				09708597214D7A8000790EC7 /* HourGraphDetailViewController.swift */,
 				092276E523569EB10015A1E6 /* HourGraphDetailViewController.xib */,
@@ -922,6 +925,7 @@
 				09BDDA5E219116740078B749 /* AboutTableViewController.swift in Sources */,
 				0900867120F282DE006540E7 /* Globals.swift in Sources */,
 				0935D17E21A8D8E100B91009 /* HistoryFilterTableViewController.swift in Sources */,
+				09EEEDB7261A2191002731DB /* MainTableViewHeader.swift in Sources */,
 				093A5F0823B26C1A007D11E3 /* DebugLogTableViewController.swift in Sources */,
 				094DE71D25E088E7002C31FC /* AboutFooterView.swift in Sources */,
 				09289C7E20DDFF56005BF6B8 /* MainTableViewController.swift in Sources */,
