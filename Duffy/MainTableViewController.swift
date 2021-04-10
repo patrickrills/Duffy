@@ -24,13 +24,11 @@ class MainTableViewController: UITableViewController {
         }
     }
     
-    private var isLoading: Bool = false
-    //TODO: Loading state
-//    {
-//        didSet {
-//            getHeader()?.toggleLoading(isLoading: isLoading)
-//        }
-//    }
+    private var isLoading: Bool = false {
+        didSet {
+            getHeader()?.isLoading = isLoading
+        }
+    }
     
     private enum Constants {
         static let ESTIMATED_SECTION_HEIGHT: CGFloat = BoldActionSectionHeaderView.estimatedHeight
@@ -74,14 +72,23 @@ class MainTableViewController: UITableViewController {
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
-//        if tableView.tableHeaderView == nil {
-//            if let header = TodayHeaderView.createView() {
-//                header.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: heightForHeader())
-//                tableView.tableHeaderView = header
-//            }
-//        }
-        
+        layoutHeader()
         layoutFooter()
+    }
+    
+    private func layoutHeader() {
+        var header: MainTableViewHeader?
+        
+        if let existingHeader = getHeader() {
+            header = existingHeader
+        } else {
+            header = MainTableViewHeader()
+            tableView.tableHeaderView = header
+        }
+        
+        if let header = header {
+            header.frame = CGRect(x: header.frame.origin.x, y: header.frame.origin.y, width: tableView.frame.size.width, height: header.suggestedHeight)
+        }
     }
     
     private func layoutFooter() {
@@ -101,9 +108,9 @@ class MainTableViewController: UITableViewController {
         }
     }
     
-//    private func getHeader() -> TodayHeaderView? {
-//        return tableView.tableHeaderView as? TodayHeaderView
-//    }
+    private func getHeader() -> MainTableViewHeader? {
+        return tableView.tableHeaderView as? MainTableViewHeader
+    }
     
     func refresh() {
         isLoading = true

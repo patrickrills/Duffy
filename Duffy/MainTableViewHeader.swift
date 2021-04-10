@@ -10,8 +10,14 @@ import UIKit
 
 class MainTableViewHeader: UIView {
 
+    private enum Constants {
+        static let TOP_MARGIN: CGFloat = 16.0
+        static let IMAGE_SIZE: CGFloat = 64.0
+        static let IMAGE_NAME: String = "DuffyLogo02"
+    }
+    
     private lazy var logo: UIImageView = {
-        let img = UIImageView(image: UIImage(named: "DuffyLogo02")?.withRenderingMode(.alwaysTemplate))
+        let img = UIImageView(image: UIImage(named: Constants.IMAGE_NAME)?.withRenderingMode(.alwaysTemplate))
         img.translatesAutoresizingMaskIntoConstraints = false
         img.tintColor = Globals.primaryColor()
         return img
@@ -45,6 +51,10 @@ class MainTableViewHeader: UIView {
         }
     }
     
+    var suggestedHeight: CGFloat {
+        return Constants.TOP_MARGIN + Constants.IMAGE_SIZE
+    }
+    
     init() {
         super.init(frame: .zero)
         buildView()
@@ -61,11 +71,11 @@ class MainTableViewHeader: UIView {
         addSubview(spinner)
         
         NSLayoutConstraint.activate([
-            logo.heightAnchor.constraint(equalToConstant: 64.0),
+            logo.heightAnchor.constraint(equalToConstant: Constants.IMAGE_SIZE),
             logo.widthAnchor.constraint(equalTo: logo.heightAnchor),
-            logo.centerYAnchor.constraint(equalTo: centerYAnchor),
+            logo.topAnchor.constraint(equalTo: topAnchor, constant: Constants.TOP_MARGIN),
             logo.centerXAnchor.constraint(equalTo: centerXAnchor),
-            spinner.centerYAnchor.constraint(equalTo: centerYAnchor),
+            spinner.centerYAnchor.constraint(equalTo: logo.centerYAnchor),
             spinner.centerXAnchor.constraint(equalTo: centerXAnchor)
         ])
     }
