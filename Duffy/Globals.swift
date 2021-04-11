@@ -20,7 +20,6 @@ enum Globals
     private static let lightText = UIColor(red: 196.0/255.0, green: 196.0/255.0, blue: 198.0/255.0, alpha: 1.0)
     private static let veryLightText = UIColor.black.withAlphaComponent(0.15)
     private static let success = UIColor(red: 0.25, green: 0.72, blue:0.48, alpha: 1.0)
-    private static var separator : UIColor? = nil
     
     static func stepsFormatter() -> NumberFormatter
     {
@@ -144,22 +143,14 @@ enum Globals
     static func separatorColor() -> UIColor
     {
         if #available(iOS 13.0, *) {
-            return .separator
-        }
-    
-        if separator == nil
-        {
-            if let systemSeparatorColor = UITableView().separatorColor
-            {
-                separator = systemSeparatorColor
-            }
-            else
-            {
-                separator = UIColor.lightGray
-            }
+            return .opaqueSeparator
         }
         
-        return separator!
+        guard let legacySeparatorColor = UITableView().separatorColor else {
+            return .lightGray
+        }
+        
+        return legacySeparatorColor
     }
     
     static func isNarrowPhone() -> Bool
