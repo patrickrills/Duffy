@@ -15,13 +15,13 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="frp-Z5-ugQ">
-                    <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                    <rect key="frame" x="0.0" y="0.0" width="32" height="40"/>
                     <constraints>
-                        <constraint firstAttribute="width" secondItem="frp-Z5-ugQ" secondAttribute="height" multiplier="1:1" id="nyI-pP-ka9"/>
+                        <constraint firstAttribute="width" constant="32" id="n8D-mc-5tn"/>
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="751" verticalHuggingPriority="251" text="Data Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ki0-d6-Iih">
-                    <rect key="frame" x="48" y="0.0" width="98" height="40"/>
+                    <rect key="frame" x="44" y="0.0" width="98" height="40"/>
                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -45,7 +45,7 @@
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="ki0-d6-Iih" secondAttribute="bottom" id="p71-O5-ler"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="frp-Z5-ugQ" secondAttribute="bottom" id="uoK-IL-Xbd"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="uq5-Wi-Muf" secondAttribute="trailing" id="vpG-vm-AST"/>
-                <constraint firstItem="ki0-d6-Iih" firstAttribute="leading" secondItem="frp-Z5-ugQ" secondAttribute="trailing" constant="8" id="xxL-jr-mwC"/>
+                <constraint firstItem="ki0-d6-Iih" firstAttribute="leading" secondItem="frp-Z5-ugQ" secondAttribute="trailing" constant="12" id="xxL-jr-mwC"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
