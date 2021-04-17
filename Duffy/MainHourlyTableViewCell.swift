@@ -19,12 +19,7 @@ class MainHourlyTableViewCell: UITableViewCell {
         super.awakeFromNib()
         
         selectionStyle = .none
-        
-        if #available(iOS 13.0, *) {
-            noStepsLabel.textColor = .secondaryLabel
-        } else {
-            noStepsLabel.textColor = Globals.lightGrayColor()
-        }
+        noStepsLabel.textColor = Globals.lightGrayColor()
     }
 
     func bind(stepsByHour: [Hour : Steps]) {
