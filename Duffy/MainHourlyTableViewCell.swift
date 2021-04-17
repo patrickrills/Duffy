@@ -18,6 +18,8 @@ class MainHourlyTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        selectionStyle = .none
+        
         if #available(iOS 13.0, *) {
             noStepsLabel.textColor = .secondaryLabel
         } else {
