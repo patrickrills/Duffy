@@ -38,6 +38,7 @@ class MainTableViewController: UITableViewController {
         static let FOOTER_HEIGHT: CGFloat = 80.0
         static let FOOTER_MARGIN: CGFloat = 16.0
         static let MINIMUM_HEIGHT: CGFloat = 0.1
+        static let HOURLY_CELL_MARGIN: CGFloat = 10.0
     }
     
     override func viewDidLoad() {
@@ -267,6 +268,15 @@ class MainTableViewController: UITableViewController {
         }
     }
     
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        switch MainSection(rawValue: section) {
+        case .hourly:
+            return Constants.HOURLY_CELL_MARGIN
+        case .today, .pastWeek, .none:
+            return UITableView.automaticDimension
+        }
+    }
+    
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard MainSection(rawValue: section) == .pastWeek,
             let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: String(describing: BoldActionSectionHeaderView.self)) as? BoldActionSectionHeaderView
@@ -310,19 +320,21 @@ class MainTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        guard section == numberOfSections(in: tableView) - 1 else {
+        switch MainSection(rawValue: section) {
+        case .today, .pastWeek:
+            return Constants.MINIMUM_HEIGHT
+        case .hourly, .none:
             return Constants.FOOTER_MARGIN
         }
-        
-        return Constants.MINIMUM_HEIGHT
     }
     
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        guard section == numberOfSections(in: tableView) - 1 else {
+        switch MainSection(rawValue: section) {
+        case .pastWeek:
             return nil
+        case .today, .hourly, .none:
+            return UIView()
         }
-        
-        return UIView()
     }
 
 }
