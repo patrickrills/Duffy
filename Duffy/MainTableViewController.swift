@@ -17,6 +17,7 @@ class MainTableViewController: UITableViewController {
     private var todaysFlights: FlightsClimbed = 0
     private var todaysDistance: DistanceTravelled = 0
     private var distanceUnit: LengthFormatter.Unit = .mile
+    private var stepsByHour: [Hour : Steps] = [:]
     private var sortedKeys: [Date] = []
     private var pastSteps: [Date : Steps] = [:] {
         didSet {
@@ -43,6 +44,7 @@ class MainTableViewController: UITableViewController {
         super.viewDidLoad()
         
         tableView.register(UINib(nibName: String(describing: MainTodayTableViewCell.self), bundle: Bundle.main), forCellReuseIdentifier: String(describing: MainTodayTableViewCell.self))
+        tableView.register(UINib(nibName: String(describing: MainHourlyTableViewCell.self), bundle: Bundle.main), forCellReuseIdentifier: String(describing: MainHourlyTableViewCell.self))
         tableView.register(PreviousValueTableViewCell.self, forCellReuseIdentifier: String(describing: PreviousValueTableViewCell.self))
         tableView.register(BoldActionSectionHeaderView.self, forHeaderFooterViewReuseIdentifier: String(describing: BoldActionSectionHeaderView.self))
         tableView.estimatedSectionHeaderHeight = Constants.ESTIMATED_SECTION_HEIGHT
@@ -153,6 +155,23 @@ class MainTableViewController: UITableViewController {
             }
         }
         
+        // hourly steps
+        refreshGroup.enter()
+        HealthKitService.getInstance().getStepsByHour(for: Date()) { [weak self] result in
+            defer {
+                refreshGroup.leave()
+            }
+            
+            guard let weakSelf = self else { return }
+            
+            switch result {
+            case .success(let steps):
+                weakSelf.stepsByHour = steps.stepsByHour
+            case .failure(_):
+                break
+            }
+        }
+        
         //flights
         refreshGroup.enter()
         HealthKitService.getInstance().getFlightsClimbed(for: Date()) { [weak self] result in
@@ -238,11 +257,13 @@ class MainTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch MainSection(rawValue: section) {
+        case .today, .hourly:
+            return 1
         case .pastWeek:
             guard !isLoading else { return 0 }
             return pastSteps.count > 0 ? pastSteps.count : 1
-        default:
-            return 1
+        case .none:
+            return 0
         }
     }
     
@@ -263,6 +284,10 @@ class MainTableViewController: UITableViewController {
             let todayCell = tableView.dequeueReusableCell(withIdentifier: String(describing: MainTodayTableViewCell.self), for: indexPath) as! MainTodayTableViewCell
             todayCell.bind(steps: todaysSteps, flights: todaysFlights, distance: todaysDistance, distanceUnit: distanceUnit)
             return todayCell
+        case .hourly:
+            let hourlyCell = tableView.dequeueReusableCell(withIdentifier: String(describing: MainHourlyTableViewCell.self), for: indexPath) as! MainHourlyTableViewCell
+            hourlyCell.bind(stepsByHour: stepsByHour)
+            return hourlyCell
         case .pastWeek:
             if indexPath.row == 0 && pastSteps.count == 0 {
                 let plainCell = UITableViewCell(style: .default, reuseIdentifier: nil)
@@ -303,5 +328,5 @@ class MainTableViewController: UITableViewController {
 }
 
 fileprivate enum MainSection: Int, CaseIterable {
-    case today, pastWeek
+    case today, hourly, pastWeek
 }

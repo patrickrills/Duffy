@@ -137,6 +137,8 @@
 		09EEEDA8260F76C6002731DB /* RingDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EEEDA7260F76C6002731DB /* RingDrawer.swift */; };
 		09EEEDA9260F76C6002731DB /* RingDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EEEDA7260F76C6002731DB /* RingDrawer.swift */; };
 		09EEEDB7261A2191002731DB /* MainTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EEEDB6261A2191002731DB /* MainTableViewHeader.swift */; };
+		09EEEDC5262B5139002731DB /* MainHourlyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09EEEDC3262B5139002731DB /* MainHourlyTableViewCell.xib */; };
+		09EEEDC6262B5139002731DB /* MainHourlyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EEEDC4262B5139002731DB /* MainHourlyTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -357,6 +359,8 @@
 		09EEEDA126078B6A002731DB /* ThinSeparator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThinSeparator.swift; sourceTree = "<group>"; };
 		09EEEDA7260F76C6002731DB /* RingDrawer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingDrawer.swift; sourceTree = "<group>"; };
 		09EEEDB6261A2191002731DB /* MainTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewHeader.swift; sourceTree = "<group>"; };
+		09EEEDC3262B5139002731DB /* MainHourlyTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainHourlyTableViewCell.xib; sourceTree = "<group>"; };
+		09EEEDC4262B5139002731DB /* MainHourlyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainHourlyTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -446,11 +450,11 @@
 				09EEED9126064BD2002731DB /* MainTodayItemView.swift */,
 				09EEED9726064BE1002731DB /* MainTodayItemView.xib */,
 				09EEEDB6261A2191002731DB /* MainTableViewHeader.swift */,
-				09EEED7726063B98002731DB /* Old Today */,
-				09708597214D7A8000790EC7 /* HourGraphDetailViewController.swift */,
-				092276E523569EB10015A1E6 /* HourGraphDetailViewController.xib */,
+				09EEEDC3262B5139002731DB /* MainHourlyTableViewCell.xib */,
+				09EEEDC4262B5139002731DB /* MainHourlyTableViewCell.swift */,
 				0970859B214DAB8900790EC7 /* HourGraphBarView.swift */,
 				0970859D214EAEB200790EC7 /* HourGraphMaxIndicatorView.swift */,
+				09EEED7726063B98002731DB /* Old Today */,
 				094DE71C25E088E7002C31FC /* AboutFooterView.swift */,
 				09BDDA5D219116740078B749 /* AboutTableViewController.swift */,
 				09CC417E231F3DAD0029AAFB /* AboutTableViewFooter.swift */,
@@ -575,6 +579,8 @@
 		09EEED7726063B98002731DB /* Old Today */ = {
 			isa = PBXGroup;
 			children = (
+				09708597214D7A8000790EC7 /* HourGraphDetailViewController.swift */,
+				092276E523569EB10015A1E6 /* HourGraphDetailViewController.xib */,
 				09289C7F20DE0AD8005BF6B8 /* TodayHeaderView.swift */,
 				09289C8120DE131E005BF6B8 /* TodayHeaderView.xib */,
 				09CEA980212259040023786B /* DetailDataView.swift */,
@@ -828,6 +834,7 @@
 				09E1779A25F513EA0034A58F /* TrophyCollectionViewCell.xib in Resources */,
 				09289C8220DE131E005BF6B8 /* TodayHeaderView.xib in Resources */,
 				09CC4181231F3DC70029AAFB /* AboutTableViewFooter.xib in Resources */,
+				09EEEDC5262B5139002731DB /* MainHourlyTableViewCell.xib in Resources */,
 				099582C8234192A600AF6A96 /* Localizable.strings in Resources */,
 				09EEED8726063E69002731DB /* MainTodayTableViewCell.xib in Resources */,
 				0985E6EE24F2B4B1000B4A96 /* HistorySummaryTableViewCell.xib in Resources */,
@@ -896,6 +903,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09EEEDC6262B5139002731DB /* MainHourlyTableViewCell.swift in Sources */,
 				09E1778F25F3F6810034A58F /* TrophiesViewController.swift in Sources */,
 				09EEEDA226078B6A002731DB /* ThinSeparator.swift in Sources */,
 				094DE74325E1C9C6002C31FC /* GoalInstructionsTableViewCell.swift in Sources */,
