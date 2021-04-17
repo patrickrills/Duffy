@@ -278,13 +278,14 @@ class MainTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard MainSection(rawValue: section) == .pastWeek,
-            let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: String(describing: BoldActionSectionHeaderView.self)) as? BoldActionSectionHeaderView
+        guard let mainSection = MainSection(rawValue: section),
+              let title = mainSection.title,
+              let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: String(describing: BoldActionSectionHeaderView.self)) as? BoldActionSectionHeaderView
         else {
             return super.tableView(tableView, viewForHeaderInSection: section)
         }
         
-        header.set(headerText: NSLocalizedString("Previous Week", comment: ""), actionText: NSLocalizedString("VIEW HISTORY", comment: ""), action: { [weak self] in self?.openHistory() })
+        header.set(headerText: title, actionText: NSLocalizedString("VIEW HISTORY", comment: ""), action: { [weak self] in self?.openHistory() })
         return header
     }
 
@@ -341,4 +342,13 @@ class MainTableViewController: UITableViewController {
 
 fileprivate enum MainSection: Int, CaseIterable {
     case today, hourly, pastWeek
+    
+    var title: String? {
+        switch self {
+        case .pastWeek:
+            return NSLocalizedString("Previous Week", comment: "")
+        default:
+            return nil
+        }
+    }
 }
