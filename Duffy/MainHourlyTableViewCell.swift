@@ -14,12 +14,19 @@ class MainHourlyTableViewCell: UITableViewCell {
     @IBOutlet weak var barsStackView : UIStackView!
     @IBOutlet weak var maxIndicator : HourGraphMaxIndicatorView!
     @IBOutlet weak var noStepsLabel : UILabel!
+    @IBOutlet weak var sixAMLabel : UILabel!
+    @IBOutlet weak var noonLabel : UILabel!
+    @IBOutlet weak var sixPMLabel : UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
         selectionStyle = .none
         noStepsLabel.textColor = Globals.lightGrayColor()
+        noStepsLabel.text = NSLocalizedString("No Steps Today", comment: "")
+        sixAMLabel.text = NSLocalizedString("6 AM", comment: "")
+        noonLabel.text = NSLocalizedString("NOON", comment: "")
+        sixPMLabel.text = NSLocalizedString("6 PM", comment: "")
     }
 
     func bind(stepsByHour: [Hour : Steps]) {

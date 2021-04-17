@@ -194,6 +194,9 @@
                 <outlet property="barsStackView" destination="Na9-sH-hSQ" id="gra-zF-QQk"/>
                 <outlet property="maxIndicator" destination="Gex-eA-EXE" id="GMn-J7-7Mt"/>
                 <outlet property="noStepsLabel" destination="yuz-cq-Dhw" id="IPt-C6-2fb"/>
+                <outlet property="noonLabel" destination="wej-At-qEW" id="ewv-M3-4sO"/>
+                <outlet property="sixAMLabel" destination="C6g-Pe-RKz" id="c4u-PY-C9Y"/>
+                <outlet property="sixPMLabel" destination="8Uo-SC-hXK" id="0pw-YS-nqc"/>
             </connections>
             <point key="canvasLocation" x="186.95652173913044" y="225"/>
         </tableViewCell>
