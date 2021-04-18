@@ -322,7 +322,7 @@ class MainInterfaceController: WKInterfaceController
         flightsValueLabel.setTextColor(Globals.secondaryColor())
         distanceValueLabel.setTextColor(Globals.secondaryColor())
         
-        let summaryButtonText = NSLocalizedString("View Summary", comment: "")
+        let summaryButtonText = NSLocalizedString("Previous Week", comment: "")
         let goalButtonText = NSLocalizedString("Change Goal", comment: "")
         let stepsTitle = NSLocalizedString("Steps", comment: "")
         let flightsTitle = NSLocalizedString("Flights", comment: "")
