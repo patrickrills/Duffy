@@ -12,6 +12,7 @@ enum Globals
 {
     private static let numberFormatter = NumberFormatter()
     private static let decimalFormatter = NumberFormatter()
+    private static let pctFormatter = NumberFormatter()
     private static let dateFormatter = DateFormatter()
     private static let fullFormatter = DateFormatter()
     private static let shortFormatter = DateFormatter()
@@ -51,6 +52,15 @@ enum Globals
         decimalFormatter.maximumFractionDigits = 2
         
         return decimalFormatter
+    }
+    
+    static func percentFormatter() -> NumberFormatter
+    {
+        pctFormatter.numberStyle = .percent
+        pctFormatter.maximumFractionDigits = 0
+        pctFormatter.roundingMode = .halfUp
+        
+        return pctFormatter
     }
     
     static func dayFormatter() -> DateFormatter

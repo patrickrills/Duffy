@@ -13,16 +13,24 @@ import HealthKit
 class MainTableViewController: UITableViewController {
     
     private var goal: Steps = 0
-    private var todaysSteps: Steps = 0
     private var todaysFlights: FlightsClimbed = 0
     private var todaysDistance: DistanceTravelled = 0
     private var distanceUnit: LengthFormatter.Unit = .mile
     private var stepsByHour: [Hour : Steps] = [:]
     private var sortedKeys: [Date] = []
-    private var pastSteps: [Date : Steps] = [:] {
+    
+    private var steps: [Date : Steps] = [:] {
         didSet {
-            sortedKeys = pastSteps.keys.sorted(by: >)
+            sortedKeys = pastWeekSteps.keys.sorted(by: >)
         }
+    }
+    
+    private var todaysSteps: Steps {
+        return steps.first(where: { $0.key.isToday() })?.value ?? 0
+    }
+    
+    private var pastWeekSteps: [Date : Steps] {
+        return steps.filter { !$0.key.isToday() && $0.key >= Date().stripTime().dateByAdding(days: -7) }
     }
     
     private var isLoading: Bool = false {
@@ -46,6 +54,7 @@ class MainTableViewController: UITableViewController {
         
         tableView.register(UINib(nibName: String(describing: MainTodayTableViewCell.self), bundle: Bundle.main), forCellReuseIdentifier: String(describing: MainTodayTableViewCell.self))
         tableView.register(UINib(nibName: String(describing: MainHourlyTableViewCell.self), bundle: Bundle.main), forCellReuseIdentifier: String(describing: MainHourlyTableViewCell.self))
+        tableView.register(UINib(nibName: String(describing: MainWeeklySummaryTableViewCell.self), bundle: Bundle.main), forCellReuseIdentifier: String(describing: MainWeeklySummaryTableViewCell.self))
         tableView.register(PreviousValueTableViewCell.self, forCellReuseIdentifier: String(describing: PreviousValueTableViewCell.self))
         tableView.register(BoldActionSectionHeaderView.self, forHeaderFooterViewReuseIdentifier: String(describing: BoldActionSectionHeaderView.self))
         tableView.estimatedSectionHeaderHeight = Constants.ESTIMATED_SECTION_HEIGHT
@@ -138,7 +147,7 @@ class MainTableViewController: UITableViewController {
         
         //steps
         refreshGroup.enter()
-        let startDate = Date().dateByAdding(days: -7)
+        let startDate = Date().dateByAdding(days: -14)
         let endDate = Date()
         HealthKitService.getInstance().getSteps(from: startDate, to: endDate) { [weak self] result in
             defer {
@@ -149,8 +158,7 @@ class MainTableViewController: UITableViewController {
             
             switch result {
             case .success(let stepsCollection):
-                weakSelf.pastSteps = stepsCollection.filter { !$0.key.isToday() }
-                weakSelf.todaysSteps = stepsCollection.first(where: { $0.key.isToday() })?.value ?? 0
+                weakSelf.steps = stepsCollection
             default:
                 break
             }
@@ -262,7 +270,7 @@ class MainTableViewController: UITableViewController {
             return 1
         case .pastWeek:
             guard !isLoading else { return 0 }
-            return pastSteps.count > 0 ? pastSteps.count : 1
+            return pastWeekSteps.count > 0 ? pastWeekSteps.count + 1 : 1
         case .none:
             return 0
         }
@@ -300,17 +308,12 @@ class MainTableViewController: UITableViewController {
             hourlyCell.bind(stepsByHour: stepsByHour)
             return hourlyCell
         case .pastWeek:
-            if indexPath.row == 0 && pastSteps.count == 0 {
-                let plainCell = UITableViewCell(style: .default, reuseIdentifier: nil)
-                plainCell.textLabel?.textAlignment = .center
-                plainCell.textLabel?.textColor = Globals.lightGrayColor()
-                plainCell.selectionStyle = .none
-                plainCell.textLabel?.text = NSLocalizedString("No data for the previous week", comment: "")
-                return plainCell
+            if indexPath.row == 0 {
+                return pastWeekFirstCell()
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PreviousValueTableViewCell.self), for: indexPath) as! PreviousValueTableViewCell
-                let currentDate = sortedKeys[indexPath.row];
-                if let steps = pastSteps[currentDate] {
+                let currentDate = sortedKeys[indexPath.row - 1];
+                if let steps = pastWeekSteps[currentDate] {
                     cell.bind(to: currentDate, steps: steps, goal: goal)
                 }
                 return cell
@@ -338,6 +341,26 @@ class MainTableViewController: UITableViewController {
         }
     }
 
+    private func pastWeekFirstCell() -> UITableViewCell {
+        guard pastWeekSteps.count > 0 else {
+            return NoDataCell()
+        }
+        
+        let average = Steps(pastWeekSteps.values.mean())
+        let thisWeeksSum = pastWeekSteps.values.sum()
+        let lastWeeksSum = steps.filter({ $0.key < Date().stripTime().dateByAdding(days: -7) }).values.sum()
+        var progress = Double.infinity
+        
+        if lastWeeksSum > 0 && thisWeeksSum > 0 {
+            let diff = thisWeeksSum - lastWeeksSum
+            progress = Double(diff) / Double(lastWeeksSum)
+        }
+        
+        let summary = tableView.dequeueReusableCell(withIdentifier: String(describing: MainWeeklySummaryTableViewCell.self), for: IndexPath(row: 0, section: MainSection.pastWeek.rawValue)) as! MainWeeklySummaryTableViewCell
+        summary.bind(average: average, progress: progress)
+        return summary
+    }
+    
 }
 
 fileprivate enum MainSection: Int, CaseIterable {
@@ -350,5 +373,24 @@ fileprivate enum MainSection: Int, CaseIterable {
         default:
             return nil
         }
+    }
+}
+
+fileprivate class NoDataCell: UITableViewCell {
+    init() {
+        super.init(style: .default, reuseIdentifier: nil)
+        build()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        build()
+    }
+    
+    private func build() {
+        textLabel?.textAlignment = .center
+        textLabel?.textColor = Globals.lightGrayColor()
+        selectionStyle = .none
+        textLabel?.text = NSLocalizedString("No data for the previous week", comment: "")
     }
 }
