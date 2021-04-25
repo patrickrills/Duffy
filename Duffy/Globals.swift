@@ -59,6 +59,8 @@ enum Globals
         pctFormatter.numberStyle = .percent
         pctFormatter.maximumFractionDigits = 0
         pctFormatter.roundingMode = .halfUp
+        pctFormatter.negativePrefix = ""
+        pctFormatter.negativeSuffix = ""
         
         return pctFormatter
     }

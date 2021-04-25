@@ -352,7 +352,7 @@ class MainTableViewController: UITableViewController {
         var progress = Double.infinity
         
         if lastWeeksSum > 0 && thisWeeksSum > 0 {
-            let diff = thisWeeksSum - lastWeeksSum
+            let diff = Int64(thisWeeksSum) - Int64(lastWeeksSum)
             progress = Double(diff) / Double(lastWeeksSum)
         }
         
