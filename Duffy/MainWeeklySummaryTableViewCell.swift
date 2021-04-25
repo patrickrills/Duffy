@@ -11,13 +11,22 @@ import DuffyFramework
 
 class MainWeeklySummaryTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var averageLabel : UILabel!
-    @IBOutlet weak var progressLabel : UILabel!
+    @IBOutlet private weak var averageLabel : UILabel!
+    @IBOutlet private weak var progressLabel : UILabel!
+    
+    private lazy var verticalSeparator: ThinSeparator = {
+        let vert = ThinSeparator(frame: CGRect(x: 0, y: 0, width: 72.0, height: 2.0))
+        vert.transform = CGAffineTransform(rotationAngle: (90.0 * .pi) / 180.0)
+        vert.backgroundColor = .clear
+        return vert
+    }()
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
         selectionStyle = .none
+        
+        contentView.addSubview(verticalSeparator)
     }
     
     func bind(average: Steps, progress: Double) {
@@ -83,6 +92,24 @@ class MainWeeklySummaryTableViewCell: UITableViewCell {
             return attachmentString
         } else {
             return NSAttributedString(string: (value > 0 ? "↑ " : "↓ "), attributes: [.font : font, .foregroundColor : color])
+        }
+    }
+    
+    override open func layoutSubviews() {
+        super.layoutSubviews()
+        
+        verticalSeparator.frame = CGRect(x: CGFloat(floor(contentView.frame.midX)) - CGFloat(floor(verticalSeparator.frame.size.width / 2.0)),
+                                         y: CGFloat(floor(contentView.frame.midY)) - CGFloat(floor(verticalSeparator.frame.size.height / 2.0)),
+                                         width: verticalSeparator.frame.size.width,
+                                         height: verticalSeparator.frame.size.height)
+        
+        
+        subviews
+            .filter {
+                return String(describing: $0.self).contains("SeparatorView")
+            }
+            .forEach {
+                $0.isHidden = true
         }
     }
 }
