@@ -75,8 +75,8 @@ class MainTodayTableViewCell: UITableViewCell {
         
         stepsLabel.text = formattedSteps
         goalLabel.text = String(format: NSLocalizedString("of %@ goal %@", comment: ""), formattedGoal, Trophy.none.symbol())
-        toGoItemView.bind(title: goalText, value: formattedToGo, systemImageName: "speedometer", textColor: goalColor)
-        flightsItemView.bind(title: NSLocalizedString("Flights", comment: ""), value: formattedFlights, systemImageName: "building.fill")
+        toGoItemView.bind(title: goalText, value: formattedToGo, image: toGoImage(), textColor: goalColor)
+        flightsItemView.bind(title: NSLocalizedString("Flights", comment: ""), value: formattedFlights, image: UIImage(named: "Flights")!)
         
         let distanceTitle: String
         switch distanceUnit {
@@ -88,12 +88,21 @@ class MainTodayTableViewCell: UITableViewCell {
             distanceTitle = NSLocalizedString("Distance", comment: "")
         }
         
-        distanceItemView.bind(title: distanceTitle, value: formattedDistance, systemImageName: "map.fill")
+        distanceItemView.bind(title: distanceTitle, value: formattedDistance, image: UIImage(named: "Distance")!)
     }
     
     @IBAction private func goalInfoPressed() {
         if let root = UIApplication.shared.delegate?.window??.rootViewController {
             root.present(ModalNavigationController(rootViewController: GoalInstructionsTableViewController()), animated: true, completion: nil)
+        }
+    }
+    
+    private func toGoImage() -> UIImage {
+        //TODO: send back small ring or trophy
+        if #available(iOS 13.0, *) {
+            return UIImage(systemName: "speedometer", withConfiguration: UIImage.SymbolConfiguration(pointSize: 18.0))!
+        } else {
+            return UIImage(named: "BigBlueFly")!
         }
     }
 }

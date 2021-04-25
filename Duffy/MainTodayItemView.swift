@@ -24,16 +24,13 @@ class MainTodayItemView: UIView {
         }
     }()
     
-    func bind(title: String, value: String, systemImageName: String) {
-        bind(title: title, value: value, systemImageName: systemImageName, textColor: defaultTextColor)
+    func bind(title: String, value: String, image: UIImage) {
+        bind(title: title, value: value, image: image, textColor: defaultTextColor)
     }
     
-    func bind(title: String, value: String, systemImageName: String, textColor: UIColor) {
-        if #available(iOS 13.0, *) {
-            itemIcon.image = UIImage(systemName: systemImageName, withConfiguration: UIImage.SymbolConfiguration(pointSize: 18.0))
-            itemIcon.tintColor = .secondaryLabel
-        }
-        
+    func bind(title: String, value: String, image: UIImage, textColor: UIColor) {
+        itemIcon.image = image
+        itemIcon.tintColor = Globals.lightGrayColor()       
         titleLabel.text = title
         titleLabel.textColor = textColor
         valueLabel.text = value
