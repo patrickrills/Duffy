@@ -9,7 +9,7 @@
 import Foundation
 import WatchConnectivity
 
-public protocol WCSessionServiceDelegate: class
+public protocol WCSessionServiceDelegate: AnyObject
 {
     func complicationUpdateRequested()
     func sessionWasActivated()
