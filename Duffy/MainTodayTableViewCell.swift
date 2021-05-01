@@ -75,7 +75,7 @@ class MainTodayTableViewCell: UITableViewCell {
         
         stepsLabel.text = formattedSteps
         goalLabel.text = String(format: NSLocalizedString("of %@ goal %@", comment: ""), formattedGoal, Trophy.none.symbol())
-        toGoItemView.bind(title: goalText, value: formattedToGo, image: toGoImage(), textColor: goalColor)
+        toGoItemView.bind(title: goalText, value: formattedToGo, valueColor: goalColor, image: toGoImage(), symbol: trophy.symbol(), imageTintColor: Globals.lightGrayColor())
         flightsItemView.bind(title: NSLocalizedString("Flights", comment: ""), value: formattedFlights, image: UIImage(named: "Flights")!)
         
         let distanceTitle: String

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -32,6 +32,12 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="🦫" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V6y-Iw-hnQ">
+                    <rect key="frame" x="0.0" y="0.0" width="32" height="40"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -39,12 +45,16 @@
                 <constraint firstItem="uq5-Wi-Muf" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="0x6-QC-KP8"/>
                 <constraint firstItem="uq5-Wi-Muf" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ki0-d6-Iih" secondAttribute="trailing" constant="4" id="K9v-ta-cXi"/>
                 <constraint firstItem="frp-Z5-ugQ" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Owm-Vw-3bu"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="V6y-Iw-hnQ" secondAttribute="bottom" id="TDk-l2-RnI"/>
+                <constraint firstItem="V6y-Iw-hnQ" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="Usb-rZ-HTO"/>
+                <constraint firstItem="frp-Z5-ugQ" firstAttribute="width" secondItem="V6y-Iw-hnQ" secondAttribute="width" id="WiY-ri-FRY"/>
                 <constraint firstItem="ki0-d6-Iih" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="bto-YI-yvw"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="uq5-Wi-Muf" secondAttribute="bottom" id="fWu-Tp-M1h"/>
                 <constraint firstItem="frp-Z5-ugQ" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="mra-ng-wtS"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="ki0-d6-Iih" secondAttribute="bottom" id="p71-O5-ler"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="bottom" secondItem="frp-Z5-ugQ" secondAttribute="bottom" id="uoK-IL-Xbd"/>
                 <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="uq5-Wi-Muf" secondAttribute="trailing" id="vpG-vm-AST"/>
+                <constraint firstItem="V6y-Iw-hnQ" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="wBH-09-Tqg"/>
                 <constraint firstItem="ki0-d6-Iih" firstAttribute="leading" secondItem="frp-Z5-ugQ" secondAttribute="trailing" constant="12" id="xxL-jr-mwC"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
@@ -52,6 +62,7 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="itemIcon" destination="frp-Z5-ugQ" id="ru2-qf-zjB"/>
+                <outlet property="symbolLabel" destination="V6y-Iw-hnQ" id="YqI-4I-uLu"/>
                 <outlet property="titleLabel" destination="ki0-d6-Iih" id="VZG-Qq-0pE"/>
                 <outlet property="valueLabel" destination="uq5-Wi-Muf" id="xzz-fr-wxY"/>
             </connections>

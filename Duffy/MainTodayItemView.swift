@@ -13,6 +13,7 @@ class MainTodayItemView: UIView {
     //MARK: - Binding
     
     @IBOutlet private weak var itemIcon: UIImageView!
+    @IBOutlet private weak var symbolLabel: UILabel!
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var valueLabel: UILabel!
     
@@ -25,16 +26,26 @@ class MainTodayItemView: UIView {
     }()
     
     func bind(title: String, value: String, image: UIImage) {
-        bind(title: title, value: value, image: image, textColor: defaultTextColor)
+        bind(title: title, value: value, valueColor: defaultTextColor, image: image, symbol: nil, imageTintColor: Globals.lightGrayColor())
     }
     
-    func bind(title: String, value: String, image: UIImage, textColor: UIColor) {
-        itemIcon.image = image
-        itemIcon.tintColor = Globals.lightGrayColor()       
+    func bind(title: String, value: String, valueColor: UIColor, image: UIImage?, symbol: String?, imageTintColor: UIColor) {
         titleLabel.text = title
-        titleLabel.textColor = textColor
         valueLabel.text = value
-        valueLabel.textColor = textColor
+        valueLabel.textColor = valueColor
+        
+        if let symbol = symbol,
+           symbol.count > 0 {
+            symbolLabel.isHidden = false
+            symbolLabel.text = symbol
+            itemIcon.isHidden = true
+        } else {
+            itemIcon.isHidden = false
+            itemIcon.image = image
+            itemIcon.tintColor = imageTintColor
+            symbolLabel.isHidden = true
+            symbolLabel.text = nil
+        }
     }
     
     //MARK: - Construction
