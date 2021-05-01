@@ -11,8 +11,7 @@ import DuffyFramework
 
 class MainTodayTableViewCell: UITableViewCell {
     
-    @IBOutlet private weak var ringImage: UIImageView!
-    @IBOutlet private weak var trophyLabel: UILabel!
+    @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var stepsLabel: UILabel!
     @IBOutlet private weak var goalLabel: UILabel!
     @IBOutlet private weak var goalInfoButton: UIButton!
@@ -24,6 +23,8 @@ class MainTodayTableViewCell: UITableViewCell {
         super.awakeFromNib()
         
         selectionStyle = .none
+        titleLabel.text = NSLocalizedString("STEPS", comment: "")
+        titleLabel.textColor = Globals.primaryColor()
         goalLabel.isUserInteractionEnabled = true
         goalLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(goalInfoPressed)))
         goalInfoButton.tintColor = Globals.secondaryColor()
@@ -54,11 +55,11 @@ class MainTodayTableViewCell: UITableViewCell {
         
         var goalColor: UIColor
         var goalText: String
+        var goalImage: UIImage?
         
         if trophy == .none {
-            trophyLabel.isHidden = true
-            ringImage.isHidden = false
-            ringImage.image = RingDrawer.drawRing(steps, goal: goalValue, width: ringImage.frame.size.width * UIScreen.main.scale)?.withRenderingMode(.alwaysTemplate)
+            goalImage = RingDrawer.drawRing(steps, goal: goalValue, width: 28.0 * UIScreen.main.scale)?.withRenderingMode(.alwaysTemplate)
+            
             if #available(iOS 13.0, *) {
                 goalColor = .label
             } else {
@@ -66,16 +67,13 @@ class MainTodayTableViewCell: UITableViewCell {
             }
             goalText = NSLocalizedString("To go", comment: "")
         } else {
-            ringImage.isHidden = true
-            trophyLabel.isHidden = false
-            trophyLabel.text = trophy.symbol()
             goalColor = Globals.successColor()
             goalText = String(format: "%@+", NSLocalizedString("Goal", comment: ""))
         }
         
         stepsLabel.text = formattedSteps
         goalLabel.text = String(format: NSLocalizedString("of %@ goal %@", comment: ""), formattedGoal, Trophy.none.symbol())
-        toGoItemView.bind(title: goalText, value: formattedToGo, valueColor: goalColor, image: toGoImage(), symbol: trophy.symbol(), imageTintColor: Globals.lightGrayColor())
+        toGoItemView.bind(title: goalText, value: formattedToGo, valueColor: goalColor, image: goalImage, symbol: trophy.symbol(), imageTintColor: Globals.primaryColor())
         flightsItemView.bind(title: NSLocalizedString("Flights", comment: ""), value: formattedFlights, image: UIImage(named: "Flights")!)
         
         let distanceTitle: String
@@ -94,15 +92,6 @@ class MainTodayTableViewCell: UITableViewCell {
     @IBAction private func goalInfoPressed() {
         if let root = UIApplication.shared.delegate?.window??.rootViewController {
             root.present(ModalNavigationController(rootViewController: GoalInstructionsTableViewController()), animated: true, completion: nil)
-        }
-    }
-    
-    private func toGoImage() -> UIImage {
-        //TODO: send back small ring or trophy
-        if #available(iOS 13.0, *) {
-            return UIImage(systemName: "speedometer", withConfiguration: UIImage.SymbolConfiguration(pointSize: 18.0))!
-        } else {
-            return UIImage(named: "BigBlueFly")!
         }
     }
 }
