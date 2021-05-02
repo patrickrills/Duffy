@@ -35,6 +35,7 @@ class MainWeeklySummaryTableViewCell: UITableViewCell {
         var displayProgress = "??"
         let descriptionProgress = "From Prior Week"
         var arrowProgress: NSAttributedString?
+        var showProgress = true
         
         let valueFont = UIFont.systemFont(ofSize: 32.0, weight: .black)
         let descriptionFont = UIFont.systemFont(ofSize: 15.0, weight: .semibold)
@@ -62,6 +63,8 @@ class MainWeeklySummaryTableViewCell: UITableViewCell {
             }
             
             arrowProgress = arrow(for: roundedProgress, in: progressColor, with: valueFont)
+        } else {
+            showProgress = false
         }
         
         let attributedAverage = NSMutableAttributedString(string: String(format: "%@\n%@", displayAverage, descriptionAverage))
@@ -69,13 +72,18 @@ class MainWeeklySummaryTableViewCell: UITableViewCell {
         attributedAverage.addAttributes([.font: descriptionFont, .foregroundColor : textColor], range: NSRange(location: attributedAverage.string.count - descriptionAverage.count, length: descriptionAverage.count))
         averageLabel.attributedText = attributedAverage
         
-        let attributedProgress = NSMutableAttributedString(string: String(format: "%@\n%@", displayProgress, descriptionProgress))
-        attributedProgress.addAttributes([.font: valueFont, .foregroundColor : progressColor], range: NSRange(location: 0, length: displayProgress.count))
-        attributedProgress.addAttributes([.font: descriptionFont, .foregroundColor : textColor], range: NSRange(location: attributedProgress.string.count - descriptionProgress.count, length: descriptionProgress.count))
-        if let arrowProgress = arrowProgress {
-            attributedProgress.insert(arrowProgress, at: 0)
+        if showProgress {
+            let attributedProgress = NSMutableAttributedString(string: String(format: "%@\n%@", displayProgress, descriptionProgress))
+            attributedProgress.addAttributes([.font: valueFont, .foregroundColor : progressColor], range: NSRange(location: 0, length: displayProgress.count))
+            attributedProgress.addAttributes([.font: descriptionFont, .foregroundColor : textColor], range: NSRange(location: attributedProgress.string.count - descriptionProgress.count, length: descriptionProgress.count))
+            if let arrowProgress = arrowProgress {
+                attributedProgress.insert(arrowProgress, at: 0)
+            }
+            progressLabel.attributedText = attributedProgress
         }
-        progressLabel.attributedText = attributedProgress
+        
+        progressLabel.isHidden = !showProgress
+        verticalSeparator.isHidden = progressLabel.isHidden
     }
     
     private func arrow(for value: Double, in color: UIColor, with font: UIFont) -> NSAttributedString? {
