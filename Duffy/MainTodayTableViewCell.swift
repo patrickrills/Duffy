@@ -24,14 +24,15 @@ class MainTodayTableViewCell: UITableViewCell {
         
         selectionStyle = .none
         titleLabel.text = NSLocalizedString("STEPS", comment: "")
-        titleLabel.textColor = Globals.primaryColor()
         goalLabel.isUserInteractionEnabled = true
         goalLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(goalInfoPressed)))
         goalInfoButton.tintColor = Globals.secondaryColor()
         if #available(iOS 13.0, *) {
+            titleLabel.textColor = .secondaryLabel
             goalLabel.textColor = .secondaryLabel
             goalInfoButton.setImage(UIImage(systemName: "questionmark.circle"), for: .normal)
         } else {
+            titleLabel.textColor = Globals.lightGrayColor()
             goalLabel.textColor = Globals.lightGrayColor()
         }
         
