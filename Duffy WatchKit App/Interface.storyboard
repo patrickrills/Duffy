@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="17701" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="18122" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
     <device id="watch42"/>
     <dependencies>
         <deployment identifier="watchOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="17500"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="18022"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
     </dependencies>
     <scenes>
@@ -32,7 +32,7 @@
                                                         <group width="20" height="20" alignment="right" verticalAlignment="center" layout="overlap" spacing="0.0" id="h6l-DS-sAe">
                                                             <items>
                                                                 <label width="20" height="20" alignment="center" verticalAlignment="center" textAlignment="center" baselineAdjustment="alignCenters" id="EZT-72-tht">
-                                                                    <fontDescription key="font" type="system" pointSize="15"/>
+                                                                    <fontDescription key="font" type="system" pointSize="18"/>
                                                                 </label>
                                                                 <imageView width="20" height="20" alignment="center" verticalAlignment="center" contentMode="scaleAspectFit" id="KCZ-jt-kjN"/>
                                                             </items>
