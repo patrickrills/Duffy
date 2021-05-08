@@ -125,7 +125,7 @@ class AboutTableViewController: UITableViewController {
         
         title = NSLocalizedString("About Duffy", comment: "")
         
-        tableView.register(HistorySectionHeaderView.self, forHeaderFooterViewReuseIdentifier: String(describing: HistorySectionHeaderView.self))
+        tableView.register(BoldActionSectionHeaderView.self, forHeaderFooterViewReuseIdentifier: String(describing: BoldActionSectionHeaderView.self))
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: Constants.CELL_ID)
         tableView.estimatedRowHeight = Constants.ESTIMATED_ROW_HEIGHT
     }
@@ -168,7 +168,7 @@ class AboutTableViewController: UITableViewController {
     }
         
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: String(describing: HistorySectionHeaderView.self)) as? HistorySectionHeaderView else { return nil }
+        guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: String(describing: BoldActionSectionHeaderView.self)) as? BoldActionSectionHeaderView else { return nil }
         
         let category = AboutCategory.allCases[section]
         header.set(headerText: category.localizedTitle(), actionText: nil, action: nil)

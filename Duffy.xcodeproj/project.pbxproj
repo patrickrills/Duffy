@@ -20,12 +20,11 @@
 		09177BC6241D466F0095ECB4 /* ExportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09177BC4241D466E0095ECB4 /* ExportService.swift */; };
 		0921049E25BDC73500875BA9 /* LaunchShoe.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0921049D25BDC73500875BA9 /* LaunchShoe.storyboard */; };
 		092104B425BDD59800875BA9 /* GoalInstructions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092104B325BDD59800875BA9 /* GoalInstructions.swift */; };
-		092276E323569EB10015A1E6 /* HourGraphDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 092276E523569EB10015A1E6 /* HourGraphDetailViewController.xib */; };
 		0924297724311B580098B0AF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 099582CA234192A600AF6A96 /* Localizable.strings */; };
+		09275CFB262CA35900E57008 /* MainWeeklySummaryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09275CF9262CA35900E57008 /* MainWeeklySummaryTableViewCell.xib */; };
+		09275CFC262CA35900E57008 /* MainWeeklySummaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09275CFA262CA35900E57008 /* MainWeeklySummaryTableViewCell.swift */; };
 		09289C7820D873F9005BF6B8 /* GoalNotificationInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09289C7720D873F9005BF6B8 /* GoalNotificationInterfaceController.swift */; };
 		09289C7E20DDFF56005BF6B8 /* MainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09289C7D20DDFF56005BF6B8 /* MainTableViewController.swift */; };
-		09289C8020DE0AD8005BF6B8 /* TodayHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09289C7F20DE0AD8005BF6B8 /* TodayHeaderView.swift */; };
-		09289C8220DE131E005BF6B8 /* TodayHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09289C8120DE131E005BF6B8 /* TodayHeaderView.xib */; };
 		0929A6C724E6F1DC00780004 /* AggregateCollections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0929A6C624E6F1DC00780004 /* AggregateCollections.swift */; };
 		0929A6C824E6F1DC00780004 /* AggregateCollections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0929A6C624E6F1DC00780004 /* AggregateCollections.swift */; };
 		0929A6CA24E6FF3300780004 /* HealthKitError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0929A6C924E6FF3300780004 /* HealthKitError.swift */; };
@@ -66,7 +65,6 @@
 		094DE74225E1C9C6002C31FC /* GoalInstructionsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 094DE74025E1C9C6002C31FC /* GoalInstructionsTableViewCell.xib */; };
 		094DE74325E1C9C6002C31FC /* GoalInstructionsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094DE74125E1C9C6002C31FC /* GoalInstructionsTableViewCell.swift */; };
 		094F1C5225EC60F0006A1E97 /* UINavigationController+URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094F1C5125EC60F0006A1E97 /* UINavigationController+URL.swift */; };
-		0955EBF3255851820047D791 /* RingDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0955EBF2255851820047D791 /* RingDrawer.swift */; };
 		0961D905216A9BCF00F4AA88 /* ClockKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0961D904216A9BCF00F4AA88 /* ClockKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		0961D907216A9F2000F4AA88 /* duffy.ckcomplication in Resources */ = {isa = PBXBuildFile; fileRef = 0961D906216A9F2000F4AA88 /* duffy.ckcomplication */; };
 		0967EB791E7F0ACE0073BF3F /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0967EB781E7F0ACE0073BF3F /* NotificationService.swift */; };
@@ -77,9 +75,6 @@
 		096FE0A825067FC700838BEE /* HistoryTrendChartLineOptionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096FE0A725067FC700838BEE /* HistoryTrendChartLineOptionsTableViewController.swift */; };
 		096FE0AA250E75FF00838BEE /* StepsProcessingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096FE0A9250E75FF00838BEE /* StepsProcessingService.swift */; };
 		096FE0AB250E75FF00838BEE /* StepsProcessingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096FE0A9250E75FF00838BEE /* StepsProcessingService.swift */; };
-		097085632127122B00790EC7 /* DistanceFlightsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097085612127122B00790EC7 /* DistanceFlightsDetailViewController.swift */; };
-		097085642127122B00790EC7 /* DistanceFlightsDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 097085622127122B00790EC7 /* DistanceFlightsDetailViewController.xib */; };
-		09708599214D7A8000790EC7 /* HourGraphDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09708597214D7A8000790EC7 /* HourGraphDetailViewController.swift */; };
 		0970859C214DAB8900790EC7 /* HourGraphBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0970859B214DAB8900790EC7 /* HourGraphBarView.swift */; };
 		0970859E214EAEB200790EC7 /* HourGraphMaxIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0970859D214EAEB200790EC7 /* HourGraphMaxIndicatorView.swift */; };
 		097085A0214F16B600790EC7 /* AppRater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0970859F214F16B600790EC7 /* AppRater.swift */; };
@@ -123,13 +118,21 @@
 		09CE42D01E35525200A6E587 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09CE42CE1E35525200A6E587 /* MainInterface.storyboard */; };
 		09CE42D41E35525200A6E587 /* DuffyToday.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 09CE42C81E35525200A6E587 /* DuffyToday.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		09CEA97F211F86DC0023786B /* HistoryTableViewFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CEA97E211F86DC0023786B /* HistoryTableViewFooter.swift */; };
-		09CEA981212259040023786B /* DetailDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CEA980212259040023786B /* DetailDataView.swift */; };
-		09CEA983212259200023786B /* DetailDataView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09CEA982212259200023786B /* DetailDataView.xib */; };
 		09D7F1241E340EA7008FF0CC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7F1231E340EA7008FF0CC /* Constants.swift */; };
 		09D7F1251E340EA7008FF0CC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7F1231E340EA7008FF0CC /* Constants.swift */; };
 		09E1778F25F3F6810034A58F /* TrophiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E1778E25F3F6810034A58F /* TrophiesViewController.swift */; };
 		09E1779A25F513EA0034A58F /* TrophyCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09E1779825F513EA0034A58F /* TrophyCollectionViewCell.xib */; };
 		09E1779B25F513EA0034A58F /* TrophyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E1779925F513EA0034A58F /* TrophyCollectionViewCell.swift */; };
+		09EEED8726063E69002731DB /* MainTodayTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09EEED8526063E69002731DB /* MainTodayTableViewCell.xib */; };
+		09EEED8826063E69002731DB /* MainTodayTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EEED8626063E69002731DB /* MainTodayTableViewCell.swift */; };
+		09EEED9226064BD2002731DB /* MainTodayItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EEED9126064BD2002731DB /* MainTodayItemView.swift */; };
+		09EEED9826064BE1002731DB /* MainTodayItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09EEED9726064BE1002731DB /* MainTodayItemView.xib */; };
+		09EEEDA226078B6A002731DB /* ThinSeparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EEEDA126078B6A002731DB /* ThinSeparator.swift */; };
+		09EEEDA8260F76C6002731DB /* RingDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EEEDA7260F76C6002731DB /* RingDrawer.swift */; };
+		09EEEDA9260F76C6002731DB /* RingDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EEEDA7260F76C6002731DB /* RingDrawer.swift */; };
+		09EEEDB7261A2191002731DB /* MainTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EEEDB6261A2191002731DB /* MainTableViewHeader.swift */; };
+		09EEEDC5262B5139002731DB /* MainHourlyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09EEEDC3262B5139002731DB /* MainHourlyTableViewCell.xib */; };
+		09EEEDC6262B5139002731DB /* MainHourlyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EEEDC4262B5139002731DB /* MainHourlyTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -232,7 +235,6 @@
 		0900866E20F27D0C006540E7 /* PreviousValueTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviousValueTableViewCell.swift; sourceTree = "<group>"; };
 		0900867020F282DE006540E7 /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		0900867220FA7673006540E7 /* BoldActionSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoldActionSectionHeaderView.swift; sourceTree = "<group>"; };
-		0903E604235BCAED0049E071 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/HourGraphDetailViewController.xib; sourceTree = "<group>"; };
 		0903E606235BCAED0049E071 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0903E609235BCAED0049E071 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		090829E124670EEF00F100D6 /* Trophy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trophy.swift; sourceTree = "<group>"; };
@@ -241,12 +243,11 @@
 		09177BC4241D466E0095ECB4 /* ExportService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportService.swift; sourceTree = "<group>"; };
 		0921049D25BDC73500875BA9 /* LaunchShoe.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchShoe.storyboard; sourceTree = "<group>"; };
 		092104B325BDD59800875BA9 /* GoalInstructions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalInstructions.swift; sourceTree = "<group>"; };
-		092276E623569EB20015A1E6 /* ja */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ja; path = ja.lproj/HourGraphDetailViewController.xib; sourceTree = "<group>"; };
+		09275CF9262CA35900E57008 /* MainWeeklySummaryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWeeklySummaryTableViewCell.xib; sourceTree = "<group>"; };
+		09275CFA262CA35900E57008 /* MainWeeklySummaryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWeeklySummaryTableViewCell.swift; sourceTree = "<group>"; };
 		09289C7720D873F9005BF6B8 /* GoalNotificationInterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalNotificationInterfaceController.swift; sourceTree = "<group>"; };
 		09289C7920D87856005BF6B8 /* GoalNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = GoalNotificationPayload.apns; sourceTree = "<group>"; };
 		09289C7D20DDFF56005BF6B8 /* MainTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewController.swift; sourceTree = "<group>"; };
-		09289C7F20DE0AD8005BF6B8 /* TodayHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayHeaderView.swift; sourceTree = "<group>"; };
-		09289C8120DE131E005BF6B8 /* TodayHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TodayHeaderView.xib; sourceTree = "<group>"; };
 		0929A6C624E6F1DC00780004 /* AggregateCollections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AggregateCollections.swift; sourceTree = "<group>"; };
 		0929A6C924E6FF3300780004 /* HealthKitError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitError.swift; sourceTree = "<group>"; };
 		0929A6CC24E7128F00780004 /* Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
@@ -286,16 +287,12 @@
 		094DE74025E1C9C6002C31FC /* GoalInstructionsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GoalInstructionsTableViewCell.xib; sourceTree = "<group>"; };
 		094DE74125E1C9C6002C31FC /* GoalInstructionsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalInstructionsTableViewCell.swift; sourceTree = "<group>"; };
 		094F1C5125EC60F0006A1E97 /* UINavigationController+URL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+URL.swift"; sourceTree = "<group>"; };
-		0955EBF2255851820047D791 /* RingDrawer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingDrawer.swift; sourceTree = "<group>"; };
 		0961D904216A9BCF00F4AA88 /* ClockKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ClockKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS5.0.sdk/System/Library/Frameworks/ClockKit.framework; sourceTree = DEVELOPER_DIR; };
 		0961D906216A9F2000F4AA88 /* duffy.ckcomplication */ = {isa = PBXFileReference; lastKnownFileType = folder; path = duffy.ckcomplication; sourceTree = "<group>"; };
 		0967EB781E7F0ACE0073BF3F /* NotificationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		096FE09B2503CA6500838BEE /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
 		096FE0A725067FC700838BEE /* HistoryTrendChartLineOptionsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTrendChartLineOptionsTableViewController.swift; sourceTree = "<group>"; };
 		096FE0A9250E75FF00838BEE /* StepsProcessingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepsProcessingService.swift; sourceTree = "<group>"; };
-		097085612127122B00790EC7 /* DistanceFlightsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DistanceFlightsDetailViewController.swift; sourceTree = "<group>"; };
-		097085622127122B00790EC7 /* DistanceFlightsDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DistanceFlightsDetailViewController.xib; sourceTree = "<group>"; };
-		09708597214D7A8000790EC7 /* HourGraphDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourGraphDetailViewController.swift; sourceTree = "<group>"; };
 		0970859B214DAB8900790EC7 /* HourGraphBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourGraphBarView.swift; sourceTree = "<group>"; };
 		0970859D214EAEB200790EC7 /* HourGraphMaxIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourGraphMaxIndicatorView.swift; sourceTree = "<group>"; };
 		0970859F214F16B600790EC7 /* AppRater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRater.swift; sourceTree = "<group>"; };
@@ -312,7 +309,6 @@
 		099582C9234192A600AF6A96 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		099582CC234192BE00AF6A96 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		099582CF234192C400AF6A96 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		099582D1234192E900AF6A96 /* ja */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = ja; path = ja.lproj/Main.storyboard; sourceTree = "<group>"; };
 		099582D3234192E900AF6A96 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		099582D5234192EA00AF6A96 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		099582D6234192EA00AF6A96 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -338,12 +334,19 @@
 		09CE42D11E35525200A6E587 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		09CE42D91E35640E00A6E587 /* DuffyToday.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DuffyToday.entitlements; sourceTree = "<group>"; };
 		09CEA97E211F86DC0023786B /* HistoryTableViewFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewFooter.swift; sourceTree = "<group>"; };
-		09CEA980212259040023786B /* DetailDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailDataView.swift; sourceTree = "<group>"; };
-		09CEA982212259200023786B /* DetailDataView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailDataView.xib; sourceTree = "<group>"; };
 		09D7F1231E340EA7008FF0CC /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		09E1778E25F3F6810034A58F /* TrophiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrophiesViewController.swift; sourceTree = "<group>"; };
 		09E1779825F513EA0034A58F /* TrophyCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TrophyCollectionViewCell.xib; sourceTree = "<group>"; };
 		09E1779925F513EA0034A58F /* TrophyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrophyCollectionViewCell.swift; sourceTree = "<group>"; };
+		09EEED8526063E69002731DB /* MainTodayTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainTodayTableViewCell.xib; sourceTree = "<group>"; };
+		09EEED8626063E69002731DB /* MainTodayTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTodayTableViewCell.swift; sourceTree = "<group>"; };
+		09EEED9126064BD2002731DB /* MainTodayItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTodayItemView.swift; sourceTree = "<group>"; };
+		09EEED9726064BE1002731DB /* MainTodayItemView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainTodayItemView.xib; sourceTree = "<group>"; };
+		09EEEDA126078B6A002731DB /* ThinSeparator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThinSeparator.swift; sourceTree = "<group>"; };
+		09EEEDA7260F76C6002731DB /* RingDrawer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RingDrawer.swift; sourceTree = "<group>"; };
+		09EEEDB6261A2191002731DB /* MainTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewHeader.swift; sourceTree = "<group>"; };
+		09EEEDC3262B5139002731DB /* MainHourlyTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainHourlyTableViewCell.xib; sourceTree = "<group>"; };
+		09EEEDC4262B5139002731DB /* MainHourlyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainHourlyTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -426,13 +429,20 @@
 				09323C701D22C39700961822 /* AppDelegate.swift */,
 				0970859F214F16B600790EC7 /* AppRater.swift */,
 				0900867020F282DE006540E7 /* Globals.swift */,
+				09EEED8026063BE2002731DB /* Reusable */,
 				09289C7D20DDFF56005BF6B8 /* MainTableViewController.swift */,
-				09289C7F20DE0AD8005BF6B8 /* TodayHeaderView.swift */,
-				09289C8120DE131E005BF6B8 /* TodayHeaderView.xib */,
-				09BDDA6321978CD20078B749 /* ButtonFooterView.swift */,
+				09EEED8526063E69002731DB /* MainTodayTableViewCell.xib */,
+				09EEED8626063E69002731DB /* MainTodayTableViewCell.swift */,
+				09EEED9126064BD2002731DB /* MainTodayItemView.swift */,
+				09EEED9726064BE1002731DB /* MainTodayItemView.xib */,
+				09EEEDB6261A2191002731DB /* MainTableViewHeader.swift */,
+				09EEEDC3262B5139002731DB /* MainHourlyTableViewCell.xib */,
+				09EEEDC4262B5139002731DB /* MainHourlyTableViewCell.swift */,
+				0970859B214DAB8900790EC7 /* HourGraphBarView.swift */,
+				0970859D214EAEB200790EC7 /* HourGraphMaxIndicatorView.swift */,
+				09275CF9262CA35900E57008 /* MainWeeklySummaryTableViewCell.xib */,
+				09275CFA262CA35900E57008 /* MainWeeklySummaryTableViewCell.swift */,
 				094DE71C25E088E7002C31FC /* AboutFooterView.swift */,
-				09BDDA6721979A940078B749 /* ModalNavigationController.swift */,
-				094F1C5125EC60F0006A1E97 /* UINavigationController+URL.swift */,
 				09BDDA5D219116740078B749 /* AboutTableViewController.swift */,
 				09CC417E231F3DAD0029AAFB /* AboutTableViewFooter.swift */,
 				09CC4180231F3DC70029AAFB /* AboutTableViewFooter.xib */,
@@ -447,17 +457,7 @@
 				0985E6EC24F2B4B1000B4A96 /* HistorySummaryTableViewCell.xib */,
 				0985E6ED24F2B4B1000B4A96 /* HistorySummaryTableViewCell.swift */,
 				0935D17D21A8D8E100B91009 /* HistoryFilterTableViewController.swift */,
-				0900866E20F27D0C006540E7 /* PreviousValueTableViewCell.swift */,
-				0900867220FA7673006540E7 /* BoldActionSectionHeaderView.swift */,
 				09CEA97E211F86DC0023786B /* HistoryTableViewFooter.swift */,
-				09CEA980212259040023786B /* DetailDataView.swift */,
-				09CEA982212259200023786B /* DetailDataView.xib */,
-				097085612127122B00790EC7 /* DistanceFlightsDetailViewController.swift */,
-				097085622127122B00790EC7 /* DistanceFlightsDetailViewController.xib */,
-				09708597214D7A8000790EC7 /* HourGraphDetailViewController.swift */,
-				092276E523569EB10015A1E6 /* HourGraphDetailViewController.xib */,
-				0970859B214DAB8900790EC7 /* HourGraphBarView.swift */,
-				0970859D214EAEB200790EC7 /* HourGraphMaxIndicatorView.swift */,
 				092104B325BDD59800875BA9 /* GoalInstructions.swift */,
 				097E84FE25DC65D1008D9205 /* GoalInstructionsTableViewController.swift */,
 				094DE73625E1716D002C31FC /* GoalInstructionsTableViewHeader.swift */,
@@ -494,7 +494,6 @@
 				09323C931D22C39700961822 /* MainInterfaceController.swift */,
 				0947AA9B1D4EB1D80040E1DD /* SummaryInterfaceController.swift */,
 				091714CE25290B8D001062E0 /* ChartDrawer.swift */,
-				0955EBF2255851820047D791 /* RingDrawer.swift */,
 				0947AA9D1D4EB24A0040E1DD /* WeekRowController.swift */,
 				0930F7DE25696C7B006123FB /* SetGoalInterfaceController.swift */,
 				09824A8B1EA66C74002A4A84 /* LegacyEditGoalInterfaceController.swift */,
@@ -528,6 +527,7 @@
 				09D7F1231E340EA7008FF0CC /* Constants.swift */,
 				0967EB781E7F0ACE0073BF3F /* NotificationService.swift */,
 				090829E124670EEF00F100D6 /* Trophy.swift */,
+				09EEEDA7260F76C6002731DB /* RingDrawer.swift */,
 				099FE6FF234EB5300092D219 /* LoggingService.swift */,
 				09B20DBC24A7AC3F0037B300 /* LogLevel.swift */,
 				097FB10E23CDEAF5001621D4 /* DebugService.swift */,
@@ -561,6 +561,19 @@
 				099497D7241EC84B005E167C /* Assets.xcassets */,
 			);
 			path = DuffyToday;
+			sourceTree = "<group>";
+		};
+		09EEED8026063BE2002731DB /* Reusable */ = {
+			isa = PBXGroup;
+			children = (
+				09BDDA6321978CD20078B749 /* ButtonFooterView.swift */,
+				09BDDA6721979A940078B749 /* ModalNavigationController.swift */,
+				094F1C5125EC60F0006A1E97 /* UINavigationController+URL.swift */,
+				0900867220FA7673006540E7 /* BoldActionSectionHeaderView.swift */,
+				0900866E20F27D0C006540E7 /* PreviousValueTableViewCell.swift */,
+				09EEEDA126078B6A002731DB /* ThinSeparator.swift */,
+			);
+			path = Reusable;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -791,20 +804,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				09E1779A25F513EA0034A58F /* TrophyCollectionViewCell.xib in Resources */,
-				09289C8220DE131E005BF6B8 /* TodayHeaderView.xib in Resources */,
 				09CC4181231F3DC70029AAFB /* AboutTableViewFooter.xib in Resources */,
+				09EEEDC5262B5139002731DB /* MainHourlyTableViewCell.xib in Resources */,
 				099582C8234192A600AF6A96 /* Localizable.strings in Resources */,
+				09EEED8726063E69002731DB /* MainTodayTableViewCell.xib in Resources */,
 				0985E6EE24F2B4B1000B4A96 /* HistorySummaryTableViewCell.xib in Resources */,
 				0921049E25BDC73500875BA9 /* LaunchShoe.storyboard in Resources */,
 				09323C781D22C39700961822 /* Assets.xcassets in Resources */,
 				0961D907216A9F2000F4AA88 /* duffy.ckcomplication in Resources */,
+				09275CFB262CA35900E57008 /* MainWeeklySummaryTableViewCell.xib in Resources */,
 				094DE74225E1C9C6002C31FC /* GoalInstructionsTableViewCell.xib in Resources */,
-				09CEA983212259200023786B /* DetailDataView.xib in Resources */,
-				097085642127122B00790EC7 /* DistanceFlightsDetailViewController.xib in Resources */,
 				094AAF8225D977EB00B145B8 /* Localizable.stringsdict in Resources */,
 				09323C761D22C39700961822 /* Main.storyboard in Resources */,
+				09EEED9826064BE1002731DB /* MainTodayItemView.xib in Resources */,
 				09A7EEAE21A1E89A00DEDE5C /* HistoryTrendChartTableViewCell.xib in Resources */,
-				092276E323569EB10015A1E6 /* HourGraphDetailViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -859,13 +872,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09EEEDC6262B5139002731DB /* MainHourlyTableViewCell.swift in Sources */,
 				09E1778F25F3F6810034A58F /* TrophiesViewController.swift in Sources */,
+				09EEEDA226078B6A002731DB /* ThinSeparator.swift in Sources */,
 				094DE74325E1C9C6002C31FC /* GoalInstructionsTableViewCell.swift in Sources */,
 				094F1C5225EC60F0006A1E97 /* UINavigationController+URL.swift in Sources */,
 				0900866F20F27D0C006540E7 /* PreviousValueTableViewCell.swift in Sources */,
 				09CE42C11E353E7100A6E587 /* HistoryTableViewController.swift in Sources */,
-				097085632127122B00790EC7 /* DistanceFlightsDetailViewController.swift in Sources */,
-				09708599214D7A8000790EC7 /* HourGraphDetailViewController.swift in Sources */,
 				09CC417F231F3DAD0029AAFB /* AboutTableViewFooter.swift in Sources */,
 				0900867320FA7673006540E7 /* BoldActionSectionHeaderView.swift in Sources */,
 				09E1779B25F513EA0034A58F /* TrophyCollectionViewCell.swift in Sources */,
@@ -873,26 +886,28 @@
 				0970859C214DAB8900790EC7 /* HourGraphBarView.swift in Sources */,
 				096FE0A825067FC700838BEE /* HistoryTrendChartLineOptionsTableViewController.swift in Sources */,
 				092104B425BDD59800875BA9 /* GoalInstructions.swift in Sources */,
+				09EEED9226064BD2002731DB /* MainTodayItemView.swift in Sources */,
 				09CEA97F211F86DC0023786B /* HistoryTableViewFooter.swift in Sources */,
 				097085A0214F16B600790EC7 /* AppRater.swift in Sources */,
 				09323C711D22C39700961822 /* AppDelegate.swift in Sources */,
 				0970859E214EAEB200790EC7 /* HourGraphMaxIndicatorView.swift in Sources */,
 				0985E6EB24F174C2000B4A96 /* HistoryTrendChartOption.swift in Sources */,
 				09A7EEB021A39D7100DEDE5C /* HistoryTrendChartView.swift in Sources */,
-				09CEA981212259040023786B /* DetailDataView.swift in Sources */,
 				094DE73725E1716D002C31FC /* GoalInstructionsTableViewHeader.swift in Sources */,
 				09BDDA6821979A940078B749 /* ModalNavigationController.swift in Sources */,
 				0985E6E924F162AC000B4A96 /* HistoryTrendChartOptionsTableViewController.swift in Sources */,
 				09BDDA5E219116740078B749 /* AboutTableViewController.swift in Sources */,
 				0900867120F282DE006540E7 /* Globals.swift in Sources */,
 				0935D17E21A8D8E100B91009 /* HistoryFilterTableViewController.swift in Sources */,
+				09275CFC262CA35900E57008 /* MainWeeklySummaryTableViewCell.swift in Sources */,
+				09EEEDB7261A2191002731DB /* MainTableViewHeader.swift in Sources */,
 				093A5F0823B26C1A007D11E3 /* DebugLogTableViewController.swift in Sources */,
 				094DE71D25E088E7002C31FC /* AboutFooterView.swift in Sources */,
 				09289C7E20DDFF56005BF6B8 /* MainTableViewController.swift in Sources */,
 				097E84FF25DC65D1008D9205 /* GoalInstructionsTableViewController.swift in Sources */,
 				09BDDA6421978CD20078B749 /* ButtonFooterView.swift in Sources */,
-				09289C8020DE0AD8005BF6B8 /* TodayHeaderView.swift in Sources */,
 				0985E6EF24F2B4B1000B4A96 /* HistorySummaryTableViewCell.swift in Sources */,
+				09EEED8826063E69002731DB /* MainTodayTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -900,7 +915,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0955EBF3255851820047D791 /* RingDrawer.swift in Sources */,
 				09323C961D22C39700961822 /* ExtensionDelegate.swift in Sources */,
 				0930F7DF25696C7B006123FB /* SetGoalInterfaceController.swift in Sources */,
 				0947AA9C1D4EB1D80040E1DD /* SummaryInterfaceController.swift in Sources */,
@@ -918,6 +932,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09EEEDA8260F76C6002731DB /* RingDrawer.swift in Sources */,
 				09D7F1241E340EA7008FF0CC /* Constants.swift in Sources */,
 				0929A6C724E6F1DC00780004 /* AggregateCollections.swift in Sources */,
 				096FE0AA250E75FF00838BEE /* StepsProcessingService.swift in Sources */,
@@ -944,6 +959,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09EEEDA9260F76C6002731DB /* RingDrawer.swift in Sources */,
 				09D7F1251E340EA7008FF0CC /* Constants.swift in Sources */,
 				0929A6C824E6F1DC00780004 /* AggregateCollections.swift in Sources */,
 				096FE0AB250E75FF00838BEE /* StepsProcessingService.swift in Sources */,
@@ -1006,19 +1022,9 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		092276E523569EB10015A1E6 /* HourGraphDetailViewController.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				092276E623569EB20015A1E6 /* ja */,
-				0903E604235BCAED0049E071 /* Base */,
-			);
-			name = HourGraphDetailViewController.xib;
-			sourceTree = "<group>";
-		};
 		09323C741D22C39700961822 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				099582D1234192E900AF6A96 /* ja */,
 				0903E606235BCAED0049E071 /* Base */,
 			);
 			name = Main.storyboard;
@@ -1186,7 +1192,7 @@
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_ENTITLEMENTS = "Duffy WatchKit Extension/Duffy WatchKit Extension.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 26;
 				INFOPLIST_FILE = "Duffy WatchKit Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MARKETING_VERSION = 3.5.1;
@@ -1207,7 +1213,7 @@
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_ENTITLEMENTS = "Duffy WatchKit Extension/Duffy WatchKit Extension.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 26;
 				INFOPLIST_FILE = "Duffy WatchKit Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MARKETING_VERSION = 3.5.1;
@@ -1227,7 +1233,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 26;
 				IBSC_MODULE = Duffy_WatchKit_Extension;
 				INFOPLIST_FILE = "Duffy WatchKit App/Info.plist";
 				MARKETING_VERSION = 3.5.1;
@@ -1247,7 +1253,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 26;
 				IBSC_MODULE = Duffy_WatchKit_Extension;
 				INFOPLIST_FILE = "Duffy WatchKit App/Info.plist";
 				MARKETING_VERSION = 3.5.1;
@@ -1268,7 +1274,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Duffy/Duffy.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 26;
 				DEVELOPMENT_TEAM = 2ZMUDMBY38;
 				INFOPLIST_FILE = Duffy/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -1287,7 +1293,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Duffy/Duffy.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 26;
 				DEVELOPMENT_TEAM = 2ZMUDMBY38;
 				INFOPLIST_FILE = Duffy/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -1302,6 +1308,7 @@
 		09323D0D1D2303BC00961822 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -1328,6 +1335,7 @@
 		09323D0E1D2303BC00961822 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				APPLICATION_EXTENSION_API_ONLY = NO;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
@@ -1408,11 +1416,11 @@
 		09CE42D61E35525200A6E587 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = NO;
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CODE_SIGN_ENTITLEMENTS = DuffyToday/DuffyToday.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 26;
 				DEVELOPMENT_TEAM = 2ZMUDMBY38;
 				INFOPLIST_FILE = DuffyToday/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -1429,11 +1437,11 @@
 		09CE42D71E35525200A6E587 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = NO;
+				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CODE_SIGN_ENTITLEMENTS = DuffyToday/DuffyToday.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 24;
+				CURRENT_PROJECT_VERSION = 26;
 				DEVELOPMENT_TEAM = 2ZMUDMBY38;
 				INFOPLIST_FILE = DuffyToday/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;

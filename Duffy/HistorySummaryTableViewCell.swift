@@ -137,13 +137,3 @@ class HistorySummaryTableViewCell: UITableViewCell {
         }
     }
 }
-
-class HistorySummarySeparatorView: UIView {
-    override func draw(_ rect: CGRect) {
-        super.draw(rect)
-        
-        let separator = UIBezierPath(rect: CGRect(x: 0, y: (rect.height / 2.0) - 0.165, width: rect.width, height: 0.33))
-        Globals.separatorColor().setFill()
-        separator.fill()
-    }
-}

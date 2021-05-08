@@ -56,6 +56,9 @@ class TrophyCollectionViewCell: UICollectionViewCell {
         let lastTemplate = "Last: %@"
         let text: String
         var textColor: UIColor = .black
+        if #available(iOS 13.0, *) {
+            textColor = .label
+        }
         
         if last.isLoading {
             text = String(format: lastTemplate, "...")
@@ -65,9 +68,6 @@ class TrophyCollectionViewCell: UICollectionViewCell {
                 ? Globals.dayFormatter()
                 : Globals.monthYearFormatter()
             text = String(format: lastTemplate, dateFormatter.string(from: awardDate))
-            if #available(iOS 13.0, *) {
-                textColor = .label
-            }
         } else {
             text = "Not awarded yet"
             if #available(iOS 13.0, *) {

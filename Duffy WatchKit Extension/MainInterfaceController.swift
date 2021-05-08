@@ -100,11 +100,12 @@ class MainInterfaceController: WKInterfaceController
             
             var goalColor: UIColor
             var goalText: String
+            var goalDisplay: String = formattedDiff
             
             if trophy == .none {
                 trophyLabel.setHidden(true)
                 ringImage.setHidden(false)
-                ringImage.setImage(RingDrawer.drawRing(stepsForDay, goal: goalValue, width: 60, includeCenterImage: false)?.withRenderingMode(.alwaysTemplate))
+                ringImage.setImage(RingDrawer.drawRing(stepsForDay, goal: goalValue, width: 60)?.withRenderingMode(.alwaysTemplate))
                 goalColor = .white
                 goalText = NSLocalizedString("To go", comment: "")
             } else {
@@ -112,10 +113,11 @@ class MainInterfaceController: WKInterfaceController
                 trophyLabel.setHidden(false)
                 trophyLabel.setText(trophy.symbol())
                 goalColor = Globals.goalColor()
-                goalText = String(format: "%@+", NSLocalizedString("Goal", comment: ""))
+                goalText = String(format: "%@!", NSLocalizedString("Goal", comment: ""))
+                goalDisplay = "+\(formattedDiff)"
             }
             
-            setRoundedText(formattedDiff, for: stepsGoalLabel, in: goalColor)
+            setRoundedText(goalDisplay, for: stepsGoalLabel, in: goalColor)
             setRoundedText(goalText, for: stepsGoalTitleLabel, in: goalColor)
         } else {
             stepsGoalLabel.setText("?")
@@ -322,7 +324,7 @@ class MainInterfaceController: WKInterfaceController
         flightsValueLabel.setTextColor(Globals.secondaryColor())
         distanceValueLabel.setTextColor(Globals.secondaryColor())
         
-        let summaryButtonText = NSLocalizedString("View Summary", comment: "")
+        let summaryButtonText = NSLocalizedString("Previous Week", comment: "")
         let goalButtonText = NSLocalizedString("Change Goal", comment: "")
         let stepsTitle = NSLocalizedString("Steps", comment: "")
         let flightsTitle = NSLocalizedString("Flights", comment: "")
