@@ -33,11 +33,11 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="🦫" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V6y-Iw-hnQ">
-                    <rect key="frame" x="2" y="0.0" width="28" height="40"/>
+                    <rect key="frame" x="0.0" y="0.0" width="32" height="40"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="28" id="Krs-Fe-lRb"/>
+                        <constraint firstAttribute="width" constant="32" id="Krs-Fe-lRb"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="28"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
@@ -45,7 +45,7 @@
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="V6y-Iw-hnQ" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="2" id="02E-pT-Djv"/>
+                <constraint firstItem="V6y-Iw-hnQ" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="02E-pT-Djv"/>
                 <constraint firstItem="uq5-Wi-Muf" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" id="0x6-QC-KP8"/>
                 <constraint firstItem="uq5-Wi-Muf" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ki0-d6-Iih" secondAttribute="trailing" constant="4" id="K9v-ta-cXi"/>
                 <constraint firstItem="frp-Z5-ugQ" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="4" id="Owm-Vw-3bu"/>

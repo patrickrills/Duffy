@@ -54,27 +54,21 @@ class MainTodayTableViewCell: UITableViewCell {
         
         let trophy = Trophy.trophy(for: steps)
         
-        var goalColor: UIColor
         var goalText: String
         var goalImage: UIImage?
+        var goalDisplay: String = formattedToGo
         
         if trophy == .none {
             goalImage = RingDrawer.drawRing(steps, goal: goalValue, width: 28.0 * UIScreen.main.scale)?.withRenderingMode(.alwaysTemplate)
-            
-            if #available(iOS 13.0, *) {
-                goalColor = .label
-            } else {
-                goalColor = .black
-            }
             goalText = NSLocalizedString("To go", comment: "")
         } else {
-            goalColor = Globals.successColor()
-            goalText = String(format: "%@+", NSLocalizedString("Goal", comment: ""))
+            goalText = String(format: "%@!", NSLocalizedString("Goal", comment: ""))
+            goalDisplay = "+\(formattedToGo)"
         }
         
         stepsLabel.text = formattedSteps
         goalLabel.text = String(format: NSLocalizedString("of %@ goal %@", comment: ""), formattedGoal, Trophy.none.symbol())
-        toGoItemView.bind(title: goalText, value: formattedToGo, valueColor: goalColor, image: goalImage, symbol: trophy.symbol(), imageTintColor: Globals.primaryColor())
+        toGoItemView.bind(title: goalText, value: goalDisplay, image: goalImage, symbol: trophy.symbol(), imageTintColor: Globals.primaryColor())
         flightsItemView.bind(title: NSLocalizedString("Flights", comment: ""), value: formattedFlights, image: UIImage(named: "Flights")!)
         
         let distanceTitle: String

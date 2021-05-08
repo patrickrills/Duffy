@@ -100,6 +100,7 @@ class MainInterfaceController: WKInterfaceController
             
             var goalColor: UIColor
             var goalText: String
+            var goalDisplay: String = formattedDiff
             
             if trophy == .none {
                 trophyLabel.setHidden(true)
@@ -112,10 +113,11 @@ class MainInterfaceController: WKInterfaceController
                 trophyLabel.setHidden(false)
                 trophyLabel.setText(trophy.symbol())
                 goalColor = Globals.goalColor()
-                goalText = String(format: "%@+", NSLocalizedString("Goal", comment: ""))
+                goalText = String(format: "%@!", NSLocalizedString("Goal", comment: ""))
+                goalDisplay = "+\(formattedDiff)"
             }
             
-            setRoundedText(formattedDiff, for: stepsGoalLabel, in: goalColor)
+            setRoundedText(goalDisplay, for: stepsGoalLabel, in: goalColor)
             setRoundedText(goalText, for: stepsGoalTitleLabel, in: goalColor)
         } else {
             stepsGoalLabel.setText("?")

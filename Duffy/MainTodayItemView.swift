@@ -16,23 +16,14 @@ class MainTodayItemView: UIView {
     @IBOutlet private weak var symbolLabel: UILabel!
     @IBOutlet private weak var titleLabel: UILabel!
     @IBOutlet private weak var valueLabel: UILabel!
-    
-    private lazy var defaultTextColor: UIColor = {
-        if #available(iOS 13.0, *) {
-            return .label
-        } else {
-            return .darkText
-        }
-    }()
-    
+        
     func bind(title: String, value: String, image: UIImage) {
-        bind(title: title, value: value, valueColor: defaultTextColor, image: image, symbol: nil, imageTintColor: Globals.lightGrayColor())
+        bind(title: title, value: value, image: image, symbol: nil, imageTintColor: Globals.lightGrayColor())
     }
     
-    func bind(title: String, value: String, valueColor: UIColor, image: UIImage?, symbol: String?, imageTintColor: UIColor) {
+    func bind(title: String, value: String, image: UIImage?, symbol: String?, imageTintColor: UIColor) {
         titleLabel.text = title
         valueLabel.text = value
-        valueLabel.textColor = valueColor
         
         if let symbol = symbol,
            symbol.count > 0 {
