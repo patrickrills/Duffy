@@ -57,132 +57,83 @@ public class HealthKitService
 
     public func getSteps(for date: Date, completionHandler: @escaping (StepsForDayResult) -> ())
     {
-        guard HKHealthStore.isHealthDataAvailable(),
-            let stepType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.stepCount)
-        else { return }
-        
-        get(quantityType: stepType, measuredIn: HKUnit.count(), on: date) { result in
-            switch result {
-            case .success(let sumValue):
-                let steps = Steps(sumValue.sum)
-                StepsProcessingService.handleSteps(steps, for: sumValue.day, from: "steps for day query")
-                completionHandler(.success((day: sumValue.day, steps: steps)))
-            case .failure(let error):
-                completionHandler(.failure(error))
-            }
-        }
+        let stepsCount = testStepsByHour().values.reduce(0, +)
+        completionHandler(.success((day: date, steps: Steps(stepsCount))))
+    }
+    
+    private func testStepsByHour() -> [Hour : Steps] {
+        return [
+            7: 340,
+            8 : 765,
+            9 : 900,
+            10: 670,
+            11: 1200,
+            12: 876,
+            13: 200,
+            14: 987,
+            15: 345,
+            16: 1400,
+            17: 1500,
+            18: 2450,
+            19: 1000,
+            20: 343
+        ]
     }
     
     public func getStepsByHour(for date: Date, completionHandler: @escaping (StepsByHourResult) -> ()) {
-        guard HKHealthStore.isHealthDataAvailable(), let store = healthStore else {
-            completionHandler(.failure(.unsupported))
-            return
-        }
-        
-        let queryStartDate = date.stripTime()
-        let queryEndDate = queryStartDate.nextDay()
-        
-        let forSpecificDay = HKQuery.predicateForSamples(withStart: queryStartDate, end: queryEndDate, options: [])
-        
-        var interval = DateComponents()
-        interval.hour = 1
-        
-        if let stepType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.stepCount)
-        {
-            let query = HKStatisticsCollectionQuery(quantityType: stepType,
-                                                    quantitySamplePredicate: forSpecificDay,
-                                                    options: .cumulativeSum,
-                                                    anchorDate: queryStartDate,
-                                                    intervalComponents: interval)
-            
-            query.initialResultsHandler = {
-                (query: HKStatisticsCollectionQuery, results: HKStatisticsCollection?, error: Error?) in
-                
-                if let r = results , error == nil {
-                    var stepsByHour = [Hour : Steps]()
-                    
-                    r.enumerateStatistics(from: queryStartDate, to: queryEndDate) {
-                        statistics, stop in
-                        
-                        if let quantity = statistics.sumQuantity() {
-                            let hour = Calendar.current.component(.hour, from: statistics.startDate)
-                            
-                            if hour >= 0 {
-                                let stepsThisHour = Steps(quantity.doubleValue(for: HKUnit.count()))
-                                stepsByHour[Hour(hour)] = stepsThisHour
-                            }
-                        }
-                    }
-                    
-                    completionHandler(.success((day: queryStartDate, stepsByHour: stepsByHour)))
-                } else {
-                    var errorResult: HealthKitError = .invalidResults
-                    if let error = error {
-                        errorResult = .wrapped(error)
-                    }
-                    completionHandler(.failure(errorResult))
-                }
-            }
-            
-            store.execute(query)
-        }
+        completionHandler(.success(
+            (
+            day: date,
+            stepsByHour: testStepsByHour()
+            )
+        ))
     }
     
     public func getSteps(from startDate: Date, to endDate: Date, completionHandler: @escaping (StepsByDateResult) -> ()) {
-        guard HKHealthStore.isHealthDataAvailable(), let store = healthStore else {
-            completionHandler(.failure(.unsupported))
-            return
-        }
+        let today = testStepsByHour().values.reduce(0, +)
         
-        let queryStartDate = startDate.stripTime()
-        let queryEndDate = endDate.stripTime().nextDay()
-    
-        let dateRangePredicate = HKQuery.predicateForSamples(withStart: queryStartDate, end: queryEndDate, options: .strictEndDate)
-        var interval = DateComponents()
-        interval.day = 1
-        
-        if let stepType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.stepCount) {
-            let query = HKStatisticsCollectionQuery(quantityType: stepType,
-                                                    quantitySamplePredicate: dateRangePredicate,
-                                                    options: .cumulativeSum,
-                                                    anchorDate: queryStartDate,
-                                                    intervalComponents: interval)
-            
-            query.initialResultsHandler = {
-                (query: HKStatisticsCollectionQuery, results: HKStatisticsCollection?, error: Error?) in
-                
-                if let r = results , error == nil {
-                    var stepsCollection = [Date : Steps]()
-                    
-                    r.enumerateStatistics(from: queryStartDate, to: queryEndDate) {
-                        statistics, stop in
-                        
-                        if let quantity = statistics.sumQuantity() {
-                            
-                            var steps: Steps = 0
-                            if let prev = stepsCollection[statistics.startDate] {
-                                steps = prev
-                            }
-                            
-                            steps += Steps(quantity.doubleValue(for: HKUnit.count()))
-                            stepsCollection[statistics.startDate] = steps
-                        }
-                    }
-                    
-                    completionHandler(.success(stepsCollection))
-                }
-                else
-                {
-                    var errorResult: HealthKitError = .invalidResults
-                    if let error = error {
-                        errorResult = .wrapped(error)
-                    }
-                    completionHandler(.failure(errorResult))
-                }
-            }
-            
-            store.execute(query)
-        }
+        completionHandler(.success(
+            [
+                Date() : Steps(today),
+                Calendar.current.date(byAdding: .day, value: -1, to: Date())! : 9939,
+                Calendar.current.date(byAdding: .day, value: -2, to: Date())! : 10878,
+                Calendar.current.date(byAdding: .day, value: -3, to: Date())! : 21239,
+                Calendar.current.date(byAdding: .day, value: -4, to: Date())! : 12513,
+                Calendar.current.date(byAdding: .day, value: -5, to: Date())! : 9592,
+                Calendar.current.date(byAdding: .day, value: -6, to: Date())! : 17804,
+                Calendar.current.date(byAdding: .day, value: -7, to: Date())! : 15902,
+                Calendar.current.date(byAdding: .day, value: -8, to: Date())! : 9177,
+                Calendar.current.date(byAdding: .day, value: -9, to: Date())! : 9943,
+                Calendar.current.date(byAdding: .day, value: -10, to: Date())! : 8715,
+                Calendar.current.date(byAdding: .day, value: -11, to: Date())! : 15005,
+                Calendar.current.date(byAdding: .day, value: -12, to: Date())! : 10179,
+                Calendar.current.date(byAdding: .day, value: -13, to: Date())! : 9562,
+                Calendar.current.date(byAdding: .day, value: -14, to: Date())! : 13427,
+                Calendar.current.date(byAdding: .day, value: -15, to: Date())! : 9448,
+                Calendar.current.date(byAdding: .day, value: -16, to: Date())! : 11003,
+                Calendar.current.date(byAdding: .day, value: -17, to: Date())! : 6181,
+                Calendar.current.date(byAdding: .day, value: -18, to: Date())! : 3638,
+                Calendar.current.date(byAdding: .day, value: -19, to: Date())! : 7918,
+                Calendar.current.date(byAdding: .day, value: -20, to: Date())! : 10067,
+                Calendar.current.date(byAdding: .day, value: -21, to: Date())! : 10159,
+                Calendar.current.date(byAdding: .day, value: -22, to: Date())! : 9172,
+                Calendar.current.date(byAdding: .day, value: -23, to: Date())! : 8598,
+                Calendar.current.date(byAdding: .day, value: -24, to: Date())! : 7792,
+                Calendar.current.date(byAdding: .day, value: -25, to: Date())! : 11700,
+                Calendar.current.date(byAdding: .day, value: -26, to: Date())! : 12250,
+                Calendar.current.date(byAdding: .day, value: -27, to: Date())! : 15791,
+                Calendar.current.date(byAdding: .day, value: -28, to: Date())! : 13635,
+                Calendar.current.date(byAdding: .day, value: -29, to: Date())! : 11227,
+                Calendar.current.date(byAdding: .day, value: -30, to: Date())! : 8962,
+                Calendar.current.date(byAdding: .day, value: -31, to: Date())! : 4751,
+                Calendar.current.date(byAdding: .day, value: -32, to: Date())! : 9458,
+                Calendar.current.date(byAdding: .day, value: -33, to: Date())! : 5508,
+                Calendar.current.date(byAdding: .day, value: -34, to: Date())! : 7242,
+                Calendar.current.date(byAdding: .day, value: -35, to: Date())! : 11481,
+                Calendar.current.date(byAdding: .day, value: -36, to: Date())! : 10878,
+                Calendar.current.date(byAdding: .day, value: -37, to: Date())! : 11239
+            ]
+        ))
     }
     
     public func lastTrophiesAwarded(completionHandler: @escaping (LastTrophyAwardResult) -> ()) {
@@ -243,46 +194,11 @@ public class HealthKitService
     //MARK: Flights and Distance Queries
         
     public func getFlightsClimbed(for date: Date, completionHandler: @escaping (FlightsForDayResult) -> ()) {
-        guard HKHealthStore.isHealthDataAvailable(),
-            let flightType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.flightsClimbed)
-        else { return }
-        
-        get(quantityType: flightType, measuredIn: HKUnit.count(), on: date) { result in
-            switch result {
-            case .success(let sumValue):
-                completionHandler(.success((day: sumValue.day, flights: FlightsClimbed(sumValue.sum))))
-            case .failure(let error):
-                completionHandler(.failure(error))
-            }
-        }
+        completionHandler(.success((day: date, flights: FlightsClimbed(3))))
     }
     
     public func getDistanceCovered(for date: Date, completionHandler: @escaping (DistanceForDayResult) -> ()) {
-        guard HKHealthStore.isHealthDataAvailable(),
-            let store = healthStore,
-            let distanceType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.distanceWalkingRunning)
-        else { return }
-        
-        store.preferredUnits(for: [distanceType]) { [weak self] units, error in
-            if let error = error {
-                completionHandler(.failure(.wrapped(error)))
-                return
-            }
-            
-            var distanceUnits = HKUnit.mile()
-            if let preferred = units[distanceType] {
-                distanceUnits = preferred
-            }
-            
-            self?.get(quantityType: distanceType, measuredIn: distanceUnits, on: date) { result in
-                switch result {
-                case .success(let sumValue):
-                    completionHandler(.success((day: sumValue.day, formatter: HKUnit.lengthFormatterUnit(from: distanceUnits), distance: sumValue.sum)))
-                case .failure(let error):
-                    completionHandler(.failure(error))
-                }
-            }
-        }
+        completionHandler(.success((day: date, formatter: HKUnit.lengthFormatterUnit(from: HKUnit.mile()), distance: 4.6)))
     }
     
     //MARK: Helpers
