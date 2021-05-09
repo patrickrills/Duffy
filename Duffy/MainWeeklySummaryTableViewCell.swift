@@ -37,12 +37,14 @@ class MainWeeklySummaryTableViewCell: UITableViewCell {
         var arrowProgress: NSAttributedString?
         var showProgress = true
         
-        let valueFont = UIFont.systemFont(ofSize: 32.0, weight: .black)
-        let descriptionFont = UIFont.systemFont(ofSize: 15.0, weight: .semibold)
-        var progressColor = UIColor.black
-        var textColor = UIColor.black
+        let valueFont = UIFont.systemFont(ofSize: 28.0, weight: .bold)
+        let descriptionFont = UIFont.systemFont(ofSize: 15.0, weight: .regular)
+                
+        var textColor = UIColor.darkText
+        var labelColor = UIColor.lightText
         if #available(iOS 13.0, *) {
             textColor = .label
+            labelColor = .secondaryLabel
         }
         
         if let averageFormatted = Globals.stepsFormatter().string(for: average) {
@@ -55,27 +57,20 @@ class MainWeeklySummaryTableViewCell: UITableViewCell {
             displayProgress = progressFormatted
             
             let roundedProgress = round(progress * 100.0)
-            
-            if roundedProgress < 0 {
-                progressColor = .systemRed
-            } else if roundedProgress > 0 {
-                progressColor = .systemGreen
-            }
-            
-            arrowProgress = arrow(for: roundedProgress, in: progressColor, with: valueFont)
+            arrowProgress = arrow(for: roundedProgress, in: textColor, with: valueFont)
         } else {
             showProgress = false
         }
         
         let attributedAverage = NSMutableAttributedString(string: String(format: "%@\n%@", displayAverage, descriptionAverage))
         attributedAverage.addAttributes([.font: valueFont, .foregroundColor : Globals.averageColor()], range: NSRange(location: 0, length: displayAverage.count))
-        attributedAverage.addAttributes([.font: descriptionFont, .foregroundColor : textColor], range: NSRange(location: attributedAverage.string.count - descriptionAverage.count, length: descriptionAverage.count))
+        attributedAverage.addAttributes([.font: descriptionFont, .foregroundColor : labelColor], range: NSRange(location: attributedAverage.string.count - descriptionAverage.count, length: descriptionAverage.count))
         averageLabel.attributedText = attributedAverage
         
         if showProgress {
             let attributedProgress = NSMutableAttributedString(string: String(format: "%@\n%@", displayProgress, descriptionProgress))
-            attributedProgress.addAttributes([.font: valueFont, .foregroundColor : progressColor], range: NSRange(location: 0, length: displayProgress.count))
-            attributedProgress.addAttributes([.font: descriptionFont, .foregroundColor : textColor], range: NSRange(location: attributedProgress.string.count - descriptionProgress.count, length: descriptionProgress.count))
+            attributedProgress.addAttributes([.font: valueFont, .foregroundColor : textColor], range: NSRange(location: 0, length: displayProgress.count))
+            attributedProgress.addAttributes([.font: descriptionFont, .foregroundColor : labelColor], range: NSRange(location: attributedProgress.string.count - descriptionProgress.count, length: descriptionProgress.count))
             if let arrowProgress = arrowProgress {
                 attributedProgress.insert(arrowProgress, at: 0)
             }
