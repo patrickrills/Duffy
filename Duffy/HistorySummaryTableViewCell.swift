@@ -107,8 +107,11 @@ class HistorySummaryTableViewCell: UITableViewCell {
     }
     
     private func displayOverCount(_ overCount: UInt, since startDate: Date) {
+        let numberOfDays = startDate.differenceInDays(from: Date().previousDay())
+        let percentOfDays = Double(overCount) / Double(numberOfDays)
+        
         let countString = NSLocalizedString("summary_goal_count", comment: "")
-        let formatted = String.localizedStringWithFormat(countString, overCount, Globals.stepsFormatter().string(for: startDate.differenceInDays(from: Date().previousDay()))!)
+        let formatted = String.localizedStringWithFormat(countString, overCount, Globals.stepsFormatter().string(for: numberOfDays)!, Globals.percentFormatter().string(for: percentOfDays)!)
         
         let attributedText = NSMutableAttributedString()
         var textColor: UIColor = .systemGray

@@ -15,9 +15,9 @@
 			<key>zero</key>
 			<string>Japan: no times in %2$@ days</string>
 			<key>one</key>
-			<string>Japan: 1 time in %2$@ days</string>
+			<string>Japan: 1 time in %2$@ days (%3$@)</string>
 			<key>other</key>
-			<string>Japan: %1$u times in %2$@ days</string>
+			<string>Japan: %1$u times in %2$@ days (%3$@)</string>
 		</dict>
 	</dict>
 </dict>
