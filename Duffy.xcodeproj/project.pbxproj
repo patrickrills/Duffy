@@ -13,6 +13,12 @@
 		0903E60A235CEFE00049E071 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 099582D0234192C400AF6A96 /* Localizable.strings */; };
 		090829E224670EEF00F100D6 /* Trophy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090829E124670EEF00F100D6 /* Trophy.swift */; };
 		090829E324670EEF00F100D6 /* Trophy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090829E124670EEF00F100D6 /* Trophy.swift */; };
+		091097D02650043B007EEFA8 /* TipService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091097CF2650043B007EEFA8 /* TipService.swift */; };
+		091097D12650043B007EEFA8 /* TipService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091097CF2650043B007EEFA8 /* TipService.swift */; };
+		091097D326501AC1007EEFA8 /* TipOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091097D226501AC1007EEFA8 /* TipOption.swift */; };
+		091097D426501AC1007EEFA8 /* TipOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091097D226501AC1007EEFA8 /* TipOption.swift */; };
+		091097D626501F09007EEFA8 /* StoreKitError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091097D526501F09007EEFA8 /* StoreKitError.swift */; };
+		091097D726501F09007EEFA8 /* StoreKitError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091097D526501F09007EEFA8 /* StoreKitError.swift */; };
 		091714CF25290B8D001062E0 /* ChartDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091714CE25290B8D001062E0 /* ChartDrawer.swift */; };
 		091714F125326B40001062E0 /* Plot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091714F025326B40001062E0 /* Plot.swift */; };
 		091714F225326B40001062E0 /* Plot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091714F025326B40001062E0 /* Plot.swift */; };
@@ -238,6 +244,10 @@
 		0903E606235BCAED0049E071 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0903E609235BCAED0049E071 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		090829E124670EEF00F100D6 /* Trophy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trophy.swift; sourceTree = "<group>"; };
+		091097CF2650043B007EEFA8 /* TipService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipService.swift; sourceTree = "<group>"; };
+		091097D226501AC1007EEFA8 /* TipOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipOption.swift; sourceTree = "<group>"; };
+		091097D526501F09007EEFA8 /* StoreKitError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreKitError.swift; sourceTree = "<group>"; };
+		091097D8265022F1007EEFA8 /* TipConfiguration.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = TipConfiguration.storekit; sourceTree = "<group>"; };
 		091714CE25290B8D001062E0 /* ChartDrawer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartDrawer.swift; sourceTree = "<group>"; };
 		091714F025326B40001062E0 /* Plot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plot.swift; sourceTree = "<group>"; };
 		09177BC4241D466E0095ECB4 /* ExportService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportService.swift; sourceTree = "<group>"; };
@@ -526,6 +536,9 @@
 				092B0E891D45841F00085F99 /* CoreMotionService.swift */,
 				09D7F1231E340EA7008FF0CC /* Constants.swift */,
 				0967EB781E7F0ACE0073BF3F /* NotificationService.swift */,
+				091097CF2650043B007EEFA8 /* TipService.swift */,
+				091097D226501AC1007EEFA8 /* TipOption.swift */,
+				091097D526501F09007EEFA8 /* StoreKitError.swift */,
 				090829E124670EEF00F100D6 /* Trophy.swift */,
 				09EEEDA7260F76C6002731DB /* RingDrawer.swift */,
 				099FE6FF234EB5300092D219 /* LoggingService.swift */,
@@ -535,6 +548,7 @@
 				09177BC4241D466E0095ECB4 /* ExportService.swift */,
 				091714F025326B40001062E0 /* Plot.swift */,
 				099582D0234192C400AF6A96 /* Localizable.strings */,
+				091097D8265022F1007EEFA8 /* TipConfiguration.storekit */,
 			);
 			path = DuffyFramework;
 			sourceTree = "<group>";
@@ -933,12 +947,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				09EEEDA8260F76C6002731DB /* RingDrawer.swift in Sources */,
+				091097D626501F09007EEFA8 /* StoreKitError.swift in Sources */,
 				09D7F1241E340EA7008FF0CC /* Constants.swift in Sources */,
 				0929A6C724E6F1DC00780004 /* AggregateCollections.swift in Sources */,
 				096FE0AA250E75FF00838BEE /* StepsProcessingService.swift in Sources */,
 				0937CA3E25447A1700BDDDD3 /* WCSessionMessage.swift in Sources */,
+				091097D02650043B007EEFA8 /* TipService.swift in Sources */,
 				09AACE271D318A390058A814 /* HealthCache.swift in Sources */,
 				096FE09C2503CA6500838BEE /* Date.swift in Sources */,
+				091097D326501AC1007EEFA8 /* TipOption.swift in Sources */,
 				090829E224670EEF00F100D6 /* Trophy.swift in Sources */,
 				0929A6CA24E6FF3300780004 /* HealthKitError.swift in Sources */,
 				0967EB791E7F0ACE0073BF3F /* NotificationService.swift in Sources */,
@@ -960,12 +977,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				09EEEDA9260F76C6002731DB /* RingDrawer.swift in Sources */,
+				091097D726501F09007EEFA8 /* StoreKitError.swift in Sources */,
 				09D7F1251E340EA7008FF0CC /* Constants.swift in Sources */,
 				0929A6C824E6F1DC00780004 /* AggregateCollections.swift in Sources */,
 				096FE0AB250E75FF00838BEE /* StepsProcessingService.swift in Sources */,
 				0937CA3F25447A1700BDDDD3 /* WCSessionMessage.swift in Sources */,
+				091097D12650043B007EEFA8 /* TipService.swift in Sources */,
 				09AACE281D318A390058A814 /* HealthCache.swift in Sources */,
 				096FE09D2503CA6500838BEE /* Date.swift in Sources */,
+				091097D426501AC1007EEFA8 /* TipOption.swift in Sources */,
 				090829E324670EEF00F100D6 /* Trophy.swift in Sources */,
 				0929A6CB24E6FF3300780004 /* HealthKitError.swift in Sources */,
 				0967EB7A1E7F0ACE0073BF3F /* NotificationService.swift in Sources */,

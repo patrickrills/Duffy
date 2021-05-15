@@ -33,6 +33,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate
             }
         }
         
+        TipService.getInstance().initialize()
+        
         return true
     }
 

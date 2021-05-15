@@ -10,7 +10,7 @@ import UIKit
 import DuffyFramework
 
 enum AboutCategory: Int, CaseIterable {
-    case help, feedback, publishers
+    case help, feedback, appreciation, publishers
     
     func localizedTitle() -> String {
         switch self {
@@ -18,6 +18,8 @@ enum AboutCategory: Int, CaseIterable {
             return NSLocalizedString("Help", comment: "")
         case .feedback:
             return NSLocalizedString("Feedback", comment: "")
+        case .appreciation:
+            return NSLocalizedString("Appreciation", comment: "")
         case .publishers:
             return NSLocalizedString("Published By", comment: "")
         }
@@ -40,7 +42,7 @@ enum AboutCategory: Int, CaseIterable {
 }
 
 enum AboutOption: CaseIterable {
-    case goalHowTo, trophies, rate, askAQuestion, bigbluefly, isral
+    case goalHowTo, trophies, rate, askAQuestion, bigbluefly, isral, tipJar
     
     func category() -> AboutCategory {
         switch self {
@@ -48,6 +50,8 @@ enum AboutOption: CaseIterable {
             return .help
         case .rate, .askAQuestion:
             return .feedback
+        case .tipJar:
+            return .appreciation
         case .bigbluefly, .isral:
             return .publishers
         }
@@ -63,6 +67,8 @@ enum AboutOption: CaseIterable {
             return NSLocalizedString("Rate Duffy", comment: "")
         case .askAQuestion:
             return NSLocalizedString("Ask a Question", comment: "")
+        case .tipJar:
+            return NSLocalizedString("Tip Jar", comment: "")
         case .bigbluefly:
             return "Big Blue Fly (code)"
         case .isral:
@@ -84,6 +90,13 @@ enum AboutOption: CaseIterable {
             return UIImage(named: "BigBlueFly")
         case .isral:
             return UIImage(named: "isral")
+        case .tipJar:
+            //TODO: pull actual icon for dollar and yen
+            if #available(iOS 13.0, *) {
+                return UIImage(systemName: "dollarsign.circle")
+            } else {
+                return nil
+            }
         }
     }
     
@@ -101,6 +114,15 @@ enum AboutOption: CaseIterable {
             parent?.openURL("http://www.bigbluefly.com/duffy")
         case .isral:
             parent?.openURL("http://www.isralduke.com")
+        case .tipJar:
+            TipService.getInstance().tipOptions { result in
+                switch result {
+                case.success(let tips):
+                    print("Got tips! -> \(tips.map({ $0 }))")
+                case .failure(let error):
+                    print("Error: \(error.localizedDescription)")
+                }
+            }
         }
     }
 }

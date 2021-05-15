@@ -1,0 +1,38 @@
+{
+  "identifier" : "271B3490",
+  "nonRenewingSubscriptions" : [
+
+  ],
+  "products" : [
+    {
+      "displayPrice" : "0.99",
+      "familyShareable" : false,
+      "internalID" : "6F100EF8",
+      "localizations" : [
+        {
+          "description" : "",
+          "displayName" : "",
+          "locale" : "en_US"
+        },
+        {
+          "description" : "",
+          "displayName" : "",
+          "locale" : "ja"
+        }
+      ],
+      "productID" : "com.bigbluefly.temp",
+      "referenceName" : "One Dollar",
+      "type" : "Consumable"
+    }
+  ],
+  "settings" : {
+
+  },
+  "subscriptionGroups" : [
+
+  ],
+  "version" : {
+    "major" : 1,
+    "minor" : 1
+  }
+}
