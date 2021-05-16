@@ -115,14 +115,7 @@ enum AboutOption: CaseIterable {
         case .isral:
             parent?.openURL("http://www.isralduke.com")
         case .tipJar:
-            TipService.getInstance().tipOptions { result in
-                switch result {
-                case.success(let tips):
-                    print("Got tips! -> \(tips.map({ $0 }))")
-                case .failure(let error):
-                    print("Error: \(error.localizedDescription)")
-                }
-            }
+            parent?.pushViewController(TipViewController(), animated: true)
         }
     }
 }
