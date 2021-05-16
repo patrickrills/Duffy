@@ -49,8 +49,8 @@ class TipViewController: UICollectionViewController {
                     self?.collectionView.reloadData()
                 }
             case .failure(let error):
-                //TODO: Error State
-                print("Error: \(error.localizedDescription)")
+                //TODO: Show error and retry
+                LoggingService.log(error: error)
             }
         }
     }
@@ -73,8 +73,17 @@ class TipViewController: UICollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let tip = tipOptions.first(where: { $0.identifier == TipIdentifier.allCases[indexPath.row] }) else { return }
-        print("Selected: \(tip)")
         collectionView.deselectItem(at: indexPath, animated: true)
+        TipService.getInstance().tip(productId: tip.identifier) { result in
+            switch result {
+            case .success(_):
+                //TODO: show thanks
+                print("Thanks for the tip!!")
+            case .failure(let error):
+                //TODO: Show error and retry
+                LoggingService.log(error: error)
+            }
+        }
     }
 }
 

@@ -57,10 +57,14 @@ public class TipService: NSObject {
         completionHandler(.success(options))
     }
     
-    public func tip(productId: TipIdentifier) {
+    private var pendingProductsPurchaseHandler: ((Result<TipIdentifier, StoreKitError>) -> ())?
+    
+    public func tip(productId: TipIdentifier, completionHandler: @escaping (Result<TipIdentifier, StoreKitError>) -> ()) {
         guard let tipProduct = productCache[productId] else {
             return
         }
+        
+        pendingProductsPurchaseHandler = completionHandler
         
         let payment = SKPayment(product: tipProduct)
         SKPaymentQueue.default().add(payment)
@@ -108,15 +112,37 @@ extension TipService: SKPaymentTransactionObserver {
         transactions.forEach { trans in
             switch trans.transactionState {
             case .purchased:
-                print("Success!")
-                queue.finishTransaction(trans)
+                finishTransaction(trans, in: queue, wasSuccessful: true)
             case .failed:
-                print("Show payment error!")
-                queue.finishTransaction(trans)
+                finishTransaction(trans, in: queue, wasSuccessful: false)
             default:
                 break
             }
         }
     }
     
+    private func finishTransaction(_ transaction: SKPaymentTransaction, in queue: SKPaymentQueue, wasSuccessful: Bool) {
+        queue.finishTransaction(transaction)
+        
+        //TODO: is wasSuccessful, write to cache that user has tipped
+        
+        guard let tipId = TipIdentifier(rawValue: transaction.payment.productIdentifier),
+              let handler = pendingProductsPurchaseHandler
+        else {
+            return
+        }
+        
+        let purchaseResult: Result<TipIdentifier, StoreKitError>
+        
+        if wasSuccessful {
+            purchaseResult = .success(tipId)
+        } else if let purchaseError = transaction.error {
+            purchaseResult = .failure(.wrapped(purchaseError))
+        } else {
+            purchaseResult = .failure(.purchaseFailed)
+        }
+        
+        handler(purchaseResult)
+        pendingProductsPurchaseHandler = nil
+    }
 }
