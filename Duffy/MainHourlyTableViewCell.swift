@@ -22,6 +22,7 @@ class MainHourlyTableViewCell: UITableViewCell {
         super.awakeFromNib()
         
         selectionStyle = .none
+        isUserInteractionEnabled = false
         noStepsLabel.textColor = Globals.lightGrayColor()
         noStepsLabel.text = NSLocalizedString("No Steps Today", comment: "")
         sixAMLabel.text = NSLocalizedString("6 AM", comment: "")
@@ -80,5 +81,4 @@ class MainHourlyTableViewCell: UITableViewCell {
                 }
         }
     }
-    
 }

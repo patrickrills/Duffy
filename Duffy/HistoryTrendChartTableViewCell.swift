@@ -16,6 +16,7 @@ class HistoryTrendChartTableViewCell: UITableViewCell
     override func awakeFromNib() {
         super.awakeFromNib()
         selectionStyle = .none
+        isUserInteractionEnabled = false
     }
     
     func bind(to stepsByDay: [Date : Steps]) {

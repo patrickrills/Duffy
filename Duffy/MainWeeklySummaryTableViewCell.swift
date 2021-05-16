@@ -25,6 +25,7 @@ class MainWeeklySummaryTableViewCell: UITableViewCell {
         super.awakeFromNib()
         
         selectionStyle = .none
+        isUserInteractionEnabled = false
         
         contentView.addSubview(verticalSeparator)
     }
@@ -105,7 +106,6 @@ class MainWeeklySummaryTableViewCell: UITableViewCell {
                                          y: CGFloat(floor(contentView.frame.midY)) - CGFloat(floor(verticalSeparator.frame.size.height / 2.0)),
                                          width: verticalSeparator.frame.size.width,
                                          height: verticalSeparator.frame.size.height)
-        
         
         subviews
             .filter {
