@@ -33,6 +33,7 @@ class TipViewController: UICollectionViewController {
         }
 
         self.collectionView.register(TipCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: TipCollectionViewCell.self))
+        collectionView.register(ButtonFooterCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: String(describing: ButtonFooterCollectionReusableView.self))
         
         retrieveOptions()
     }
@@ -85,6 +86,23 @@ class TipViewController: UICollectionViewController {
             }
         }
     }
+    
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        switch kind {
+        case UICollectionView.elementKindSectionFooter:
+            guard let buttonFooter = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: String(describing: ButtonFooterCollectionReusableView.self), for: indexPath) as? ButtonFooterCollectionReusableView else {
+                fallthrough
+            }
+            
+            buttonFooter.bind(NSLocalizedString("Learn more about Duffy", comment: ""), onPress: { [weak self] in
+                self?.navigationController?.openURL("http://www.bigbluefly.com/duffy")
+            })
+            
+            return buttonFooter
+        default:
+            return super.collectionView(collectionView, viewForSupplementaryElementOfKind: kind, at: indexPath)
+        }
+    }
 }
 
 fileprivate class TipsLayout: UICollectionViewFlowLayout {
@@ -92,6 +110,7 @@ fileprivate class TipsLayout: UICollectionViewFlowLayout {
     enum Constants {
         static let SPACING: CGFloat = 20.0
         static let CELL_HEIGHT: CGFloat = 82.0
+        static let FOOTER_HEIGHT: CGFloat = 100.0
     }
     
     override func prepare() {
@@ -107,6 +126,8 @@ fileprivate class TipsLayout: UICollectionViewFlowLayout {
         let availableWidth = collectionView.bounds.inset(by: sectionInset).size.width
         let cellWidth = ((availableWidth - margin) / 2.0).rounded(.down)
         itemSize = CGSize(width: cellWidth, height: Constants.CELL_HEIGHT)
+        
+        footerReferenceSize = CGSize(width: availableWidth, height: Constants.FOOTER_HEIGHT)
     }
     
 }

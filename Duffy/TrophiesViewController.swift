@@ -43,7 +43,7 @@ class TrophiesViewController: UICollectionViewController, UICollectionViewDelega
         }
         
         collectionView.register(UINib(nibName: String(describing: TrophyCollectionViewCell.self), bundle: Bundle.main), forCellWithReuseIdentifier: String(describing: TrophyCollectionViewCell.self))
-        collectionView.register(TrophiesFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: String(describing: TrophiesFooterView.self))
+        collectionView.register(ButtonFooterCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: String(describing: ButtonFooterCollectionReusableView.self))
         collectionView.register(TrophiesHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: String(describing: TrophiesHeaderView.self))
         
         HealthKitService.getInstance().lastTrophiesAwarded { [weak self] result in
@@ -83,7 +83,7 @@ class TrophiesViewController: UICollectionViewController, UICollectionViewDelega
         case UICollectionView.elementKindSectionHeader:
             return collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: String(describing: TrophiesHeaderView.self), for: indexPath)
         case UICollectionView.elementKindSectionFooter:
-            guard let buttonFooter = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: String(describing: TrophiesFooterView.self), for: indexPath) as? TrophiesFooterView else {
+            guard let buttonFooter = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: String(describing: ButtonFooterCollectionReusableView.self), for: indexPath) as? ButtonFooterCollectionReusableView else {
                 fallthrough
             }
             
@@ -115,7 +115,6 @@ fileprivate class TrophyLayout: UICollectionViewFlowLayout {
         static let SPACING: CGFloat = 20.0
         static let CELL_HEIGHT: CGFloat = 82.0
         static let FOOTER_HEIGHT: CGFloat = 100.0
-        static let FOOTER_BUTTON_HEIGHT: CGFloat = 48.0
         static let HEADER_ESTIMATED_HEIGHT: CGFloat = 64.0
     }
     
@@ -163,51 +162,6 @@ fileprivate class TrophyLayout: UICollectionViewFlowLayout {
         }
     }
 
-}
-
-fileprivate class TrophiesFooterView: UICollectionReusableView {
-    
-    private lazy var buttonFooterView: ButtonFooterView = {
-        let footer = ButtonFooterView()
-        footer.translatesAutoresizingMaskIntoConstraints = false
-        footer.buttonAttributedText = NSAttributedString(string: "")
-        footer.addTarget(self, action: #selector(pressed))
-        footer.separatorIsVisible = false
-        footer.backgroundColor = .clear
-        return footer
-    }()
-    
-    private var pressHandler: (() -> ())?
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        createView()
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        createView()
-    }
-    
-    private func createView() {
-        backgroundColor = .clear
-        addSubview(buttonFooterView)
-        NSLayoutConstraint.activate([
-            buttonFooterView.topAnchor.constraint(equalTo: topAnchor),
-            buttonFooterView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            buttonFooterView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            buttonFooterView.heightAnchor.constraint(equalToConstant: TrophyLayout.Constants.FOOTER_BUTTON_HEIGHT)
-        ])
-    }
-    
-    @objc private func pressed() {
-        pressHandler?()
-    }
-    
-    func bind(_ buttonText: String, onPress: @escaping () -> ()) {
-        buttonFooterView.buttonAttributedText = NSAttributedString(string: buttonText)
-        pressHandler = onPress
-    }
 }
 
 fileprivate class TrophiesHeaderView: UICollectionReusableView {
