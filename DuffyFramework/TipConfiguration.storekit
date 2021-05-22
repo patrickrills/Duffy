@@ -23,6 +23,51 @@
       "productID" : "com.bigbluefly.temp",
       "referenceName" : "One Dollar",
       "type" : "Consumable"
+    },
+    {
+      "displayPrice" : "1.99",
+      "familyShareable" : false,
+      "internalID" : "8C876F1B",
+      "localizations" : [
+        {
+          "description" : "",
+          "displayName" : "",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "com.bigbluefly.temp2",
+      "referenceName" : "Two Dollars",
+      "type" : "Consumable"
+    },
+    {
+      "displayPrice" : "2.99",
+      "familyShareable" : false,
+      "internalID" : "149C5D1D",
+      "localizations" : [
+        {
+          "description" : "",
+          "displayName" : "",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "com.bigbluefly.temp3",
+      "referenceName" : "Three Dollars",
+      "type" : "Consumable"
+    },
+    {
+      "displayPrice" : "4.99",
+      "familyShareable" : false,
+      "internalID" : "74C4E441",
+      "localizations" : [
+        {
+          "description" : "",
+          "displayName" : "",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "com.bigbluefly.temp4",
+      "referenceName" : "Five Dollars",
+      "type" : "Consumable"
     }
   ],
   "settings" : {
