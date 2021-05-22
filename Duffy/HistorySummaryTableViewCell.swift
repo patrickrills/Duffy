@@ -29,6 +29,7 @@ class HistorySummaryTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         selectionStyle = .none
+        isUserInteractionEnabled = false
         
         averageBar.layer.cornerRadius = averageBarHeightConstraint.constant / 2.0
         averageDot.layer.cornerRadius = averageDotHeightConstraint.constant / 2.0
@@ -107,7 +108,7 @@ class HistorySummaryTableViewCell: UITableViewCell {
     }
     
     private func displayOverCount(_ overCount: UInt, since startDate: Date) {
-        let numberOfDays = startDate.differenceInDays(from: Date().previousDay())
+        let numberOfDays = startDate.differenceInDays(from: Date())
         let percentOfDays = Double(overCount) / Double(numberOfDays)
         
         let countString = NSLocalizedString("summary_goal_count", comment: "")
@@ -130,7 +131,11 @@ class HistorySummaryTableViewCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        if let averagePositionPercent = averagePositionPercent, averagePositionPercent > 0.0 {
+        contentView.layoutIfNeeded() //Required so averageBar width is final
+
+        if let averagePositionPercent = averagePositionPercent,
+           averagePositionPercent > 0.0
+        {
             let barWidth = averageBar.frame.size.width
             let rawPosition = barWidth * CGFloat(averagePositionPercent)
             averageDot.isHidden = false
@@ -139,4 +144,5 @@ class HistorySummaryTableViewCell: UITableViewCell {
             averageDot.isHidden = true
         }
     }
+
 }

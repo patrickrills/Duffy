@@ -19,16 +19,15 @@ class HistoryTableViewController: UITableViewController {
     }
     
     private let goal = HealthCache.dailyGoal()
-    private let defaultEndDate = Date().previousDay()
-    
+        
     private var pastSteps : [Date : Steps] = [:]
     private var lastDateInCache: Date {
-        return pastSteps.keys.sorted(by: <).first ?? defaultEndDate
+        return pastSteps.keys.sorted(by: <).first ?? Date().previousDay()
     }
     
     private var filteredDates : [Date] = []
     private var currentFilterDate: Date {
-        return filteredDates.last ?? defaultEndDate
+        return filteredDates.last ?? Date()
     }
     
     private var filteredSteps: [Date : Steps] {
@@ -112,8 +111,8 @@ class HistoryTableViewController: UITableViewController {
     }
     
     private func getNextPage() {
-        let startDate = Calendar.current.date(byAdding: .day, value: -Constants.PAGE_SIZE_DAYS, to: currentFilterDate)
-        filterSteps(since: startDate!)
+        let startDate = currentFilterDate.dateByAdding(days: -Constants.PAGE_SIZE_DAYS)
+        filterSteps(since: startDate)
     }
     
     private func filterSteps(since startDate : Date) {
