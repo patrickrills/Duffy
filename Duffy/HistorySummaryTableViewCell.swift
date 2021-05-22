@@ -108,7 +108,7 @@ class HistorySummaryTableViewCell: UITableViewCell {
     }
     
     private func displayOverCount(_ overCount: UInt, since startDate: Date) {
-        let numberOfDays = startDate.differenceInDays(from: Date().previousDay())
+        let numberOfDays = startDate.differenceInDays(from: Date())
         let percentOfDays = Double(overCount) / Double(numberOfDays)
         
         let countString = NSLocalizedString("summary_goal_count", comment: "")

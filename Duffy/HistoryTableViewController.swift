@@ -112,8 +112,8 @@ class HistoryTableViewController: UITableViewController {
     }
     
     private func getNextPage() {
-        let startDate = Calendar.current.date(byAdding: .day, value: -Constants.PAGE_SIZE_DAYS, to: currentFilterDate)
-        filterSteps(since: startDate!)
+        let startDate = currentFilterDate.dateByAdding(days: -(Constants.PAGE_SIZE_DAYS - 1))
+        filterSteps(since: startDate)
     }
     
     private func filterSteps(since startDate : Date) {
