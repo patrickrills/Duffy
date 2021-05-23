@@ -129,6 +129,8 @@
 		09D7F1241E340EA7008FF0CC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7F1231E340EA7008FF0CC /* Constants.swift */; };
 		09D7F1251E340EA7008FF0CC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7F1231E340EA7008FF0CC /* Constants.swift */; };
 		09DDAF31265996F8009E9B82 /* ButtonFooterCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DDAF30265996F8009E9B82 /* ButtonFooterCollectionReusableView.swift */; };
+		09DDAF33265A9B6D009E9B82 /* DynamicHeightHeaderCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DDAF32265A9B6D009E9B82 /* DynamicHeightHeaderCollectionViewLayout.swift */; };
+		09DDAF35265A9DC4009E9B82 /* LabelHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DDAF34265A9DC4009E9B82 /* LabelHeaderCollectionReusableView.swift */; };
 		09E1778F25F3F6810034A58F /* TrophiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E1778E25F3F6810034A58F /* TrophiesViewController.swift */; };
 		09E1779A25F513EA0034A58F /* TrophyCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09E1779825F513EA0034A58F /* TrophyCollectionViewCell.xib */; };
 		09E1779B25F513EA0034A58F /* TrophyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E1779925F513EA0034A58F /* TrophyCollectionViewCell.swift */; };
@@ -351,6 +353,8 @@
 		09CEA97E211F86DC0023786B /* HistoryTableViewFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewFooter.swift; sourceTree = "<group>"; };
 		09D7F1231E340EA7008FF0CC /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		09DDAF30265996F8009E9B82 /* ButtonFooterCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonFooterCollectionReusableView.swift; sourceTree = "<group>"; };
+		09DDAF32265A9B6D009E9B82 /* DynamicHeightHeaderCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicHeightHeaderCollectionViewLayout.swift; sourceTree = "<group>"; };
+		09DDAF34265A9DC4009E9B82 /* LabelHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		09E1778E25F3F6810034A58F /* TrophiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrophiesViewController.swift; sourceTree = "<group>"; };
 		09E1779825F513EA0034A58F /* TrophyCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TrophyCollectionViewCell.xib; sourceTree = "<group>"; };
 		09E1779925F513EA0034A58F /* TrophyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrophyCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -595,6 +599,8 @@
 				0900867220FA7673006540E7 /* BoldActionSectionHeaderView.swift */,
 				0900866E20F27D0C006540E7 /* PreviousValueTableViewCell.swift */,
 				09EEEDA126078B6A002731DB /* ThinSeparator.swift */,
+				09DDAF32265A9B6D009E9B82 /* DynamicHeightHeaderCollectionViewLayout.swift */,
+				09DDAF34265A9DC4009E9B82 /* LabelHeaderCollectionReusableView.swift */,
 			);
 			path = Reusable;
 			sourceTree = "<group>";
@@ -905,6 +911,7 @@
 				09CE42C11E353E7100A6E587 /* HistoryTableViewController.swift in Sources */,
 				09CC417F231F3DAD0029AAFB /* AboutTableViewFooter.swift in Sources */,
 				0900867320FA7673006540E7 /* BoldActionSectionHeaderView.swift in Sources */,
+				09DDAF35265A9DC4009E9B82 /* LabelHeaderCollectionReusableView.swift in Sources */,
 				09E1779B25F513EA0034A58F /* TrophyCollectionViewCell.swift in Sources */,
 				09A7EEAD21A1E89A00DEDE5C /* HistoryTrendChartTableViewCell.swift in Sources */,
 				0970859C214DAB8900790EC7 /* HourGraphBarView.swift in Sources */,
@@ -923,6 +930,7 @@
 				09BDDA5E219116740078B749 /* AboutTableViewController.swift in Sources */,
 				0900867120F282DE006540E7 /* Globals.swift in Sources */,
 				0935D17E21A8D8E100B91009 /* HistoryFilterTableViewController.swift in Sources */,
+				09DDAF33265A9B6D009E9B82 /* DynamicHeightHeaderCollectionViewLayout.swift in Sources */,
 				09275CFC262CA35900E57008 /* MainWeeklySummaryTableViewCell.swift in Sources */,
 				09EEEDB7261A2191002731DB /* MainTableViewHeader.swift in Sources */,
 				093A5F0823B26C1A007D11E3 /* DebugLogTableViewController.swift in Sources */,
