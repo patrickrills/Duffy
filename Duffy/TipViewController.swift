@@ -34,6 +34,7 @@ class TipViewController: UICollectionViewController {
 
         self.collectionView.register(TipCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: TipCollectionViewCell.self))
         collectionView.register(ButtonFooterCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: String(describing: ButtonFooterCollectionReusableView.self))
+        collectionView.register(LabelHeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: String(describing: LabelHeaderCollectionReusableView.self))
         
         retrieveOptions()
     }
@@ -89,6 +90,13 @@ class TipViewController: UICollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         switch kind {
+        case UICollectionView.elementKindSectionHeader:
+            guard let labelHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: String(describing: LabelHeaderCollectionReusableView.self), for: indexPath) as? LabelHeaderCollectionReusableView else {
+                fallthrough
+            }
+            
+            labelHeader.headerLabel.text = NSLocalizedString("My name is Patrick and I aspire to make apps people love. When I created Duffy, I never expected to be paid. That’s why there are no ads, subscriptions, or data collection of any kind. I just want to hone my craft while also serving a need.\n\nDuffy is a labor of love that happens after hours and on the weekends so it helps to know that people appreciate the work I do maintaining and improving this app.\n\nIf Duffy is an app that you love, and you can afford it, please consider showing your appreciation by selecting one of the tips below:", comment: "")
+            return labelHeader
         case UICollectionView.elementKindSectionFooter:
             guard let buttonFooter = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: String(describing: ButtonFooterCollectionReusableView.self), for: indexPath) as? ButtonFooterCollectionReusableView else {
                 fallthrough
@@ -105,12 +113,21 @@ class TipViewController: UICollectionViewController {
     }
 }
 
-fileprivate class TipsLayout: UICollectionViewFlowLayout {
+fileprivate class TipsLayout: DynamicHeightHeaderCollectionViewLayout {
     
     enum Constants {
         static let SPACING: CGFloat = 20.0
         static let CELL_HEIGHT: CGFloat = 82.0
         static let FOOTER_HEIGHT: CGFloat = 100.0
+        static let HEADER_ESTIMATED_HEIGHT: CGFloat = 100.0
+    }
+    
+    init() {
+        super.init(estimatedHeaderHeight: Constants.HEADER_ESTIMATED_HEIGHT)
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
     }
     
     override func prepare() {
