@@ -51,8 +51,12 @@ class TipViewController: UICollectionViewController {
                     self?.collectionView.reloadData()
                 }
             case .failure(let error):
-                //TODO: Show error and retry
                 LoggingService.log(error: error)
+                DispatchQueue.main.async {
+                    self?.displayMessage(NSLocalizedString("Unable to communicate with the App Store. Do you want to try again?", comment: ""), retry: {
+                        self?.retrieveOptions()
+                    })
+                }
             }
         }
     }
