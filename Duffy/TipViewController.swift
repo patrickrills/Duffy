@@ -61,26 +61,36 @@ class TipViewController: UICollectionViewController {
         TipService.getInstance().tip(productId: optionId) { [weak self] result in
             switch result {
             case .success(_):
-                self?.displayMessage(NSLocalizedString("Thanks so much for the tip! 🙏", comment: ""), retry: nil)
+                DispatchQueue.main.async {
+                    self?.displayMessage(NSLocalizedString("Thanks so much for the tip! 🙏", comment: ""), retry: nil)
+                }
             case .failure(let error):
-                //TODO: Show error and retry
                 LoggingService.log(error: error)
+                DispatchQueue.main.async {
+                    self?.displayMessage(NSLocalizedString("Your tip did not go through. Do you want to try again?", comment: ""), retry: { [weak self] in
+                        self?.tip(optionId)
+                    })
+                }
             }
         }
     }
     
     private func displayMessage(_ message: String, retry: (() -> ())?) {
         let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
-        let navigateBack: (UIAlertAction) -> () = { [weak self] _ in
-            self?.navigationController?.popViewController(animated: true)
-        }
         
         if let retry = retry {
-            alert.addAction(UIAlertAction(title: NSLocalizedString("Retry", comment: ""), style: .destructive, handler: { _ in
+            alert.addAction(UIAlertAction(title: NSLocalizedString("Try Again", comment: ""), style: .default, handler: { _ in
                 retry()
             }))
-            alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel, handler: navigateBack))
+            
+            let reloadCollection: (UIAlertAction) -> () = { [weak collectionView] _ in
+                collectionView?.reloadData()
+            }
+            alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel, handler: reloadCollection))
         } else {
+            let navigateBack: (UIAlertAction) -> () = { [weak self] _ in
+                self?.navigationController?.popViewController(animated: true)
+            }
             alert.addAction(UIAlertAction(title: NSLocalizedString("Dismiss", comment: ""), style: .cancel, handler: navigateBack))
         }
         
@@ -105,8 +115,12 @@ class TipViewController: UICollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let option = tipOptions.first(where: { $0.identifier == TipIdentifier.allCases[indexPath.row] }) else { return }
-        collectionView.deselectItem(at: indexPath, animated: true)
         tip(option.identifier)
+        
+        collectionView.deselectItem(at: indexPath, animated: true)
+        if let tipCell = collectionView.cellForItem(at: indexPath) as? TipCollectionViewCell {
+            tipCell.bind(to: nil)
+        }
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
