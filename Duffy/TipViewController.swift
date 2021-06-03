@@ -56,6 +56,36 @@ class TipViewController: UICollectionViewController {
             }
         }
     }
+    
+    private func tip(_ optionId: TipIdentifier) {
+        TipService.getInstance().tip(productId: optionId) { [weak self] result in
+            switch result {
+            case .success(_):
+                self?.displayMessage(NSLocalizedString("Thanks so much for the tip! 🙏", comment: ""), retry: nil)
+            case .failure(let error):
+                //TODO: Show error and retry
+                LoggingService.log(error: error)
+            }
+        }
+    }
+    
+    private func displayMessage(_ message: String, retry: (() -> ())?) {
+        let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        let navigateBack: (UIAlertAction) -> () = { [weak self] _ in
+            self?.navigationController?.popViewController(animated: true)
+        }
+        
+        if let retry = retry {
+            alert.addAction(UIAlertAction(title: NSLocalizedString("Retry", comment: ""), style: .destructive, handler: { _ in
+                retry()
+            }))
+            alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel, handler: navigateBack))
+        } else {
+            alert.addAction(UIAlertAction(title: NSLocalizedString("Dismiss", comment: ""), style: .cancel, handler: navigateBack))
+        }
+        
+        present(alert, animated: true, completion: nil)
+    }
 
     // MARK: UICollectionViewDataSource
 
@@ -74,18 +104,9 @@ class TipViewController: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let tip = tipOptions.first(where: { $0.identifier == TipIdentifier.allCases[indexPath.row] }) else { return }
+        guard let option = tipOptions.first(where: { $0.identifier == TipIdentifier.allCases[indexPath.row] }) else { return }
         collectionView.deselectItem(at: indexPath, animated: true)
-        TipService.getInstance().tip(productId: tip.identifier) { result in
-            switch result {
-            case .success(_):
-                //TODO: show thanks
-                print("Thanks for the tip!!")
-            case .failure(let error):
-                //TODO: Show error and retry
-                LoggingService.log(error: error)
-            }
-        }
+        tip(option.identifier)
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
