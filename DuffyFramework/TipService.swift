@@ -81,6 +81,28 @@ public class TipService: NSObject {
         pendingProductsRequest = request
         pendingProductsRequestHandler = completionHandler
     }
+    
+    private static let ARCHIVE_KEY: String = "tipArchive"
+    
+    public func archive() -> [TipArchiveEntry] {
+        guard let archiveData = UserDefaults.standard.data(forKey: Self.ARCHIVE_KEY),
+              let archiveEntries = try? PropertyListDecoder().decode([TipArchiveEntry].self, from: archiveData)
+        else {
+            return []
+        }
+        
+        return archiveEntries
+    }
+    
+    private func archiveTip(_ identifier: TipIdentifier) {
+        var newArchive = [TipArchiveEntry]()
+        newArchive.append(contentsOf: archive())
+        newArchive.append(TipArchiveEntry(date: Date(), identifier: identifier))
+        
+        if let newData = try? PropertyListEncoder().encode(newArchive) {
+            UserDefaults.standard.set(newData, forKey: Self.ARCHIVE_KEY)
+        }
+    }
 }
 
 @available(watchOSApplicationExtension 6.2, *)
@@ -124,8 +146,6 @@ extension TipService: SKPaymentTransactionObserver {
     private func finishTransaction(_ transaction: SKPaymentTransaction, in queue: SKPaymentQueue, wasSuccessful: Bool) {
         queue.finishTransaction(transaction)
         
-        //TODO: is wasSuccessful, write to cache that user has tipped
-        
         guard let tipId = TipIdentifier(rawValue: transaction.payment.productIdentifier),
               let handler = pendingProductsPurchaseHandler
         else {
@@ -136,6 +156,7 @@ extension TipService: SKPaymentTransactionObserver {
         
         if wasSuccessful {
             purchaseResult = .success(tipId)
+            archiveTip(tipId)
         } else if let purchaseError = transaction.error {
             purchaseResult = .failure(.wrapped(purchaseError))
         } else {

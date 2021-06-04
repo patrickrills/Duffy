@@ -131,6 +131,8 @@
 		09DDAF31265996F8009E9B82 /* ButtonFooterCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DDAF30265996F8009E9B82 /* ButtonFooterCollectionReusableView.swift */; };
 		09DDAF33265A9B6D009E9B82 /* DynamicHeightHeaderCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DDAF32265A9B6D009E9B82 /* DynamicHeightHeaderCollectionViewLayout.swift */; };
 		09DDAF35265A9DC4009E9B82 /* LabelHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DDAF34265A9DC4009E9B82 /* LabelHeaderCollectionReusableView.swift */; };
+		09DDAF372669740C009E9B82 /* TipArchiveEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DDAF362669740C009E9B82 /* TipArchiveEntry.swift */; };
+		09DDAF382669740C009E9B82 /* TipArchiveEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DDAF362669740C009E9B82 /* TipArchiveEntry.swift */; };
 		09E1778F25F3F6810034A58F /* TrophiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E1778E25F3F6810034A58F /* TrophiesViewController.swift */; };
 		09E1779A25F513EA0034A58F /* TrophyCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09E1779825F513EA0034A58F /* TrophyCollectionViewCell.xib */; };
 		09E1779B25F513EA0034A58F /* TrophyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E1779925F513EA0034A58F /* TrophyCollectionViewCell.swift */; };
@@ -355,6 +357,7 @@
 		09DDAF30265996F8009E9B82 /* ButtonFooterCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonFooterCollectionReusableView.swift; sourceTree = "<group>"; };
 		09DDAF32265A9B6D009E9B82 /* DynamicHeightHeaderCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicHeightHeaderCollectionViewLayout.swift; sourceTree = "<group>"; };
 		09DDAF34265A9DC4009E9B82 /* LabelHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
+		09DDAF362669740C009E9B82 /* TipArchiveEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipArchiveEntry.swift; sourceTree = "<group>"; };
 		09E1778E25F3F6810034A58F /* TrophiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrophiesViewController.swift; sourceTree = "<group>"; };
 		09E1779825F513EA0034A58F /* TrophyCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TrophyCollectionViewCell.xib; sourceTree = "<group>"; };
 		09E1779925F513EA0034A58F /* TrophyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrophyCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -551,6 +554,7 @@
 				091097CF2650043B007EEFA8 /* TipService.swift */,
 				091097D226501AC1007EEFA8 /* TipOption.swift */,
 				091097D526501F09007EEFA8 /* StoreKitError.swift */,
+				09DDAF362669740C009E9B82 /* TipArchiveEntry.swift */,
 				090829E124670EEF00F100D6 /* Trophy.swift */,
 				09EEEDA7260F76C6002731DB /* RingDrawer.swift */,
 				099FE6FF234EB5300092D219 /* LoggingService.swift */,
@@ -975,6 +979,7 @@
 				091097D02650043B007EEFA8 /* TipService.swift in Sources */,
 				09AACE271D318A390058A814 /* HealthCache.swift in Sources */,
 				096FE09C2503CA6500838BEE /* Date.swift in Sources */,
+				09DDAF372669740C009E9B82 /* TipArchiveEntry.swift in Sources */,
 				091097D326501AC1007EEFA8 /* TipOption.swift in Sources */,
 				090829E224670EEF00F100D6 /* Trophy.swift in Sources */,
 				0929A6CA24E6FF3300780004 /* HealthKitError.swift in Sources */,
@@ -1005,6 +1010,7 @@
 				091097D12650043B007EEFA8 /* TipService.swift in Sources */,
 				09AACE281D318A390058A814 /* HealthCache.swift in Sources */,
 				096FE09D2503CA6500838BEE /* Date.swift in Sources */,
+				09DDAF382669740C009E9B82 /* TipArchiveEntry.swift in Sources */,
 				091097D426501AC1007EEFA8 /* TipOption.swift in Sources */,
 				090829E324670EEF00F100D6 /* Trophy.swift in Sources */,
 				0929A6CB24E6FF3300780004 /* HealthKitError.swift in Sources */,
