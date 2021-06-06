@@ -9,21 +9,10 @@
 import UIKit
 import DuffyFramework
 
-class AboutTableViewFooter: UIView {
-
-    class func createView(_ target: Any, action: Selector, debugAction: Selector) -> AboutTableViewFooter? {
-        if let nibViews = Bundle.main.loadNibNamed("AboutTableViewFooter", owner:nil, options:nil),
-            let footer = nibViews[0] as? AboutTableViewFooter {
-            footer.aboutButton.addTarget(target, action: action, for: .touchUpInside)
-            footer.debugButton.addTarget(target, action: debugAction, for: .touchUpInside)
-            return footer
-        }
-        
-        return nil
-    }
+class AboutTableViewFooter: UITableViewHeaderFooterView {
     
-    @IBOutlet fileprivate var aboutButton: UIButton!
-    @IBOutlet fileprivate var debugButton: UIButton!
+    @IBOutlet var aboutButton: UIButton!
+    @IBOutlet var debugButton: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()

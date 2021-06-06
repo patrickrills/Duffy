@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -16,7 +16,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="751" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MTj-jV-MrU">
-                    <rect key="frame" x="16" y="4" width="141" height="34"/>
+                    <rect key="frame" x="28" y="4" width="131" height="34"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="34" id="Sun-ZU-IjQ"/>
                     </constraints>
@@ -25,25 +25,25 @@
                         <color key="titleColor" red="0.41568627450000001" green="0.67450980390000004" blue="0.89019607840000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ARy-rE-Dag">
-                    <rect key="frame" x="393" y="4" width="51" height="30"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ARy-rE-Dag">
+                    <rect key="frame" x="389" y="4" width="51" height="30"/>
                     <state key="normal" title="DEBUG">
                         <color key="titleColor" name="PrimaryColor"/>
                     </state>
                 </button>
             </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="MTj-jV-MrU" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="4" id="5Qv-8a-bzu"/>
                 <constraint firstAttribute="bottom" secondItem="MTj-jV-MrU" secondAttribute="bottom" id="MTI-zR-QQ7"/>
-                <constraint firstItem="MTj-jV-MrU" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="16" id="NY6-Ra-gCO"/>
-                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="ARy-rE-Dag" secondAttribute="trailing" constant="16" id="afT-pj-7jG"/>
+                <constraint firstItem="MTj-jV-MrU" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" constant="8" id="NY6-Ra-gCO"/>
+                <constraint firstAttribute="trailingMargin" secondItem="ARy-rE-Dag" secondAttribute="trailing" id="afT-pj-7jG"/>
                 <constraint firstItem="ARy-rE-Dag" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="sug-Fm-fLK"/>
             </constraints>
             <nil key="simulatedTopBarMetrics"/>
             <nil key="simulatedBottomBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
                 <outlet property="aboutButton" destination="MTj-jV-MrU" id="xPm-nA-31Z"/>
                 <outlet property="debugButton" destination="ARy-rE-Dag" id="1kg-Jo-bLz"/>

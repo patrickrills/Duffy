@@ -141,6 +141,7 @@ class AboutTableViewController: UITableViewController {
         title = NSLocalizedString("About Duffy", comment: "")
         
         tableView.register(BoldActionSectionHeaderView.self, forHeaderFooterViewReuseIdentifier: String(describing: BoldActionSectionHeaderView.self))
+        tableView.register(UINib(nibName: String(describing: AboutTableViewFooter.self), bundle: Bundle.main), forHeaderFooterViewReuseIdentifier: String(describing: AboutTableViewFooter.self))
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: Constants.CELL_ID)
         tableView.estimatedRowHeight = Constants.ESTIMATED_ROW_HEIGHT
     }
@@ -191,9 +192,16 @@ class AboutTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        guard section == self.numberOfSections(in: tableView) - 1 else { return nil }
+        guard section == self.numberOfSections(in: tableView) - 1,
+              let footer = tableView.dequeueReusableHeaderFooterView(withIdentifier: String(describing: AboutTableViewFooter.self)) as? AboutTableViewFooter
+        else {
+            return nil
+        }
         
-        return AboutTableViewFooter.createView(self, action: #selector(openPrivacyPolicy), debugAction: #selector(openDebugLog))
+        footer.aboutButton.addTarget(self, action: #selector(openPrivacyPolicy), for: .touchUpInside)
+        footer.debugButton.addTarget(self, action: #selector(openDebugLog), for: .touchUpInside)
+        
+        return footer
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
