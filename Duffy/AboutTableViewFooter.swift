@@ -13,6 +13,7 @@ class AboutTableViewFooter: UITableViewHeaderFooterView {
     
     @IBOutlet private var aboutButton: UIButton!
     @IBOutlet private var debugButton: UIButton!
+    @IBOutlet private var aboutLabel: UILabel!
     
     private weak var navigationController: UINavigationController?
     
@@ -22,14 +23,17 @@ class AboutTableViewFooter: UITableViewHeaderFooterView {
         debugButton.addTarget(self, action: #selector(openDebugLog), for: .touchUpInside)
     }
     
-    override func prepareForReuse() {
-        super.prepareForReuse()
+    private func reset() {
         debugButton.isHidden = true
         aboutButton.setAttributedTitle(nil, for: .normal)
         aboutButton.isHidden = true
+        aboutLabel.isHidden = true
+        aboutLabel.text = nil
     }
     
     func bind(to category: AboutCategory, parent: UINavigationController?) {
+        reset()
+        
         navigationController = parent
         
         switch category {
@@ -43,8 +47,12 @@ class AboutTableViewFooter: UITableViewHeaderFooterView {
             attributed.addAttribute(.foregroundColor, value: Globals.secondaryColor(), range: NSRange(location: combined.count - privacy.count, length: privacy.count))
             aboutButton.setTitleColor(.lightGray, for: .normal)
             aboutButton.setAttributedTitle(attributed, for: .normal)
+            aboutButton.isHidden = false
             
             debugButton.isHidden = !DebugService.isDebugModeEnabled()
+        case .appreciation:
+            aboutLabel.isHidden = false
+            aboutLabel.text = NSLocalizedString("🙏 Thank you so much for tipping!", comment: "")
         default:
             fatalError("Attempted to bind unsupported category for AboutTableViewFooter")
         }

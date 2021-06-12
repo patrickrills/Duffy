@@ -41,7 +41,14 @@ enum AboutCategory: Int, CaseIterable {
     }
     
     var hasFooter: Bool {
-        return self == .publishers
+        switch self {
+        case .appreciation:
+            return TipService.getInstance().archive().count > 0
+        case .publishers:
+            return true
+        default:
+            return false
+        }
     }
 }
 

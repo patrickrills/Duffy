@@ -31,12 +31,22 @@
                         <color key="titleColor" name="PrimaryColor"/>
                     </state>
                 </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="1000" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xMi-hH-mub">
+                    <rect key="frame" x="28" y="12" width="404" height="14"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
+                <constraint firstAttribute="trailingMargin" secondItem="xMi-hH-mub" secondAttribute="trailing" constant="8" id="2n6-RE-7rg"/>
+                <constraint firstItem="xMi-hH-mub" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" constant="8" id="3qz-fd-Faz"/>
                 <constraint firstItem="MTj-jV-MrU" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="4" id="5Qv-8a-bzu"/>
-                <constraint firstAttribute="bottom" secondItem="MTj-jV-MrU" secondAttribute="bottom" id="MTI-zR-QQ7"/>
+                <constraint firstItem="xMi-hH-mub" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="12" id="BVx-xc-tfr"/>
+                <constraint firstItem="xMi-hH-mub" firstAttribute="bottom" secondItem="iN0-l3-epB" secondAttribute="bottom" constant="-12" id="DbB-qg-2Uh"/>
+                <constraint firstAttribute="bottom" secondItem="MTj-jV-MrU" secondAttribute="bottom" priority="750" id="MTI-zR-QQ7"/>
                 <constraint firstItem="MTj-jV-MrU" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" constant="8" id="NY6-Ra-gCO"/>
                 <constraint firstAttribute="trailingMargin" secondItem="ARy-rE-Dag" secondAttribute="trailing" id="afT-pj-7jG"/>
                 <constraint firstItem="ARy-rE-Dag" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="sug-Fm-fLK"/>
@@ -46,6 +56,7 @@
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="aboutButton" destination="MTj-jV-MrU" id="xPm-nA-31Z"/>
+                <outlet property="aboutLabel" destination="xMi-hH-mub" id="tHd-QG-PM3"/>
                 <outlet property="debugButton" destination="ARy-rE-Dag" id="1kg-Jo-bLz"/>
             </connections>
             <point key="canvasLocation" x="208.69565217391306" y="-257.60869565217394"/>
