@@ -10,14 +10,12 @@ import UIKit
 import DuffyFramework
 
 enum AboutCategory: Int, CaseIterable {
-    case help, feedback, appreciation, publishers
+    case help, appreciation, publishers
     
     func localizedTitle() -> String {
         switch self {
         case .help:
             return NSLocalizedString("Help", comment: "")
-        case .feedback:
-            return NSLocalizedString("Feedback", comment: "")
         case .appreciation:
             return NSLocalizedString("Appreciation", comment: "")
         case .publishers:
@@ -57,11 +55,9 @@ enum AboutOption: CaseIterable {
     
     func category() -> AboutCategory {
         switch self {
-        case .goalHowTo, .trophies:
+        case .goalHowTo, .trophies, .askAQuestion:
             return .help
-        case .rate, .askAQuestion:
-            return .feedback
-        case .tipJar:
+        case .rate, .tipJar:
             return .appreciation
         case .bigbluefly, .isral:
             return .publishers
