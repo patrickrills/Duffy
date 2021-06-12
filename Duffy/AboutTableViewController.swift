@@ -39,6 +39,10 @@ enum AboutCategory: Int, CaseIterable {
         
         return category.options()[indexPath.row]
     }
+    
+    var hasFooter: Bool {
+        return self == .publishers
+    }
 }
 
 enum AboutOption: CaseIterable {
@@ -145,14 +149,6 @@ class AboutTableViewController: UITableViewController {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: Constants.CELL_ID)
         tableView.estimatedRowHeight = Constants.ESTIMATED_ROW_HEIGHT
     }
-    
-    @objc private func openPrivacyPolicy() {
-        navigationController?.openURL("http://www.bigbluefly.com/duffy/privacy")
-    }
-    
-    @objc private func openDebugLog() {
-        navigationController?.pushViewController(DebugLogTableViewController(), animated: true)
-    }
 
     // MARK: - Table view data source
 
@@ -192,14 +188,14 @@ class AboutTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        guard section == self.numberOfSections(in: tableView) - 1,
+        guard case let category = AboutCategory.allCases[section],
+              category.hasFooter,
               let footer = tableView.dequeueReusableHeaderFooterView(withIdentifier: String(describing: AboutTableViewFooter.self)) as? AboutTableViewFooter
         else {
             return nil
         }
         
-        footer.aboutButton.addTarget(self, action: #selector(openPrivacyPolicy), for: .touchUpInside)
-        footer.debugButton.addTarget(self, action: #selector(openDebugLog), for: .touchUpInside)
+        footer.bind(to: category, parent: navigationController)
         
         return footer
     }
