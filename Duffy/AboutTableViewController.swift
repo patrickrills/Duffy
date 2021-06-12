@@ -102,12 +102,7 @@ enum AboutOption: CaseIterable {
         case .isral:
             return UIImage(named: "isral")
         case .tipJar:
-            //TODO: pull actual icon for dollar and yen
-            if #available(iOS 13.0, *) {
-                return UIImage(systemName: "dollarsign.circle")
-            } else {
-                return nil
-            }
+            return UIImage(named: "Dollar")
         }
     }
     
