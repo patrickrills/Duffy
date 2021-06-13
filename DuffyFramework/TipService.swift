@@ -41,7 +41,7 @@ public class TipService: NSObject {
     private var options: [TipOption] {
         return productCache.map { key, value in
             currencyFormatter.locale = value.priceLocale
-            return TipOption(identifier: key, formattedPrice: currencyFormatter.string(for: value.price) ?? "??")
+            return TipOption(identifier: key, formattedPrice: currencyFormatter.string(for: value.price) ?? "?", price: value.price.doubleValue)
         }
     }
     

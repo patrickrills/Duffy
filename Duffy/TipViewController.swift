@@ -45,7 +45,7 @@ class TipViewController: UICollectionViewController {
         TipService.getInstance().tipOptions { [weak self] result in
             switch result {
             case.success(let tips):
-                self?.tipOptions = tips
+                self?.tipOptions = tips.sorted { $0.price < $1.price }
                 DispatchQueue.main.async {
                     self?.collectionView.allowsSelection = true
                     self?.collectionView.reloadData()

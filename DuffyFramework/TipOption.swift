@@ -11,6 +11,7 @@ import Foundation
 public struct TipOption {
     public let identifier: TipIdentifier
     public let formattedPrice: String
+    public let price: Double
 }
 
 public enum TipIdentifier: String, CaseIterable {

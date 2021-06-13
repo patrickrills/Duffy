@@ -419,12 +419,12 @@ class MainInterfaceController: WKInterfaceController
     private func displayTipOptions(_ options: [TipOption]) {
         var actions = options
             .sorted {
-                $0.identifier.rawValue < $1.identifier.rawValue
+                $0.price < $1.price
             }.map { opt in
                 return WKAlertAction(title: opt.formattedPrice, style: .default) { [weak self] in
                     self?.tip(opt.identifier)
                 }
-        }
+            }
         
         actions.append(WKAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel, handler: {}))
         
