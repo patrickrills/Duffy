@@ -20,7 +20,7 @@
           "locale" : "ja"
         }
       ],
-      "productID" : "com.bigbluefly.temp",
+      "productID" : "com.bigbluefly.tipOne",
       "referenceName" : "One Dollar",
       "type" : "Consumable"
     },
@@ -35,7 +35,7 @@
           "locale" : "en_US"
         }
       ],
-      "productID" : "com.bigbluefly.temp2",
+      "productID" : "com.bigbluefly.tipTwo",
       "referenceName" : "Two Dollars",
       "type" : "Consumable"
     },
@@ -50,7 +50,7 @@
           "locale" : "en_US"
         }
       ],
-      "productID" : "com.bigbluefly.temp3",
+      "productID" : "com.bigbluefly.tipThree",
       "referenceName" : "Three Dollars",
       "type" : "Consumable"
     },
@@ -65,7 +65,7 @@
           "locale" : "en_US"
         }
       ],
-      "productID" : "com.bigbluefly.temp4",
+      "productID" : "com.bigbluefly.tipFive",
       "referenceName" : "Five Dollars",
       "type" : "Consumable"
     }

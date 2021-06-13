@@ -14,8 +14,8 @@ public struct TipOption {
 }
 
 public enum TipIdentifier: String, CaseIterable {
-    case oneDollar = "com.bigbluefly.temp"
-    case twoDollars = "com.bigbluefly.temp2"
-    case threeDollars = "com.bigbluefly.temp3"
-    case fiveDollars = "com.bigbluefly.temp4"
+    case oneDollar = "com.bigbluefly.tipOne"
+    case twoDollars = "com.bigbluefly.tipTwo"
+    case threeDollars = "com.bigbluefly.tipThree"
+    case fiveDollars = "com.bigbluefly.tipFive"
 }
