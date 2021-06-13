@@ -115,6 +115,10 @@ public class WCSessionService : NSObject
         })
     }
     
+    public func sendTipToPhone(_ tipId: TipIdentifier) {
+        send(message: .tippedOnWatch(tipId: tipId), completionHandler: nil)
+    }
+    
     private func send(message: WCSessionMessage, completionHandler: ((Bool) -> ())?) {
         guard WCSession.isSupported(),
               WCSession.default.activationState == .activated
@@ -166,7 +170,12 @@ public class WCSessionService : NSObject
             
         case .systemVersionRequest where delegate != nil:
             return ["version" : delegate!.systemVersion()]
-        
+            
+        case .tippedOnWatch(let tipId):
+            #if os(iOS)
+                TipService.getInstance().archiveTip(tipId)
+            #endif
+            
         default:
             return nil
             

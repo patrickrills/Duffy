@@ -94,7 +94,7 @@ public class TipService: NSObject {
         return archiveEntries
     }
     
-    private func archiveTip(_ identifier: TipIdentifier) {
+    public func archiveTip(_ identifier: TipIdentifier) {
         var newArchive = [TipArchiveEntry]()
         newArchive.append(contentsOf: archive())
         newArchive.append(TipArchiveEntry(date: Date(), identifier: identifier))

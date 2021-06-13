@@ -436,7 +436,8 @@ class MainInterfaceController: WKInterfaceController
             TipService.getInstance().tip(productId: optionId) { [weak self] result in
                 let isError: Bool
                 switch result {
-                case .success(_):
+                case .success(let tipId):
+                    WCSessionService.getInstance().sendTipToPhone(tipId)
                     isError = false
                 case .failure(let error):
                     LoggingService.log(error: error)
