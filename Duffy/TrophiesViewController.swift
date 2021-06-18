@@ -43,8 +43,8 @@ class TrophiesViewController: UICollectionViewController, UICollectionViewDelega
         }
         
         collectionView.register(UINib(nibName: String(describing: TrophyCollectionViewCell.self), bundle: Bundle.main), forCellWithReuseIdentifier: String(describing: TrophyCollectionViewCell.self))
-        collectionView.register(TrophiesFooterView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: String(describing: TrophiesFooterView.self))
-        collectionView.register(TrophiesHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: String(describing: TrophiesHeaderView.self))
+        collectionView.register(ButtonFooterCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: String(describing: ButtonFooterCollectionReusableView.self))
+        collectionView.register(LabelHeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: String(describing: LabelHeaderCollectionReusableView.self))
         
         HealthKitService.getInstance().lastTrophiesAwarded { [weak self] result in
             switch result {
@@ -81,9 +81,14 @@ class TrophiesViewController: UICollectionViewController, UICollectionViewDelega
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         switch kind {
         case UICollectionView.elementKindSectionHeader:
-            return collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: String(describing: TrophiesHeaderView.self), for: indexPath)
+            guard let labelHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: String(describing: LabelHeaderCollectionReusableView.self), for: indexPath) as? LabelHeaderCollectionReusableView else {
+                fallthrough
+            }
+            
+            labelHeader.headerLabel.text = GoalInstructions.step4.text(useLegacyInstructions: false)
+            return labelHeader
         case UICollectionView.elementKindSectionFooter:
-            guard let buttonFooter = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: String(describing: TrophiesFooterView.self), for: indexPath) as? TrophiesFooterView else {
+            guard let buttonFooter = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: String(describing: ButtonFooterCollectionReusableView.self), for: indexPath) as? ButtonFooterCollectionReusableView else {
                 fallthrough
             }
             
@@ -109,19 +114,24 @@ class TrophiesViewController: UICollectionViewController, UICollectionViewDelega
     
 }
 
-fileprivate class TrophyLayout: UICollectionViewFlowLayout {
+fileprivate class TrophyLayout: DynamicHeightHeaderCollectionViewLayout {
     
     enum Constants {
         static let SPACING: CGFloat = 20.0
         static let CELL_HEIGHT: CGFloat = 82.0
         static let FOOTER_HEIGHT: CGFloat = 100.0
-        static let FOOTER_BUTTON_HEIGHT: CGFloat = 48.0
-        static let HEADER_ESTIMATED_HEIGHT: CGFloat = 64.0
+        static let HEADER_ESTIMATED_HEIGHT: CGFloat = 80.0
     }
     
     var firstItemSize: CGSize = .zero
     
-    private var cachedHeaderHeight: CGFloat = Constants.HEADER_ESTIMATED_HEIGHT
+    init() {
+        super.init(estimatedHeaderHeight: Constants.HEADER_ESTIMATED_HEIGHT)
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
     
     override func prepare() {
         super.prepare()
@@ -139,118 +149,6 @@ fileprivate class TrophyLayout: UICollectionViewFlowLayout {
         firstItemSize = CGSize(width: availableWidth, height: Constants.CELL_HEIGHT * 2.0)
         
         footerReferenceSize = CGSize(width: availableWidth, height: Constants.FOOTER_HEIGHT)
-        headerReferenceSize = CGSize(width: availableWidth, height: cachedHeaderHeight)
-    }
-        
-    override func shouldInvalidateLayout(forPreferredLayoutAttributes preferredAttributes: UICollectionViewLayoutAttributes, withOriginalAttributes originalAttributes: UICollectionViewLayoutAttributes) -> Bool {
-        switch preferredAttributes.representedElementKind {
-        case UICollectionView.elementKindSectionHeader where Int(preferredAttributes.size.height) != Int(originalAttributes.size.height):
-            cachedHeaderHeight = preferredAttributes.size.height
-            return true
-        default:
-            return super.shouldInvalidateLayout(forPreferredLayoutAttributes: preferredAttributes, withOriginalAttributes: originalAttributes)
-        }
     }
 
-    override func invalidationContext(forPreferredLayoutAttributes preferredAttributes: UICollectionViewLayoutAttributes, withOriginalAttributes originalAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutInvalidationContext {
-        switch preferredAttributes.representedElementKind {
-        case UICollectionView.elementKindSectionHeader:
-            let context = UICollectionViewFlowLayoutInvalidationContext()
-            context.invalidateSupplementaryElements(ofKind: UICollectionView.elementKindSectionHeader, at: [IndexPath(row: 0, section: 0)])
-            return context
-        default:
-            return super.invalidationContext(forPreferredLayoutAttributes: preferredAttributes, withOriginalAttributes: originalAttributes)
-        }
-    }
-
-}
-
-fileprivate class TrophiesFooterView: UICollectionReusableView {
-    
-    private lazy var buttonFooterView: ButtonFooterView = {
-        let footer = ButtonFooterView()
-        footer.translatesAutoresizingMaskIntoConstraints = false
-        footer.buttonAttributedText = NSAttributedString(string: "")
-        footer.addTarget(self, action: #selector(pressed))
-        footer.separatorIsVisible = false
-        footer.backgroundColor = .clear
-        return footer
-    }()
-    
-    private var pressHandler: (() -> ())?
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        createView()
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        createView()
-    }
-    
-    private func createView() {
-        backgroundColor = .clear
-        addSubview(buttonFooterView)
-        NSLayoutConstraint.activate([
-            buttonFooterView.topAnchor.constraint(equalTo: topAnchor),
-            buttonFooterView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            buttonFooterView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            buttonFooterView.heightAnchor.constraint(equalToConstant: TrophyLayout.Constants.FOOTER_BUTTON_HEIGHT)
-        ])
-    }
-    
-    @objc private func pressed() {
-        pressHandler?()
-    }
-    
-    func bind(_ buttonText: String, onPress: @escaping () -> ()) {
-        buttonFooterView.buttonAttributedText = NSAttributedString(string: buttonText)
-        pressHandler = onPress
-    }
-}
-
-fileprivate class TrophiesHeaderView: UICollectionReusableView {
-    
-    private lazy var headerLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = GoalInstructions.step4.text(useLegacyInstructions: false)
-        label.numberOfLines = 0
-        return label
-    }()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        createView()
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        createView()
-    }
-    
-    private func createView() {
-        backgroundColor = .clear
-        addSubview(headerLabel)
-        NSLayoutConstraint.activate([
-            headerLabel.topAnchor.constraint(equalTo: topAnchor, constant: TrophyLayout.Constants.SPACING),
-            headerLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
-            headerLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: TrophyLayout.Constants.SPACING),
-            headerLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -TrophyLayout.Constants.SPACING)
-        ])
-    }
-    
-    override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
-        let preferredLayoutAttributes = layoutAttributes
-
-        var fittingSize = UIView.layoutFittingCompressedSize
-        fittingSize.width = preferredLayoutAttributes.size.width
-        let size = systemLayoutSizeFitting(fittingSize, withHorizontalFittingPriority: .required, verticalFittingPriority: .defaultLow)
-        var adjustedFrame = preferredLayoutAttributes.frame
-        adjustedFrame.size.height = ceil(size.height)
-        preferredLayoutAttributes.frame = adjustedFrame
-        
-        return preferredLayoutAttributes
-    }
 }

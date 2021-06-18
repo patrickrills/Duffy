@@ -10,14 +10,14 @@ import UIKit
 import DuffyFramework
 
 enum AboutCategory: Int, CaseIterable {
-    case help, feedback, publishers
+    case help, appreciation, publishers
     
     func localizedTitle() -> String {
         switch self {
         case .help:
             return NSLocalizedString("Help", comment: "")
-        case .feedback:
-            return NSLocalizedString("Feedback", comment: "")
+        case .appreciation:
+            return NSLocalizedString("Appreciation", comment: "")
         case .publishers:
             return NSLocalizedString("Published By", comment: "")
         }
@@ -37,17 +37,28 @@ enum AboutCategory: Int, CaseIterable {
         
         return category.options()[indexPath.row]
     }
+    
+    var hasFooter: Bool {
+        switch self {
+        case .appreciation:
+            return TipService.getInstance().archive().count > 0
+        case .publishers:
+            return true
+        default:
+            return false
+        }
+    }
 }
 
 enum AboutOption: CaseIterable {
-    case goalHowTo, trophies, rate, askAQuestion, bigbluefly, isral
+    case goalHowTo, trophies, rate, askAQuestion, bigbluefly, isral, tipJar
     
     func category() -> AboutCategory {
         switch self {
-        case .goalHowTo, .trophies:
+        case .goalHowTo, .trophies, .askAQuestion:
             return .help
-        case .rate, .askAQuestion:
-            return .feedback
+        case .rate, .tipJar:
+            return .appreciation
         case .bigbluefly, .isral:
             return .publishers
         }
@@ -63,6 +74,8 @@ enum AboutOption: CaseIterable {
             return NSLocalizedString("Rate Duffy", comment: "")
         case .askAQuestion:
             return NSLocalizedString("Ask a Question", comment: "")
+        case .tipJar:
+            return NSLocalizedString("Tip Jar", comment: "")
         case .bigbluefly:
             return "Big Blue Fly (code)"
         case .isral:
@@ -84,6 +97,8 @@ enum AboutOption: CaseIterable {
             return UIImage(named: "BigBlueFly")
         case .isral:
             return UIImage(named: "isral")
+        case .tipJar:
+            return UIImage(named: "Dollar")
         }
     }
     
@@ -101,6 +116,8 @@ enum AboutOption: CaseIterable {
             parent?.openURL("http://www.bigbluefly.com/duffy")
         case .isral:
             parent?.openURL("http://www.isralduke.com")
+        case .tipJar:
+            parent?.pushViewController(TipViewController(), animated: true)
         }
     }
 }
@@ -126,16 +143,9 @@ class AboutTableViewController: UITableViewController {
         title = NSLocalizedString("About Duffy", comment: "")
         
         tableView.register(BoldActionSectionHeaderView.self, forHeaderFooterViewReuseIdentifier: String(describing: BoldActionSectionHeaderView.self))
+        tableView.register(UINib(nibName: String(describing: AboutTableViewFooter.self), bundle: Bundle.main), forHeaderFooterViewReuseIdentifier: String(describing: AboutTableViewFooter.self))
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: Constants.CELL_ID)
         tableView.estimatedRowHeight = Constants.ESTIMATED_ROW_HEIGHT
-    }
-    
-    @objc private func openPrivacyPolicy() {
-        navigationController?.openURL("http://www.bigbluefly.com/duffy/privacy")
-    }
-    
-    @objc private func openDebugLog() {
-        navigationController?.pushViewController(DebugLogTableViewController(), animated: true)
     }
 
     // MARK: - Table view data source
@@ -176,9 +186,16 @@ class AboutTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-        guard section == self.numberOfSections(in: tableView) - 1 else { return nil }
+        guard case let category = AboutCategory.allCases[section],
+              category.hasFooter,
+              let footer = tableView.dequeueReusableHeaderFooterView(withIdentifier: String(describing: AboutTableViewFooter.self)) as? AboutTableViewFooter
+        else {
+            return nil
+        }
         
-        return AboutTableViewFooter.createView(self, action: #selector(openPrivacyPolicy), debugAction: #selector(openDebugLog))
+        footer.bind(to: category, parent: navigationController)
+        
+        return footer
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

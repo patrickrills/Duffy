@@ -27,6 +27,9 @@ class MainInterfaceController: WKInterfaceController
     @IBOutlet weak var summaryButtonLabel : WKInterfaceLabel!
     @IBOutlet weak var goalButtonImage : WKInterfaceImage!
     @IBOutlet weak var goalButtonLabel : WKInterfaceLabel!
+    @IBOutlet weak var tipButton: WKInterfaceButton!
+    @IBOutlet weak var tipButtonImage : WKInterfaceImage!
+    @IBOutlet weak var tipButtonLabel : WKInterfaceLabel!
     @IBOutlet weak var debugButton: WKInterfaceButton!
     @IBOutlet weak var topSeparator: WKInterfaceGroup!
     @IBOutlet weak var bottomSeparator: WKInterfaceGroup!
@@ -320,6 +323,20 @@ class MainInterfaceController: WKInterfaceController
             todayGroup.setContentInset(UIEdgeInsets(top: 4.0, left: 0.0, bottom: 0.0, right: 0.0))
         }
         
+        if #available(watchOS 6.2, *) {
+            //Tipping from watch is available
+            let buttonFont = Globals.roundedFont(of: BUTTON_FONT_SIZE, weight: BUTTON_FONT_WEIGHT)
+            let symbolConfiguration = UIImage.SymbolConfiguration(font: UIFont.systemFont(ofSize: 18.0, weight: .medium))
+            var symbolName = "dollarsign.circle"
+            if let lang = NSLocale.current.languageCode, lang.lowercased() == "ja" {
+                symbolName = "yensign.circle"
+            }
+            tipButtonImage.setImage(UIImage(systemName: symbolName, withConfiguration: symbolConfiguration)?.withRenderingMode(.alwaysTemplate))
+            tipButtonLabel.setAttributedText(NSAttributedString(string: NSLocalizedString("Tip Jar", comment: ""), attributes: [.font : buttonFont]))
+        } else {
+            tipButton.setHidden(true)
+        }
+        
         stepsGoalLabel.setTextColor(.white)
         flightsValueLabel.setTextColor(Globals.secondaryColor())
         distanceValueLabel.setTextColor(Globals.secondaryColor())
@@ -377,6 +394,68 @@ class MainInterfaceController: WKInterfaceController
     
     private func setRoundedText(_ text: String, for label: WKInterfaceLabel, in color: UIColor) {
         label.setAttributedText(NSAttributedString(string: text, attributes: [.font : Globals.roundedFont(of: 16, weight: .regular), .foregroundColor: color]))
+    }
+    
+    //MARK: Tipping
+    
+    @IBAction func showTipOptions() {
+        if #available(watchOSApplicationExtension 6.2, *) {
+            TipService.getInstance().tipOptions { [weak self] result in
+                switch result {
+                case .success(let options):
+                    DispatchQueue.main.async {
+                        self?.displayTipOptions(options)
+                    }
+                case .failure(let error):
+                    LoggingService.log(error: error)
+                    DispatchQueue.main.async {
+                        self?.tipButton.setHidden(true)
+                    }
+                }
+            }
+        }
+    }
+    
+    private func displayTipOptions(_ options: [TipOption]) {
+        var actions = options
+            .sorted {
+                $0.price < $1.price
+            }.map { opt in
+                return WKAlertAction(title: opt.formattedPrice, style: .default) { [weak self] in
+                    self?.tip(opt.identifier)
+                }
+            }
+        
+        actions.append(WKAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel, handler: {}))
+        
+        presentAlert(withTitle: NSLocalizedString("Tip Jar", comment: ""), message: nil, preferredStyle: .actionSheet, actions: actions)
+    }
+    
+    private func tip(_ optionId: TipIdentifier) {
+        if #available(watchOSApplicationExtension 6.2, *) {
+            TipService.getInstance().tip(productId: optionId) { [weak self] result in
+                let isError: Bool
+                switch result {
+                case .success(let tipId):
+                    WCSessionService.getInstance().sendTipToPhone(tipId)
+                    isError = false
+                case .failure(let error):
+                    LoggingService.log(error: error)
+                    isError = true
+                }
+                
+                DispatchQueue.main.async {
+                    self?.displayTipMessage(isError)
+                }
+            }
+        }
+    }
+    
+    private func displayTipMessage(_ isError: Bool) {
+        let message = isError
+            ? NSLocalizedString("Your tip did not go through. Please try again.", comment: "")
+            : NSLocalizedString("Thanks so much for the tip! 🙏", comment: "")
+        presentAlert(withTitle: nil, message: message, preferredStyle: .alert, actions: [WKAlertAction(title: NSLocalizedString("Dismiss", comment: ""), style: .cancel, handler: {})])
     }
     
     //MARK: DEBUG

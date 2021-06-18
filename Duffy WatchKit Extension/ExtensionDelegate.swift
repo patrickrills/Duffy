@@ -34,6 +34,10 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, UNUserNotificationCenter
         if (HealthCache.cacheIsForADifferentDay(than: Date())) {
             complicationUpdateRequested()
         }
+        
+        if #available(watchOS 6.2, *) {
+            TipService.getInstance().initialize()
+        }
     }
     
     func applicationWillEnterForeground() {

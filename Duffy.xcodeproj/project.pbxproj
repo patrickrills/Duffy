@@ -13,6 +13,14 @@
 		0903E60A235CEFE00049E071 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 099582D0234192C400AF6A96 /* Localizable.strings */; };
 		090829E224670EEF00F100D6 /* Trophy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090829E124670EEF00F100D6 /* Trophy.swift */; };
 		090829E324670EEF00F100D6 /* Trophy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090829E124670EEF00F100D6 /* Trophy.swift */; };
+		091097D02650043B007EEFA8 /* TipService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091097CF2650043B007EEFA8 /* TipService.swift */; };
+		091097D12650043B007EEFA8 /* TipService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091097CF2650043B007EEFA8 /* TipService.swift */; };
+		091097D326501AC1007EEFA8 /* TipOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091097D226501AC1007EEFA8 /* TipOption.swift */; };
+		091097D426501AC1007EEFA8 /* TipOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091097D226501AC1007EEFA8 /* TipOption.swift */; };
+		091097D626501F09007EEFA8 /* StoreKitError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091097D526501F09007EEFA8 /* StoreKitError.swift */; };
+		091097D726501F09007EEFA8 /* StoreKitError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091097D526501F09007EEFA8 /* StoreKitError.swift */; };
+		091097DA26507014007EEFA8 /* TipViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091097D926507014007EEFA8 /* TipViewController.swift */; };
+		091097DC26507F18007EEFA8 /* TipCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091097DB26507F18007EEFA8 /* TipCollectionViewCell.swift */; };
 		091714CF25290B8D001062E0 /* ChartDrawer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091714CE25290B8D001062E0 /* ChartDrawer.swift */; };
 		091714F125326B40001062E0 /* Plot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091714F025326B40001062E0 /* Plot.swift */; };
 		091714F225326B40001062E0 /* Plot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 091714F025326B40001062E0 /* Plot.swift */; };
@@ -120,6 +128,11 @@
 		09CEA97F211F86DC0023786B /* HistoryTableViewFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CEA97E211F86DC0023786B /* HistoryTableViewFooter.swift */; };
 		09D7F1241E340EA7008FF0CC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7F1231E340EA7008FF0CC /* Constants.swift */; };
 		09D7F1251E340EA7008FF0CC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7F1231E340EA7008FF0CC /* Constants.swift */; };
+		09DDAF31265996F8009E9B82 /* ButtonFooterCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DDAF30265996F8009E9B82 /* ButtonFooterCollectionReusableView.swift */; };
+		09DDAF33265A9B6D009E9B82 /* DynamicHeightHeaderCollectionViewLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DDAF32265A9B6D009E9B82 /* DynamicHeightHeaderCollectionViewLayout.swift */; };
+		09DDAF35265A9DC4009E9B82 /* LabelHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DDAF34265A9DC4009E9B82 /* LabelHeaderCollectionReusableView.swift */; };
+		09DDAF372669740C009E9B82 /* TipArchiveEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DDAF362669740C009E9B82 /* TipArchiveEntry.swift */; };
+		09DDAF382669740C009E9B82 /* TipArchiveEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09DDAF362669740C009E9B82 /* TipArchiveEntry.swift */; };
 		09E1778F25F3F6810034A58F /* TrophiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E1778E25F3F6810034A58F /* TrophiesViewController.swift */; };
 		09E1779A25F513EA0034A58F /* TrophyCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09E1779825F513EA0034A58F /* TrophyCollectionViewCell.xib */; };
 		09E1779B25F513EA0034A58F /* TrophyCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09E1779925F513EA0034A58F /* TrophyCollectionViewCell.swift */; };
@@ -238,6 +251,12 @@
 		0903E606235BCAED0049E071 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0903E609235BCAED0049E071 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		090829E124670EEF00F100D6 /* Trophy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trophy.swift; sourceTree = "<group>"; };
+		091097CF2650043B007EEFA8 /* TipService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipService.swift; sourceTree = "<group>"; };
+		091097D226501AC1007EEFA8 /* TipOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipOption.swift; sourceTree = "<group>"; };
+		091097D526501F09007EEFA8 /* StoreKitError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreKitError.swift; sourceTree = "<group>"; };
+		091097D8265022F1007EEFA8 /* TipConfiguration.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = TipConfiguration.storekit; sourceTree = "<group>"; };
+		091097D926507014007EEFA8 /* TipViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipViewController.swift; sourceTree = "<group>"; };
+		091097DB26507F18007EEFA8 /* TipCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipCollectionViewCell.swift; sourceTree = "<group>"; };
 		091714CE25290B8D001062E0 /* ChartDrawer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartDrawer.swift; sourceTree = "<group>"; };
 		091714F025326B40001062E0 /* Plot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plot.swift; sourceTree = "<group>"; };
 		09177BC4241D466E0095ECB4 /* ExportService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportService.swift; sourceTree = "<group>"; };
@@ -335,6 +354,10 @@
 		09CE42D91E35640E00A6E587 /* DuffyToday.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DuffyToday.entitlements; sourceTree = "<group>"; };
 		09CEA97E211F86DC0023786B /* HistoryTableViewFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewFooter.swift; sourceTree = "<group>"; };
 		09D7F1231E340EA7008FF0CC /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		09DDAF30265996F8009E9B82 /* ButtonFooterCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonFooterCollectionReusableView.swift; sourceTree = "<group>"; };
+		09DDAF32265A9B6D009E9B82 /* DynamicHeightHeaderCollectionViewLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicHeightHeaderCollectionViewLayout.swift; sourceTree = "<group>"; };
+		09DDAF34265A9DC4009E9B82 /* LabelHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
+		09DDAF362669740C009E9B82 /* TipArchiveEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipArchiveEntry.swift; sourceTree = "<group>"; };
 		09E1778E25F3F6810034A58F /* TrophiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrophiesViewController.swift; sourceTree = "<group>"; };
 		09E1779825F513EA0034A58F /* TrophyCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TrophyCollectionViewCell.xib; sourceTree = "<group>"; };
 		09E1779925F513EA0034A58F /* TrophyCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrophyCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -466,6 +489,8 @@
 				09E1778E25F3F6810034A58F /* TrophiesViewController.swift */,
 				09E1779925F513EA0034A58F /* TrophyCollectionViewCell.swift */,
 				09E1779825F513EA0034A58F /* TrophyCollectionViewCell.xib */,
+				091097D926507014007EEFA8 /* TipViewController.swift */,
+				091097DB26507F18007EEFA8 /* TipCollectionViewCell.swift */,
 				09323C741D22C39700961822 /* Main.storyboard */,
 				09323C771D22C39700961822 /* Assets.xcassets */,
 				0921049D25BDC73500875BA9 /* LaunchShoe.storyboard */,
@@ -526,6 +551,10 @@
 				092B0E891D45841F00085F99 /* CoreMotionService.swift */,
 				09D7F1231E340EA7008FF0CC /* Constants.swift */,
 				0967EB781E7F0ACE0073BF3F /* NotificationService.swift */,
+				091097CF2650043B007EEFA8 /* TipService.swift */,
+				091097D226501AC1007EEFA8 /* TipOption.swift */,
+				091097D526501F09007EEFA8 /* StoreKitError.swift */,
+				09DDAF362669740C009E9B82 /* TipArchiveEntry.swift */,
 				090829E124670EEF00F100D6 /* Trophy.swift */,
 				09EEEDA7260F76C6002731DB /* RingDrawer.swift */,
 				099FE6FF234EB5300092D219 /* LoggingService.swift */,
@@ -535,6 +564,7 @@
 				09177BC4241D466E0095ECB4 /* ExportService.swift */,
 				091714F025326B40001062E0 /* Plot.swift */,
 				099582D0234192C400AF6A96 /* Localizable.strings */,
+				091097D8265022F1007EEFA8 /* TipConfiguration.storekit */,
 			);
 			path = DuffyFramework;
 			sourceTree = "<group>";
@@ -567,11 +597,14 @@
 			isa = PBXGroup;
 			children = (
 				09BDDA6321978CD20078B749 /* ButtonFooterView.swift */,
+				09DDAF30265996F8009E9B82 /* ButtonFooterCollectionReusableView.swift */,
 				09BDDA6721979A940078B749 /* ModalNavigationController.swift */,
 				094F1C5125EC60F0006A1E97 /* UINavigationController+URL.swift */,
 				0900867220FA7673006540E7 /* BoldActionSectionHeaderView.swift */,
 				0900866E20F27D0C006540E7 /* PreviousValueTableViewCell.swift */,
 				09EEEDA126078B6A002731DB /* ThinSeparator.swift */,
+				09DDAF32265A9B6D009E9B82 /* DynamicHeightHeaderCollectionViewLayout.swift */,
+				09DDAF34265A9DC4009E9B82 /* LabelHeaderCollectionReusableView.swift */,
 			);
 			path = Reusable;
 			sourceTree = "<group>";
@@ -877,10 +910,12 @@
 				09EEEDA226078B6A002731DB /* ThinSeparator.swift in Sources */,
 				094DE74325E1C9C6002C31FC /* GoalInstructionsTableViewCell.swift in Sources */,
 				094F1C5225EC60F0006A1E97 /* UINavigationController+URL.swift in Sources */,
+				09DDAF31265996F8009E9B82 /* ButtonFooterCollectionReusableView.swift in Sources */,
 				0900866F20F27D0C006540E7 /* PreviousValueTableViewCell.swift in Sources */,
 				09CE42C11E353E7100A6E587 /* HistoryTableViewController.swift in Sources */,
 				09CC417F231F3DAD0029AAFB /* AboutTableViewFooter.swift in Sources */,
 				0900867320FA7673006540E7 /* BoldActionSectionHeaderView.swift in Sources */,
+				09DDAF35265A9DC4009E9B82 /* LabelHeaderCollectionReusableView.swift in Sources */,
 				09E1779B25F513EA0034A58F /* TrophyCollectionViewCell.swift in Sources */,
 				09A7EEAD21A1E89A00DEDE5C /* HistoryTrendChartTableViewCell.swift in Sources */,
 				0970859C214DAB8900790EC7 /* HourGraphBarView.swift in Sources */,
@@ -899,12 +934,15 @@
 				09BDDA5E219116740078B749 /* AboutTableViewController.swift in Sources */,
 				0900867120F282DE006540E7 /* Globals.swift in Sources */,
 				0935D17E21A8D8E100B91009 /* HistoryFilterTableViewController.swift in Sources */,
+				09DDAF33265A9B6D009E9B82 /* DynamicHeightHeaderCollectionViewLayout.swift in Sources */,
 				09275CFC262CA35900E57008 /* MainWeeklySummaryTableViewCell.swift in Sources */,
 				09EEEDB7261A2191002731DB /* MainTableViewHeader.swift in Sources */,
 				093A5F0823B26C1A007D11E3 /* DebugLogTableViewController.swift in Sources */,
+				091097DA26507014007EEFA8 /* TipViewController.swift in Sources */,
 				094DE71D25E088E7002C31FC /* AboutFooterView.swift in Sources */,
 				09289C7E20DDFF56005BF6B8 /* MainTableViewController.swift in Sources */,
 				097E84FF25DC65D1008D9205 /* GoalInstructionsTableViewController.swift in Sources */,
+				091097DC26507F18007EEFA8 /* TipCollectionViewCell.swift in Sources */,
 				09BDDA6421978CD20078B749 /* ButtonFooterView.swift in Sources */,
 				0985E6EF24F2B4B1000B4A96 /* HistorySummaryTableViewCell.swift in Sources */,
 				09EEED8826063E69002731DB /* MainTodayTableViewCell.swift in Sources */,
@@ -933,12 +971,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				09EEEDA8260F76C6002731DB /* RingDrawer.swift in Sources */,
+				091097D626501F09007EEFA8 /* StoreKitError.swift in Sources */,
 				09D7F1241E340EA7008FF0CC /* Constants.swift in Sources */,
 				0929A6C724E6F1DC00780004 /* AggregateCollections.swift in Sources */,
 				096FE0AA250E75FF00838BEE /* StepsProcessingService.swift in Sources */,
 				0937CA3E25447A1700BDDDD3 /* WCSessionMessage.swift in Sources */,
+				091097D02650043B007EEFA8 /* TipService.swift in Sources */,
 				09AACE271D318A390058A814 /* HealthCache.swift in Sources */,
 				096FE09C2503CA6500838BEE /* Date.swift in Sources */,
+				09DDAF372669740C009E9B82 /* TipArchiveEntry.swift in Sources */,
+				091097D326501AC1007EEFA8 /* TipOption.swift in Sources */,
 				090829E224670EEF00F100D6 /* Trophy.swift in Sources */,
 				0929A6CA24E6FF3300780004 /* HealthKitError.swift in Sources */,
 				0967EB791E7F0ACE0073BF3F /* NotificationService.swift in Sources */,
@@ -960,12 +1002,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				09EEEDA9260F76C6002731DB /* RingDrawer.swift in Sources */,
+				091097D726501F09007EEFA8 /* StoreKitError.swift in Sources */,
 				09D7F1251E340EA7008FF0CC /* Constants.swift in Sources */,
 				0929A6C824E6F1DC00780004 /* AggregateCollections.swift in Sources */,
 				096FE0AB250E75FF00838BEE /* StepsProcessingService.swift in Sources */,
 				0937CA3F25447A1700BDDDD3 /* WCSessionMessage.swift in Sources */,
+				091097D12650043B007EEFA8 /* TipService.swift in Sources */,
 				09AACE281D318A390058A814 /* HealthCache.swift in Sources */,
 				096FE09D2503CA6500838BEE /* Date.swift in Sources */,
+				09DDAF382669740C009E9B82 /* TipArchiveEntry.swift in Sources */,
+				091097D426501AC1007EEFA8 /* TipOption.swift in Sources */,
 				090829E324670EEF00F100D6 /* Trophy.swift in Sources */,
 				0929A6CB24E6FF3300780004 /* HealthKitError.swift in Sources */,
 				0967EB7A1E7F0ACE0073BF3F /* NotificationService.swift in Sources */,
@@ -1192,7 +1238,7 @@
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_ENTITLEMENTS = "Duffy WatchKit Extension/Duffy WatchKit Extension.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 30;
+				CURRENT_PROJECT_VERSION = 32;
 				INFOPLIST_FILE = "Duffy WatchKit Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MARKETING_VERSION = 3.5.1;
@@ -1213,7 +1259,7 @@
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_ENTITLEMENTS = "Duffy WatchKit Extension/Duffy WatchKit Extension.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 30;
+				CURRENT_PROJECT_VERSION = 32;
 				INFOPLIST_FILE = "Duffy WatchKit Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MARKETING_VERSION = 3.5.1;
@@ -1233,7 +1279,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 30;
+				CURRENT_PROJECT_VERSION = 32;
 				IBSC_MODULE = Duffy_WatchKit_Extension;
 				INFOPLIST_FILE = "Duffy WatchKit App/Info.plist";
 				MARKETING_VERSION = 3.5.1;
@@ -1253,7 +1299,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 30;
+				CURRENT_PROJECT_VERSION = 32;
 				IBSC_MODULE = Duffy_WatchKit_Extension;
 				INFOPLIST_FILE = "Duffy WatchKit App/Info.plist";
 				MARKETING_VERSION = 3.5.1;
@@ -1274,7 +1320,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Duffy/Duffy.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 30;
+				CURRENT_PROJECT_VERSION = 32;
 				DEVELOPMENT_TEAM = 2ZMUDMBY38;
 				INFOPLIST_FILE = Duffy/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -1293,7 +1339,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Duffy/Duffy.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 30;
+				CURRENT_PROJECT_VERSION = 32;
 				DEVELOPMENT_TEAM = 2ZMUDMBY38;
 				INFOPLIST_FILE = Duffy/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -1420,7 +1466,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CODE_SIGN_ENTITLEMENTS = DuffyToday/DuffyToday.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 30;
+				CURRENT_PROJECT_VERSION = 32;
 				DEVELOPMENT_TEAM = 2ZMUDMBY38;
 				INFOPLIST_FILE = DuffyToday/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
@@ -1441,7 +1487,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CODE_SIGN_ENTITLEMENTS = DuffyToday/DuffyToday.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 30;
+				CURRENT_PROJECT_VERSION = 32;
 				DEVELOPMENT_TEAM = 2ZMUDMBY38;
 				INFOPLIST_FILE = DuffyToday/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;

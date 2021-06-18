@@ -120,11 +120,28 @@
                                                         <fontDescription key="font" type="system" weight="semibold" pointSize="16"/>
                                                     </label>
                                                 </items>
-                                                <color key="backgroundColor" name="PrimaryColor"/>
+                                                <color key="backgroundColor" name="PrimaryButtonBackground"/>
                                                 <edgeInsets key="margins" left="10" right="10" top="12" bottom="12"/>
                                             </group>
                                             <connections>
                                                 <action selector="openSetGoal" destination="AgC-eL-Hgc" id="Yf0-XG-PSY"/>
+                                            </connections>
+                                        </button>
+                                        <button alignment="left" id="OHM-Dw-l8y">
+                                            <group key="contentGroup" width="1" alignment="left" spacing="4" id="Dxn-Oh-LD8">
+                                                <items>
+                                                    <imageView width="20" height="20" alignment="left" verticalAlignment="center" contentMode="center" id="WtW-FT-9kR">
+                                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    </imageView>
+                                                    <label alignment="left" verticalAlignment="center" text="Tip Jar" minimumScaleFactor="0.69999999999999996" id="ovJ-Kn-cfI">
+                                                        <fontDescription key="font" type="system" weight="semibold" pointSize="16"/>
+                                                    </label>
+                                                </items>
+                                                <color key="backgroundColor" red="0.015686274509803921" green="0.87058823529411766" blue="0.44313725490196076" alpha="0.7977852767034872" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <edgeInsets key="margins" left="10" right="10" top="12" bottom="12"/>
+                                            </group>
+                                            <connections>
+                                                <action selector="showTipOptions" destination="AgC-eL-Hgc" id="puM-08-bgs"/>
                                             </connections>
                                         </button>
                                         <button width="1" alignment="left" title="Debug" id="l5P-5P-TIU">
@@ -158,6 +175,9 @@
                         <outlet property="stepsValueLabel" destination="G6E-Dy-R0M" id="K2a-Ej-vfL"/>
                         <outlet property="summaryButtonImage" destination="EDR-lh-Pg9" id="8le-LU-2Ra"/>
                         <outlet property="summaryButtonLabel" destination="wSn-zY-LnX" id="533-3N-UgR"/>
+                        <outlet property="tipButton" destination="OHM-Dw-l8y" id="KPL-ei-AoK"/>
+                        <outlet property="tipButtonImage" destination="WtW-FT-9kR" id="k9n-Nd-p29"/>
+                        <outlet property="tipButtonLabel" destination="ovJ-Kn-cfI" id="mpd-NP-9FW"/>
                         <outlet property="todayGroup" destination="JsD-K4-SSk" id="Gl9-6T-45X"/>
                         <outlet property="topSeparator" destination="vgs-x6-YKE" id="Twt-sy-xsM"/>
                         <outlet property="trophyLabel" destination="EZT-72-tht" id="FEo-6Z-psd"/>
@@ -217,7 +237,7 @@
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </label>
                                         </items>
-                                        <color key="backgroundColor" name="PrimaryColor"/>
+                                        <color key="backgroundColor" name="PrimaryButtonBackground"/>
                                     </group>
                                     <connections>
                                         <action selector="savePressed" destination="4xO-Gf-sN4" id="laO-uX-HbD"/>
@@ -237,7 +257,7 @@
                     </connections>
                 </controller>
             </objects>
-            <point key="canvasLocation" x="313" y="1103"/>
+            <point key="canvasLocation" x="313" y="1139"/>
         </scene>
         <!--Cancel-->
         <scene sceneID="xdF-XR-FCq">
@@ -359,7 +379,7 @@
         <namedColor name="ButtonBackground">
             <color red="0.94901960784313721" green="0.95686274509803926" blue="1" alpha="0.14000000059604645" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <namedColor name="PrimaryColor">
+        <namedColor name="PrimaryButtonBackground">
             <color red="0.12549019607843137" green="0.58039215686274515" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
