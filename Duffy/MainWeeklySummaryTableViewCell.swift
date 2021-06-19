@@ -42,7 +42,7 @@ class MainWeeklySummaryTableViewCell: UITableViewCell {
         let descriptionFont = UIFont.systemFont(ofSize: 15.0, weight: .regular)
                 
         var textColor = UIColor.darkText
-        var labelColor = UIColor.lightText
+        var labelColor = UIColor.lightGray
         if #available(iOS 13.0, *) {
             textColor = .label
             labelColor = .secondaryLabel
