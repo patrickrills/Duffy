@@ -29,7 +29,7 @@ class TipViewController: UICollectionViewController {
         if #available(iOS 13.0, *) {
             collectionView.backgroundColor = .systemGroupedBackground
         } else {
-            collectionView.backgroundColor = Globals.lightGrayColor()
+            collectionView.backgroundColor = UITableView(frame: .zero, style: .grouped).backgroundColor
         }
 
         self.collectionView.register(TipCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: TipCollectionViewCell.self))
