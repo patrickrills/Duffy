@@ -35,7 +35,9 @@ class MainTableViewController: UITableViewController {
     
     private var isLoading: Bool = false {
         didSet {
-            getHeader()?.isLoading = isLoading
+            if #available(iOS 13.0, *) {
+                getHeader()?.isLoading = isLoading
+            }
         }
     }
     
