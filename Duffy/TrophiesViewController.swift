@@ -39,7 +39,7 @@ class TrophiesViewController: UICollectionViewController, UICollectionViewDelega
         if #available(iOS 13.0, *) {
             collectionView.backgroundColor = .systemGroupedBackground
         } else {
-            collectionView.backgroundColor = Globals.lightGrayColor()
+            collectionView.backgroundColor = UITableView(frame: .zero, style: .grouped).backgroundColor
         }
         
         collectionView.register(UINib(nibName: String(describing: TrophyCollectionViewCell.self), bundle: Bundle.main), forCellWithReuseIdentifier: String(describing: TrophyCollectionViewCell.self))
