@@ -52,13 +52,16 @@ class MainWeeklySummaryTableViewCell: UITableViewCell {
             displayAverage = averageFormatted
         }
         
-        if progress != .infinity,
-           let progressFormatted = Globals.percentFormatter().string(for: progress)
-        {
-            displayProgress = progressFormatted
-            
+        if progress != .infinity {
             let roundedProgress = round(progress * 100.0)
-            arrowProgress = arrow(for: roundedProgress, in: textColor, with: valueFont)
+            
+            if progress > 0.0 && roundedProgress == 0 {
+                displayProgress = "<1%"
+            } else if let progressFormatted = Globals.percentFormatter().string(for: progress) {
+                displayProgress = progressFormatted
+            }
+            
+            arrowProgress = arrow(for: progress, in: textColor, with: valueFont)
         } else {
             showProgress = false
         }
