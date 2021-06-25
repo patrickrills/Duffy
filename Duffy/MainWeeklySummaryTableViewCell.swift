@@ -34,7 +34,7 @@ class MainWeeklySummaryTableViewCell: UITableViewCell {
         var displayAverage = "??"
         let descriptionAverage = NSLocalizedString("Average", comment: "")
         var displayProgress = "??"
-        let descriptionProgress = "From Prior Week"
+        let descriptionProgress = NSLocalizedString("From Prior Week", comment: "")
         var arrowProgress: NSAttributedString?
         var showProgress = true
         

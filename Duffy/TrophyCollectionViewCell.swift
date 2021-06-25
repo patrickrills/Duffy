@@ -46,14 +46,14 @@ class TrophyCollectionViewCell: UICollectionViewCell {
         
         symbolLabel.text = trophy.symbol()
         factorLabel.text = isBig
-                            ? String(format: "%@x your goal!", formattedFactor)
+                            ? String(format: NSLocalizedString("%@x your goal!", comment: ""), formattedFactor)
                             : formattedFactor + "x!"
         
         descriptionLabel.text = isBig
                                 ? trophy.description()
-                                : "Your Goal".uppercased()
+                                : NSLocalizedString("Your Goal", comment: "").uppercased()
         
-        let lastTemplate = "Last: %@"
+        let lastTemplate = NSLocalizedString("Last: %@", comment: "")
         let text: String
         var textColor: UIColor = .black
         if #available(iOS 13.0, *) {
@@ -69,7 +69,7 @@ class TrophyCollectionViewCell: UICollectionViewCell {
                 : Globals.monthYearFormatter()
             text = String(format: lastTemplate, dateFormatter.string(from: awardDate))
         } else {
-            text = "Not awarded yet"
+            text = NSLocalizedString("Not awarded yet", comment: "")
             if #available(iOS 13.0, *) {
                 textColor = .secondaryLabel
             }
