@@ -417,9 +417,12 @@ extension HealthKitService {
                 }
             }
             
-            if let sampleId = updateQuery.objectType?.identifier,
-                let subscriber = self?.subscribers[sampleId] {
-                subscriber.updateHandler()
+            if let sampleId = updateQuery.objectType?.identifier {
+                DispatchQueue.main.async {
+                    if let subscriber = self?.subscribers[sampleId] {
+                        subscriber.updateHandler()
+                    }
+                }
             }
             
             handler()
