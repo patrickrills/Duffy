@@ -75,7 +75,7 @@ class GoalInstructionsTableViewController: UITableViewController {
     
     private func buildFooter() {
         let footer = ButtonFooterView()
-        footer.buttonAttributedText = NSAttributedString(string: "See the Trophies")
+        footer.buttonAttributedText = NSAttributedString(string: NSLocalizedString("See the Trophies", comment: ""))
         footer.addTarget(self, action: #selector(viewTrophies))
         footer.separatorIsVisible = false
         tableView.tableFooterView = footer

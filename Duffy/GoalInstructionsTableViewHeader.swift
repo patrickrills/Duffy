@@ -31,7 +31,7 @@ class GoalInstructionsTableViewHeader: UIView {
     private lazy var goalCaptionLabel: UILabel = {
         let lbl = UILabel()
         lbl.translatesAutoresizingMaskIntoConstraints = false
-        lbl.text = "Your Goal".uppercased()
+        lbl.text = NSLocalizedString("Your Goal", comment: "").uppercased()
         lbl.textAlignment = .center
         lbl.font = UIFont.systemFont(ofSize: 11.0)
         return lbl

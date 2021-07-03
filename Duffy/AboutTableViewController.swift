@@ -77,9 +77,9 @@ enum AboutOption: CaseIterable {
         case .tipJar:
             return NSLocalizedString("Tip Jar", comment: "")
         case .bigbluefly:
-            return "Big Blue Fly (code)"
+            return String(format: "Big Blue Fly (%@)", NSLocalizedString("Code", comment: "").lowercased())
         case .isral:
-            return "isral Duke (design)"
+            return String(format: "isral Duke (%@)", NSLocalizedString("Design", comment: "").lowercased())
         }
     }
     

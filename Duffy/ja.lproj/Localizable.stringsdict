@@ -13,11 +13,11 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>u</string>
 			<key>zero</key>
-			<string>Japan: no times in %2$@ days</string>
+			<string>過去%2$@日間、目標を達成していません。</string>
 			<key>one</key>
-			<string>Japan: 1 time in %2$@ days (%3$@)</string>
+			<string>過去%2$@日間で、目標を1回達成しました。(%3$@)</string>
 			<key>other</key>
-			<string>Japan: %1$u times in %2$@ days (%3$@)</string>
+			<string>過去%2$@日間で、目標を%1$u回達成しました。(%3$@)</string>
 		</dict>
 	</dict>
 </dict>
