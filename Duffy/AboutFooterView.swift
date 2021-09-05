@@ -31,23 +31,36 @@ class AboutFooterView: UIView {
         let aboutButton = UIButton(type: .custom)
         aboutButton.translatesAutoresizingMaskIntoConstraints = false
         aboutButton.layer.cornerRadius = 8.0
-        aboutButton.setAttributedTitle(attributedButtonLabel(text: "About Duffy", imageSystemName: "info.circle.fill", color: Globals.secondaryColor()), for: .normal)
+        aboutButton.setAttributedTitle(attributedButtonLabel(text: NSLocalizedString("About Duffy", comment: ""), imageSystemName: "info.circle.fill", color: Globals.secondaryColor()), for: .normal)
+        aboutButton.addTarget(self, action: #selector(openAbout), for: .touchUpInside)
+        aboutButton.titleLabel?.adjustsFontSizeToFitWidth = true
+        aboutButton.titleLabel?.minimumScaleFactor = 0.75
         horizontalStack.addArrangedSubview(aboutButton)
+        
+        var tipSymbolName = "dollarsign.circle.fill"
+        if let lang = NSLocale.current.languageCode,
+           lang.lowercased() == "ja"
+        {
+            tipSymbolName = "yensign.circle.fill"
+        }
         
         let tipButton = UIButton(type: .custom)
         tipButton.translatesAutoresizingMaskIntoConstraints = false
         tipButton.layer.cornerRadius = 8.0
-        tipButton.setAttributedTitle(attributedButtonLabel(text: "Tip Jar", imageSystemName: "dollarsign.circle.fill", color: .systemGreen), for: .normal)
+        tipButton.setAttributedTitle(attributedButtonLabel(text: NSLocalizedString("Tip Jar", comment: ""), imageSystemName: tipSymbolName, color: .systemGreen), for: .normal)
+        tipButton.addTarget(self, action: #selector(openTipJar), for: .touchUpInside)
+        tipButton.titleLabel?.adjustsFontSizeToFitWidth = true
+        tipButton.titleLabel?.minimumScaleFactor = 0.75
         horizontalStack.addArrangedSubview(tipButton)
-        
-        aboutButton.backgroundColor = Globals.secondaryColor().withAlphaComponent(0.08)
-        tipButton.backgroundColor = .systemGreen.withAlphaComponent(0.08)
         
         if #available(iOS 13.0, *) {
             aboutButton.layer.cornerCurve = CALayerCornerCurve.continuous
             tipButton.layer.cornerCurve = CALayerCornerCurve.continuous
-//            aboutButton.backgroundColor = .tertiarySystemBackground
-//            tipButton.backgroundColor = .tertiarySystemBackground
+            aboutButton.backgroundColor = .tertiarySystemBackground
+            tipButton.backgroundColor = .tertiarySystemBackground
+        } else {
+            aboutButton.backgroundColor = .white
+            tipButton.backgroundColor = .white
         }
         
         NSLayoutConstraint.activate([
@@ -75,5 +88,17 @@ class AboutFooterView: UIView {
         attributedText.addAttribute(.foregroundColor, value: color, range: NSMakeRange(0, attributedText.length))
 
         return attributedText
+    }
+    
+    @objc private func openAbout() {
+        open(viewController: AboutTableViewController())
+    }
+    
+    @objc private func openTipJar() {
+        open(viewController: TipViewController())
+    }
+    
+    private func open(viewController: UIViewController) {
+        UIApplication.shared.keyWindow?.rootViewController?.present(ModalNavigationController(rootViewController: viewController), animated: true, completion: nil)
     }
 }

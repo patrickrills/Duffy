@@ -112,7 +112,6 @@ class MainTableViewController: UITableViewController {
             footer = existingFooter
         } else {
             let newFooter = AboutFooterView()
-            //newFooter.addTarget(self, action: #selector(openAbout))
             tableView.tableFooterView = newFooter
             footer = newFooter
         }
@@ -256,10 +255,6 @@ class MainTableViewController: UITableViewController {
     
     private func openHistory() {
         present(ModalNavigationController(rootViewController: HistoryTableViewController()), animated: true, completion: nil)
-    }
-    
-    @objc private func openAbout() {
-        present(ModalNavigationController(rootViewController: AboutTableViewController()), animated: true, completion: nil)
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
