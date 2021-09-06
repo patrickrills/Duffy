@@ -45,7 +45,7 @@ class MainTableViewController: UITableViewController {
         static let ESTIMATED_SECTION_HEIGHT: CGFloat = BoldActionSectionHeaderView.estimatedHeight
         static let RATING_GOAL_COUNT: Int = DuffyFramework.Constants.goalReachedCountForRating
         static let RATING_DELAY: Double = 2.0
-        static let FOOTER_HEIGHT: CGFloat = 80.0
+        static let FOOTER_HEIGHT: CGFloat = 100.0
         static let FOOTER_MARGIN: CGFloat = 16.0
         static let MINIMUM_HEIGHT: CGFloat = 0.1
         static let HOURLY_CELL_MARGIN: CGFloat = 10.0
@@ -112,7 +112,6 @@ class MainTableViewController: UITableViewController {
             footer = existingFooter
         } else {
             let newFooter = AboutFooterView()
-            newFooter.addTarget(self, action: #selector(openAbout))
             tableView.tableFooterView = newFooter
             footer = newFooter
         }
@@ -256,10 +255,6 @@ class MainTableViewController: UITableViewController {
     
     private func openHistory() {
         present(ModalNavigationController(rootViewController: HistoryTableViewController()), animated: true, completion: nil)
-    }
-    
-    @objc private func openAbout() {
-        present(ModalNavigationController(rootViewController: AboutTableViewController()), animated: true, completion: nil)
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
