@@ -128,6 +128,8 @@ class HistoryTableViewController: UITableViewController {
         if let footer = footer {
             footer.frame = CGRect(x: footer.frame.origin.x, y: footer.frame.origin.y, width: tableView.frame.size.width, height: Constants.FOOTER_HEIGHT)
         }
+        
+        footer?.isHidden = sort == .oldestToNewest
     }
     
     //MARK: Event handlers
