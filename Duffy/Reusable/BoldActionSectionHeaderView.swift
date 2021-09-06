@@ -109,4 +109,24 @@ class BoldActionSectionHeaderView: UITableViewHeaderFooterView {
             self.action = nil
         }
     }
+    
+    @available(iOS 14.0, *)
+    func addMenu(_ menu: UIMenu) {
+        button.menu = menu
+        button.showsMenuAsPrimaryAction = true
+    }
+    
+    @available(iOS 14.0, *)
+    private func clearMenu() {
+        button.menu = nil
+        button.showsMenuAsPrimaryAction = false
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        if #available(iOS 14.0, *) {
+            clearMenu()
+        }
+    }
 }

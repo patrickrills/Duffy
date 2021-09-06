@@ -22,8 +22,9 @@ class HistoryTableViewController: UITableViewController {
         case chart, summary, details
     }
     
-    private enum DetailSortOption {
-        case newestToOldest, oldestToNewest
+    private enum DetailSortOption: String, CaseIterable {
+        case newestToOldest = "newestToOldest"
+        case oldestToNewest = "oldestToNewest"
         
         static func sort(option: DetailSortOption, dates: inout [Date]) {
             dates.sort(by: { sort(option: option, date1: $0, date2: $1) })
@@ -40,14 +41,7 @@ class HistoryTableViewController: UITableViewController {
         
         func displayText() -> NSAttributedString {
             let attributedText = NSMutableAttributedString(string: "Sort ")
-            let symbolName: String
-            
-            switch self {
-            case .newestToOldest:
-                symbolName = "arrow.down"
-            case .oldestToNewest:
-                symbolName = "arrow.up"
-            }
+            let symbolName = self.symbolName()
             
             if #available(iOS 13.0, *) {
                 let symbolConfiguration = UIImage.SymbolConfiguration(font: UIFont.preferredFont(forTextStyle: .body))
@@ -62,6 +56,24 @@ class HistoryTableViewController: UITableViewController {
             }
             
             return attributedText
+        }
+        
+        func menuOptionText() -> String {
+            switch self {
+            case .newestToOldest:
+                return "Newest to Oldest"
+            case .oldestToNewest:
+                return "Oldest to Newest"
+            }
+        }
+        
+        func symbolName() -> String {
+            switch self {
+            case .newestToOldest:
+                return "arrow.down"
+            case .oldestToNewest:
+                return "arrow.up"
+            }
         }
     }
     
@@ -222,6 +234,18 @@ class HistoryTableViewController: UITableViewController {
         tableView.reloadSections(IndexSet(integer: HistorySection.details.rawValue), with: .automatic)
     }
     
+    @available(iOS 13.0, *)
+    private func changeSort(from action: UIAction) {
+        guard let option = DetailSortOption(rawValue: action.identifier.rawValue),
+              sort != option
+        else {
+            return
+        }
+        
+        sort = option
+        tableView.reloadSections(IndexSet(integer: HistorySection.details.rawValue), with: .automatic)
+    }
+    
     //MARK: Table view datasource
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -291,6 +315,18 @@ class HistoryTableViewController: UITableViewController {
             }
         default:
             return nil
+        }
+        
+        if #available(iOS 14.0, *) {
+            if HistorySection(rawValue: section) == .details {
+                let menuActions = DetailSortOption.allCases.map {
+                    UIAction(title: $0.menuOptionText(), image: UIImage(systemName: $0.symbolName()), identifier: UIAction.Identifier($0.rawValue), state: (sort == $0 ? .on : .off)) { [weak self] action in
+                        self?.changeSort(from: action)
+                    }
+                }
+
+                header.addMenu(UIMenu(title: "", children: menuActions))
+            }
         }
         
         header.set(headerText: sectionTitle, actionAttributedText: actionTitle, action: action)
