@@ -38,13 +38,30 @@ class HistoryTableViewController: UITableViewController {
             }
         }
         
-        func displayText() -> String {
+        func displayText() -> NSAttributedString {
+            let attributedText = NSMutableAttributedString(string: "Sort ")
+            let symbolName: String
+            
             switch self {
             case .newestToOldest:
-                return "Sort ⬇️"
+                symbolName = "arrow.down"
             case .oldestToNewest:
-                return "Sort ⬆️"
+                symbolName = "arrow.up"
             }
+            
+            if #available(iOS 13.0, *) {
+                let symbolConfiguration = UIImage.SymbolConfiguration(font: UIFont.preferredFont(forTextStyle: .body))
+                let symbolImage = UIImage(systemName: symbolName, withConfiguration: symbolConfiguration)?.withRenderingMode(.alwaysTemplate)
+                let symbolTextAttachment = NSTextAttachment()
+                symbolTextAttachment.image = symbolImage
+                let attachmentString = NSMutableAttributedString(attachment: symbolTextAttachment)
+                attributedText.append(attachmentString)
+            } else {
+                let unicodeArrow = symbolName.hasSuffix("up") ? "↑" : "↓"
+                attributedText.append(NSAttributedString(string: unicodeArrow))
+            }
+            
+            return attributedText
         }
     }
     
@@ -256,13 +273,13 @@ class HistoryTableViewController: UITableViewController {
         guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: String(describing: BoldActionSectionHeaderView.self)) as? BoldActionSectionHeaderView else { return nil }
         
         let sectionTitle: String
-        var actionTitle: String?
+        var actionTitle: NSAttributedString?
         var action: (() -> ())?
         
         switch HistorySection(rawValue: section) {
         case .chart:
             sectionTitle = NSLocalizedString("Trend", comment: "")
-            actionTitle = NSLocalizedString("Options", comment: "Title of a button that changes display options of a chart")
+            actionTitle = NSAttributedString(string: NSLocalizedString("Options", comment: "Title of a button that changes display options of a chart"))
             action = { [weak self] in self?.showChartOptions() }
         case .summary:
             sectionTitle = NSLocalizedString("Summary", comment: "Header of a section that summarizes aggregate data")
@@ -276,7 +293,7 @@ class HistoryTableViewController: UITableViewController {
             return nil
         }
         
-        header.set(headerText: sectionTitle, actionText: actionTitle, action: action)
+        header.set(headerText: sectionTitle, actionAttributedText: actionTitle, action: action)
         return header
     }
     

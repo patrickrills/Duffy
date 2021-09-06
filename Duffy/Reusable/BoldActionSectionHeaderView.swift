@@ -86,13 +86,21 @@ class BoldActionSectionHeaderView: UITableViewHeaderFooterView {
     }
     
     func set(headerText: String, actionText: String?, action: (() -> ())?) {
+        var att: NSAttributedString?
+        if let actionText = actionText {
+            att = NSAttributedString(string: actionText)
+        }
+        set(headerText: headerText, actionAttributedText: att, action: action)
+    }
+    
+    func set(headerText: String, actionAttributedText: NSAttributedString?, action: (() -> ())?) {
         self.headerLabel.text = headerText
         
-        if let actionText = actionText,
+        if let actionAttributedText = actionAttributedText,
             let action = action
         {
             self.button.isHidden = false
-            self.button.setTitle(actionText, for: .normal)
+            self.button.setAttributedTitle(actionAttributedText, for: .normal)
             self.action = action
         }
         else
