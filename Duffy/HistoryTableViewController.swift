@@ -18,6 +18,10 @@ class HistoryTableViewController: UITableViewController {
         static let MINIMUM_HEIGHT: CGFloat = 0.1
     }
     
+    private enum HistorySection: Int {
+        case chart, summary, details
+    }
+    
     private enum DetailSortOption {
         case newestToOldest, oldestToNewest
         
@@ -191,12 +195,12 @@ class HistoryTableViewController: UITableViewController {
     }
     
     private func showChartOptions() {
-        present(ModalNavigationController(rootViewController: HistoryTrendChartOptionsTableViewController(), doneButtonSystemImageName: "checkmark.circle", onDismiss: { [weak self] in self?.tableView.reloadSections(IndexSet(integer: 0), with: .fade) }), animated: true, completion: nil)
+        present(ModalNavigationController(rootViewController: HistoryTrendChartOptionsTableViewController(), doneButtonSystemImageName: "checkmark.circle", onDismiss: { [weak self] in self?.tableView.reloadSections(IndexSet(integer: HistorySection.chart.rawValue), with: .fade) }), animated: true, completion: nil)
     }
     
     private func changeSort() {
         sort = sort == .newestToOldest ? .oldestToNewest : .newestToOldest
-        tableView.reloadSections(IndexSet(integer: 2), with: .automatic)
+        tableView.reloadSections(IndexSet(integer: HistorySection.details.rawValue), with: .automatic)
     }
     
     //MARK: Table view datasource
@@ -206,8 +210,8 @@ class HistoryTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case 2:
+        switch HistorySection(rawValue: section) {
+        case .details:
             return filteredDates.count
         default:
             return 1
@@ -215,8 +219,8 @@ class HistoryTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        switch indexPath.section {
-        case 2:
+        switch HistorySection(rawValue: indexPath.section) {
+        case .details:
             return Constants.ROW_HEIGHT
         default:
             return UITableView.automaticDimension
@@ -225,22 +229,24 @@ class HistoryTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-        switch indexPath.section {
-        case 0:
+        switch HistorySection(rawValue: indexPath.section) {
+        case .chart:
             let graphCell = tableView.dequeueReusableCell(withIdentifier: String(describing: HistoryTrendChartTableViewCell.self), for: indexPath) as! HistoryTrendChartTableViewCell
             graphCell.bind(to: filteredSteps)
             return graphCell
-        case 1:
+        case .summary:
             let summaryCell = tableView.dequeueReusableCell(withIdentifier: String(describing: HistorySummaryTableViewCell.self), for: indexPath) as! HistorySummaryTableViewCell
             summaryCell.bind(to: filteredSteps)
             return summaryCell
-        default:
+        case .details:
             let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PreviousValueTableViewCell.self), for: indexPath) as! PreviousValueTableViewCell
             let currentDate = filteredDates[indexPath.row];
             if let steps = pastSteps[currentDate] {
                 cell.bind(to: currentDate, steps: steps, goal: goal)
             }
             return cell
+        default:
+            fatalError("Unexpected section")
         }
     }
     
@@ -251,14 +257,14 @@ class HistoryTableViewController: UITableViewController {
         var actionTitle: String?
         var action: (() -> ())?
         
-        switch section {
-        case 0:
+        switch HistorySection(rawValue: section) {
+        case .chart:
             sectionTitle = NSLocalizedString("Trend", comment: "")
             actionTitle = NSLocalizedString("Options", comment: "Title of a button that changes display options of a chart")
             action = { [weak self] in self?.showChartOptions() }
-        case 1:
+        case .summary:
             sectionTitle = NSLocalizedString("Summary", comment: "Header of a section that summarizes aggregate data")
-        case 2:
+        case .details:
             sectionTitle = NSLocalizedString("Details", comment: "")
             if #available(iOS 14.0, *) {
                 actionTitle = sort.displayText()
