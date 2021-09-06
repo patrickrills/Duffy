@@ -18,8 +18,40 @@ class HistoryTableViewController: UITableViewController {
         static let MINIMUM_HEIGHT: CGFloat = 0.1
     }
     
-    private let goal = HealthCache.dailyGoal()
+    private enum DetailSortOption {
+        case newestToOldest, oldestToNewest
         
+        static func sort(option: DetailSortOption, dates: inout [Date]) {
+            dates.sort(by: { sort(option: option, date1: $0, date2: $1) })
+        }
+        
+        private static func sort(option: DetailSortOption, date1: Date, date2: Date) -> Bool {
+            switch option {
+            case .newestToOldest:
+                return date1 > date2
+            case .oldestToNewest:
+                return date1 < date2
+            }
+        }
+        
+        func displayText() -> String {
+            switch self {
+            case .newestToOldest:
+                return "Sort ⬇️"
+            case .oldestToNewest:
+                return "Sort ⬆️"
+            }
+        }
+    }
+    
+    private let goal = HealthCache.dailyGoal()
+    
+    private var sort: DetailSortOption = .newestToOldest {
+        didSet {
+            DetailSortOption.sort(option: sort, dates: &filteredDates)
+        }
+    }
+    
     private var pastSteps : [Date : Steps] = [:]
     private var lastDateInCache: Date {
         return pastSteps.keys.sorted(by: <).first ?? Date().previousDay()
@@ -27,7 +59,12 @@ class HistoryTableViewController: UITableViewController {
     
     private var filteredDates : [Date] = []
     private var currentFilterDate: Date {
-        return filteredDates.last ?? Date()
+        switch sort {
+        case .newestToOldest:
+            return filteredDates.last ?? Date()
+        case .oldestToNewest:
+            return filteredDates.first ?? Date()
+        }
     }
     
     private var filteredSteps: [Date : Steps] {
@@ -147,13 +184,19 @@ class HistoryTableViewController: UITableViewController {
     }
     
     private func refresh(for startDate: Date) {
-        filteredDates = pastSteps.filter({ $0.key >= startDate }).map(\.key).sorted(by: >)
+        filteredDates = pastSteps.filter({ $0.key >= startDate }).map(\.key)
+        DetailSortOption.sort(option: sort, dates: &filteredDates)
         tableView.reloadData()
         toggleLoading(false)
     }
     
     private func showChartOptions() {
         present(ModalNavigationController(rootViewController: HistoryTrendChartOptionsTableViewController(), doneButtonSystemImageName: "checkmark.circle", onDismiss: { [weak self] in self?.tableView.reloadSections(IndexSet(integer: 0), with: .fade) }), animated: true, completion: nil)
+    }
+    
+    private func changeSort() {
+        sort = sort == .newestToOldest ? .oldestToNewest : .newestToOldest
+        tableView.reloadSections(IndexSet(integer: 2), with: .automatic)
     }
     
     //MARK: Table view datasource
@@ -205,22 +248,27 @@ class HistoryTableViewController: UITableViewController {
         guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: String(describing: BoldActionSectionHeaderView.self)) as? BoldActionSectionHeaderView else { return nil }
         
         let sectionTitle: String
-        let actionTitle: String = NSLocalizedString("Options", comment: "Title of a button that changes display options of a chart")
+        var actionTitle: String?
         var action: (() -> ())?
         
         switch section {
         case 0:
             sectionTitle = NSLocalizedString("Trend", comment: "")
+            actionTitle = NSLocalizedString("Options", comment: "Title of a button that changes display options of a chart")
             action = { [weak self] in self?.showChartOptions() }
         case 1:
             sectionTitle = NSLocalizedString("Summary", comment: "Header of a section that summarizes aggregate data")
         case 2:
             sectionTitle = NSLocalizedString("Details", comment: "")
+            if #available(iOS 14.0, *) {
+                actionTitle = sort.displayText()
+                action = { [weak self] in self?.changeSort() }
+            }
         default:
             return nil
         }
         
-        header.set(headerText: sectionTitle, actionText: (action != nil ? actionTitle : nil), action: action)
+        header.set(headerText: sectionTitle, actionText: actionTitle, action: action)
         return header
     }
     
