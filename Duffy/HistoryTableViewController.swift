@@ -40,7 +40,7 @@ class HistoryTableViewController: UITableViewController {
         }
         
         func displayText() -> NSAttributedString {
-            let attributedText = NSMutableAttributedString(string: "Sort ")
+            let attributedText = NSMutableAttributedString(string: String(format: "%@ ", NSLocalizedString("Sort", comment: "")))
             let symbolName = self.symbolName()
             
             if #available(iOS 13.0, *) {
@@ -61,9 +61,9 @@ class HistoryTableViewController: UITableViewController {
         func menuOptionText() -> String {
             switch self {
             case .newestToOldest:
-                return "Newest to Oldest"
+                return NSLocalizedString("Newest to Oldest", comment: "")
             case .oldestToNewest:
-                return "Oldest to Newest"
+                return NSLocalizedString("Oldest to Newest", comment: "")
             }
         }
         
