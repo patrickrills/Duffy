@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="18122" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="19158" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
     <device id="watch42"/>
     <dependencies>
         <deployment identifier="watchOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="18022"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19141"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="19040"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
     </dependencies>
     <scenes>
@@ -28,6 +28,7 @@
                                                         <label width="118" height="40" alignment="left" verticalAlignment="center" text="0" baselineAdjustment="alignCenters" minimumScaleFactor="0.59999999999999998" id="G6E-Dy-R0M">
                                                             <fontDescription key="font" type="system" pointSize="40"/>
                                                             <variation key="device=watch38mm" width="110"/>
+                                                            <variation key="device=watch42mm" width="110"/>
                                                         </label>
                                                         <group width="20" height="20" alignment="right" verticalAlignment="center" layout="overlap" spacing="0.0" id="h6l-DS-sAe">
                                                             <items>
