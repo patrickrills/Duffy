@@ -18,8 +18,73 @@ class HistoryTableViewController: UITableViewController {
         static let MINIMUM_HEIGHT: CGFloat = 0.1
     }
     
-    private let goal = HealthCache.dailyGoal()
+    private enum HistorySection: Int {
+        case chart, summary, details
+    }
+    
+    private enum DetailSortOption: String, CaseIterable {
+        case newestToOldest = "newestToOldest"
+        case oldestToNewest = "oldestToNewest"
         
+        static func sort(option: DetailSortOption, dates: inout [Date]) {
+            dates.sort(by: { sort(option: option, date1: $0, date2: $1) })
+        }
+        
+        private static func sort(option: DetailSortOption, date1: Date, date2: Date) -> Bool {
+            switch option {
+            case .newestToOldest:
+                return date1 > date2
+            case .oldestToNewest:
+                return date1 < date2
+            }
+        }
+        
+        func displayText() -> NSAttributedString {
+            let attributedText = NSMutableAttributedString(string: String(format: "%@ ", NSLocalizedString("Sort", comment: "")))
+            let symbolName = self.symbolName()
+            
+            if #available(iOS 13.0, *) {
+                let symbolConfiguration = UIImage.SymbolConfiguration(font: UIFont.preferredFont(forTextStyle: .body))
+                let symbolImage = UIImage(systemName: symbolName, withConfiguration: symbolConfiguration)?.withRenderingMode(.alwaysTemplate)
+                let symbolTextAttachment = NSTextAttachment()
+                symbolTextAttachment.image = symbolImage
+                let attachmentString = NSMutableAttributedString(attachment: symbolTextAttachment)
+                attributedText.append(attachmentString)
+            } else {
+                let unicodeArrow = symbolName.hasSuffix("up") ? "↑" : "↓"
+                attributedText.append(NSAttributedString(string: unicodeArrow))
+            }
+            
+            return attributedText
+        }
+        
+        func menuOptionText() -> String {
+            switch self {
+            case .newestToOldest:
+                return NSLocalizedString("Newest to Oldest", comment: "")
+            case .oldestToNewest:
+                return NSLocalizedString("Oldest to Newest", comment: "")
+            }
+        }
+        
+        func symbolName() -> String {
+            switch self {
+            case .newestToOldest:
+                return "arrow.down"
+            case .oldestToNewest:
+                return "arrow.up"
+            }
+        }
+    }
+    
+    private let goal = HealthCache.dailyGoal()
+    
+    private var sort: DetailSortOption = .newestToOldest {
+        didSet {
+            DetailSortOption.sort(option: sort, dates: &filteredDates)
+        }
+    }
+    
     private var pastSteps : [Date : Steps] = [:]
     private var lastDateInCache: Date {
         return pastSteps.keys.sorted(by: <).first ?? Date().previousDay()
@@ -27,7 +92,12 @@ class HistoryTableViewController: UITableViewController {
     
     private var filteredDates : [Date] = []
     private var currentFilterDate: Date {
-        return filteredDates.last ?? Date()
+        switch sort {
+        case .newestToOldest:
+            return filteredDates.last ?? Date()
+        case .oldestToNewest:
+            return filteredDates.first ?? Date()
+        }
     }
     
     private var filteredSteps: [Date : Steps] {
@@ -87,6 +157,8 @@ class HistoryTableViewController: UITableViewController {
         if let footer = footer {
             footer.frame = CGRect(x: footer.frame.origin.x, y: footer.frame.origin.y, width: tableView.frame.size.width, height: Constants.FOOTER_HEIGHT)
         }
+        
+        footer?.isHidden = sort == .oldestToNewest
     }
     
     //MARK: Event handlers
@@ -147,13 +219,31 @@ class HistoryTableViewController: UITableViewController {
     }
     
     private func refresh(for startDate: Date) {
-        filteredDates = pastSteps.filter({ $0.key >= startDate }).map(\.key).sorted(by: >)
+        filteredDates = pastSteps.filter({ $0.key >= startDate }).map(\.key)
+        DetailSortOption.sort(option: sort, dates: &filteredDates)
         tableView.reloadData()
         toggleLoading(false)
     }
     
     private func showChartOptions() {
-        present(ModalNavigationController(rootViewController: HistoryTrendChartOptionsTableViewController(), doneButtonSystemImageName: "checkmark.circle", onDismiss: { [weak self] in self?.tableView.reloadSections(IndexSet(integer: 0), with: .fade) }), animated: true, completion: nil)
+        present(ModalNavigationController(rootViewController: HistoryTrendChartOptionsTableViewController(), doneButtonSystemImageName: "checkmark.circle", onDismiss: { [weak self] in self?.tableView.reloadSections(IndexSet(integer: HistorySection.chart.rawValue), with: .fade) }), animated: true, completion: nil)
+    }
+    
+    private func changeSort() {
+        sort = sort == .newestToOldest ? .oldestToNewest : .newestToOldest
+        tableView.reloadSections(IndexSet(integer: HistorySection.details.rawValue), with: .automatic)
+    }
+    
+    @available(iOS 13.0, *)
+    private func changeSort(from action: UIAction) {
+        guard let option = DetailSortOption(rawValue: action.identifier.rawValue),
+              sort != option
+        else {
+            return
+        }
+        
+        sort = option
+        tableView.reloadSections(IndexSet(integer: HistorySection.details.rawValue), with: .automatic)
     }
     
     //MARK: Table view datasource
@@ -163,8 +253,8 @@ class HistoryTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case 2:
+        switch HistorySection(rawValue: section) {
+        case .details:
             return filteredDates.count
         default:
             return 1
@@ -172,8 +262,8 @@ class HistoryTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        switch indexPath.section {
-        case 2:
+        switch HistorySection(rawValue: indexPath.section) {
+        case .details:
             return Constants.ROW_HEIGHT
         default:
             return UITableView.automaticDimension
@@ -182,22 +272,24 @@ class HistoryTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
     {
-        switch indexPath.section {
-        case 0:
+        switch HistorySection(rawValue: indexPath.section) {
+        case .chart:
             let graphCell = tableView.dequeueReusableCell(withIdentifier: String(describing: HistoryTrendChartTableViewCell.self), for: indexPath) as! HistoryTrendChartTableViewCell
             graphCell.bind(to: filteredSteps)
             return graphCell
-        case 1:
+        case .summary:
             let summaryCell = tableView.dequeueReusableCell(withIdentifier: String(describing: HistorySummaryTableViewCell.self), for: indexPath) as! HistorySummaryTableViewCell
             summaryCell.bind(to: filteredSteps)
             return summaryCell
-        default:
+        case .details:
             let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PreviousValueTableViewCell.self), for: indexPath) as! PreviousValueTableViewCell
             let currentDate = filteredDates[indexPath.row];
             if let steps = pastSteps[currentDate] {
                 cell.bind(to: currentDate, steps: steps, goal: goal)
             }
             return cell
+        default:
+            fatalError("Unexpected section")
         }
     }
     
@@ -205,22 +297,39 @@ class HistoryTableViewController: UITableViewController {
         guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: String(describing: BoldActionSectionHeaderView.self)) as? BoldActionSectionHeaderView else { return nil }
         
         let sectionTitle: String
-        let actionTitle: String = NSLocalizedString("Options", comment: "Title of a button that changes display options of a chart")
+        var actionTitle: NSAttributedString?
         var action: (() -> ())?
         
-        switch section {
-        case 0:
+        switch HistorySection(rawValue: section) {
+        case .chart:
             sectionTitle = NSLocalizedString("Trend", comment: "")
+            actionTitle = NSAttributedString(string: NSLocalizedString("Options", comment: "Title of a button that changes display options of a chart"))
             action = { [weak self] in self?.showChartOptions() }
-        case 1:
+        case .summary:
             sectionTitle = NSLocalizedString("Summary", comment: "Header of a section that summarizes aggregate data")
-        case 2:
+        case .details:
             sectionTitle = NSLocalizedString("Details", comment: "")
+            if #available(iOS 14.0, *) {
+                actionTitle = sort.displayText()
+                action = { [weak self] in self?.changeSort() }
+            }
         default:
             return nil
         }
         
-        header.set(headerText: sectionTitle, actionText: (action != nil ? actionTitle : nil), action: action)
+        if #available(iOS 14.0, *) {
+            if HistorySection(rawValue: section) == .details {
+                let menuActions = DetailSortOption.allCases.map {
+                    UIAction(title: $0.menuOptionText(), image: UIImage(systemName: $0.symbolName()), identifier: UIAction.Identifier($0.rawValue), state: (sort == $0 ? .on : .off)) { [weak self] action in
+                        self?.changeSort(from: action)
+                    }
+                }
+
+                header.addMenu(UIMenu(title: "", children: menuActions))
+            }
+        }
+        
+        header.set(headerText: sectionTitle, actionAttributedText: actionTitle, action: action)
         return header
     }
     

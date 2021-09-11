@@ -86,19 +86,47 @@ class BoldActionSectionHeaderView: UITableViewHeaderFooterView {
     }
     
     func set(headerText: String, actionText: String?, action: (() -> ())?) {
+        var att: NSAttributedString?
+        if let actionText = actionText {
+            att = NSAttributedString(string: actionText)
+        }
+        set(headerText: headerText, actionAttributedText: att, action: action)
+    }
+    
+    func set(headerText: String, actionAttributedText: NSAttributedString?, action: (() -> ())?) {
         self.headerLabel.text = headerText
         
-        if let actionText = actionText,
+        if let actionAttributedText = actionAttributedText,
             let action = action
         {
             self.button.isHidden = false
-            self.button.setTitle(actionText, for: .normal)
+            self.button.setAttributedTitle(actionAttributedText, for: .normal)
             self.action = action
         }
         else
         {
             self.button.isHidden = true
             self.action = nil
+        }
+    }
+    
+    @available(iOS 14.0, *)
+    func addMenu(_ menu: UIMenu) {
+        button.menu = menu
+        button.showsMenuAsPrimaryAction = true
+    }
+    
+    @available(iOS 14.0, *)
+    private func clearMenu() {
+        button.menu = nil
+        button.showsMenuAsPrimaryAction = false
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        if #available(iOS 14.0, *) {
+            clearMenu()
         }
     }
 }
