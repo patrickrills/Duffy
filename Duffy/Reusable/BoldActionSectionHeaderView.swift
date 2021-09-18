@@ -99,8 +99,18 @@ class BoldActionSectionHeaderView: UITableViewHeaderFooterView {
         if let actionAttributedText = actionAttributedText,
             let action = action
         {
+            var finalText = actionAttributedText
+            
+            if #available(iOS 14.0, *) {
+                //Do nothing, label will default to textColor
+            } else {
+                let mutable = NSMutableAttributedString(attributedString: actionAttributedText)
+                mutable.addAttribute(.foregroundColor, value: Globals.secondaryColor(), range: NSRange(location: 0, length: mutable.length))
+                finalText = mutable
+            }
+            
             self.button.isHidden = false
-            self.button.setAttributedTitle(actionAttributedText, for: .normal)
+            self.button.setAttributedTitle(finalText, for: .normal)
             self.action = action
         }
         else
