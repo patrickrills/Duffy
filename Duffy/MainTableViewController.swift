@@ -97,6 +97,7 @@ class MainTableViewController: UITableViewController {
             header = existingHeader
         } else {
             header = MainTableViewHeader()
+            header?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(headerWasTapped)))
             tableView.tableHeaderView = header
         }
         
@@ -255,6 +256,10 @@ class MainTableViewController: UITableViewController {
     
     private func openHistory() {
         present(ModalNavigationController(rootViewController: HistoryTableViewController()), animated: true, completion: nil)
+    }
+    
+    @objc private func headerWasTapped() {
+        refresh()
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
