@@ -337,16 +337,18 @@ public class HealthKitService
 
 extension HealthKitService {
     
+    private static let stepsKey = "steps"
+    
     public func initializeBackgroundQueries() {
-        if let store = healthStore, let stepsType = HKQuantityType.quantityType(forIdentifier: .stepCount) {
+        if let store = healthStore,
+            let stepsType = HKQuantityType.quantityType(forIdentifier: .stepCount)
+        {
             DispatchQueue.main.async {
                 self.shouldRestartObservers = false
             }
             
-            let stepsKey = "steps"
-            
             #if os(iOS)
-                createStepsObserverQuery(with: stepsKey, for: stepsType, in: store)
+                createStepsObserverQuery(with: Self.stepsKey, for: stepsType, in: store)
 
                 if let activeType = HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned) {
                     let key = "activeEnergy"
@@ -357,14 +359,9 @@ extension HealthKitService {
                 }
             #elseif os(watchOS)
                 if #available(watchOS 8.0, *) {
-                    createStepsObserverQuery(with: stepsKey, for: stepsType, in: store)
+                    createStepsObserverQuery(with: Self.stepsKey, for: stepsType, in: store)
                 } else {
-                    LoggingService.log("App is starting stats queries")
-                
-                    if let statsQuery = createUpdatingStatisticsQuery(key: stepsKey, quantityType: stepsType, store: store) {
-                        statisticsQueries[stepsKey] = statsQuery
-                        store.execute(statsQuery)
-                    }
+                    startUIUpdatingQueries()
                 }
             #endif
         }
@@ -382,6 +379,21 @@ extension HealthKitService {
             healthStore.stop($1)
         })
         statisticsQueries.removeAll()
+    }
+    
+    private func startUIUpdatingQueries() {
+        guard let healthStore = healthStore,
+              let stepsType = HKQuantityType.quantityType(forIdentifier: .stepCount)
+        else {
+            return
+        }
+        
+        LoggingService.log("App is starting stats queries")
+    
+        if let statsQuery = createUpdatingStatisticsQuery(key: Self.stepsKey, quantityType: stepsType, store: healthStore) {
+            statisticsQueries[Self.stepsKey] = statsQuery
+            healthStore.execute(statsQuery)
+        }
     }
     
     @available(watchOSApplicationExtension 8.0, *)
@@ -422,14 +434,6 @@ extension HealthKitService {
                     LoggingService.log(String(format: "Steps retrieved by %@ observer", key), with: String(format: "%d", stepsResult.steps))
                 case .failure(let error):
                     LoggingService.log(error: error)
-                }
-            }
-            
-            if let sampleId = updateQuery.objectType?.identifier {
-                DispatchQueue.main.async {
-                    if let subscriber = self?.subscribers[sampleId] {
-                        subscriber.updateHandler()
-                    }
                 }
             }
             
@@ -488,6 +492,7 @@ extension HealthKitService {
                 if let sampleId = query.objectType?.identifier,
                     let subscriber = self?.subscribers[sampleId]
                 {
+                    LoggingService.log(String(format: "Update UI from %@", source), with: String(format: "%d", todaysSteps))
                     subscriber.updateHandler()
                 }
             }
@@ -518,6 +523,8 @@ extension HealthKitService {
             return
         }
         
+        startUIUpdatingQueries()
+                
         subscribers.removeValue(forKey: sampleType.identifier)
         subscribers[sampleType.identifier] = HealthKitSubscriber(for: dataType, with: updateHandler)
     }
