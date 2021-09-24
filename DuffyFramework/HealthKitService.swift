@@ -337,35 +337,31 @@ public class HealthKitService
 
 extension HealthKitService {
     
+    private static let stepsKey = "steps"
+    
     public func initializeBackgroundQueries() {
-        if let store = healthStore, let stepsType = HKQuantityType.quantityType(forIdentifier: .stepCount) {
+        if let store = healthStore,
+            let stepsType = HKQuantityType.quantityType(forIdentifier: .stepCount)
+        {
             DispatchQueue.main.async {
                 self.shouldRestartObservers = false
             }
             
-            let stepsKey = "steps"
-            
             #if os(iOS)
-                LoggingService.log("App is starting observers")
-            
-                let query = createObserverQuery(key: stepsKey, sampleType: stepsType, store: store)
-                observerQueries[stepsKey] = query
-                store.execute(query)
-                enableBackgroundQueryOnPhone(for: stepsType, at: .hourly, in: store)
+                createStepsObserverQuery(with: Self.stepsKey, for: stepsType, in: store)
 
                 if let activeType = HKQuantityType.quantityType(forIdentifier: .activeEnergyBurned) {
                     let key = "activeEnergy"
                     let query = createObserverQuery(key: key, sampleType: activeType, store: store)
                     observerQueries[key] = query
                     store.execute(query)
-                    enableBackgroundQueryOnPhone(for: activeType, at: .immediate, in: store)
+                    enableBackgroundQuery(for: activeType, at: .immediate, in: store)
                 }
             #elseif os(watchOS)
-                LoggingService.log("App is starting stats queries")
-            
-                if let statsQuery = createUpdatingStatisticsQuery(key: stepsKey, quantityType: stepsType, store: store) {
-                    statisticsQueries[stepsKey] = statsQuery
-                    store.execute(statsQuery)
+                if #available(watchOS 8.0, *) {
+                    createStepsObserverQuery(with: Self.stepsKey, for: stepsType, in: store)
+                } else {
+                    startUIUpdatingQueries()
                 }
             #endif
         }
@@ -383,6 +379,30 @@ extension HealthKitService {
             healthStore.stop($1)
         })
         statisticsQueries.removeAll()
+    }
+    
+    private func startUIUpdatingQueries() {
+        guard let healthStore = healthStore,
+              let stepsType = HKQuantityType.quantityType(forIdentifier: .stepCount)
+        else {
+            return
+        }
+        
+        LoggingService.log("App is starting stats queries")
+    
+        if let statsQuery = createUpdatingStatisticsQuery(key: Self.stepsKey, quantityType: stepsType, store: healthStore) {
+            statisticsQueries[Self.stepsKey] = statsQuery
+            healthStore.execute(statsQuery)
+        }
+    }
+    
+    @available(watchOSApplicationExtension 8.0, *)
+    private func createStepsObserverQuery(with key: String, for type: HKQuantityType, in store: HKHealthStore) {
+        LoggingService.log("App is starting observers")
+        let query = createObserverQuery(key: key, sampleType: type, store: store)
+        observerQueries[key] = query
+        store.execute(query)
+        enableBackgroundQuery(for: type, at: .hourly, in: store)
     }
     
     private func createObserverQuery(key: String, sampleType: HKSampleType, store: HKHealthStore) -> HKObserverQuery {
@@ -417,29 +437,22 @@ extension HealthKitService {
                 }
             }
             
-            if let sampleId = updateQuery.objectType?.identifier {
-                DispatchQueue.main.async {
-                    if let subscriber = self?.subscribers[sampleId] {
-                        subscriber.updateHandler()
-                    }
-                }
-            }
-            
             handler()
         })
         
         return query
     }
     
-    private func enableBackgroundQueryOnPhone(for sampleType: HKSampleType, at frequency: HKUpdateFrequency, in store: HKHealthStore) {
-        #if os(iOS)
-            store.enableBackgroundDelivery(for: sampleType, frequency: frequency, withCompletion: {
-                (success: Bool, error: Error?) in
-                if let error = error {
-                    LoggingService.log(error: error)
-                }
-            })
-        #endif
+    //TODO: Need to enable new iOS 15 entitlement for HealthKit background delivery in provisioning profile
+    //  [Duffy] Phone Error: Missing com.apple.developer.healthkit.background-delivery entitlement. (4)
+    @available(watchOSApplicationExtension 8.0, *)
+    private func enableBackgroundQuery(for sampleType: HKSampleType, at frequency: HKUpdateFrequency, in store: HKHealthStore) {
+        store.enableBackgroundDelivery(for: sampleType, frequency: frequency, withCompletion: {
+            (success: Bool, error: Error?) in
+            if let error = error {
+                LoggingService.log(error: error)
+            }
+        })
     }
     
     private func createUpdatingStatisticsQuery(key: String, quantityType: HKQuantityType, store: HKHealthStore) -> HKStatisticsCollectionQuery? {
@@ -479,6 +492,7 @@ extension HealthKitService {
                 if let sampleId = query.objectType?.identifier,
                     let subscriber = self?.subscribers[sampleId]
                 {
+                    LoggingService.log(String(format: "Update UI from %@", source), with: String(format: "%d", todaysSteps))
                     subscriber.updateHandler()
                 }
             }
@@ -509,6 +523,8 @@ extension HealthKitService {
             return
         }
         
+        startUIUpdatingQueries()
+                
         subscribers.removeValue(forKey: sampleType.identifier)
         subscribers[sampleType.identifier] = HealthKitSubscriber(for: dataType, with: updateHandler)
     }

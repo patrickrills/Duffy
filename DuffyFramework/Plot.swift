@@ -42,7 +42,7 @@ public struct Plot {
             let widthOfDay = CGFloat(activeArea.width) / CGFloat(numberOfDaysInRange)
             
             let translateY: (Steps) -> (CGFloat) = { steps in
-                return activeArea.height - CGFloat(floor((Double(steps) / topRange) * Double(activeArea.height)))
+                return activeArea.height - CGFloat((Double(steps) / topRange) * Double(activeArea.height))
             }
             
             let translateX: (Date) -> (CGFloat) = { date in
