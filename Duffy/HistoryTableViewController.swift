@@ -42,19 +42,12 @@ class HistoryTableViewController: UITableViewController {
         func displayText() -> NSAttributedString {
             let attributedText = NSMutableAttributedString(string: String(format: "%@ ", NSLocalizedString("Sort", comment: "")))
             let symbolName = self.symbolName()
-            
-            if #available(iOS 13.0, *) {
-                let symbolConfiguration = UIImage.SymbolConfiguration(font: UIFont.preferredFont(forTextStyle: .body))
-                let symbolImage = UIImage(systemName: symbolName, withConfiguration: symbolConfiguration)?.withRenderingMode(.alwaysTemplate)
-                let symbolTextAttachment = NSTextAttachment()
-                symbolTextAttachment.image = symbolImage
-                let attachmentString = NSMutableAttributedString(attachment: symbolTextAttachment)
-                attributedText.append(attachmentString)
-            } else {
-                let unicodeArrow = symbolName.hasSuffix("up") ? "↑" : "↓"
-                attributedText.append(NSAttributedString(string: unicodeArrow))
-            }
-            
+            let symbolConfiguration = UIImage.SymbolConfiguration(font: UIFont.preferredFont(forTextStyle: .body))
+            let symbolImage = UIImage(systemName: symbolName, withConfiguration: symbolConfiguration)?.withRenderingMode(.alwaysTemplate)
+            let symbolTextAttachment = NSTextAttachment()
+            symbolTextAttachment.image = symbolImage
+            let attachmentString = NSMutableAttributedString(attachment: symbolTextAttachment)
+            attributedText.append(attachmentString)
             return attributedText
         }
         
@@ -121,11 +114,7 @@ class HistoryTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if #available(iOS 13.0, *) {
-            navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "line.horizontal.3.decrease.circle"), style: .plain, target: self, action: #selector(changeFilter))
-        } else {
-            navigationItem.rightBarButtonItem = UIBarButtonItem(title: NSLocalizedString("Filter", comment: ""), style: .plain, target: self, action: #selector(changeFilter))
-        }
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "line.horizontal.3.decrease.circle"), style: .plain, target: self, action: #selector(changeFilter))
         
         tableView.estimatedSectionHeaderHeight = BoldActionSectionHeaderView.estimatedHeight
         tableView.register(BoldActionSectionHeaderView.self, forHeaderFooterViewReuseIdentifier: String(describing: BoldActionSectionHeaderView.self))
@@ -234,7 +223,6 @@ class HistoryTableViewController: UITableViewController {
         tableView.reloadSections(IndexSet(integer: HistorySection.details.rawValue), with: .automatic)
     }
     
-    @available(iOS 13.0, *)
     private func changeSort(from action: UIAction) {
         guard let option = DetailSortOption(rawValue: action.identifier.rawValue),
               sort != option

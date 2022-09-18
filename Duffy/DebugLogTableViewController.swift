@@ -19,13 +19,10 @@ class DebugLogTableViewController: UITableViewController {
         super.init(style: .grouped)
         dateFormatter.dateFormat = "MM/dd/yy hh:mm:ss a"
         title = "Debug"
-        
-        if #available(iOS 13.0, *) {
-            navigationItem.rightBarButtonItems = [
-                UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.up"), style: .plain, target: self, action: #selector(showShareSheet)),
-                UIBarButtonItem(image: UIImage(systemName: "trash"), style: .plain, target: self, action: #selector(clearLog))
-            ]
-        }
+        navigationItem.rightBarButtonItems = [
+            UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.up"), style: .plain, target: self, action: #selector(showShareSheet)),
+            UIBarButtonItem(image: UIImage(systemName: "trash"), style: .plain, target: self, action: #selector(clearLog))
+        ]
     }
     
     required init?(coder: NSCoder) {

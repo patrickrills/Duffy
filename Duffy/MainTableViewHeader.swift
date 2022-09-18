@@ -25,12 +25,7 @@ class MainTableViewHeader: UIView {
 
     private lazy var spinner: UIActivityIndicatorView = {
         let style: UIActivityIndicatorView.Style
-        if #available(iOS 13.0, *) {
-            style = .large
-        } else {
-            style = .gray
-        }
-        let spin = UIActivityIndicatorView(style: style)
+        let spin = UIActivityIndicatorView(style: .large)
         spin.translatesAutoresizingMaskIntoConstraints = false
         spin.isHidden = true
         spin.stopAnimating()

@@ -27,14 +27,9 @@ class MainTodayTableViewCell: UITableViewCell {
         goalLabel.isUserInteractionEnabled = true
         goalLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(goalInfoPressed)))
         goalInfoButton.tintColor = Globals.secondaryColor()
-        if #available(iOS 13.0, *) {
-            titleLabel.textColor = .secondaryLabel
-            goalLabel.textColor = .secondaryLabel
-            goalInfoButton.setImage(UIImage(systemName: "questionmark.circle"), for: .normal)
-        } else {
-            titleLabel.textColor = Globals.lightGrayColor()
-            goalLabel.textColor = Globals.lightGrayColor()
-        }
+        titleLabel.textColor = .secondaryLabel
+        goalLabel.textColor = .secondaryLabel
+        goalInfoButton.setImage(UIImage(systemName: "questionmark.circle"), for: .normal)
         
         bind(steps: 0, flights: 0, distance: 0, distanceUnit: .mile)
     }

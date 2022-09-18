@@ -57,7 +57,7 @@ class GoalInstructionsTableViewController: UITableViewController {
     
     private func buildHeader() {
         let container = UIView()
-        container.backgroundColor = .groupTableViewBackground
+        container.backgroundColor = .systemGroupedBackground
         
         let header = GoalInstructionsTableViewHeader()
         header.translatesAutoresizingMaskIntoConstraints = false

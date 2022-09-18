@@ -32,12 +32,7 @@ class BoldActionSectionHeaderView: UITableViewHeaderFooterView {
         headerLabel.font = UIFont.boldSystemFont(ofSize: 22.0)
         headerLabel.translatesAutoresizingMaskIntoConstraints = false
         headerLabel.setContentHuggingPriority(.required, for: .horizontal)
-        
-        if #available(iOS 13.0, *) {
-            headerLabel.textColor = .label
-        } else {
-            headerLabel.textColor = .black
-        }
+        headerLabel.textColor = .label
         
         button.titleLabel?.font = UIFont.systemFont(ofSize: 17.0)
         button.setTitleColor(Globals.secondaryColor(), for: .normal)
@@ -73,12 +68,7 @@ class BoldActionSectionHeaderView: UITableViewHeaderFooterView {
     }
     
     func layoutOptions() -> BoldActionSectionHeaderViewLayoutOptions {
-        var useLayoutMargins = true
-        if #available(iOS 13.0, *) {
-            useLayoutMargins = false
-        }
-        
-        return BoldActionSectionHeaderViewLayoutOptions(labelHeight: 26.0, useHorizontalLayoutMargins: useLayoutMargins, horizontalInset: 2.0, topInset: 8.0, actionCenterOffset: 6.0)
+        return BoldActionSectionHeaderViewLayoutOptions(labelHeight: 26.0, useHorizontalLayoutMargins: false, horizontalInset: 2.0, topInset: 8.0, actionCenterOffset: 6.0)
     }
     
     @objc private func onTouchUpInside() {

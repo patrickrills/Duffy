@@ -62,11 +62,7 @@ public class DebugLogEntry: NSObject {
             } else if isCoreMotion {
                 return .systemOrange
             } else {
-                if #available(iOS 13.0, *) {
-                    return .label
-                } else {
-                    return .black
-                }
+                return .label
             }
         #else
             return .white

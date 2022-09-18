@@ -26,13 +26,9 @@ class TipViewController: UICollectionViewController {
         
         title = NSLocalizedString("Tip Jar", comment: "")
         
-        if #available(iOS 13.0, *) {
-            collectionView.backgroundColor = .systemGroupedBackground
-        } else {
-            collectionView.backgroundColor = UITableView(frame: .zero, style: .grouped).backgroundColor
-        }
-
-        self.collectionView.register(TipCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: TipCollectionViewCell.self))
+        collectionView.backgroundColor = .systemGroupedBackground
+        
+        collectionView.register(TipCollectionViewCell.self, forCellWithReuseIdentifier: String(describing: TipCollectionViewCell.self))
         collectionView.register(ButtonFooterCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: String(describing: ButtonFooterCollectionReusableView.self))
         collectionView.register(LabelHeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: String(describing: LabelHeaderCollectionReusableView.self))
         

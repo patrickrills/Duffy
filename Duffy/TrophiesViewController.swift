@@ -36,12 +36,8 @@ class TrophiesViewController: UICollectionViewController, UICollectionViewDelega
 
         title = NSLocalizedString("Trophies", comment: "")
         
-        if #available(iOS 13.0, *) {
-            collectionView.backgroundColor = .systemGroupedBackground
-        } else {
-            collectionView.backgroundColor = UITableView(frame: .zero, style: .grouped).backgroundColor
-        }
-        
+        collectionView.backgroundColor = .systemGroupedBackground
+                
         collectionView.register(UINib(nibName: String(describing: TrophyCollectionViewCell.self), bundle: Bundle.main), forCellWithReuseIdentifier: String(describing: TrophyCollectionViewCell.self))
         collectionView.register(ButtonFooterCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: String(describing: ButtonFooterCollectionReusableView.self))
         collectionView.register(LabelHeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: String(describing: LabelHeaderCollectionReusableView.self))
