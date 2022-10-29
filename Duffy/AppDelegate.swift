@@ -27,10 +27,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate
         let session = WCSessionService.getInstance()
         session.activate(with: self)
         
-        if #available(iOS 13.0, *) {
-            BGTaskScheduler.shared.register(forTaskWithIdentifier: TASK_ID, using: nil) { task in
-                self.handle(task: task as! BGAppRefreshTask)
-            }
+        BGTaskScheduler.shared.register(forTaskWithIdentifier: TASK_ID, using: nil) { task in
+            self.handle(task: task as! BGAppRefreshTask)
         }
         
         TipService.getInstance().initialize()
@@ -134,7 +132,6 @@ extension AppDelegate: WCSessionServiceDelegate {
 
 extension AppDelegate {
 
-    @available(iOS 13.0, *)
     func handle(task: BGAppRefreshTask) {
         LoggingService.log("Handle BG Task")
         
@@ -146,15 +143,13 @@ extension AppDelegate {
     }
     
     func scheduleTask() {
-        if #available(iOS 13.0, *) {
-            let request = BGAppRefreshTaskRequest(identifier: TASK_ID)
-            request.earliestBeginDate = Date(timeIntervalSinceNow: 30 * 60)
-            
-            do {
-                try BGTaskScheduler.shared.submit(request)
-            } catch {
-                LoggingService.log(error: error)
-            }
+        let request = BGAppRefreshTaskRequest(identifier: TASK_ID)
+        request.earliestBeginDate = Date(timeIntervalSinceNow: 30 * 60)
+        
+        do {
+            try BGTaskScheduler.shared.submit(request)
+        } catch {
+            LoggingService.log(error: error)
         }
     }
 

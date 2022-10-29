@@ -36,20 +36,12 @@ class HistorySummaryTableViewCell: UITableViewCell {
         averageDot.subviews.forEach({ $0.layer.cornerRadius = (averageDotHeightConstraint.constant - (averageDotPaddingConstraint.constant * 2.0)) / 2.0 })
         averageDot.isHidden = true
         
-        if #available(iOS 13.0, *) {
-            maxValueLabel.textColor = .label
-            minValueLabel.textColor = .label
-            maxDateLabel.textColor = .secondaryLabel
-            minDateLabel.textColor = .secondaryLabel
-            averageBar.backgroundColor = .systemGray4
-            averageDot.backgroundColor = .secondarySystemGroupedBackground
-        } else {
-            maxValueLabel.textColor = .black
-            minValueLabel.textColor = .black
-            maxDateLabel.textColor = UIColor(red: 117.0/255.0, green: 117.0/255.0, blue: 117.0/255.0, alpha: 1.0)
-            minDateLabel?.textColor = UIColor(red: 117.0/255.0, green: 117.0/255.0, blue: 117.0/255.0, alpha: 1.0)
-            averageDot.backgroundColor = .white
-        }
+        maxValueLabel.textColor = .label
+        minValueLabel.textColor = .label
+        maxDateLabel.textColor = .secondaryLabel
+        minDateLabel.textColor = .secondaryLabel
+        averageBar.backgroundColor = .systemGray4
+        averageDot.backgroundColor = .secondarySystemGroupedBackground
     }
 
     func bind(to stepsByDay: [Date : Steps]) {
@@ -115,14 +107,8 @@ class HistorySummaryTableViewCell: UITableViewCell {
         let formatted = String.localizedStringWithFormat(countString, overCount, Globals.stepsFormatter().string(for: numberOfDays)!, Globals.percentFormatter().string(for: percentOfDays)!)
         
         let attributedText = NSMutableAttributedString()
-        var textColor: UIColor = .systemGray
-        
-        if #available(iOS 13.0, *) {
-            textColor = UIColor.label.withAlphaComponent(0.7)
-        }
-        
         attributedText.append(NSAttributedString(string: formatted))
-        attributedText.addAttribute(.foregroundColor, value: textColor, range: NSRange(location: 0, length: attributedText.length))
+        attributedText.addAttribute(.foregroundColor, value: UIColor.label.withAlphaComponent(0.7), range: NSRange(location: 0, length: attributedText.length))
         attributedText.addAttribute(.font, value: UIFont.preferredFont(forTextStyle: .body), range: NSRange(location: 0, length: attributedText.length))
         
         overLabel.attributedText = attributedText

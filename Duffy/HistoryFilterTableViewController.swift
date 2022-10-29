@@ -19,10 +19,8 @@ class HistoryFilterTableViewController: UITableViewController {
         case spinner, calendar
         
         func backgroundColor() -> UIColor {
-            if #available(iOS 13.0, *) {
-                if self == .calendar {
-                    return .secondarySystemGroupedBackground
-                }
+            if self == .calendar {
+                return .secondarySystemGroupedBackground
             }
             
             return UIColor(named: "SpinnerBackgroundColor")!
@@ -78,12 +76,8 @@ class HistoryFilterTableViewController: UITableViewController {
         tableView.isScrollEnabled = false
         tableView.sectionHeaderHeight = 16.0
         
-        if #available(iOS 13.0, *) {
-            navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "checkmark.circle"), style: .plain, target: self, action: #selector(saveFilter))
-        } else {
-            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveFilter))
-        }
-        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "checkmark.circle"), style: .plain, target: self, action: #selector(saveFilter))
+                
         addDatePicker()
     }
     
@@ -160,14 +154,9 @@ class HistoryFilterTableViewController: UITableViewController {
         cell.accessoryType = .none
         cell.selectionStyle = .none
         
-        if #available(iOS 13.0, *) {
-            cell.detailTextLabel?.textColor = .label
-            cell.textLabel?.textColor = .secondaryLabel
-        } else {
-            cell.detailTextLabel?.textColor = .black
-            cell.textLabel?.textColor = UIColor(red: 117.0/255.0, green: 117.0/255.0, blue: 117.0/255.0, alpha: 1.0)
-        }
-        
+        cell.detailTextLabel?.textColor = .label
+        cell.textLabel?.textColor = .secondaryLabel
+                
         return cell
     }
     

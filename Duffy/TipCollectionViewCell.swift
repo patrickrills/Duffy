@@ -24,14 +24,7 @@ class TipCollectionViewCell: UICollectionViewCell {
     }()
     
     private lazy var spinner: UIActivityIndicatorView = {
-        let style: UIActivityIndicatorView.Style
-        if #available(iOS 13.0, *) {
-            style = .medium
-        } else {
-            style = .gray
-        }
-        
-        let spin = UIActivityIndicatorView(style: style)
+        let spin = UIActivityIndicatorView(style: .medium)
         spin.translatesAutoresizingMaskIntoConstraints = false
         spin.hidesWhenStopped = true
         spin.isHidden = true
@@ -50,11 +43,7 @@ class TipCollectionViewCell: UICollectionViewCell {
     
     private func build() {
         let normalBackgroundView = UIView(frame: bounds)
-        if #available(iOS 13.0, *) {
-            normalBackgroundView.backgroundColor = .secondarySystemGroupedBackground
-        } else {
-            normalBackgroundView.backgroundColor = .white
-        }
+        normalBackgroundView.backgroundColor = .secondarySystemGroupedBackground
         backgroundView = normalBackgroundView
 
         let highlightedBackgroundView = UIView(frame: bounds)

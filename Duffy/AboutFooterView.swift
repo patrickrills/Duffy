@@ -53,15 +53,10 @@ class AboutFooterView: UIView {
         tipButton.titleLabel?.minimumScaleFactor = 0.75
         horizontalStack.addArrangedSubview(tipButton)
         
-        if #available(iOS 13.0, *) {
-            aboutButton.layer.cornerCurve = CALayerCornerCurve.continuous
-            tipButton.layer.cornerCurve = CALayerCornerCurve.continuous
-            aboutButton.backgroundColor = .tertiarySystemBackground
-            tipButton.backgroundColor = .tertiarySystemBackground
-        } else {
-            aboutButton.backgroundColor = .white
-            tipButton.backgroundColor = .white
-        }
+        aboutButton.layer.cornerCurve = .continuous
+        tipButton.layer.cornerCurve = .continuous
+        aboutButton.backgroundColor = .tertiarySystemBackground
+        tipButton.backgroundColor = .tertiarySystemBackground
         
         NSLayoutConstraint.activate([
             horizontalStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20.0),
@@ -73,17 +68,13 @@ class AboutFooterView: UIView {
 
     private func attributedButtonLabel(text: String, imageSystemName: String, color: UIColor) -> NSAttributedString {
         let attributedText = NSMutableAttributedString()
-
-        if #available(iOS 13.0, *) {
-            let symbolConfiguration = UIImage.SymbolConfiguration(font: UIFont.preferredFont(forTextStyle: .body))
-            let symbolImage = UIImage(systemName: imageSystemName, withConfiguration: symbolConfiguration)?.withRenderingMode(.alwaysTemplate)
-            let symbolTextAttachment = NSTextAttachment()
-            symbolTextAttachment.image = symbolImage
-            let attachmentString = NSMutableAttributedString(attachment: symbolTextAttachment)
-            attributedText.append(attachmentString)
-            attributedText.append(NSAttributedString(string: " "))
-        }
-
+        let symbolConfiguration = UIImage.SymbolConfiguration(font: UIFont.preferredFont(forTextStyle: .body))
+        let symbolImage = UIImage(systemName: imageSystemName, withConfiguration: symbolConfiguration)?.withRenderingMode(.alwaysTemplate)
+        let symbolTextAttachment = NSTextAttachment()
+        symbolTextAttachment.image = symbolImage
+        let attachmentString = NSMutableAttributedString(attachment: symbolTextAttachment)
+        attributedText.append(attachmentString)
+        attributedText.append(NSAttributedString(string: " "))
         attributedText.append(NSAttributedString(string: text))
         attributedText.addAttribute(.foregroundColor, value: color, range: NSMakeRange(0, attributedText.length))
 
@@ -99,6 +90,12 @@ class AboutFooterView: UIView {
     }
     
     private func open(viewController: UIViewController) {
-        UIApplication.shared.keyWindow?.rootViewController?.present(ModalNavigationController(rootViewController: viewController), animated: true, completion: nil)
+        guard let delegate = UIApplication.shared.delegate as? AppDelegate,
+              let rootViewController = delegate.window?.rootViewController
+        else {
+            return
+        }
+        
+        rootViewController.present(ModalNavigationController(rootViewController: viewController), animated: true, completion: nil)
     }
 }

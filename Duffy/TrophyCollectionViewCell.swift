@@ -28,12 +28,7 @@ class TrophyCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        if #available(iOS 13.0, *) {
-            backgroundColor = .secondarySystemGroupedBackground
-        } else {
-            backgroundColor = .white
-        }
-        
+        backgroundColor = .secondarySystemGroupedBackground
         layer.cornerRadius = 10.0
         clipsToBounds = true
     }
@@ -55,10 +50,7 @@ class TrophyCollectionViewCell: UICollectionViewCell {
         
         let lastTemplate = NSLocalizedString("Last: %@", comment: "")
         let text: String
-        var textColor: UIColor = .black
-        if #available(iOS 13.0, *) {
-            textColor = .label
-        }
+        var textColor: UIColor = .label
         
         if last.isLoading {
             text = String(format: lastTemplate, "...")
@@ -70,9 +62,7 @@ class TrophyCollectionViewCell: UICollectionViewCell {
             text = String(format: lastTemplate, dateFormatter.string(from: awardDate))
         } else {
             text = NSLocalizedString("Not awarded yet", comment: "")
-            if #available(iOS 13.0, *) {
-                textColor = .secondaryLabel
-            }
+            textColor = .secondaryLabel
         }
         
         lastAwardLabel.text = text

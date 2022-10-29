@@ -91,15 +91,11 @@ class TodayViewController: UIViewController, NCWidgetProviding {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        if #available(iOS 13.0, *) {
-            distanceIcon.tintColor = .label
-            distanceValueLabel.textColor = .label
-            flightsIcon.tintColor = .label
-            flightsValueLabel.textColor = .label
-        } else {
-            distanceIcon.tintColor = .black
-            flightsIcon.tintColor = .black
-        }
+        
+        distanceIcon.tintColor = .label
+        distanceValueLabel.textColor = .label
+        flightsIcon.tintColor = .label
+        flightsValueLabel.textColor = .label
     }
     
     private func displaySteps() {

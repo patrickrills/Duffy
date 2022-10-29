@@ -35,11 +35,7 @@ class ProgressRingView: UIView {
         if progress < 1.0 {
             let emptyRing = UIBezierPath(arcCenter: center, radius: radius, startAngle: 0, endAngle: .pi * 2, clockwise: true)
             emptyRing.lineWidth = 1.0
-            if #available(iOS 13.0, *) {
-                UIColor.quaternaryLabel.withAlphaComponent(0.2).setStroke()
-            } else {
-                UIColor.darkGray.withAlphaComponent(0.4).setStroke()
-            }
+            UIColor.quaternaryLabel.withAlphaComponent(0.2).setStroke()
             emptyRing.stroke()
             UIColor.clear.setFill()
             emptyRing.fill()

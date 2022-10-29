@@ -41,12 +41,8 @@ class MainWeeklySummaryTableViewCell: UITableViewCell {
         let valueFont = UIFont.systemFont(ofSize: 28.0, weight: .bold)
         let descriptionFont = UIFont.systemFont(ofSize: 15.0, weight: .regular)
                 
-        var textColor = UIColor.darkText
-        var labelColor = UIColor.lightGray
-        if #available(iOS 13.0, *) {
-            textColor = .label
-            labelColor = .secondaryLabel
-        }
+        let textColor: UIColor = .label
+        let labelColor: UIColor = .secondaryLabel
         
         if let averageFormatted = Globals.stepsFormatter().string(for: average) {
             displayAverage = averageFormatted
