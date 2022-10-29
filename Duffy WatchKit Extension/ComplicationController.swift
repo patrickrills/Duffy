@@ -11,6 +11,13 @@ import DuffyWatchFramework
 
 class ComplicationController: NSObject, CLKComplicationDataSource {
     
+    @available(watchOSApplicationExtension 7.0, *)
+    func getComplicationDescriptors(handler: @escaping ([CLKComplicationDescriptor]) -> Void) {
+        handler([
+            CLKComplicationDescriptor(identifier: "Duffy-Steps", displayName: "Duffy", supportedFamilies: CLKComplicationFamily.allCases)
+        ])
+    }
+    
     // MARK: Timeline Configuration
     
     func getPrivacyBehavior(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationPrivacyBehavior) -> Void) {
@@ -97,6 +104,15 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
             }
         }
         
+        if #available(watchOS 7.0, *) {
+            switch complication.family {
+            case .graphicExtraLarge:
+                return getEntryForGraphicExtraLarge(steps)
+            default:
+                break
+            }
+        }
+        
         return nil
     }
     
@@ -135,6 +151,15 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
                 template = getTemplateForTextCircular(sampleSteps, sampleStepsGoal)
             case .graphicBezel:
                 template = getTemplateForGraphicBezel(sampleSteps, sampleStepsGoal)
+            default:
+                break
+            }
+        }
+        
+        if #available(watchOS 7.0, *) {
+            switch complication.family {
+            case .graphicExtraLarge:
+                template = getTemplateForGraphicExtraLarge(sampleSteps)
             default:
                 break
             }
@@ -273,6 +298,29 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         let xLarge = CLKComplicationTemplateExtraLargeStackImage()
         
         xLarge.line1ImageProvider = CLKImageProvider(onePieceImage: RingDrawer.drawRing(totalSteps, goal: HealthCache.dailyGoal(), width: 120)!)
+        xLarge.tintColor = TEAL_TINT
+        
+        let body = CLKSimpleTextProvider()
+        body.text = formatStepsForLarge(totalSteps)
+        body.shortText = formatStepsForSmall(totalSteps)
+        xLarge.line2TextProvider = body
+        
+        return xLarge
+    }
+    
+    //MARK: Graphic Extra Large
+    
+    @available(watchOSApplicationExtension 7.0, *)
+    func getEntryForGraphicExtraLarge(_ totalSteps: Steps) -> CLKComplicationTimelineEntry {
+        let xLarge = getTemplateForGraphicExtraLarge(totalSteps)
+        return CLKComplicationTimelineEntry(date: Date(), complicationTemplate: xLarge)
+    }
+    
+    @available(watchOSApplicationExtension 7.0, *)
+    func getTemplateForGraphicExtraLarge(_ totalSteps: Steps) -> CLKComplicationTemplate {
+        let xLarge = CLKComplicationTemplateGraphicExtraLargeCircularStackImage()
+        
+        xLarge.line1ImageProvider = CLKFullColorImageProvider(fullColorImage: RingDrawer.drawRing(totalSteps, goal: HealthCache.dailyGoal(), width: 36)!)
         xLarge.tintColor = TEAL_TINT
         
         let body = CLKSimpleTextProvider()
