@@ -143,7 +143,7 @@ class AboutTableViewController: UITableViewController {
         title = NSLocalizedString("About Duffy", comment: "")
         
         tableView.register(BoldActionSectionHeaderView.self, forHeaderFooterViewReuseIdentifier: String(describing: BoldActionSectionHeaderView.self))
-        tableView.register(UINib(nibName: String(describing: AboutTableViewFooter.self), bundle: Bundle.main), forHeaderFooterViewReuseIdentifier: String(describing: AboutTableViewFooter.self))
+        tableView.register(AboutTableViewFooter.self, forHeaderFooterViewReuseIdentifier: String(describing: AboutTableViewFooter.self))
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: Constants.CELL_ID)
         tableView.estimatedRowHeight = Constants.ESTIMATED_ROW_HEIGHT
     }
