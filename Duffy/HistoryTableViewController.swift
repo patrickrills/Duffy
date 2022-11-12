@@ -114,7 +114,7 @@ class HistoryTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "line.horizontal.3.decrease.circle"), style: .plain, target: self, action: #selector(changeFilter))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "calendar", withConfiguration: UIImage.SymbolConfiguration(weight: .medium)), style: .plain, target: self, action: #selector(changeFilter))
         
         tableView.estimatedSectionHeaderHeight = BoldActionSectionHeaderView.estimatedHeight
         tableView.register(BoldActionSectionHeaderView.self, forHeaderFooterViewReuseIdentifier: String(describing: BoldActionSectionHeaderView.self))
