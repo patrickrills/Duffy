@@ -119,7 +119,6 @@
 		09BDDA6421978CD20078B749 /* ButtonFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BDDA6321978CD20078B749 /* ButtonFooterView.swift */; };
 		09BDDA6821979A940078B749 /* ModalNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BDDA6721979A940078B749 /* ModalNavigationController.swift */; };
 		09CC417F231F3DAD0029AAFB /* AboutTableViewFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CC417E231F3DAD0029AAFB /* AboutTableViewFooter.swift */; };
-		09CC4181231F3DC70029AAFB /* AboutTableViewFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09CC4180231F3DC70029AAFB /* AboutTableViewFooter.xib */; };
 		09CE42C11E353E7100A6E587 /* HistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CE42C01E353E7100A6E587 /* HistoryTableViewController.swift */; };
 		09CE42CA1E35525200A6E587 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09CE42C91E35525200A6E587 /* NotificationCenter.framework */; };
 		09CE42CD1E35525200A6E587 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CE42CC1E35525200A6E587 /* TodayViewController.swift */; };
@@ -345,7 +344,6 @@
 		09BDDA6321978CD20078B749 /* ButtonFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonFooterView.swift; sourceTree = "<group>"; };
 		09BDDA6721979A940078B749 /* ModalNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalNavigationController.swift; sourceTree = "<group>"; };
 		09CC417E231F3DAD0029AAFB /* AboutTableViewFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutTableViewFooter.swift; sourceTree = "<group>"; };
-		09CC4180231F3DC70029AAFB /* AboutTableViewFooter.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AboutTableViewFooter.xib; sourceTree = "<group>"; };
 		09CE42C01E353E7100A6E587 /* HistoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryTableViewController.swift; sourceTree = "<group>"; };
 		09CE42C81E35525200A6E587 /* DuffyToday.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = DuffyToday.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		09CE42C91E35525200A6E587 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
@@ -468,7 +466,6 @@
 				094DE71C25E088E7002C31FC /* AboutFooterView.swift */,
 				09BDDA5D219116740078B749 /* AboutTableViewController.swift */,
 				09CC417E231F3DAD0029AAFB /* AboutTableViewFooter.swift */,
-				09CC4180231F3DC70029AAFB /* AboutTableViewFooter.xib */,
 				093A5F0723B26C1A007D11E3 /* DebugLogTableViewController.swift */,
 				09CE42C01E353E7100A6E587 /* HistoryTableViewController.swift */,
 				09A7EEAB21A1E89A00DEDE5C /* HistoryTrendChartTableViewCell.swift */,
@@ -837,7 +834,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				09E1779A25F513EA0034A58F /* TrophyCollectionViewCell.xib in Resources */,
-				09CC4181231F3DC70029AAFB /* AboutTableViewFooter.xib in Resources */,
 				09EEEDC5262B5139002731DB /* MainHourlyTableViewCell.xib in Resources */,
 				099582C8234192A600AF6A96 /* Localizable.strings in Resources */,
 				09EEED8726063E69002731DB /* MainTodayTableViewCell.xib in Resources */,
@@ -1241,7 +1237,7 @@
 				CURRENT_PROJECT_VERSION = 0;
 				INFOPLIST_FILE = "Duffy WatchKit Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MARKETING_VERSION = 4.1;
+				MARKETING_VERSION = 4.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bigbluefly.Duffy.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
@@ -1262,7 +1258,7 @@
 				CURRENT_PROJECT_VERSION = 0;
 				INFOPLIST_FILE = "Duffy WatchKit Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MARKETING_VERSION = 4.1;
+				MARKETING_VERSION = 4.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bigbluefly.Duffy.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
@@ -1282,7 +1278,7 @@
 				CURRENT_PROJECT_VERSION = 0;
 				IBSC_MODULE = Duffy_WatchKit_Extension;
 				INFOPLIST_FILE = "Duffy WatchKit App/Info.plist";
-				MARKETING_VERSION = 4.1;
+				MARKETING_VERSION = 4.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bigbluefly.Duffy.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -1302,7 +1298,7 @@
 				CURRENT_PROJECT_VERSION = 0;
 				IBSC_MODULE = Duffy_WatchKit_Extension;
 				INFOPLIST_FILE = "Duffy WatchKit App/Info.plist";
-				MARKETING_VERSION = 4.1;
+				MARKETING_VERSION = 4.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bigbluefly.Duffy.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -1325,7 +1321,7 @@
 				INFOPLIST_FILE = Duffy/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 4.1;
+				MARKETING_VERSION = 4.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bigbluefly.Duffy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1344,7 +1340,7 @@
 				INFOPLIST_FILE = Duffy/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				MARKETING_VERSION = 4.1;
+				MARKETING_VERSION = 4.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bigbluefly.Duffy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1471,7 +1467,7 @@
 				INFOPLIST_FILE = DuffyToday/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MARKETING_VERSION = 4.1;
+				MARKETING_VERSION = 4.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bigbluefly.Duffy.DuffyToday;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1492,7 +1488,7 @@
 				INFOPLIST_FILE = DuffyToday/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MARKETING_VERSION = 4.1;
+				MARKETING_VERSION = 4.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bigbluefly.Duffy.DuffyToday;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

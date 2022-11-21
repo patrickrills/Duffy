@@ -41,8 +41,6 @@ class ModalNavigationController: UINavigationController, UINavigationControllerD
         }
     }
     
-    //TODO: support iOS 13 modal pull down dismissing
-    
     @objc func donePressed() {
         dismiss(animated: true, completion: { [weak self] in
             self?.onDismiss?()
@@ -58,7 +56,23 @@ class ModalNavigationController: UINavigationController, UINavigationControllerD
             return
         }
         
-        let doneButton = UIBarButtonItem(image: UIImage(systemName: doneButtonSystemImageName ?? "xmark.circle"), style: .plain, target: self, action: #selector(donePressed))
+        let doneButton: UIBarButtonItem
+        
+        if let doneButtonSystemImageName = doneButtonSystemImageName {
+            doneButton = UIBarButtonItem(image: UIImage(systemName: doneButtonSystemImageName), style: .plain, target: self, action: #selector(donePressed))
+        } else {
+            if #available(iOS 15.0, *) {
+                let palette = UIImage.SymbolConfiguration(paletteColors: [Globals.secondaryColor(), .systemGray5]).applying(UIImage.SymbolConfiguration(pointSize: 24))
+                let xImage = UIImage(systemName: "xmark.circle.fill", withConfiguration: palette)
+                let button = UIButton(type: .system)
+                button.setImage(xImage, for: .normal)
+                button.addTarget(self, action: #selector(donePressed), for: .touchUpInside)
+                doneButton = UIBarButtonItem(customView: button)
+            } else {
+                doneButton = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(donePressed))
+            }
+        }
+
         if viewController.navigationItem.rightBarButtonItem != nil {
             viewController.navigationItem.leftBarButtonItem = doneButton
         } else {
