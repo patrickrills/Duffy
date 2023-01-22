@@ -76,7 +76,7 @@ class HistoryFilterTableViewController: UITableViewController {
         tableView.isScrollEnabled = false
         tableView.sectionHeaderHeight = 16.0
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "checkmark.circle"), style: .plain, target: self, action: #selector(saveFilter))
+        navigationItem.rightBarButtonItem = UIBarButtonItem.doneBarButtonItem(with: "checkmark.circle.fill", target: self, action: #selector(saveFilter))
                 
         addDatePicker()
     }

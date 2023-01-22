@@ -59,15 +59,10 @@ class ModalNavigationController: UINavigationController, UINavigationControllerD
         let doneButton: UIBarButtonItem
         
         if let doneButtonSystemImageName = doneButtonSystemImageName {
-            doneButton = UIBarButtonItem(image: UIImage(systemName: doneButtonSystemImageName), style: .plain, target: self, action: #selector(donePressed))
+            doneButton = UIBarButtonItem.doneBarButtonItem(with: doneButtonSystemImageName, target: self, action: #selector(donePressed))
         } else {
             if #available(iOS 15.0, *) {
-                let palette = UIImage.SymbolConfiguration(paletteColors: [Globals.secondaryColor(), .tertiarySystemFill]).applying(UIImage.SymbolConfiguration(pointSize: 24))
-                let xImage = UIImage(systemName: "xmark.circle.fill", withConfiguration: palette)
-                let button = UIButton(type: .system)
-                button.setImage(xImage, for: .normal)
-                button.addTarget(self, action: #selector(donePressed), for: .touchUpInside)
-                doneButton = UIBarButtonItem(customView: button)
+                doneButton = UIBarButtonItem.doneBarButtonItem(with: "xmark.circle.fill", target: self, action: #selector(donePressed))
             } else {
                 doneButton = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(donePressed))
             }
