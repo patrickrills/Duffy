@@ -215,7 +215,7 @@ class HistoryTableViewController: UITableViewController {
     }
     
     private func showChartOptions() {
-        present(ModalNavigationController(rootViewController: HistoryTrendChartOptionsTableViewController(), doneButtonSystemImageName: "checkmark.circle", onDismiss: { [weak self] in self?.tableView.reloadSections(IndexSet(integer: HistorySection.chart.rawValue), with: .fade) }), animated: true, completion: nil)
+        present(ModalNavigationController(rootViewController: HistoryTrendChartOptionsTableViewController(), doneButtonSystemImageName: "checkmark.circle.fill", onDismiss: { [weak self] in self?.tableView.reloadSections(IndexSet(integer: HistorySection.chart.rawValue), with: .fade) }), animated: true, completion: nil)
     }
     
     private func changeSort() {
