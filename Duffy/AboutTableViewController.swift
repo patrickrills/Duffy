@@ -164,16 +164,11 @@ class AboutTableViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.CELL_ID, for: indexPath)
         cell.accessoryType = .disclosureIndicator
         
-        if #available(iOS 14.0, *) {
-            var contentConfig = UIListContentConfiguration.cell()
-            contentConfig.text = option.localizedTitle()
-            contentConfig.image = option.icon()
-            cell.contentConfiguration = contentConfig
-        } else {
-            cell.textLabel?.text = option.localizedTitle()
-            cell.imageView?.image = option.icon()
-        }
-        
+        var contentConfig = UIListContentConfiguration.cell()
+        contentConfig.text = option.localizedTitle()
+        contentConfig.image = option.icon()
+        cell.contentConfiguration = contentConfig
+                
         return cell
     }
         
