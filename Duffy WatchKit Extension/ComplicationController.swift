@@ -7,6 +7,7 @@
 //
 
 import ClockKit
+import SwiftUI
 import DuffyWatchFramework
 
 class ComplicationController: NSObject, CLKComplicationDataSource {
@@ -555,16 +556,13 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     
     @available(watchOSApplicationExtension 7.0, *)
     func getTemplateForNoGaugeGraphicRectangle(_ totalSteps: Steps) -> CLKComplicationTemplate {
-        
-        let stepsText = CLKSimpleTextProvider(text: NSLocalizedString("STEPS", comment: ""))
-        stepsText.tintColor = BLUE_TINT
-        
-        let valueText = CLKSimpleTextProvider(text: formatStepsForLarge(totalSteps))
-        
-        let shoe = UIImage(named: "GraphicRectShoe")!
-        let image = CLKFullColorImageProvider(fullColorImage: shoe)
-        
-        return CLKComplicationTemplateGraphicRectangularStandardBody(headerImageProvider: image, headerTextProvider: stepsText, body1TextProvider: valueText)
+        return CLKComplicationTemplateGraphicRectangularFullView(
+            GraphicRectangularFullView(shoeImage: UIImage(named: "GraphicRectShoe")!,
+                                       title: NSLocalizedString("Steps", comment: ""),
+                                       titleTintColor: BLUE_TINT,
+                                       totalStepsFormatted: formatStepsForLarge(totalSteps)
+                                      )
+        )
         
     }
     

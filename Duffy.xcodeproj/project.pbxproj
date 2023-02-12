@@ -30,6 +30,7 @@
 		092104B425BDD59800875BA9 /* GoalInstructions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092104B325BDD59800875BA9 /* GoalInstructions.swift */; };
 		0924297724311B580098B0AF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 099582CA234192A600AF6A96 /* Localizable.strings */; };
 		0927434B297DDDA500F69D1B /* UIBarButtonItem+DoneButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0927434A297DDDA500F69D1B /* UIBarButtonItem+DoneButton.swift */; };
+		0927434D29857E7000F69D1B /* GraphicRectangularFullView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0927434C29857E7000F69D1B /* GraphicRectangularFullView.swift */; };
 		09275CFB262CA35900E57008 /* MainWeeklySummaryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09275CF9262CA35900E57008 /* MainWeeklySummaryTableViewCell.xib */; };
 		09275CFC262CA35900E57008 /* MainWeeklySummaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09275CFA262CA35900E57008 /* MainWeeklySummaryTableViewCell.swift */; };
 		09289C7820D873F9005BF6B8 /* GoalNotificationInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09289C7720D873F9005BF6B8 /* GoalNotificationInterfaceController.swift */; };
@@ -263,6 +264,7 @@
 		0921049D25BDC73500875BA9 /* LaunchShoe.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchShoe.storyboard; sourceTree = "<group>"; };
 		092104B325BDD59800875BA9 /* GoalInstructions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalInstructions.swift; sourceTree = "<group>"; };
 		0927434A297DDDA500F69D1B /* UIBarButtonItem+DoneButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+DoneButton.swift"; sourceTree = "<group>"; };
+		0927434C29857E7000F69D1B /* GraphicRectangularFullView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphicRectangularFullView.swift; sourceTree = "<group>"; };
 		09275CF9262CA35900E57008 /* MainWeeklySummaryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWeeklySummaryTableViewCell.xib; sourceTree = "<group>"; };
 		09275CFA262CA35900E57008 /* MainWeeklySummaryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWeeklySummaryTableViewCell.swift; sourceTree = "<group>"; };
 		09289C7720D873F9005BF6B8 /* GoalNotificationInterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalNotificationInterfaceController.swift; sourceTree = "<group>"; };
@@ -523,6 +525,7 @@
 				09824A8B1EA66C74002A4A84 /* LegacyEditGoalInterfaceController.swift */,
 				09323C951D22C39700961822 /* ExtensionDelegate.swift */,
 				09323C971D22C39700961822 /* ComplicationController.swift */,
+				0927434C29857E7000F69D1B /* GraphicRectangularFullView.swift */,
 				09289C7720D873F9005BF6B8 /* GoalNotificationInterfaceController.swift */,
 				09323C991D22C39700961822 /* Assets.xcassets */,
 				09323C9B1D22C39700961822 /* Info.plist */,
@@ -963,6 +966,7 @@
 				09824A8C1EA66C74002A4A84 /* LegacyEditGoalInterfaceController.swift in Sources */,
 				09323C941D22C39700961822 /* MainInterfaceController.swift in Sources */,
 				09323C981D22C39700961822 /* ComplicationController.swift in Sources */,
+				0927434D29857E7000F69D1B /* GraphicRectangularFullView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
