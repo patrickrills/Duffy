@@ -84,18 +84,14 @@ class MainWeeklySummaryTableViewCell: UITableViewCell {
     private func arrow(for value: Double, in color: UIColor, with font: UIFont) -> NSAttributedString? {
         guard value != 0.0 && value != .infinity else { return nil }
         
-        if #available(iOS 13, *) {
-            let symbolConfiguration = UIImage.SymbolConfiguration(font: font)
-            let symbolImage = UIImage(systemName: (value > 0 ? "arrow.up" : "arrow.down"), withConfiguration: symbolConfiguration)?.withRenderingMode(.alwaysTemplate)
-            let symbolTextAttachment = NSTextAttachment()
-            symbolTextAttachment.image = symbolImage
-            let attachmentString = NSMutableAttributedString(attachment: symbolTextAttachment)
-            attachmentString.addAttribute(.foregroundColor, value: color, range: NSRange(location: 0, length: attachmentString.string.count))
-            attachmentString.append(NSAttributedString(string: " "))
-            return attachmentString
-        } else {
-            return NSAttributedString(string: (value > 0 ? "↑ " : "↓ "), attributes: [.font : font, .foregroundColor : color])
-        }
+        let symbolConfiguration = UIImage.SymbolConfiguration(font: font)
+        let symbolImage = UIImage(systemName: (value > 0 ? "arrow.up" : "arrow.down"), withConfiguration: symbolConfiguration)?.withRenderingMode(.alwaysTemplate)
+        let symbolTextAttachment = NSTextAttachment()
+        symbolTextAttachment.image = symbolImage
+        let attachmentString = NSMutableAttributedString(attachment: symbolTextAttachment)
+        attachmentString.addAttribute(.foregroundColor, value: color, range: NSRange(location: 0, length: attachmentString.string.count))
+        attachmentString.append(NSAttributedString(string: " "))
+        return attachmentString
     }
     
     override open func layoutSubviews() {

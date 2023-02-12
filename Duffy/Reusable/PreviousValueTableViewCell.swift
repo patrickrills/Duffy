@@ -18,11 +18,7 @@ class PreviousValueTableViewCell: UITableViewCell
     }
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        if #available(iOS 14.0, *) {
-            super.init(style: style, reuseIdentifier: reuseIdentifier) //Handled in iOS 14 by contentConfiguration
-        } else {
-            super.init(style: .value1, reuseIdentifier: reuseIdentifier)
-        }
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
     
     func bind(to date: Date, steps: Steps, goal: Steps) {
@@ -35,17 +31,11 @@ class PreviousValueTableViewCell: UITableViewCell
         selectionStyle = .none
         accessoryType = .none
         
-        if #available(iOS 14.0, *) {
-            var valueContentConfig = UIListContentConfiguration.valueCell()
-            valueContentConfig.text = primaryText
-            valueContentConfig.secondaryText = secondaryText
-            valueContentConfig.textProperties.font = primaryFont
-            contentConfiguration = valueContentConfig
-        } else {
-            textLabel?.font = primaryFont
-            textLabel?.text = primaryText
-            detailTextLabel?.text = secondaryText
-        }
+        var valueContentConfig = UIListContentConfiguration.valueCell()
+        valueContentConfig.text = primaryText
+        valueContentConfig.secondaryText = secondaryText
+        valueContentConfig.textProperties.font = primaryFont
+        contentConfiguration = valueContentConfig
     }
     
     private func font(for trophy: Trophy) -> UIFont {

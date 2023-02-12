@@ -45,13 +45,8 @@ class HistoryFilterTableViewController: UITableViewController {
         }
         
         static func mode() -> DateMode {
-            if #available(iOS 14.0, *) {
-                if !Globals.isNarrowPhone() {
-                    return .calendar
-                }
-            }
-            
-            return .spinner
+            guard !Globals.isNarrowPhone() else { return .spinner }
+            return .calendar
         }
     }
     
@@ -103,9 +98,7 @@ class HistoryFilterTableViewController: UITableViewController {
         safeAreaSpacer.backgroundColor = container.backgroundColor
         tableView.addSubview(safeAreaSpacer)
         
-        if #available(iOS 14.0, *) {
-            spinner.preferredDatePickerStyle = mode == .calendar ? .inline : .wheels
-        }
+        spinner.preferredDatePickerStyle = mode == .calendar ? .inline : .wheels
         
         NSLayoutConstraint.activate([
             container.bottomAnchor.constraint(equalTo: tableView.layoutMarginsGuide.bottomAnchor),

@@ -297,24 +297,20 @@ class HistoryTableViewController: UITableViewController {
             sectionTitle = NSLocalizedString("Summary", comment: "Header of a section that summarizes aggregate data")
         case .details:
             sectionTitle = NSLocalizedString("Details", comment: "")
-            if #available(iOS 14.0, *) {
-                actionTitle = sort.displayText()
-                action = { [weak self] in self?.changeSort() }
-            }
+            actionTitle = sort.displayText()
+            action = { [weak self] in self?.changeSort() }
         default:
             return nil
         }
         
-        if #available(iOS 14.0, *) {
-            if HistorySection(rawValue: section) == .details {
-                let menuActions = DetailSortOption.allCases.map {
-                    UIAction(title: $0.menuOptionText(), image: UIImage(systemName: $0.symbolName()), identifier: UIAction.Identifier($0.rawValue), state: (sort == $0 ? .on : .off)) { [weak self] action in
-                        self?.changeSort(from: action)
-                    }
+        if HistorySection(rawValue: section) == .details {
+            let menuActions = DetailSortOption.allCases.map {
+                UIAction(title: $0.menuOptionText(), image: UIImage(systemName: $0.symbolName()), identifier: UIAction.Identifier($0.rawValue), state: (sort == $0 ? .on : .off)) { [weak self] action in
+                    self?.changeSort(from: action)
                 }
-
-                header.addMenu(UIMenu(title: "", children: menuActions))
             }
+
+            header.addMenu(UIMenu(title: "", children: menuActions))
         }
         
         header.set(headerText: sectionTitle, actionAttributedText: actionTitle, action: action)
