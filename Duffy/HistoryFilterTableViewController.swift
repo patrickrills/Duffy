@@ -67,7 +67,7 @@ class HistoryFilterTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = NSLocalizedString("Filter", comment: "")
+        title = NSLocalizedString("Select Date", comment: "")
         tableView.isScrollEnabled = false
         tableView.sectionHeaderHeight = 16.0
         
@@ -155,5 +155,10 @@ class HistoryFilterTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         return UIView()
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
+        let numberOfDays = sinceDateFilter.differenceInDays(from: Date())
+        return String.localizedStringWithFormat(NSLocalizedString("Last %d days", comment: "Placeholder is a number of days"), numberOfDays)
     }
 }
