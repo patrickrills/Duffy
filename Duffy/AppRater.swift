@@ -15,11 +15,14 @@ class AppRater: NSObject
     
     open class func askToRate()
     {
-        if (!haveAsked())
-        {
-            UserDefaults.standard.set(1, forKey: hasAskedKey)
-            SKStoreReviewController.requestReview()
+        guard !haveAsked(),
+            let scene = UIApplication.shared.delegate?.window??.windowScene
+        else {
+            return
         }
+        
+        UserDefaults.standard.set(1, forKey: hasAskedKey)
+        SKStoreReviewController.requestReview(in: scene)
     }
     
     open class func haveAsked() -> Bool
