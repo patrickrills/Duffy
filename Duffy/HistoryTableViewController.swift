@@ -21,8 +21,25 @@ class HistoryTableViewController: UITableViewController {
         static let MINIMUM_HEIGHT: CGFloat = 0.1
     }
     
-    private enum HistorySection: Int {
+    private enum HistorySection: Int, CaseIterable {
         case chart, summary, details
+        
+        func optionsMenu(parent: HistoryTableViewController) -> UIMenu? {
+            switch self {
+            case .chart, .summary:
+                return nil
+            case .details:
+                let menuActions = DetailSortOption.allCases.map {
+                    UIAction(title: $0.menuOptionText(), image: UIImage(systemName: $0.symbolName()), identifier: UIAction.Identifier($0.rawValue), state: (parent.sort == $0 ? .on : .off)) { [weak parent] action in
+                        if let selectedSort = DetailSortOption(rawValue: action.identifier.rawValue) {
+                            parent?.changeSort(to: selectedSort)
+                        }
+                    }
+                }
+
+                return UIMenu(title: "", children: menuActions)
+            }
+        }
     }
     
     //MARK: Properties and State
@@ -175,26 +192,17 @@ class HistoryTableViewController: UITableViewController {
         present(ModalNavigationController(rootViewController: HistoryTrendChartOptionsTableViewController(), doneButtonSystemImageName: "checkmark.circle.fill", onDismiss: { [weak self] in self?.tableView.reloadSections(IndexSet(integer: HistorySection.chart.rawValue), with: .fade) }), animated: true, completion: nil)
     }
     
-    private func changeSort() {
-        sort = sort == .newestToOldest ? .oldestToNewest : .newestToOldest
-        tableView.reloadSections(IndexSet(integer: HistorySection.details.rawValue), with: .automatic)
-    }
-    
-    private func changeSort(from action: UIAction) {
-        guard let option = DetailSortOption(rawValue: action.identifier.rawValue),
-              sort != option
-        else {
-            return
-        }
+    private func changeSort(to sortOption: DetailSortOption) {
+        guard sort != sortOption else { return }
         
-        sort = option
+        sort = sortOption
         tableView.reloadSections(IndexSet(integer: HistorySection.details.rawValue), with: .automatic)
     }
     
     //MARK: Table view datasource
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return HistorySection.allCases.count
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -239,13 +247,17 @@ class HistoryTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: String(describing: BoldActionSectionHeaderView.self)) as? BoldActionSectionHeaderView else { return nil }
+        guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: String(describing: BoldActionSectionHeaderView.self)) as? BoldActionSectionHeaderView,
+              let historySection = HistorySection(rawValue: section)
+        else {
+            return nil
+        }
         
         let sectionTitle: String
         var actionTitle: NSAttributedString?
         var action: (() -> ())?
         
-        switch HistorySection(rawValue: section) {
+        switch historySection {
         case .chart:
             sectionTitle = NSLocalizedString("Trend", comment: "")
             actionTitle = NSAttributedString(string: NSLocalizedString("Options", comment: "Title of a button that changes display options of a chart"))
@@ -255,22 +267,9 @@ class HistoryTableViewController: UITableViewController {
         case .details:
             sectionTitle = NSLocalizedString("Details", comment: "")
             actionTitle = sort.displayText()
-            action = { [weak self] in self?.changeSort() }
-        default:
-            return nil
         }
         
-        if HistorySection(rawValue: section) == .details {
-            let menuActions = DetailSortOption.allCases.map {
-                UIAction(title: $0.menuOptionText(), image: UIImage(systemName: $0.symbolName()), identifier: UIAction.Identifier($0.rawValue), state: (sort == $0 ? .on : .off)) { [weak self] action in
-                    self?.changeSort(from: action)
-                }
-            }
-
-            header.addMenu(UIMenu(title: "", children: menuActions))
-        }
-        
-        header.set(headerText: sectionTitle, actionAttributedText: actionTitle, action: action)
+        header.set(headerText: sectionTitle, actionAttributedText: actionTitle, action: action, menu: historySection.optionsMenu(parent: self))
         return header
     }
     
