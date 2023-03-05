@@ -31,6 +31,7 @@
 		0924297724311B580098B0AF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 099582CA234192A600AF6A96 /* Localizable.strings */; };
 		0927434B297DDDA500F69D1B /* UIBarButtonItem+DoneButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0927434A297DDDA500F69D1B /* UIBarButtonItem+DoneButton.swift */; };
 		0927434D29857E7000F69D1B /* GraphicRectangularFullView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0927434C29857E7000F69D1B /* GraphicRectangularFullView.swift */; };
+		0927434F29B4E7AC00F69D1B /* DetailSortOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0927434E29B4E7AC00F69D1B /* DetailSortOption.swift */; };
 		09275CFB262CA35900E57008 /* MainWeeklySummaryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09275CF9262CA35900E57008 /* MainWeeklySummaryTableViewCell.xib */; };
 		09275CFC262CA35900E57008 /* MainWeeklySummaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09275CFA262CA35900E57008 /* MainWeeklySummaryTableViewCell.swift */; };
 		09289C7820D873F9005BF6B8 /* GoalNotificationInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09289C7720D873F9005BF6B8 /* GoalNotificationInterfaceController.swift */; };
@@ -265,6 +266,7 @@
 		092104B325BDD59800875BA9 /* GoalInstructions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalInstructions.swift; sourceTree = "<group>"; };
 		0927434A297DDDA500F69D1B /* UIBarButtonItem+DoneButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+DoneButton.swift"; sourceTree = "<group>"; };
 		0927434C29857E7000F69D1B /* GraphicRectangularFullView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphicRectangularFullView.swift; sourceTree = "<group>"; };
+		0927434E29B4E7AC00F69D1B /* DetailSortOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSortOption.swift; sourceTree = "<group>"; };
 		09275CF9262CA35900E57008 /* MainWeeklySummaryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWeeklySummaryTableViewCell.xib; sourceTree = "<group>"; };
 		09275CFA262CA35900E57008 /* MainWeeklySummaryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWeeklySummaryTableViewCell.swift; sourceTree = "<group>"; };
 		09289C7720D873F9005BF6B8 /* GoalNotificationInterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalNotificationInterfaceController.swift; sourceTree = "<group>"; };
@@ -477,6 +479,7 @@
 				09A7EEAF21A39D7100DEDE5C /* HistoryTrendChartView.swift */,
 				0985E6E824F162AC000B4A96 /* HistoryTrendChartOptionsTableViewController.swift */,
 				096FE0A725067FC700838BEE /* HistoryTrendChartLineOptionsTableViewController.swift */,
+				0927434E29B4E7AC00F69D1B /* DetailSortOption.swift */,
 				0985E6EA24F174C2000B4A96 /* HistoryTrendChartOption.swift */,
 				0985E6EC24F2B4B1000B4A96 /* HistorySummaryTableViewCell.xib */,
 				0985E6ED24F2B4B1000B4A96 /* HistorySummaryTableViewCell.swift */,
@@ -946,6 +949,7 @@
 				09289C7E20DDFF56005BF6B8 /* MainTableViewController.swift in Sources */,
 				097E84FF25DC65D1008D9205 /* GoalInstructionsTableViewController.swift in Sources */,
 				091097DC26507F18007EEFA8 /* TipCollectionViewCell.swift in Sources */,
+				0927434F29B4E7AC00F69D1B /* DetailSortOption.swift in Sources */,
 				09BDDA6421978CD20078B749 /* ButtonFooterView.swift in Sources */,
 				0985E6EF24F2B4B1000B4A96 /* HistorySummaryTableViewCell.swift in Sources */,
 				09EEED8826063E69002731DB /* MainTodayTableViewCell.swift in Sources */,
