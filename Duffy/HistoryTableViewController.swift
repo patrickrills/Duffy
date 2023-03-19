@@ -21,27 +21,6 @@ class HistoryTableViewController: UITableViewController {
         static let MINIMUM_HEIGHT: CGFloat = 0.1
     }
     
-    private enum HistorySection: Int, CaseIterable {
-        case chart, summary, details
-        
-        func optionsMenu(parent: HistoryTableViewController) -> UIMenu? {
-            switch self {
-            case .chart, .summary:
-                return nil
-            case .details:
-                let menuActions = DetailSortOption.allCases.map {
-                    UIAction(title: $0.menuOptionText(), image: UIImage(systemName: $0.symbolName()), identifier: UIAction.Identifier($0.rawValue), state: (parent.sort == $0 ? .on : .off)) { [weak parent] action in
-                        if let selectedSort = DetailSortOption(rawValue: action.identifier.rawValue) {
-                            parent?.changeSort(to: selectedSort)
-                        }
-                    }
-                }
-
-                return UIMenu(title: "", children: menuActions)
-            }
-        }
-    }
-    
     //MARK: Properties and State
     
     private let goal = HealthCache.dailyGoal()
@@ -192,13 +171,6 @@ class HistoryTableViewController: UITableViewController {
         present(ModalNavigationController(rootViewController: HistoryTrendChartOptionsTableViewController(), doneButtonSystemImageName: "checkmark.circle.fill", onDismiss: { [weak self] in self?.tableView.reloadSections(IndexSet(integer: HistorySection.chart.rawValue), with: .fade) }), animated: true, completion: nil)
     }
     
-    private func changeSort(to sortOption: DetailSortOption) {
-        guard sort != sortOption else { return }
-        
-        sort = sortOption
-        tableView.reloadSections(IndexSet(integer: HistorySection.details.rawValue), with: .automatic)
-    }
-    
     //MARK: Table view datasource
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -269,7 +241,7 @@ class HistoryTableViewController: UITableViewController {
             actionTitle = sort.displayText()
         }
         
-        header.set(headerText: sectionTitle, actionAttributedText: actionTitle, action: action, menu: historySection.optionsMenu(parent: self))
+        header.set(headerText: sectionTitle, actionAttributedText: actionTitle, action: action, menu: historySection.optionsMenu(handler: self))
         return header
     }
     
@@ -288,4 +260,26 @@ class HistoryTableViewController: UITableViewController {
         
         return UIView()
     }
+}
+
+extension HistoryTableViewController: HistorySectionOptionHandler {
+    
+    func isDetailSortOptionEnabled(_ option: DetailSortOption) -> Bool {
+        return sort == option
+    }
+    
+    func handleDetailSortOption(_ option: DetailSortOption) {
+        guard sort != option else { return }
+        
+        sort = option
+        tableView.reloadSections(IndexSet(integer: HistorySection.details.rawValue), with: .automatic)
+    }
+    
+    func handleHistoryTrendChartOption(_ option: HistoryTrendChartOption) {
+//        showChartOptions()
+        
+        option.setEnabled(!option.isEnabled())
+        tableView.reloadSections(IndexSet(integer: HistorySection.chart.rawValue), with: .fade)
+    }
+    
 }

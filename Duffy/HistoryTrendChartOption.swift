@@ -27,6 +27,35 @@ enum HistoryTrendChartOption: String, CaseIterable {
         }
     }
     
+    func symbolName() -> String {
+        switch self {
+        case .actualDataLine:
+            if #available(iOS 15.0, *) {
+                return "chart.line.uptrend.xyaxis"
+            }
+            
+            return "waveform.path.ecg"
+            
+        case .trendLine:
+            if #available(iOS 16.0, *) {
+                return "chart.line.flattrend.xyaxis"
+            }
+            
+            return "line.diagonal.arrow"
+            
+        case .averageIndicator:
+            return "divide.square.fill"
+            
+        case .goalIndicator:
+            if #available(iOS 16.0, *) {
+                return "medal.fill"
+            }
+            
+            return "figure.walk"
+            
+        }
+    }
+    
     func isEnabled() -> Bool {
         guard let settingValue = UserDefaults.standard.value(forKey: self.rawValue) as? Bool else { return true } //If value has never been set, return true
         return settingValue
