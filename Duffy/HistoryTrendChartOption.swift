@@ -44,11 +44,11 @@ enum HistoryTrendChartOption: String, CaseIterable {
             return "line.diagonal.arrow"
             
         case .averageIndicator:
-            return "divide.square.fill"
+            return "divide.square"
             
         case .goalIndicator:
             if #available(iOS 16.0, *) {
-                return "medal.fill"
+                return "medal"
             }
             
             return "figure.walk"
