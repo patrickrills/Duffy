@@ -10,9 +10,7 @@ import UIKit
 import DuffyFramework
 
 class HistoryTableViewController: UITableViewController {
-    
-    //MARK: Constants and Definitions
-    
+
     private enum Constants {
         static let ROW_HEIGHT: CGFloat = PreviousValueTableViewCell.rowHeight
         static let PAGE_SIZE_DAYS: Int = 30
@@ -167,10 +165,6 @@ class HistoryTableViewController: UITableViewController {
         toggleLoading(false)
     }
     
-    private func showChartOptions() {
-        present(ModalNavigationController(rootViewController: HistoryTrendChartOptionsTableViewController(), doneButtonSystemImageName: "checkmark.circle.fill", onDismiss: { [weak self] in self?.tableView.reloadSections(IndexSet(integer: HistorySection.chart.rawValue), with: .fade) }), animated: true, completion: nil)
-    }
-    
     //MARK: Table view datasource
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -227,13 +221,11 @@ class HistoryTableViewController: UITableViewController {
         
         let sectionTitle: String
         var actionTitle: NSAttributedString?
-        var action: (() -> ())?
         
         switch historySection {
         case .chart:
             sectionTitle = NSLocalizedString("Trend", comment: "")
             actionTitle = NSAttributedString(string: NSLocalizedString("Options", comment: "Title of a button that changes display options of a chart"))
-            action = { [weak self] in self?.showChartOptions() }
         case .summary:
             sectionTitle = NSLocalizedString("Summary", comment: "Header of a section that summarizes aggregate data")
         case .details:
@@ -241,7 +233,7 @@ class HistoryTableViewController: UITableViewController {
             actionTitle = sort.displayText()
         }
         
-        header.set(headerText: sectionTitle, actionAttributedText: actionTitle, action: action, menu: historySection.optionsMenu(handler: self))
+        header.set(headerText: sectionTitle, actionAttributedText: actionTitle, menu: historySection.optionsMenu(handler: self))
         return header
     }
     
@@ -276,8 +268,6 @@ extension HistoryTableViewController: HistorySectionOptionHandler {
     }
     
     func handleHistoryTrendChartOption(_ option: HistoryTrendChartOption) {
-//        showChartOptions()
-        
         option.setEnabled(!option.isEnabled())
         tableView.reloadSections(IndexSet(integer: HistorySection.chart.rawValue), with: .fade)
     }
