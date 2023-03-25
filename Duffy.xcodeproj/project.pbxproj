@@ -31,6 +31,8 @@
 		0924297724311B580098B0AF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 099582CA234192A600AF6A96 /* Localizable.strings */; };
 		0927434B297DDDA500F69D1B /* UIBarButtonItem+DoneButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0927434A297DDDA500F69D1B /* UIBarButtonItem+DoneButton.swift */; };
 		0927434D29857E7000F69D1B /* GraphicRectangularFullView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0927434C29857E7000F69D1B /* GraphicRectangularFullView.swift */; };
+		0927434F29B4E7AC00F69D1B /* DetailSortOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0927434E29B4E7AC00F69D1B /* DetailSortOption.swift */; };
+		0927435129C729BD00F69D1B /* HistorySection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0927435029C729BD00F69D1B /* HistorySection.swift */; };
 		09275CFB262CA35900E57008 /* MainWeeklySummaryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09275CF9262CA35900E57008 /* MainWeeklySummaryTableViewCell.xib */; };
 		09275CFC262CA35900E57008 /* MainWeeklySummaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09275CFA262CA35900E57008 /* MainWeeklySummaryTableViewCell.swift */; };
 		09289C7820D873F9005BF6B8 /* GoalNotificationInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09289C7720D873F9005BF6B8 /* GoalNotificationInterfaceController.swift */; };
@@ -82,7 +84,6 @@
 		096A4EE61E58D39900CE3D5B /* DuffyFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09323D031D2303BC00961822 /* DuffyFramework.framework */; };
 		096FE09C2503CA6500838BEE /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096FE09B2503CA6500838BEE /* Date.swift */; };
 		096FE09D2503CA6500838BEE /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096FE09B2503CA6500838BEE /* Date.swift */; };
-		096FE0A825067FC700838BEE /* HistoryTrendChartLineOptionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096FE0A725067FC700838BEE /* HistoryTrendChartLineOptionsTableViewController.swift */; };
 		096FE0AA250E75FF00838BEE /* StepsProcessingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096FE0A9250E75FF00838BEE /* StepsProcessingService.swift */; };
 		096FE0AB250E75FF00838BEE /* StepsProcessingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096FE0A9250E75FF00838BEE /* StepsProcessingService.swift */; };
 		0970859C214DAB8900790EC7 /* HourGraphBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0970859B214DAB8900790EC7 /* HourGraphBarView.swift */; };
@@ -92,7 +93,6 @@
 		097FB10F23CDEAF5001621D4 /* DebugService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097FB10E23CDEAF5001621D4 /* DebugService.swift */; };
 		097FB11023CDEAF5001621D4 /* DebugService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097FB10E23CDEAF5001621D4 /* DebugService.swift */; };
 		09824A8C1EA66C74002A4A84 /* LegacyEditGoalInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09824A8B1EA66C74002A4A84 /* LegacyEditGoalInterfaceController.swift */; };
-		0985E6E924F162AC000B4A96 /* HistoryTrendChartOptionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0985E6E824F162AC000B4A96 /* HistoryTrendChartOptionsTableViewController.swift */; };
 		0985E6EB24F174C2000B4A96 /* HistoryTrendChartOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0985E6EA24F174C2000B4A96 /* HistoryTrendChartOption.swift */; };
 		0985E6EE24F2B4B1000B4A96 /* HistorySummaryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0985E6EC24F2B4B1000B4A96 /* HistorySummaryTableViewCell.xib */; };
 		0985E6EF24F2B4B1000B4A96 /* HistorySummaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0985E6ED24F2B4B1000B4A96 /* HistorySummaryTableViewCell.swift */; };
@@ -265,6 +265,8 @@
 		092104B325BDD59800875BA9 /* GoalInstructions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalInstructions.swift; sourceTree = "<group>"; };
 		0927434A297DDDA500F69D1B /* UIBarButtonItem+DoneButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+DoneButton.swift"; sourceTree = "<group>"; };
 		0927434C29857E7000F69D1B /* GraphicRectangularFullView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphicRectangularFullView.swift; sourceTree = "<group>"; };
+		0927434E29B4E7AC00F69D1B /* DetailSortOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSortOption.swift; sourceTree = "<group>"; };
+		0927435029C729BD00F69D1B /* HistorySection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistorySection.swift; sourceTree = "<group>"; };
 		09275CF9262CA35900E57008 /* MainWeeklySummaryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWeeklySummaryTableViewCell.xib; sourceTree = "<group>"; };
 		09275CFA262CA35900E57008 /* MainWeeklySummaryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWeeklySummaryTableViewCell.swift; sourceTree = "<group>"; };
 		09289C7720D873F9005BF6B8 /* GoalNotificationInterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalNotificationInterfaceController.swift; sourceTree = "<group>"; };
@@ -313,7 +315,6 @@
 		0961D906216A9F2000F4AA88 /* duffy.ckcomplication */ = {isa = PBXFileReference; lastKnownFileType = folder; path = duffy.ckcomplication; sourceTree = "<group>"; };
 		0967EB781E7F0ACE0073BF3F /* NotificationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		096FE09B2503CA6500838BEE /* Date.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date.swift; sourceTree = "<group>"; };
-		096FE0A725067FC700838BEE /* HistoryTrendChartLineOptionsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTrendChartLineOptionsTableViewController.swift; sourceTree = "<group>"; };
 		096FE0A9250E75FF00838BEE /* StepsProcessingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StepsProcessingService.swift; sourceTree = "<group>"; };
 		0970859B214DAB8900790EC7 /* HourGraphBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourGraphBarView.swift; sourceTree = "<group>"; };
 		0970859D214EAEB200790EC7 /* HourGraphMaxIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HourGraphMaxIndicatorView.swift; sourceTree = "<group>"; };
@@ -321,7 +322,6 @@
 		097E84FE25DC65D1008D9205 /* GoalInstructionsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalInstructionsTableViewController.swift; sourceTree = "<group>"; };
 		097FB10E23CDEAF5001621D4 /* DebugService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugService.swift; sourceTree = "<group>"; };
 		09824A8B1EA66C74002A4A84 /* LegacyEditGoalInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LegacyEditGoalInterfaceController.swift; sourceTree = "<group>"; };
-		0985E6E824F162AC000B4A96 /* HistoryTrendChartOptionsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTrendChartOptionsTableViewController.swift; sourceTree = "<group>"; };
 		0985E6EA24F174C2000B4A96 /* HistoryTrendChartOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTrendChartOption.swift; sourceTree = "<group>"; };
 		0985E6EC24F2B4B1000B4A96 /* HistorySummaryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistorySummaryTableViewCell.xib; sourceTree = "<group>"; };
 		0985E6ED24F2B4B1000B4A96 /* HistorySummaryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistorySummaryTableViewCell.swift; sourceTree = "<group>"; };
@@ -475,9 +475,9 @@
 				09A7EEAB21A1E89A00DEDE5C /* HistoryTrendChartTableViewCell.swift */,
 				09A7EEAC21A1E89A00DEDE5C /* HistoryTrendChartTableViewCell.xib */,
 				09A7EEAF21A39D7100DEDE5C /* HistoryTrendChartView.swift */,
-				0985E6E824F162AC000B4A96 /* HistoryTrendChartOptionsTableViewController.swift */,
-				096FE0A725067FC700838BEE /* HistoryTrendChartLineOptionsTableViewController.swift */,
+				0927434E29B4E7AC00F69D1B /* DetailSortOption.swift */,
 				0985E6EA24F174C2000B4A96 /* HistoryTrendChartOption.swift */,
+				0927435029C729BD00F69D1B /* HistorySection.swift */,
 				0985E6EC24F2B4B1000B4A96 /* HistorySummaryTableViewCell.xib */,
 				0985E6ED24F2B4B1000B4A96 /* HistorySummaryTableViewCell.swift */,
 				0935D17D21A8D8E100B91009 /* HistoryFilterTableViewController.swift */,
@@ -917,11 +917,11 @@
 				09CE42C11E353E7100A6E587 /* HistoryTableViewController.swift in Sources */,
 				09CC417F231F3DAD0029AAFB /* AboutTableViewFooter.swift in Sources */,
 				0900867320FA7673006540E7 /* BoldActionSectionHeaderView.swift in Sources */,
+				0927435129C729BD00F69D1B /* HistorySection.swift in Sources */,
 				09DDAF35265A9DC4009E9B82 /* LabelHeaderCollectionReusableView.swift in Sources */,
 				09E1779B25F513EA0034A58F /* TrophyCollectionViewCell.swift in Sources */,
 				09A7EEAD21A1E89A00DEDE5C /* HistoryTrendChartTableViewCell.swift in Sources */,
 				0970859C214DAB8900790EC7 /* HourGraphBarView.swift in Sources */,
-				096FE0A825067FC700838BEE /* HistoryTrendChartLineOptionsTableViewController.swift in Sources */,
 				092104B425BDD59800875BA9 /* GoalInstructions.swift in Sources */,
 				09EEED9226064BD2002731DB /* MainTodayItemView.swift in Sources */,
 				09CEA97F211F86DC0023786B /* HistoryTableViewFooter.swift in Sources */,
@@ -933,7 +933,6 @@
 				09A7EEB021A39D7100DEDE5C /* HistoryTrendChartView.swift in Sources */,
 				094DE73725E1716D002C31FC /* GoalInstructionsTableViewHeader.swift in Sources */,
 				09BDDA6821979A940078B749 /* ModalNavigationController.swift in Sources */,
-				0985E6E924F162AC000B4A96 /* HistoryTrendChartOptionsTableViewController.swift in Sources */,
 				09BDDA5E219116740078B749 /* AboutTableViewController.swift in Sources */,
 				0900867120F282DE006540E7 /* Globals.swift in Sources */,
 				0935D17E21A8D8E100B91009 /* HistoryFilterTableViewController.swift in Sources */,
@@ -946,6 +945,7 @@
 				09289C7E20DDFF56005BF6B8 /* MainTableViewController.swift in Sources */,
 				097E84FF25DC65D1008D9205 /* GoalInstructionsTableViewController.swift in Sources */,
 				091097DC26507F18007EEFA8 /* TipCollectionViewCell.swift in Sources */,
+				0927434F29B4E7AC00F69D1B /* DetailSortOption.swift in Sources */,
 				09BDDA6421978CD20078B749 /* ButtonFooterView.swift in Sources */,
 				0985E6EF24F2B4B1000B4A96 /* HistorySummaryTableViewCell.swift in Sources */,
 				09EEED8826063E69002731DB /* MainTodayTableViewCell.swift in Sources */,
@@ -1242,7 +1242,7 @@
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_ENTITLEMENTS = "Duffy WatchKit Extension/Duffy WatchKit Extension.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 3;
 				INFOPLIST_FILE = "Duffy WatchKit Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MARKETING_VERSION = 4.3;
@@ -1263,7 +1263,7 @@
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_ENTITLEMENTS = "Duffy WatchKit Extension/Duffy WatchKit Extension.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 3;
 				INFOPLIST_FILE = "Duffy WatchKit Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MARKETING_VERSION = 4.3;
@@ -1283,7 +1283,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 3;
 				IBSC_MODULE = Duffy_WatchKit_Extension;
 				INFOPLIST_FILE = "Duffy WatchKit App/Info.plist";
 				MARKETING_VERSION = 4.3;
@@ -1303,7 +1303,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 3;
 				IBSC_MODULE = Duffy_WatchKit_Extension;
 				INFOPLIST_FILE = "Duffy WatchKit App/Info.plist";
 				MARKETING_VERSION = 4.3;
@@ -1324,7 +1324,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Duffy/Duffy.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 2ZMUDMBY38;
 				INFOPLIST_FILE = Duffy/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.7;
@@ -1343,7 +1343,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Duffy/Duffy.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 2ZMUDMBY38;
 				INFOPLIST_FILE = Duffy/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.7;
@@ -1470,7 +1470,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CODE_SIGN_ENTITLEMENTS = DuffyToday/DuffyToday.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 2ZMUDMBY38;
 				INFOPLIST_FILE = DuffyToday/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.7;
@@ -1491,7 +1491,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CODE_SIGN_ENTITLEMENTS = DuffyToday/DuffyToday.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 0;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 2ZMUDMBY38;
 				INFOPLIST_FILE = DuffyToday/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.7;

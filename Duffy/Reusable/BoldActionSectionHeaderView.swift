@@ -83,29 +83,22 @@ class BoldActionSectionHeaderView: UITableViewHeaderFooterView {
         set(headerText: headerText, actionAttributedText: att, action: action)
     }
     
-    func set(headerText: String, actionAttributedText: NSAttributedString?, action: (() -> ())?) {
-        self.headerLabel.text = headerText
+    func set(headerText: String, actionAttributedText: NSAttributedString?, action: (() -> ())? = nil, menu: UIMenu? = nil) {
+        headerLabel.text = headerText
         
-        if let actionAttributedText = actionAttributedText,
-            let action = action
-        {
+        if let actionAttributedText = actionAttributedText {
             let mutable = NSMutableAttributedString(attributedString: actionAttributedText)
             mutable.addAttribute(.foregroundColor, value: Globals.secondaryColor(), range: NSRange(location: 0, length: mutable.length))
             
-            self.button.isHidden = false
-            self.button.setAttributedTitle(mutable, for: .normal)
-            self.action = action
+            button.isHidden = false
+            button.setAttributedTitle(mutable, for: .normal)
+        } else {
+            button.isHidden = true
         }
-        else
-        {
-            self.button.isHidden = true
-            self.action = nil
-        }
-    }
-    
-    func addMenu(_ menu: UIMenu) {
+        
+        self.action = action
         button.menu = menu
-        button.showsMenuAsPrimaryAction = true
+        button.showsMenuAsPrimaryAction = menu != nil
     }
     
     private func clearMenu() {
