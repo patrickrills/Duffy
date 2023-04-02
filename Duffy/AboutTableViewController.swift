@@ -123,11 +123,11 @@ enum AboutOption: CaseIterable {
         case .goalHowTo:
             parent?.pushViewController(GoalInstructionsTableViewController(), animated: true)
         case .enableStepCounting:
-            parent?.openURL("http://www.bigbluefly.com/duffy/stepsnotcounting")
+            parent?.openURL("http://www.bigbluefly.com/duffy/stepsnotcounting", appendLanaguageParameter: true)
         case .addStepsToWatchFace:
-            parent?.openURL("http://www.bigbluefly.com/duffy/addstepstowatchface")
+            parent?.openURL("http://www.bigbluefly.com/duffy/addstepstowatchface", appendLanaguageParameter: true)
         case .changeMilesOrKilometers:
-            parent?.openURL("http://www.bigbluefly.com/duffy/changemilesorkilometers")
+            parent?.openURL("http://www.bigbluefly.com/duffy/changemilesorkilometers", appendLanaguageParameter: true)
         case .trophies:
             parent?.pushViewController(TrophiesViewController(), animated: true)
         case .askAQuestion:
