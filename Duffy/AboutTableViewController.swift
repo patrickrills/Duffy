@@ -51,11 +51,11 @@ enum AboutCategory: Int, CaseIterable {
 }
 
 enum AboutOption: CaseIterable {
-    case goalHowTo, trophies, rate, askAQuestion, bigbluefly, isral, tipJar
+    case enableStepCounting, goalHowTo, addStepsToWatchFace, changeMilesOrKilometers, trophies, rate, askAQuestion, bigbluefly, isral, tipJar
     
     func category() -> AboutCategory {
         switch self {
-        case .goalHowTo, .trophies, .askAQuestion:
+        case .enableStepCounting, .goalHowTo, .addStepsToWatchFace, .changeMilesOrKilometers, .trophies, .askAQuestion:
             return .help
         case .rate, .tipJar:
             return .appreciation
@@ -67,9 +67,15 @@ enum AboutOption: CaseIterable {
     func localizedTitle() -> String {
         switch self {
         case .goalHowTo:
-            return NSLocalizedString("How To Change Your Goal", comment: "")
+            return NSLocalizedString("Change my Daily Goal", comment: "")
+        case .enableStepCounting:
+            return NSLocalizedString("Enable Duffy to Count Steps", comment: "")
+        case .addStepsToWatchFace:
+            return NSLocalizedString("Add Steps to my Watch Face", comment: "")
+        case .changeMilesOrKilometers:
+            return NSLocalizedString("Change Miles or Kilometers", comment: "")
         case .trophies:
-            return NSLocalizedString("Trophies", comment: "")
+            return NSLocalizedString("See the Trophies", comment: "")
         case .rate:
             return NSLocalizedString("Rate Duffy", comment: "")
         case .askAQuestion:
@@ -86,19 +92,29 @@ enum AboutOption: CaseIterable {
     func icon() -> UIImage? {
         switch self {
         case .goalHowTo:
-            return UIImage(named: "QuestionMark")
+            return UIImage(systemName: "shoeprints.fill")
+        case .enableStepCounting:
+            return UIImage(systemName: "0.square.fill")
+        case .addStepsToWatchFace:
+            return UIImage(systemName: "applewatch.watchface")
+        case .changeMilesOrKilometers:
+            return UIImage(systemName: "ruler.fill")
         case .trophies:
-            return UIImage(named: "Trophy")
+            return UIImage(systemName: "trophy.fill")
         case .rate:
-            return UIImage(named: "Star")
+            return UIImage(systemName: "star.fill")
         case .askAQuestion:
-            return UIImage(named: "Chat")
+            return UIImage(systemName: "questionmark.bubble.fill")
         case .bigbluefly:
             return UIImage(named: "BigBlueFly")
         case .isral:
             return UIImage(named: "isral")
         case .tipJar:
-            return UIImage(named: "Dollar")
+            var symbolName = "dollarsign"
+            if let lang = NSLocale.current.languageCode, lang.lowercased() == "ja" {
+                symbolName = "yensign"
+            }
+            return UIImage(systemName: symbolName)
         }
     }
     
@@ -106,6 +122,12 @@ enum AboutOption: CaseIterable {
         switch self {
         case .goalHowTo:
             parent?.pushViewController(GoalInstructionsTableViewController(), animated: true)
+        case .enableStepCounting:
+            parent?.openURL("http://www.bigbluefly.com/duffy/stepsnotcounting")
+        case .addStepsToWatchFace:
+            parent?.openURL("http://www.bigbluefly.com/duffy/addstepstowatchface")
+        case .changeMilesOrKilometers:
+            parent?.openURL("http://www.bigbluefly.com/duffy/changemilesorkilometers")
         case .trophies:
             parent?.pushViewController(TrophiesViewController(), animated: true)
         case .askAQuestion:
@@ -127,6 +149,8 @@ class AboutTableViewController: UITableViewController {
     private enum Constants {
         static let ESTIMATED_ROW_HEIGHT: CGFloat = 44.0
         static let CELL_ID = "AboutCell"
+        static let ICON_CONFIG = UIImage.SymbolConfiguration(pointSize: 20.0, weight: .medium)
+        static let ICON_RESERVED_SIZE = CGSize(width: 24.0, height: 24.0)
     }
     
     init() {
@@ -167,6 +191,9 @@ class AboutTableViewController: UITableViewController {
         var contentConfig = UIListContentConfiguration.cell()
         contentConfig.text = option.localizedTitle()
         contentConfig.image = option.icon()
+        contentConfig.imageProperties.reservedLayoutSize = Constants.ICON_RESERVED_SIZE
+        contentConfig.imageProperties.preferredSymbolConfiguration = Constants.ICON_CONFIG
+        contentConfig.imageProperties.tintColor = Globals.iconColor()
         cell.contentConfiguration = contentConfig
                 
         return cell
