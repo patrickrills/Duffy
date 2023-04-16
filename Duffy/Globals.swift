@@ -146,6 +146,15 @@ enum Globals
         return .opaqueSeparator
     }
     
+    static func iconColor() -> UIColor
+    {
+        if let iconColor = UIColor(named: "IconColor") {
+            return iconColor
+        }
+        
+        return lightGrayColor()
+    }
+    
     static func isNarrowPhone() -> Bool
     {
         return UIScreen.main.bounds.size.width <= 320.0

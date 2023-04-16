@@ -12,10 +12,17 @@ import SafariServices
 
 extension UINavigationController {
     
-    func openURL(_ urlAsString: String) {
+    func openURL(_ urlAsString: String, appendLanaguageParameter: Bool = false) {
         guard let url = URL(string: urlAsString) else { return }
         
-        present(SFSafariViewController(url: url), animated: true, completion: nil)
+        var finalURL: URL = url
+        if appendLanaguageParameter {
+            if #available(iOS 16.0, *) {
+                finalURL.append(queryItems: [URLQueryItem(name: "language", value: NSLocale.current.languageCode?.lowercased() ?? "en")])
+            }
+        }
+        
+        present(SFSafariViewController(url: finalURL), animated: true, completion: nil)
     }
     
 }
