@@ -92,9 +92,9 @@ enum AboutOption: CaseIterable {
     func icon() -> UIImage? {
         switch self {
         case .goalHowTo:
-            return UIImage(systemName: "shoeprints.fill")
+            return UIImage(systemName: "medal.fill")
         case .enableStepCounting:
-            return UIImage(systemName: "0.square.fill")
+            return UIImage(systemName: "shoeprints.fill")
         case .addStepsToWatchFace:
             return UIImage(systemName: "applewatch.watchface")
         case .changeMilesOrKilometers:
