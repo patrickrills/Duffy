@@ -92,19 +92,35 @@ enum AboutOption: CaseIterable {
     func icon() -> UIImage? {
         switch self {
         case .goalHowTo:
-            return UIImage(systemName: "medal.fill")
+            if #available(iOS 16.0, *) {
+                return UIImage(systemName: "medal.fill")
+            } else {
+                return UIImage(systemName: "target")
+            }
         case .enableStepCounting:
-            return UIImage(systemName: "shoeprints.fill")
+            if #available(iOS 16.0, *) {
+                return UIImage(systemName: "shoeprints.fill")
+            } else {
+                return UIImage(systemName: "switch.2")
+            }
         case .addStepsToWatchFace:
             return UIImage(systemName: "applewatch.watchface")
         case .changeMilesOrKilometers:
             return UIImage(systemName: "ruler.fill")
         case .trophies:
-            return UIImage(systemName: "trophy.fill")
+            if #available(iOS 16.0, *) {
+                return UIImage(systemName: "trophy.fill")
+            } else {
+                return UIImage(systemName: "bolt.fill")
+            }
         case .rate:
             return UIImage(systemName: "star.fill")
         case .askAQuestion:
-            return UIImage(systemName: "questionmark.bubble.fill")
+            if #available(iOS 16.0, *) {
+                return UIImage(systemName: "questionmark.bubble.fill")
+            } else {
+                return UIImage(systemName: "questionmark.circle.fill")
+            }
         case .bigbluefly:
             return UIImage(named: "BigBlueFly")
         case .isral:
@@ -114,6 +130,11 @@ enum AboutOption: CaseIterable {
             if let lang = NSLocale.current.languageCode, lang.lowercased() == "ja" {
                 symbolName = "yensign"
             }
+            
+            if #unavailable(iOS 16.0) {
+                symbolName += ".circle.fill"
+            }
+            
             return UIImage(systemName: symbolName)
         }
     }
