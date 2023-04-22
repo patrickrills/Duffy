@@ -28,6 +28,7 @@ struct GraphicRectangularFullView: View {
     
                     Text(title)
                         .font(.system(size: 17.0, weight: .medium, design: .rounded))
+                        .minimumScaleFactor(0.5)
                         .foregroundColor(Color(titleTintColor))
                 }
                 
@@ -49,9 +50,9 @@ struct ComplicationController_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             
-            CLKComplicationTemplateGraphicRectangularFullView(GraphicRectangularFullView(shoeImage: UIImage(systemName: "s.square.fill")!, title: "Steps", titleTintColor: .cyan, totalStepsFormatted: "7,890")).previewContext()
+            CLKComplicationTemplateGraphicRectangularFullView(GraphicRectangularFullView(shoeImage: UIImage(named: "GraphicRectShoe")!, title: "Steps", titleTintColor: .cyan, totalStepsFormatted: "7,890")).previewContext()
             
-            CLKComplicationTemplateGraphicRectangularFullView(GraphicRectangularFullView(shoeImage: UIImage(systemName: "g.square.fill")!, title: "Green Version", titleTintColor: .cyan, totalStepsFormatted: "23,456")).previewContext(faceColor: .green)
+            CLKComplicationTemplateGraphicRectangularFullView(GraphicRectangularFullView(shoeImage: UIImage(named: "GraphicRectShoe")!, title: "歩数", titleTintColor: .cyan, totalStepsFormatted: "23,456")).previewContext(faceColor: .green)
         }
     }
 }

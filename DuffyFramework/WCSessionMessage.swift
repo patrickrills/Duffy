@@ -91,7 +91,7 @@ enum WCSessionMessage {
     func message() -> [String : Any] {
         switch self {
         case .complicationUpdate(let steps, let day):
-            return [WCSessionMessageKeys.complicationUpdate.rawValue : ["steps" : steps, "day": day.timeIntervalSinceReferenceDate]]
+            return [WCSessionMessageKeys.complicationUpdate.rawValue : ["steps" : steps, "day": day.timeIntervalSinceReferenceDate] as [String : Any]]
         case .goalUpdate(let goal):
             return [WCSessionMessageKeys.goalUpdate.rawValue : goal]
         case .debugLog(let entries):
