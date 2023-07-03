@@ -11,6 +11,7 @@ import DuffyFramework
 
 class HistorySummaryTableViewCell: UITableViewCell {
 
+    @IBOutlet private weak var averageTitleLabel : UILabel!
     @IBOutlet private weak var averageLabel : UILabel!
     @IBOutlet private weak var maxValueLabel : UILabel!
     @IBOutlet private weak var minValueLabel : UILabel!
@@ -66,14 +67,12 @@ class HistorySummaryTableViewCell: UITableViewCell {
     }
     
     private func displayAverage(_ average: Steps) {
+        averageTitleLabel.text = NSLocalizedString("Daily Average", comment: "")
+        averageTitleLabel.textColor = .secondaryLabel
+        
         let averageFormatted = Globals.stepsFormatter().string(for: average)!
-        let averageAttributed = NSMutableAttributedString(string: String(format: NSLocalizedString("%@ daily average", comment: ""), averageFormatted), attributes: [.foregroundColor : Globals.averageColor()])
-        
-        if let numberRange = averageAttributed.string.range(of: averageFormatted) {
-            averageAttributed.addAttribute(.font, value: UIFont.systemFont(ofSize: 28.0, weight: .medium), range: NSRange(numberRange, in: averageAttributed.string))
-        }
-        
-        averageLabel.attributedText = averageAttributed
+        averageLabel.text = averageFormatted
+        averageLabel.textColor = Globals.averageColor()
     }
     
     private func displayExtreme(_ x: Extreme?, _ valueLabel: UILabel, _ dateLabel: UILabel) {
