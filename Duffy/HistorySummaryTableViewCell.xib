@@ -19,7 +19,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="751" verticalCompressionResistancePriority="751" text="avg" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7DO-u0-poD">
-                        <rect key="frame" x="16" y="33.5" width="288" height="33.5"/>
+                        <rect key="frame" x="16" y="33.5" width="47.5" height="33.5"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -123,28 +123,34 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="total" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ikW-wS-WKi">
+                        <rect key="frame" x="270" y="43.5" width="34" height="20.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="BIo-Sy-zKo" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="5Qs-wk-DmG"/>
-                    <constraint firstItem="p5M-ej-2YD" firstAttribute="trailing" secondItem="7DO-u0-poD" secondAttribute="trailing" id="6BW-zt-OOi"/>
+                    <constraint firstItem="p5M-ej-2YD" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="6oY-Jd-VTG"/>
+                    <constraint firstItem="Kin-Ic-86g" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="8jn-aU-0Aj"/>
                     <constraint firstItem="hZY-2w-ZYk" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="ADe-ev-Uhd"/>
-                    <constraint firstItem="p5M-ej-2YD" firstAttribute="leading" secondItem="7DO-u0-poD" secondAttribute="leading" id="DzA-3D-iPb"/>
                     <constraint firstItem="i5a-9r-GQu" firstAttribute="leading" secondItem="hZY-2w-ZYk" secondAttribute="trailing" constant="2" id="El3-vS-ReE"/>
                     <constraint firstItem="jnr-mt-oZm" firstAttribute="centerY" secondItem="hZY-2w-ZYk" secondAttribute="centerY" id="FKV-tU-u88"/>
                     <constraint firstItem="2Tl-xd-ZzT" firstAttribute="top" secondItem="7DO-u0-poD" secondAttribute="bottom" constant="10" id="GQc-0v-mtU"/>
                     <constraint firstItem="p5M-ej-2YD" firstAttribute="top" secondItem="2Tl-xd-ZzT" secondAttribute="bottom" constant="8" id="IP2-Th-8MU"/>
-                    <constraint firstItem="Kin-Ic-86g" firstAttribute="width" secondItem="7DO-u0-poD" secondAttribute="width" id="Le4-OQ-54A"/>
                     <constraint firstItem="BIo-Sy-zKo" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="Mrd-1Q-ZtO"/>
                     <constraint firstItem="7DO-u0-poD" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="Q8J-ye-Ufu"/>
                     <constraint firstAttribute="trailingMargin" secondItem="i5a-9r-GQu" secondAttribute="trailing" id="QnT-rs-DDN"/>
                     <constraint firstItem="hZY-2w-ZYk" firstAttribute="centerY" secondItem="Emj-Eo-zK7" secondAttribute="centerY" id="XaD-Ok-jFs"/>
                     <constraint firstAttribute="bottomMargin" secondItem="Kin-Ic-86g" secondAttribute="bottom" id="YTj-Ee-0PW"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="Kin-Ic-86g" secondAttribute="trailing" id="Z0z-0d-khG"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="p5M-ej-2YD" secondAttribute="trailing" id="ZBu-Dt-xae"/>
                     <constraint firstItem="i5a-9r-GQu" firstAttribute="top" secondItem="2Tl-xd-ZzT" secondAttribute="top" id="c1q-2m-BoL"/>
                     <constraint firstItem="2Tl-xd-ZzT" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="eOy-VA-Vzm"/>
                     <constraint firstItem="hZY-2w-ZYk" firstAttribute="leading" secondItem="2Tl-xd-ZzT" secondAttribute="trailing" constant="2" id="fKk-pM-ZJQ"/>
-                    <constraint firstItem="Kin-Ic-86g" firstAttribute="leading" secondItem="7DO-u0-poD" secondAttribute="leading" id="l04-da-aGd"/>
-                    <constraint firstItem="7DO-u0-poD" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="mqu-Pl-Q38"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="ikW-wS-WKi" secondAttribute="trailing" id="fk9-dD-WUe"/>
                     <constraint firstItem="Kin-Ic-86g" firstAttribute="top" secondItem="p5M-ej-2YD" secondAttribute="bottom" constant="8" id="pZJ-ZK-lbH"/>
+                    <constraint firstItem="ikW-wS-WKi" firstAttribute="bottom" secondItem="7DO-u0-poD" secondAttribute="bottom" constant="-3" id="vGc-9Y-4do"/>
                     <constraint firstItem="jnr-mt-oZm" firstAttribute="leading" secondItem="hZY-2w-ZYk" secondAttribute="leading" id="wxG-k7-nj9"/>
                     <constraint firstItem="7DO-u0-poD" firstAttribute="top" secondItem="BIo-Sy-zKo" secondAttribute="bottom" id="zdE-ES-dSL"/>
                 </constraints>
@@ -164,6 +170,7 @@
                 <outlet property="minDateLabel" destination="qUd-ru-XVT" id="1Y4-xo-g6B"/>
                 <outlet property="minValueLabel" destination="W7M-D5-24v" id="WN4-mx-Vs8"/>
                 <outlet property="overLabel" destination="Kin-Ic-86g" id="Qbz-l5-T3b"/>
+                <outlet property="totalLabel" destination="ikW-wS-WKi" id="lgA-rm-Jf7"/>
             </connections>
             <point key="canvasLocation" x="140.57971014492756" y="206.58482142857142"/>
         </tableViewCell>
