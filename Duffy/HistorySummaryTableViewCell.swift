@@ -11,7 +11,9 @@ import DuffyFramework
 
 class HistorySummaryTableViewCell: UITableViewCell {
 
+    @IBOutlet private weak var averageTitleLabel : UILabel!
     @IBOutlet private weak var averageLabel : UILabel!
+    @IBOutlet private weak var totalLabel : UILabel!
     @IBOutlet private weak var maxValueLabel : UILabel!
     @IBOutlet private weak var minValueLabel : UILabel!
     @IBOutlet private weak var maxDateLabel : UILabel!
@@ -47,6 +49,7 @@ class HistorySummaryTableViewCell: UITableViewCell {
     func bind(to stepsByDay: [Date : Steps]) {
         let summary = stats(from: stepsByDay)
         displayAverage(summary.average)
+        displayTotal(summary.total)
         displayExtreme(summary.min, minValueLabel, minDateLabel)
         displayExtreme(summary.max, maxValueLabel, maxDateLabel)
         calculateDotPosition(summary)
@@ -55,25 +58,30 @@ class HistorySummaryTableViewCell: UITableViewCell {
     }
     
     typealias Extreme = (key: Date, value: Steps)
-    typealias Stats = (average: Steps, min: Extreme?, max: Extreme?, overDaysCount: UInt)
+    typealias Stats = (average: Steps, total: Steps, min: Extreme?, max: Extreme?, overDaysCount: UInt)
     
     private func stats(from stepsByDay: [Date : Steps]) -> Stats {
         let goal = HealthCache.dailyGoal()
         return Stats(average: Steps(stepsByDay.values.mean()),
+                     total: Steps(stepsByDay.values.sum()),
                      min: stepsByDay.count > 1 ? stepsByDay.min(by: { $0.value < $1.value }) : nil,
                      max: stepsByDay.count > 1 ? stepsByDay.max(by: { $0.value < $1.value }) : nil,
                      overDaysCount: UInt(stepsByDay.values.filter({ $0 >= goal }).count))
     }
     
     private func displayAverage(_ average: Steps) {
+        averageTitleLabel.text = NSLocalizedString("Daily Average", comment: "")
+        averageTitleLabel.textColor = .secondaryLabel
+        
         let averageFormatted = Globals.stepsFormatter().string(for: average)!
-        let averageAttributed = NSMutableAttributedString(string: String(format: NSLocalizedString("%@ daily average", comment: ""), averageFormatted), attributes: [.foregroundColor : Globals.averageColor()])
-        
-        if let numberRange = averageAttributed.string.range(of: averageFormatted) {
-            averageAttributed.addAttribute(.font, value: UIFont.systemFont(ofSize: 28.0, weight: .medium), range: NSRange(numberRange, in: averageAttributed.string))
-        }
-        
-        averageLabel.attributedText = averageAttributed
+        averageLabel.text = averageFormatted
+        averageLabel.textColor = Globals.averageColor()
+    }
+    
+    private func displayTotal(_ total: Steps) {
+        let totalFormatted = Globals.stepsFormatter().string(for: total)!
+        totalLabel.text = String(format: NSLocalizedString("%@ total", comment: ""), totalFormatted)
+        totalLabel.textColor = .secondaryLabel
     }
     
     private func displayExtreme(_ x: Extreme?, _ valueLabel: UILabel, _ dateLabel: UILabel) {
