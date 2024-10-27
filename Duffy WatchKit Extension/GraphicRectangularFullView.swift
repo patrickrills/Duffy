@@ -10,7 +10,7 @@ import SwiftUI
 import UIKit
 import ClockKit
 
-@available(watchOSApplicationExtension 7.0, *)
+@available(watchOS 7.0, *)
 struct GraphicRectangularFullView: View {
     let shoeImage: UIImage
     let title: String
@@ -45,7 +45,7 @@ struct GraphicRectangularFullView: View {
     }
 }
 
-@available(watchOSApplicationExtension 7.0, *)
+@available(watchOS 7.0, *)
 struct ComplicationController_Previews: PreviewProvider {
     static var previews: some View {
         Group {
