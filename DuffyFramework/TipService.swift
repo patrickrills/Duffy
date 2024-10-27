@@ -9,7 +9,7 @@
 import Foundation
 import StoreKit
 
-@available(watchOSApplicationExtension 6.2, *)
+@available(watchOS 6.2, *)
 public class TipService: NSObject {
     
     private static let instance: TipService = TipService()
