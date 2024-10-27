@@ -56,17 +56,7 @@ class ModalNavigationController: UINavigationController, UINavigationControllerD
             return
         }
         
-        let doneButton: UIBarButtonItem
-        
-        if let doneButtonSystemImageName = doneButtonSystemImageName {
-            doneButton = UIBarButtonItem.doneBarButtonItem(with: doneButtonSystemImageName, target: self, action: #selector(donePressed))
-        } else {
-            if #available(iOS 15.0, *) {
-                doneButton = UIBarButtonItem.doneBarButtonItem(with: "xmark.circle.fill", target: self, action: #selector(donePressed))
-            } else {
-                doneButton = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(donePressed))
-            }
-        }
+        let doneButton: UIBarButtonItem = UIBarButtonItem.doneBarButtonItem(with: doneButtonSystemImageName ?? "xmark.circle.fill", target: self, action: #selector(donePressed))
 
         if viewController.navigationItem.rightBarButtonItem != nil {
             viewController.navigationItem.leftBarButtonItem = doneButton
