@@ -309,7 +309,7 @@ class MainInterfaceController: WKInterfaceController
     private let BUTTON_FONT_WEIGHT: UIFont.Weight = .semibold
     
     private func initializeUI() {
-        setTitle(NSLocalizedString("Today", comment: ""))
+        setTitle(NSLocalizedString("Duffy", comment: ""))
         debugButton.setHidden(!DebugService.isDebugModeEnabled())
         ringImage.setTintColor(Globals.secondaryColor())
         initializeSeparator(topSeparator)
@@ -318,7 +318,11 @@ class MainInterfaceController: WKInterfaceController
         trophyLabel.setHidden(true)
         
         if #available(watchOS 6.0, *) {
-            //Use margins set in storyboard
+            if #available(watchOS 11.0, *) {
+                //Use margins set in storyboard
+            } else {
+                todayGroup.setContentInset(UIEdgeInsets(top: 6.0, left: 0.0, bottom: 0.0, right: 0.0))
+            }
         } else {
             todayGroup.setContentInset(UIEdgeInsets(top: 4.0, left: 0.0, bottom: 0.0, right: 0.0))
         }

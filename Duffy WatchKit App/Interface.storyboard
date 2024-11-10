@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="19158" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
-    <device id="watch42"/>
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="23504" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
+    <device id="watch42_446h"/>
     <dependencies>
         <deployment identifier="watchOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19141"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="19040"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="23501"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
     </dependencies>
     <scenes>
-        <!--Today-->
+        <!--mainInterfaceController-->
         <scene sceneID="aou-V4-d1y">
             <objects>
-                <controller identifier="mainInterfaceController" title="Today" id="AgC-eL-Hgc" customClass="MainInterfaceController" customModule="Duffy_WatchKit_App" customModuleProvider="target">
+                <controller identifier="mainInterfaceController" id="AgC-eL-Hgc" customClass="MainInterfaceController" customModule="Duffy_WatchKit_App" customModuleProvider="target">
                     <items>
                         <group width="1" alignment="center" verticalAlignment="center" layout="vertical" id="jbM-NJ-5AL">
                             <items>
@@ -84,13 +83,7 @@
                                             <variation key="device=watch38mm" spacing="0.0"/>
                                         </group>
                                     </items>
-                                    <edgeInsets key="margins" left="10" right="10" top="6" bottom="0.0"/>
-                                    <variation key="device=watch38mm">
-                                        <edgeInsets key="margins" left="0.0" right="0.0" top="6" bottom="0.0"/>
-                                    </variation>
-                                    <variation key="device=watch44mm">
-                                        <edgeInsets key="margins" left="16" right="16" top="8" bottom="0.0"/>
-                                    </variation>
+                                    <edgeInsets key="margins" left="10" right="10" top="0.0" bottom="0.0"/>
                                 </group>
                                 <group width="1" alignment="center" verticalAlignment="bottom" layout="vertical" id="Snk-xZ-rxC">
                                     <items>
@@ -160,6 +153,7 @@
                             </items>
                         </group>
                     </items>
+                    <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
                     <connections>
                         <outlet property="bottomSeparator" destination="fqx-CN-Vrt" id="5Wj-fP-FWU"/>
                         <outlet property="debugButton" destination="l5P-5P-TIU" id="6ae-vh-koR"/>
