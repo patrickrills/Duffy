@@ -181,10 +181,10 @@
             </objects>
             <point key="canvasLocation" x="313" y="804"/>
         </scene>
-        <!--Cancel-->
+        <!--SetGoalInterfaceController-->
         <scene sceneID="ROL-wV-fnb">
             <objects>
-                <controller identifier="SetGoalInterfaceController" title="Cancel" fullBounds="YES" id="4xO-Gf-sN4" customClass="SetGoalInterfaceController" customModule="Duffy_WatchKit_Extension">
+                <controller identifier="SetGoalInterfaceController" fullBounds="YES" id="4xO-Gf-sN4" customClass="SetGoalInterfaceController" customModule="Duffy_WatchKit_Extension">
                     <items>
                         <picker height="2" alignment="left" id="lxQ-31-QF5">
                             <connections>
@@ -254,10 +254,10 @@
             </objects>
             <point key="canvasLocation" x="313" y="1139"/>
         </scene>
-        <!--Cancel-->
+        <!--LegacyEditGoalInterfaceController-->
         <scene sceneID="xdF-XR-FCq">
             <objects>
-                <controller identifier="LegacyEditGoalInterfaceController" title="Cancel" id="NnG-6h-E9i" customClass="LegacyEditGoalInterfaceController" customModule="Duffy_WatchKit_Extension">
+                <controller identifier="LegacyEditGoalInterfaceController" id="NnG-6h-E9i" customClass="LegacyEditGoalInterfaceController" customModule="Duffy_WatchKit_Extension">
                     <items>
                         <picker height="90" alignment="center" verticalAlignment="center" focusStyle="stack" id="Vgb-3m-FEt">
                             <connections>
@@ -294,39 +294,43 @@
             </objects>
             <point key="canvasLocation" x="313" y="1451"/>
         </scene>
-        <!--Done-->
+        <!--summaryInterfaceController-->
         <scene sceneID="LZl-Pd-feh">
             <objects>
-                <controller identifier="summaryInterfaceController" title="Done" id="jZc-PD-Him" customClass="SummaryInterfaceController" customModule="Duffy_WatchKit_Extension">
+                <controller identifier="summaryInterfaceController" id="jZc-PD-Him" customClass="SummaryInterfaceController" customModule="Duffy_WatchKit_Extension">
                     <items>
-                        <group width="1" alignment="center" layout="vertical" radius="0.0" id="onG-8A-2OF">
+                        <group width="1" alignment="center" layout="vertical" spacing="8" id="oQJ-rS-Ame">
                             <items>
-                                <label alignment="center" text="Loading..." id="U1N-Vy-Hzc"/>
-                                <imageView alignment="center" id="eSI-DD-oHG"/>
+                                <group width="1" alignment="center" layout="vertical" radius="0.0" id="onG-8A-2OF">
+                                    <items>
+                                        <label alignment="center" text="Loading..." id="U1N-Vy-Hzc"/>
+                                        <imageView alignment="center" id="eSI-DD-oHG"/>
+                                    </items>
+                                </group>
+                                <table alignment="left" id="Xkh-TU-BTJ">
+                                    <items>
+                                        <tableRow identifier="WeekRowController" selectable="NO" id="I9v-3l-d5r" customClass="WeekRowController" customModule="Duffy_WatchKit_Extension">
+                                            <group key="rootItem" width="1" alignment="left" id="fva-XT-2Zw">
+                                                <items>
+                                                    <label alignment="right" verticalAlignment="center" text="XXX" id="tNq-At-nqT">
+                                                        <fontDescription key="font" type="system" pointSize="16"/>
+                                                    </label>
+                                                    <label alignment="left" verticalAlignment="center" text="00,000" textAlignment="right" id="fxo-fl-i6s">
+                                                        <fontDescription key="font" type="system" weight="semibold" pointSize="16"/>
+                                                    </label>
+                                                </items>
+                                            </group>
+                                            <connections>
+                                                <outlet property="backgroundGroup" destination="fva-XT-2Zw" id="fvi-9z-caz"/>
+                                                <outlet property="dateLabel" destination="tNq-At-nqT" id="MQn-Qf-25a"/>
+                                                <outlet property="stepsLabel" destination="fxo-fl-i6s" id="dwe-AM-kS5"/>
+                                            </connections>
+                                        </tableRow>
+                                    </items>
+                                </table>
                             </items>
-                            <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="4"/>
+                            <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
                         </group>
-                        <table alignment="left" id="Xkh-TU-BTJ">
-                            <items>
-                                <tableRow identifier="WeekRowController" selectable="NO" id="I9v-3l-d5r" customClass="WeekRowController" customModule="Duffy_WatchKit_Extension">
-                                    <group key="rootItem" width="1" alignment="left" id="fva-XT-2Zw">
-                                        <items>
-                                            <label alignment="right" verticalAlignment="center" text="XXX" id="tNq-At-nqT">
-                                                <fontDescription key="font" type="system" pointSize="16"/>
-                                            </label>
-                                            <label alignment="left" verticalAlignment="center" text="00,000" textAlignment="right" id="fxo-fl-i6s">
-                                                <fontDescription key="font" type="system" weight="semibold" pointSize="16"/>
-                                            </label>
-                                        </items>
-                                    </group>
-                                    <connections>
-                                        <outlet property="backgroundGroup" destination="fva-XT-2Zw" id="fvi-9z-caz"/>
-                                        <outlet property="dateLabel" destination="tNq-At-nqT" id="MQn-Qf-25a"/>
-                                        <outlet property="stepsLabel" destination="fxo-fl-i6s" id="dwe-AM-kS5"/>
-                                    </connections>
-                                </tableRow>
-                            </items>
-                        </table>
                     </items>
                     <connections>
                         <outlet property="graphImage" destination="eSI-DD-oHG" id="XZc-J1-oVX"/>
