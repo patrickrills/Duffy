@@ -28,7 +28,6 @@
 		09177BC6241D466F0095ECB4 /* ExportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09177BC4241D466E0095ECB4 /* ExportService.swift */; };
 		0921049E25BDC73500875BA9 /* LaunchShoe.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0921049D25BDC73500875BA9 /* LaunchShoe.storyboard */; };
 		092104B425BDD59800875BA9 /* GoalInstructions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092104B325BDD59800875BA9 /* GoalInstructions.swift */; };
-		0924297724311B580098B0AF /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 099582CA234192A600AF6A96 /* Localizable.strings */; };
 		0927434B297DDDA500F69D1B /* UIBarButtonItem+DoneButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0927434A297DDDA500F69D1B /* UIBarButtonItem+DoneButton.swift */; };
 		0927434D29857E7000F69D1B /* GraphicRectangularFullView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0927434C29857E7000F69D1B /* GraphicRectangularFullView.swift */; };
 		0927434F29B4E7AC00F69D1B /* DetailSortOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0927434E29B4E7AC00F69D1B /* DetailSortOption.swift */; };
@@ -81,7 +80,6 @@
 		0961D907216A9F2000F4AA88 /* duffy.ckcomplication in Resources */ = {isa = PBXBuildFile; fileRef = 0961D906216A9F2000F4AA88 /* duffy.ckcomplication */; };
 		0967EB791E7F0ACE0073BF3F /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0967EB781E7F0ACE0073BF3F /* NotificationService.swift */; };
 		0967EB7A1E7F0ACE0073BF3F /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0967EB781E7F0ACE0073BF3F /* NotificationService.swift */; };
-		096A4EE61E58D39900CE3D5B /* DuffyFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09323D031D2303BC00961822 /* DuffyFramework.framework */; };
 		096FE09C2503CA6500838BEE /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096FE09B2503CA6500838BEE /* Date.swift */; };
 		096FE09D2503CA6500838BEE /* Date.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096FE09B2503CA6500838BEE /* Date.swift */; };
 		096FE0AA250E75FF00838BEE /* StepsProcessingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 096FE0A9250E75FF00838BEE /* StepsProcessingService.swift */; };
@@ -97,8 +95,6 @@
 		0985E6EE24F2B4B1000B4A96 /* HistorySummaryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0985E6EC24F2B4B1000B4A96 /* HistorySummaryTableViewCell.xib */; };
 		0985E6EF24F2B4B1000B4A96 /* HistorySummaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0985E6ED24F2B4B1000B4A96 /* HistorySummaryTableViewCell.swift */; };
 		098D0091259E188A005FE945 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098D0090259E188A005FE945 /* Globals.swift */; };
-		099497D8241EC84B005E167C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 099497D7241EC84B005E167C /* Assets.xcassets */; };
-		099497DA242191B9005E167C /* ProgressRingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 099497D9242191B9005E167C /* ProgressRingView.swift */; };
 		099582C8234192A600AF6A96 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 099582CA234192A600AF6A96 /* Localizable.strings */; };
 		099582CB234192BE00AF6A96 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 099582CD234192BE00AF6A96 /* Localizable.strings */; };
 		099582CE234192C400AF6A96 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 099582D0234192C400AF6A96 /* Localizable.strings */; };
@@ -122,10 +118,6 @@
 		09BDDA6821979A940078B749 /* ModalNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BDDA6721979A940078B749 /* ModalNavigationController.swift */; };
 		09CC417F231F3DAD0029AAFB /* AboutTableViewFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CC417E231F3DAD0029AAFB /* AboutTableViewFooter.swift */; };
 		09CE42C11E353E7100A6E587 /* HistoryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CE42C01E353E7100A6E587 /* HistoryTableViewController.swift */; };
-		09CE42CA1E35525200A6E587 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09CE42C91E35525200A6E587 /* NotificationCenter.framework */; };
-		09CE42CD1E35525200A6E587 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CE42CC1E35525200A6E587 /* TodayViewController.swift */; };
-		09CE42D01E35525200A6E587 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09CE42CE1E35525200A6E587 /* MainInterface.storyboard */; };
-		09CE42D41E35525200A6E587 /* DuffyToday.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 09CE42C81E35525200A6E587 /* DuffyToday.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		09CEA97F211F86DC0023786B /* HistoryTableViewFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09CEA97E211F86DC0023786B /* HistoryTableViewFooter.swift */; };
 		09D7F1241E340EA7008FF0CC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7F1231E340EA7008FF0CC /* Constants.swift */; };
 		09D7F1251E340EA7008FF0CC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09D7F1231E340EA7008FF0CC /* Constants.swift */; };
@@ -177,13 +169,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 09323D131D2303DE00961822;
 			remoteInfo = DuffyWatchFramework;
-		};
-		09CE42D21E35525200A6E587 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 09323C651D22C39700961822 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 09CE42C71E35525200A6E587;
-			remoteInfo = DuffyToday;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -238,7 +223,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				09CE42D41E35525200A6E587 /* DuffyToday.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -250,7 +234,6 @@
 		0900867020F282DE006540E7 /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
 		0900867220FA7673006540E7 /* BoldActionSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoldActionSectionHeaderView.swift; sourceTree = "<group>"; };
 		0903E606235BCAED0049E071 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		0903E609235BCAED0049E071 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		090829E124670EEF00F100D6 /* Trophy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trophy.swift; sourceTree = "<group>"; };
 		091097CF2650043B007EEFA8 /* TipService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipService.swift; sourceTree = "<group>"; };
 		091097D226501AC1007EEFA8 /* TipOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipOption.swift; sourceTree = "<group>"; };
@@ -330,8 +313,6 @@
 		0985E6EC24F2B4B1000B4A96 /* HistorySummaryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistorySummaryTableViewCell.xib; sourceTree = "<group>"; };
 		0985E6ED24F2B4B1000B4A96 /* HistorySummaryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistorySummaryTableViewCell.swift; sourceTree = "<group>"; };
 		098D0090259E188A005FE945 /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
-		099497D7241EC84B005E167C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		099497D9242191B9005E167C /* ProgressRingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressRingView.swift; sourceTree = "<group>"; };
 		099582C9234192A600AF6A96 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		099582CC234192BE00AF6A96 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		099582CF234192C400AF6A96 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -353,11 +334,7 @@
 		09BDDA6721979A940078B749 /* ModalNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalNavigationController.swift; sourceTree = "<group>"; };
 		09CC417E231F3DAD0029AAFB /* AboutTableViewFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutTableViewFooter.swift; sourceTree = "<group>"; };
 		09CE42C01E353E7100A6E587 /* HistoryTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryTableViewController.swift; sourceTree = "<group>"; };
-		09CE42C81E35525200A6E587 /* DuffyToday.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = DuffyToday.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		09CE42C91E35525200A6E587 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
-		09CE42CC1E35525200A6E587 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
-		09CE42D11E35525200A6E587 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		09CE42D91E35640E00A6E587 /* DuffyToday.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DuffyToday.entitlements; sourceTree = "<group>"; };
 		09CEA97E211F86DC0023786B /* HistoryTableViewFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTableViewFooter.swift; sourceTree = "<group>"; };
 		09D7F1231E340EA7008FF0CC /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		09DDAF30265996F8009E9B82 /* ButtonFooterCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonFooterCollectionReusableView.swift; sourceTree = "<group>"; };
@@ -412,15 +389,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		09CE42C51E35525200A6E587 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				096A4EE61E58D39900CE3D5B /* DuffyFramework.framework in Frameworks */,
-				09CE42CA1E35525200A6E587 /* NotificationCenter.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -431,7 +399,6 @@
 				09323C831D22C39700961822 /* Duffy WatchKit App */,
 				09323C921D22C39700961822 /* Duffy WatchKit Extension */,
 				09323D041D2303BC00961822 /* DuffyFramework */,
-				09CE42CB1E35525200A6E587 /* DuffyToday */,
 				09323C6E1D22C39700961822 /* Products */,
 				099C130F1DA336C80007C72F /* Frameworks */,
 			);
@@ -445,7 +412,6 @@
 				09323C8E1D22C39700961822 /* Duffy WatchKit Extension.appex */,
 				09323D031D2303BC00961822 /* DuffyFramework.framework */,
 				09323D141D2303DE00961822 /* DuffyWatchFramework.framework */,
-				09CE42C81E35525200A6E587 /* DuffyToday.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -586,19 +552,6 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		09CE42CB1E35525200A6E587 /* DuffyToday */ = {
-			isa = PBXGroup;
-			children = (
-				09CE42D91E35640E00A6E587 /* DuffyToday.entitlements */,
-				09CE42CC1E35525200A6E587 /* TodayViewController.swift */,
-				099497D9242191B9005E167C /* ProgressRingView.swift */,
-				09CE42CE1E35525200A6E587 /* MainInterface.storyboard */,
-				09CE42D11E35525200A6E587 /* Info.plist */,
-				099497D7241EC84B005E167C /* Assets.xcassets */,
-			);
-			path = DuffyToday;
-			sourceTree = "<group>";
-		};
 		09EEED8026063BE2002731DB /* Reusable */ = {
 			isa = PBXGroup;
 			children = (
@@ -654,7 +607,6 @@
 			dependencies = (
 				09323C821D22C39700961822 /* PBXTargetDependency */,
 				09323D091D2303BC00961822 /* PBXTargetDependency */,
-				09CE42D31E35525200A6E587 /* PBXTargetDependency */,
 			);
 			name = Duffy;
 			productName = Duffy;
@@ -733,23 +685,6 @@
 			productReference = 09323D141D2303DE00961822 /* DuffyWatchFramework.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		09CE42C71E35525200A6E587 /* DuffyToday */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 09CE42D51E35525200A6E587 /* Build configuration list for PBXNativeTarget "DuffyToday" */;
-			buildPhases = (
-				09CE42C41E35525200A6E587 /* Sources */,
-				09CE42C51E35525200A6E587 /* Frameworks */,
-				09CE42C61E35525200A6E587 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = DuffyToday;
-			productName = DuffyToday;
-			productReference = 09CE42C81E35525200A6E587 /* DuffyToday.appex */;
-			productType = "com.apple.product-type.app-extension";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -802,17 +737,6 @@
 						DevelopmentTeam = 2ZMUDMBY38;
 						LastSwiftMigration = 1020;
 					};
-					09CE42C71E35525200A6E587 = {
-						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 2ZMUDMBY38;
-						LastSwiftMigration = 1020;
-						ProvisioningStyle = Automatic;
-						SystemCapabilities = {
-							com.apple.ApplicationGroups.iOS = {
-								enabled = 1;
-							};
-						};
-					};
 				};
 			};
 			buildConfigurationList = 09323C681D22C39700961822 /* Build configuration list for PBXProject "Duffy" */;
@@ -835,7 +759,6 @@
 				09323C8D1D22C39700961822 /* Duffy WatchKit Extension */,
 				09323D021D2303BC00961822 /* DuffyFramework */,
 				09323D131D2303DE00961822 /* DuffyWatchFramework */,
-				09CE42C71E35525200A6E587 /* DuffyToday */,
 			);
 		};
 /* End PBXProject section */
@@ -893,16 +816,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0903E60A235CEFE00049E071 /* Localizable.strings in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		09CE42C61E35525200A6E587 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				099497D8241EC84B005E167C /* Assets.xcassets in Resources */,
-				0924297724311B580098B0AF /* Localizable.strings in Resources */,
-				09CE42D01E35525200A6E587 /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1038,15 +951,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		09CE42C41E35525200A6E587 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				09CE42CD1E35525200A6E587 /* TodayViewController.swift in Sources */,
-				099497DA242191B9005E167C /* ProgressRingView.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1069,11 +973,6 @@
 			isa = PBXTargetDependency;
 			target = 09323D131D2303DE00961822 /* DuffyWatchFramework */;
 			targetProxy = 09323D191D2303DE00961822 /* PBXContainerItemProxy */;
-		};
-		09CE42D31E35525200A6E587 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 09CE42C71E35525200A6E587 /* DuffyToday */;
-			targetProxy = 09CE42D21E35525200A6E587 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1124,14 +1023,6 @@
 				0928AB452E04341E00CA24EC /* uk */,
 			);
 			name = Localizable.strings;
-			sourceTree = "<group>";
-		};
-		09CE42CE1E35525200A6E587 /* MainInterface.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				0903E609235BCAED0049E071 /* Base */,
-			);
-			name = MainInterface.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -1512,55 +1403,6 @@
 			};
 			name = Release;
 		};
-		09CE42D61E35525200A6E587 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CODE_SIGN_ENTITLEMENTS = DuffyToday/DuffyToday.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 2ZMUDMBY38;
-				INFOPLIST_FILE = DuffyToday/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = 4.4;
-				PRODUCT_BUNDLE_IDENTIFIER = com.bigbluefly.Duffy.DuffyToday;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 5.0;
-			};
-			name = Debug;
-		};
-		09CE42D71E35525200A6E587 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				APPLICATION_EXTENSION_API_ONLY = YES;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CODE_SIGN_ENTITLEMENTS = DuffyToday/DuffyToday.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 2ZMUDMBY38;
-				INFOPLIST_FILE = DuffyToday/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				MARKETING_VERSION = 4.4;
-				PRODUCT_BUNDLE_IDENTIFIER = com.bigbluefly.Duffy.DuffyToday;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1614,15 +1456,6 @@
 			buildConfigurations = (
 				09323D1E1D2303DE00961822 /* Debug */,
 				09323D1F1D2303DE00961822 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		09CE42D51E35525200A6E587 /* Build configuration list for PBXNativeTarget "DuffyToday" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				09CE42D61E35525200A6E587 /* Debug */,
-				09CE42D71E35525200A6E587 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
