@@ -43,7 +43,12 @@ class SetGoalInterfaceController: WKInterfaceController
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
         
-        setTitle(NSLocalizedString("Cancel", comment: ""))
+        if #available(watchOS 10.0, *) {
+            setTitle(nil)
+        } else {
+            setTitle(NSLocalizedString("Cancel", comment: ""))
+        }
+        
         setGoalButtonLabel.setText(NSLocalizedString("Set Goal", comment: ""))
         
         let items = SetGoalInterfaceController.populateGoalItems(includeTitle: false)
@@ -51,7 +56,7 @@ class SetGoalInterfaceController: WKInterfaceController
         invisiblePicker.setItems(items.pickerItems)
         
         if #available(watchOS 6.0, *) {
-            let buttonConfig = UIImage.SymbolConfiguration(font: UIFont.systemFont(ofSize: 30.0))
+            let buttonConfig = UIImage.SymbolConfiguration(font: UIFont.systemFont(ofSize: 30.0, weight: .medium))
             minusImage.setImage(UIImage(systemName: "minus.circle.fill", withConfiguration: buttonConfig))
             plusImage.setImage(UIImage(systemName: "plus.circle.fill", withConfiguration: buttonConfig))
         }
