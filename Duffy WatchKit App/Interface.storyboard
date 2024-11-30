@@ -191,9 +191,9 @@
                                 <action selector="pickerIndexChangedWithIndex:" destination="4xO-Gf-sN4" id="9hQ-n0-BBS"/>
                             </connections>
                         </picker>
-                        <group width="1" alignment="left" layout="vertical" spacing="4" id="LJ8-sM-nqT">
+                        <group width="1" alignment="left" layout="vertical" spacing="8" id="LJ8-sM-nqT">
                             <items>
-                                <group width="1" alignment="left" layout="vertical" spacing="2" id="OZ4-Ef-Va1">
+                                <group width="1" alignment="left" layout="vertical" spacing="0.0" id="OZ4-Ef-Va1">
                                     <items>
                                         <group width="1" alignment="left" id="vYK-jD-U9E">
                                             <items>
@@ -219,14 +219,14 @@
                                                 </button>
                                             </items>
                                         </group>
-                                        <label width="1" height="44" alignment="center" text="0,000" textAlignment="center" baselineAdjustment="alignCenters" minimumScaleFactor="0.5" id="vBt-wx-NMQ">
+                                        <label width="1" height="38" alignment="center" text="0,000" textAlignment="center" baselineAdjustment="alignCenters" minimumScaleFactor="0.5" id="vBt-wx-NMQ">
                                             <fontDescription key="font" type="system" weight="black" pointSize="48"/>
                                         </label>
                                         <label width="1" alignment="left" text="STEPS" textAlignment="center" id="mKZ-Td-TUq"/>
                                     </items>
                                 </group>
                                 <button alignment="left" id="kXU-CC-2sB">
-                                    <group key="contentGroup" width="1" height="40" alignment="left" radius="20" id="IIy-an-MZt">
+                                    <group key="contentGroup" width="1" height="44" alignment="left" radius="22" id="IIy-an-MZt">
                                         <items>
                                             <label alignment="center" verticalAlignment="center" text="Set Goal" id="dRb-eU-AGa">
                                                 <color key="textColor" systemColor="labelColor"/>
@@ -239,7 +239,7 @@
                                     </connections>
                                 </button>
                             </items>
-                            <variation key="device=watch38mm" spacing="2"/>
+                            <variation key="device=watch38mm" spacing="6"/>
                         </group>
                     </items>
                     <connections>
