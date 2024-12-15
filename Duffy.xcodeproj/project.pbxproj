@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -95,6 +95,9 @@
 		0985E6EE24F2B4B1000B4A96 /* HistorySummaryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0985E6EC24F2B4B1000B4A96 /* HistorySummaryTableViewCell.xib */; };
 		0985E6EF24F2B4B1000B4A96 /* HistorySummaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0985E6ED24F2B4B1000B4A96 /* HistorySummaryTableViewCell.swift */; };
 		098D0091259E188A005FE945 /* Globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 098D0090259E188A005FE945 /* Globals.swift */; };
+		098FD23A2D0F222700633701 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 098FD2392D0F222700633701 /* WidgetKit.framework */; };
+		098FD23C2D0F222700633701 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 098FD23B2D0F222700633701 /* SwiftUI.framework */; };
+		098FD2492D0F222800633701 /* Duffy Phone Widgets ExtensionExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 098FD2382D0F222700633701 /* Duffy Phone Widgets ExtensionExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		099582C8234192A600AF6A96 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 099582CA234192A600AF6A96 /* Localizable.strings */; };
 		099582CB234192BE00AF6A96 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 099582CD234192BE00AF6A96 /* Localizable.strings */; };
 		099582CE234192C400AF6A96 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 099582D0234192C400AF6A96 /* Localizable.strings */; };
@@ -170,6 +173,13 @@
 			remoteGlobalIDString = 09323D131D2303DE00961822;
 			remoteInfo = DuffyWatchFramework;
 		};
+		098FD2472D0F222800633701 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 09323C651D22C39700961822 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 098FD2372D0F222700633701;
+			remoteInfo = "Duffy Phone Widgets ExtensionExtension";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -223,6 +233,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				098FD2492D0F222800633701 /* Duffy Phone Widgets ExtensionExtension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -309,6 +320,9 @@
 		0985E6EC24F2B4B1000B4A96 /* HistorySummaryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistorySummaryTableViewCell.xib; sourceTree = "<group>"; };
 		0985E6ED24F2B4B1000B4A96 /* HistorySummaryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistorySummaryTableViewCell.swift; sourceTree = "<group>"; };
 		098D0090259E188A005FE945 /* Globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Globals.swift; sourceTree = "<group>"; };
+		098FD2382D0F222700633701 /* Duffy Phone Widgets ExtensionExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Duffy Phone Widgets ExtensionExtension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		098FD2392D0F222700633701 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		098FD23B2D0F222700633701 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		099582C9234192A600AF6A96 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		099582CC234192BE00AF6A96 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		099582CF234192C400AF6A96 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -351,6 +365,20 @@
 		09EEEDC4262B5139002731DB /* MainHourlyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainHourlyTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		098FD24C2D0F222800633701 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 098FD2372D0F222700633701 /* Duffy Phone Widgets ExtensionExtension */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		098FD23D2D0F222700633701 /* Duffy Phone Widgets Extension */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (098FD24C2D0F222800633701 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = "Duffy Phone Widgets Extension"; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
+
 /* Begin PBXFrameworksBuildPhase section */
 		09323C6A1D22C39700961822 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
@@ -385,6 +413,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		098FD2352D0F222700633701 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				098FD23C2D0F222700633701 /* SwiftUI.framework in Frameworks */,
+				098FD23A2D0F222700633701 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -395,6 +432,7 @@
 				09323C831D22C39700961822 /* Duffy WatchKit App */,
 				09323C921D22C39700961822 /* Duffy WatchKit Extension */,
 				09323D041D2303BC00961822 /* DuffyFramework */,
+				098FD23D2D0F222700633701 /* Duffy Phone Widgets Extension */,
 				09323C6E1D22C39700961822 /* Products */,
 				099C130F1DA336C80007C72F /* Frameworks */,
 			);
@@ -408,6 +446,7 @@
 				09323C8E1D22C39700961822 /* Duffy WatchKit Extension.appex */,
 				09323D031D2303BC00961822 /* DuffyFramework.framework */,
 				09323D141D2303DE00961822 /* DuffyWatchFramework.framework */,
+				098FD2382D0F222700633701 /* Duffy Phone Widgets ExtensionExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -544,6 +583,8 @@
 				099C13121DA336D50007C72F /* HealthKit.framework */,
 				099C13101DA336C80007C72F /* HealthKit.framework */,
 				09CE42C91E35525200A6E587 /* NotificationCenter.framework */,
+				098FD2392D0F222700633701 /* WidgetKit.framework */,
+				098FD23B2D0F222700633701 /* SwiftUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -603,6 +644,7 @@
 			dependencies = (
 				09323C821D22C39700961822 /* PBXTargetDependency */,
 				09323D091D2303BC00961822 /* PBXTargetDependency */,
+				098FD2482D0F222800633701 /* PBXTargetDependency */,
 			);
 			name = Duffy;
 			productName = Duffy;
@@ -681,6 +723,28 @@
 			productReference = 09323D141D2303DE00961822 /* DuffyWatchFramework.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		098FD2372D0F222700633701 /* Duffy Phone Widgets ExtensionExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 098FD24D2D0F222800633701 /* Build configuration list for PBXNativeTarget "Duffy Phone Widgets ExtensionExtension" */;
+			buildPhases = (
+				098FD2342D0F222700633701 /* Sources */,
+				098FD2352D0F222700633701 /* Frameworks */,
+				098FD2362D0F222700633701 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				098FD23D2D0F222700633701 /* Duffy Phone Widgets Extension */,
+			);
+			name = "Duffy Phone Widgets ExtensionExtension";
+			packageProductDependencies = (
+			);
+			productName = "Duffy Phone Widgets ExtensionExtension";
+			productReference = 098FD2382D0F222700633701 /* Duffy Phone Widgets ExtensionExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -688,7 +752,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
-				LastSwiftUpdateCheck = 0820;
+				LastSwiftUpdateCheck = 1620;
 				LastUpgradeCheck = 1600;
 				ORGANIZATIONNAME = "Big Blue Fly";
 				TargetAttributes = {
@@ -733,6 +797,9 @@
 						DevelopmentTeam = 2ZMUDMBY38;
 						LastSwiftMigration = 1020;
 					};
+					098FD2372D0F222700633701 = {
+						CreatedOnToolsVersion = 16.2;
+					};
 				};
 			};
 			buildConfigurationList = 09323C681D22C39700961822 /* Build configuration list for PBXProject "Duffy" */;
@@ -754,6 +821,7 @@
 				09323C8D1D22C39700961822 /* Duffy WatchKit Extension */,
 				09323D021D2303BC00961822 /* DuffyFramework */,
 				09323D131D2303DE00961822 /* DuffyWatchFramework */,
+				098FD2372D0F222700633701 /* Duffy Phone Widgets ExtensionExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -811,6 +879,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				0903E60A235CEFE00049E071 /* Localizable.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		098FD2362D0F222700633701 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -946,6 +1021,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		098FD2342D0F222700633701 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -968,6 +1050,11 @@
 			isa = PBXTargetDependency;
 			target = 09323D131D2303DE00961822 /* DuffyWatchFramework */;
 			targetProxy = 09323D191D2303DE00961822 /* PBXContainerItemProxy */;
+		};
+		098FD2482D0F222800633701 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 098FD2372D0F222700633701 /* Duffy Phone Widgets ExtensionExtension */;
+			targetProxy = 098FD2472D0F222800633701 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1396,6 +1483,84 @@
 			};
 			name = Release;
 		};
+		098FD24A2D0F222800633701 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2ZMUDMBY38;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Duffy Phone Widgets Extension/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Duffy Phone Widgets Extension";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2024 Big Blue Fly. All rights reserved.";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.bigbluefly.Duffy.Duffy-Phone-Widgets-Extension";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		098FD24B2D0F222800633701 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2ZMUDMBY38;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Duffy Phone Widgets Extension/Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Duffy Phone Widgets Extension";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2024 Big Blue Fly. All rights reserved.";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.bigbluefly.Duffy.Duffy-Phone-Widgets-Extension";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1449,6 +1614,15 @@
 			buildConfigurations = (
 				09323D1E1D2303DE00961822 /* Debug */,
 				09323D1F1D2303DE00961822 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		098FD24D2D0F222800633701 /* Build configuration list for PBXNativeTarget "Duffy Phone Widgets ExtensionExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				098FD24A2D0F222800633701 /* Debug */,
+				098FD24B2D0F222800633701 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
