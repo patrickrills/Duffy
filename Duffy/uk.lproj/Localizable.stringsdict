@@ -13,11 +13,11 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>u</string>
 			<key>zero</key>
-			<string>You have not reached your goal in the previous %2$@ days.</string>
+			<string>Ви не досягли поставленої цілі протягом останніх %2$@ днів.</string>
 			<key>one</key>
-			<string>You hit your goal 1 time in the previous %2$@ days (%3$@).</string>
+			<string>Ви досягли цілі 1 раз протягом останніх %2$@ днів (%3$@).</string>
 			<key>other</key>
-			<string>You hit your goal %1$u times in the previous %2$@ days (%3$@).</string>
+			<string>Ви досягли цілі %1$u разів протягом останніх %2$@ днів (%3$@).</string>
 		</dict>
 	</dict>
 </dict>
