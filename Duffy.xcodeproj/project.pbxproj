@@ -272,6 +272,10 @@
 		09289C7720D873F9005BF6B8 /* GoalNotificationInterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalNotificationInterfaceController.swift; sourceTree = "<group>"; };
 		09289C7920D87856005BF6B8 /* GoalNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = GoalNotificationPayload.apns; sourceTree = "<group>"; };
 		09289C7D20DDFF56005BF6B8 /* MainTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewController.swift; sourceTree = "<group>"; };
+		0928AB422E04341E00CA24EC /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Localizable.strings; sourceTree = "<group>"; };
+		0928AB432E04341E00CA24EC /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = uk; path = uk.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		0928AB442E04341E00CA24EC /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Localizable.strings; sourceTree = "<group>"; };
+		0928AB452E04341E00CA24EC /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Localizable.strings; sourceTree = "<group>"; };
 		0929A6C624E6F1DC00780004 /* AggregateCollections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AggregateCollections.swift; sourceTree = "<group>"; };
 		0929A6C924E6FF3300780004 /* HealthKitError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitError.swift; sourceTree = "<group>"; };
 		0929A6CC24E7128F00780004 /* Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
@@ -818,6 +822,7 @@
 				en,
 				ja,
 				Base,
+				uk,
 			);
 			mainGroup = 09323C641D22C39700961822;
 			productRefGroup = 09323C6E1D22C39700961822 /* Products */;
@@ -1085,6 +1090,7 @@
 			children = (
 				094AAF8325D977EB00B145B8 /* en */,
 				094AAF8925D977EF00B145B8 /* ja */,
+				0928AB432E04341E00CA24EC /* uk */,
 			);
 			name = Localizable.stringsdict;
 			sourceTree = "<group>";
@@ -1094,6 +1100,7 @@
 			children = (
 				099582C9234192A600AF6A96 /* en */,
 				099582D3234192E900AF6A96 /* ja */,
+				0928AB422E04341E00CA24EC /* uk */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -1103,6 +1110,7 @@
 			children = (
 				099582CC234192BE00AF6A96 /* en */,
 				099582D5234192EA00AF6A96 /* ja */,
+				0928AB442E04341E00CA24EC /* uk */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -1112,6 +1120,7 @@
 			children = (
 				099582CF234192C400AF6A96 /* en */,
 				099582D6234192EA00AF6A96 /* ja */,
+				0928AB452E04341E00CA24EC /* uk */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
