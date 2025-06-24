@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>summary_goal_count</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@goal_days_count@</string>
+		<key>goal_days_count</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>u</string>
+			<key>zero</key>
+			<string>Ви не досягли поставленої цілі протягом останніх %2$@ днів.</string>
+			<key>one</key>
+			<string>Ви досягли цілі 1 раз протягом останніх %2$@ днів (%3$@).</string>
+			<key>other</key>
+			<string>Ви досягли цілі %1$u разів протягом останніх %2$@ днів (%3$@).</string>
+		</dict>
+	</dict>
+</dict>
+</plist>
