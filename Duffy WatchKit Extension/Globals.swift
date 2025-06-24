@@ -13,24 +13,21 @@ enum Globals
 {
     static let integerFormatter: NumberFormatter = {
         let numberFormatter = NumberFormatter()
-        numberFormatter.numberStyle = NumberFormatter.Style.decimal
-        numberFormatter.locale = Locale.current
+        numberFormatter.numberStyle = .decimal
         numberFormatter.maximumFractionDigits = 0        
         return numberFormatter
     }()
     
     static let decimalFormatter: NumberFormatter = {
         let numberFormatter = NumberFormatter()
-        numberFormatter.numberStyle = NumberFormatter.Style.decimal
-        numberFormatter.locale = Locale.current
+        numberFormatter.numberStyle = .decimal
         numberFormatter.maximumFractionDigits = 1
         return numberFormatter
     }()
     
     static let summaryDateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "EEEEEE" //TODO: One letter? "EEEEE"
-        dateFormatter.locale = Locale.current
+        dateFormatter.setLocalizedDateFormatFromTemplate("EEEEEE")
         return dateFormatter
     }()
     

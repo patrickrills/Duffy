@@ -22,8 +22,7 @@ enum Globals
     
     static func stepsFormatter() -> NumberFormatter
     {
-        numberFormatter.numberStyle = NumberFormatter.Style.decimal
-        numberFormatter.locale = Locale.current
+        numberFormatter.numberStyle = .decimal
         numberFormatter.maximumFractionDigits = 0
         
         return numberFormatter
@@ -37,7 +36,6 @@ enum Globals
     static func distanceFormatter() -> NumberFormatter
     {
         decimalFormatter.numberStyle = .decimal
-        decimalFormatter.locale = .current
         decimalFormatter.maximumFractionDigits = 1
         
         return decimalFormatter
@@ -46,7 +44,6 @@ enum Globals
     static func trophyFactorFormatter() -> NumberFormatter
     {
         decimalFormatter.numberStyle = .decimal
-        decimalFormatter.locale = .current
         decimalFormatter.maximumFractionDigits = 2
         
         return decimalFormatter
@@ -64,25 +61,25 @@ enum Globals
     
     static func dayFormatter() -> DateFormatter
     {
-        dateFormatter.dateFormat = "eee, MMM d"
+        dateFormatter.setLocalizedDateFormatFromTemplate("eee, MMM d")
         return dateFormatter
     }
     
     static func fullDateFormatter() -> DateFormatter
     {
-        fullFormatter.dateFormat = "MMM d, yyyy"
+        fullFormatter.dateStyle = .long
         return fullFormatter
     }
     
     static func shortDateFormatter() -> DateFormatter
     {
-        shortFormatter.dateFormat = "MMM d"
+        shortFormatter.setLocalizedDateFormatFromTemplate("MMM d")
         return shortFormatter
     }
     
     static func monthYearFormatter() -> DateFormatter
     {
-        monthFormatter.dateFormat = "MMM yyyy"
+        monthFormatter.setLocalizedDateFormatFromTemplate("MMM yyyy")
         return monthFormatter
     }
  
