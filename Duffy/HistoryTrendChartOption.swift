@@ -30,28 +30,16 @@ enum HistoryTrendChartOption: String, CaseIterable {
     func symbolName() -> String {
         switch self {
         case .actualDataLine:
-            if #available(iOS 15.0, *) {
-                return "chart.line.uptrend.xyaxis"
-            }
-            
-            return "waveform.path.ecg"
+            return "chart.line.uptrend.xyaxis"
             
         case .trendLine:
-            if #available(iOS 16.0, *) {
-                return "chart.line.flattrend.xyaxis"
-            }
-            
-            return "line.diagonal.arrow"
+            return "chart.line.flattrend.xyaxis"
             
         case .averageIndicator:
             return "divide.square"
             
         case .goalIndicator:
-            if #available(iOS 16.0, *) {
-                return "medal"
-            }
-            
-            return "figure.walk"
+            return "medal"
             
         }
     }
