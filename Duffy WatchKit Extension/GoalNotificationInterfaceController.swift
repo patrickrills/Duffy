@@ -35,11 +35,7 @@ class GoalNotificationInterfaceController: WKUserNotificationInterfaceController
         
         switch randomNumber {
             case 1:
-                if #available(watchOS 5.0, *) {
-                    return "You're a Shoe-per man 🦸‍♂️ or Run-der Woman 🦸‍♀️!"
-                } else {
-                     return "You're a Shoe-per man or Run-der Woman! 👑"
-                }
+                return "You're a Shoe-per man 🦸‍♂️ or Run-der Woman 🦸‍♀️!"
             case 2:
                 return "Just call you Christopher Walkin' 🐮🔔"
             case 3:
