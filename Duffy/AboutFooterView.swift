@@ -38,8 +38,8 @@ class AboutFooterView: UIView {
         horizontalStack.addArrangedSubview(aboutButton)
         
         var tipSymbolName = "dollarsign.circle.fill"
-        if let lang = NSLocale.current.languageCode,
-           lang.lowercased() == "ja"
+        if let lang = NSLocale.current.language.languageCode,
+           lang == .japanese
         {
             tipSymbolName = "yensign.circle.fill"
         }
