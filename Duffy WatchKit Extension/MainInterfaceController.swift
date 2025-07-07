@@ -340,10 +340,7 @@ class MainInterfaceController: WKInterfaceController
             //Tipping from watch is available
             let buttonFont = Globals.roundedFont(of: BUTTON_FONT_SIZE, weight: BUTTON_FONT_WEIGHT)
             let symbolConfiguration = UIImage.SymbolConfiguration(font: UIFont.systemFont(ofSize: 18.0, weight: .medium))
-            var symbolName = "dollarsign.circle"
-            if let lang = NSLocale.current.languageCode, lang.lowercased() == "ja" {
-                symbolName = "yensign.circle"
-            }
+            let symbolName = TipCurrencySymbolPrefix.prefix(for: Locale.current).rawValue + ".circle"
             tipButtonImage.setImage(UIImage(systemName: symbolName, withConfiguration: symbolConfiguration)?.withRenderingMode(.alwaysTemplate))
             tipButtonLabel.setAttributedText(NSAttributedString(string: NSLocalizedString("Tip Jar", comment: ""), attributes: [.font : buttonFont]))
         } else {

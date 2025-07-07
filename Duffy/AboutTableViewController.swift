@@ -110,12 +110,7 @@ enum AboutOption: CaseIterable {
         case .isral:
             return UIImage(named: "isral")
         case .tipJar:
-            var symbolName = "dollarsign"
-            if let lang = NSLocale.current.language.languageCode, lang == .japanese {
-                symbolName = "yensign"
-            }
-            
-            return UIImage(systemName: symbolName)
+            return UIImage(systemName: TipCurrencySymbolPrefix.prefix(for: Locale.current).rawValue)
         }
     }
     

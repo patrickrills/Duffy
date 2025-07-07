@@ -34,6 +34,8 @@
 		0927435129C729BD00F69D1B /* HistorySection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0927435029C729BD00F69D1B /* HistorySection.swift */; };
 		09275CFB262CA35900E57008 /* MainWeeklySummaryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09275CF9262CA35900E57008 /* MainWeeklySummaryTableViewCell.xib */; };
 		09275CFC262CA35900E57008 /* MainWeeklySummaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09275CFA262CA35900E57008 /* MainWeeklySummaryTableViewCell.swift */; };
+		09277E472E1B21E300296EA7 /* TipCurrencySymbolPrefix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09277E462E1B21E000296EA7 /* TipCurrencySymbolPrefix.swift */; };
+		09277E482E1B21E300296EA7 /* TipCurrencySymbolPrefix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09277E462E1B21E000296EA7 /* TipCurrencySymbolPrefix.swift */; };
 		09289C7820D873F9005BF6B8 /* GoalNotificationInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09289C7720D873F9005BF6B8 /* GoalNotificationInterfaceController.swift */; };
 		09289C7E20DDFF56005BF6B8 /* MainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09289C7D20DDFF56005BF6B8 /* MainTableViewController.swift */; };
 		0929A6C724E6F1DC00780004 /* AggregateCollections.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0929A6C624E6F1DC00780004 /* AggregateCollections.swift */; };
@@ -252,6 +254,7 @@
 		0927435029C729BD00F69D1B /* HistorySection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistorySection.swift; sourceTree = "<group>"; };
 		09275CF9262CA35900E57008 /* MainWeeklySummaryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWeeklySummaryTableViewCell.xib; sourceTree = "<group>"; };
 		09275CFA262CA35900E57008 /* MainWeeklySummaryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWeeklySummaryTableViewCell.swift; sourceTree = "<group>"; };
+		09277E462E1B21E000296EA7 /* TipCurrencySymbolPrefix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipCurrencySymbolPrefix.swift; sourceTree = "<group>"; };
 		09289C7720D873F9005BF6B8 /* GoalNotificationInterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalNotificationInterfaceController.swift; sourceTree = "<group>"; };
 		09289C7920D87856005BF6B8 /* GoalNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = GoalNotificationPayload.apns; sourceTree = "<group>"; };
 		09289C7D20DDFF56005BF6B8 /* MainTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewController.swift; sourceTree = "<group>"; };
@@ -525,6 +528,7 @@
 				0967EB781E7F0ACE0073BF3F /* NotificationService.swift */,
 				091097CF2650043B007EEFA8 /* TipService.swift */,
 				091097D226501AC1007EEFA8 /* TipOption.swift */,
+				09277E462E1B21E000296EA7 /* TipCurrencySymbolPrefix.swift */,
 				091097D526501F09007EEFA8 /* StoreKitError.swift */,
 				09DDAF362669740C009E9B82 /* TipArchiveEntry.swift */,
 				090829E124670EEF00F100D6 /* Trophy.swift */,
@@ -896,6 +900,7 @@
 				09EEEDA8260F76C6002731DB /* RingDrawer.swift in Sources */,
 				091097D626501F09007EEFA8 /* StoreKitError.swift in Sources */,
 				09D7F1241E340EA7008FF0CC /* Constants.swift in Sources */,
+				09277E482E1B21E300296EA7 /* TipCurrencySymbolPrefix.swift in Sources */,
 				0929A6C724E6F1DC00780004 /* AggregateCollections.swift in Sources */,
 				096FE0AA250E75FF00838BEE /* StepsProcessingService.swift in Sources */,
 				0937CA3E25447A1700BDDDD3 /* WCSessionMessage.swift in Sources */,
@@ -927,6 +932,7 @@
 				09EEEDA9260F76C6002731DB /* RingDrawer.swift in Sources */,
 				091097D726501F09007EEFA8 /* StoreKitError.swift in Sources */,
 				09D7F1251E340EA7008FF0CC /* Constants.swift in Sources */,
+				09277E472E1B21E300296EA7 /* TipCurrencySymbolPrefix.swift in Sources */,
 				0929A6C824E6F1DC00780004 /* AggregateCollections.swift in Sources */,
 				096FE0AB250E75FF00838BEE /* StepsProcessingService.swift in Sources */,
 				0937CA3F25447A1700BDDDD3 /* WCSessionMessage.swift in Sources */,
