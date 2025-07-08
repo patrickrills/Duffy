@@ -17,9 +17,7 @@ extension UINavigationController {
         
         var finalURL: URL = url
         if appendLanaguageParameter {
-            if #available(iOS 16.0, *) {
-                finalURL.append(queryItems: [URLQueryItem(name: "language", value: NSLocale.current.languageCode?.lowercased() ?? "en")])
-            }
+            finalURL.append(queryItems: [URLQueryItem(name: "language", value: Locale.current.language.languageCode?.identifier.lowercased() ?? Locale.LanguageCode.english.identifier)])
         }
         
         present(SFSafariViewController(url: finalURL), animated: true, completion: nil)

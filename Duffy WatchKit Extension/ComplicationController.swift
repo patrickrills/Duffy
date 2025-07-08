@@ -81,6 +81,8 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
             complicationId = complication.identifier
         }
         
+        let stepsGoal = HealthCache.dailyGoal()
+        
         switch complication.family {
         case .modularSmall:
             return getEntryForModularSmall(steps)
@@ -94,42 +96,34 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
             return getEntryForUtilitarianSmall(steps)
         case .extraLarge:
             return getEntryForExtraLarge(steps)
+        case .graphicRectangular:
+            if #available(watchOSApplicationExtension 7.0, *) {
+                if complicationId == IDENTIFIER_JUST_STEPS {
+                    return getEntryForNoGaugeGraphicRectangle(steps)
+                }
+            }
+            
+            return getEntryForGraphicRectangle(steps, stepsGoal)
+        case .graphicCorner:
+            if #available(watchOSApplicationExtension 7.0, *) {
+                if complicationId == IDENTIFIER_JUST_STEPS {
+                    return getEntryForNoGaugeGraphicCorner(steps)
+                }
+            }
+            
+            return getEntryForGraphicCorner(steps, stepsGoal)
+        case .graphicCircular:
+            if #available(watchOSApplicationExtension 7.0, *) {
+                if complicationId == IDENTIFIER_JUST_STEPS {
+                    return getEntryForNoGaugeGraphicCircular(steps)
+                }
+            }
+            
+            return getEntryForGraphicCircular(steps, stepsGoal)
+        case .graphicBezel:
+            return getEntryForGraphicBezel(steps, stepsGoal)
         default:
             break
-        }
-        
-        if #available(watchOS 5.0, *) {
-            let stepsGoal = HealthCache.dailyGoal()
-            switch complication.family {
-            case .graphicRectangular:
-                if #available(watchOSApplicationExtension 7.0, *) {
-                    if complicationId == IDENTIFIER_JUST_STEPS {
-                        return getEntryForNoGaugeGraphicRectangle(steps)
-                    }
-                }
-                
-                return getEntryForGraphicRectangle(steps, stepsGoal)
-            case .graphicCorner:
-                if #available(watchOSApplicationExtension 7.0, *) {
-                    if complicationId == IDENTIFIER_JUST_STEPS {
-                        return getEntryForNoGaugeGraphicCorner(steps)
-                    }
-                }
-                
-                return getEntryForGraphicCorner(steps, stepsGoal)
-            case .graphicCircular:
-                if #available(watchOSApplicationExtension 7.0, *) {
-                    if complicationId == IDENTIFIER_JUST_STEPS {
-                        return getEntryForNoGaugeGraphicCircular(steps)
-                    }
-                }
-                
-                return getEntryForGraphicCircular(steps, stepsGoal)
-            case .graphicBezel:
-                return getEntryForGraphicBezel(steps, stepsGoal)
-            default:
-                break
-            }
         }
         
         if #available(watchOS 7.0, *) {
@@ -152,6 +146,12 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         
         var template: CLKComplicationTemplate?
         
+        var complicationId = ""
+        if #available(watchOS 7.0, *) {
+            complicationId = complication.identifier
+        }
+        
+        
         switch complication.family {
         case .modularSmall:
             template = getTemplateForModularSmall(sampleSteps)
@@ -165,49 +165,37 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
             template = getTemplateForUtilitarianSmall(sampleSteps)
         case .extraLarge:
             template = getTemplateForExtraLarge(sampleSteps)
+        case .graphicRectangular:
+            if #available(watchOSApplicationExtension 7.0, *) {
+                if complicationId == IDENTIFIER_JUST_STEPS {
+                    template = getTemplateForNoGaugeGraphicRectangle(sampleSteps)
+                    break
+                }
+            }
+            
+            template = getTemplateForGraphicRectangle(sampleSteps, sampleStepsGoal)
+        case .graphicCorner:
+            if #available(watchOSApplicationExtension 7.0, *) {
+                if complicationId == IDENTIFIER_JUST_STEPS {
+                    template = getTemplateForNoGaugeGraphicCorner(sampleSteps)
+                    break
+                }
+            }
+            
+            template = getTemplateForGraphicCorner(sampleSteps, sampleStepsGoal)
+        case .graphicCircular:
+            if #available(watchOSApplicationExtension 7.0, *) {
+                if complicationId == IDENTIFIER_JUST_STEPS {
+                    template = getTemplateForNoGaugeGraphicCircular(sampleSteps)
+                    break
+                }
+            }
+            
+            template = getTemplateForTextCircular(sampleSteps, sampleStepsGoal)
+        case .graphicBezel:
+            template = getTemplateForGraphicBezel(sampleSteps, sampleStepsGoal)
         default:
             break
-        }
-        
-        var complicationId = ""
-        if #available(watchOS 7.0, *) {
-            complicationId = complication.identifier
-        }
-        
-        if #available(watchOS 5.0, *) {
-            switch complication.family {
-            case .graphicRectangular:
-                if #available(watchOSApplicationExtension 7.0, *) {
-                    if complicationId == IDENTIFIER_JUST_STEPS {
-                        template = getTemplateForNoGaugeGraphicRectangle(sampleSteps)
-                        break
-                    }
-                }
-                
-                template = getTemplateForGraphicRectangle(sampleSteps, sampleStepsGoal)
-            case .graphicCorner:
-                if #available(watchOSApplicationExtension 7.0, *) {
-                    if complicationId == IDENTIFIER_JUST_STEPS {
-                        template = getTemplateForNoGaugeGraphicCorner(sampleSteps)
-                        break
-                    }
-                }
-                
-                template = getTemplateForGraphicCorner(sampleSteps, sampleStepsGoal)
-            case .graphicCircular:
-                if #available(watchOSApplicationExtension 7.0, *) {
-                    if complicationId == IDENTIFIER_JUST_STEPS {
-                        template = getTemplateForNoGaugeGraphicCircular(sampleSteps)
-                        break
-                    }
-                }
-                
-                template = getTemplateForTextCircular(sampleSteps, sampleStepsGoal)
-            case .graphicBezel:
-                template = getTemplateForGraphicBezel(sampleSteps, sampleStepsGoal)
-            default:
-                break
-            }
         }
         
         if #available(watchOS 7.0, *) {
@@ -387,13 +375,11 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     
     //MARK: Graphic Corner
     
-    @available(watchOSApplicationExtension 5.0, *)
     func getEntryForGraphicCorner(_ totalSteps: Steps, _ goal: Steps) -> CLKComplicationTimelineEntry {
         let gc = getTemplateForGraphicCorner(totalSteps, goal)
         return CLKComplicationTimelineEntry(date: Date(), complicationTemplate: gc)
     }
     
-    @available(watchOSApplicationExtension 5.0, *)
     func getTemplateForGraphicCorner(_ totalSteps: Steps, _ goal: Steps) -> CLKComplicationTemplate {
         let goalReached = totalSteps >= goal
         
@@ -415,13 +401,11 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         }
     }
     
-    @available(watchOSApplicationExtension 5.0, *)
     func getEntryForNoGaugeGraphicCorner(_ totalSteps: Steps) -> CLKComplicationTimelineEntry {
         let gc = getTemplateForNoGaugeGraphicCorner(totalSteps)
         return CLKComplicationTimelineEntry(date: Date(), complicationTemplate: gc)
     }
     
-    @available(watchOSApplicationExtension 5.0, *)
     func getTemplateForNoGaugeGraphicCorner(_ totalSteps: Steps) -> CLKComplicationTemplate {
         
         let stepsText = CLKSimpleTextProvider()
@@ -439,13 +423,11 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     
     //MARK: Graphic Circular
     
-    @available(watchOSApplicationExtension 5.0, *)
     func getEntryForGraphicCircular(_ totalSteps: Steps, _ goal: Steps) -> CLKComplicationTimelineEntry {
         let gc = getTemplateForTextCircular(totalSteps, goal)
         return CLKComplicationTimelineEntry(date: Date(), complicationTemplate: gc)
     }
     
-    @available(watchOSApplicationExtension 5.0, *)
     func getTemplateForTextCircular(_ totalSteps: Steps, _ goal: Steps) -> CLKComplicationTemplateGraphicCircularClosedGaugeText {
         let gc = CLKComplicationTemplateGraphicCircularClosedGaugeText()
         
@@ -480,13 +462,11 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     
     //MARK: Graphic Bezel
     
-    @available(watchOSApplicationExtension 5.0, *)
     func getEntryForGraphicBezel(_ totalSteps: Steps, _ goal: Steps) -> CLKComplicationTimelineEntry {
         let gb = getTemplateForGraphicBezel(totalSteps, goal)
         return CLKComplicationTimelineEntry(date: Date(), complicationTemplate: gb)
     }
     
-    @available(watchOSApplicationExtension 5.0, *)
     func getTemplateForGraphicBezel(_ totalSteps: Steps, _ goal: Steps) -> CLKComplicationTemplateGraphicBezelCircularText {
         let text = CLKSimpleTextProvider()
         text.text = String(format: NSLocalizedString("%@ STEPS", comment: ""), formatStepsForLarge(totalSteps))
@@ -498,7 +478,6 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         return template
     }
     
-    @available(watchOSApplicationExtension 5.0, *)
     func  getTemplateForGraphicCircular(_ totalSteps: Steps, _ goal: Steps) -> CLKComplicationTemplateGraphicCircularClosedGaugeImage {
         let gc = CLKComplicationTemplateGraphicCircularClosedGaugeImage()
         let shoe = UIImage(named: "GraphicCircularShoe")!
@@ -509,13 +488,11 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     
     //MARK: Graphic Rectangle
     
-    @available(watchOSApplicationExtension 5.0, *)
     func getEntryForGraphicRectangle(_ totalSteps: Steps, _ goal: Steps) -> CLKComplicationTimelineEntry {
         let gb = getTemplateForGraphicRectangle(totalSteps, goal)
         return CLKComplicationTimelineEntry(date: Date(), complicationTemplate: gb)
     }
     
-    @available(watchOSApplicationExtension 5.0, *)
     func getTemplateForGraphicRectangle(_ totalSteps: Steps, _ goal: Steps) -> CLKComplicationTemplate {
         let goalReached = totalSteps >= goal
         

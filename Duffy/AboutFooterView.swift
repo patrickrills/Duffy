@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import DuffyFramework
 
 class AboutFooterView: UIView {
 
@@ -37,13 +38,7 @@ class AboutFooterView: UIView {
         aboutButton.titleLabel?.minimumScaleFactor = 0.75
         horizontalStack.addArrangedSubview(aboutButton)
         
-        var tipSymbolName = "dollarsign.circle.fill"
-        if let lang = NSLocale.current.languageCode,
-           lang.lowercased() == "ja"
-        {
-            tipSymbolName = "yensign.circle.fill"
-        }
-        
+        let tipSymbolName = TipCurrencySymbolPrefix.prefix(for: Locale.current).rawValue + ".circle.fill"
         let tipButton = UIButton(type: .custom)
         tipButton.translatesAutoresizingMaskIntoConstraints = false
         tipButton.layer.cornerRadius = 8.0

@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="19158" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc">
-    <device id="watch42"/>
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="23504" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc" pageOrientation="vertical">
+    <device id="watch42_446h"/>
     <dependencies>
         <deployment identifier="watchOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19141"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="19040"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="23501"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
     </dependencies>
     <scenes>
-        <!--Today-->
+        <!--mainInterfaceController-->
         <scene sceneID="aou-V4-d1y">
             <objects>
-                <controller identifier="mainInterfaceController" title="Today" id="AgC-eL-Hgc" customClass="MainInterfaceController" customModule="Duffy_WatchKit_App" customModuleProvider="target">
+                <controller identifier="mainInterfaceController" id="AgC-eL-Hgc" customClass="MainInterfaceController" customModule="Duffy_WatchKit_App" customModuleProvider="target">
                     <items>
                         <group width="1" alignment="center" verticalAlignment="center" layout="vertical" id="jbM-NJ-5AL">
                             <items>
@@ -84,13 +83,7 @@
                                             <variation key="device=watch38mm" spacing="0.0"/>
                                         </group>
                                     </items>
-                                    <edgeInsets key="margins" left="10" right="10" top="6" bottom="0.0"/>
-                                    <variation key="device=watch38mm">
-                                        <edgeInsets key="margins" left="0.0" right="0.0" top="6" bottom="0.0"/>
-                                    </variation>
-                                    <variation key="device=watch44mm">
-                                        <edgeInsets key="margins" left="16" right="16" top="8" bottom="0.0"/>
-                                    </variation>
+                                    <edgeInsets key="margins" left="10" right="10" top="0.0" bottom="0.0"/>
                                 </group>
                                 <group width="1" alignment="center" verticalAlignment="bottom" layout="vertical" id="Snk-xZ-rxC">
                                     <items>
@@ -160,6 +153,7 @@
                             </items>
                         </group>
                     </items>
+                    <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
                     <connections>
                         <outlet property="bottomSeparator" destination="fqx-CN-Vrt" id="5Wj-fP-FWU"/>
                         <outlet property="debugButton" destination="l5P-5P-TIU" id="6ae-vh-koR"/>
@@ -187,19 +181,19 @@
             </objects>
             <point key="canvasLocation" x="313" y="804"/>
         </scene>
-        <!--Cancel-->
+        <!--SetGoalInterfaceController-->
         <scene sceneID="ROL-wV-fnb">
             <objects>
-                <controller identifier="SetGoalInterfaceController" title="Cancel" fullBounds="YES" id="4xO-Gf-sN4" customClass="SetGoalInterfaceController" customModule="Duffy_WatchKit_Extension">
+                <controller identifier="SetGoalInterfaceController" spacing="0.0" fullBounds="YES" id="4xO-Gf-sN4" customClass="SetGoalInterfaceController" customModule="Duffy_WatchKit_Extension">
                     <items>
                         <picker height="2" alignment="left" id="lxQ-31-QF5">
                             <connections>
                                 <action selector="pickerIndexChangedWithIndex:" destination="4xO-Gf-sN4" id="9hQ-n0-BBS"/>
                             </connections>
                         </picker>
-                        <group width="1" alignment="left" verticalAlignment="center" layout="vertical" spacing="12" id="LJ8-sM-nqT">
+                        <group width="1" alignment="left" layout="vertical" spacing="8" id="LJ8-sM-nqT">
                             <items>
-                                <group width="1" alignment="left" layout="vertical" spacing="2" id="OZ4-Ef-Va1">
+                                <group width="1" alignment="left" layout="vertical" spacing="0.0" id="OZ4-Ef-Va1">
                                     <items>
                                         <group width="1" alignment="left" id="vYK-jD-U9E">
                                             <items>
@@ -225,17 +219,17 @@
                                                 </button>
                                             </items>
                                         </group>
-                                        <label width="1" height="45" alignment="center" text="0,000" textAlignment="center" baselineAdjustment="alignCenters" minimumScaleFactor="0.5" id="vBt-wx-NMQ">
-                                            <fontDescription key="font" type="system" weight="black" pointSize="44"/>
+                                        <label width="1" height="38" alignment="center" text="0,000" textAlignment="center" baselineAdjustment="alignCenters" minimumScaleFactor="0.5" id="vBt-wx-NMQ">
+                                            <fontDescription key="font" type="system" weight="black" pointSize="48"/>
                                         </label>
                                         <label width="1" alignment="left" text="STEPS" textAlignment="center" id="mKZ-Td-TUq"/>
                                     </items>
                                 </group>
                                 <button alignment="left" id="kXU-CC-2sB">
-                                    <group key="contentGroup" width="1" height="40" alignment="left" radius="20" id="IIy-an-MZt">
+                                    <group key="contentGroup" width="1" height="44" alignment="left" radius="22" id="IIy-an-MZt">
                                         <items>
                                             <label alignment="center" verticalAlignment="center" text="Set Goal" id="dRb-eU-AGa">
-                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="textColor" systemColor="labelColor"/>
                                             </label>
                                         </items>
                                         <color key="backgroundColor" name="PrimaryButtonBackground"/>
@@ -245,7 +239,7 @@
                                     </connections>
                                 </button>
                             </items>
-                            <variation key="device=watch38mm" spacing="4"/>
+                            <variation key="device=watch38mm" spacing="6"/>
                         </group>
                     </items>
                     <connections>
@@ -260,10 +254,10 @@
             </objects>
             <point key="canvasLocation" x="313" y="1139"/>
         </scene>
-        <!--Cancel-->
+        <!--LegacyEditGoalInterfaceController-->
         <scene sceneID="xdF-XR-FCq">
             <objects>
-                <controller identifier="LegacyEditGoalInterfaceController" title="Cancel" id="NnG-6h-E9i" customClass="LegacyEditGoalInterfaceController" customModule="Duffy_WatchKit_Extension">
+                <controller identifier="LegacyEditGoalInterfaceController" id="NnG-6h-E9i" customClass="LegacyEditGoalInterfaceController" customModule="Duffy_WatchKit_Extension">
                     <items>
                         <picker height="90" alignment="center" verticalAlignment="center" focusStyle="stack" id="Vgb-3m-FEt">
                             <connections>
@@ -300,39 +294,43 @@
             </objects>
             <point key="canvasLocation" x="313" y="1451"/>
         </scene>
-        <!--Done-->
+        <!--summaryInterfaceController-->
         <scene sceneID="LZl-Pd-feh">
             <objects>
-                <controller identifier="summaryInterfaceController" title="Done" id="jZc-PD-Him" customClass="SummaryInterfaceController" customModule="Duffy_WatchKit_Extension">
+                <controller identifier="summaryInterfaceController" id="jZc-PD-Him" customClass="SummaryInterfaceController" customModule="Duffy_WatchKit_Extension">
                     <items>
-                        <group width="1" alignment="center" layout="vertical" radius="0.0" id="onG-8A-2OF">
+                        <group width="1" alignment="center" layout="vertical" spacing="8" id="oQJ-rS-Ame">
                             <items>
-                                <label alignment="center" text="Loading..." id="U1N-Vy-Hzc"/>
-                                <imageView alignment="center" id="eSI-DD-oHG"/>
+                                <group width="1" alignment="center" layout="vertical" radius="0.0" id="onG-8A-2OF">
+                                    <items>
+                                        <label alignment="center" text="Loading..." id="U1N-Vy-Hzc"/>
+                                        <imageView alignment="center" id="eSI-DD-oHG"/>
+                                    </items>
+                                </group>
+                                <table alignment="left" id="Xkh-TU-BTJ">
+                                    <items>
+                                        <tableRow identifier="WeekRowController" selectable="NO" id="I9v-3l-d5r" customClass="WeekRowController" customModule="Duffy_WatchKit_Extension">
+                                            <group key="rootItem" width="1" alignment="left" id="fva-XT-2Zw">
+                                                <items>
+                                                    <label alignment="right" verticalAlignment="center" text="XXX" id="tNq-At-nqT">
+                                                        <fontDescription key="font" type="system" pointSize="16"/>
+                                                    </label>
+                                                    <label alignment="left" verticalAlignment="center" text="00,000" textAlignment="right" id="fxo-fl-i6s">
+                                                        <fontDescription key="font" type="system" weight="semibold" pointSize="16"/>
+                                                    </label>
+                                                </items>
+                                            </group>
+                                            <connections>
+                                                <outlet property="backgroundGroup" destination="fva-XT-2Zw" id="fvi-9z-caz"/>
+                                                <outlet property="dateLabel" destination="tNq-At-nqT" id="MQn-Qf-25a"/>
+                                                <outlet property="stepsLabel" destination="fxo-fl-i6s" id="dwe-AM-kS5"/>
+                                            </connections>
+                                        </tableRow>
+                                    </items>
+                                </table>
                             </items>
-                            <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="4"/>
+                            <edgeInsets key="margins" left="0.0" right="0.0" top="0.0" bottom="0.0"/>
                         </group>
-                        <table alignment="left" id="Xkh-TU-BTJ">
-                            <items>
-                                <tableRow identifier="WeekRowController" selectable="NO" id="I9v-3l-d5r" customClass="WeekRowController" customModule="Duffy_WatchKit_Extension">
-                                    <group key="rootItem" width="1" alignment="left" id="fva-XT-2Zw">
-                                        <items>
-                                            <label alignment="right" verticalAlignment="center" text="XXX" id="tNq-At-nqT">
-                                                <fontDescription key="font" type="system" pointSize="16"/>
-                                            </label>
-                                            <label alignment="left" verticalAlignment="center" text="00,000" textAlignment="right" id="fxo-fl-i6s">
-                                                <fontDescription key="font" type="system" weight="semibold" pointSize="16"/>
-                                            </label>
-                                        </items>
-                                    </group>
-                                    <connections>
-                                        <outlet property="backgroundGroup" destination="fva-XT-2Zw" id="fvi-9z-caz"/>
-                                        <outlet property="dateLabel" destination="tNq-At-nqT" id="MQn-Qf-25a"/>
-                                        <outlet property="stepsLabel" destination="fxo-fl-i6s" id="dwe-AM-kS5"/>
-                                    </connections>
-                                </tableRow>
-                            </items>
-                        </table>
                     </items>
                     <connections>
                         <outlet property="graphImage" destination="eSI-DD-oHG" id="XZc-J1-oVX"/>
@@ -383,5 +381,8 @@
         <namedColor name="PrimaryButtonBackground">
             <color red="0.12549019607843137" green="0.58039215686274515" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

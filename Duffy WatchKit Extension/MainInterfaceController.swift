@@ -64,7 +64,11 @@ class MainInterfaceController: WKInterfaceController
     //MARK: Menu Button Handlers
     
     @IBAction func openSummary() {
-        presentController(withName: SummaryInterfaceController.IDENTIFIER, context: nil)
+        if #available(watchOS 10.0, *) {
+            pushController(withName: SummaryInterfaceController.IDENTIFIER, context: nil)
+        } else {
+            presentController(withName: SummaryInterfaceController.IDENTIFIER, context: nil)
+        }
     }
     
     @IBAction func openSetGoal() {
@@ -309,7 +313,12 @@ class MainInterfaceController: WKInterfaceController
     private let BUTTON_FONT_WEIGHT: UIFont.Weight = .semibold
     
     private func initializeUI() {
-        setTitle(NSLocalizedString("Today", comment: ""))
+        if #available(watchOS 10.0, *) {
+            setTitle(nil)
+        } else {
+            setTitle(NSLocalizedString("Today", comment: ""))
+        }
+        
         debugButton.setHidden(!DebugService.isDebugModeEnabled())
         ringImage.setTintColor(Globals.secondaryColor())
         initializeSeparator(topSeparator)
@@ -318,7 +327,11 @@ class MainInterfaceController: WKInterfaceController
         trophyLabel.setHidden(true)
         
         if #available(watchOS 6.0, *) {
-            //Use margins set in storyboard
+            if #available(watchOS 10.0, *) {
+                //Use margins set in storyboard
+            } else {
+                todayGroup.setContentInset(UIEdgeInsets(top: 6.0, left: 12.0, bottom: 0.0, right: 12.0))
+            }
         } else {
             todayGroup.setContentInset(UIEdgeInsets(top: 4.0, left: 0.0, bottom: 0.0, right: 0.0))
         }
@@ -327,10 +340,7 @@ class MainInterfaceController: WKInterfaceController
             //Tipping from watch is available
             let buttonFont = Globals.roundedFont(of: BUTTON_FONT_SIZE, weight: BUTTON_FONT_WEIGHT)
             let symbolConfiguration = UIImage.SymbolConfiguration(font: UIFont.systemFont(ofSize: 18.0, weight: .medium))
-            var symbolName = "dollarsign.circle"
-            if let lang = NSLocale.current.languageCode, lang.lowercased() == "ja" {
-                symbolName = "yensign.circle"
-            }
+            let symbolName = TipCurrencySymbolPrefix.prefix(for: Locale.current).rawValue + ".circle"
             tipButtonImage.setImage(UIImage(systemName: symbolName, withConfiguration: symbolConfiguration)?.withRenderingMode(.alwaysTemplate))
             tipButtonLabel.setAttributedText(NSAttributedString(string: NSLocalizedString("Tip Jar", comment: ""), attributes: [.font : buttonFont]))
         } else {
