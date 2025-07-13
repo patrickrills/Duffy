@@ -92,50 +92,25 @@ enum AboutOption: CaseIterable {
     func icon() -> UIImage? {
         switch self {
         case .goalHowTo:
-            if #available(iOS 16.0, *) {
-                return UIImage(systemName: "medal.fill")
-            } else {
-                return UIImage(systemName: "target")
-            }
+            return UIImage(systemName: "medal.fill")
         case .enableStepCounting:
-            if #available(iOS 16.0, *) {
-                return UIImage(systemName: "shoeprints.fill")
-            } else {
-                return UIImage(systemName: "switch.2")
-            }
+            return UIImage(systemName: "shoeprints.fill")
         case .addStepsToWatchFace:
             return UIImage(systemName: "applewatch.watchface")
         case .changeMilesOrKilometers:
             return UIImage(systemName: "ruler.fill")
         case .trophies:
-            if #available(iOS 16.0, *) {
-                return UIImage(systemName: "trophy.fill")
-            } else {
-                return UIImage(systemName: "bolt.fill")
-            }
+            return UIImage(systemName: "trophy.fill")
         case .rate:
             return UIImage(systemName: "star.fill")
         case .askAQuestion:
-            if #available(iOS 16.0, *) {
-                return UIImage(systemName: "questionmark.bubble.fill")
-            } else {
-                return UIImage(systemName: "questionmark.circle.fill")
-            }
+            return UIImage(systemName: "questionmark.bubble.fill")
         case .bigbluefly:
             return UIImage(named: "BigBlueFly")
         case .isral:
             return UIImage(named: "isral")
         case .tipJar:
-            var symbolName = "dollarsign"
-            if let lang = NSLocale.current.languageCode, lang.lowercased() == "ja" {
-                symbolName = "yensign"
-            }
-            
-            if #unavailable(iOS 16.0) {
-                symbolName += ".circle.fill"
-            }
-            
-            return UIImage(systemName: symbolName)
+            return UIImage(systemName: TipCurrencySymbolPrefix.prefix(for: Locale.current).rawValue)
         }
     }
     
