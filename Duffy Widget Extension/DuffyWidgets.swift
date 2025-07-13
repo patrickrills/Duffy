@@ -10,8 +10,8 @@ import WidgetKit
 import SwiftUI
 
 @main
-struct Duffy_Widget_ExtensionBundle: WidgetBundle {
+struct DuffyWidgets: WidgetBundle {
     var body: some Widget {
-        Duffy_Widget_Extension()
+        LockScreenStepCountWidget()
     }
 }
