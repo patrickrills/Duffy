@@ -52,9 +52,9 @@ public class WCSessionService : NSObject
     public func updateWatchFaceComplication(with steps: Steps, for day: Date) {
         #if os(iOS)
             sendComplicationDataToWatch(steps, day: day)
-        #else
-            delegate?.complicationUpdateRequested()
         #endif
+        
+        delegate?.complicationUpdateRequested()
     }
     
     private func sendComplicationDataToWatch(_ steps: Steps, day: Date) {
