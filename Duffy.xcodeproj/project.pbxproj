@@ -109,7 +109,7 @@
 		099FE702234EBA3C0092D219 /* DuffyWatchFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09323D141D2303DE00961822 /* DuffyWatchFramework.framework */; };
 		09A008792E2438C1007E10EE /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09A008782E2438C1007E10EE /* WidgetKit.framework */; };
 		09A0087B2E2438C1007E10EE /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09A0087A2E2438C1007E10EE /* SwiftUI.framework */; };
-		09A008872E2438C2007E10EE /* Duffy Widget ExtensionExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 09A008772E2438C1007E10EE /* Duffy Widget ExtensionExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		09A008872E2438C2007E10EE /* Duffy Widget Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 09A008772E2438C1007E10EE /* Duffy Widget Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		09A0088C2E243B9D007E10EE /* DuffyFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09323D031D2303BC00961822 /* DuffyFramework.framework */; };
 		09A0D63125951273008977BD /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09A0D63025951273008977BD /* Interface.storyboard */; };
 		09A7EEAD21A1E89A00DEDE5C /* HistoryTrendChartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A7EEAB21A1E89A00DEDE5C /* HistoryTrendChartTableViewCell.swift */; };
@@ -246,7 +246,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				09A008872E2438C2007E10EE /* Duffy Widget ExtensionExtension.appex in Embed Foundation Extensions */,
+				09A008872E2438C2007E10EE /* Duffy Widget Extension.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -348,7 +348,7 @@
 		099C13101DA336C80007C72F /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		099C13121DA336D50007C72F /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS3.0.sdk/System/Library/Frameworks/HealthKit.framework; sourceTree = DEVELOPER_DIR; };
 		099FE6FF234EB5300092D219 /* LoggingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggingService.swift; sourceTree = "<group>"; };
-		09A008772E2438C1007E10EE /* Duffy Widget ExtensionExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Duffy Widget ExtensionExtension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		09A008772E2438C1007E10EE /* Duffy Widget Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Duffy Widget Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		09A008782E2438C1007E10EE /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = /System/Library/Frameworks/WidgetKit.framework; sourceTree = "<absolute>"; };
 		09A0087A2E2438C1007E10EE /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = /System/Library/Frameworks/SwiftUI.framework; sourceTree = "<absolute>"; };
 		09A0D63025951273008977BD /* Interface.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Interface.storyboard; sourceTree = "<group>"; };
@@ -467,7 +467,7 @@
 				09323C8E1D22C39700961822 /* Duffy WatchKit Extension.appex */,
 				09323D031D2303BC00961822 /* DuffyFramework.framework */,
 				09323D141D2303DE00961822 /* DuffyWatchFramework.framework */,
-				09A008772E2438C1007E10EE /* Duffy Widget ExtensionExtension.appex */,
+				09A008772E2438C1007E10EE /* Duffy Widget Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -767,7 +767,7 @@
 			packageProductDependencies = (
 			);
 			productName = "Duffy Widget ExtensionExtension";
-			productReference = 09A008772E2438C1007E10EE /* Duffy Widget ExtensionExtension.appex */;
+			productReference = 09A008772E2438C1007E10EE /* Duffy Widget Extension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
@@ -1564,7 +1564,7 @@
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bigbluefly.Duffy.Duffy-Widget-Extension";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Duffy Widget Extension";
 				SDKROOT = auto;
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -1615,7 +1615,7 @@
 				MARKETING_VERSION = 4.4.2;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.bigbluefly.Duffy.Duffy-Widget-Extension";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Duffy Widget Extension";
 				SDKROOT = auto;
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
