@@ -21,15 +21,22 @@ struct Provider: TimelineProvider {
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
         var entries: [StepCountEntry] = []
-
-        // Generate a timeline consisting of five entries an hour apart, starting from the current date.
-        let currentDate = Date()
-        for hourOffset in 0 ..< 5 {
-            let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-            let entry = StepCountEntry(date: entryDate, steps: 1111) //HealthCache.lastSteps(for: Date())
-            entries.append(entry)
+        
+        var entrySteps: Steps = 0
+        let entryDate: Date = Date()
+        
+        if !HealthCache.cacheIsForADifferentDay(than: entryDate) {
+            entrySteps = HealthCache.lastSteps(for: entryDate)
+        }
+        
+        entries.append(StepCountEntry(date: entryDate, steps: entrySteps))
+        
+        let tomorrow = entryDate.nextDay()
+        if let oneSecondAfterMidnight = tomorrow.changeTime(hour: 0, minute: 0, second: 1) {
+            entries.append(StepCountEntry(date: oneSecondAfterMidnight, steps: 0))
         }
 
+//        let policy: TimelineReloadPolicy = entryDate.dateByAdding(.day, days: 1) < Date() ? .previousDay : .atEndOfMinute
         let timeline = Timeline(entries: entries, policy: .atEnd)
         completion(timeline)
     }
