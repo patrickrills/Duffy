@@ -24,6 +24,20 @@ public class HealthCache {
     
     @discardableResult
     public class func saveStepsToCache(_ stepCount: Steps, for day: Date) -> Bool {
+        var saved: Bool = false
+        
+        if let sharedDefaults = UserDefaults(suiteName: CacheKeys.sharedGroupName) {
+            saved = saveSteps(stepCount, for: day, to: sharedDefaults)
+        }
+        
+        if !saved {
+            saved = saveSteps(stepCount, for: day, to: UserDefaults.standard)
+        }
+        
+        return saved
+    }
+    
+    private class func saveSteps(_ stepCount: Steps, for day: Date, to userDefaults: UserDefaults) -> Bool {
         let todaysKey = convertDayToKey(day)
         let previousValueForDay = lastSteps(for: day)
         
@@ -31,8 +45,8 @@ public class HealthCache {
             var latestValues: [String : AnyObject] = [:]
             latestValues[CacheKeys.stepsCacheDay.rawValue] = todaysKey as AnyObject
             latestValues[CacheKeys.stepsCacheValue.rawValue] = stepCount as AnyObject
-            UserDefaults.standard.removeObject(forKey: CacheKeys.stepsCache.rawValue)
-            UserDefaults.standard.set(latestValues, forKey: CacheKeys.stepsCache.rawValue)
+            userDefaults.removeObject(forKey: CacheKeys.stepsCache.rawValue)
+            userDefaults.set(latestValues, forKey: CacheKeys.stepsCache.rawValue)
     
             LoggingService.log("Save steps to cache", with: String(format: "%d", stepCount))
             
@@ -61,7 +75,17 @@ public class HealthCache {
     }
     
     private class func cache() -> CachedSteps? {
-        guard let stepsDict = UserDefaults.standard.object(forKey: CacheKeys.stepsCache.rawValue) as? [String : AnyObject],
+        guard let sharedDefaults = UserDefaults(suiteName: CacheKeys.sharedGroupName),
+            let sharedCache = retrieveCache(from: sharedDefaults)
+        else {
+            return retrieveCache(from: UserDefaults.standard)
+        }
+        
+        return sharedCache
+    }
+    
+    private class func retrieveCache(from userDefaults: UserDefaults) -> CachedSteps? {
+        guard let stepsDict = userDefaults.object(forKey: CacheKeys.stepsCache.rawValue) as? [String : AnyObject],
             let cache = parse(dictionary: stepsDict)
         else {
             return nil
