@@ -48,7 +48,7 @@ public class HealthCache {
             userDefaults.removeObject(forKey: CacheKeys.stepsCache.rawValue)
             userDefaults.set(latestValues, forKey: CacheKeys.stepsCache.rawValue)
     
-            LoggingService.log("Save steps to cache", with: String(format: "%d", stepCount))
+            LoggingService.log("Save steps to cache", with: "\(todaysKey) - \(String(format: "%d", stepCount))")
             
             return true
         } else {
