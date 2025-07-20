@@ -306,8 +306,8 @@ public class HealthKitService
         query.initialResultsHandler = { query, results, error in
             if let r = results , error == nil {
                 var sum: Double = 0.0
-                var sampleDate: Date = Date.distantPast
-                    
+                var sampleDate: Date = query.anchorDate
+                
                 r.enumerateStatistics(from: query.anchorDate, to: query.anchorDate) { statistics, stop in
                     if let quantity = statistics.sumQuantity() {
                         sampleDate = statistics.startDate
