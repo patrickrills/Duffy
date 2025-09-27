@@ -125,7 +125,7 @@
           ],
           "glass-specializations" : [
             {
-              "value" : true
+              "value" : false
             },
             {
               "appearance" : "tinted",
