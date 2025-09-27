@@ -43,6 +43,18 @@
           "name" : "1 – Layer 6"
         }
       ],
+      "position-specializations" : [
+        {
+          "idiom" : "square",
+          "value" : {
+            "scale" : 1,
+            "translation-in-points" : [
+              -16,
+              16
+            ]
+          }
+        }
+      ],
       "shadow" : {
         "kind" : "neutral",
         "opacity" : 0.5
