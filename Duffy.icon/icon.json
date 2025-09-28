@@ -129,7 +129,7 @@
           ],
           "glass-specializations" : [
             {
-              "value" : false
+              "value" : true
             },
             {
               "appearance" : "dark",
@@ -152,6 +152,7 @@
           }
         }
       ],
+      "lighting" : "individual",
       "opacity" : 1,
       "position-specializations" : [
         {
@@ -176,12 +177,12 @@
         }
       ],
       "shadow" : {
-        "kind" : "none",
+        "kind" : "layer-color",
         "opacity" : 1
       },
       "specular" : false,
       "translucency" : {
-        "enabled" : true,
+        "enabled" : false,
         "value" : 0.5
       }
     },
@@ -258,7 +259,7 @@
         "kind" : "layer-color",
         "opacity" : 1
       },
-      "specular" : false,
+      "specular" : true,
       "translucency" : {
         "enabled" : true,
         "value" : 0.5
@@ -303,9 +304,9 @@
         "kind" : "none",
         "opacity" : 1
       },
-      "specular" : false,
+      "specular" : true,
       "translucency" : {
-        "enabled" : true,
+        "enabled" : false,
         "value" : 0.5
       }
     }
