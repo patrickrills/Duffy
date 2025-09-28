@@ -21,6 +21,7 @@
   "groups" : [
     {
       "blur-material" : null,
+      "hidden" : false,
       "layers" : [
         {
           "fill-specializations" : [
@@ -38,7 +39,45 @@
           "hidden" : false,
           "image-name" : "5 – Layer 6.svg",
           "name" : "5 – Layer 6"
+        }
+      ],
+      "opacity" : 1,
+      "position-specializations" : [
+        {
+          "idiom" : "square",
+          "value" : {
+            "scale" : 1,
+            "translation-in-points" : [
+              -16,
+              16
+            ]
+          }
         },
+        {
+          "idiom" : "watchOS",
+          "value" : {
+            "scale" : 1.5,
+            "translation-in-points" : [
+              -224,
+              160
+            ]
+          }
+        }
+      ],
+      "shadow" : {
+        "kind" : "none",
+        "opacity" : 1
+      },
+      "specular" : false,
+      "translucency" : {
+        "enabled" : true,
+        "value" : 0.5
+      }
+    },
+    {
+      "blur-material" : null,
+      "hidden" : false,
+      "layers" : [
         {
           "fill-specializations" : [
             {
@@ -111,7 +150,45 @@
               0
             ]
           }
+        }
+      ],
+      "opacity" : 1,
+      "position-specializations" : [
+        {
+          "idiom" : "square",
+          "value" : {
+            "scale" : 1,
+            "translation-in-points" : [
+              -16,
+              16
+            ]
+          }
         },
+        {
+          "idiom" : "watchOS",
+          "value" : {
+            "scale" : 1.5,
+            "translation-in-points" : [
+              -224,
+              160
+            ]
+          }
+        }
+      ],
+      "shadow" : {
+        "kind" : "none",
+        "opacity" : 1
+      },
+      "specular" : false,
+      "translucency" : {
+        "enabled" : true,
+        "value" : 0.5
+      }
+    },
+    {
+      "blur-material" : null,
+      "hidden" : false,
+      "layers" : [
         {
           "fill-specializations" : [
             {
@@ -152,7 +229,45 @@
               0
             ]
           }
+        }
+      ],
+      "opacity" : 1,
+      "position-specializations" : [
+        {
+          "idiom" : "square",
+          "value" : {
+            "scale" : 1,
+            "translation-in-points" : [
+              -16,
+              16
+            ]
+          }
         },
+        {
+          "idiom" : "watchOS",
+          "value" : {
+            "scale" : 1.5,
+            "translation-in-points" : [
+              -224,
+              160
+            ]
+          }
+        }
+      ],
+      "shadow" : {
+        "kind" : "layer-color",
+        "opacity" : 1
+      },
+      "specular" : false,
+      "translucency" : {
+        "enabled" : true,
+        "value" : 0.5
+      }
+    },
+    {
+      "blur-material" : null,
+      "hidden" : false,
+      "layers" : [
         {
           "glass" : false,
           "hidden" : false,
@@ -185,7 +300,7 @@
         }
       ],
       "shadow" : {
-        "kind" : "layer-color",
+        "kind" : "none",
         "opacity" : 1
       },
       "specular" : false,
