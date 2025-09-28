@@ -20,6 +20,7 @@
   ],
   "groups" : [
     {
+      "blur-material" : null,
       "layers" : [
         {
           "fill-specializations" : [
@@ -171,12 +172,23 @@
               16
             ]
           }
+        },
+        {
+          "idiom" : "watchOS",
+          "value" : {
+            "scale" : 1.5,
+            "translation-in-points" : [
+              -224,
+              160
+            ]
+          }
         }
       ],
       "shadow" : {
         "kind" : "layer-color",
         "opacity" : 1
       },
+      "specular" : false,
       "translucency" : {
         "enabled" : true,
         "value" : 0.5
