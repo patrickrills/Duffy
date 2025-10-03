@@ -12,8 +12,8 @@
       "appearance" : "dark",
       "value" : {
         "linear-gradient" : [
-          "srgb:0.00000,0.21049,0.56936,1.00000",
-          "srgb:0.10160,0.00000,0.23922,1.00000"
+          "srgb:0.00000,0.13151,0.35301,1.00000",
+          "srgb:0.00000,0.07451,0.20000,1.00000"
         ]
       }
     }
@@ -65,8 +65,8 @@
         }
       ],
       "shadow" : {
-        "kind" : "none",
-        "opacity" : 1
+        "kind" : "layer-color",
+        "opacity" : 0.5
       },
       "specular" : false,
       "translucency" : {
@@ -277,7 +277,19 @@
           "opacity" : 1
         }
       ],
-      "opacity" : 1,
+      "opacity-specializations" : [
+        {
+          "value" : 1
+        },
+        {
+          "appearance" : "dark",
+          "value" : 0.75
+        },
+        {
+          "appearance" : "tinted",
+          "value" : 0.85
+        }
+      ],
       "position-specializations" : [
         {
           "idiom" : "square",
