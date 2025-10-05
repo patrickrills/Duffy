@@ -11,8 +11,6 @@ import DuffyFramework
 
 class PreviousValueTableViewCell: UITableViewCell
 {
-    static let rowHeight: CGFloat = 44.0
-    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -39,7 +37,12 @@ class PreviousValueTableViewCell: UITableViewCell
     }
     
     private func font(for trophy: Trophy) -> UIFont {
-        let weight: UIFont.Weight = trophy == .none ? .regular : .semibold
-        return UIFont.systemFont(ofSize: UIFont.labelFontSize, weight: weight)
+        let weight: UIFontDescriptor.SymbolicTraits = trophy != .none ? .traitBold : []
+        
+        guard let descriptor = UIFontDescriptor.preferredFontDescriptor(withTextStyle: .body).withSymbolicTraits(weight) else {
+            return UIFont.systemFont(ofSize: UIFont.labelFontSize)
+        }
+        
+        return UIFont(descriptor: descriptor, size: 0.0)
     }
 }

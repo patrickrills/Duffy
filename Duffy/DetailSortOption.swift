@@ -29,7 +29,7 @@ enum DetailSortOption: String, CaseIterable {
     func displayText() -> NSAttributedString {
         let attributedText = NSMutableAttributedString(string: String(format: "%@ ", NSLocalizedString("Sort", comment: "")))
         let symbolName = self.symbolName()
-        let symbolConfiguration = UIImage.SymbolConfiguration(font: UIFont.preferredFont(forTextStyle: .body))
+        let symbolConfiguration = UIImage.SymbolConfiguration(font: UIFont.systemFont(ofSize: UIFont.labelFontSize))
         let symbolImage = UIImage(systemName: symbolName, withConfiguration: symbolConfiguration)?.withRenderingMode(.alwaysTemplate)
         let symbolTextAttachment = NSTextAttachment()
         symbolTextAttachment.image = symbolImage
