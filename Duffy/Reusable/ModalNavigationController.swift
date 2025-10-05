@@ -14,13 +14,6 @@ class ModalNavigationController: UINavigationController, UINavigationControllerD
         initialize()
     }
     
-    init(rootViewController: UIViewController, doneButtonSystemImageName: String, onDismiss: @escaping () -> ()) {
-        super.init(rootViewController: rootViewController)
-        self.doneButtonSystemImageName = doneButtonSystemImageName
-        self.onDismiss = onDismiss
-        initialize()
-    }
-    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         initialize()
@@ -33,8 +26,13 @@ class ModalNavigationController: UINavigationController, UINavigationControllerD
     
     private func initialize() {
         self.delegate = self
-        navigationBar.tintColor = Globals.secondaryColor()
+        
         navigationBar.prefersLargeTitles = true
+        
+        if #unavailable(iOS 26.0) {
+            navigationBar.tintColor = Globals.secondaryColor()
+        }
+        
         if let rootViewController = viewControllers.first {
             rootViewController.navigationItem.largeTitleDisplayMode = .always
             modalPresentationStyle = rootViewController.modalPresentationStyle
@@ -42,21 +40,17 @@ class ModalNavigationController: UINavigationController, UINavigationControllerD
     }
     
     @objc func donePressed() {
-        dismiss(animated: true, completion: { [weak self] in
-            self?.onDismiss?()
-        })
+        dismiss(animated: true, completion: nil)
     }
     
     private var addedDoneButton = false
-    private var doneButtonSystemImageName: String?
-    private var onDismiss: (() -> ())?
     
     func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
         guard viewController == self.viewControllers[0] && !addedDoneButton else {
             return
         }
         
-        let doneButton: UIBarButtonItem = UIBarButtonItem.doneBarButtonItem(with: doneButtonSystemImageName ?? "xmark.circle.fill", target: self, action: #selector(donePressed))
+        let doneButton: UIBarButtonItem = UIBarButtonItem.closeBarButtonItem(with: self, action: #selector(donePressed))
 
         if viewController.navigationItem.rightBarButtonItem != nil {
             viewController.navigationItem.leftBarButtonItem = doneButton
