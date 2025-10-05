@@ -83,6 +83,13 @@ class HistoryFilterTableViewController: UITableViewController {
         addDatePicker()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        //TODO: This fixes a weird bug in iOS 26 where the titles of the two screens would overlap
+        if #available(iOS 26.0, *) {
+            title = ""
+        }
+    }
+    
     private func addDatePicker() {
         let mode = DateMode.mode()
         

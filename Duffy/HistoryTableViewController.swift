@@ -114,7 +114,7 @@ class HistoryTableViewController: UITableViewController {
     private func toggleLoading(_ isLoading: Bool) {
         title = isLoading
             ? NSLocalizedString("Loading...", comment: "")
-            : String(format: NSLocalizedString("Since %@", comment: ""), Globals.fullDateFormatter().string(from: currentFilterDate))
+            : String(format: NSLocalizedString("Since %@", comment: ""), Globals.mediumDateFormatter().string(from: currentFilterDate))
                     
     }
     
