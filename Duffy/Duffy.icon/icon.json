@@ -32,15 +32,18 @@
             },
             {
               "appearance" : "tinted",
-              "value" : "none"
+              "value" : {
+                "solid" : "extended-gray:1.00000,1.00000"
+              }
             }
           ],
           "glass" : false,
           "hidden" : false,
           "image-name" : "5 – Layer 6.svg",
-          "name" : "5 – Layer 6"
+          "name" : "logo-layer"
         }
       ],
+      "name" : "4 logo",
       "opacity" : 1,
       "position-specializations" : [
         {
@@ -90,6 +93,12 @@
               "value" : {
                 "solid" : "srgb:1.00000,1.00000,1.00000,1.00000"
               }
+            },
+            {
+              "appearance" : "tinted",
+              "value" : {
+                "solid" : "extended-gray:0.00000,1.00000"
+              }
             }
           ],
           "glass-specializations" : [
@@ -111,7 +120,7 @@
             }
           ],
           "image-name" : "4 – Layer 6.svg",
-          "name" : "4 – Layer 6"
+          "name" : "logo-border-layer"
         },
         {
           "fill-specializations" : [
@@ -124,6 +133,12 @@
               "appearance" : "dark",
               "value" : {
                 "solid" : "extended-gray:1.00000,1.00000"
+              }
+            },
+            {
+              "appearance" : "tinted",
+              "value" : {
+                "solid" : "extended-gray:0.00000,1.00000"
               }
             }
           ],
@@ -142,7 +157,7 @@
           ],
           "hidden" : false,
           "image-name" : "3 – Layer 6.svg",
-          "name" : "3 – Layer 6",
+          "name" : "laces-soles-layer",
           "position" : {
             "scale" : 1,
             "translation-in-points" : [
@@ -153,6 +168,7 @@
         }
       ],
       "lighting" : "individual",
+      "name" : "3 laces soles",
       "opacity" : 1,
       "position-specializations" : [
         {
@@ -194,12 +210,20 @@
           "fill-specializations" : [
             {
               "value" : {
-                "solid" : "display-p3:0.08740,0.25415,0.63623,1.00000"
+                "solid" : "display-p3:0.08627,0.25490,0.63529,1.00000"
+              }
+            },
+            {
+              "appearance" : "dark",
+              "value" : {
+                "solid" : "display-p3:0.08627,0.29412,0.80392,1.00000"
               }
             },
             {
               "appearance" : "tinted",
-              "value" : "automatic"
+              "value" : {
+                "solid" : "extended-gray:1.00000,1.00000"
+              }
             }
           ],
           "glass-specializations" : [
@@ -213,14 +237,14 @@
           ],
           "hidden" : false,
           "image-name" : "2 – Layer 6.svg",
-          "name" : "2 – Layer 6",
+          "name" : "canvas-layer",
           "opacity-specializations" : [
             {
               "value" : 1
             },
             {
               "appearance" : "tinted",
-              "value" : 0.85
+              "value" : 1
             }
           ],
           "position" : {
@@ -232,6 +256,7 @@
           }
         }
       ],
+      "name" : "2 canvas",
       "opacity" : 1,
       "position-specializations" : [
         {
@@ -273,10 +298,19 @@
           "glass" : false,
           "hidden" : false,
           "image-name" : "1 – Layer 6.svg",
-          "name" : "1 – Layer 6",
-          "opacity" : 1
+          "name" : "border-layer",
+          "opacity-specializations" : [
+            {
+              "value" : 1
+            },
+            {
+              "appearance" : "tinted",
+              "value" : 0
+            }
+          ]
         }
       ],
+      "name" : "1 border",
       "opacity-specializations" : [
         {
           "value" : 1
@@ -287,7 +321,7 @@
         },
         {
           "appearance" : "tinted",
-          "value" : 0.85
+          "value" : 1
         }
       ],
       "position-specializations" : [
