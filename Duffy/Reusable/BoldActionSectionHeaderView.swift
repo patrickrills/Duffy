@@ -34,7 +34,7 @@ class BoldActionSectionHeaderView: UITableViewHeaderFooterView {
         headerLabel.setContentHuggingPriority(.required, for: .horizontal)
         headerLabel.textColor = .label
         
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 17.0)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: UIFont.labelFontSize)
         button.setTitleColor(Globals.secondaryColor(), for: .normal)
         button.setTitleColor(Globals.secondaryColor().withAlphaComponent(0.5), for: .highlighted)
         button.translatesAutoresizingMaskIntoConstraints = false

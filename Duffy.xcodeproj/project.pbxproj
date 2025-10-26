@@ -73,6 +73,8 @@
 		0947AA9C1D4EB1D80040E1DD /* SummaryInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0947AA9B1D4EB1D80040E1DD /* SummaryInterfaceController.swift */; };
 		0947AA9E1D4EB24A0040E1DD /* WeekRowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0947AA9D1D4EB24A0040E1DD /* WeekRowController.swift */; };
 		094AAF8225D977EB00B145B8 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 094AAF8425D977EB00B145B8 /* Localizable.stringsdict */; };
+		094C5DA52E94873000420C35 /* Duffy.icon in Resources */ = {isa = PBXBuildFile; fileRef = 094C5DA42E94873000420C35 /* Duffy.icon */; };
+		094C5DA62E94873000420C35 /* Duffy.icon in Resources */ = {isa = PBXBuildFile; fileRef = 094C5DA42E94873000420C35 /* Duffy.icon */; };
 		094DE71D25E088E7002C31FC /* AboutFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094DE71C25E088E7002C31FC /* AboutFooterView.swift */; };
 		094DE73725E1716D002C31FC /* GoalInstructionsTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094DE73625E1716D002C31FC /* GoalInstructionsTableViewHeader.swift */; };
 		094DE74225E1C9C6002C31FC /* GoalInstructionsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 094DE74025E1C9C6002C31FC /* GoalInstructionsTableViewCell.xib */; };
@@ -296,6 +298,7 @@
 		0947AA9D1D4EB24A0040E1DD /* WeekRowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeekRowController.swift; sourceTree = "<group>"; };
 		094AAF8325D977EB00B145B8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		094AAF8925D977EF00B145B8 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = ja; path = ja.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		094C5DA42E94873000420C35 /* Duffy.icon */ = {isa = PBXFileReference; lastKnownFileType = folder.iconcomposer.icon; path = Duffy.icon; sourceTree = "<group>"; };
 		094DE71C25E088E7002C31FC /* AboutFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutFooterView.swift; sourceTree = "<group>"; };
 		094DE73625E1716D002C31FC /* GoalInstructionsTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalInstructionsTableViewHeader.swift; sourceTree = "<group>"; };
 		094DE74025E1C9C6002C31FC /* GoalInstructionsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GoalInstructionsTableViewCell.xib; sourceTree = "<group>"; };
@@ -424,6 +427,7 @@
 			children = (
 				0961D906216A9F2000F4AA88 /* duffy.ckcomplication */,
 				09323CFA1D23027500961822 /* Duffy.entitlements */,
+				094C5DA42E94873000420C35 /* Duffy.icon */,
 				09323C701D22C39700961822 /* AppDelegate.swift */,
 				0970859F214F16B600790EC7 /* AppRater.swift */,
 				0900867020F282DE006540E7 /* Globals.swift */,
@@ -772,6 +776,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				094C5DA52E94873000420C35 /* Duffy.icon in Resources */,
 				09E1779A25F513EA0034A58F /* TrophyCollectionViewCell.xib in Resources */,
 				09EEEDC5262B5139002731DB /* MainHourlyTableViewCell.xib in Resources */,
 				099582C8234192A600AF6A96 /* Localizable.strings in Resources */,
@@ -793,6 +798,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				094C5DA62E94873000420C35 /* Duffy.icon in Resources */,
 				09A0D63125951273008977BD /* Interface.storyboard in Resources */,
 				09323C881D22C39700961822 /* Assets.xcassets in Resources */,
 			);
@@ -1151,7 +1157,7 @@
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_ENTITLEMENTS = "Duffy WatchKit Extension/Duffy WatchKit Extension.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = 2ZMUDMBY38;
 				INFOPLIST_FILE = "Duffy WatchKit Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1176,7 +1182,7 @@
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_ENTITLEMENTS = "Duffy WatchKit Extension/Duffy WatchKit Extension.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = 2ZMUDMBY38;
 				INFOPLIST_FILE = "Duffy WatchKit Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1198,9 +1204,10 @@
 		09323CA31D22C39700961822 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = Duffy;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = 2ZMUDMBY38;
 				IBSC_MODULE = Duffy_WatchKit_Extension;
 				INFOPLIST_FILE = "Duffy WatchKit App/Info.plist";
@@ -1218,9 +1225,10 @@
 		09323CA41D22C39700961822 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = Duffy;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = 2ZMUDMBY38;
 				IBSC_MODULE = Duffy_WatchKit_Extension;
 				INFOPLIST_FILE = "Duffy WatchKit App/Info.plist";
@@ -1238,11 +1246,11 @@
 		09323CA71D22C39700961822 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = Duffy;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Duffy/Duffy.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = 2ZMUDMBY38;
 				INFOPLIST_FILE = Duffy/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
@@ -1260,11 +1268,11 @@
 		09323CA81D22C39700961822 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = Duffy;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Duffy/Duffy.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 7;
 				DEVELOPMENT_TEAM = 2ZMUDMBY38;
 				INFOPLIST_FILE = Duffy/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.5;

@@ -12,7 +12,6 @@ import DuffyFramework
 class HistoryTableViewController: UITableViewController {
 
     private enum Constants {
-        static let ROW_HEIGHT: CGFloat = PreviousValueTableViewCell.rowHeight
         static let PAGE_SIZE_DAYS: Int = 30
         static let FOOTER_HEIGHT: CGFloat = 80.0
         static let FOOTER_MARGIN: CGFloat = 16.0
@@ -114,7 +113,7 @@ class HistoryTableViewController: UITableViewController {
     private func toggleLoading(_ isLoading: Bool) {
         title = isLoading
             ? NSLocalizedString("Loading...", comment: "")
-            : String(format: NSLocalizedString("Since %@", comment: ""), Globals.fullDateFormatter().string(from: currentFilterDate))
+            : String(format: NSLocalizedString("Since %@", comment: ""), Globals.mediumDateFormatter().string(from: currentFilterDate))
                     
     }
     
@@ -177,15 +176,6 @@ class HistoryTableViewController: UITableViewController {
             return filteredDates.count
         default:
             return 1
-        }
-    }
-    
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        switch HistorySection(rawValue: indexPath.section) {
-        case .details:
-            return Constants.ROW_HEIGHT
-        default:
-            return UITableView.automaticDimension
         }
     }
     

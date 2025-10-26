@@ -71,9 +71,23 @@ class HistoryFilterTableViewController: UITableViewController {
         tableView.isScrollEnabled = false
         tableView.sectionHeaderHeight = 16.0
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem.doneBarButtonItem(with: "checkmark.circle.fill", target: self, action: #selector(saveFilter))
+        let saveSystemImage: String
+        if #available(iOS 26.0, *) {
+            saveSystemImage = "checkmark"
+        } else {
+            saveSystemImage = "checkmark.circle.fill"
+        }
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem.saveBarButtonItem(with: saveSystemImage, target: self, action: #selector(saveFilter))
                 
         addDatePicker()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        //TODO: This fixes a weird bug in iOS 26 where the titles of the two screens would overlap
+        if #available(iOS 26.0, *) {
+            title = ""
+        }
     }
     
     private func addDatePicker() {

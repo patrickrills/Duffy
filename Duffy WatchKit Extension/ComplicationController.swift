@@ -450,7 +450,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     func getTemplateForNoGaugeGraphicCircular(_ totalSteps: Steps) -> CLKComplicationTemplateGraphicCircularStackText {
         let gc = CLKComplicationTemplateGraphicCircularStackText()
         
-        let valueText = CLKSimpleTextProvider(text: formatStepsForLarge(totalSteps), shortText: formatStepsForSmall(totalSteps))
+        let valueText = CLKSimpleTextProvider(text: formatStepsForLarge(totalSteps, useGroupingSeparator: totalSteps <= 10000), shortText: formatStepsForSmall(totalSteps))
         gc.line1TextProvider = valueText
         
         let stepsText = CLKSimpleTextProvider(text: NSLocalizedString("steps", comment: ""))
@@ -552,10 +552,11 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     
     //MARK: Number Formatters
     
-    func formatStepsForLarge(_ totalSteps: Steps) -> String {
+    func formatStepsForLarge(_ totalSteps: Steps, useGroupingSeparator: Bool = true) -> String {
         let numberFormatter = NumberFormatter()
         numberFormatter.numberStyle = .decimal
         numberFormatter.locale = Locale.current
+        numberFormatter.usesGroupingSeparator = useGroupingSeparator
         if let format = numberFormatter.string(for: totalSteps) {
             return format
         }

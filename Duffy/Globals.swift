@@ -15,6 +15,7 @@ enum Globals
     private static let pctFormatter = NumberFormatter()
     private static let dateFormatter = DateFormatter()
     private static let fullFormatter = DateFormatter()
+    private static let mediumFormatter = DateFormatter()
     private static let shortFormatter = DateFormatter()
     private static let monthFormatter = DateFormatter()
     private static let secondary = UIColor(red: 76.0/255.0, green: 142.0/255.0, blue: 218.0/255.0, alpha: 1.0)
@@ -69,6 +70,12 @@ enum Globals
     {
         fullFormatter.dateStyle = .long
         return fullFormatter
+    }
+    
+    static func mediumDateFormatter() -> DateFormatter
+    {
+        mediumFormatter.dateStyle = .medium
+        return mediumFormatter
     }
     
     static func shortDateFormatter() -> DateFormatter
