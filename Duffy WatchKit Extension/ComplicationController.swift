@@ -10,6 +10,21 @@ import ClockKit
 import SwiftUI
 import DuffyWatchFramework
 
+@available(watchOS 9.0, *)
+extension ComplicationController: CLKComplicationWidgetMigrator {
+    func getWidgetConfiguration(from complicationDescriptor: CLKComplicationDescriptor, completionHandler: @escaping (CLKComplicationWidgetMigrationConfiguration?) -> Void) {
+        let kind = "com.bigbluefly.duffy.steps-complication"
+        let extensionBundleIdentifier = "com.bigbluefly.Duffy.DuffyComplications"
+        
+        let configuration = CLKComplicationWidgetMigrationConfiguration(
+            kind: kind,
+            extensionBundleIdentifier: extensionBundleIdentifier
+        )
+        
+        completionHandler(configuration)
+    }
+}
+
 class ComplicationController: NSObject, CLKComplicationDataSource {
     
     private let IDENTIFIER_JUST_STEPS = "Duffy-Steps"
