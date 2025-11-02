@@ -85,12 +85,36 @@ class AboutFooterView: UIView {
     }
     
     private func open(viewController: UIViewController) {
-        guard let delegate = UIApplication.shared.delegate as? AppDelegate,
-              let rootViewController = delegate.window?.rootViewController
-        else {
+        guard let presenter = nearestViewController ?? window?.rootViewController else {
             return
         }
         
-        rootViewController.present(ModalNavigationController(rootViewController: viewController), animated: true, completion: nil)
+        let topMost = topMostViewController(from: presenter) ?? presenter
+        topMost.present(ModalNavigationController(rootViewController: viewController), animated: true, completion: nil)
+    }
+    
+    private var nearestViewController: UIViewController? {
+        var responder: UIResponder? = self
+        while let r = responder {
+            if let vc = r as? UIViewController {
+                return vc
+            }
+            responder = r.next
+        }
+        return nil
+    }
+    
+    private func topMostViewController(from base: UIViewController?) -> UIViewController? {
+        guard let base = base else { return nil }
+        if let nav = base as? UINavigationController {
+            return topMostViewController(from: nav.visibleViewController)
+        }
+        if let tab = base as? UITabBarController {
+            return topMostViewController(from: tab.selectedViewController)
+        }
+        if let presented = base.presentedViewController {
+            return topMostViewController(from: presented)
+        }
+        return base
     }
 }
