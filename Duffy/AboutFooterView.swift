@@ -11,8 +11,13 @@ import DuffyFramework
 
 class AboutFooterView: UIView {
 
-    init() {
+    var onAboutTapped: (() -> Void)?
+    var onTipTapped: (() -> Void)?
+    
+    init(onAboutTapped: @escaping (() -> Void), onTipTapped: @escaping (() -> Void)) {
         super.init(frame: .zero)
+        self.onAboutTapped = onAboutTapped
+        self.onTipTapped = onTipTapped
         initialize()
     }
     
@@ -77,20 +82,10 @@ class AboutFooterView: UIView {
     }
     
     @objc private func openAbout() {
-        open(viewController: AboutTableViewController())
+        onAboutTapped?()
     }
     
     @objc private func openTipJar() {
-        open(viewController: TipViewController())
-    }
-    
-    private func open(viewController: UIViewController) {
-        guard let delegate = UIApplication.shared.delegate as? AppDelegate,
-              let rootViewController = delegate.window?.rootViewController
-        else {
-            return
-        }
-        
-        rootViewController.present(ModalNavigationController(rootViewController: viewController), animated: true, completion: nil)
+        onTipTapped?()
     }
 }

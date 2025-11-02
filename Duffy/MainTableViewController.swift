@@ -110,7 +110,10 @@ class MainTableViewController: UITableViewController {
         if let existingFooter = tableView.tableFooterView {
             footer = existingFooter
         } else {
-            let newFooter = AboutFooterView()
+            let newFooter = AboutFooterView(
+                onAboutTapped: { [weak self] in self?.openAbout() },
+                onTipTapped: { [weak self] in self?.openTips() }
+            )
             tableView.tableFooterView = newFooter
             footer = newFooter
         }
@@ -254,6 +257,14 @@ class MainTableViewController: UITableViewController {
     
     private func openHistory() {
         present(ModalNavigationController(rootViewController: HistoryTableViewController()), animated: true, completion: nil)
+    }
+    
+    private func openAbout() {
+        present(ModalNavigationController(rootViewController: AboutTableViewController()), animated: true, completion: nil)
+    }
+    
+    private func openTips() {
+        present(ModalNavigationController(rootViewController: TipViewController()), animated: true, completion: nil)
     }
     
     @objc private func headerWasTapped() {
