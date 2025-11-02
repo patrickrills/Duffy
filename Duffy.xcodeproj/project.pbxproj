@@ -48,6 +48,7 @@
 		092B0E8B1D45841F00085F99 /* CoreMotionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 092B0E891D45841F00085F99 /* CoreMotionService.swift */; };
 		0930F7DF25696C7B006123FB /* SetGoalInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0930F7DE25696C7B006123FB /* SetGoalInterfaceController.swift */; };
 		09323C711D22C39700961822 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09323C701D22C39700961822 /* AppDelegate.swift */; };
+		09SCENE1762114120000001 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09SCENE1762114120000002 /* SceneDelegate.swift */; };
 		09323C761D22C39700961822 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09323C741D22C39700961822 /* Main.storyboard */; };
 		09323C781D22C39700961822 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09323C771D22C39700961822 /* Assets.xcassets */; };
 		09323C801D22C39700961822 /* Duffy WatchKit App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 09323C7F1D22C39700961822 /* Duffy WatchKit App.app */; };
@@ -271,6 +272,7 @@
 		0930F7DE25696C7B006123FB /* SetGoalInterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGoalInterfaceController.swift; sourceTree = "<group>"; };
 		09323C6D1D22C39700961822 /* Duffy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Duffy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		09323C701D22C39700961822 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		09SCENE1762114120000002 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		09323C771D22C39700961822 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		09323C7C1D22C39700961822 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		09323C7F1D22C39700961822 /* Duffy WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Duffy WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -429,6 +431,7 @@
 				09323CFA1D23027500961822 /* Duffy.entitlements */,
 				094C5DA42E94873000420C35 /* Duffy.icon */,
 				09323C701D22C39700961822 /* AppDelegate.swift */,
+				09SCENE1762114120000002 /* SceneDelegate.swift */,
 				0970859F214F16B600790EC7 /* AppRater.swift */,
 				0900867020F282DE006540E7 /* Globals.swift */,
 				09EEED8026063BE2002731DB /* Reusable */,
@@ -857,6 +860,7 @@
 				0927434B297DDDA500F69D1B /* UIBarButtonItem+DoneButton.swift in Sources */,
 				097085A0214F16B600790EC7 /* AppRater.swift in Sources */,
 				09323C711D22C39700961822 /* AppDelegate.swift in Sources */,
+				09SCENE1762114120000001 /* SceneDelegate.swift in Sources */,
 				0970859E214EAEB200790EC7 /* HourGraphMaxIndicatorView.swift in Sources */,
 				0985E6EB24F174C2000B4A96 /* HistoryTrendChartOption.swift in Sources */,
 				09A7EEB021A39D7100DEDE5C /* HistoryTrendChartView.swift in Sources */,
