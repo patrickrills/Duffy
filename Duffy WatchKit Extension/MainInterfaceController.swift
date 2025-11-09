@@ -409,7 +409,7 @@ class MainInterfaceController: WKInterfaceController
     //MARK: Tipping
     
     @IBAction func showTipOptions() {
-        if #available(watchOSApplicationExtension 6.2, *) {
+        if #available(watchOSApplicationExtension 8.0, *) {
             TipService.getInstance().tipOptions { [weak self] result in
                 switch result {
                 case .success(let options):
@@ -442,7 +442,7 @@ class MainInterfaceController: WKInterfaceController
     }
     
     private func tip(_ optionId: TipIdentifier) {
-        if #available(watchOSApplicationExtension 6.2, *) {
+        if #available(watchOSApplicationExtension 8.0, *) {
             TipService.getInstance().tip(productId: optionId) { [weak self] result in
                 let isError: Bool
                 switch result {

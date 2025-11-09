@@ -35,7 +35,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, UNUserNotificationCenter
             complicationUpdateRequested()
         }
         
-        if #available(watchOS 6.2, *) {
+        if #available(watchOS 8.0, *) {
             TipService.getInstance().initialize()
         }
     }

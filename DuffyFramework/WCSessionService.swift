@@ -173,7 +173,9 @@ public class WCSessionService : NSObject
             
         case .tippedOnWatch(let tipId):
             #if os(iOS)
-                TipService.getInstance().archiveTip(tipId)
+                if #available(iOS 15.0, *) {
+                    TipService.getInstance().archiveTip(tipId)
+                }
             #endif
             
         default:
