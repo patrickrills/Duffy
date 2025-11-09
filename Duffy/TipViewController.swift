@@ -38,19 +38,19 @@ class TipViewController: UICollectionViewController {
     private func retrieveOptions() {
         collectionView.allowsSelection = false
         
-        TipService.getInstance().tipOptions { [weak self] result in
-            switch result {
-            case.success(let tips):
-                self?.tipOptions = tips.sorted { $0.price < $1.price }
-                DispatchQueue.main.async {
-                    self?.collectionView.allowsSelection = true
-                    self?.collectionView.reloadData()
+        Task {
+            do {
+                let tips = try await TipService.getInstance().tipOptions()
+                self.tipOptions = tips.sorted { $0.price < $1.price }
+                await MainActor.run {
+                    self.collectionView.allowsSelection = true
+                    self.collectionView.reloadData()
                 }
-            case .failure(let error):
+            } catch {
                 LoggingService.log(error: error)
-                DispatchQueue.main.async {
-                    self?.displayMessage(NSLocalizedString("Unable to communicate with the App Store. Do you want to try again?", comment: ""), retry: {
-                        self?.retrieveOptions()
+                await MainActor.run {
+                    self.displayMessage(NSLocalizedString("Unable to communicate with the App Store. Do you want to try again?", comment: ""), retry: {
+                        self.retrieveOptions()
                     })
                 }
             }
@@ -58,17 +58,17 @@ class TipViewController: UICollectionViewController {
     }
     
     private func tip(_ optionId: TipIdentifier) {
-        TipService.getInstance().tip(productId: optionId) { [weak self] result in
-            switch result {
-            case .success(_):
-                DispatchQueue.main.async {
-                    self?.displayMessage(NSLocalizedString("Thanks so much for the tip! 🙏", comment: ""), retry: nil)
+        Task {
+            do {
+                _ = try await TipService.getInstance().tip(productId: optionId)
+                await MainActor.run {
+                    self.displayMessage(NSLocalizedString("Thanks so much for the tip! 🙏", comment: ""), retry: nil)
                 }
-            case .failure(let error):
+            } catch {
                 LoggingService.log(error: error)
-                DispatchQueue.main.async {
-                    self?.displayMessage(NSLocalizedString("Your tip did not go through. Do you want to try again?", comment: ""), retry: { [weak self] in
-                        self?.tip(optionId)
+                await MainActor.run {
+                    self.displayMessage(NSLocalizedString("Your tip did not go through. Do you want to try again?", comment: ""), retry: {
+                        self.tip(optionId)
                     })
                 }
             }

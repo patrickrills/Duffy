@@ -410,15 +410,15 @@ class MainInterfaceController: WKInterfaceController
     
     @IBAction func showTipOptions() {
         if #available(watchOSApplicationExtension 8.0, *) {
-            TipService.getInstance().tipOptions { [weak self] result in
-                switch result {
-                case .success(let options):
-                    DispatchQueue.main.async {
+            Task { [weak self] in
+                do {
+                    let options = try await TipService.getInstance().tipOptions()
+                    await MainActor.run {
                         self?.displayTipOptions(options)
                     }
-                case .failure(let error):
+                } catch {
                     LoggingService.log(error: error)
-                    DispatchQueue.main.async {
+                    await MainActor.run {
                         self?.tipButton.setHidden(true)
                     }
                 }
@@ -443,19 +443,18 @@ class MainInterfaceController: WKInterfaceController
     
     private func tip(_ optionId: TipIdentifier) {
         if #available(watchOSApplicationExtension 8.0, *) {
-            TipService.getInstance().tip(productId: optionId) { [weak self] result in
-                let isError: Bool
-                switch result {
-                case .success(let tipId):
+            Task { [weak self] in
+                do {
+                    let tipId = try await TipService.getInstance().tip(productId: optionId)
                     WCSessionService.getInstance().sendTipToPhone(tipId)
-                    isError = false
-                case .failure(let error):
+                    await MainActor.run {
+                        self?.displayTipMessage(false)
+                    }
+                } catch {
                     LoggingService.log(error: error)
-                    isError = true
-                }
-                
-                DispatchQueue.main.async {
-                    self?.displayTipMessage(isError)
+                    await MainActor.run {
+                        self?.displayTipMessage(true)
+                    }
                 }
             }
         }

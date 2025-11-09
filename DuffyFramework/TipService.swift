@@ -48,48 +48,35 @@ public class TipService {
         }
     }
     
-    public func tipOptions(_ completionHandler: @escaping (Result<[TipOption], StoreKitError>) -> ()) {
-        Task {
-            do {
-                if productCache.isEmpty {
-                    try await loadProducts()
-                }
-                completionHandler(.success(options))
-            } catch {
-                completionHandler(.failure(.wrapped(error)))
-            }
+    public func tipOptions() async throws -> [TipOption] {
+        if productCache.isEmpty {
+            try await loadProducts()
         }
+        return options
     }
     
-    public func tip(productId: TipIdentifier, completionHandler: @escaping (Result<TipIdentifier, StoreKitError>) -> ()) {
-        Task {
-            guard let tipProduct = productCache[productId] else {
-                completionHandler(.failure(.productDownloadFailed))
-                return
-            }
+    public func tip(productId: TipIdentifier) async throws -> TipIdentifier {
+        guard let tipProduct = productCache[productId] else {
+            throw StoreKitError.productDownloadFailed
+        }
+        
+        let result = try await tipProduct.purchase()
+        
+        switch result {
+        case .success(let verification):
+            let transaction = try checkVerified(verification)
+            await transaction.finish()
+            archiveTip(productId)
+            return productId
             
-            do {
-                let result = try await tipProduct.purchase()
-                
-                switch result {
-                case .success(let verification):
-                    let transaction = try checkVerified(verification)
-                    await transaction.finish()
-                    archiveTip(productId)
-                    completionHandler(.success(productId))
-                    
-                case .userCancelled:
-                    completionHandler(.failure(.purchaseFailed))
-                    
-                case .pending:
-                    completionHandler(.failure(.purchaseFailed))
-                    
-                @unknown default:
-                    completionHandler(.failure(.purchaseFailed))
-                }
-            } catch {
-                completionHandler(.failure(.wrapped(error)))
-            }
+        case .userCancelled:
+            throw StoreKitError.purchaseFailed
+            
+        case .pending:
+            throw StoreKitError.purchaseFailed
+            
+        @unknown default:
+            throw StoreKitError.purchaseFailed
         }
     }
     
