@@ -409,16 +409,14 @@ class MainInterfaceController: WKInterfaceController
     //MARK: Tipping
     
     @IBAction func showTipOptions() {
-        if #available(watchOSApplicationExtension 6.2, *) {
-            TipService.getInstance().tipOptions { [weak self] result in
-                switch result {
-                case .success(let options):
-                    DispatchQueue.main.async {
-                        self?.displayTipOptions(options)
-                    }
-                case .failure(let error):
+        if #available(watchOSApplicationExtension 8.0, *) {
+            Task { [weak self] in
+                do {
+                    let options = try await TipService.getInstance().tipOptions()
+                    self?.displayTipOptions(options)
+                } catch {
                     LoggingService.log(error: error)
-                    DispatchQueue.main.async {
+                    await MainActor.run {
                         self?.tipButton.setHidden(true)
                     }
                 }
@@ -426,6 +424,7 @@ class MainInterfaceController: WKInterfaceController
         }
     }
     
+    @MainActor
     private func displayTipOptions(_ options: [TipOption]) {
         var actions = options
             .sorted {
@@ -442,25 +441,21 @@ class MainInterfaceController: WKInterfaceController
     }
     
     private func tip(_ optionId: TipIdentifier) {
-        if #available(watchOSApplicationExtension 6.2, *) {
-            TipService.getInstance().tip(productId: optionId) { [weak self] result in
-                let isError: Bool
-                switch result {
-                case .success(let tipId):
-                    WCSessionService.getInstance().sendTipToPhone(tipId)
-                    isError = false
-                case .failure(let error):
+        if #available(watchOSApplicationExtension 8.0, *) {
+            Task { [weak self] in
+                do {
+                    _ = try await TipService.getInstance().tip(productId: optionId)
+                    WCSessionService.getInstance().sendTipToPhone(optionId)
+                    self?.displayTipMessage(false)
+                } catch {
                     LoggingService.log(error: error)
-                    isError = true
-                }
-                
-                DispatchQueue.main.async {
-                    self?.displayTipMessage(isError)
+                    self?.displayTipMessage(true)
                 }
             }
         }
     }
     
+    @MainActor
     private func displayTipMessage(_ isError: Bool) {
         let message = isError
             ? NSLocalizedString("Your tip did not go through. Please try again.", comment: "")

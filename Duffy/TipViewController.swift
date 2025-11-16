@@ -38,60 +38,52 @@ class TipViewController: UICollectionViewController {
     private func retrieveOptions() {
         collectionView.allowsSelection = false
         
-        TipService.getInstance().tipOptions { [weak self] result in
-            switch result {
-            case.success(let tips):
-                self?.tipOptions = tips.sorted { $0.price < $1.price }
-                DispatchQueue.main.async {
-                    self?.collectionView.allowsSelection = true
-                    self?.collectionView.reloadData()
+        Task { [weak self] in
+            do {
+                self?.tipOptions = try await TipService.getInstance().tipOptions()
+                await MainActor.run {
+                    self?.refresh()
                 }
-            case .failure(let error):
+            } catch {
                 LoggingService.log(error: error)
-                DispatchQueue.main.async {
-                    self?.displayMessage(NSLocalizedString("Unable to communicate with the App Store. Do you want to try again?", comment: ""), retry: {
-                        self?.retrieveOptions()
-                    })
-                }
+                self?.displayMessage(NSLocalizedString("Unable to communicate with the App Store. Do you want to try again?", comment: ""), retry: { self?.retrieveOptions() })
             }
         }
+    }
+    
+    private func refresh() {
+        collectionView.allowsSelection = true
+        collectionView.reloadData()
     }
     
     private func tip(_ optionId: TipIdentifier) {
-        TipService.getInstance().tip(productId: optionId) { [weak self] result in
-            switch result {
-            case .success(_):
-                DispatchQueue.main.async {
-                    self?.displayMessage(NSLocalizedString("Thanks so much for the tip! 🙏", comment: ""), retry: nil)
-                }
-            case .failure(let error):
+        Task { [weak self] in
+            do {
+                _ = try await TipService.getInstance().tip(productId: optionId)
+                self?.displayMessage(NSLocalizedString("Thanks so much for the tip! 🙏", comment: ""), retry: nil)
+            } catch {
                 LoggingService.log(error: error)
-                DispatchQueue.main.async {
-                    self?.displayMessage(NSLocalizedString("Your tip did not go through. Do you want to try again?", comment: ""), retry: { [weak self] in
-                        self?.tip(optionId)
-                    })
-                }
+                self?.displayMessage(NSLocalizedString("Your tip did not go through. Do you want to try again?", comment: ""), retry: { self?.tip(optionId) })
             }
         }
     }
     
+    @MainActor
     private func displayMessage(_ message: String, retry: (() -> ())?) {
         let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        
+        let reset: (UIAlertAction) -> () = { [weak self] _ in
+            self?.refresh()
+        }
         
         if let retry = retry {
             alert.addAction(UIAlertAction(title: NSLocalizedString("Try Again", comment: ""), style: .default, handler: { _ in
                 retry()
             }))
             
-            let reloadCollection: (UIAlertAction) -> () = { [weak collectionView] _ in
-                collectionView?.reloadData()
-            }
-            alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel, handler: reloadCollection))
+            alert.addAction(UIAlertAction(title: NSLocalizedString("Cancel", comment: ""), style: .cancel, handler: reset))
         } else {
-            let navigateBack: (UIAlertAction) -> () = { [weak self] _ in
-                self?.navigationController?.popViewController(animated: true)
-            }
-            alert.addAction(UIAlertAction(title: NSLocalizedString("Dismiss", comment: ""), style: .cancel, handler: navigateBack))
+            alert.addAction(UIAlertAction(title: NSLocalizedString("Dismiss", comment: ""), style: .cancel, handler: reset))
         }
         
         present(alert, animated: true, completion: nil)

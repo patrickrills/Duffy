@@ -9,18 +9,17 @@
 import Foundation
 import StoreKit
 
-@available(watchOS 6.2, *)
-public class TipService: NSObject {
+@available(watchOS 8.0, *)
+public class TipService {
     
     private static let instance: TipService = TipService()
     
-    public override init() {
-        super.init()
-        SKPaymentQueue.default().add(self)
+    public init() {
+        
     }
     
     deinit {
-        SKPaymentQueue.default().remove(self)
+        
     }
     
     public class func getInstance() -> TipService {
@@ -28,58 +27,45 @@ public class TipService: NSObject {
     }
     
     public func initialize() {
-        downloadAndCacheProducts(nil)
+        Task {
+            do {
+                try await loadProducts()
+            } catch {
+                LoggingService.log(error: error)
+            }
+        }
     }
     
-    private lazy var currencyFormatter: NumberFormatter = {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .currency
-        return formatter
-    }()
-    
-    private var productCache: [TipIdentifier : SKProduct] = [:]
+    private var productCache: [TipIdentifier : Product] = [:]
     private var options: [TipOption] {
         return productCache.map { key, value in
-            currencyFormatter.locale = value.priceLocale
-            return TipOption(identifier: key, formattedPrice: currencyFormatter.string(for: value.price) ?? "?", price: value.price.doubleValue)
+            return TipOption(identifier: key, formattedPrice: value.displayPrice, price: value.price)
         }
     }
     
-    private var pendingProductsRequest: SKProductsRequest?
-    private var pendingProductsRequestHandler: ((Result<[TipOption], StoreKitError>) -> ())?
-    
-    public func tipOptions(_ completionHandler: @escaping (Result<[TipOption], StoreKitError>) -> ()) {
-        guard !productCache.isEmpty else {
-            downloadAndCacheProducts(completionHandler)
-            return
+    public func tipOptions() async throws -> [TipOption] {
+        if productCache.isEmpty {
+            try await loadProducts()
         }
         
-        completionHandler(.success(options))
+        return options
     }
     
-    private var pendingProductsPurchaseHandler: ((Result<TipIdentifier, StoreKitError>) -> ())?
-    
-    public func tip(productId: TipIdentifier, completionHandler: @escaping (Result<TipIdentifier, StoreKitError>) -> ()) {
+    public func tip(productId: TipIdentifier) async throws -> TipIdentifier {
         guard let tipProduct = productCache[productId] else {
-            return
+            throw StoreKitError.productDownloadFailed
         }
         
-        pendingProductsPurchaseHandler = completionHandler
-        
-        let payment = SKPayment(product: tipProduct)
-        SKPaymentQueue.default().add(payment)
-    }
-    
-    private func downloadAndCacheProducts(_ completionHandler: ((Result<[TipOption], StoreKitError>) -> ())?) {
-        guard pendingProductsRequest == nil else {
-            return
+        let result = try await tipProduct.purchase()
+        switch result {
+        case .success(let verification):
+            let transaction = try checkVerified(verification)
+            await transaction.finish()
+            archiveTip(productId)
+            return productId
+        default:
+            throw StoreKitError.purchaseFailed
         }
-        
-        let request = SKProductsRequest(productIdentifiers: Set(TipIdentifier.allCases.map({ $0.rawValue })))
-        request.delegate = self
-        request.start()
-        pendingProductsRequest = request
-        pendingProductsRequestHandler = completionHandler
     }
     
     private static let ARCHIVE_KEY: String = "tipArchive"
@@ -103,67 +89,27 @@ public class TipService: NSObject {
             UserDefaults.standard.set(newData, forKey: Self.ARCHIVE_KEY)
         }
     }
-}
-
-@available(watchOSApplicationExtension 6.2, *)
-extension TipService: SKProductsRequestDelegate {
     
-    public func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
-        guard response.products.count > 0 else {
-            pendingProductsRequestHandler?(.failure(.productDownloadFailed))
-            pendingProductsRequest = nil
-            return
+    private func loadProducts() async throws {
+        let products = try await Product.products(for: TipIdentifier.allCases.map { $0.rawValue })
+        
+        guard !products.isEmpty else {
+            throw StoreKitError.productDownloadFailed
         }
         
-        productCache = response.products.reduce(into: [:]) { result, product in
-            if let tipId = TipIdentifier(rawValue: product.productIdentifier) {
+        productCache = products.reduce(into: [:]) { result, product in
+            if let tipId = TipIdentifier(rawValue: product.id) {
                 result[tipId] = product
             }
         }
-        
-        pendingProductsRequestHandler?(.success(options))
-        pendingProductsRequest = nil
     }
     
-}
-
-@available(watchOSApplicationExtension 6.2, *)
-extension TipService: SKPaymentTransactionObserver {
-    
-    public func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
-        transactions.forEach { trans in
-            switch trans.transactionState {
-            case .purchased:
-                finishTransaction(trans, in: queue, wasSuccessful: true)
-            case .failed:
-                finishTransaction(trans, in: queue, wasSuccessful: false)
-            default:
-                break
-            }
+    private func checkVerified<T>(_ result: VerificationResult<T>) throws -> T {
+        switch result {
+        case .unverified:
+            throw StoreKitError.purchaseFailed
+        case .verified(let transaction):
+            return transaction
         }
-    }
-    
-    private func finishTransaction(_ transaction: SKPaymentTransaction, in queue: SKPaymentQueue, wasSuccessful: Bool) {
-        queue.finishTransaction(transaction)
-        
-        guard let tipId = TipIdentifier(rawValue: transaction.payment.productIdentifier),
-              let handler = pendingProductsPurchaseHandler
-        else {
-            return
-        }
-        
-        let purchaseResult: Result<TipIdentifier, StoreKitError>
-        
-        if wasSuccessful {
-            purchaseResult = .success(tipId)
-            archiveTip(tipId)
-        } else if let purchaseError = transaction.error {
-            purchaseResult = .failure(.wrapped(purchaseError))
-        } else {
-            purchaseResult = .failure(.purchaseFailed)
-        }
-        
-        handler(purchaseResult)
-        pendingProductsPurchaseHandler = nil
     }
 }
