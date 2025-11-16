@@ -446,20 +446,29 @@ class MainInterfaceController: WKInterfaceController
                 do {
                     _ = try await TipService.getInstance().tip(productId: optionId)
                     WCSessionService.getInstance().sendTipToPhone(optionId)
-                    self?.displayTipMessage(false)
+                    self?.displayTipMessage(MainInterfaceController.TIP_MESSAGE_SUCCESS)
                 } catch {
                     LoggingService.log(error: error)
-                    self?.displayTipMessage(true)
+                    
+                    if let storeError = error as? StoreKitError {
+                        switch storeError {
+                        case .purchasePending:
+                            self?.displayTipMessage(MainInterfaceController.TIP_MESSAGE_PENDING)
+                        default:
+                            self?.displayTipMessage(MainInterfaceController.TIP_MESSAGE_ERROR)
+                        }
+                    }
                 }
             }
         }
     }
     
+    private static let TIP_MESSAGE_SUCCESS: String = NSLocalizedString("Thanks so much for the tip! 🙏", comment: "")
+    private static let TIP_MESSAGE_ERROR: String = NSLocalizedString("Your tip did not go through. Please try again.", comment: "")
+    private static let TIP_MESSAGE_PENDING: String = "Your tip is pending"
+    
     @MainActor
-    private func displayTipMessage(_ isError: Bool) {
-        let message = isError
-            ? NSLocalizedString("Your tip did not go through. Please try again.", comment: "")
-            : NSLocalizedString("Thanks so much for the tip! 🙏", comment: "")
+    private func displayTipMessage(_ message: String) {
         presentAlert(withTitle: nil, message: message, preferredStyle: .alert, actions: [WKAlertAction(title: NSLocalizedString("Dismiss", comment: ""), style: .cancel, handler: {})])
     }
     

@@ -14,12 +14,14 @@ public class TipService {
     
     private static let instance: TipService = TipService()
     
+    private var updates: Task<Void, Never>? = nil
+    
     public init() {
-        
+        updates = newTransactionListenerTask()
     }
     
     deinit {
-        
+        updates?.cancel()
     }
     
     public class func getInstance() -> TipService {
@@ -27,7 +29,7 @@ public class TipService {
     }
     
     public func initialize() {
-        Task {
+        Task(priority: .userInitiated) {
             do {
                 try await loadProducts()
             } catch {
@@ -63,6 +65,8 @@ public class TipService {
             await transaction.finish()
             archiveTip(productId)
             return productId
+        case .pending:
+            throw StoreKitError.purchasePending
         default:
             throw StoreKitError.purchaseFailed
         }
@@ -110,6 +114,23 @@ public class TipService {
             throw StoreKitError.purchaseFailed
         case .verified(let transaction):
             return transaction
+        }
+    }
+    
+    private func newTransactionListenerTask() -> Task<Void, Never> {
+        Task.detached(priority: .background) {
+            for await verificationResult in Transaction.updates {
+                do {
+                    let transaction = try self.checkVerified(verificationResult)
+                    await transaction.finish()
+                    
+                    if let tipId = TipIdentifier(rawValue: transaction.productID) {
+                        self.archiveTip(tipId)
+                    }
+                } catch {
+                    LoggingService.log(error: error)
+                }
+            }
         }
     }
 }

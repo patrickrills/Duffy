@@ -63,7 +63,15 @@ class TipViewController: UICollectionViewController {
                 self?.displayMessage(NSLocalizedString("Thanks so much for the tip! 🙏", comment: ""), retry: nil)
             } catch {
                 LoggingService.log(error: error)
-                self?.displayMessage(NSLocalizedString("Your tip did not go through. Do you want to try again?", comment: ""), retry: { self?.tip(optionId) })
+                
+                if let storeError = error as? StoreKitError {
+                    switch storeError {
+                    case .purchasePending:
+                        self?.displayMessage("Your tip is pending", retry: nil)
+                    default:
+                        self?.displayMessage(NSLocalizedString("Your tip did not go through. Do you want to try again?", comment: ""), retry: { self?.tip(optionId) })
+                    }
+                }
             }
         }
     }

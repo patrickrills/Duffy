@@ -11,6 +11,7 @@ import Foundation
 public enum StoreKitError: Error {
     case productDownloadFailed
     case purchaseFailed
+    case purchasePending
 }
 
 extension StoreKitError: LocalizedError {
@@ -20,6 +21,8 @@ extension StoreKitError: LocalizedError {
             return "Could not download product information from store."
         case .purchaseFailed:
             return "The purchase could not be completed."
+        case .purchasePending:
+            return "the purchase is pending and could be concluded later."
         }
     }
 }
