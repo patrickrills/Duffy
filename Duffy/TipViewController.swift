@@ -67,7 +67,7 @@ class TipViewController: UICollectionViewController {
                 if let storeError = error as? StoreKitError {
                     switch storeError {
                     case .purchasePending:
-                        self?.displayMessage("Your tip is pending", retry: nil)
+                        self?.displayMessage(NSLocalizedString("Your tip is pending.", comment: ""), retry: nil)
                     default:
                         self?.displayMessage(NSLocalizedString("Your tip did not go through. Do you want to try again?", comment: ""), retry: { self?.tip(optionId) })
                     }

@@ -22,7 +22,7 @@ extension StoreKitError: LocalizedError {
         case .purchaseFailed:
             return "The purchase could not be completed."
         case .purchasePending:
-            return "the purchase is pending and could be concluded later."
+            return "The purchase is pending and could be concluded later."
         }
     }
 }

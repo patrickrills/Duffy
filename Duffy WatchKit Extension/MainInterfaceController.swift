@@ -465,7 +465,7 @@ class MainInterfaceController: WKInterfaceController
     
     private static let TIP_MESSAGE_SUCCESS: String = NSLocalizedString("Thanks so much for the tip! 🙏", comment: "")
     private static let TIP_MESSAGE_ERROR: String = NSLocalizedString("Your tip did not go through. Please try again.", comment: "")
-    private static let TIP_MESSAGE_PENDING: String = "Your tip is pending"
+    private static let TIP_MESSAGE_PENDING: String = NSLocalizedString("Your tip is pending.", comment: "")
     
     @MainActor
     private func displayTipMessage(_ message: String) {
