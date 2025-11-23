@@ -17,6 +17,7 @@ enum WCSessionMessage {
     case goalTrigger(day: Date)
     case systemVersionRequest
     case tippedOnWatch(tipId: TipIdentifier)
+    case phoneWidgetUpdate(day: Date)
     
     init?(rawMessage: [String : Any]) {
         guard let messageKey = rawMessage.keys.first else { return nil }
@@ -82,6 +83,13 @@ enum WCSessionMessage {
                 fallthrough
             }
             
+        case WCSessionMessageKeys.phoneWidgetUpdate.rawValue:
+            if let dayInterval = rawMessage[messageKey] as? TimeInterval {
+                self = .phoneWidgetUpdate(day: Date(timeIntervalSinceReferenceDate: dayInterval))
+            } else {
+                fallthrough
+            }
+            
         default:
             return nil
         }
@@ -106,6 +114,8 @@ enum WCSessionMessage {
             return [WCSessionMessageKeys.systemVersionRequest.rawValue : "1"]
         case .tippedOnWatch(let tipId):
             return [WCSessionMessageKeys.tippedOnWatch.rawValue : tipId.rawValue]
+        case .phoneWidgetUpdate(let day):
+            return [WCSessionMessageKeys.phoneWidgetUpdate.rawValue : day.timeIntervalSinceReferenceDate]
         }
     }
 }
@@ -119,4 +129,5 @@ fileprivate enum WCSessionMessageKeys: String {
     case goalTrigger = "goalTrigger"
     case systemVersionRequest = "systemVersionRequest"
     case tippedOnWatch = "tippedOnWatch"
+    case phoneWidgetUpdate = "phoneWidgetUpdate"
 }
