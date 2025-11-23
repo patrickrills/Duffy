@@ -52,6 +52,8 @@ public class WCSessionService : NSObject
     public func updateWatchFaceComplication(with steps: Steps, for day: Date) {
         #if os(iOS)
             sendComplicationDataToWatch(steps, day: day)
+        #else
+            triggerPhoneWidgetRefresh(day)
         #endif
         
         delegate?.complicationUpdateRequested()
@@ -119,6 +121,10 @@ public class WCSessionService : NSObject
         send(message: .tippedOnWatch(tipId: tipId), completionHandler: nil)
     }
     
+    public func triggerPhoneWidgetRefresh(_ day: Date) {
+        send(message: .phoneWidgetUpdate(day: day), completionHandler: nil)
+    }
+    
     private func send(message: WCSessionMessage, completionHandler: ((Bool) -> ())?) {
         guard WCSession.isSupported(),
               WCSession.default.activationState == .activated
@@ -174,6 +180,13 @@ public class WCSessionService : NSObject
         case .tippedOnWatch(let tipId):
             #if os(iOS)
                 TipService.getInstance().archiveTip(tipId)
+            #endif
+            
+        case .phoneWidgetUpdate(let day):
+            #if os(iOS)
+                if day.isToday() {
+                    StepsProcessingService.triggerUpdate(from: "watch compilcation update") { LoggingService.log("Widget refresh triggered by watch complication update") }
+                }
             #endif
             
         default:
