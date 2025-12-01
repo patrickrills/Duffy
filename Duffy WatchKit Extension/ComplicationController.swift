@@ -9,6 +9,9 @@
 import ClockKit
 import SwiftUI
 import DuffyWatchFramework
+#if canImport(WidgetKit)
+import WidgetKit
+#endif
 
 class ComplicationController: NSObject, CLKComplicationDataSource {
     
@@ -32,6 +35,16 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     // MARK: Timeline Population
     
     class func refreshComplication() {
+        // Refresh WidgetKit complications for watchOS 9+
+        if #available(watchOS 9.0, *) {
+            #if canImport(WidgetKit)
+            WidgetCenter.shared.reloadTimelines(ofKind: "DuffyWidget")
+            WidgetCenter.shared.reloadTimelines(ofKind: "DuffyGaugeWidget")
+            LoggingService.log("WidgetKit reloadTimelines", with: String(format: "%d", HealthCache.lastSteps(for: Date())))
+            #endif
+        }
+        
+        // Also refresh ClockKit for backward compatibility
         let server = CLKComplicationServer.sharedInstance()
         if let allComplications = server.activeComplications {
             allComplications.forEach { server.reloadTimeline(for: $0) }
