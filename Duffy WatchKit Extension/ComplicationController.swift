@@ -113,9 +113,11 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
             if #available(watchOSApplicationExtension 7.0, *) {
                 if complicationId == IDENTIFIER_JUST_STEPS {
                     return getEntryForNoGaugeGraphicRectangle(steps)
+                } else {
+                    return getEntryForGraphicRectangleSwiftUI(steps, stepsGoal)
                 }
             }
-            
+            // watchOS 5-6 fall back to legacy template
             return getEntryForGraphicRectangle(steps, stepsGoal)
         case .graphicCorner:
             if #available(watchOSApplicationExtension 7.0, *) {
@@ -129,9 +131,11 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
             if #available(watchOSApplicationExtension 7.0, *) {
                 if complicationId == IDENTIFIER_JUST_STEPS {
                     return getEntryForNoGaugeGraphicCircular(steps)
+                } else {
+                    return getEntryForGraphicCircularSwiftUI(steps, stepsGoal)
                 }
             }
-            
+            // watchOS 5-6 fall back to legacy template
             return getEntryForGraphicCircular(steps, stepsGoal)
         case .graphicBezel:
             return getEntryForGraphicBezel(steps, stepsGoal)
@@ -142,7 +146,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         if #available(watchOS 7.0, *) {
             switch complication.family {
             case .graphicExtraLarge:
-                return getEntryForGraphicExtraLarge(steps)
+                return getEntryForGraphicExtraLargeSwiftUI(steps)
             default:
                 break
             }
@@ -182,10 +186,12 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
             if #available(watchOSApplicationExtension 7.0, *) {
                 if complicationId == IDENTIFIER_JUST_STEPS {
                     template = getTemplateForNoGaugeGraphicRectangle(sampleSteps)
-                    break
+                } else {
+                    template = getTemplateForGraphicRectangleSwiftUI(sampleSteps, sampleStepsGoal)
                 }
+                break
             }
-            
+            // watchOS 5-6 fall back to legacy template
             template = getTemplateForGraphicRectangle(sampleSteps, sampleStepsGoal)
         case .graphicCorner:
             if #available(watchOSApplicationExtension 7.0, *) {
@@ -200,10 +206,12 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
             if #available(watchOSApplicationExtension 7.0, *) {
                 if complicationId == IDENTIFIER_JUST_STEPS {
                     template = getTemplateForNoGaugeGraphicCircular(sampleSteps)
-                    break
+                } else {
+                    template = getTemplateForGraphicCircularSwiftUI(sampleSteps, sampleStepsGoal)
                 }
+                break
             }
-            
+            // watchOS 5-6 fall back to legacy template
             template = getTemplateForTextCircular(sampleSteps, sampleStepsGoal)
         case .graphicBezel:
             template = getTemplateForGraphicBezel(sampleSteps, sampleStepsGoal)
@@ -214,7 +222,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         if #available(watchOS 7.0, *) {
             switch complication.family {
             case .graphicExtraLarge:
-                template = getTemplateForGraphicExtraLarge(sampleSteps)
+                template = getTemplateForGraphicExtraLargeSwiftUI(sampleSteps)
             default:
                 break
             }
@@ -229,6 +237,63 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     
     private let BLUE_TINT = UIColor(red: 32.0/255.0, green: 148.0/255.0, blue: 250.0/255.0, alpha: 1)
     private let TEAL_TINT = UIColor(red: 45.0/255.0, green: 221.0/255.0, blue: 255.0/255.0, alpha: 1)
+    
+    //MARK: - SwiftUI Helper (watchOS 7+)
+    
+    @available(watchOSApplicationExtension 7.0, *)
+    private func createComplicationData(steps: Steps, goal: Steps) -> ComplicationData {
+        let formatter = StepsFormatter()
+        return ComplicationData(steps: steps, goal: goal, formatter: formatter)
+    }
+    
+    //MARK: - SwiftUI Templates for Graphic Rectangular (watchOS 7+)
+    
+    @available(watchOSApplicationExtension 7.0, *)
+    private func getTemplateForGraphicRectangleSwiftUI(_ totalSteps: Steps, _ goal: Steps) -> CLKComplicationTemplate {
+        let data = createComplicationData(steps: totalSteps, goal: goal)
+        let shoe = UIImage(named: "GraphicRectShoe")!
+        return CLKComplicationTemplateGraphicRectangularFullView(
+            GraphicRectangularGaugeView(data: data, shoeImage: shoe)
+        )
+    }
+    
+    @available(watchOSApplicationExtension 7.0, *)
+    private func getEntryForGraphicRectangleSwiftUI(_ totalSteps: Steps, _ goal: Steps) -> CLKComplicationTimelineEntry {
+        let template = getTemplateForGraphicRectangleSwiftUI(totalSteps, goal)
+        return CLKComplicationTimelineEntry(date: Date(), complicationTemplate: template)
+    }
+    
+    //MARK: - SwiftUI Templates for Graphic Circular (watchOS 7+)
+    
+    @available(watchOSApplicationExtension 7.0, *)
+    private func getTemplateForGraphicCircularSwiftUI(_ totalSteps: Steps, _ goal: Steps) -> CLKComplicationTemplate {
+        let data = createComplicationData(steps: totalSteps, goal: goal)
+        return CLKComplicationTemplateGraphicCircularView(
+            GraphicCircularGaugeView(data: data)
+        )
+    }
+    
+    @available(watchOSApplicationExtension 7.0, *)
+    private func getEntryForGraphicCircularSwiftUI(_ totalSteps: Steps, _ goal: Steps) -> CLKComplicationTimelineEntry {
+        let template = getTemplateForGraphicCircularSwiftUI(totalSteps, goal)
+        return CLKComplicationTimelineEntry(date: Date(), complicationTemplate: template)
+    }
+    
+    //MARK: - SwiftUI Templates for Graphic Extra Large (watchOS 7+)
+    
+    @available(watchOSApplicationExtension 7.0, *)
+    private func getTemplateForGraphicExtraLargeSwiftUI(_ totalSteps: Steps) -> CLKComplicationTemplate {
+        let data = createComplicationData(steps: totalSteps, goal: HealthCache.dailyGoal())
+        return CLKComplicationTemplateGraphicExtraLargeCircularView(
+            GraphicExtraLargeView(data: data)
+        )
+    }
+    
+    @available(watchOSApplicationExtension 7.0, *)
+    private func getEntryForGraphicExtraLargeSwiftUI(_ totalSteps: Steps) -> CLKComplicationTimelineEntry {
+        let template = getTemplateForGraphicExtraLargeSwiftUI(totalSteps)
+        return CLKComplicationTimelineEntry(date: Date(), complicationTemplate: template)
+    }
     
     //MARK: Modular Small
     
