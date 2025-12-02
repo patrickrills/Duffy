@@ -50,6 +50,7 @@ public class DebugLogEntry: NSObject {
             let isSendComplication = self.message.contains("updateWatchFaceComplication")
             let isReloadComplication = self.message.contains("reloadTimeline")
             let isCoreMotion = self.message.contains("CMPedometer")
+            let isCache = self.message.contains("Save steps to cache")
         
             if isOpen {
                 return .systemGreen
@@ -61,6 +62,8 @@ public class DebugLogEntry: NSObject {
                 return .systemTeal
             } else if isCoreMotion {
                 return .systemOrange
+            } else if isCache {
+                return .systemIndigo
             } else {
                 return .label
             }

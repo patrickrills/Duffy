@@ -53,13 +53,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate
 extension AppDelegate: WCSessionServiceDelegate {
     
     func complicationUpdateRequested() {
+        LoggingService.log("Getting Widget Current Configurations")
+        
         //Update widget - if enabled
         WidgetCenter.shared.getCurrentConfigurations { result in
             switch result {
             case .success(let configurations):
                 if !configurations.isEmpty {
                     WidgetCenter.shared.reloadAllTimelines()
-                    LoggingService.log("Refresh all phone widgets")
+                    LoggingService.log("Refreshed all phone widgets")
                 }
             case .failure:
                 LoggingService.log("Could not retrieve widget information")
