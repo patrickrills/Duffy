@@ -410,21 +410,18 @@ class MainInterfaceController: WKInterfaceController
     
     @IBAction func showTipOptions() {
         if #available(watchOSApplicationExtension 8.0, *) {
-            Task { [weak self] in
+            Task {
                 do {
                     let options = try await TipService.getInstance().tipOptions()
-                    self?.displayTipOptions(options)
+                    displayTipOptions(options)
                 } catch {
                     LoggingService.log(error: error)
-                    await MainActor.run {
-                        self?.tipButton.setHidden(true)
-                    }
+                    tipButton.setHidden(true)
                 }
             }
         }
     }
     
-    @MainActor
     private func displayTipOptions(_ options: [TipOption]) {
         var actions = options
             .sorted {
@@ -442,20 +439,20 @@ class MainInterfaceController: WKInterfaceController
     
     private func tip(_ optionId: TipIdentifier) {
         if #available(watchOSApplicationExtension 8.0, *) {
-            Task { [weak self] in
+            Task {
                 do {
                     _ = try await TipService.getInstance().tip(productId: optionId)
                     WCSessionService.getInstance().sendTipToPhone(optionId)
-                    self?.displayTipMessage(MainInterfaceController.TIP_MESSAGE_SUCCESS)
+                    displayTipMessage(MainInterfaceController.TIP_MESSAGE_SUCCESS)
                 } catch {
                     LoggingService.log(error: error)
                     
                     if let storeError = error as? StoreKitError {
                         switch storeError {
                         case .purchasePending:
-                            self?.displayTipMessage(MainInterfaceController.TIP_MESSAGE_PENDING)
+                            displayTipMessage(MainInterfaceController.TIP_MESSAGE_PENDING)
                         default:
-                            self?.displayTipMessage(MainInterfaceController.TIP_MESSAGE_ERROR)
+                            displayTipMessage(MainInterfaceController.TIP_MESSAGE_ERROR)
                         }
                     }
                 }
@@ -467,7 +464,6 @@ class MainInterfaceController: WKInterfaceController
     private static let TIP_MESSAGE_ERROR: String = NSLocalizedString("Your tip did not go through. Please try again.", comment: "")
     private static let TIP_MESSAGE_PENDING: String = NSLocalizedString("Your tip is pending.", comment: "")
     
-    @MainActor
     private func displayTipMessage(_ message: String) {
         presentAlert(withTitle: nil, message: message, preferredStyle: .alert, actions: [WKAlertAction(title: NSLocalizedString("Dismiss", comment: ""), style: .cancel, handler: {})])
     }

@@ -38,15 +38,13 @@ class TipViewController: UICollectionViewController {
     private func retrieveOptions() {
         collectionView.allowsSelection = false
         
-        Task { [weak self] in
+        Task {
             do {
-                self?.tipOptions = try await TipService.getInstance().tipOptions()
-                await MainActor.run {
-                    self?.refresh()
-                }
+                self.tipOptions = try await TipService.getInstance().tipOptions()
+                refresh()
             } catch {
                 LoggingService.log(error: error)
-                self?.displayMessage(NSLocalizedString("Unable to communicate with the App Store. Do you want to try again?", comment: ""), retry: { self?.retrieveOptions() })
+                displayMessage(NSLocalizedString("Unable to communicate with the App Store. Do you want to try again?", comment: ""), retry: { [weak self] in self?.retrieveOptions() })
             }
         }
     }
@@ -57,26 +55,25 @@ class TipViewController: UICollectionViewController {
     }
     
     private func tip(_ optionId: TipIdentifier) {
-        Task { [weak self] in
+        Task {
             do {
                 _ = try await TipService.getInstance().tip(productId: optionId)
-                self?.displayMessage(NSLocalizedString("Thanks so much for the tip! 🙏", comment: ""), retry: nil)
+                displayMessage(NSLocalizedString("Thanks so much for the tip! 🙏", comment: ""), retry: nil)
             } catch {
                 LoggingService.log(error: error)
                 
                 if let storeError = error as? StoreKitError {
                     switch storeError {
                     case .purchasePending:
-                        self?.displayMessage(NSLocalizedString("Your tip is pending.", comment: ""), retry: nil)
+                        displayMessage(NSLocalizedString("Your tip is pending.", comment: ""), retry: nil)
                     default:
-                        self?.displayMessage(NSLocalizedString("Your tip did not go through. Do you want to try again?", comment: ""), retry: { self?.tip(optionId) })
+                        displayMessage(NSLocalizedString("Your tip did not go through. Do you want to try again?", comment: ""), retry: { [weak self] in self?.tip(optionId) })
                     }
                 }
             }
         }
     }
     
-    @MainActor
     private func displayMessage(_ message: String, retry: (() -> ())?) {
         let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
         
