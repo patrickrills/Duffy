@@ -38,7 +38,7 @@ class DebugLogTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
-            return 3
+            return 4
         case 2, 3:
             return 1
         default:
@@ -47,43 +47,48 @@ class DebugLogTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: (indexPath.section == 0 ? .value1 : .subtitle), reuseIdentifier: nil)
+        let cell = UITableViewCell()
+        var content: UIListContentConfiguration = (indexPath.section == 0 ? UIListContentConfiguration.valueCell() : UIListContentConfiguration.subtitleCell())
 
         switch indexPath.section {
         case 0:
             switch indexPath.row {
             case 0:
-                cell.textLabel?.text = "Transfers remaining"
-                cell.detailTextLabel?.text = "\(WCSessionService.getInstance().transfersRemaining())"
+                content.text = "Transfers remaining"
+                content.secondaryText = "\(WCSessionService.getInstance().transfersRemaining())"
                 break
             case 1:
-                cell.textLabel?.text = "Goal reached count"
-                cell.detailTextLabel?.text = "\(HealthCache.getGoalReachedCount())"
+                content.text = "Goal reached count"
+                content.secondaryText = "\(HealthCache.getGoalReachedCount())"
                 break
             case 2:
-                cell.textLabel?.text = "Asked for rating"
-                cell.detailTextLabel?.text = AppRater.haveAsked() ? "1" : "0"
+                content.text = "Asked for rating"
+                content.secondaryText = AppRater.haveAsked() ? "1" : "0"
                 break
+            case 3:
+                content.text = "Cached steps"
+                content.secondaryText = "\(HealthCache.lastSteps(for: Date()))"
             default:
                 break
             }
         case 2:
-            cell.textLabel?.text = "Export to CSV"
-            cell.textLabel?.textColor = .systemBlue
+            content.text = "Export to CSV"
+            content.textProperties.color = .systemBlue
             break
         case 3:
-            cell.textLabel?.text = "Clear Log"
-            cell.textLabel?.textColor = .systemRed
+            content.text = "Clear Log"
+            content.textProperties.color = .systemRed
             break
         default:
             let logEntry = log[indexPath.row]
-            cell.textLabel?.text = dateFormatter.string(from: logEntry.timestamp)
-            cell.detailTextLabel?.text = logEntry.message
-            cell.detailTextLabel?.numberOfLines = 0
-            cell.detailTextLabel?.textColor = logEntry.textColor()
+            content.text = dateFormatter.string(from: logEntry.timestamp)
+            content.secondaryText = logEntry.message
+            content.secondaryTextProperties.numberOfLines = 0
+            content.secondaryTextProperties.color = logEntry.textColor()
             break
         }
         
+        cell.contentConfiguration = content
         cell.selectionStyle = indexPath.section == 2 ? .default : .none
 
         return cell
