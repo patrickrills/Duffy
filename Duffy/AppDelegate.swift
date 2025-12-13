@@ -8,6 +8,7 @@
 
 import UIKit
 import DuffyFramework
+import RevenueCat
 
 #if canImport(BackgroundTasks)
 import BackgroundTasks
@@ -30,6 +31,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate
         }
         
         TipService.getInstance().initialize()
+        
+        Purchases.logLevel = .debug
+        Purchases.configure(
+            with: .init(withAPIKey: "REMOVED")
+            .with(purchasesAreCompletedBy: .myApp, storeKitVersion: .storeKit2)
+        )
         
         return true
     }

@@ -9,6 +9,8 @@
 import UIKit
 import DuffyFramework
 import HealthKit
+import RevenueCat
+import RevenueCatUI
 
 class MainTableViewController: UITableViewController {
     
@@ -264,7 +266,34 @@ class MainTableViewController: UITableViewController {
     }
     
     private func openTips() {
-        present(ModalNavigationController(rootViewController: TipViewController()), animated: true, completion: nil)
+//        present(ModalNavigationController(rootViewController: TipViewController()), animated: true, completion: nil)
+        let revenueCatPaywall = PaywallViewController(
+            fonts: DefaultPaywallFontProvider(),
+            performPurchase: { product in
+                var userCancelled: Bool = false
+                var rcError: Error? = nil
+                if let tipId = TipIdentifier(rawValue: product.storeProduct.productIdentifier) {
+                    do {
+                        let _ = try await TipService.getInstance().tip(productId: tipId)
+                    } catch {
+                        if case .userCancelled = error as? StoreKitError {
+                            userCancelled = true
+                        }
+                        
+                        rcError = error
+                    }
+                } else {
+                    rcError = StoreKitError.purchaseFailed
+                }
+                
+                return (userCancelled: userCancelled, error: rcError)
+            },
+            performRestore: {
+                return (success: true, error: nil)
+            }
+        )
+        revenueCatPaywall.delegate = self
+        present(ModalNavigationController(rootViewController: revenueCatPaywall), animated: true)
     }
     
     private func openGoalInstructions() {
@@ -445,5 +474,16 @@ fileprivate class NoDataCell: UITableViewCell {
         textLabel?.textColor = Globals.lightGrayColor()
         selectionStyle = .none
         textLabel?.text = NSLocalizedString("No data for the previous week", comment: "")
+    }
+}
+
+extension MainTableViewController: PaywallViewControllerDelegate {
+    
+    func paywallViewController(_ controller: PaywallViewController, didFailPurchasingWith error: NSError) {
+        print("Sorry 😢")
+    }
+    
+    func paywallViewController(_ controller: PaywallViewController, didFinishPurchasingWith customerInfo: CustomerInfo) {
+        dismiss(animated: true)
     }
 }

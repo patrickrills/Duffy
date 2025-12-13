@@ -12,6 +12,7 @@ public enum StoreKitError: Error {
     case productDownloadFailed
     case purchaseFailed
     case purchasePending
+    case userCancelled
 }
 
 extension StoreKitError: LocalizedError {
@@ -23,6 +24,8 @@ extension StoreKitError: LocalizedError {
             return "The purchase could not be completed."
         case .purchasePending:
             return "The purchase is pending and could be concluded later."
+        case .userCancelled:
+            return "The user decided not to proceed with the purchase."
         }
     }
 }
