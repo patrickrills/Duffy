@@ -26,7 +26,15 @@ extension UIBarButtonItem {
     static func barButtonItem(with systemImageName: String, prominent: Bool, target: Any, action: Selector) -> UIBarButtonItem {
         
         if #available(iOS 26.0, *) {
-            let barButton = UIBarButtonItem(image: UIImage(systemName: systemImageName, withConfiguration: prominent ? UIImage.SymbolConfiguration(paletteColors: [.systemBackground]) : nil), style: prominent ? .prominent : .plain, target: target, action: action)
+            let barButton = UIBarButtonItem(
+                image: UIImage(
+                    systemName: systemImageName,
+                    withConfiguration: UIImage.SymbolConfiguration(weight: .semibold)
+                ),
+                style: .plain,
+                target: target,
+                action: action
+            )
             
             if prominent {
                 barButton.tintColor = Globals.secondaryColor()
