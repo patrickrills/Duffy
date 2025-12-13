@@ -67,6 +67,8 @@ public class TipService {
             return productId
         case .pending:
             throw StoreKitError.purchasePending
+        case .userCancelled:
+            throw StoreKitError.userCancelled
         default:
             throw StoreKitError.purchaseFailed
         }
