@@ -18,6 +18,8 @@ class MainTodayTableViewCell: UITableViewCell {
     @IBOutlet private weak var toGoItemView: MainTodayItemView!
     @IBOutlet private weak var flightsItemView: MainTodayItemView!
     @IBOutlet private weak var distanceItemView: MainTodayItemView!
+    
+    var onGoalInfoPressed: (() -> Void)?
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -80,51 +82,6 @@ class MainTodayTableViewCell: UITableViewCell {
     }
     
     @IBAction private func goalInfoPressed() {
-        presentHelpOptions()
-    }
-    
-    private func presentHelpOptions() {
-        let helpSheet = UIAlertController(
-            title: NSLocalizedString("Need Help?", comment: ""),
-            message: NSLocalizedString("Would you like to change your daily step goal or do you need help with something else?", comment: ""),
-            preferredStyle: .actionSheet
-        )
-        
-        helpSheet.addAction(
-            UIAlertAction(
-                title: NSLocalizedString("Change my Daily Goal", comment: ""),
-                style: .default,
-                handler: { [weak self] _ in
-                    self?.present(viewController: GoalInstructionsTableViewController())
-                }
-            )
-        )
-        
-        helpSheet.addAction(
-            UIAlertAction(
-                title: NSLocalizedString("View More Help Topics", comment: ""),
-                style: .default,
-                handler: { [weak self] _ in
-                    self?.present(viewController: AboutTableViewController())
-                }
-            )
-        )
-        
-        helpSheet.addAction(
-            UIAlertAction(
-                title: NSLocalizedString("Cancel", comment: ""),
-                style: .cancel
-            )
-        )
-        
-        presentingViewController?.present(helpSheet, animated: true)
-    }
-    
-    private func present(viewController: UIViewController) {
-        presentingViewController?.present(ModalNavigationController(rootViewController: viewController), animated: true, completion: nil)
-    }
-    
-    private var presentingViewController: UIViewController? {
-        return UIApplication.shared.delegate?.window??.rootViewController
+       onGoalInfoPressed?()
     }
 }
