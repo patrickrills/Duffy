@@ -267,8 +267,49 @@ class MainTableViewController: UITableViewController {
         present(ModalNavigationController(rootViewController: TipViewController()), animated: true, completion: nil)
     }
     
+    private func openGoalInstructions() {
+        present(ModalNavigationController(rootViewController: GoalInstructionsTableViewController()), animated: true, completion: nil)
+    }
+    
     @objc private func headerWasTapped() {
         refresh()
+    }
+    
+    private func presentHelpOptions() {
+        let helpSheet = UIAlertController(
+            title: NSLocalizedString("Need Help?", comment: ""),
+            message: NSLocalizedString("Would you like to change your daily step goal or do you need help with something else?", comment: ""),
+            preferredStyle: .actionSheet
+        )
+        
+        helpSheet.addAction(
+            UIAlertAction(
+                title: NSLocalizedString("Change my Daily Goal", comment: ""),
+                style: .default,
+                handler: { [weak self] _ in
+                    self?.openGoalInstructions()
+                }
+            )
+        )
+        
+        helpSheet.addAction(
+            UIAlertAction(
+                title: NSLocalizedString("View More Help Topics", comment: ""),
+                style: .default,
+                handler: { [weak self] _ in
+                    self?.openAbout()
+                }
+            )
+        )
+        
+        helpSheet.addAction(
+            UIAlertAction(
+                title: NSLocalizedString("Cancel", comment: ""),
+                style: .cancel
+            )
+        )
+        
+        present(helpSheet, animated: true)
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -313,6 +354,7 @@ class MainTableViewController: UITableViewController {
         case .today:
             let todayCell = tableView.dequeueReusableCell(withIdentifier: String(describing: MainTodayTableViewCell.self), for: indexPath) as! MainTodayTableViewCell
             todayCell.bind(steps: todaysSteps, flights: todaysFlights, distance: todaysDistance, distanceUnit: distanceUnit)
+            todayCell.onGoalInfoPressed = { [weak self] in self?.presentHelpOptions() }
             return todayCell
         case .hourly:
             let hourlyCell = tableView.dequeueReusableCell(withIdentifier: String(describing: MainHourlyTableViewCell.self), for: indexPath) as! MainHourlyTableViewCell
