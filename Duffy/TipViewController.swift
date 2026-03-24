@@ -135,7 +135,7 @@ class TipViewController: UICollectionViewController {
             }
             
             buttonFooter.bind(NSLocalizedString("Learn more about Duffy", comment: ""), onPress: { [weak self] in
-                self?.navigationController?.openURL("http://www.bigbluefly.com/duffy")
+                self?.navigationController?.openURL("https://www.bigbluefly.com/duffy")
             })
             
             return buttonFooter

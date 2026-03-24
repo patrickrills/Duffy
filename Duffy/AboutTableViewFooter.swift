@@ -103,7 +103,7 @@ class AboutTableViewFooter: UITableViewHeaderFooterView {
     }
     
     @objc private func openPrivacyPolicy() {
-        navigationController?.openURL("http://www.bigbluefly.com/duffy/privacy")
+        navigationController?.openURL("https://www.bigbluefly.com/duffy/privacy")
     }
     
     @objc private func openDebugLog() {

@@ -119,21 +119,21 @@ enum AboutOption: CaseIterable {
         case .goalHowTo:
             parent?.pushViewController(GoalInstructionsTableViewController(), animated: true)
         case .enableStepCounting:
-            parent?.openURL("http://www.bigbluefly.com/duffy/stepsnotcounting", appendLanaguageParameter: true)
+            parent?.openURL("https://www.bigbluefly.com/duffy/stepsnotcounting", appendLanaguageParameter: true)
         case .addStepsToWatchFace:
-            parent?.openURL("http://www.bigbluefly.com/duffy/addstepstowatchface", appendLanaguageParameter: true)
+            parent?.openURL("https://www.bigbluefly.com/duffy/addstepstowatchface", appendLanaguageParameter: true)
         case .changeMilesOrKilometers:
-            parent?.openURL("http://www.bigbluefly.com/duffy/changemilesorkilometers", appendLanaguageParameter: true)
+            parent?.openURL("https://www.bigbluefly.com/duffy/changemilesorkilometers", appendLanaguageParameter: true)
         case .trophies:
             parent?.pushViewController(TrophiesViewController(), animated: true)
         case .askAQuestion:
-            parent?.openURL("http://www.bigbluefly.com/duffy?contact=1")
+            parent?.openURL("https://www.bigbluefly.com/duffy?contact=1")
         case .rate:
             AppRater.redirectToAppStore()
         case .bigbluefly:
-            parent?.openURL("http://www.bigbluefly.com/duffy")
+            parent?.openURL("https://www.bigbluefly.com/duffy")
         case .isral:
-            parent?.openURL("http://www.isralduke.com")
+            parent?.openURL("https://www.isralduke.com")
         case .tipJar:
             parent?.pushViewController(TipViewController(), animated: true)
         }
