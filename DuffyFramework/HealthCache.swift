@@ -33,6 +33,10 @@ public class HealthCache {
             latestValues[CacheKeys.stepsCacheValue.rawValue] = stepCount as AnyObject
             UserDefaults.standard.removeObject(forKey: CacheKeys.stepsCache.rawValue)
             UserDefaults.standard.set(latestValues, forKey: CacheKeys.stepsCache.rawValue)
+
+            if let sharedDefaults = UserDefaults(suiteName: CacheKeys.sharedGroupName) {
+                sharedDefaults.set(latestValues, forKey: CacheKeys.stepsCache.rawValue)
+            }
     
             LoggingService.log("Save steps to cache", with: String(format: "%d", stepCount))
             

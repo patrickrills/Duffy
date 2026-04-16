@@ -144,6 +144,8 @@
 		09EEEDC5262B5139002731DB /* MainHourlyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09EEEDC3262B5139002731DB /* MainHourlyTableViewCell.xib */; };
 		09EEEDC6262B5139002731DB /* MainHourlyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09EEEDC4262B5139002731DB /* MainHourlyTableViewCell.swift */; };
 		09SCENE1762114120000001 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09SCENE1762114120000002 /* SceneDelegate.swift */; };
+		09AAA00000000000000000A2 /* DuffyWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09AAA00000000000000000A1 /* DuffyWidget.swift */; };
+		09AAA00000000000000000F3 /* DuffyWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 09AAA00000000000000000A3 /* DuffyWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -174,6 +176,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 09323D131D2303DE00961822;
 			remoteInfo = DuffyWatchFramework;
+		};
+		09AAA00000000000000000F1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 09323C651D22C39700961822 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 09AAA00000000000000000D1;
+			remoteInfo = DuffyWidgetExtension;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -222,14 +231,15 @@
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		09CE42D81E35525200A6E587 /* Embed Foundation Extensions */ = {
+		09CE42D81E35525200A6E587 /* Embed App Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
+				09AAA00000000000000000F3 /* DuffyWidgetExtension.appex in Embed App Extensions */,
 			);
-			name = "Embed Foundation Extensions";
+			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -361,6 +371,9 @@
 		09EEEDC3262B5139002731DB /* MainHourlyTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainHourlyTableViewCell.xib; sourceTree = "<group>"; };
 		09EEEDC4262B5139002731DB /* MainHourlyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainHourlyTableViewCell.swift; sourceTree = "<group>"; };
 		09SCENE1762114120000002 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		09AAA00000000000000000A1 /* DuffyWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuffyWidget.swift; sourceTree = "<group>"; };
+		09AAA00000000000000000A3 /* DuffyWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = DuffyWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		09AAA00000000000000000A4 /* DuffyWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = DuffyWidgetExtension.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -397,6 +410,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		09AAA00000000000000000B2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -407,6 +427,7 @@
 				09323C831D22C39700961822 /* Duffy WatchKit App */,
 				09323C921D22C39700961822 /* Duffy WatchKit Extension */,
 				09323D041D2303BC00961822 /* DuffyFramework */,
+				09AAA00000000000000000C1 /* Duffy Widget */,
 				09323C6E1D22C39700961822 /* Products */,
 				099C130F1DA336C80007C72F /* Frameworks */,
 			);
@@ -420,6 +441,7 @@
 				09323C8E1D22C39700961822 /* Duffy WatchKit Extension.appex */,
 				09323D031D2303BC00961822 /* DuffyFramework.framework */,
 				09323D141D2303DE00961822 /* DuffyWatchFramework.framework */,
+				09AAA00000000000000000A3 /* DuffyWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -580,6 +602,15 @@
 			path = Reusable;
 			sourceTree = "<group>";
 		};
+		09AAA00000000000000000C1 /* Duffy Widget */ = {
+			isa = PBXGroup;
+			children = (
+				09AAA00000000000000000A4 /* DuffyWidgetExtension.entitlements */,
+				09AAA00000000000000000A1 /* DuffyWidget.swift */,
+			);
+			path = "Duffy Widget";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -618,6 +649,7 @@
 			dependencies = (
 				09323C821D22C39700961822 /* PBXTargetDependency */,
 				09323D091D2303BC00961822 /* PBXTargetDependency */,
+				09AAA00000000000000000F2 /* PBXTargetDependency */,
 			);
 			name = Duffy;
 			productName = Duffy;
@@ -696,6 +728,23 @@
 			productReference = 09323D141D2303DE00961822 /* DuffyWatchFramework.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		09AAA00000000000000000D1 /* DuffyWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 09AAA00000000000000000E3 /* Build configuration list for PBXNativeTarget "DuffyWidgetExtension" */;
+			buildPhases = (
+				09AAA00000000000000000B1 /* Sources */,
+				09AAA00000000000000000B2 /* Frameworks */,
+				09AAA00000000000000000B3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DuffyWidgetExtension;
+			productName = DuffyWidgetExtension;
+			productReference = 09AAA00000000000000000A3 /* DuffyWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -748,6 +797,10 @@
 						DevelopmentTeam = 2ZMUDMBY38;
 						LastSwiftMigration = 1020;
 					};
+					09AAA00000000000000000D1 = {
+						CreatedOnToolsVersion = 15.0;
+						DevelopmentTeam = 2ZMUDMBY38;
+					};
 				};
 			};
 			buildConfigurationList = 09323C681D22C39700961822 /* Build configuration list for PBXProject "Duffy" */;
@@ -770,6 +823,7 @@
 				09323C8D1D22C39700961822 /* Duffy WatchKit Extension */,
 				09323D021D2303BC00961822 /* DuffyFramework */,
 				09323D131D2303DE00961822 /* DuffyWatchFramework */,
+				09AAA00000000000000000D1 /* DuffyWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -829,6 +883,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				0903E60A235CEFE00049E071 /* Localizable.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		09AAA00000000000000000B3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -967,6 +1028,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		09AAA00000000000000000B1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				09AAA00000000000000000A2 /* DuffyWidget.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -989,6 +1058,11 @@
 			isa = PBXTargetDependency;
 			target = 09323D131D2303DE00961822 /* DuffyWatchFramework */;
 			targetProxy = 09323D191D2303DE00961822 /* PBXContainerItemProxy */;
+		};
+		09AAA00000000000000000F2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 09AAA00000000000000000D1 /* DuffyWidgetExtension */;
+			targetProxy = 09AAA00000000000000000F1 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1423,6 +1497,58 @@
 			};
 			name = Release;
 		};
+		09AAA00000000000000000E1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "Duffy Widget/DuffyWidgetExtension.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 4;
+				DEVELOPMENT_TEAM = 2ZMUDMBY38;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Duffy Widget";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 4.4.3;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bigbluefly.Duffy.widget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		09AAA00000000000000000E2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = "Duffy Widget/DuffyWidgetExtension.entitlements";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 4;
+				DEVELOPMENT_TEAM = 2ZMUDMBY38;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "Duffy Widget";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 4.4.3;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bigbluefly.Duffy.widget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1476,6 +1602,15 @@
 			buildConfigurations = (
 				09323D1E1D2303DE00961822 /* Debug */,
 				09323D1F1D2303DE00961822 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		09AAA00000000000000000E3 /* Build configuration list for PBXNativeTarget "DuffyWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				09AAA00000000000000000E1 /* Debug */,
+				09AAA00000000000000000E2 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
