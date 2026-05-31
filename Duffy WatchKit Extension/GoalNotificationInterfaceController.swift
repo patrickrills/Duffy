@@ -30,7 +30,7 @@ class GoalNotificationInterfaceController: WKUserNotificationInterfaceController
     }
     
     func getHeadline() -> String {
-        let maxRandom: UInt32 = 7
+        let maxRandom: UInt32 = 9
         let randomNumber = Int(arc4random_uniform(maxRandom))
         
         switch randomNumber {
@@ -46,6 +46,10 @@ class GoalNotificationInterfaceController: WKUserNotificationInterfaceController
                 return "Hey now, you’re an all star cuz you might as well be walkin' on the sun ☀️ 👊👄"
             case 6:
                 return "No dragon your feet...you slayed it! 🐲🗡"
+            case 7:
+                return "Heck of a Jurassic Walk, Step-a-saurus 🦖🦕"
+            case 8:
+                return "Taking several small steps for mankind, Neil Legstrong 🌖🧑‍🚀"
             default:
                 return "You've walked hard and prospered, Star Trekker 🖖"
         }
