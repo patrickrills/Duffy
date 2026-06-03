@@ -433,6 +433,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         
         let text = CLKSimpleTextProvider()
         text.text = formatStepsForVerySmall(totalSteps)
+        text.shortText = text.text.replacingOccurrences(of: "k", with: "")
         
         gc.centerTextProvider = text
         gc.gaugeProvider = getGauge(for: totalSteps, goal: goal)
