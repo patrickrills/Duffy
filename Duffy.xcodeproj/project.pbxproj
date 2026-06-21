@@ -66,6 +66,8 @@
 		09323D231D23040100961822 /* HealthKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09323D211D23040100961822 /* HealthKitService.swift */; };
 		09A5E5002F01000100000001 /* DuffyWatchWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A5E5032F01000100000001 /* DuffyWatchWidget.swift */; };
 		09A5E5012F01000100000001 /* Duffy Watch Widget Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 09A5E5052F01000100000001 /* Duffy Watch Widget Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		09A5E50F2F01000200000001 /* DuffyWatchFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09323D141D2303DE00961822 /* DuffyWatchFramework.framework */; };
+		09A5E5102F01000200000001 /* DuffyWatchFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 09323D141D2303DE00961822 /* DuffyWatchFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		09C0DEC22E9A000100000001 /* ComplicationDisplayModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C0DEC12E9A000100000001 /* ComplicationDisplayModel.swift */; };
 		09C0DEC32E9A000100000001 /* ComplicationDisplayModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C0DEC12E9A000100000001 /* ComplicationDisplayModel.swift */; };
 		0935D17E21A8D8E100B91009 /* HistoryFilterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0935D17D21A8D8E100B91009 /* HistoryFilterTableViewController.swift */; };
@@ -186,6 +188,13 @@
 			remoteGlobalIDString = 09A5E5082F01000100000001;
 			remoteInfo = "Duffy Watch Widget Extension";
 		};
+		09A5E5132F01000200000001 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 09323C651D22C39700961822 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 09323D131D2303DE00961822;
+			remoteInfo = DuffyWatchFramework;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -230,6 +239,17 @@
 			dstSubfolderSpec = 10;
 			files = (
 				09323D1C1D2303DE00961822 /* DuffyWatchFramework.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		09A5E5122F01000200000001 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				09A5E5102F01000200000001 /* DuffyWatchFramework.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -306,6 +326,7 @@
 		09A5E5032F01000100000001 /* DuffyWatchWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DuffyWatchWidget.swift; sourceTree = "<group>"; };
 		09A5E5042F01000100000001 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		09A5E5052F01000100000001 /* Duffy Watch Widget Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Duffy Watch Widget Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		09A5E5112F01000200000001 /* Duffy Watch Widget Extension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = "Duffy Watch Widget Extension.entitlements"; sourceTree = "<group>"; };
 		09C0DEC12E9A000100000001 /* ComplicationDisplayModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplicationDisplayModel.swift; sourceTree = "<group>"; };
 		0935D17D21A8D8E100B91009 /* HistoryFilterTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryFilterTableViewController.swift; sourceTree = "<group>"; };
 		0937CA3D25447A1700BDDDD3 /* WCSessionMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCSessionMessage.swift; sourceTree = "<group>"; };
@@ -417,6 +438,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09A5E50F2F01000200000001 /* DuffyWatchFramework.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -543,6 +565,7 @@
 		09A5E5072F01000100000001 /* Duffy Watch Widget Extension */ = {
 			isa = PBXGroup;
 			children = (
+				09A5E5112F01000200000001 /* Duffy Watch Widget Extension.entitlements */,
 				09A5E5032F01000100000001 /* DuffyWatchWidget.swift */,
 				09A5E5042F01000100000001 /* Info.plist */,
 			);
@@ -703,10 +726,12 @@
 				09A5E50A2F01000100000001 /* Sources */,
 				09A5E5062F01000100000001 /* Frameworks */,
 				09A5E5092F01000100000001 /* Resources */,
+				09A5E5122F01000200000001 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				09A5E5142F01000200000001 /* PBXTargetDependency */,
 			);
 			name = "Duffy Watch Widget Extension";
 			productName = "Duffy Watch Widget Extension";
@@ -1069,6 +1094,11 @@
 			isa = PBXTargetDependency;
 			target = 09A5E5082F01000100000001 /* Duffy Watch Widget Extension */;
 			targetProxy = 09A5E5022F01000100000001 /* PBXContainerItemProxy */;
+		};
+		09A5E5142F01000200000001 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 09323D131D2303DE00961822 /* DuffyWatchFramework */;
+			targetProxy = 09A5E5132F01000200000001 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1507,6 +1537,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_ENTITLEMENTS = "Duffy Watch Widget Extension/Duffy Watch Widget Extension.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = 2ZMUDMBY38;
@@ -1533,6 +1564,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				APPLICATION_EXTENSION_API_ONLY = YES;
+				CODE_SIGN_ENTITLEMENTS = "Duffy Watch Widget Extension/Duffy Watch Widget Extension.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = 2ZMUDMBY38;
