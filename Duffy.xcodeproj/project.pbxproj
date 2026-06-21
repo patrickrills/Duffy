@@ -64,6 +64,8 @@
 		09323D1C1D2303DE00961822 /* DuffyWatchFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 09323D141D2303DE00961822 /* DuffyWatchFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		09323D221D23040100961822 /* HealthKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09323D211D23040100961822 /* HealthKitService.swift */; };
 		09323D231D23040100961822 /* HealthKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09323D211D23040100961822 /* HealthKitService.swift */; };
+		09C0DEC22E9A000100000001 /* ComplicationDisplayModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C0DEC12E9A000100000001 /* ComplicationDisplayModel.swift */; };
+		09C0DEC32E9A000100000001 /* ComplicationDisplayModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C0DEC12E9A000100000001 /* ComplicationDisplayModel.swift */; };
 		0935D17E21A8D8E100B91009 /* HistoryFilterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0935D17D21A8D8E100B91009 /* HistoryFilterTableViewController.swift */; };
 		0937CA3E25447A1700BDDDD3 /* WCSessionMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0937CA3D25447A1700BDDDD3 /* WCSessionMessage.swift */; };
 		0937CA3F25447A1700BDDDD3 /* WCSessionMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0937CA3D25447A1700BDDDD3 /* WCSessionMessage.swift */; };
@@ -291,6 +293,7 @@
 		09323D141D2303DE00961822 /* DuffyWatchFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DuffyWatchFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		09323D161D2303DE00961822 /* DuffyWatchFramework.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DuffyWatchFramework.h; path = ../DuffyWatchFramework/DuffyWatchFramework.h; sourceTree = "<group>"; };
 		09323D211D23040100961822 /* HealthKitService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HealthKitService.swift; sourceTree = "<group>"; };
+		09C0DEC12E9A000100000001 /* ComplicationDisplayModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplicationDisplayModel.swift; sourceTree = "<group>"; };
 		0935D17D21A8D8E100B91009 /* HistoryFilterTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryFilterTableViewController.swift; sourceTree = "<group>"; };
 		0937CA3D25447A1700BDDDD3 /* WCSessionMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WCSessionMessage.swift; sourceTree = "<group>"; };
 		093A5F0423AEC870007D11E3 /* DebugLogEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugLogEntry.swift; sourceTree = "<group>"; };
@@ -524,6 +527,7 @@
 				0929A6C624E6F1DC00780004 /* AggregateCollections.swift */,
 				096FE09B2503CA6500838BEE /* Date.swift */,
 				0929A6CC24E7128F00780004 /* Types.swift */,
+				09C0DEC12E9A000100000001 /* ComplicationDisplayModel.swift */,
 				096FE0A9250E75FF00838BEE /* StepsProcessingService.swift */,
 				0929A6C924E6FF3300780004 /* HealthKitError.swift */,
 				09323D211D23040100961822 /* HealthKitService.swift */,
@@ -911,6 +915,7 @@
 				091097D626501F09007EEFA8 /* StoreKitError.swift in Sources */,
 				09D7F1241E340EA7008FF0CC /* Constants.swift in Sources */,
 				09277E482E1B21E300296EA7 /* TipCurrencySymbolPrefix.swift in Sources */,
+				09C0DEC22E9A000100000001 /* ComplicationDisplayModel.swift in Sources */,
 				0929A6C724E6F1DC00780004 /* AggregateCollections.swift in Sources */,
 				096FE0AA250E75FF00838BEE /* StepsProcessingService.swift in Sources */,
 				0937CA3E25447A1700BDDDD3 /* WCSessionMessage.swift in Sources */,
@@ -943,6 +948,7 @@
 				091097D726501F09007EEFA8 /* StoreKitError.swift in Sources */,
 				09D7F1251E340EA7008FF0CC /* Constants.swift in Sources */,
 				09277E472E1B21E300296EA7 /* TipCurrencySymbolPrefix.swift in Sources */,
+				09C0DEC32E9A000100000001 /* ComplicationDisplayModel.swift in Sources */,
 				0929A6C824E6F1DC00780004 /* AggregateCollections.swift in Sources */,
 				096FE0AB250E75FF00838BEE /* StepsProcessingService.swift in Sources */,
 				0937CA3F25447A1700BDDDD3 /* WCSessionMessage.swift in Sources */,
