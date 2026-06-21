@@ -140,8 +140,8 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     // MARK: - Placeholder Templates
     
     func getLocalizableSampleTemplate(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTemplate?) -> Swift.Void) {
-        let sampleSteps: Steps = 5000
-        let sampleStepsGoal: Steps = 10000
+        let sampleSteps = ComplicationDisplayModel.sampleSteps
+        let sampleStepsGoal = ComplicationDisplayModel.sampleGoal
         
         var template: CLKComplicationTemplate?
         
@@ -213,8 +213,8 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     
     //MARK: Colors
     
-    private let BLUE_TINT = UIColor(red: 32.0/255.0, green: 148.0/255.0, blue: 250.0/255.0, alpha: 1)
-    private let TEAL_TINT = UIColor(red: 45.0/255.0, green: 221.0/255.0, blue: 255.0/255.0, alpha: 1)
+    private let BLUE_TINT = UIColor(complicationColor: ComplicationDisplayModel.blueTint)
+    private let TEAL_TINT = UIColor(complicationColor: ComplicationDisplayModel.tealTint)
     
     //MARK: Modular Small
     
@@ -335,7 +335,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     }
     
     func getTemplateForGraphicCorner(_ totalSteps: Steps, _ goal: Steps) -> CLKComplicationTemplate {
-        let goalReached = totalSteps >= goal
+        let goalReached = ComplicationDisplayModel.goalReached(totalSteps: totalSteps, goal: goal)
         
         let stepsText = CLKSimpleTextProvider(text: formatStepsForLarge(totalSteps))
         stepsText.shortText = formatStepsForSmall(totalSteps)
@@ -420,7 +420,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     }
     
     func getTemplateForGraphicRectangle(_ totalSteps: Steps, _ goal: Steps) -> CLKComplicationTemplate {
-        let goalReached = totalSteps >= goal
+        let goalReached = ComplicationDisplayModel.goalReached(totalSteps: totalSteps, goal: goal)
         
         let shoe = UIImage(named: "GraphicRectShoe")!
         let image = CLKFullColorImageProvider(fullColorImage: shoe)
@@ -428,10 +428,7 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         let stepsText = CLKSimpleTextProvider(text: String(format: NSLocalizedString("%@ STEPS", comment: ""), formatStepsForLarge(totalSteps)))
         stepsText.tintColor = BLUE_TINT
     
-        let text = goalReached
-                        ? Trophy.trophy(for: totalSteps).symbol() + " +" + formatStepsForSmall(totalSteps - goal)
-                        : String(format: NSLocalizedString("%@ to go", comment: ""), formatStepsForSmall(goal - totalSteps))
-        let progressText = CLKSimpleTextProvider(text: text)
+        let progressText = CLKSimpleTextProvider(text: ComplicationDisplayModel.graphicRectangularProgressText(totalSteps: totalSteps, goal: goal))
         
         if goalReached {
             return CLKComplicationTemplateGraphicRectangularStandardBody(headerImageProvider: image, headerTextProvider: stepsText, body1TextProvider: CLKSimpleTextProvider(text: NSLocalizedString("Goal achieved!", comment: "")), body2TextProvider: progressText)
@@ -459,60 +456,26 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     //MARK: Gauge
     
     func getGauge(for totalSteps: Steps, goal: Steps) -> CLKSimpleGaugeProvider {
-        return CLKSimpleGaugeProvider(style: .fill, gaugeColor: BLUE_TINT, fillFraction: Float(min(totalSteps, goal)) / Float(goal))
+        return CLKSimpleGaugeProvider(style: .fill, gaugeColor: BLUE_TINT, fillFraction: ComplicationDisplayModel.gaugeFillFraction(totalSteps: totalSteps, goal: goal))
     }
     
     //MARK: Number Formatters
     
     func formatStepsForLarge(_ totalSteps: Steps, useGroupingSeparator: Bool = true) -> String {
-        let numberFormatter = NumberFormatter()
-        numberFormatter.numberStyle = .decimal
-        numberFormatter.locale = Locale.current
-        numberFormatter.usesGroupingSeparator = useGroupingSeparator
-        if let format = numberFormatter.string(for: totalSteps) {
-            return format
-        }
-        
-        return "0"
+        return ComplicationDisplayModel.formatStepsForLarge(totalSteps, useGroupingSeparator: useGroupingSeparator)
     }
     
     private func formatStepsForSmall(_ totalSteps: Steps) -> String {
-        let moreThan1000 = totalSteps >= 1000
-        
-        let numberFormatter = NumberFormatter()
-        numberFormatter.numberStyle = .decimal
-        numberFormatter.locale = Locale.current
-        numberFormatter.maximumFractionDigits = moreThan1000 ? 1 : 0
-        numberFormatter.roundingMode = moreThan1000 ? .down : .ceiling
-        
-        var displaySteps: Double = Double(totalSteps)
-        var suffix = ""
-        
-        if moreThan1000 {
-            displaySteps /= 1000.0
-            suffix = "k"
-        }
-        
-        if let format = numberFormatter.string(for: displaySteps) {
-            return String(format: "%@%@", format, suffix)
-        }
-        
-        return "0"
+        return ComplicationDisplayModel.formatStepsForSmall(totalSteps)
     }
     
     func formatStepsForVerySmall(_ totalSteps: Steps) -> String {
-        if totalSteps >= 1000 {
-            let displaySteps: Double = Double(totalSteps) / 1000.0
-            let numberFormatter = NumberFormatter()
-            numberFormatter.roundingMode = .down
-            numberFormatter.numberStyle = .decimal
-            numberFormatter.locale = Locale.current
-            numberFormatter.maximumFractionDigits = totalSteps >= 10000 ? 0 : 1
-            if let format = numberFormatter.string(for: displaySteps) {
-                return format.count <= 2 ? String(format: "%@k", format) : format
-            }
-        }
-        
-        return totalSteps > 0 ? "<1k" : "0"
+        return ComplicationDisplayModel.formatStepsForVerySmall(totalSteps)
+    }
+}
+
+private extension UIColor {
+    convenience init(complicationColor color: ComplicationColorComponents) {
+        self.init(red: CGFloat(color.red), green: CGFloat(color.green), blue: CGFloat(color.blue), alpha: CGFloat(color.alpha))
     }
 }
