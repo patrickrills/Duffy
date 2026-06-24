@@ -74,14 +74,26 @@ struct DuffyWatchWidgetEntryView: View {
         }
     }
 
+    @ViewBuilder
     private var cornerStepsView: some View {
-        Text(ComplicationDisplayModel.formatStepsForLarge(entry.steps))
+        let stepsText = Text(ComplicationDisplayModel.formatStepsForLarge(entry.steps))
             .font(.system(.body, design: .rounded, weight: .semibold))
             .minimumScaleFactor(0.6)
-            .widgetLabel {
-                Text(NSLocalizedString("STEPS", comment: ""))
-                    .foregroundColor(blueTint)
-            }
+
+        if #available(watchOSApplicationExtension 10.0, *) {
+            stepsText
+                .widgetCurvesContent()
+                .widgetLabel {
+                    Text(NSLocalizedString("STEPS", comment: ""))
+                        .foregroundColor(blueTint)
+                }
+        } else {
+            stepsText
+                .widgetLabel {
+                    Text(NSLocalizedString("STEPS", comment: ""))
+                        .foregroundColor(blueTint)
+                }
+        }
     }
 
     private var inlineStepsView: some View {
