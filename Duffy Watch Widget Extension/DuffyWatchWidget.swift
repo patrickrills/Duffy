@@ -36,10 +36,85 @@ struct DuffyWatchWidgetProvider: TimelineProvider {
 }
 
 struct DuffyWatchWidgetEntryView: View {
+    @Environment(\.widgetFamily) private var widgetFamily
+
     let entry: DuffyWatchWidgetEntry
 
+    private var blueTint: Color {
+        Color(complicationColor: ComplicationDisplayModel.blueTint)
+    }
+
     var body: some View {
+        switch widgetFamily {
+        case .accessoryCircular:
+            circularStepsView
+        case .accessoryCorner:
+            cornerStepsView
+        case .accessoryInline:
+            inlineStepsView
+        case .accessoryRectangular:
+            rectangularStepsView
+        default:
+            rectangularStepsView
+        }
+    }
+
+    private var circularStepsView: some View {
+        VStack(spacing: -1) {
+            Text(ComplicationDisplayModel.formatStepsForLarge(entry.steps, useGroupingSeparator: entry.steps <= 10000))
+                .font(.system(size: 16.0, weight: .semibold, design: .rounded))
+                .minimumScaleFactor(0.45)
+                .lineLimit(1)
+
+            Text(NSLocalizedString("steps", comment: ""))
+                .font(.system(size: 10.0, weight: .medium, design: .rounded))
+                .minimumScaleFactor(0.6)
+                .lineLimit(1)
+                .foregroundColor(blueTint)
+        }
+    }
+
+    private var cornerStepsView: some View {
         Text(ComplicationDisplayModel.formatStepsForLarge(entry.steps))
+            .font(.system(.body, design: .rounded, weight: .semibold))
+            .minimumScaleFactor(0.6)
+            .widgetLabel {
+                Text(NSLocalizedString("STEPS", comment: ""))
+                    .foregroundColor(blueTint)
+            }
+    }
+
+    private var inlineStepsView: some View {
+        Text(String(format: NSLocalizedString("%@ STEPS", comment: ""), ComplicationDisplayModel.formatStepsForLarge(entry.steps)))
+    }
+
+    private var rectangularStepsView: some View {
+        HStack {
+            VStack(alignment: .leading, spacing: -4.0) {
+                HStack(alignment: .center, spacing: 3.0) {
+                    Image("GraphicRectShoe")
+                        .renderingMode(.template)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 16.0, height: 16.0)
+                        .foregroundColor(blueTint)
+
+                    Text(NSLocalizedString("Steps", comment: ""))
+                        .font(.system(size: 17.0, weight: .medium, design: .rounded))
+                        .minimumScaleFactor(0.5)
+                        .lineLimit(1)
+                        .foregroundColor(blueTint)
+                }
+
+                Text(ComplicationDisplayModel.formatStepsForLarge(entry.steps))
+                    .font(.system(size: 42.0, weight: .semibold, design: .rounded))
+                    .minimumScaleFactor(0.5)
+                    .lineLimit(1)
+                    .foregroundColor(.white)
+            }
+
+            Spacer(minLength: 0)
+        }
     }
 }
 
@@ -60,5 +135,11 @@ struct DuffyWatchWidget: Widget {
 struct DuffyWatchWidgets: WidgetBundle {
     var body: some Widget {
         DuffyWatchWidget()
+    }
+}
+
+private extension Color {
+    init(complicationColor color: ComplicationColorComponents) {
+        self.init(red: color.red, green: color.green, blue: color.blue, opacity: color.alpha)
     }
 }
