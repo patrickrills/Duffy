@@ -60,18 +60,24 @@ struct DuffyWatchWidgetEntryView: View {
     }
 
     private var circularStepsView: some View {
-        VStack(spacing: -1) {
-            Text(ComplicationDisplayModel.formatStepsForLarge(entry.steps, useGroupingSeparator: entry.steps <= 10000))
-                .font(.system(size: 16.0, weight: .semibold, design: .rounded))
-                .minimumScaleFactor(0.45)
-                .lineLimit(1)
+        ZStack {
+            AccessoryWidgetBackground()
+            
+            VStack(spacing: -1) {
+                Text(ComplicationDisplayModel.formatStepsForLarge(entry.steps))
+                    .font(.system(.body, design: .rounded, weight: .semibold))
+                    .minimumScaleFactor(0.5)
+                    .lineLimit(1)
+                    .foregroundColor(blueTint)
+                    .widgetAccentable()
 
-            Text(NSLocalizedString("steps", comment: ""))
-                .font(.system(size: 10.0, weight: .medium, design: .rounded))
-                .minimumScaleFactor(0.6)
-                .lineLimit(1)
-                .foregroundColor(blueTint)
+                Text(NSLocalizedString("steps", comment: ""))
+                    .font(.system(.caption2, design: .rounded))
+                    .minimumScaleFactor(0.75)
+                    .lineLimit(1)
+            }
         }
+        
     }
 
     @ViewBuilder
@@ -103,26 +109,25 @@ struct DuffyWatchWidgetEntryView: View {
     private var rectangularStepsView: some View {
         HStack {
             VStack(alignment: .leading, spacing: -4.0) {
-                HStack(alignment: .center, spacing: 3.0) {
+                HStack(alignment: .center, spacing: 8.0) {
                     Image("GraphicRectShoe")
                         .renderingMode(.template)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 16.0, height: 16.0)
-                        .foregroundColor(blueTint)
 
                     Text(NSLocalizedString("Steps", comment: ""))
-                        .font(.system(size: 17.0, weight: .medium, design: .rounded))
+                        .font(.system(size: 17.0, weight: .regular, design: .rounded))
                         .minimumScaleFactor(0.5)
                         .lineLimit(1)
-                        .foregroundColor(blueTint)
                 }
 
                 Text(ComplicationDisplayModel.formatStepsForLarge(entry.steps))
                     .font(.system(size: 42.0, weight: .semibold, design: .rounded))
                     .minimumScaleFactor(0.5)
                     .lineLimit(1)
-                    .foregroundColor(.white)
+                    .foregroundColor(blueTint)
+                    .widgetAccentable()
             }
 
             Spacer(minLength: 0)
