@@ -135,6 +135,134 @@ struct DuffyWatchWidgetEntryView: View {
     }
 }
 
+struct DuffyGaugeWatchWidgetEntryView: View {
+    @Environment(\.widgetFamily) private var widgetFamily
+
+    let entry: DuffyWatchWidgetEntry
+
+    private var blueTint: Color {
+        Color(complicationColor: ComplicationDisplayModel.blueTint)
+    }
+
+    private var fillFraction: Double {
+        Double(ComplicationDisplayModel.gaugeFillFraction(totalSteps: entry.steps, goal: entry.goal))
+    }
+
+    private var goalReached: Bool {
+        ComplicationDisplayModel.goalReached(totalSteps: entry.steps, goal: entry.goal)
+    }
+
+    var body: some View {
+        switch widgetFamily {
+        case .accessoryCircular:
+            circularGaugeView
+        case .accessoryCorner:
+            cornerGaugeView
+        case .accessoryRectangular:
+            rectangularGaugeView
+        default:
+            rectangularGaugeView
+        }
+    }
+
+    private var circularGaugeView: some View {
+        Gauge(value: fillFraction) {
+            Text(NSLocalizedString("Steps", comment: ""))
+        } currentValueLabel: {
+            VStack(spacing: 2.0) {
+                Image("GraphicRectShoe")
+                    .renderingMode(.template)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 8.0, height: 8.0)
+                Text(ComplicationDisplayModel.formatStepsForLarge(entry.steps))
+                    .font(.system(.caption2, design: .rounded, weight: .semibold))
+                    .minimumScaleFactor(0.5)
+            }
+            
+        }
+        .gaugeStyle(.accessoryCircularCapacity)
+        .tint(blueTint)
+        .widgetAccentable()
+    }
+
+    @ViewBuilder
+    private var cornerGaugeView: some View {
+        if goalReached {
+            let goalText = Text(ComplicationDisplayModel.formatStepsForLarge(entry.steps))
+                .font(.system(.body, design: .rounded, weight: .semibold))
+                .minimumScaleFactor(0.6)
+                .widgetLabel {
+                    Text(NSLocalizedString("Goal achieved!", comment: ""))
+                }
+            
+            if #available(watchOS 10.0, *) {
+                goalText
+                    .widgetCurvesContent()
+            } else {
+                goalText
+            }
+        } else {
+            let cornerGauge = Text(ComplicationDisplayModel.formatStepsForLarge(entry.steps))
+                .font(.system(.body, design: .rounded, weight: .semibold))
+                .minimumScaleFactor(0.6)
+                .widgetLabel {
+                    ProgressView(value: fillFraction)
+                }
+            
+            if #available(watchOS 10.0, *) {
+                cornerGauge
+                    .widgetCurvesContent()
+            } else {
+                cornerGauge
+            }
+        }
+    }
+
+    private var rectangularGaugeView: some View {
+        VStack(alignment: .leading, spacing: 0.0) {
+            HStack(alignment: .center, spacing: 8.0) {
+                Image("GraphicRectShoe")
+                    .renderingMode(.template)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 14.0, height: 14.0)
+                    .foregroundColor(blueTint)
+                    .widgetAccentable()
+
+                Text(String(format: NSLocalizedString("%@ STEPS", comment: ""), ComplicationDisplayModel.formatStepsForLarge(entry.steps)))
+                    .font(.system(.body, design: .rounded, weight: .semibold))
+                    .lineLimit(1)
+                    .foregroundColor(blueTint)
+                    .widgetAccentable()
+            }
+
+            VStack(alignment: .leading, spacing: 4.0) {
+                if goalReached {
+                    Text(NSLocalizedString("Goal achieved!", comment: ""))
+                        .font(.system(.body, design: .rounded, weight: .regular))
+                        .lineLimit(1)
+
+                    Text(ComplicationDisplayModel.graphicRectangularProgressText(totalSteps: entry.steps, goal: entry.goal))
+                        .font(.system(.callout, design: .rounded, weight: .regular))
+                        .lineLimit(1)
+                        .foregroundStyle(.secondary)
+                } else {
+                    Text(ComplicationDisplayModel.graphicRectangularProgressText(totalSteps: entry.steps, goal: entry.goal))
+                        .font(.system(.callout, design: .rounded, weight: .regular))
+                        .lineLimit(1)
+
+                    Gauge(value: fillFraction) {
+                        EmptyView()
+                    }
+                    .gaugeStyle(.accessoryLinearCapacity)
+                    .tint(blueTint)
+                }
+            }
+        }
+    }
+}
+
 struct DuffyWatchWidget: Widget {
     let kind = "com.bigbluefly.Duffy.watch.placeholder"
 
@@ -148,10 +276,24 @@ struct DuffyWatchWidget: Widget {
     }
 }
 
+struct DuffyGaugeWatchWidget: Widget {
+    let kind = "com.bigbluefly.Duffy.watch.gauge"
+
+    var body: some WidgetConfiguration {
+        StaticConfiguration(kind: kind, provider: DuffyWatchWidgetProvider()) { entry in
+            DuffyGaugeWatchWidgetEntryView(entry: entry)
+        }
+        .configurationDisplayName("Duffy (Gauge)")
+        .description("Shows your progress toward your step goal.")
+        .supportedFamilies([.accessoryCircular, .accessoryCorner, .accessoryRectangular])
+    }
+}
+
 @main
 struct DuffyWatchWidgets: WidgetBundle {
     var body: some Widget {
         DuffyWatchWidget()
+        DuffyGaugeWatchWidget()
     }
 }
 
