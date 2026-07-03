@@ -6,6 +6,26 @@ struct DuffyWatchWidgetEntry: TimelineEntry {
     let date: Date
     let steps: Steps
     let goal: Steps
+
+    var relevance: TimelineEntryRelevance? {
+        let progress = ComplicationDisplayModel.gaugeFillFraction(totalSteps: steps, goal: goal)
+        guard progress > 0 else {
+            return TimelineEntryRelevance(score: 0)
+        }
+
+        let score: Float = ComplicationDisplayModel.goalReached(totalSteps: steps, goal: goal)
+            ? 20.0
+            : max(1.0, progress * 10.0)
+        return TimelineEntryRelevance(score: score, duration: secondsUntilNextDay)
+    }
+
+    private var secondsUntilNextDay: TimeInterval {
+        guard let nextDay = Calendar.current.nextDate(after: date, matching: DateComponents(hour: 0, minute: 0, second: 1), matchingPolicy: .nextTime) else {
+            return 0
+        }
+
+        return nextDay.timeIntervalSince(date)
+    }
 }
 
 struct DuffyWatchWidgetProvider: TimelineProvider {
@@ -268,7 +288,12 @@ struct DuffyWatchWidget: Widget {
 
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: DuffyWatchWidgetProvider()) { entry in
-            DuffyWatchWidgetEntryView(entry: entry)
+            if #available(watchOS 10.0, *) {
+                DuffyWatchWidgetEntryView(entry: entry)
+                    .containerBackground(.background, for: .widget)
+            } else {
+                DuffyWatchWidgetEntryView(entry: entry)
+            }
         }
         .configurationDisplayName("Duffy")
         .description("Shows your steps.")
@@ -281,7 +306,12 @@ struct DuffyGaugeWatchWidget: Widget {
 
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: DuffyWatchWidgetProvider()) { entry in
-            DuffyGaugeWatchWidgetEntryView(entry: entry)
+            if #available(watchOS 10.0, *) {
+                DuffyGaugeWatchWidgetEntryView(entry: entry)
+                    .containerBackground(.background, for: .widget)
+            } else {
+                DuffyGaugeWatchWidgetEntryView(entry: entry)
+            }
         }
         .configurationDisplayName("Duffy (Gauge)")
         .description("Shows your progress toward your step goal.")
