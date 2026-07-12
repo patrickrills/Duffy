@@ -8,6 +8,7 @@
 
 import ClockKit
 import SwiftUI
+import WidgetKit
 import DuffyWatchFramework
 
 class ComplicationController: NSObject, CLKComplicationDataSource {
@@ -32,13 +33,19 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     // MARK: Timeline Population
     
     class func refreshComplication() {
+        let currentSteps = HealthCache.lastSteps(for: Date())
+
         let server = CLKComplicationServer.sharedInstance()
         if let allComplications = server.activeComplications {
             allComplications.forEach { server.reloadTimeline(for: $0) }
-            let log = allComplications.count > 0 ? "Complication reloadTimeline" : "Complication reloadTimeline but no active found"
-            LoggingService.log(log, with: String(format: "%d", HealthCache.lastSteps(for: Date())))
+            LoggingService.log("Complication reloadTimeline for \(allComplications.count) comps", with: String(format: "%d", currentSteps))
         } else {
             LoggingService.log("Complication reloadTimeline but no active found", at: .debug)
+        }
+
+        if #available(watchOSApplicationExtension 9.0, *) {
+            WidgetCenter.shared.reloadAllTimelines()
+            LoggingService.log("WidgetKit reloadAllTimelines", with: String(format: "%d", currentSteps))
         }
     }
     
