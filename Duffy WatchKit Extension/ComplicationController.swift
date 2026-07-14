@@ -571,6 +571,37 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     }
 }
 
+@available(watchOSApplicationExtension 9.0, *)
+extension ComplicationController: CLKComplicationWidgetMigrator {
+    var widgetMigrator: CLKComplicationWidgetMigrator {
+        self
+    }
+
+    func getWidgetConfiguration(
+        from complicationDescriptor: CLKComplicationDescriptor,
+        completionHandler: @escaping @Sendable (CLKComplicationWidgetMigrationConfiguration?) -> Void
+    ) {
+        let kind: String
+
+        switch complicationDescriptor.identifier {
+        case IDENTIFIER_JUST_STEPS:
+            kind = WatchWidgetIdentifiers.stepsKind
+        case IDENTIFIER_GAUGES:
+            kind = WatchWidgetIdentifiers.gaugeKind
+        default:
+            completionHandler(nil)
+            return
+        }
+
+        completionHandler(
+            CLKComplicationStaticWidgetMigrationConfiguration(
+                kind: kind,
+                extensionBundleIdentifier: WatchWidgetIdentifiers.extensionBundleIdentifier
+            )
+        )
+    }
+}
+
 private extension UIColor {
     convenience init(complicationColor color: ComplicationColorComponents) {
         self.init(red: CGFloat(color.red), green: CGFloat(color.green), blue: CGFloat(color.blue), alpha: CGFloat(color.alpha))

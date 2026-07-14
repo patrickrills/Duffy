@@ -284,7 +284,7 @@ struct DuffyGaugeWatchWidgetEntryView: View {
 }
 
 struct DuffyWatchWidget: Widget {
-    let kind = "com.bigbluefly.Duffy.watch.placeholder"
+    let kind = WatchWidgetIdentifiers.stepsKind
 
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: DuffyWatchWidgetProvider()) { entry in
@@ -302,7 +302,7 @@ struct DuffyWatchWidget: Widget {
 }
 
 struct DuffyGaugeWatchWidget: Widget {
-    let kind = "com.bigbluefly.Duffy.watch.gauge"
+    let kind = WatchWidgetIdentifiers.gaugeKind
 
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: DuffyWatchWidgetProvider()) { entry in
