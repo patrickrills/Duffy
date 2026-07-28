@@ -704,7 +704,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 0820;
-				LastUpgradeCheck = 1640;
+				LastUpgradeCheck = 2660;
 				ORGANIZATIONNAME = "Big Blue Fly";
 				TargetAttributes = {
 					09323C6C1D22C39700961822 = {
