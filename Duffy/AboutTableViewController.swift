@@ -51,11 +51,11 @@ enum AboutCategory: Int, CaseIterable {
 }
 
 enum AboutOption: CaseIterable {
-    case enableStepCounting, goalHowTo, addStepsToWatchFace, changeMilesOrKilometers, trophies, rate, askAQuestion, bigbluefly, isral, tipJar
+    case enableStepCounting, goalHowTo, addStepsToWatchFace, changeMilesOrKilometers, countMismatch, notUpdating, trophies, rate, askAQuestion, bigbluefly, isral, tipJar
     
     func category() -> AboutCategory {
         switch self {
-        case .enableStepCounting, .goalHowTo, .addStepsToWatchFace, .changeMilesOrKilometers, .trophies, .askAQuestion:
+        case .enableStepCounting, .goalHowTo, .addStepsToWatchFace, .changeMilesOrKilometers, .countMismatch, .notUpdating, .trophies, .askAQuestion:
             return .help
         case .rate, .tipJar:
             return .appreciation
@@ -74,6 +74,10 @@ enum AboutOption: CaseIterable {
             return NSLocalizedString("Add Steps to my Watch Face", comment: "")
         case .changeMilesOrKilometers:
             return NSLocalizedString("Change Miles or Kilometers", comment: "")
+        case .countMismatch:
+            return NSLocalizedString("Step Count Mismatch", comment: "")
+        case .notUpdating:
+            return NSLocalizedString("Complication Not Updating", comment: "")
         case .trophies:
             return NSLocalizedString("See the Trophies", comment: "")
         case .rate:
@@ -99,6 +103,11 @@ enum AboutOption: CaseIterable {
             return UIImage(systemName: "applewatch.watchface")
         case .changeMilesOrKilometers:
             return UIImage(systemName: "ruler.fill")
+        case .countMismatch:
+            return UIImage(systemName: "figure.walk.motion.trianglebadge.exclamationmark")
+        case .notUpdating:
+            guard #available(iOS 18.0, *) else { return UIImage(systemName: "exclamationmark.triangle") }
+            return UIImage(systemName: "exclamationmark.arrow.trianglehead.2.clockwise.rotate.90")
         case .trophies:
             return UIImage(systemName: "trophy.fill")
         case .rate:
@@ -124,6 +133,10 @@ enum AboutOption: CaseIterable {
             parent?.openURL("https://www.bigbluefly.com/duffy/addstepstowatchface", appendLanaguageParameter: true)
         case .changeMilesOrKilometers:
             parent?.openURL("https://www.bigbluefly.com/duffy/changemilesorkilometers", appendLanaguageParameter: true)
+        case .countMismatch:
+            parent?.openURL("https://www.bigbluefly.com/duffy/watchfacestepsmismatch", appendLanaguageParameter: true)
+        case .notUpdating:
+            parent?.openURL("https://www.bigbluefly.com/duffy/complicationnotupdating", appendLanaguageParameter: true)
         case .trophies:
             parent?.pushViewController(TrophiesViewController(), animated: true)
         case .askAQuestion:
