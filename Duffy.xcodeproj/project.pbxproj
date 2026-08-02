@@ -60,7 +60,6 @@
 		09323D0A1D2303BC00961822 /* DuffyFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09323D031D2303BC00961822 /* DuffyFramework.framework */; };
 		09323D0B1D2303BC00961822 /* DuffyFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 09323D031D2303BC00961822 /* DuffyFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		09323D171D2303DE00961822 /* DuffyWatchFramework.h in Headers */ = {isa = PBXBuildFile; fileRef = 09323D161D2303DE00961822 /* DuffyWatchFramework.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		09323D1C1D2303DE00961822 /* DuffyWatchFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 09323D141D2303DE00961822 /* DuffyWatchFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		09323D221D23040100961822 /* HealthKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09323D211D23040100961822 /* HealthKitService.swift */; };
 		09323D231D23040100961822 /* HealthKitService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09323D211D23040100961822 /* HealthKitService.swift */; };
 		0935D17E21A8D8E100B91009 /* HistoryFilterTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0935D17D21A8D8E100B91009 /* HistoryFilterTableViewController.swift */; };
@@ -233,17 +232,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				09323D0B1D2303BC00961822 /* DuffyFramework.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		09323D201D2303DE00961822 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				09323D1C1D2303DE00961822 /* DuffyWatchFramework.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -704,7 +692,6 @@
 			buildPhases = (
 				09323C7D1D22C39700961822 /* Resources */,
 				09323CA11D22C39700961822 /* Embed Foundation Extensions */,
-				09323D201D2303DE00961822 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -1524,6 +1511,7 @@
 					"@loader_path/Frameworks",
 				);
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu99 gnu++11";
+				MACH_O_TYPE = staticlib;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bigbluefly.DuffyWatchFramework;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -1558,6 +1546,7 @@
 					"@loader_path/Frameworks",
 				);
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu99 gnu++11";
+				MACH_O_TYPE = staticlib;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bigbluefly.DuffyWatchFramework;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -1576,7 +1565,7 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CODE_SIGN_ENTITLEMENTS = "Duffy Watch Widget Extension/Duffy Watch Widget Extension.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = 2ZMUDMBY38;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = "Duffy Watch Widget Extension/Info.plist";
@@ -1603,7 +1592,7 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CODE_SIGN_ENTITLEMENTS = "Duffy Watch Widget Extension/Duffy Watch Widget Extension.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_TEAM = 2ZMUDMBY38;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = "Duffy Watch Widget Extension/Info.plist";
