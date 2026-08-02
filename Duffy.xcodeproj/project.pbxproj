@@ -116,7 +116,6 @@
 		09A5E5002F01000100000001 /* DuffyWatchWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A5E5032F01000100000001 /* DuffyWatchWidget.swift */; };
 		09A5E5012F01000100000001 /* Duffy Watch Widget Extension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 09A5E5052F01000100000001 /* Duffy Watch Widget Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		09A5E50F2F01000200000001 /* DuffyWatchFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 09323D141D2303DE00961822 /* DuffyWatchFramework.framework */; };
-		09A5E5102F01000200000001 /* DuffyWatchFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 09323D141D2303DE00961822 /* DuffyWatchFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		09A5E5152F01000300000001 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09A5E5162F01000300000001 /* Assets.xcassets */; };
 		09A5E5172F01000300000001 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 099582CD234192BE00AF6A96 /* Localizable.strings */; };
 		09A7EEAD21A1E89A00DEDE5C /* HistoryTrendChartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09A7EEAB21A1E89A00DEDE5C /* HistoryTrendChartTableViewCell.swift */; };
@@ -246,17 +245,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				09323D1C1D2303DE00961822 /* DuffyWatchFramework.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		09A5E5122F01000200000001 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				09A5E5102F01000200000001 /* DuffyWatchFramework.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -707,6 +695,7 @@
 			buildPhases = (
 				09323C7D1D22C39700961822 /* Resources */,
 				09323CA11D22C39700961822 /* Embed Foundation Extensions */,
+				09323D201D2303DE00961822 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -726,7 +715,6 @@
 				09323C8A1D22C39700961822 /* Sources */,
 				09323C8B1D22C39700961822 /* Frameworks */,
 				09323C8C1D22C39700961822 /* Resources */,
-				09323D201D2303DE00961822 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -781,7 +769,6 @@
 				09A5E50A2F01000100000001 /* Sources */,
 				09A5E5062F01000100000001 /* Frameworks */,
 				09A5E5092F01000100000001 /* Resources */,
-				09A5E5122F01000200000001 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
