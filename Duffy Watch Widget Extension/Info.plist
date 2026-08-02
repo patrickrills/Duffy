@@ -25,5 +25,9 @@
 		<key>NSExtensionPointIdentifier</key>
 		<string>com.apple.widgetkit-extension</string>
 	</dict>
+	<key>NSHealthShareUsageDescription</key>
+	<string>Duffy will monitor these types of data to determine when you move and then update your watch face complication.</string>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>Need to write steps.</string>
 </dict>
 </plist>
