@@ -38,7 +38,7 @@ class DebugLogTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0:
-            return 3
+            return 4
         case 2, 3:
             return 1
         default:
@@ -62,7 +62,11 @@ class DebugLogTableViewController: UITableViewController {
                 break
             case 2:
                 cell.textLabel?.text = "Asked for rating"
-                cell.detailTextLabel?.text = AppRater.haveAsked() ? "1" : "0"
+                cell.detailTextLabel?.text = AppRater.haveAsked() ? "Yes" : "No"
+                break
+            case 3:
+                cell.textLabel?.text = "WCSession Activated"
+                cell.detailTextLabel?.text = WCSessionService.getInstance().isActivated() ? "Yes" : "No"
                 break
             default:
                 break
