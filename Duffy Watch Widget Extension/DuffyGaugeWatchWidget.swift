@@ -91,6 +91,7 @@ struct DuffyGaugeWatchWidgetEntryView: View {
                 .minimumScaleFactor(0.6)
                 .widgetLabel {
                     ProgressView(value: Double(ComplicationDisplayModel.gaugeFillFraction(totalSteps: entry.steps, goal: entry.goal)))
+                        .tint(Color(complicationColor: ComplicationDisplayModel.blueTint))
                 }
             
             if #available(watchOS 10.0, *) {
