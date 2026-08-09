@@ -40,10 +40,10 @@ public enum ComplicationDisplayModel {
 
     public static func graphicRectangularProgressText(totalSteps: Steps, goal: Steps) -> String {
         if goalReached(totalSteps: totalSteps, goal: goal) {
-            return Trophy.trophy(for: totalSteps).symbol() + " +" + formatStepsForSmall(totalSteps - goal)
+            return Trophy.trophy(for: totalSteps).symbol() + " +" + formatStepsForLarge(totalSteps - goal)
         }
 
-        return String(format: NSLocalizedString("%@ to go", comment: ""), formatStepsForSmall(goal - totalSteps))
+        return String(format: NSLocalizedString("%@ to go", comment: ""), formatStepsForLarge(goal - totalSteps))
     }
 
     public static func formatStepsForLarge(_ totalSteps: Steps, useGroupingSeparator: Bool = true) -> String {

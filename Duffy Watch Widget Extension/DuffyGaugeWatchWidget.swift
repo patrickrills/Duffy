@@ -105,7 +105,7 @@ struct DuffyGaugeWatchWidgetEntryView: View {
 
     private var rectangularGaugeView: some View {
         VStack(alignment: .leading, spacing: 0.0) {
-            HStack(alignment: .center, spacing: 8.0) {
+            HStack(alignment: .center, spacing: 6.0) {
                 Image("GraphicRectShoe")
                     .renderingMode(.template)
                     .resizable()
@@ -117,8 +117,6 @@ struct DuffyGaugeWatchWidgetEntryView: View {
                 Text(String(format: NSLocalizedString("%@ STEPS", comment: ""), ComplicationDisplayModel.formatStepsForLarge(entry.steps)))
                     .font(.system(.body, design: .rounded, weight: .semibold))
                     .lineLimit(1)
-                    .foregroundColor(Color(complicationColor: ComplicationDisplayModel.blueTint))
-                    .widgetAccentable()
             }
 
             VStack(alignment: .leading, spacing: 4.0) {
@@ -126,6 +124,8 @@ struct DuffyGaugeWatchWidgetEntryView: View {
                     Text(NSLocalizedString("Goal achieved!", comment: ""))
                         .font(.system(.body, design: .rounded, weight: .regular))
                         .lineLimit(1)
+                        .foregroundColor(Color(complicationColor: ComplicationDisplayModel.blueTint))
+                        .widgetAccentable()
 
                     Text(ComplicationDisplayModel.graphicRectangularProgressText(totalSteps: entry.steps, goal: entry.goal))
                         .font(.system(.callout, design: .rounded, weight: .regular))
@@ -135,6 +135,7 @@ struct DuffyGaugeWatchWidgetEntryView: View {
                     Text(ComplicationDisplayModel.graphicRectangularProgressText(totalSteps: entry.steps, goal: entry.goal))
                         .font(.system(.callout, design: .rounded, weight: .regular))
                         .lineLimit(1)
+                        .foregroundStyle(.secondary)
 
                     Gauge(value: Double(ComplicationDisplayModel.gaugeFillFraction(totalSteps: entry.steps, goal: entry.goal))) {
                         EmptyView()
@@ -143,6 +144,26 @@ struct DuffyGaugeWatchWidgetEntryView: View {
                     .tint(Color(complicationColor: ComplicationDisplayModel.blueTint))
                 }
             }
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+    }
+}
+
+struct DuffyGaugeWatchWidget_Previews: PreviewProvider {
+    static var previews: some View {
+        
+        let sample: DuffyWatchWidgetEntry = DuffyWatchWidgetEntry(date: Date(), steps: 8000, goal: 10000)
+        let family: WidgetFamily = .accessoryRectangular
+        let locale = "ja_JP"
+        
+        if #available(watchOS 10.0, *) {
+            DuffyGaugeWatchWidgetEntryView(entry: sample)
+                .previewContext(WidgetPreviewContext(family: family))
+                .containerBackground(.background, for: .widget)
+                .environment(\.locale, Locale(identifier: locale))
+        } else {
+            DuffyGaugeWatchWidgetEntryView(entry: sample)
+                .previewContext(WidgetPreviewContext(family: family))
         }
     }
 }
