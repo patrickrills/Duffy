@@ -51,13 +51,13 @@ struct DuffyWatchWidgetEntryView: View {
                     .font(.system(.body, design: .rounded, weight: .semibold))
                     .minimumScaleFactor(0.5)
                     .lineLimit(1)
-                    .foregroundColor(Color(complicationColor: ComplicationDisplayModel.blueTint))
-                    .widgetAccentable()
 
                 Text(NSLocalizedString("steps", comment: ""))
                     .font(.system(.caption2, design: .rounded))
                     .minimumScaleFactor(0.75)
                     .lineLimit(1)
+                    .foregroundColor(Color(complicationColor: ComplicationDisplayModel.blueTint))
+                    .widgetAccentable()
             }
         }
         
@@ -75,6 +75,7 @@ struct DuffyWatchWidgetEntryView: View {
                 .widgetLabel {
                     Text(NSLocalizedString("STEPS", comment: ""))
                         .foregroundColor(Color(complicationColor: ComplicationDisplayModel.blueTint))
+                        .widgetAccentable()
                 }
         } else {
             stepsText
@@ -87,6 +88,7 @@ struct DuffyWatchWidgetEntryView: View {
 
     private var inlineStepsView: some View {
         Text(String(format: NSLocalizedString("%@ STEPS", comment: ""), ComplicationDisplayModel.formatStepsForLarge(entry.steps)))
+            .minimumScaleFactor(0.6)
     }
 
     private var rectangularStepsView: some View {
@@ -98,22 +100,43 @@ struct DuffyWatchWidgetEntryView: View {
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 16.0, height: 16.0)
+                        .foregroundStyle(Color(complicationColor: ComplicationDisplayModel.blueTint))
+                        .widgetAccentable()
 
                     Text(NSLocalizedString("Steps", comment: ""))
-                        .font(.system(size: 17.0, weight: .regular, design: .rounded))
+                        .font(.system(size: 18.0, weight: .medium, design: .rounded))
                         .minimumScaleFactor(0.5)
                         .lineLimit(1)
+                        .foregroundColor(Color(complicationColor: ComplicationDisplayModel.blueTint))
+                        .widgetAccentable()
                 }
 
                 Text(ComplicationDisplayModel.formatStepsForLarge(entry.steps))
                     .font(.system(size: 42.0, weight: .semibold, design: .rounded))
                     .minimumScaleFactor(0.5)
                     .lineLimit(1)
-                    .foregroundColor(Color(complicationColor: ComplicationDisplayModel.blueTint))
-                    .widgetAccentable()
             }
 
             Spacer(minLength: 0)
+        }
+    }
+}
+
+struct DuffyWatchWidget_Previews: PreviewProvider {
+    static var previews: some View {
+        
+        let sample: DuffyWatchWidgetEntry = DuffyWatchWidgetEntry(date: Date(), steps: 8000, goal: 10000)
+        let family: WidgetFamily = .accessoryCircular
+        let locale = "ja_JP"
+        
+        if #available(watchOS 10.0, *) {
+            DuffyWatchWidgetEntryView(entry: sample)
+                .previewContext(WidgetPreviewContext(family: family))
+                .containerBackground(.background, for: .widget)
+                .environment(\.locale, Locale(identifier: locale))
+        } else {
+            DuffyWatchWidgetEntryView(entry: sample)
+                .previewContext(WidgetPreviewContext(family: family))
         }
     }
 }
