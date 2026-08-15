@@ -53,11 +53,17 @@ struct DuffyGaugeWatchWidgetEntryView: View {
             Text(NSLocalizedString("Steps", comment: ""))
         } currentValueLabel: {
             VStack(spacing: 2.0) {
-                Image("GraphicRectShoe")
-                    .renderingMode(.template)
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 8.0, height: 8.0)
+                if ComplicationDisplayModel.goalReached(totalSteps: entry.steps, goal: entry.goal) {
+                    Text(Trophy.trophy(for: entry.steps).symbol())
+                } else {
+                    Image("GraphicRectShoe")
+                        .renderingMode(.template)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 8.0, height: 8.0)
+                        .foregroundStyle(Color(complicationColor: ComplicationDisplayModel.blueTint))
+                }
+                
                 Text(ComplicationDisplayModel.formatStepsForLarge(entry.steps))
                     .font(.system(.caption2, design: .rounded, weight: .semibold))
                     .minimumScaleFactor(0.5)
