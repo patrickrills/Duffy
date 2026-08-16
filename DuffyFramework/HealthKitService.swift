@@ -129,7 +129,9 @@ public class HealthKitService
     }
     
     public func getSteps(from startDate: Date, to endDate: Date, completionHandler: @escaping (StepsByDateResult) -> ()) {
-        guard HKHealthStore.isHealthDataAvailable(), let store = healthStore else {
+        guard HKHealthStore.isHealthDataAvailable(),
+                let stepsType = HKQuantityType.quantityType(forIdentifier: .stepCount)
+        else {
             completionHandler(.failure(.unsupported))
             return
         }
@@ -137,51 +139,16 @@ public class HealthKitService
         let queryStartDate = startDate.stripTime()
         let queryEndDate = endDate.stripTime().nextDay()
     
-        let dateRangePredicate = HKQuery.predicateForSamples(withStart: queryStartDate, end: queryEndDate, options: .strictEndDate)
-        var interval = DateComponents()
-        interval.day = 1
-        
-        if let stepType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.stepCount) {
-            let query = HKStatisticsCollectionQuery(quantityType: stepType,
-                                                    quantitySamplePredicate: dateRangePredicate,
-                                                    options: .cumulativeSum,
-                                                    anchorDate: queryStartDate,
-                                                    intervalComponents: interval)
-            
-            query.initialResultsHandler = {
-                (query: HKStatisticsCollectionQuery, results: HKStatisticsCollection?, error: Error?) in
-                
-                if let r = results , error == nil {
-                    var stepsCollection = [Date : Steps]()
-                    
-                    r.enumerateStatistics(from: queryStartDate, to: queryEndDate) {
-                        statistics, stop in
-                        
-                        if let quantity = statistics.sumQuantity() {
-                            
-                            var steps: Steps = 0
-                            if let prev = stepsCollection[statistics.startDate] {
-                                steps = prev
-                            }
-                            
-                            steps += Steps(quantity.doubleValue(for: HKUnit.count()))
-                            stepsCollection[statistics.startDate] = steps
-                        }
-                    }
-                    
-                    completionHandler(.success(stepsCollection))
+        get(quantityType: stepsType, measuredIn: HKUnit.count(), from: queryStartDate, to: queryEndDate) { result in
+            switch result {
+            case .success(let stepsByDate):
+                let stepsMapped: [Date : Steps] = stepsByDate.reduce(into: [:]) { (map, entry) in
+                    map[entry.key] = Steps(entry.value)
                 }
-                else
-                {
-                    var errorResult: HealthKitError = .invalidResults
-                    if let error = error {
-                        errorResult = .wrapped(error)
-                    }
-                    completionHandler(.failure(errorResult))
-                }
+                completionHandler(.success(stepsMapped))
+            case .failure(let error):
+                completionHandler(.failure(error))
             }
-            
-            store.execute(query)
         }
     }
     
@@ -288,35 +255,58 @@ public class HealthKitService
     //MARK: Helpers
     
     private func get(quantityType: HKQuantityType, measuredIn: HKUnit, on: Date, completionHandler: @escaping (Result<(day: Date, sum: Double), HealthKitError>) -> ()) {
-        guard HKHealthStore.isHealthDataAvailable(), let store = healthStore else { return }
-        
         let startDate = on.stripTime()
         let endDate = startDate.nextDay()
+        get(quantityType: quantityType, measuredIn: measuredIn, from: startDate, to: endDate) { result in
+            switch result {
+                case .failure(let error):
+                completionHandler(.failure(error))
+            case .success(let values):
+                guard let first = values.first else {
+                    completionHandler(.failure(.invalidResults))
+                    return
+                }
+                completionHandler(.success((day: startDate, sum: first.value)))
+            }
+        }
+    }
+    
+    private func get(quantityType: HKQuantityType, measuredIn: HKUnit, from: Date, to: Date, completionHandler: @escaping (Result<([Date : Double]), HealthKitError>) -> ()) {
+        guard HKHealthStore.isHealthDataAvailable(), let store = healthStore else { return }
         
-        let forSpecificDay = HKQuery.predicateForSamples(withStart: startDate, end: endDate, options: .strictStartDate)
+        let forSpecificDay = HKQuery.predicateForSamples(withStart: from, end: to, options: .strictStartDate)
         var interval = DateComponents()
         interval.day = 1
         
         let query = HKStatisticsCollectionQuery(quantityType: quantityType,
                                                 quantitySamplePredicate: forSpecificDay,
                                                 options: .cumulativeSum,
-                                                anchorDate: startDate,
+                                                anchorDate: from,
                                                 intervalComponents: interval)
             
         query.initialResultsHandler = { query, results, error in
             if let r = results , error == nil {
-                var sum: Double = 0.0
-                var sampleDate: Date = Date.distantPast
+                var sumCollection = [Date : Double]()
+                
+                r.enumerateStatistics(from: from, to: to) {
+                    statistics, stop in
                     
-                r.enumerateStatistics(from: query.anchorDate, to: query.anchorDate) { statistics, stop in
                     if let quantity = statistics.sumQuantity() {
-                        sampleDate = statistics.startDate
-                        sum += quantity.doubleValue(for: measuredIn)
+                        
+                        var sumForDate: Double = 0.0
+                        if let prev = sumCollection[statistics.startDate] {
+                            sumForDate = prev
+                        }
+                        
+                        sumForDate += quantity.doubleValue(for: measuredIn)
+                        sumCollection[statistics.startDate] = sumForDate
                     }
                 }
                 
-                completionHandler(.success((day: sampleDate, sum: sum)))
-            } else {
+                completionHandler(.success(sumCollection))
+            }
+            else
+            {
                 var errorResult: HealthKitError = .invalidResults
                 if let error = error {
                     errorResult = .wrapped(error)
