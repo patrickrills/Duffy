@@ -32,6 +32,7 @@ struct DuffyGaugeWatchWidget: Widget {
 
 struct DuffyGaugeWatchWidgetEntryView: View {
     @Environment(\.widgetFamily) private var widgetFamily
+    @Environment(\.showsWidgetLabel) private var showsWidgetLabel
 
     let entry: DuffyWatchWidgetEntry
 
@@ -60,19 +61,24 @@ struct DuffyGaugeWatchWidgetEntryView: View {
                         .renderingMode(.template)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(width: 8.0, height: 8.0)
+                        .frame(width: showsWidgetLabel ? .infinity : 10.0, height: showsWidgetLabel ? .infinity : 10.0)
                         .foregroundStyle(Color(complicationColor: ComplicationDisplayModel.blueTint))
                 }
                 
-                Text(ComplicationDisplayModel.formatStepsForLarge(entry.steps))
-                    .font(.system(.caption2, design: .rounded, weight: .semibold))
-                    .minimumScaleFactor(0.5)
+                if !showsWidgetLabel {
+                    Text(ComplicationDisplayModel.formatStepsForLarge(entry.steps))
+                        .font(.system(.caption2, design: .rounded, weight: .semibold))
+                        .minimumScaleFactor(0.5)
+                }
             }
             
         }
         .gaugeStyle(.accessoryCircularCapacity)
         .tint(Color(complicationColor: ComplicationDisplayModel.blueTint))
         .widgetAccentable()
+        .widgetLabel {
+            Text("\(ComplicationDisplayModel.formatStepsForLarge(entry.steps)) STEPS", comment: "")
+        }
     }
 
     @ViewBuilder
