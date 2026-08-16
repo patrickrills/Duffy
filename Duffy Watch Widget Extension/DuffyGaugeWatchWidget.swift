@@ -50,7 +50,7 @@ struct DuffyGaugeWatchWidgetEntryView: View {
 
     private var circularGaugeView: some View {
         Gauge(value: Double(ComplicationDisplayModel.gaugeFillFraction(totalSteps: entry.steps, goal: entry.goal))) {
-            Text(NSLocalizedString("Steps", comment: ""))
+            Text("Steps", comment: "")
         } currentValueLabel: {
             VStack(spacing: 2.0) {
                 if ComplicationDisplayModel.goalReached(totalSteps: entry.steps, goal: entry.goal) {
@@ -82,7 +82,9 @@ struct DuffyGaugeWatchWidgetEntryView: View {
                 .font(.system(.body, design: .rounded, weight: .semibold))
                 .minimumScaleFactor(0.6)
                 .widgetLabel {
-                    Text(NSLocalizedString("Goal achieved!", comment: ""))
+                    Text("Goal achieved!", comment: "")
+                        .foregroundStyle(Color(complicationColor: ComplicationDisplayModel.blueTint))
+                        .widgetAccentable()
                 }
             
             if #available(watchOS 10.0, *) {
@@ -120,25 +122,26 @@ struct DuffyGaugeWatchWidgetEntryView: View {
                     .foregroundColor(Color(complicationColor: ComplicationDisplayModel.blueTint))
                     .widgetAccentable()
 
-                Text(String(format: NSLocalizedString("%@ STEPS", comment: ""), ComplicationDisplayModel.formatStepsForLarge(entry.steps)))
+                Text("\(ComplicationDisplayModel.formatStepsForLarge(entry.steps)) STEPS", comment: "")
                     .font(.system(.body, design: .rounded, weight: .semibold))
                     .lineLimit(1)
             }
 
             VStack(alignment: .leading, spacing: 4.0) {
                 if ComplicationDisplayModel.goalReached(totalSteps: entry.steps, goal: entry.goal) {
-                    Text(NSLocalizedString("Goal achieved!", comment: ""))
+                    Text("Goal achieved!", comment: "")
                         .font(.system(.body, design: .rounded, weight: .regular))
                         .lineLimit(1)
                         .foregroundColor(Color(complicationColor: ComplicationDisplayModel.blueTint))
                         .widgetAccentable()
-
+                
                     Text(ComplicationDisplayModel.graphicRectangularProgressText(totalSteps: entry.steps, goal: entry.goal))
                         .font(.system(.callout, design: .rounded, weight: .regular))
                         .lineLimit(1)
                         .foregroundStyle(.secondary)
                 } else {
-                    Text(ComplicationDisplayModel.graphicRectangularProgressText(totalSteps: entry.steps, goal: entry.goal))
+                    // Hack for localization
+                    Text("\(ComplicationDisplayModel.formatStepsForLarge(entry.goal - entry.steps)) to go", comment: "")
                         .font(.system(.callout, design: .rounded, weight: .regular))
                         .lineLimit(1)
                         .foregroundStyle(.secondary)

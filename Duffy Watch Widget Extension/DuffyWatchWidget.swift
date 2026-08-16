@@ -52,7 +52,7 @@ struct DuffyWatchWidgetEntryView: View {
                     .minimumScaleFactor(0.5)
                     .lineLimit(1)
 
-                Text(NSLocalizedString("steps", comment: ""))
+                Text("steps", comment: "")
                     .font(.system(.caption2, design: .rounded))
                     .minimumScaleFactor(0.75)
                     .lineLimit(1)
@@ -73,21 +73,21 @@ struct DuffyWatchWidgetEntryView: View {
             stepsText
                 .widgetCurvesContent()
                 .widgetLabel {
-                    Text(NSLocalizedString("STEPS", comment: ""))
+                    Text("STEPS", comment: "")
                         .foregroundColor(Color(complicationColor: ComplicationDisplayModel.blueTint))
                         .widgetAccentable()
                 }
         } else {
             stepsText
                 .widgetLabel {
-                    Text(NSLocalizedString("STEPS", comment: ""))
+                    Text("STEPS", comment: "")
                         .foregroundColor(Color(complicationColor: ComplicationDisplayModel.blueTint))
                 }
         }
     }
 
     private var inlineStepsView: some View {
-        Text(String(format: NSLocalizedString("%@ STEPS", comment: ""), ComplicationDisplayModel.formatStepsForLarge(entry.steps)))
+        Text("\(ComplicationDisplayModel.formatStepsForLarge(entry.steps)) STEPS", comment: "")
             .minimumScaleFactor(0.6)
     }
 
@@ -103,7 +103,7 @@ struct DuffyWatchWidgetEntryView: View {
                         .foregroundStyle(Color(complicationColor: ComplicationDisplayModel.blueTint))
                         .widgetAccentable()
 
-                    Text(NSLocalizedString("Steps", comment: ""))
+                    Text("Steps", comment: "")
                         .font(.system(size: 18.0, weight: .medium, design: .rounded))
                         .minimumScaleFactor(0.5)
                         .lineLimit(1)
@@ -126,7 +126,7 @@ struct DuffyWatchWidget_Previews: PreviewProvider {
     static var previews: some View {
         
         let sample: DuffyWatchWidgetEntry = DuffyWatchWidgetEntry(date: Date(), steps: 8000, goal: 10000)
-        let family: WidgetFamily = .accessoryCircular
+        let family: WidgetFamily = .accessoryRectangular
         let locale = "ja_JP"
         
         if #available(watchOS 10.0, *) {
