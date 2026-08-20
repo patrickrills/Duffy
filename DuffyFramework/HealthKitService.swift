@@ -135,11 +135,8 @@ public class HealthKitService
             completionHandler(.failure(.unsupported))
             return
         }
-        
-        let queryStartDate = startDate.stripTime()
-        let queryEndDate = endDate.stripTime().nextDay()
     
-        get(quantityType: stepsType, measuredIn: HKUnit.count(), from: queryStartDate, to: queryEndDate) { result in
+        get(quantityType: stepsType, measuredIn: HKUnit.count(), from: startDate, to: endDate) { result in
             switch result {
             case .success(let stepsByDate):
                 let stepsMapped: [Date : Steps] = stepsByDate.reduce(into: [:]) { (map, entry) in
@@ -210,14 +207,32 @@ public class HealthKitService
     //MARK: Flights and Distance Queries
         
     public func getFlightsClimbed(for date: Date, completionHandler: @escaping (FlightsForDayResult) -> ()) {
+        getFlightsClimbed(from: date, to: date) { result in
+            switch result {
+            case .success(let flights):
+                guard let day = flights.first else {
+                    completionHandler(.failure(.invalidResults))
+                    return
+                }
+                completionHandler(.success((day: day.key, flights: day.value)))
+            case .failure(let error):
+                completionHandler(.failure(error))
+            }
+        }
+    }
+    
+    public func getFlightsClimbed(from startDate: Date, to endDate: Date, completionHandler: @escaping (FlightsByDateResult) -> ()) {
         guard HKHealthStore.isHealthDataAvailable(),
             let flightType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.flightsClimbed)
         else { return }
         
-        get(quantityType: flightType, measuredIn: HKUnit.count(), on: date) { result in
+        get(quantityType: flightType, measuredIn: HKUnit.count(), from: startDate.stripTime(), to: endDate.stripTime().nextDay()) { result in
             switch result {
-            case .success(let sumValue):
-                completionHandler(.success((day: sumValue.day, flights: FlightsClimbed(sumValue.sum))))
+            case .success(let values):
+                let mapped: [Date : FlightsClimbed] = values.reduce(into: [:]) { (map, entry) in
+                    map[entry.key] = FlightsClimbed(entry.value)
+                }
+                completionHandler(.success(mapped))
             case .failure(let error):
                 completionHandler(.failure(error))
             }
@@ -225,6 +240,21 @@ public class HealthKitService
     }
     
     public func getDistanceCovered(for date: Date, completionHandler: @escaping (DistanceForDayResult) -> ()) {
+        getDistanceCovered(from: date, to: date) { result in
+            switch result {
+            case .success(let distance):
+                guard let day = distance.values.first else {
+                    completionHandler(.failure(.invalidResults))
+                    return
+                }
+                completionHandler(.success((day: day.key, formatter: distance.formatter, distance: day.value)))
+            case .failure(let error):
+                completionHandler(.failure(error))
+            }
+        }
+    }
+    
+    public func getDistanceCovered(from startDate: Date, to endDate: Date, completionHandler: @escaping (DistanceByDateResult) -> ()) {
         guard HKHealthStore.isHealthDataAvailable(),
             let store = healthStore,
             let distanceType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.distanceWalkingRunning)
@@ -241,10 +271,13 @@ public class HealthKitService
                 distanceUnits = preferred
             }
             
-            self?.get(quantityType: distanceType, measuredIn: distanceUnits, on: date) { result in
+            self?.get(quantityType: distanceType, measuredIn: distanceUnits, from: startDate, to: endDate) { result in
                 switch result {
-                case .success(let sumValue):
-                    completionHandler(.success((day: sumValue.day, formatter: HKUnit.lengthFormatterUnit(from: distanceUnits), distance: sumValue.sum)))
+                case .success(let values):
+                    let mapped: [Date : DistanceTravelled] = values.reduce(into: [:]) { (map, entry) in
+                        map[entry.key] = DistanceTravelled(entry.value)
+                    }
+                    completionHandler(.success((values: mapped, formatter: HKUnit.lengthFormatterUnit(from: distanceUnits))))
                 case .failure(let error):
                     completionHandler(.failure(error))
                 }
@@ -255,9 +288,7 @@ public class HealthKitService
     //MARK: Helpers
     
     private func get(quantityType: HKQuantityType, measuredIn: HKUnit, on: Date, completionHandler: @escaping (Result<(day: Date, sum: Double), HealthKitError>) -> ()) {
-        let startDate = on.stripTime()
-        let endDate = startDate.nextDay()
-        get(quantityType: quantityType, measuredIn: measuredIn, from: startDate, to: endDate) { result in
+        get(quantityType: quantityType, measuredIn: measuredIn, from: on, to: on) { result in
             switch result {
                 case .failure(let error):
                 completionHandler(.failure(error))
@@ -266,29 +297,32 @@ public class HealthKitService
                     completionHandler(.failure(.invalidResults))
                     return
                 }
-                completionHandler(.success((day: startDate, sum: first.value)))
+                completionHandler(.success((day: first.key, sum: first.value)))
             }
         }
     }
     
-    private func get(quantityType: HKQuantityType, measuredIn: HKUnit, from: Date, to: Date, completionHandler: @escaping (Result<([Date : Double]), HealthKitError>) -> ()) {
+    private func get(quantityType: HKQuantityType, measuredIn: HKUnit, from startDate: Date, to endDate: Date, completionHandler: @escaping (Result<([Date : Double]), HealthKitError>) -> ()) {
         guard HKHealthStore.isHealthDataAvailable(), let store = healthStore else { return }
         
-        let forSpecificDay = HKQuery.predicateForSamples(withStart: from, end: to, options: .strictStartDate)
+        let queryStartDate = startDate.stripTime()
+        let queryEndDate = endDate.stripTime().nextDay()
+        
+        let forSpecificDay = HKQuery.predicateForSamples(withStart: queryStartDate, end: queryEndDate, options: .strictStartDate)
         var interval = DateComponents()
         interval.day = 1
         
         let query = HKStatisticsCollectionQuery(quantityType: quantityType,
                                                 quantitySamplePredicate: forSpecificDay,
                                                 options: .cumulativeSum,
-                                                anchorDate: from,
+                                                anchorDate: queryStartDate,
                                                 intervalComponents: interval)
-            
+
         query.initialResultsHandler = { query, results, error in
             if let r = results , error == nil {
                 var sumCollection = [Date : Double]()
                 
-                r.enumerateStatistics(from: from, to: to) {
+                r.enumerateStatistics(from: queryStartDate, to: queryEndDate) {
                     statistics, stop in
                     
                     if let quantity = statistics.sumQuantity() {

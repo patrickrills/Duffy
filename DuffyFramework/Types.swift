@@ -19,3 +19,5 @@ public typealias StepsForDayResult = Result<(day: Date, steps: Steps), HealthKit
 public typealias LastTrophyAwardResult = Result<([Trophy : LastAward]), HealthKitError>
 public typealias FlightsForDayResult = Result<(day: Date, flights: FlightsClimbed), HealthKitError>
 public typealias DistanceForDayResult = Result<(day: Date, formatter: LengthFormatter.Unit, distance: DistanceTravelled), HealthKitError>
+public typealias FlightsByDateResult = Result<[Date : FlightsClimbed], HealthKitError>
+public typealias DistanceByDateResult = Result<(values: [Date : DistanceTravelled], formatter: LengthFormatter.Unit), HealthKitError>
