@@ -523,6 +523,10 @@ class MainInterfaceController: WKInterfaceController
                     [weak self] in
                     self?.clearDebugLog()
                 }),
+                WKAlertAction(title: "Refresh Complication", style: .default, handler: {
+                    [weak self] in
+                    self?.refreshDebug()
+                }),
                 WKAlertAction(title: "Dismiss", style: .cancel, handler: {})
             ])
             
@@ -543,5 +547,9 @@ class MainInterfaceController: WKInterfaceController
     
     private func clearDebugLog() {
         LoggingService.clearLog()
+    }
+    
+    private func refreshDebug() {
+        ComplicationController.refreshComplication()
     }
 }
