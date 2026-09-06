@@ -30,6 +30,8 @@ class MainInterfaceController: WKInterfaceController
     @IBOutlet weak var tipButton: WKInterfaceButton!
     @IBOutlet weak var tipButtonImage : WKInterfaceImage!
     @IBOutlet weak var tipButtonLabel : WKInterfaceLabel!
+    @IBOutlet weak var debugButtonImage : WKInterfaceImage!
+    @IBOutlet weak var debugButtonLabel : WKInterfaceLabel!
     @IBOutlet weak var debugButton: WKInterfaceButton!
     @IBOutlet weak var topSeparator: WKInterfaceGroup!
     @IBOutlet weak var bottomSeparator: WKInterfaceGroup!
@@ -372,6 +374,13 @@ class MainInterfaceController: WKInterfaceController
             goalButtonImage.setImage(UIImage(systemName: goalImageName, withConfiguration: symbolConfiguration)?.withRenderingMode(.alwaysTemplate))
             goalButtonLabel.setAttributedText(NSAttributedString(string: goalButtonText, attributes: [.font : buttonFont]))
             
+            var debugImageName = "ant.fill"
+            if #available(watchOS 7.0, *) {
+                debugImageName = "ladybug.fill"
+            }
+            debugButtonImage.setImage((UIImage(systemName: debugImageName, withConfiguration: symbolConfiguration)?.withRenderingMode(.alwaysTemplate)))
+            debugButtonLabel.setAttributedText(NSAttributedString(string: "Debug", attributes: [.font : buttonFont]))
+            
             setRoundedText(stepsTitle, for: stepsTitleLabel)
             setRoundedText(goalTitle, for: stepsGoalTitleLabel, in: .white)
             setRoundedText(flightsTitle, for: flightsTitleLabel)
@@ -389,6 +398,7 @@ class MainInterfaceController: WKInterfaceController
             distanceTitleLabel.setTextColor(Globals.secondaryColor())
             stepsGoalTitleLabel.setText(goalTitle)
             stepsGoalTitleLabel.setTextColor(.white)
+            debugButtonImage.setHidden(true)
         }
     }
     
