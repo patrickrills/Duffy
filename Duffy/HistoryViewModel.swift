@@ -15,11 +15,7 @@ struct HistoryDetail {
     let goal: Steps
 }
 
-protocol HistoryViewModelDelegate: AnyObject {
-    func historyDataDidChange()
-    func historyLoadingStateDidChange()
-}
-
+@MainActor
 class HistoryViewModel {
     
     private enum Constants {
@@ -28,12 +24,9 @@ class HistoryViewModel {
     
     //MARK: Properties and State
     
-    weak var delegate: HistoryViewModelDelegate?
-    
     private let goal = HealthCache.dailyGoal()
     private var pastSteps: [Date : Steps] = [:]
     private var filteredDates: [Date] = []
-    private var isLoading: Bool = false
     
     private(set) var canLoadMore: Bool = true
     
@@ -60,10 +53,12 @@ class HistoryViewModel {
         return pastSteps.filter({ filteredDates.contains($0.key) })
     }
     
+    var loadingTitle: String {
+        return NSLocalizedString("Loading...", comment: "")
+    }
+    
     var title: String {
-        return isLoading
-            ? NSLocalizedString("Loading...", comment: "")
-            : String(format: NSLocalizedString("Since %@", comment: ""), Globals.mediumDateFormatter().string(from: currentFilterDate))
+        return String(format: NSLocalizedString("Since %@", comment: ""), Globals.mediumDateFormatter().string(from: currentFilterDate))
     }
     
     var isLoadMoreHidden: Bool {
@@ -85,35 +80,36 @@ class HistoryViewModel {
     
     //MARK: Data fetching
     
-    func loadNextPage() {
-        filterSteps(since: currentFilterDate.dateByAdding(days: -Constants.PAGE_SIZE_DAYS))
+    func loadNextPage() async {
+        await filterSteps(since: currentFilterDate.dateByAdding(days: -Constants.PAGE_SIZE_DAYS))
     }
     
-    func updateDateFilter(_ filterDate: Date) {
-        filterSteps(since: filterDate.stripTime())
+    func updateDateFilter(_ filterDate: Date) async {
+        await filterSteps(since: filterDate.stripTime())
     }
     
-    private func filterSteps(since startDate: Date) {
-        toggleLoading(true)
-        
-        if startDate >= lastDateInCache {
+    private func filterSteps(since startDate: Date) async {
+        guard startDate < lastDateInCache else {
             refresh(for: startDate)
-        } else {
-            let previousLastCacheDate = lastDateInCache
-            
-            HealthKitService.getInstance().getSteps(from: startDate, to: lastDateInCache) { [weak self] result in
-                DispatchQueue.main.async {
-                    guard let self = self else { return }
-                    
-                    switch result {
-                    case .success(let stepsCollection):
-                        self.pastSteps.merge(stepsCollection, uniquingKeysWith: { $1 })
-                        self.canLoadMore = !(stepsCollection.isEmpty || self.lastDateInCache == previousLastCacheDate)
-                        self.refresh(for: startDate)
-                    case .failure(_):
-                        self.toggleLoading(false)
-                    }
-                }
+            return
+        }
+        
+        let previousLastCacheDate = lastDateInCache
+        
+        switch await steps(from: startDate, to: lastDateInCache) {
+        case .success(let stepsCollection):
+            pastSteps.merge(stepsCollection, uniquingKeysWith: { $1 })
+            canLoadMore = !(stepsCollection.isEmpty || lastDateInCache == previousLastCacheDate)
+            refresh(for: startDate)
+        case .failure(_):
+            break
+        }
+    }
+    
+    private func steps(from startDate: Date, to endDate: Date) async -> StepsByDateResult {
+        return await withCheckedContinuation { continuation in
+            HealthKitService.getInstance().getSteps(from: startDate, to: endDate) { result in
+                continuation.resume(returning: result)
             }
         }
     }
@@ -121,13 +117,6 @@ class HistoryViewModel {
     private func refresh(for startDate: Date) {
         filteredDates = pastSteps.filter({ $0.key >= startDate }).map(\.key)
         DetailSortOption.sort(option: sort, dates: &filteredDates)
-        delegate?.historyDataDidChange()
-        toggleLoading(false)
-    }
-    
-    private func toggleLoading(_ isLoading: Bool) {
-        self.isLoading = isLoading
-        delegate?.historyLoadingStateDidChange()
     }
     
 }
