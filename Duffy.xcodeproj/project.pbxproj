@@ -33,6 +33,7 @@
 		0927434F29B4E7AC00F69D1B /* DetailSortOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0927434E29B4E7AC00F69D1B /* DetailSortOption.swift */; };
 		0927435129C729BD00F69D1B /* HistorySection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0927435029C729BD00F69D1B /* HistorySection.swift */; };
 		09FA10A12E6D000100F69D1B /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09FA10A02E6D000100F69D1B /* HistoryViewModel.swift */; };
+		09FA10A32E6D000300F69D1B /* HistoryDataType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09FA10A22E6D000300F69D1B /* HistoryDataType.swift */; };
 		09275CFB262CA35900E57008 /* MainWeeklySummaryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 09275CF9262CA35900E57008 /* MainWeeklySummaryTableViewCell.xib */; };
 		09275CFC262CA35900E57008 /* MainWeeklySummaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09275CFA262CA35900E57008 /* MainWeeklySummaryTableViewCell.swift */; };
 		09277E472E1B21E300296EA7 /* TipCurrencySymbolPrefix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09277E462E1B21E000296EA7 /* TipCurrencySymbolPrefix.swift */; };
@@ -257,6 +258,7 @@
 		0927434E29B4E7AC00F69D1B /* DetailSortOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailSortOption.swift; sourceTree = "<group>"; };
 		0927435029C729BD00F69D1B /* HistorySection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistorySection.swift; sourceTree = "<group>"; };
 		09FA10A02E6D000100F69D1B /* HistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModel.swift; sourceTree = "<group>"; };
+		09FA10A22E6D000300F69D1B /* HistoryDataType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryDataType.swift; sourceTree = "<group>"; };
 		09275CF9262CA35900E57008 /* MainWeeklySummaryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWeeklySummaryTableViewCell.xib; sourceTree = "<group>"; };
 		09275CFA262CA35900E57008 /* MainWeeklySummaryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWeeklySummaryTableViewCell.swift; sourceTree = "<group>"; };
 		09277E462E1B21E000296EA7 /* TipCurrencySymbolPrefix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipCurrencySymbolPrefix.swift; sourceTree = "<group>"; };
@@ -455,6 +457,7 @@
 				093A5F0723B26C1A007D11E3 /* DebugLogTableViewController.swift */,
 				09CE42C01E353E7100A6E587 /* HistoryTableViewController.swift */,
 				09FA10A02E6D000100F69D1B /* HistoryViewModel.swift */,
+				09FA10A22E6D000300F69D1B /* HistoryDataType.swift */,
 				09A7EEAB21A1E89A00DEDE5C /* HistoryTrendChartTableViewCell.swift */,
 				09A7EEAC21A1E89A00DEDE5C /* HistoryTrendChartTableViewCell.xib */,
 				09A7EEAF21A39D7100DEDE5C /* HistoryTrendChartView.swift */,
@@ -854,6 +857,7 @@
 				0900867320FA7673006540E7 /* BoldActionSectionHeaderView.swift in Sources */,
 				0927435129C729BD00F69D1B /* HistorySection.swift in Sources */,
 				09FA10A12E6D000100F69D1B /* HistoryViewModel.swift in Sources */,
+				09FA10A32E6D000300F69D1B /* HistoryDataType.swift in Sources */,
 				09DDAF35265A9DC4009E9B82 /* LabelHeaderCollectionReusableView.swift in Sources */,
 				09E1779B25F513EA0034A58F /* TrophyCollectionViewCell.swift in Sources */,
 				09A7EEAD21A1E89A00DEDE5C /* HistoryTrendChartTableViewCell.swift in Sources */,

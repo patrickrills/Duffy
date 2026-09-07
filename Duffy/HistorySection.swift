@@ -16,7 +16,7 @@ enum HistorySection: Int, CaseIterable {
         switch self {
         case .chart:
             let lines: [HistoryTrendChartOption] = [.actualDataLine, .trendLine]
-            let indicators: [HistoryTrendChartOption] = [.goalIndicator, .averageIndicator]
+            let indicators: [HistoryTrendChartOption] = [.goalIndicator, .averageIndicator].filter({ handler.isHistoryTrendChartOptionAvailable($0) })
             let handleOption: (UIAction) -> (Void) = { [weak handler] action in
                 if let selectedOption = HistoryTrendChartOption(rawValue: action.identifier.rawValue),
                     let handler = handler
@@ -59,6 +59,7 @@ enum HistorySection: Int, CaseIterable {
 }
 
 protocol HistorySectionOptionHandler: AnyObject {
+    func isHistoryTrendChartOptionAvailable(_ option: HistoryTrendChartOption) -> Bool
     func handleHistoryTrendChartOption(_ option: HistoryTrendChartOption)
     func handleDetailSortOption(_ option: DetailSortOption)
     func isDetailSortOptionEnabled(_ option: DetailSortOption) -> Bool
