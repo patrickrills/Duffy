@@ -34,18 +34,18 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     
     class func refreshComplication() {
         let currentSteps = HealthCache.lastSteps(for: Date())
-
-        let server = CLKComplicationServer.sharedInstance()
-        if let allComplications = server.activeComplications {
-            allComplications.forEach { server.reloadTimeline(for: $0) }
-            LoggingService.log("Complication reloadTimeline for \(allComplications.count) comps", with: String(format: "%d", currentSteps))
-        } else {
-            LoggingService.log("Complication reloadTimeline but no active found", at: .debug)
-        }
-
+        
         if #available(watchOSApplicationExtension 9.0, *) {
             WidgetCenter.shared.reloadAllTimelines()
             LoggingService.log("WidgetKit reloadAllTimelines", with: String(format: "%d", currentSteps))
+        } else {
+            let server = CLKComplicationServer.sharedInstance()
+            if let allComplications = server.activeComplications {
+                allComplications.forEach { server.reloadTimeline(for: $0) }
+                LoggingService.log("Complication reloadTimeline for \(allComplications.count) comps", with: String(format: "%d", currentSteps))
+            } else {
+                LoggingService.log("Complication reloadTimeline but no active found", at: .debug)
+            }
         }
     }
     
