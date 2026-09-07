@@ -191,7 +191,6 @@ extension ExtensionDelegate: WCSessionServiceDelegate {
     
     func complicationUpdateRequested() {
         ComplicationController.refreshComplication()
-        scheduleSnapshotNow()
     }
     
     func sessionWasActivated() {
