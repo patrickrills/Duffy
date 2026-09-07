@@ -47,8 +47,7 @@ class HistoryTableViewController: UITableViewController {
         tableView.register(UINib(nibName: String(describing: HistorySummaryTableViewCell.self), bundle: Bundle.main), forCellReuseIdentifier: String(describing: HistorySummaryTableViewCell.self))
         clearsSelectionOnViewWillAppear = true
         
-        viewModel.delegate = self
-        viewModel.loadNextPage()
+        loadNextPage()
     }
     
     override func viewWillLayoutSubviews() {
@@ -78,11 +77,38 @@ class HistoryTableViewController: UITableViewController {
     //MARK: Event handlers
     
     @IBAction private func changeFilter() {
-        navigationController?.pushViewController(HistoryFilterTableViewController(selectedDate: viewModel.currentFilterDate, onDateSelected: { [weak self] in self?.viewModel.updateDateFilter($0) }), animated: true)
+        navigationController?.pushViewController(HistoryFilterTableViewController(selectedDate: viewModel.currentFilterDate, onDateSelected: { [weak self] in self?.updateDateFilter($0) }), animated: true)
     }
     
     @IBAction func loadMorePressed() {
-        viewModel.loadNextPage()
+        loadNextPage()
+    }
+    
+    private func loadNextPage() {
+        title = viewModel.loadingTitle
+        
+        Task {
+            await viewModel.loadNextPage()
+            refresh()
+        }
+    }
+    
+    private func updateDateFilter(_ filterDate: Date) {
+        title = viewModel.loadingTitle
+        
+        Task {
+            await viewModel.updateDateFilter(filterDate)
+            refresh()
+        }
+    }
+    
+    private func refresh() {
+        title = viewModel.title
+        tableView.reloadData()
+        
+        if let footer = tableView.tableFooterView as? HistoryTableViewFooter {
+            footer.isButtonHidden = !viewModel.canLoadMore
+        }
     }
     
     //MARK: Table view datasource
@@ -162,22 +188,6 @@ class HistoryTableViewController: UITableViewController {
         
         return UIView()
     }
-}
-
-extension HistoryTableViewController: HistoryViewModelDelegate {
-    
-    func historyDataDidChange() {
-        tableView.reloadData()
-        
-        if let footer = tableView.tableFooterView as? HistoryTableViewFooter {
-            footer.isButtonHidden = !viewModel.canLoadMore
-        }
-    }
-    
-    func historyLoadingStateDidChange() {
-        title = viewModel.title
-    }
-    
 }
 
 extension HistoryTableViewController: HistorySectionOptionHandler {
