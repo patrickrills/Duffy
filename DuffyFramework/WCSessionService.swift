@@ -50,6 +50,11 @@ public class WCSessionService : NSObject
     public func isActivated() -> Bool {
         return WCSession.isSupported() && WCSession.default.activationState == .activated
     }
+    
+    @available(watchOS, unavailable)
+    public func isComplicationEnabled() -> Bool {
+        return WCSession.isSupported() && WCSession.default.isComplicationEnabled
+    }
    
     //MARK: Transfer functions
     
