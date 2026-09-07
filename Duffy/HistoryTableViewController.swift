@@ -20,6 +20,7 @@ class HistoryTableViewController: UITableViewController {
     //MARK: Properties and State
     
     private let viewModel = HistoryViewModel()
+    private var dataTypeItem: UIBarButtonItem?
     
     //MARK: Constructors
     
@@ -38,7 +39,17 @@ class HistoryTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "calendar", withConfiguration: UIImage.SymbolConfiguration(weight: .medium)), style: .plain, target: self, action: #selector(changeFilter))
+        let filterItem = UIBarButtonItem(image: UIImage(systemName: "calendar", withConfiguration: UIImage.SymbolConfiguration(weight: .medium)), style: .plain, target: self, action: #selector(changeFilter))
+        
+        var rightItems: [UIBarButtonItem] = [filterItem]
+        if DebugService.isDebugModeEnabled() {
+            let dataTypeItem = UIBarButtonItem(image: dataTypeImage(), menu: dataTypeMenu())
+            rightItems.append(dataTypeItem)
+            self.dataTypeItem = dataTypeItem
+        } else {
+            changeDataType(.steps)
+        }
+        navigationItem.rightBarButtonItems = rightItems
         
         tableView.estimatedSectionHeaderHeight = BoldActionSectionHeaderView.estimatedHeight
         tableView.register(BoldActionSectionHeaderView.self, forHeaderFooterViewReuseIdentifier: String(describing: BoldActionSectionHeaderView.self))
@@ -84,6 +95,33 @@ class HistoryTableViewController: UITableViewController {
         loadNextPage()
     }
     
+    private func dataTypeImage() -> UIImage? {
+        return UIImage(systemName: viewModel.dataType.symbolName(), withConfiguration: UIImage.SymbolConfiguration(weight: .medium))
+    }
+    
+    private func dataTypeMenu() -> UIMenu {
+        let menuActions = HistoryDataType.allCases.map { dataType in
+            let isSelected = dataType == viewModel.dataType
+            let title = isSelected ? viewModel.dataTypeName : dataType.displayName()
+            return UIAction(title: title, image: UIImage(systemName: dataType.symbolName()), identifier: UIAction.Identifier(dataType.rawValue), state: isSelected ? .on : .off) { [weak self] action in
+                if let selectedDataType = HistoryDataType(rawValue: action.identifier.rawValue) {
+                    self?.changeDataType(selectedDataType)
+                }
+            }
+        }
+        
+        return UIMenu(title: "", children: menuActions)
+    }
+    
+    private func changeDataType(_ dataType: HistoryDataType) {
+        title = viewModel.loadingTitle
+        
+        Task {
+            await viewModel.changeDataType(dataType)
+            refresh()
+        }
+    }
+    
     private func loadNextPage() {
         title = viewModel.loadingTitle
         
@@ -104,6 +142,8 @@ class HistoryTableViewController: UITableViewController {
     
     private func refresh() {
         title = viewModel.title
+        dataTypeItem?.image = dataTypeImage()
+        dataTypeItem?.menu = dataTypeMenu()
         tableView.reloadData()
         
         if let footer = tableView.tableFooterView as? HistoryTableViewFooter {
@@ -131,16 +171,16 @@ class HistoryTableViewController: UITableViewController {
         switch HistorySection(rawValue: indexPath.section) {
         case .chart:
             let graphCell = tableView.dequeueReusableCell(withIdentifier: String(describing: HistoryTrendChartTableViewCell.self), for: indexPath) as! HistoryTrendChartTableViewCell
-            graphCell.bind(to: viewModel.filteredSteps)
+            graphCell.bind(to: viewModel.filteredValues, goal: viewModel.goal)
             return graphCell
         case .summary:
             let summaryCell = tableView.dequeueReusableCell(withIdentifier: String(describing: HistorySummaryTableViewCell.self), for: indexPath) as! HistorySummaryTableViewCell
-            summaryCell.bind(to: viewModel.filteredSteps)
+            summaryCell.bind(to: viewModel.filteredValues, dataType: viewModel.dataType)
             return summaryCell
         case .details:
             let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: PreviousValueTableViewCell.self), for: indexPath) as! PreviousValueTableViewCell
             if let detail = viewModel.detail(at: indexPath.row) {
-                cell.bind(to: detail.date, steps: detail.steps, goal: detail.goal)
+                cell.bind(to: detail.date, value: detail.value, trophy: detail.trophy)
             }
             return cell
         default:
@@ -201,6 +241,11 @@ extension HistoryTableViewController: HistorySectionOptionHandler {
         
         viewModel.sort = option
         tableView.reloadSections(IndexSet(integer: HistorySection.details.rawValue), with: .automatic)
+    }
+    
+    func isHistoryTrendChartOptionAvailable(_ option: HistoryTrendChartOption) -> Bool {
+        guard option == .goalIndicator else { return true }
+        return viewModel.goal != nil
     }
     
     func handleHistoryTrendChartOption(_ option: HistoryTrendChartOption) {

@@ -19,7 +19,8 @@ class HistoryTrendChartTableViewCell: UITableViewCell
         isUserInteractionEnabled = false
     }
     
-    func bind(to stepsByDay: [Date : Steps]) {
-        chart.dataSet = stepsByDay
+    func bind(to valuesByDay: [Date : Double], goal: Double?) {
+        chart.goal = goal
+        chart.dataSet = valuesByDay
     }
 }

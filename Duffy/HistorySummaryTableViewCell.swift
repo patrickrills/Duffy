@@ -46,47 +46,57 @@ class HistorySummaryTableViewCell: UITableViewCell {
         averageDot.backgroundColor = .secondarySystemGroupedBackground
     }
 
-    func bind(to stepsByDay: [Date : Steps]) {
-        let summary = stats(from: stepsByDay)
+    private var dataType: HistoryDataType = .steps
+    
+    func bind(to valuesByDay: [Date : Double], dataType: HistoryDataType) {
+        self.dataType = dataType
+        
+        let summary = stats(from: valuesByDay)
         displayAverage(summary.average)
         displayTotal(summary.total)
         displayExtreme(summary.min, minValueLabel, minDateLabel)
         displayExtreme(summary.max, maxValueLabel, maxDateLabel)
         calculateDotPosition(summary)
-        displayOverCount(summary.overDaysCount, since: stepsByDay.keys.min() ?? Date().previousDay())
+        displayOverCount(summary.overDaysCount, since: valuesByDay.keys.min() ?? Date().previousDay())
         setNeedsLayout()
     }
     
-    typealias Extreme = (key: Date, value: Steps)
-    typealias Stats = (average: Steps, total: Steps, min: Extreme?, max: Extreme?, overDaysCount: UInt)
+    typealias Extreme = (key: Date, value: Double)
+    typealias Stats = (average: Double, total: Double, min: Extreme?, max: Extreme?, overDaysCount: UInt?)
     
-    private func stats(from stepsByDay: [Date : Steps]) -> Stats {
-        let goal = HealthCache.dailyGoal()
-        return Stats(average: Steps(stepsByDay.values.mean()),
-                     total: Steps(stepsByDay.values.sum()),
-                     min: stepsByDay.count > 1 ? stepsByDay.min(by: { $0.value < $1.value }) : nil,
-                     max: stepsByDay.count > 1 ? stepsByDay.max(by: { $0.value < $1.value }) : nil,
-                     overDaysCount: UInt(stepsByDay.values.filter({ $0 >= goal }).count))
+    private func stats(from valuesByDay: [Date : Double]) -> Stats {
+        var overDaysCount: UInt?
+        
+        if dataType.supportsGoal {
+            let goal = Double(HealthCache.dailyGoal())
+            overDaysCount = UInt(valuesByDay.values.filter({ $0 >= goal }).count)
+        }
+        
+        return Stats(average: valuesByDay.values.mean(),
+                     total: valuesByDay.values.sum(),
+                     min: valuesByDay.count > 1 ? valuesByDay.min(by: { $0.value < $1.value }) : nil,
+                     max: valuesByDay.count > 1 ? valuesByDay.max(by: { $0.value < $1.value }) : nil,
+                     overDaysCount: overDaysCount)
     }
     
-    private func displayAverage(_ average: Steps) {
+    private func displayAverage(_ average: Double) {
         averageTitleLabel.text = NSLocalizedString("Daily Average", comment: "")
         averageTitleLabel.textColor = .secondaryLabel
         
-        let averageFormatted = Globals.stepsFormatter().string(for: average)!
+        let averageFormatted = dataType.format(average)
         averageLabel.text = averageFormatted
         averageLabel.textColor = Globals.averageColor()
     }
     
-    private func displayTotal(_ total: Steps) {
-        let totalFormatted = Globals.stepsFormatter().string(for: total)!
+    private func displayTotal(_ total: Double) {
+        let totalFormatted = dataType.format(total)
         totalLabel.text = String(format: NSLocalizedString("%@ total", comment: ""), totalFormatted)
         totalLabel.textColor = .secondaryLabel
     }
     
     private func displayExtreme(_ x: Extreme?, _ valueLabel: UILabel, _ dateLabel: UILabel) {
         if let x = x {
-            valueLabel.text = Globals.stepsFormatter().string(for: x.value)!
+            valueLabel.text = dataType.format(x.value)
             dateLabel.text = Globals.shortDateFormatter().string(from: x.key).uppercased()
         } else {
             valueLabel.text = nil
@@ -104,10 +114,17 @@ class HistorySummaryTableViewCell: UITableViewCell {
         }
         
         let span = max.value - min.value
-        averagePositionPercent = Double(stats.average - min.value) / Double(span)
+        averagePositionPercent = (stats.average - min.value) / span
     }
     
-    private func displayOverCount(_ overCount: UInt, since startDate: Date) {
+    private func displayOverCount(_ overCount: UInt?, since startDate: Date) {
+        guard let overCount = overCount else {
+            overLabel.attributedText = nil
+            overLabel.isHidden = true
+            return
+        }
+        
+        overLabel.isHidden = false
         let numberOfDays = startDate.differenceInDays(from: Date())
         let percentOfDays = Double(overCount) / Double(numberOfDays)
         
