@@ -11,8 +11,8 @@ import DuffyFramework
 
 struct HistoryDetail {
     let date: Date
-    let steps: Steps
-    let goal: Steps
+    let value: String
+    let trophy: Trophy
 }
 
 @MainActor
@@ -24,11 +24,14 @@ class HistoryViewModel {
     
     //MARK: Properties and State
     
-    private let goal = HealthCache.dailyGoal()
-    private var pastSteps: [Date : Steps] = [:]
+    private var pastValues: [Date : Double] = [:]
     private var filteredDates: [Date] = []
+    private var unit: LengthFormatter.Unit?
+    private var filterDate: Date = Date()
+    private var fetchedFromDate: Date?
     
     private(set) var canLoadMore: Bool = true
+    private(set) var dataType: HistoryDataType = HistoryDataType.current
     
     var sort: DetailSortOption = .newestToOldest {
         didSet {
@@ -37,20 +40,23 @@ class HistoryViewModel {
     }
     
     private var lastDateInCache: Date {
-        return pastSteps.keys.sorted(by: <).first ?? Date().previousDay()
+        return pastValues.keys.sorted(by: <).first ?? Date().previousDay()
     }
     
     var currentFilterDate: Date {
-        switch sort {
-        case .newestToOldest:
-            return filteredDates.last ?? Date()
-        case .oldestToNewest:
-            return filteredDates.first ?? Date()
-        }
+        return filterDate
     }
     
-    var filteredSteps: [Date : Steps] {
-        return pastSteps.filter({ filteredDates.contains($0.key) })
+    var filteredValues: [Date : Double] {
+        return pastValues.filter({ filteredDates.contains($0.key) })
+    }
+    
+    var dataTypeName: String {
+        return dataType.displayName(in: unit)
+    }
+    
+    var goal: Double? {
+        return dataType.supportsGoal ? Double(HealthCache.dailyGoal()) : nil
     }
     
     var loadingTitle: String {
@@ -73,49 +79,61 @@ class HistoryViewModel {
         guard index < filteredDates.count else { return nil }
         
         let date = filteredDates[index]
-        guard let steps = pastSteps[date] else { return nil }
+        guard let value = pastValues[date] else { return nil }
         
-        return HistoryDetail(date: date, steps: steps, goal: goal)
+        return HistoryDetail(date: date, value: dataType.format(value), trophy: trophy(for: value))
+    }
+    
+    private func trophy(for value: Double) -> Trophy {
+        guard dataType.supportsGoal else { return .none }
+        return Trophy.trophy(for: Steps(value))
     }
     
     //MARK: Data fetching
     
     func loadNextPage() async {
-        await filterSteps(since: currentFilterDate.dateByAdding(days: -Constants.PAGE_SIZE_DAYS))
+        await filterValues(since: filterDate.dateByAdding(days: -Constants.PAGE_SIZE_DAYS))
     }
     
     func updateDateFilter(_ filterDate: Date) async {
-        await filterSteps(since: filterDate.stripTime())
+        await filterValues(since: filterDate.stripTime())
     }
     
-    private func filterSteps(since startDate: Date) async {
-        guard startDate < lastDateInCache else {
-            refresh(for: startDate)
+    func changeDataType(_ dataType: HistoryDataType) async {
+        guard dataType != self.dataType else { return }
+        
+        self.dataType = dataType
+        HistoryDataType.current = dataType
+        pastValues.removeAll()
+        filteredDates.removeAll()
+        fetchedFromDate = nil
+        unit = nil
+        canLoadMore = true
+        
+        await filterValues(since: filterDate)
+    }
+    
+    private func filterValues(since startDate: Date) async {
+        filterDate = startDate
+        
+        guard startDate < (fetchedFromDate ?? lastDateInCache) else {
+            refresh()
             return
         }
         
         let previousLastCacheDate = lastDateInCache
         
-        switch await steps(from: startDate, to: lastDateInCache) {
-        case .success(let stepsCollection):
-            pastSteps.merge(stepsCollection, uniquingKeysWith: { $1 })
-            canLoadMore = !(stepsCollection.isEmpty || lastDateInCache == previousLastCacheDate)
-            refresh(for: startDate)
-        case .failure(_):
-            break
-        }
+        guard let fetched = await dataType.values(from: startDate, to: fetchedFromDate ?? lastDateInCache) else { return }
+        
+        pastValues.merge(fetched.values, uniquingKeysWith: { $1 })
+        unit = fetched.unit
+        fetchedFromDate = startDate
+        canLoadMore = !(fetched.values.isEmpty || lastDateInCache == previousLastCacheDate)
+        refresh()
     }
     
-    private func steps(from startDate: Date, to endDate: Date) async -> StepsByDateResult {
-        return await withCheckedContinuation { continuation in
-            HealthKitService.getInstance().getSteps(from: startDate, to: endDate) { result in
-                continuation.resume(returning: result)
-            }
-        }
-    }
-    
-    private func refresh(for startDate: Date) {
-        filteredDates = pastSteps.filter({ $0.key >= startDate }).map(\.key)
+    private func refresh() {
+        filteredDates = pastValues.filter({ $0.key >= filterDate }).map(\.key)
         DetailSortOption.sort(option: sort, dates: &filteredDates)
     }
     

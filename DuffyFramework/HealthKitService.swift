@@ -224,7 +224,10 @@ public class HealthKitService
     public func getFlightsClimbed(from startDate: Date, to endDate: Date, completionHandler: @escaping (FlightsByDateResult) -> ()) {
         guard HKHealthStore.isHealthDataAvailable(),
             let flightType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.flightsClimbed)
-        else { return }
+        else {
+            completionHandler(.failure(.unsupported))
+            return
+        }
         
         get(quantityType: flightType, measuredIn: HKUnit.count(), from: startDate.stripTime(), to: endDate.stripTime().nextDay()) { result in
             switch result {
@@ -258,7 +261,10 @@ public class HealthKitService
         guard HKHealthStore.isHealthDataAvailable(),
             let store = healthStore,
             let distanceType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.distanceWalkingRunning)
-        else { return }
+        else {
+            completionHandler(.failure(.unsupported))
+            return
+        }
         
         store.preferredUnits(for: [distanceType]) { [weak self] units, error in
             if let error = error {
