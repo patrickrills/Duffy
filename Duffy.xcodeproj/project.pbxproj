@@ -147,6 +147,7 @@
 		09FA10A32E6D000300F69D1B /* HistoryDataType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09FA10A22E6D000300F69D1B /* HistoryDataType.swift */; };
 		09FA10A52E6D000500F69D1B /* HistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09FA10A42E6D000500F69D1B /* HistoryView.swift */; };
 		09FA10A92E6D000900F69D1B /* HistorySummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09FA10A82E6D000900F69D1B /* HistorySummaryView.swift */; };
+		09FA10AB2E6D000B00F69D1B /* HistoryFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09FA10AA2E6D000B00F69D1B /* HistoryFilterView.swift */; };
 		09FA10A72E6D000700F69D1B /* HistoryHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09FA10A62E6D000700F69D1B /* HistoryHostingController.swift */; };
 		09SCENE1762114120000001 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09SCENE1762114120000002 /* SceneDelegate.swift */; };
 /* End PBXBuildFile section */
@@ -369,6 +370,7 @@
 		09FA10A22E6D000300F69D1B /* HistoryDataType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryDataType.swift; sourceTree = "<group>"; };
 		09FA10A42E6D000500F69D1B /* HistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryView.swift; sourceTree = "<group>"; };
 		09FA10A82E6D000900F69D1B /* HistorySummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistorySummaryView.swift; sourceTree = "<group>"; };
+		09FA10AA2E6D000B00F69D1B /* HistoryFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryFilterView.swift; sourceTree = "<group>"; };
 		09FA10A62E6D000700F69D1B /* HistoryHostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryHostingController.swift; sourceTree = "<group>"; };
 		09SCENE1762114120000002 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -467,6 +469,7 @@
 				09FA10A62E6D000700F69D1B /* HistoryHostingController.swift */,
 				09FA10A42E6D000500F69D1B /* HistoryView.swift */,
 				09FA10A82E6D000900F69D1B /* HistorySummaryView.swift */,
+				09FA10AA2E6D000B00F69D1B /* HistoryFilterView.swift */,
 				09A7EEAB21A1E89A00DEDE5C /* HistoryTrendChartTableViewCell.swift */,
 				09A7EEAC21A1E89A00DEDE5C /* HistoryTrendChartTableViewCell.xib */,
 				09A7EEAF21A39D7100DEDE5C /* HistoryTrendChartView.swift */,
@@ -870,6 +873,7 @@
 				09FA10A72E6D000700F69D1B /* HistoryHostingController.swift in Sources */,
 				09FA10A52E6D000500F69D1B /* HistoryView.swift in Sources */,
 				09FA10A92E6D000900F69D1B /* HistorySummaryView.swift in Sources */,
+				09FA10AB2E6D000B00F69D1B /* HistoryFilterView.swift in Sources */,
 				09DDAF35265A9DC4009E9B82 /* LabelHeaderCollectionReusableView.swift in Sources */,
 				09E1779B25F513EA0034A58F /* TrophyCollectionViewCell.swift in Sources */,
 				09A7EEAD21A1E89A00DEDE5C /* HistoryTrendChartTableViewCell.swift in Sources */,
