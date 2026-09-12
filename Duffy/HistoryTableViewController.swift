@@ -46,6 +46,7 @@ class HistoryTableViewController: UITableViewController {
             let dataTypeItem = UIBarButtonItem(image: dataTypeImage(), menu: dataTypeMenu())
             rightItems.append(dataTypeItem)
             self.dataTypeItem = dataTypeItem
+            rightItems.append(UIBarButtonItem(image: UIImage(systemName: "swift"), style: .plain, target: self, action: #selector(openSwiftUIVersion)))
         } else {
             changeDataType(.steps)
         }
@@ -93,6 +94,10 @@ class HistoryTableViewController: UITableViewController {
     
     @IBAction func loadMorePressed() {
         loadNextPage()
+    }
+    
+    @IBAction private func openSwiftUIVersion() {
+        present(UINavigationController(rootViewController: HistoryHostingController()), animated: true, completion: nil)
     }
     
     private func dataTypeImage() -> UIImage? {
