@@ -85,7 +85,7 @@ struct HistoryView: View {
     
     private var summarySection: some View {
         Section {
-            HistorySummary(values: viewModel.filteredValues, dataType: viewModel.dataType)
+            HistorySummaryView(values: viewModel.filteredValues, dataType: viewModel.dataType)
         } header: {
             header(NSLocalizedString("Summary", comment: "Header of a section that summarizes aggregate data")) {
                 EmptyView()
@@ -260,30 +260,5 @@ private struct HistoryTrendChart: UIViewRepresentable {
         chart.goal = goal
         chart.dataSet = values
         chart.setNeedsDisplay()
-    }
-}
-
-private struct HistorySummary: UIViewRepresentable {
-    
-    let values: [Date : Double]
-    let dataType: HistoryDataType
-    
-    func makeUIView(context: Context) -> HistorySummaryTableViewCell {
-        let cell = Bundle.main.loadNibNamed(String(describing: HistorySummaryTableViewCell.self), owner: nil, options: nil)?.first as! HistorySummaryTableViewCell
-        cell.backgroundColor = .clear
-        return cell
-    }
-    
-    func updateUIView(_ cell: HistorySummaryTableViewCell, context: Context) {
-        cell.bind(to: values, dataType: dataType)
-    }
-    
-    func sizeThatFits(_ proposal: ProposedViewSize, uiView: HistorySummaryTableViewCell, context: Context) -> CGSize? {
-        guard let width = proposal.width else { return nil }
-        
-        let fittingSize = uiView.contentView.systemLayoutSizeFitting(CGSize(width: width, height: 0.0),
-                                                                    withHorizontalFittingPriority: .required,
-                                                                    verticalFittingPriority: .fittingSizeLevel)
-        return CGSize(width: width, height: fittingSize.height)
     }
 }
