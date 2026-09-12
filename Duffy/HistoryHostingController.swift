@@ -16,7 +16,12 @@ class HistoryHostingController: UIHostingController<HistoryView> {
         modalPresentationStyle = .fullScreen
         
         rootView = HistoryView(onShowFilter: { [weak self] selectedDate, onDateSelected in
-            self?.navigationController?.pushViewController(HistoryFilterTableViewController(selectedDate: selectedDate, onDateSelected: onDateSelected), animated: true)
+            let filter = HistoryFilterView(selectedDate: selectedDate, onDateSelected: { [weak self] filterDate in
+                onDateSelected(filterDate)
+                self?.navigationController?.popViewController(animated: true)
+            })
+            
+            self?.navigationController?.pushViewController(UIHostingController(rootView: filter), animated: true)
         })
     }
     
