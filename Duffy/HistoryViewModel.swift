@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Observation
 import DuffyFramework
 
 struct HistoryDetail {
@@ -15,6 +16,7 @@ struct HistoryDetail {
     let trophy: Trophy
 }
 
+@Observable
 @MainActor
 class HistoryViewModel {
     
