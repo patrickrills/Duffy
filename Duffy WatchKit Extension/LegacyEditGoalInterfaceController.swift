@@ -46,6 +46,7 @@ class LegacyEditGoalInterfaceController: WKInterfaceController
 
     @IBAction func savePressed() {
         HealthCache.saveDailyGoal(stepsGoal)
+        ComplicationController.refreshComplication()
         dismiss()
     }
 }
