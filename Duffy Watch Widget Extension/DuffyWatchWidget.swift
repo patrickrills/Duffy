@@ -87,8 +87,24 @@ struct DuffyWatchWidgetEntryView: View {
     }
 
     private var inlineStepsView: some View {
-        Text("\(ComplicationDisplayModel.formatStepsForLarge(entry.steps)) STEPS", comment: "")
-            .minimumScaleFactor(0.6)
+        ViewThatFits(in: .horizontal) {
+            Text("\(ComplicationDisplayModel.formatStepsForLarge(entry.steps)) STEPS", comment: "")
+                .fixedSize(horizontal: true, vertical: false)
+            
+            HStack(alignment: .center, spacing: 8.0) {
+                Text(ComplicationDisplayModel.formatStepsForLarge(entry.steps))
+                
+                Image("GraphicRectShoe")
+                    .renderingMode(.template)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 16.0, height: 16.0)
+            }
+
+            Text("\(ComplicationDisplayModel.formatStepsForSmall(entry.steps)) STEPS", comment: "")
+                .fixedSize(horizontal: true, vertical: false)
+        }
+        .lineLimit(1)
     }
 
     private var rectangularStepsView: some View {
@@ -127,7 +143,7 @@ struct DuffyWatchWidget_Previews: PreviewProvider {
         
         let sample: DuffyWatchWidgetEntry = DuffyWatchWidgetEntry(date: Date(), steps: 8000, goal: 10000)
         let family: WidgetFamily = .accessoryRectangular
-        let locale = "ja_JP"
+        let locale = "en_US" // "ja_JP"
         
         if #available(watchOS 10.0, *) {
             DuffyWatchWidgetEntryView(entry: sample)
