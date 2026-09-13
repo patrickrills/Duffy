@@ -16,8 +16,6 @@ public class HealthCache {
         case stepsCacheDay = "stepsCacheDay"
         case stepsDailyGoal = "stepsDailyGoal"
         case goalReachedDates = "goalReachedDates"
-
-        static let sharedGroupName = "group.com.bigbluefly.Duffy"
     }
 
     private typealias CachedSteps = (steps: Steps, day: String)
@@ -26,7 +24,7 @@ public class HealthCache {
     public class func saveStepsToCache(_ stepCount: Steps, for day: Date) -> Bool {
         var saved = false
 
-        if let sharedDefaults = UserDefaults(suiteName: CacheKeys.sharedGroupName) {
+        if let sharedDefaults = UserDefaults(suiteName: Constants.sharedGroupName) {
             saved = saveSteps(stepCount, for: day, to: sharedDefaults)
         }
 
@@ -93,7 +91,7 @@ public class HealthCache {
     }
 
     private class func cache() -> CachedSteps? {
-        guard let sharedDefaults = UserDefaults(suiteName: CacheKeys.sharedGroupName),
+        guard let sharedDefaults = UserDefaults(suiteName: Constants.sharedGroupName),
               let sharedCache = retrieveCache(from: sharedDefaults)
         else {
             return retrieveCache(from: UserDefaults.standard)
@@ -127,7 +125,7 @@ public class HealthCache {
 
     public class func dailyGoal() -> Steps {
         //Attempt to grab it from shared store first
-        if let sharedDefaults = UserDefaults(suiteName: CacheKeys.sharedGroupName),
+        if let sharedDefaults = UserDefaults(suiteName: Constants.sharedGroupName),
            let sharedGoal = sharedDefaults.object(forKey: CacheKeys.stepsDailyGoal.rawValue) as? Steps
         {
             return sharedGoal
@@ -146,7 +144,7 @@ public class HealthCache {
 
     public class func saveDailyGoal(_ dailyStepGoal: Steps)
     {
-        if let sharedDefaults = UserDefaults(suiteName: CacheKeys.sharedGroupName) {
+        if let sharedDefaults = UserDefaults(suiteName: Constants.sharedGroupName) {
             sharedDefaults.set(dailyStepGoal, forKey: CacheKeys.stepsDailyGoal.rawValue)
         }
 

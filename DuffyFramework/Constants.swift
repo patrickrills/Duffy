@@ -14,6 +14,7 @@ public enum Constants
     public static let stepsGoalDefault: Steps = 10000
     public static let notificationDelayInSeconds: Int = 10
     public static let goalReachedCountForRating: Int = 3
+    public static let sharedGroupName: String = "group.com.bigbluefly.Duffy"
 }
 
 public enum WatchWidgetIdentifiers {

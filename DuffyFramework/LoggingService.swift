@@ -43,6 +43,12 @@ public class LoggingService {
             platform = "Phone"
         #endif
         
+        var isWidget = false
+        if message.starts(with: LogLevel.widgetPrefix) {
+            platform += " Widget"
+            isWidget = true
+        }
+        
         if let extra = extra {
             os_log("%{public}@ %{public}@: %{public}@", log: logger, platform, message, extra)
         } else {
@@ -50,11 +56,11 @@ public class LoggingService {
         }
         
         if DebugService.isDebugModeEnabled() {
-            logDebug(message: message, extra: extra)
+            logDebug(message: message, extra: extra, shared: isWidget)
         }
     }
     
-    private class func logDebug(message: String, extra: String?) {
+    private class func logDebug(message: String, extra: String?, shared: Bool = false) {
         var platform = "Watch"
         #if os(iOS)
             platform = "Phone"
@@ -71,7 +77,15 @@ public class LoggingService {
         var log = purge(log: getFullDebugLog())
         log.append(DebugLogEntry(message: formattedMessage, timestampInterval: Date().timeIntervalSinceReferenceDate))
         let serialized = log.map({ $0.serialize() })
-        UserDefaults.standard.set(serialized, forKey: "debugLog")
+        
+        let defaults: UserDefaults
+        if shared, let shared = UserDefaults(suiteName: Constants.sharedGroupName) {
+            defaults = shared
+        } else {
+            defaults = .standard
+        }
+        
+        defaults.set(serialized, forKey: "debugLog")
     }
     
     private class func purge(log: [DebugLogEntry]) -> [DebugLogEntry] {
@@ -82,6 +96,14 @@ public class LoggingService {
         
         let filterDate = Calendar.current.date(byAdding: .day, value: -maxDays, to: Date().stripTime())!
         return log.filter({ $0.timestamp > filterDate })
+    }
+    
+    public class func getMergedDebugLog() -> [DebugLogEntry] {
+        let sharedEntries = getSharedDebugLog()
+        if sharedEntries.count > 0 {
+            mergeLog(newEntries: sharedEntries)
+        }
+        return getFullDebugLog()
     }
     
     public class func getFullDebugLog() -> [DebugLogEntry] {
@@ -108,7 +130,7 @@ public class LoggingService {
             return []
         }
        
-        return getFullDebugLog().filter({
+        return getMergedDebugLog().filter({
             $0.timestamp >= filterStartDate && $0.timestamp < filterEndDate
         })
     }
@@ -121,6 +143,18 @@ public class LoggingService {
         return Array(Set(allDates)).sorted(by: >)
     }
     
+    private class func getSharedDebugLog() -> [DebugLogEntry] {
+        if let shared = UserDefaults(suiteName: Constants.sharedGroupName),
+           let logDict = shared.object(forKey: "debugLog") as? [[String : Any]]
+        {
+            return logDict.map({dict in
+                return DebugLogEntry(deseralized: dict)
+            })
+        }
+        
+        return []
+    }
+    
     public class func mergeLog(newEntries: [DebugLogEntry]) {
         var log = getFullDebugLog()
         let deltas = newEntries.filter({ !log.contains($0) })
@@ -131,5 +165,8 @@ public class LoggingService {
     
     public class func clearLog() {
         UserDefaults.standard.removeObject(forKey: "debugLog")
+        if let shared = UserDefaults(suiteName: Constants.sharedGroupName) {
+            shared.removeObject(forKey: "debugLog")
+        }
     }
 }

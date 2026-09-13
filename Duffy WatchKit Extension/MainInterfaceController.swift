@@ -517,7 +517,7 @@ class MainInterfaceController: WKInterfaceController
             actions.append(contentsOf: [
                 WKAlertAction(title: "Send Entire Log", style: .default, handler: {
                     [weak self] in
-                    self?.sendDebugLogToPhone(LoggingService.getFullDebugLog())
+                    self?.sendDebugLogToPhone(LoggingService.getMergedDebugLog())
                 }),
                 WKAlertAction(title: "Clear Log", style: .destructive, handler: {
                     [weak self] in
