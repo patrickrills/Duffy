@@ -34,9 +34,7 @@ enum Globals
     static func roundedFont(of pointSize: CGFloat, weight: UIFont.Weight) -> UIFont {
         let rawFont = UIFont.systemFont(ofSize: pointSize, weight: weight)
         
-        guard #available(watchOS 6.0, *),
-              let roundedFontDescriptor = rawFont.fontDescriptor.withDesign(.rounded)
-        else {
+        guard let roundedFontDescriptor = rawFont.fontDescriptor.withDesign(.rounded) else {
             return rawFont
         }
         

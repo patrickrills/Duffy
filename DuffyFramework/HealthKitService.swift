@@ -358,11 +358,7 @@ extension HealthKitService {
                     enableBackgroundQuery(for: activeType, at: .immediate, in: store)
                 }
             #elseif os(watchOS)
-                if #available(watchOS 8.0, *) {
-                    createStepsObserverQuery(with: Self.stepsKey, for: stepsType, in: store)
-                } else {
-                    startUIUpdatingQueries()
-                }
+                createStepsObserverQuery(with: Self.stepsKey, for: stepsType, in: store)
             #endif
         }
     }
@@ -396,7 +392,6 @@ extension HealthKitService {
         }
     }
     
-    @available(watchOSApplicationExtension 8.0, *)
     private func createStepsObserverQuery(with key: String, for type: HKQuantityType, in store: HKHealthStore) {
         LoggingService.log("App is starting observers")
         let query = createObserverQuery(key: key, sampleType: type, store: store)
@@ -443,9 +438,6 @@ extension HealthKitService {
         return query
     }
     
-    //TODO: Need to enable new iOS 15 entitlement for HealthKit background delivery in provisioning profile
-    //  [Duffy] Phone Error: Missing com.apple.developer.healthkit.background-delivery entitlement. (4)
-    @available(watchOSApplicationExtension 8.0, *)
     private func enableBackgroundQuery(for sampleType: HKSampleType, at frequency: HKUpdateFrequency, in store: HKHealthStore) {
         store.enableBackgroundDelivery(for: sampleType, frequency: frequency, withCompletion: {
             (success: Bool, error: Error?) in

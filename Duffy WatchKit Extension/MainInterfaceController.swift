@@ -72,11 +72,7 @@ class MainInterfaceController: WKInterfaceController
     }
     
     @IBAction func openSetGoal() {
-        var controllerId = LegacyEditGoalInterfaceController.IDENTIFIER
-        if #available(watchOS 6.0, *) {
-            controllerId = SetGoalInterfaceController.IDENTIFIER
-        }
-        presentController(withName: controllerId, context: nil)
+        presentController(withName: SetGoalInterfaceController.IDENTIFIER, context: nil)
     }
     
     //MARK: Update UI
@@ -326,26 +322,17 @@ class MainInterfaceController: WKInterfaceController
         ringImage.setHidden(true)
         trophyLabel.setHidden(true)
         
-        if #available(watchOS 6.0, *) {
-            if #available(watchOS 10.0, *) {
-                //Use margins set in storyboard
-            } else {
-                todayGroup.setContentInset(UIEdgeInsets(top: 6.0, left: 12.0, bottom: 0.0, right: 12.0))
-            }
+        if #available(watchOS 10.0, *) {
+            //Use margins set in storyboard
         } else {
-            todayGroup.setContentInset(UIEdgeInsets(top: 4.0, left: 0.0, bottom: 0.0, right: 0.0))
+            todayGroup.setContentInset(UIEdgeInsets(top: 6.0, left: 12.0, bottom: 0.0, right: 12.0))
         }
         
-        if #available(watchOS 6.2, *) {
-            //Tipping from watch is available
-            let buttonFont = Globals.roundedFont(of: BUTTON_FONT_SIZE, weight: BUTTON_FONT_WEIGHT)
-            let symbolConfiguration = UIImage.SymbolConfiguration(font: UIFont.systemFont(ofSize: 18.0, weight: .medium))
-            let symbolName = TipCurrencySymbolPrefix.prefix(for: Locale.current).rawValue + ".circle"
-            tipButtonImage.setImage(UIImage(systemName: symbolName, withConfiguration: symbolConfiguration)?.withRenderingMode(.alwaysTemplate))
-            tipButtonLabel.setAttributedText(NSAttributedString(string: NSLocalizedString("Tip Jar", comment: ""), attributes: [.font : buttonFont]))
-        } else {
-            tipButton.setHidden(true)
-        }
+        let buttonFont = Globals.roundedFont(of: BUTTON_FONT_SIZE, weight: BUTTON_FONT_WEIGHT)
+        let currSymbolConfiguration = UIImage.SymbolConfiguration(font: UIFont.systemFont(ofSize: 18.0, weight: .medium))
+        let symbolName = TipCurrencySymbolPrefix.prefix(for: Locale.current).rawValue + ".circle"
+        tipButtonImage.setImage(UIImage(systemName: symbolName, withConfiguration: currSymbolConfiguration)?.withRenderingMode(.alwaysTemplate))
+        tipButtonLabel.setAttributedText(NSAttributedString(string: NSLocalizedString("Tip Jar", comment: ""), attributes: [.font : buttonFont]))
         
         stepsGoalLabel.setTextColor(.white)
         flightsValueLabel.setTextColor(Globals.secondaryColor())
@@ -358,38 +345,18 @@ class MainInterfaceController: WKInterfaceController
         let distanceTitle = NSLocalizedString("Distance", comment: "")
         let goalTitle = NSLocalizedString("Goal", comment: "")
         
-        if #available(watchOS 6.0, *) {
-            let buttonFont = Globals.roundedFont(of: BUTTON_FONT_SIZE, weight: BUTTON_FONT_WEIGHT)
-            let symbolConfiguration = UIImage.SymbolConfiguration(font: buttonFont)
-            
-            summaryButtonImage.setImage(UIImage(systemName: "calendar", withConfiguration: symbolConfiguration)?.withRenderingMode(.alwaysTemplate))
-            summaryButtonLabel.setAttributedText(NSAttributedString(string: summaryButtonText, attributes: [.font : buttonFont]))
-            
-            var goalImageName = "speedometer"
-            if #available(watchOS 7.0, *) {
-                goalImageName = "figure.walk"
-            }
-            goalButtonImage.setImage(UIImage(systemName: goalImageName, withConfiguration: symbolConfiguration)?.withRenderingMode(.alwaysTemplate))
-            goalButtonLabel.setAttributedText(NSAttributedString(string: goalButtonText, attributes: [.font : buttonFont]))
-            
-            setRoundedText(stepsTitle, for: stepsTitleLabel)
-            setRoundedText(goalTitle, for: stepsGoalTitleLabel, in: .white)
-            setRoundedText(flightsTitle, for: flightsTitleLabel)
-            setRoundedText(distanceTitle, for: distanceTitleLabel)
-        } else {
-            summaryButtonImage.setHidden(true)
-            summaryButtonLabel.setText(summaryButtonText)
-            goalButtonImage.setHidden(true)
-            goalButtonLabel.setText(goalButtonText)
-            stepsTitleLabel.setText(stepsTitle)
-            stepsTitleLabel.setTextColor(Globals.secondaryColor())
-            flightsTitleLabel.setText(flightsTitle)
-            flightsTitleLabel.setTextColor(Globals.secondaryColor())
-            distanceTitleLabel.setText(distanceTitle)
-            distanceTitleLabel.setTextColor(Globals.secondaryColor())
-            stepsGoalTitleLabel.setText(goalTitle)
-            stepsGoalTitleLabel.setTextColor(.white)
-        }
+        let symbolConfiguration = UIImage.SymbolConfiguration(font: buttonFont)
+        
+        summaryButtonImage.setImage(UIImage(systemName: "calendar", withConfiguration: symbolConfiguration)?.withRenderingMode(.alwaysTemplate))
+        summaryButtonLabel.setAttributedText(NSAttributedString(string: summaryButtonText, attributes: [.font : buttonFont]))
+        
+        goalButtonImage.setImage(UIImage(systemName: "figure.walk", withConfiguration: symbolConfiguration)?.withRenderingMode(.alwaysTemplate))
+        goalButtonLabel.setAttributedText(NSAttributedString(string: goalButtonText, attributes: [.font : buttonFont]))
+        
+        setRoundedText(stepsTitle, for: stepsTitleLabel)
+        setRoundedText(goalTitle, for: stepsGoalTitleLabel, in: .white)
+        setRoundedText(flightsTitle, for: flightsTitleLabel)
+        setRoundedText(distanceTitle, for: distanceTitleLabel)
     }
     
     private func initializeSeparator(_ separator: WKInterfaceGroup) {
@@ -409,15 +376,13 @@ class MainInterfaceController: WKInterfaceController
     //MARK: Tipping
     
     @IBAction func showTipOptions() {
-        if #available(watchOSApplicationExtension 8.0, *) {
-            Task {
-                do {
-                    let options = try await TipService.getInstance().tipOptions()
-                    displayTipOptions(options)
-                } catch {
-                    LoggingService.log(error: error)
-                    tipButton.setHidden(true)
-                }
+        Task {
+            do {
+                let options = try await TipService.getInstance().tipOptions()
+                displayTipOptions(options)
+            } catch {
+                LoggingService.log(error: error)
+                tipButton.setHidden(true)
             }
         }
     }
@@ -438,22 +403,20 @@ class MainInterfaceController: WKInterfaceController
     }
     
     private func tip(_ optionId: TipIdentifier) {
-        if #available(watchOSApplicationExtension 8.0, *) {
-            Task {
-                do {
-                    _ = try await TipService.getInstance().tip(productId: optionId)
-                    WCSessionService.getInstance().sendTipToPhone(optionId)
-                    displayTipMessage(MainInterfaceController.TIP_MESSAGE_SUCCESS)
-                } catch {
-                    LoggingService.log(error: error)
-                    
-                    if let storeError = error as? StoreKitError {
-                        switch storeError {
-                        case .purchasePending:
-                            displayTipMessage(MainInterfaceController.TIP_MESSAGE_PENDING)
-                        default:
-                            displayTipMessage(MainInterfaceController.TIP_MESSAGE_ERROR)
-                        }
+        Task {
+            do {
+                _ = try await TipService.getInstance().tip(productId: optionId)
+                WCSessionService.getInstance().sendTipToPhone(optionId)
+                displayTipMessage(MainInterfaceController.TIP_MESSAGE_SUCCESS)
+            } catch {
+                LoggingService.log(error: error)
+                
+                if let storeError = error as? StoreKitError {
+                    switch storeError {
+                    case .purchasePending:
+                        displayTipMessage(MainInterfaceController.TIP_MESSAGE_PENDING)
+                    default:
+                        displayTipMessage(MainInterfaceController.TIP_MESSAGE_ERROR)
                     }
                 }
             }
