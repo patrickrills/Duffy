@@ -14,7 +14,7 @@ struct DuffyGaugeWatchWidget: Widget {
     let kind = WatchWidgetIdentifiers.gaugeKind
 
     var body: some WidgetConfiguration {
-        StaticConfiguration(kind: kind, provider: DuffyWatchWidgetProvider()) { entry in
+        StaticConfiguration(kind: kind, provider: DuffyWatchWidgetProvider(widgetKind: kind)) { entry in
             if #available(watchOS 10.0, *) {
                 DuffyGaugeWatchWidgetEntryView(entry: entry)
                     .containerBackground(.background, for: .widget)

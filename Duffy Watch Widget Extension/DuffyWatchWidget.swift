@@ -6,7 +6,7 @@ struct DuffyWatchWidget: Widget {
     let kind = WatchWidgetIdentifiers.stepsKind
 
     var body: some WidgetConfiguration {
-        StaticConfiguration(kind: kind, provider: DuffyWatchWidgetProvider()) { entry in
+        StaticConfiguration(kind: kind, provider: DuffyWatchWidgetProvider(widgetKind: kind)) { entry in
             if #available(watchOS 10.0, *) {
                 DuffyWatchWidgetEntryView(entry: entry)
                     .containerBackground(.background, for: .widget)

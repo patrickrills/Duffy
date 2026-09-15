@@ -10,6 +10,12 @@ import WidgetKit
 import DuffyWatchFramework
 
 struct DuffyWatchWidgetProvider: TimelineProvider {
+    private let widgetKind: String
+
+    init(widgetKind: String) {
+        self.widgetKind = widgetKind
+    }
+
     func placeholder(in context: Context) -> DuffyWatchWidgetEntry {
         DuffyWatchWidgetEntry(date: Date(), steps: ComplicationDisplayModel.sampleSteps, goal: ComplicationDisplayModel.sampleGoal)
     }
@@ -27,7 +33,7 @@ struct DuffyWatchWidgetProvider: TimelineProvider {
             if let entry = entries.first {
                 steps = String(format: "%d", entry.steps)
             }
-            LoggingService.log("\(LogLevel.widgetPrefix) getTimeline", with: steps)
+            LoggingService.log("\(LogLevel.widgetPrefix) getTimeline \(widgetKind) \(context.family)", with: steps)
         }
 
         if let nextMidnight = Calendar.current.nextDate(after: now, matching: DateComponents(hour: 0, minute: 0, second: 1), matchingPolicy: .nextTime) {
