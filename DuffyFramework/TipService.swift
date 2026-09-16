@@ -9,7 +9,6 @@
 import Foundation
 import StoreKit
 
-@available(watchOS 8.0, *)
 public class TipService {
     
     private static let instance: TipService = TipService()

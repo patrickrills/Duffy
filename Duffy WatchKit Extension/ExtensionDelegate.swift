@@ -35,9 +35,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, UNUserNotificationCenter
             complicationUpdateRequested()
         }
         
-        if #available(watchOS 8.0, *) {
-            TipService.getInstance().initialize()
-        }
+        TipService.getInstance().initialize()
     }
     
     func applicationWillEnterForeground() {

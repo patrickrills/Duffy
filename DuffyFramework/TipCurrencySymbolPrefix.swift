@@ -6,19 +6,12 @@
 //  Copyright © 2025 Big Blue Fly. All rights reserved.
 //
 
-@available(watchOS 6.2, *)
 public enum TipCurrencySymbolPrefix: String {
     case dollarSign = "dollarsign"
     case yenSign = "yensign"
     case hryvniaSign = "hryvniasign"
     
-    public static func prefix(for locale: Locale) -> TipCurrencySymbolPrefix {
-        #if os(watchOS)
-            guard #available(watchOS 9.0, *) else {
-                return prefix(for: locale.languageCode)
-            }
-        #endif
-        
+    public static func prefix(for locale: Locale) -> TipCurrencySymbolPrefix {        
         guard let lang = locale.language.languageCode else { return .dollarSign }
         
         switch lang {

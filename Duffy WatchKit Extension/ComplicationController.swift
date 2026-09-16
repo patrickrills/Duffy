@@ -15,7 +15,6 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     private let IDENTIFIER_JUST_STEPS = "Duffy-Steps"
     private let IDENTIFIER_GAUGES = "Duffy-Gauges"
     
-    @available(watchOSApplicationExtension 7.0, *)
     func getComplicationDescriptors(handler: @escaping ([CLKComplicationDescriptor]) -> Void) {
         handler([
             CLKComplicationDescriptor(identifier: IDENTIFIER_JUST_STEPS, displayName: "Duffy", supportedFamilies: CLKComplicationFamily.allCases),
@@ -352,13 +351,11 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     
     //MARK: Graphic Extra Large
     
-    @available(watchOSApplicationExtension 7.0, *)
     func getEntryForGraphicExtraLarge(_ totalSteps: Steps) -> CLKComplicationTimelineEntry {
         let xLarge = getTemplateForGraphicExtraLarge(totalSteps)
         return CLKComplicationTimelineEntry(date: Date(), complicationTemplate: xLarge)
     }
     
-    @available(watchOSApplicationExtension 7.0, *)
     func getTemplateForGraphicExtraLarge(_ totalSteps: Steps) -> CLKComplicationTemplate {
         let xLarge = CLKComplicationTemplateGraphicExtraLargeCircularStackImage()
         
@@ -441,13 +438,11 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         return gc
     }
     
-    @available(watchOSApplicationExtension 6.0, *)
     func getEntryForNoGaugeGraphicCircular(_ totalSteps: Steps) -> CLKComplicationTimelineEntry {
         let gc = getTemplateForNoGaugeGraphicCircular(totalSteps)
         return CLKComplicationTimelineEntry(date: Date(), complicationTemplate: gc)
     }
     
-    @available(watchOSApplicationExtension 6.0, *)
     func getTemplateForNoGaugeGraphicCircular(_ totalSteps: Steps) -> CLKComplicationTemplateGraphicCircularStackText {
         let gc = CLKComplicationTemplateGraphicCircularStackText()
         
@@ -526,13 +521,11 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         }
     }
     
-    @available(watchOSApplicationExtension 7.0, *)
     func getEntryForNoGaugeGraphicRectangle(_ totalSteps: Steps) -> CLKComplicationTimelineEntry {
         let gb = getTemplateForNoGaugeGraphicRectangle(totalSteps)
         return CLKComplicationTimelineEntry(date: Date(), complicationTemplate: gb)
     }
     
-    @available(watchOSApplicationExtension 7.0, *)
     func getTemplateForNoGaugeGraphicRectangle(_ totalSteps: Steps) -> CLKComplicationTemplate {
         return CLKComplicationTemplateGraphicRectangularFullView(
             GraphicRectangularFullView(shoeImage: UIImage(named: "GraphicRectShoe")!,
@@ -546,7 +539,6 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     
     //MARK: Gauge
     
-    @available(watchOSApplicationExtension 5.0, *)
     func getGauge(for totalSteps: Steps, goal: Steps) -> CLKSimpleGaugeProvider {
         return CLKSimpleGaugeProvider(style: .fill, gaugeColor: BLUE_TINT, fillFraction: Float(min(totalSteps, goal)) / Float(goal))
     }

@@ -55,11 +55,9 @@ class SetGoalInterfaceController: WKInterfaceController
         options = items.options
         invisiblePicker.setItems(items.pickerItems)
         
-        if #available(watchOS 6.0, *) {
-            let buttonConfig = UIImage.SymbolConfiguration(font: UIFont.systemFont(ofSize: 28.0, weight: .medium))
-            minusImage.setImage(UIImage(systemName: "minus.circle.fill", withConfiguration: buttonConfig))
-            plusImage.setImage(UIImage(systemName: "plus.circle.fill", withConfiguration: buttonConfig))
-        }
+        let buttonConfig = UIImage.SymbolConfiguration(font: UIFont.systemFont(ofSize: 28.0, weight: .medium))
+        minusImage.setImage(UIImage(systemName: "minus.circle.fill", withConfiguration: buttonConfig))
+        plusImage.setImage(UIImage(systemName: "plus.circle.fill", withConfiguration: buttonConfig))
     }
     
     override func willActivate() {
@@ -108,16 +106,12 @@ class SetGoalInterfaceController: WKInterfaceController
     private func updateDisplayedSteps() {
         guard let goalFormatted = Globals.integerFormatter.string(for: selectedGoal) else { return }
         
-        if #available(watchOS 6.0, *) {
-            let valueFontSize: CGFloat = 44.0
-            let descrFontSize: CGFloat = UIFont.preferredFont(forTextStyle: .body).pointSize
-            let valueFont = Globals.roundedFont(of: valueFontSize, weight: .black)
-            let descrFont = Globals.roundedFont(of: descrFontSize, weight: .regular)
-            
-            selectedStepsLabel.setAttributedText(NSAttributedString(string: goalFormatted, attributes: [ .font : valueFont ]))
-            descrStepsLabel.setAttributedText(NSAttributedString(string: NSLocalizedString("STEPS", comment: ""), attributes: [.font : descrFont]))
-        } else {
-            selectedStepsLabel.setText(goalFormatted)
-        }
+        let valueFontSize: CGFloat = 44.0
+        let descrFontSize: CGFloat = UIFont.preferredFont(forTextStyle: .body).pointSize
+        let valueFont = Globals.roundedFont(of: valueFontSize, weight: .black)
+        let descrFont = Globals.roundedFont(of: descrFontSize, weight: .regular)
+        
+        selectedStepsLabel.setAttributedText(NSAttributedString(string: goalFormatted, attributes: [ .font : valueFont ]))
+        descrStepsLabel.setAttributedText(NSAttributedString(string: NSLocalizedString("STEPS", comment: ""), attributes: [.font : descrFont]))
     }
 }

@@ -106,7 +106,6 @@ enum AboutOption: CaseIterable {
         case .countMismatch:
             return UIImage(systemName: "figure.walk.motion.trianglebadge.exclamationmark")
         case .notUpdating:
-            guard #available(iOS 18.0, *) else { return UIImage(systemName: "exclamationmark.triangle") }
             return UIImage(systemName: "exclamationmark.arrow.trianglehead.2.clockwise.rotate.90")
         case .trophies:
             return UIImage(systemName: "trophy.fill")
