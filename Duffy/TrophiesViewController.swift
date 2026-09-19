@@ -81,7 +81,7 @@ class TrophiesViewController: UICollectionViewController, UICollectionViewDelega
                 fallthrough
             }
             
-            labelHeader.headerLabel.text = GoalInstructions.step4.text(useLegacyInstructions: false)
+            labelHeader.headerLabel.text = GoalInstructions.step4.text()
             return labelHeader
         case UICollectionView.elementKindSectionFooter:
             guard let buttonFooter = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: String(describing: ButtonFooterCollectionReusableView.self), for: indexPath) as? ButtonFooterCollectionReusableView else {
