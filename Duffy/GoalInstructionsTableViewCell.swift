@@ -24,10 +24,10 @@ class GoalInstructionsTableViewCell: UITableViewCell {
         selectionStyle = .none
     }
  
-    func bind(to step: GoalInstructions, useLegacyInstructions: Bool) {
+    func bind(to step: GoalInstructions) {
         numberLabel.text = Globals.stepsFormatter().string(for: step.rawValue)
-        instructionsLabel.text = step.text(useLegacyInstructions: useLegacyInstructions)
-        screenshot.image = step.screenshot(useLegacyInstructions: useLegacyInstructions)
+        instructionsLabel.text = step.text()
+        screenshot.image = step.screenshot()
     }
     
 }

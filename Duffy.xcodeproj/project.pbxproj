@@ -94,7 +94,6 @@
 		097E84FF25DC65D1008D9205 /* GoalInstructionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097E84FE25DC65D1008D9205 /* GoalInstructionsTableViewController.swift */; };
 		097FB10F23CDEAF5001621D4 /* DebugService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097FB10E23CDEAF5001621D4 /* DebugService.swift */; };
 		097FB11023CDEAF5001621D4 /* DebugService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097FB10E23CDEAF5001621D4 /* DebugService.swift */; };
-		09824A8C1EA66C74002A4A84 /* LegacyEditGoalInterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09824A8B1EA66C74002A4A84 /* LegacyEditGoalInterfaceController.swift */; };
 		0985E6EB24F174C2000B4A96 /* HistoryTrendChartOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0985E6EA24F174C2000B4A96 /* HistoryTrendChartOption.swift */; };
 		0985E6EE24F2B4B1000B4A96 /* HistorySummaryTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0985E6EC24F2B4B1000B4A96 /* HistorySummaryTableViewCell.xib */; };
 		0985E6EF24F2B4B1000B4A96 /* HistorySummaryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0985E6ED24F2B4B1000B4A96 /* HistorySummaryTableViewCell.swift */; };
@@ -262,13 +261,9 @@
 		09289C7920D87856005BF6B8 /* GoalNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = GoalNotificationPayload.apns; sourceTree = "<group>"; };
 		09289C7D20DDFF56005BF6B8 /* MainTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewController.swift; sourceTree = "<group>"; };
 		0928AB422E04341E00CA24EC /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Localizable.strings; sourceTree = "<group>"; };
-		85A4AAD82BEB434B81E14A0F /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		0928AB432E04341E00CA24EC /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = uk; path = uk.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
-		483B5ADFA15E4B22888C789D /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = fr; path = fr.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		0928AB442E04341E00CA24EC /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Localizable.strings; sourceTree = "<group>"; };
-		8A82868967B24872B3F28300 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		0928AB452E04341E00CA24EC /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Localizable.strings; sourceTree = "<group>"; };
-		2E3DA2EF5E7544059BFA3627 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		0929A6C624E6F1DC00780004 /* AggregateCollections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AggregateCollections.swift; sourceTree = "<group>"; };
 		0929A6C924E6FF3300780004 /* HealthKitError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitError.swift; sourceTree = "<group>"; };
 		0929A6CC24E7128F00780004 /* Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
@@ -319,7 +314,6 @@
 		0970859F214F16B600790EC7 /* AppRater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRater.swift; sourceTree = "<group>"; };
 		097E84FE25DC65D1008D9205 /* GoalInstructionsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalInstructionsTableViewController.swift; sourceTree = "<group>"; };
 		097FB10E23CDEAF5001621D4 /* DebugService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugService.swift; sourceTree = "<group>"; };
-		09824A8B1EA66C74002A4A84 /* LegacyEditGoalInterfaceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LegacyEditGoalInterfaceController.swift; sourceTree = "<group>"; };
 		0985E6EA24F174C2000B4A96 /* HistoryTrendChartOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTrendChartOption.swift; sourceTree = "<group>"; };
 		0985E6EC24F2B4B1000B4A96 /* HistorySummaryTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HistorySummaryTableViewCell.xib; sourceTree = "<group>"; };
 		0985E6ED24F2B4B1000B4A96 /* HistorySummaryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistorySummaryTableViewCell.swift; sourceTree = "<group>"; };
@@ -365,6 +359,10 @@
 		09EEEDC3262B5139002731DB /* MainHourlyTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainHourlyTableViewCell.xib; sourceTree = "<group>"; };
 		09EEEDC4262B5139002731DB /* MainHourlyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainHourlyTableViewCell.swift; sourceTree = "<group>"; };
 		09SCENE1762114120000002 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		2E3DA2EF5E7544059BFA3627 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		483B5ADFA15E4B22888C789D /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = fr; path = fr.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		85A4AAD82BEB434B81E14A0F /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		8A82868967B24872B3F28300 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -506,7 +504,6 @@
 				091714CE25290B8D001062E0 /* ChartDrawer.swift */,
 				0947AA9D1D4EB24A0040E1DD /* WeekRowController.swift */,
 				0930F7DE25696C7B006123FB /* SetGoalInterfaceController.swift */,
-				09824A8B1EA66C74002A4A84 /* LegacyEditGoalInterfaceController.swift */,
 				09323C951D22C39700961822 /* ExtensionDelegate.swift */,
 				09323C971D22C39700961822 /* ComplicationController.swift */,
 				0927434C29857E7000F69D1B /* GraphicRectangularFullView.swift */,
@@ -901,7 +898,6 @@
 				098D0091259E188A005FE945 /* Globals.swift in Sources */,
 				091714CF25290B8D001062E0 /* ChartDrawer.swift in Sources */,
 				0947AA9E1D4EB24A0040E1DD /* WeekRowController.swift in Sources */,
-				09824A8C1EA66C74002A4A84 /* LegacyEditGoalInterfaceController.swift in Sources */,
 				09323C941D22C39700961822 /* MainInterfaceController.swift in Sources */,
 				09323C981D22C39700961822 /* ComplicationController.swift in Sources */,
 				0927434D29857E7000F69D1B /* GraphicRectangularFullView.swift in Sources */,

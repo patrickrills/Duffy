@@ -23,32 +23,21 @@ enum GoalInstructions: Int, CaseIterable {
         return String(format: NSLocalizedString("This guide describes how to change your daily steps goal (currently %@ steps). Your goal can only be changed from the Duffy Apple Watch app.", comment: ""), formattedGoal())
     }
     
-    func text(useLegacyInstructions: Bool) -> String {
+    func text() -> String {
         switch self {
         case .step1:
             return NSLocalizedString("From the Today view of the Apple Watch app, scroll the screen by swiping upward your finger or turning the digital crown.", comment: "")
         case .step2:
             return NSLocalizedString("Tap the 'Change Goal' button that appears at the bottom of the screen.", comment: "")
         case .step3:
-            return useLegacyInstructions
-                ? NSLocalizedString("Select a new goal by swiping with your finger or turning the digital crown. Then tap the 'Set Goal' button to save it.", comment: "")
-                : NSLocalizedString("Select a new goal by tapping the plus (+) or minus (-) buttons or turning the digital crown. Then tap the 'Set Goal' button to save it.", comment: "")
+            return NSLocalizedString("Select a new goal by tapping the plus (+) or minus (-) buttons or turning the digital crown. Then tap the 'Set Goal' button to save it.", comment: "")
         case .step4:
             return String(format: NSLocalizedString("When you've reached your goal, you'll earn a trophy based on how many steps you've taken beyond your goal (%@).", comment: "Placeholder is a number of steps: ie 10,000"), Self.formattedGoal())
         }
     }
     
-    func screenshot(useLegacyInstructions: Bool) -> UIImage {
-        let imageName: String
-        
-        switch self {
-        case .step3:
-            imageName = useLegacyInstructions ? "Instructions03-Legacy" : "Instructions03"
-        default:
-            imageName = "Instructions0\(self.rawValue)"
-        }
-        
-        return UIImage(named: imageName)!
+    func screenshot() -> UIImage {
+        return UIImage(named: "Instructions0\(self.rawValue)")!
     }
     
     private static func formattedGoal() -> String {

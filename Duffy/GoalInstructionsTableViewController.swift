@@ -9,11 +9,6 @@
 import UIKit
 
 class GoalInstructionsTableViewController: UITableViewController {
-
-    private var useLegacyInstructions: Bool {
-        let cachedWatchVersion = Globals.watchSystemVersion()
-        return cachedWatchVersion > 0.0 && cachedWatchVersion < 6.0
-    }
     
     init() {
         super.init(style: Globals.tableViewStyle())
@@ -94,7 +89,7 @@ class GoalInstructionsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: GoalInstructionsTableViewCell.self), for: indexPath) as! GoalInstructionsTableViewCell
         let step = GoalInstructions.allCases[indexPath.section]
-        cell.bind(to: step, useLegacyInstructions: useLegacyInstructions)
+        cell.bind(to: step)
         return cell
     }
     
