@@ -262,9 +262,13 @@
 		09289C7920D87856005BF6B8 /* GoalNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = GoalNotificationPayload.apns; sourceTree = "<group>"; };
 		09289C7D20DDFF56005BF6B8 /* MainTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableViewController.swift; sourceTree = "<group>"; };
 		0928AB422E04341E00CA24EC /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Localizable.strings; sourceTree = "<group>"; };
+		85A4AAD82BEB434B81E14A0F /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		0928AB432E04341E00CA24EC /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = uk; path = uk.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
+		483B5ADFA15E4B22888C789D /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = fr; path = fr.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		0928AB442E04341E00CA24EC /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Localizable.strings; sourceTree = "<group>"; };
+		8A82868967B24872B3F28300 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		0928AB452E04341E00CA24EC /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Localizable.strings; sourceTree = "<group>"; };
+		2E3DA2EF5E7544059BFA3627 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		0929A6C624E6F1DC00780004 /* AggregateCollections.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AggregateCollections.swift; sourceTree = "<group>"; };
 		0929A6C924E6FF3300780004 /* HealthKitError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitError.swift; sourceTree = "<group>"; };
 		0929A6CC24E7128F00780004 /* Types.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
@@ -759,6 +763,7 @@
 				ja,
 				Base,
 				uk,
+				fr,
 			);
 			mainGroup = 09323C641D22C39700961822;
 			productRefGroup = 09323C6E1D22C39700961822 /* Products */;
@@ -1007,6 +1012,7 @@
 				094AAF8325D977EB00B145B8 /* en */,
 				094AAF8925D977EF00B145B8 /* ja */,
 				0928AB432E04341E00CA24EC /* uk */,
+				483B5ADFA15E4B22888C789D /* fr */,
 			);
 			name = Localizable.stringsdict;
 			sourceTree = "<group>";
@@ -1017,6 +1023,7 @@
 				099582C9234192A600AF6A96 /* en */,
 				099582D3234192E900AF6A96 /* ja */,
 				0928AB422E04341E00CA24EC /* uk */,
+				85A4AAD82BEB434B81E14A0F /* fr */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -1027,6 +1034,7 @@
 				099582CC234192BE00AF6A96 /* en */,
 				099582D5234192EA00AF6A96 /* ja */,
 				0928AB442E04341E00CA24EC /* uk */,
+				8A82868967B24872B3F28300 /* fr */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -1037,6 +1045,7 @@
 				099582CF234192C400AF6A96 /* en */,
 				099582D6234192EA00AF6A96 /* ja */,
 				0928AB452E04341E00CA24EC /* uk */,
+				2E3DA2EF5E7544059BFA3627 /* fr */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
