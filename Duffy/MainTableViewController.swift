@@ -268,7 +268,7 @@ class MainTableViewController: UITableViewController {
     }
     
     private func openGoalInstructions() {
-        present(ModalNavigationController(rootViewController: GoalInstructionsTableViewController()), animated: true, completion: nil)
+        present(ModalNavigationController(rootViewController: GoalInstructionsViewController()), animated: true, completion: nil)
     }
     
     @objc private func headerWasTapped() {

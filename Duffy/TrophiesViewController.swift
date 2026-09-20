@@ -89,7 +89,7 @@ class TrophiesViewController: UICollectionViewController, UICollectionViewDelega
             }
             
             buttonFooter.bind(NSLocalizedString("How To Change Your Goal", comment: ""), onPress: { [weak self] in
-                self?.navigationController?.pushViewController(GoalInstructionsTableViewController(), animated: true)
+                self?.navigationController?.pushViewController(GoalInstructionsViewController(), animated: true)
             })
             
             return buttonFooter
