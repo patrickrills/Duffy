@@ -30,6 +30,23 @@
       "idiom" : "universal",
       "locale" : "ja",
       "scale" : "3x"
+    },
+    {
+      "idiom" : "universal",
+      "locale" : "fr",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "Screenshot Apple Watch Series 12 (46mm) 09-19-2026 at 8.24.12 PM.png",
+      "idiom" : "universal",
+      "locale" : "fr",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "Screenshot Apple Watch Series 12 (46mm) 09-19-2026 at 8.24.12 PM 1.png",
+      "idiom" : "universal",
+      "locale" : "fr",
+      "scale" : "3x"
     }
   ],
   "info" : {
