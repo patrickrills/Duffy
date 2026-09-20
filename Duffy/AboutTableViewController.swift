@@ -125,7 +125,7 @@ enum AboutOption: CaseIterable {
     func select(_ parent: UINavigationController?) {
         switch self {
         case .goalHowTo:
-            parent?.pushViewController(GoalInstructionsTableViewController(), animated: true)
+            parent?.pushViewController(GoalInstructionsViewController(), animated: true)
         case .enableStepCounting:
             parent?.openURL("https://www.bigbluefly.com/duffy/stepsnotcounting", appendLanaguageParameter: true)
         case .addStepsToWatchFace:
