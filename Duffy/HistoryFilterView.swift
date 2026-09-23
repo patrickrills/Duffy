@@ -13,45 +13,12 @@ struct HistoryFilterView: View {
     
     //MARK: Layout mode and constants
     
-    private enum DateMode {
-        case spinner, calendar
-        
-        func backgroundColor() -> UIColor {
-            if self == .calendar {
-                return .secondarySystemGroupedBackground
-            }
-            
-            return UIColor(named: "SpinnerBackgroundColor")!
-        }
-        
-        func pickerHeight() -> CGFloat {
-            switch self {
-            case .spinner:
-                return 200.0
-            case .calendar:
-                return 352.0
-            }
-        }
-        
-        func horizontalMargin() -> CGFloat {
-            switch self {
-            case .spinner:
-                return 0.0
-            case .calendar:
-                return 16.0
-            }
-        }
-        
-        static func mode() -> DateMode {
-            guard !Globals.isNarrowPhone() else { return .spinner }
-            return .calendar
-        }
-    }
-    
     private enum Constants {
         static let EARLIEST_DAYS_AGO: Int = -7
         static let HEADER_HEIGHT: CGFloat = 16.0
         static let SAVE_SYMBOL_SIZE: CGFloat = 24.0
+        static let PICKER_HEIGHT: CGFloat = 352.0
+        static let PICKER_H_MARGIN: CGFloat = 16.0
     }
     
     //MARK: Properties and State
@@ -60,7 +27,6 @@ struct HistoryFilterView: View {
     
     @State private var sinceDateFilter: Date
     
-    private let mode = DateMode.mode()
     private let maximumDate = Date().dateByAdding(days: Constants.EARLIEST_DAYS_AGO)
     
     //MARK: Constructors
@@ -107,29 +73,34 @@ struct HistoryFilterView: View {
     private var datePicker: some View {
         DatePickerRepresentable(date: $sinceDateFilter,
                                 maximumDate: maximumDate,
-                                style: mode == .spinner ? .wheels : .inline,
-                                height: mode.pickerHeight())
-            .padding(.horizontal, mode.horizontalMargin())
+                                height: Constants.PICKER_HEIGHT)
+        .padding(.horizontal, Constants.PICKER_H_MARGIN)
             .frame(maxWidth: .infinity)
-            .background(Color(uiColor: mode.backgroundColor()).ignoresSafeArea(edges: .bottom))
+            .background(Color(.secondarySystemGroupedBackground).ignoresSafeArea(edges: .bottom))
     }
     
     @ViewBuilder
     private var saveButton: some View {
-        Button {
-            onDateSelected(sinceDateFilter)
-        } label: {
-            if #available(iOS 26.0, *) {
+        if #available(iOS 26.0, *) {
+            Button {
+                onDateSelected(sinceDateFilter)
+            } label: {
                 Image(systemName: "checkmark")
                     .fontWeight(.semibold)
-            } else {
+            }
+            .tint(Color(uiColor: Globals.secondaryColor()))
+            .buttonStyle(.borderedProminent)
+        } else {
+            Button {
+                onDateSelected(sinceDateFilter)
+            } label: {
                 Image(systemName: "checkmark.circle.fill")
                     .font(.system(size: Constants.SAVE_SYMBOL_SIZE))
                     .symbolRenderingMode(.palette)
                     .foregroundStyle(Color(uiColor: Globals.secondaryColor()), Color(uiColor: .tertiarySystemFill))
             }
+            .tint(Color(uiColor: Globals.secondaryColor()))
         }
-        .tint(Color(uiColor: Globals.secondaryColor()))
     }
 }
 
@@ -139,13 +110,12 @@ private struct DatePickerRepresentable: UIViewRepresentable {
     
     @Binding var date: Date
     let maximumDate: Date
-    let style: UIDatePickerStyle
     let height: CGFloat
     
     func makeUIView(context: Context) -> UIDatePicker {
         let picker = UIDatePicker()
         picker.datePickerMode = .date
-        picker.preferredDatePickerStyle = style
+        picker.preferredDatePickerStyle = .inline
         picker.maximumDate = maximumDate
         picker.date = date
         picker.tintColor = Globals.secondaryColor()
