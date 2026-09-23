@@ -45,7 +45,6 @@ class HistoryFilterTableViewController: UITableViewController {
         }
         
         static func mode() -> DateMode {
-            guard !Globals.isNarrowPhone() else { return .spinner }
             return .calendar
         }
     }

@@ -161,21 +161,6 @@ enum Globals
         return lightGrayColor()
     }
     
-    static func isNarrowPhone() -> Bool
-    {
-        return UIScreen.main.bounds.size.width <= 320.0
-    }
-    
-    static func isTallPhone() -> Bool
-    {
-        return UIScreen.main.bounds.size.height > 700.0
-    }
-    
-    static func isMaxPhone() -> Bool
-    {
-        return UIScreen.main.bounds.size.height > 850.0
-    }
-    
     static func appVersion() -> String
     {
         if let infoDict = Bundle.main.infoDictionary
