@@ -38,7 +38,8 @@ class TipViewController: UICollectionViewController {
     private func retrieveOptions() {
         collectionView.allowsSelection = false
         
-        Task {
+        Task { [weak self] in
+            guard let self else { return }
             do {
                 self.tipOptions = try await TipService.getInstance().tipOptions()
                 refresh()
@@ -55,7 +56,8 @@ class TipViewController: UICollectionViewController {
     }
     
     private func tip(_ optionId: TipIdentifier) {
-        Task {
+        Task { [weak self] in
+            guard let self else { return }
             do {
                 _ = try await TipService.getInstance().tip(productId: optionId)
                 displayMessage(NSLocalizedString("Thanks so much for the tip! 🙏", comment: ""), retry: nil)

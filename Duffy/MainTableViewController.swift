@@ -242,8 +242,8 @@ class MainTableViewController: UITableViewController {
     }
     
     func subscribeToHealthUpdates() {
-        HealthKitService.getInstance().subscribe(to: HKQuantityTypeIdentifier.stepCount) {
-            DispatchQueue.main.async { [weak self] in
+        HealthKitService.getInstance().subscribe(to: HKQuantityTypeIdentifier.stepCount) { [weak self] in
+            DispatchQueue.main.async {
                 guard UIApplication.shared.applicationState == .active else { return }
                 self?.refresh()
             }
