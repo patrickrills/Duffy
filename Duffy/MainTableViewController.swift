@@ -73,7 +73,7 @@ class MainTableViewController: UITableViewController {
         installFooterIfNeeded()
         if HealthCache.getGoalReachedCount() >= Constants.RATING_GOAL_COUNT {
             DispatchQueue.main.asyncAfter(deadline: .now() + Constants.RATING_DELAY) {
-                AppRater.askToRate()
+                AppRater.askToRate(in: self.view.window?.windowScene)
             }
         }
     }
