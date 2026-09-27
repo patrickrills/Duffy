@@ -224,20 +224,13 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     }
     
     func getTemplateForModularSmall(_ totalSteps: Steps) -> CLKComplicationTemplateModularSmallStackText {
-        let smallStack = CLKComplicationTemplateModularSmallStackText()
-        
-        let line1 = CLKSimpleTextProvider()
-        line1.text = String(format: "%@", formatStepsForSmall(totalSteps))
+        let line1 = CLKSimpleTextProvider(text: String(format: "%@", formatStepsForSmall(totalSteps)))
         line1.shortText = line1.text
-        line1.tintColor = .white
-        smallStack.line1TextProvider = line1
         
-        let line2 = CLKSimpleTextProvider()
-        line2.text =  NSLocalizedString("steps", comment: "")
+        let line2 = CLKSimpleTextProvider(text: NSLocalizedString("steps", comment: ""))
         line2.shortText = line2.text
-        smallStack.line2TextProvider = line2
         
-        return smallStack
+        return CLKComplicationTemplateModularSmallStackText(line1TextProvider: line1, line2TextProvider: line2)
     }
     
     //MARK: Modular Large
@@ -248,21 +241,15 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     }
     
     func getTemplateForModularLarge(_ totalSteps: Steps) -> CLKComplicationTemplateModularLargeTallBody {
-        let tall = CLKComplicationTemplateModularLargeTallBody()
-        
-        let header = CLKSimpleTextProvider()
-        header.text = NSLocalizedString("Steps", comment: "")
+        let header = CLKSimpleTextProvider(text: NSLocalizedString("Steps", comment: ""))
         header.shortText = header.text
         header.tintColor = BLUE_TINT
-        tall.headerTextProvider = header
         
-        let body = CLKSimpleTextProvider()
-        body.text = formatStepsForLarge(totalSteps)
+        let body = CLKSimpleTextProvider(text: formatStepsForLarge(totalSteps))
         body.shortText = body.text
         body.tintColor = .white
-        tall.bodyTextProvider = body
         
-        return tall
+        return CLKComplicationTemplateModularLargeTallBody(headerTextProvider: header, bodyTextProvider: body)
     }
     
     //MARK: Circular Small
@@ -273,19 +260,13 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     }
     
     func getTemplateForCircularSmall(_ totalSteps: Steps) -> CLKComplicationTemplateCircularSmallStackText {
-        let circularStack = CLKComplicationTemplateCircularSmallStackText()
-        
-        let line1 = CLKSimpleTextProvider()
-        line1.text = formatStepsForSmall(totalSteps)
+        let line1 = CLKSimpleTextProvider(text: formatStepsForSmall(totalSteps))
         line1.shortText = line1.text
-        circularStack.line1TextProvider = line1
         
-        let line2 = CLKSimpleTextProvider()
-        line2.text =  NSLocalizedString("steps", comment: "")
+        let line2 = CLKSimpleTextProvider(text: NSLocalizedString("steps", comment: ""))
         line2.shortText = line2.text
-        circularStack.line2TextProvider = line2
         
-        return circularStack
+        return CLKComplicationTemplateCircularSmallStackText(line1TextProvider: line1, line2TextProvider: line2)
     }
     
     //MARK: Utilitarian Large
@@ -296,17 +277,13 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     }
     
     func getTemplateForUtilitarianLarge(_ totalSteps: Steps) -> CLKComplicationTemplateUtilitarianLargeFlat {
-        let flat = CLKComplicationTemplateUtilitarianLargeFlat()
         let formattedStepsLong = formatStepsForLarge(totalSteps)
         let formattedStepsShort = formatStepsForSmall(totalSteps)
         
-        let text = CLKSimpleTextProvider()
-        text.text = String(format: NSLocalizedString("%@ STEPS", comment: ""), formattedStepsLong)
+        let text = CLKSimpleTextProvider(text: String(format: NSLocalizedString("%@ STEPS", comment: ""), formattedStepsLong))
         text.shortText = String(format: NSLocalizedString("%@ STEPS", comment: ""), formattedStepsShort)
         
-        flat.textProvider = text
-        
-        return flat
+        return CLKComplicationTemplateUtilitarianLargeFlat(textProvider: text)
     }
     
     //MARK: Utilitarian Small
@@ -317,15 +294,9 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     }
     
     func getTemplateForUtilitarianSmall(_ totalSteps: Steps) -> CLKComplicationTemplateUtilitarianSmallFlat {
-        let flat = CLKComplicationTemplateUtilitarianSmallFlat()
-        
-        let text = CLKSimpleTextProvider()
-        text.text = formatStepsForSmall(totalSteps)
+        let text = CLKSimpleTextProvider(text: formatStepsForSmall(totalSteps))
         text.shortText = text.text
-    
-        flat.textProvider = text
-        
-        return flat
+        return CLKComplicationTemplateUtilitarianSmallFlat(textProvider: text)
     }
     
     //MARK: Extra Large
@@ -336,17 +307,10 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     }
     
     func getTemplateForExtraLarge(_ totalSteps: Steps) -> CLKComplicationTemplate {
-        let xLarge = CLKComplicationTemplateExtraLargeStackImage()
-        
-        xLarge.line1ImageProvider = CLKImageProvider(onePieceImage: RingDrawer.drawRing(totalSteps, goal: HealthCache.dailyGoal(), width: 120)!)
-        xLarge.tintColor = TEAL_TINT
-        
-        let body = CLKSimpleTextProvider()
-        body.text = formatStepsForLarge(totalSteps)
+        let img = CLKImageProvider(onePieceImage: RingDrawer.drawRing(totalSteps, goal: HealthCache.dailyGoal(), width: 120)!)
+        let body = CLKSimpleTextProvider(text: formatStepsForLarge(totalSteps))
         body.shortText = formatStepsForSmall(totalSteps)
-        xLarge.line2TextProvider = body
-        
-        return xLarge
+        return CLKComplicationTemplateExtraLargeStackImage(line1ImageProvider: img, line2TextProvider: body)
     }
     
     //MARK: Graphic Extra Large
@@ -357,17 +321,10 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     }
     
     func getTemplateForGraphicExtraLarge(_ totalSteps: Steps) -> CLKComplicationTemplate {
-        let xLarge = CLKComplicationTemplateGraphicExtraLargeCircularStackImage()
-        
-        xLarge.line1ImageProvider = CLKFullColorImageProvider(fullColorImage: RingDrawer.drawRing(totalSteps, goal: HealthCache.dailyGoal(), width: 36)!)
-        xLarge.tintColor = TEAL_TINT
-        
-        let body = CLKSimpleTextProvider()
-        body.text = formatStepsForLarge(totalSteps)
+        let img = CLKFullColorImageProvider(fullColorImage: RingDrawer.drawRing(totalSteps, goal: HealthCache.dailyGoal(), width: 36)!)
+        let body = CLKSimpleTextProvider(text: formatStepsForLarge(totalSteps))
         body.shortText = formatStepsForSmall(totalSteps)
-        xLarge.line2TextProvider = body
-        
-        return xLarge
+        return CLKComplicationTemplateGraphicExtraLargeCircularStackImage(line1ImageProvider: img, line2TextProvider: body)
     }
     
     //MARK: Graphic Corner
@@ -380,21 +337,16 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     func getTemplateForGraphicCorner(_ totalSteps: Steps, _ goal: Steps) -> CLKComplicationTemplate {
         let goalReached = totalSteps >= goal
         
-        let stepsText = CLKSimpleTextProvider()
-        stepsText.text = formatStepsForLarge(totalSteps)
+        let stepsText = CLKSimpleTextProvider(text: formatStepsForLarge(totalSteps))
         stepsText.shortText = formatStepsForSmall(totalSteps)
         
         if goalReached {
-            let gcText = CLKComplicationTemplateGraphicCornerStackText()
-            gcText.outerTextProvider = stepsText
-            gcText.innerTextProvider = CLKSimpleTextProvider(text: NSLocalizedString("Goal achieved!", comment: ""))
-            return gcText
+            let inner = CLKSimpleTextProvider(text: NSLocalizedString("Goal achieved!", comment: ""))
+            return CLKComplicationTemplateGraphicCornerStackText(innerTextProvider: inner, outerTextProvider: stepsText)
         } else {
-            let gcGauge = CLKComplicationTemplateGraphicCornerGaugeText()
-            gcGauge.outerTextProvider = stepsText
-            gcGauge.gaugeProvider = getGauge(for: totalSteps, goal: goal)
-            gcGauge.trailingTextProvider = CLKSimpleTextProvider(text: formatStepsForVerySmall(goal))
-            return gcGauge
+            let gauge = getGauge(for: totalSteps, goal: goal)
+            let trail = CLKSimpleTextProvider(text: formatStepsForVerySmall(goal))
+            return CLKComplicationTemplateGraphicCornerGaugeText(gaugeProvider: gauge, leadingTextProvider: nil, trailingTextProvider: trail, outerTextProvider: stepsText)
         }
     }
     
@@ -404,18 +356,13 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     }
     
     func getTemplateForNoGaugeGraphicCorner(_ totalSteps: Steps) -> CLKComplicationTemplate {
-        
-        let stepsText = CLKSimpleTextProvider()
-        stepsText.text = formatStepsForLarge(totalSteps)
+        let stepsText = CLKSimpleTextProvider(text: formatStepsForLarge(totalSteps))
         stepsText.shortText = formatStepsForSmall(totalSteps)
         
         let title = CLKSimpleTextProvider(text: NSLocalizedString("STEPS", comment: ""))
         title.tintColor = BLUE_TINT
         
-        let gcText = CLKComplicationTemplateGraphicCornerStackText()
-        gcText.outerTextProvider = stepsText
-        gcText.innerTextProvider = title
-        return gcText
+        return CLKComplicationTemplateGraphicCornerStackText(innerTextProvider: title, outerTextProvider: stepsText)
     }
     
     //MARK: Graphic Circular
@@ -426,16 +373,10 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     }
     
     func getTemplateForTextCircular(_ totalSteps: Steps, _ goal: Steps) -> CLKComplicationTemplateGraphicCircularClosedGaugeText {
-        let gc = CLKComplicationTemplateGraphicCircularClosedGaugeText()
-        
-        let text = CLKSimpleTextProvider()
-        text.text = formatStepsForVerySmall(totalSteps)
+        let text = CLKSimpleTextProvider(text: formatStepsForVerySmall(totalSteps))
         text.shortText = text.text.replacingOccurrences(of: "k", with: "")
         
-        gc.centerTextProvider = text
-        gc.gaugeProvider = getGauge(for: totalSteps, goal: goal)
-        
-        return gc
+        return CLKComplicationTemplateGraphicCircularClosedGaugeText(gaugeProvider: getGauge(for: totalSteps, goal: goal), centerTextProvider: text)
     }
     
     func getEntryForNoGaugeGraphicCircular(_ totalSteps: Steps) -> CLKComplicationTimelineEntry {
@@ -444,16 +385,12 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     }
     
     func getTemplateForNoGaugeGraphicCircular(_ totalSteps: Steps) -> CLKComplicationTemplateGraphicCircularStackText {
-        let gc = CLKComplicationTemplateGraphicCircularStackText()
-        
         let valueText = CLKSimpleTextProvider(text: formatStepsForLarge(totalSteps, useGroupingSeparator: totalSteps <= 10000), shortText: formatStepsForSmall(totalSteps))
-        gc.line1TextProvider = valueText
         
         let stepsText = CLKSimpleTextProvider(text: NSLocalizedString("steps", comment: ""))
         stepsText.tintColor = BLUE_TINT
-        gc.line2TextProvider = stepsText
         
-        return gc
+        return CLKComplicationTemplateGraphicCircularStackText(line1TextProvider: valueText, line2TextProvider: stepsText)
     }
     
     //MARK: Graphic Bezel
@@ -464,22 +401,15 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
     }
     
     func getTemplateForGraphicBezel(_ totalSteps: Steps, _ goal: Steps) -> CLKComplicationTemplateGraphicBezelCircularText {
-        let text = CLKSimpleTextProvider()
-        text.text = String(format: NSLocalizedString("%@ STEPS", comment: ""), formatStepsForLarge(totalSteps))
+        let text = CLKSimpleTextProvider(text: String(format: NSLocalizedString("%@ STEPS", comment: ""), formatStepsForLarge(totalSteps)))
         text.tintColor = .white
         
-        let template = CLKComplicationTemplateGraphicBezelCircularText()
-        template.circularTemplate = getTemplateForGraphicCircular(totalSteps, goal)
-        template.textProvider = text
-        return template
+        return CLKComplicationTemplateGraphicBezelCircularText(circularTemplate: getTemplateForGraphicCircular(totalSteps, goal), textProvider: text)
     }
     
     func  getTemplateForGraphicCircular(_ totalSteps: Steps, _ goal: Steps) -> CLKComplicationTemplateGraphicCircularClosedGaugeImage {
-        let gc = CLKComplicationTemplateGraphicCircularClosedGaugeImage()
         let shoe = UIImage(named: "GraphicCircularShoe")!
-        gc.imageProvider = CLKFullColorImageProvider.init(fullColorImage: shoe)
-        gc.gaugeProvider = getGauge(for: totalSteps, goal: goal)
-        return gc;
+        return CLKComplicationTemplateGraphicCircularClosedGaugeImage(gaugeProvider: getGauge(for: totalSteps, goal: goal), imageProvider: CLKFullColorImageProvider.init(fullColorImage: shoe))
     }
     
     //MARK: Graphic Rectangle
@@ -495,29 +425,18 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         let shoe = UIImage(named: "GraphicRectShoe")!
         let image = CLKFullColorImageProvider(fullColorImage: shoe)
         
-        let stepsText = CLKSimpleTextProvider()
-        stepsText.text = String(format: NSLocalizedString("%@ STEPS", comment: ""), formatStepsForLarge(totalSteps))
+        let stepsText = CLKSimpleTextProvider(text: String(format: NSLocalizedString("%@ STEPS", comment: ""), formatStepsForLarge(totalSteps)))
         stepsText.tintColor = BLUE_TINT
     
-        let progressText = CLKSimpleTextProvider()
-        progressText.text = goalReached
-                                ? Trophy.trophy(for: totalSteps).symbol() + " +" + formatStepsForSmall(totalSteps - goal)
-                                : String(format: NSLocalizedString("%@ to go", comment: ""), formatStepsForSmall(goal - totalSteps))
+        let text = goalReached
+                        ? Trophy.trophy(for: totalSteps).symbol() + " +" + formatStepsForSmall(totalSteps - goal)
+                        : String(format: NSLocalizedString("%@ to go", comment: ""), formatStepsForSmall(goal - totalSteps))
+        let progressText = CLKSimpleTextProvider(text: text)
         
         if goalReached {
-            let textTemplate = CLKComplicationTemplateGraphicRectangularStandardBody()
-            textTemplate.headerImageProvider = image
-            textTemplate.headerTextProvider = stepsText
-            textTemplate.body1TextProvider = CLKSimpleTextProvider(text: NSLocalizedString("Goal achieved!", comment: ""))
-            textTemplate.body2TextProvider = progressText
-            return textTemplate
+            return CLKComplicationTemplateGraphicRectangularStandardBody(headerImageProvider: image, headerTextProvider: stepsText, body1TextProvider: CLKSimpleTextProvider(text: NSLocalizedString("Goal achieved!", comment: "")), body2TextProvider: progressText)
         } else {
-            let gaugeTemplate = CLKComplicationTemplateGraphicRectangularTextGauge()
-            gaugeTemplate.headerImageProvider = image
-            gaugeTemplate.headerTextProvider = stepsText
-            gaugeTemplate.body1TextProvider = progressText
-            gaugeTemplate.gaugeProvider = getGauge(for: totalSteps, goal: goal)
-            return gaugeTemplate
+            return CLKComplicationTemplateGraphicRectangularTextGauge(headerImageProvider: image, headerTextProvider: stepsText, body1TextProvider: progressText, gaugeProvider: getGauge(for: totalSteps, goal: goal))
         }
     }
     
