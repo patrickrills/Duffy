@@ -69,9 +69,11 @@ class MainTableViewController: UITableViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        // Built after the first frame so the button label/font setup stays off the launch path
+        installFooterIfNeeded()
         if HealthCache.getGoalReachedCount() >= Constants.RATING_GOAL_COUNT {
             DispatchQueue.main.asyncAfter(deadline: .now() + Constants.RATING_DELAY) {
-                AppRater.askToRate()
+                AppRater.askToRate(in: self.view.window?.windowScene)
             }
         }
     }
@@ -104,21 +106,18 @@ class MainTableViewController: UITableViewController {
         }
     }
     
+    private func installFooterIfNeeded() {
+        guard tableView.tableFooterView == nil else { return }
+
+        tableView.tableFooterView = AboutFooterView(
+            onAboutTapped: { [weak self] in self?.openAbout() },
+            onTipTapped: { [weak self] in self?.openTips() }
+        )
+        layoutFooter()
+    }
+
     private func layoutFooter() {
-        var footer: UIView?
-        
-        if let existingFooter = tableView.tableFooterView {
-            footer = existingFooter
-        } else {
-            let newFooter = AboutFooterView(
-                onAboutTapped: { [weak self] in self?.openAbout() },
-                onTipTapped: { [weak self] in self?.openTips() }
-            )
-            tableView.tableFooterView = newFooter
-            footer = newFooter
-        }
-        
-        if let footer = footer {
+        if let footer = tableView.tableFooterView {
             footer.frame = CGRect(x: footer.frame.origin.x, y: footer.frame.origin.y, width: tableView.frame.size.width, height: Constants.FOOTER_HEIGHT)
         }
     }
@@ -243,8 +242,8 @@ class MainTableViewController: UITableViewController {
     }
     
     func subscribeToHealthUpdates() {
-        HealthKitService.getInstance().subscribe(to: HKQuantityTypeIdentifier.stepCount) {
-            DispatchQueue.main.async { [weak self] in
+        HealthKitService.getInstance().subscribe(to: HKQuantityTypeIdentifier.stepCount) { [weak self] in
+            DispatchQueue.main.async {
                 guard UIApplication.shared.applicationState == .active else { return }
                 self?.refresh()
             }

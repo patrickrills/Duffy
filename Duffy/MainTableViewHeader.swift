@@ -17,7 +17,7 @@ class MainTableViewHeader: UIView {
     }
     
     private lazy var logo: UIImageView = {
-        let img = UIImageView(image: UIImage(named: Constants.IMAGE_NAME)?.withRenderingMode(.alwaysTemplate))
+        let img = UIImageView()
         img.translatesAutoresizingMaskIntoConstraints = false
         img.tintColor = Globals.primaryColor()
         return img
@@ -73,5 +73,16 @@ class MainTableViewHeader: UIView {
             spinner.centerYAnchor.constraint(equalTo: logo.centerYAnchor),
             spinner.centerXAnchor.constraint(equalTo: centerXAnchor)
         ])
+
+        loadLogo()
+    }
+
+    private func loadLogo() {
+        Task {
+            let image = await Task.detached(priority: .userInitiated) {
+                await UIImage(named: Constants.IMAGE_NAME)?.byPreparingForDisplay()
+            }.value
+            logo.image = image?.withRenderingMode(.alwaysTemplate)
+        }
     }
 }

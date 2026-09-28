@@ -137,7 +137,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, UNUserNotificationCenter
                                 willPresent notification: UNNotification,
                                 withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
 
-        completionHandler(UNNotificationPresentationOptions.alert)
+        completionHandler(.banner)
     }
     
     private func startHealthKitBackgroundQueries() {
