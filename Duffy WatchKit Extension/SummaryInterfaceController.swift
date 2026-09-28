@@ -116,9 +116,9 @@ class SummaryInterfaceController: WKInterfaceController
         let width: CGFloat = device.screenBounds.width
         let scale: CGFloat = device.screenScale
         
-        DispatchQueue.global(qos: .userInitiated).async {
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             let chartImage = ChartDrawer.drawChart(data, width: width, scale: scale)
-            DispatchQueue.main.async { [weak self] in
+            DispatchQueue.main.async {
                 guard let weakSelf = self else { return }
                 weakSelf.graphImage.setImage(chartImage)
                 weakSelf.loadingLabel.setHidden(true)
