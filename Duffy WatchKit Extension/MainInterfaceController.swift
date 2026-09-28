@@ -132,9 +132,9 @@ class MainInterfaceController: WKInterfaceController
     private func askForHealthKitPermissionAndRefresh() {
         maybeTurnOverComplicationDate()
         
-        HealthKitService.getInstance().authorize { success in
+        HealthKitService.getInstance().authorize { [weak self] success in
             guard success else { return }
-            DispatchQueue.main.async { [weak self] in
+            DispatchQueue.main.async {
                 self?.refresh()
             }
         }
@@ -198,10 +198,10 @@ class MainInterfaceController: WKInterfaceController
     }
     
     private func displayTodaysFlightsFromHealth(_ completion: @escaping (Bool) -> Void) {
-        HealthKitService.getInstance().getFlightsClimbed(for: Date()) { result in
+        HealthKitService.getInstance().getFlightsClimbed(for: Date()) { [weak self] result in
             switch result {
             case .success(let flightsResult):
-                DispatchQueue.main.async { [weak self] in
+                DispatchQueue.main.async {
                     if let flightsValueLabel = self?.flightsValueLabel,
                        let flightsFormatted = Globals.integerFormatter.string(for: flightsResult.flights)
                     {
@@ -216,13 +216,13 @@ class MainInterfaceController: WKInterfaceController
     }
     
     func displayTodaysDistanceFromHealth(_ completion: @escaping (Bool) -> Void) {
-        HealthKitService.getInstance().getDistanceCovered(for: Date()) { result in
+        HealthKitService.getInstance().getDistanceCovered(for: Date()) { [weak self] result in
             switch result {
             case .success(let distanceResult):
                 let formatter = Globals.decimalFormatter
                 let unitsFormatted = distanceResult.formatter == .mile ? NSLocalizedString("Miles", comment: "") : NSLocalizedString("Kilometers", comment: "")
                 if let valueFormatted = formatter.string(for: distanceResult.distance) {
-                    DispatchQueue.main.async { [weak self] in
+                    DispatchQueue.main.async {
                         if let distanceValueLabel = self?.distanceValueLabel,
                            let distanceTitleLabel = self?.distanceTitleLabel
                         {
@@ -243,10 +243,8 @@ class MainInterfaceController: WKInterfaceController
     func subscribeToHealthKitUpdates() {
         HealthKitService.getInstance().initializeBackgroundQueries()
         
-        HealthKitService.getInstance().subscribe(to: HKQuantityTypeIdentifier.stepCount, on: {
+        HealthKitService.getInstance().subscribe(to: HKQuantityTypeIdentifier.stepCount, on: { [weak self] in
             DispatchQueue.main.async {
-                [weak self] in
-                
                 if WKExtension.shared().applicationState != .active {
                     return
                 }

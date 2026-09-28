@@ -81,7 +81,7 @@ class TrophiesViewController: UICollectionViewController, UICollectionViewDelega
                 fallthrough
             }
             
-            labelHeader.headerLabel.text = GoalInstructions.step4.text(useLegacyInstructions: false)
+            labelHeader.headerLabel.text = GoalInstructions.step4.text()
             return labelHeader
         case UICollectionView.elementKindSectionFooter:
             guard let buttonFooter = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: String(describing: ButtonFooterCollectionReusableView.self), for: indexPath) as? ButtonFooterCollectionReusableView else {
@@ -89,7 +89,7 @@ class TrophiesViewController: UICollectionViewController, UICollectionViewDelega
             }
             
             buttonFooter.bind(NSLocalizedString("How To Change Your Goal", comment: ""), onPress: { [weak self] in
-                self?.navigationController?.pushViewController(GoalInstructionsTableViewController(), animated: true)
+                self?.navigationController?.pushViewController(GoalInstructionsViewController(), animated: true)
             })
             
             return buttonFooter

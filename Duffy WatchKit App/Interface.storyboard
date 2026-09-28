@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="23504" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc" pageOrientation="vertical">
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="25098" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="AgC-eL-Hgc" pageOrientation="vertical">
     <device id="watch42_446h"/>
     <dependencies>
         <deployment identifier="watchOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="23501"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="25017"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
     </dependencies>
     <scenes>
@@ -253,30 +253,6 @@
                 </controller>
             </objects>
             <point key="canvasLocation" x="313" y="1139"/>
-        </scene>
-        <!--LegacyEditGoalInterfaceController-->
-        <scene sceneID="xdF-XR-FCq">
-            <objects>
-                <controller identifier="LegacyEditGoalInterfaceController" id="NnG-6h-E9i" customClass="LegacyEditGoalInterfaceController" customModule="Duffy_WatchKit_Extension">
-                    <items>
-                        <picker height="90" alignment="center" verticalAlignment="center" focusStyle="stack" id="Vgb-3m-FEt">
-                            <connections>
-                                <action selector="pickerChangedWithValue:" destination="NnG-6h-E9i" id="eyR-2Z-uCq"/>
-                            </connections>
-                        </picker>
-                        <button width="1" alignment="left" verticalAlignment="center" title="Set Goal" id="jWh-lg-j16">
-                            <connections>
-                                <action selector="savePressed" destination="NnG-6h-E9i" id="qQ0-Tw-fZU"/>
-                            </connections>
-                        </button>
-                    </items>
-                    <connections>
-                        <outlet property="goalButton" destination="jWh-lg-j16" id="g1U-0C-7W7"/>
-                        <outlet property="goalOptionsList" destination="Vgb-3m-FEt" id="f2T-tu-Tm4"/>
-                    </connections>
-                </controller>
-            </objects>
-            <point key="canvasLocation" x="604" y="1102"/>
         </scene>
         <!--Static Notification Interface Controller-->
         <scene sceneID="x9Y-1d-Uel">
