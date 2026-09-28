@@ -13,6 +13,7 @@ struct HistoryView: View {
     
     private enum Constants {
         static let CHART_HEIGHT: CGFloat = 180.0
+        static let CHART_MARGIN: CGFloat = 11.0
         static let HEADER_FONT_SIZE: CGFloat = 22.0
     }
     
@@ -62,6 +63,7 @@ struct HistoryView: View {
         Section {
             HistoryTrendChart(values: viewModel.filteredValues, goal: viewModel.goal, optionsVersion: chartOptionsVersion)
                 .frame(height: Constants.CHART_HEIGHT)
+                .listRowInsets(EdgeInsets(top: Constants.CHART_MARGIN, leading: 0.0, bottom: Constants.CHART_MARGIN, trailing: 0.0))
         } header: {
             header(NSLocalizedString("Trend", comment: "")) {
                 Menu {
