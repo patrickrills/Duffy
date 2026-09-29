@@ -15,44 +15,84 @@ struct HistoryView: View {
         static let CHART_HEIGHT: CGFloat = 180.0
         static let CHART_MARGIN: CGFloat = 11.0
         static let HEADER_FONT_SIZE: CGFloat = 22.0
+        static let CLOSE_SYMBOL_SIZE: CGFloat = 24.0
     }
     
     //MARK: Properties and State
     
-    let onShowFilter: (Date, @escaping (Date) -> ()) -> ()
+    @Environment(\.dismiss) private var dismiss
     
     @State private var viewModel = HistoryViewModel()
     @State private var isLoading: Bool = false
     @State private var hasLoaded: Bool = false
     @State private var chartOptionsVersion: Int = 0
+    @State private var filterDate: Date?
     
     //MARK: Body
     
     var body: some View {
-        List {
-            chartSection
-            summarySection
-            detailsSection
-        }
-        .listStyle(.insetGrouped)
-        .navigationTitle(isLoading ? viewModel.loadingTitle : viewModel.title)
-        .navigationBarTitleDisplayMode(.large)
-        .toolbar {
-            if DebugService.isDebugModeEnabled() {
+        NavigationStack {
+            List {
+                chartSection
+                summarySection
+                detailsSection
+            }
+            .listStyle(.insetGrouped)
+            .navigationTitle(isLoading ? viewModel.loadingTitle : viewModel.title)
+            .navigationBarTitleDisplayMode(.large)
+            .navigationDestination(item: $filterDate) { selectedDate in
+                HistoryFilterView(selectedDate: selectedDate) { updatedDate in
+                    filterDate = nil
+                    load { await viewModel.updateDateFilter(updatedDate) }
+                }
+            }
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    closeButton
+                }
+                
+                if DebugService.isDebugModeEnabled() {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        dataTypeMenu
+                    }
+                }
+                
                 ToolbarItem(placement: .topBarTrailing) {
-                    dataTypeMenu
+                    Button(action: showFilter) {
+                        Image(systemName: "calendar")
+                            .fontWeight(.medium)
+                    }
                 }
             }
-            
-            ToolbarItem(placement: .topBarTrailing) {
-                Button(action: showFilter) {
-                    Image(systemName: "calendar")
-                        .fontWeight(.medium)
-                }
+            .task {
+                await initialLoad()
             }
         }
-        .task {
-            await initialLoad()
+        .tint(navigationTint)
+    }
+    
+    //The navigation controller this screen used to be presented in only tinted itself before iOS 26
+    private var navigationTint: Color? {
+        if #available(iOS 26.0, *) {
+            return nil
+        }
+        
+        return Color(uiColor: Globals.secondaryColor())
+    }
+    
+    @ViewBuilder
+    private var closeButton: some View {
+        Button {
+            dismiss()
+        } label: {
+            if #available(iOS 26.0, *) {
+                Image(systemName: "xmark")
+            } else {
+                Image(systemName: "xmark.circle.fill")
+                    .font(.system(size: Constants.CLOSE_SYMBOL_SIZE))
+                    .symbolRenderingMode(.palette)
+                    .foregroundStyle(Color(uiColor: Globals.secondaryColor()), Color(uiColor: .tertiarySystemFill))
+            }
         }
     }
     
@@ -201,9 +241,7 @@ struct HistoryView: View {
     }
     
     private func showFilter() {
-        onShowFilter(viewModel.currentFilterDate) { filterDate in
-            load { await viewModel.updateDateFilter(filterDate) }
-        }
+        filterDate = viewModel.currentFilterDate
     }
     
     private func loadNextPage() {

@@ -12,17 +12,8 @@ import SwiftUI
 class HistoryHostingController: UIHostingController<HistoryView> {
     
     init() {
-        super.init(rootView: HistoryView(onShowFilter: { _, _ in }))
+        super.init(rootView: HistoryView())
         modalPresentationStyle = .fullScreen
-        
-        rootView = HistoryView(onShowFilter: { [weak self] selectedDate, onDateSelected in
-            let filter = HistoryFilterView(selectedDate: selectedDate, onDateSelected: { [weak self] filterDate in
-                onDateSelected(filterDate)
-                self?.navigationController?.popViewController(animated: true)
-            })
-            
-            self?.navigationController?.pushViewController(UIHostingController(rootView: filter), animated: true)
-        })
     }
     
     required init?(coder aDecoder: NSCoder) {

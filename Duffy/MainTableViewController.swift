@@ -255,7 +255,7 @@ class MainTableViewController: UITableViewController {
     }
     
     private func openHistory() {
-        present(ModalNavigationController(rootViewController: HistoryTableViewController()), animated: true, completion: nil)
+        present(HistoryHostingController(), animated: true, completion: nil)
     }
     
     private func openAbout() {
