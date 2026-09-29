@@ -33,7 +33,6 @@ struct HistoryView: View {
             chartSection
             summarySection
             detailsSection
-            loadMoreSection
         }
         .listStyle(.insetGrouped)
         .navigationTitle(isLoading ? viewModel.loadingTitle : viewModel.title)
@@ -118,18 +117,16 @@ struct HistoryView: View {
                     sortLabel
                 }
             }
-        }
-    }
-    
-    @ViewBuilder
-    private var loadMoreSection: some View {
-        if !viewModel.isLoadMoreHidden && viewModel.canLoadMore {
-            Section {
-                Button(NSLocalizedString("Show More", comment: "")) {
-                    loadNextPage()
+        } footer: {
+            if !viewModel.isLoadMoreHidden && viewModel.canLoadMore {
+                HStack {
+                    Button(NSLocalizedString("Show More", comment: "")) {
+                        loadNextPage()
+                    }
+                    .foregroundStyle(Color(uiColor: Globals.secondaryColor()))
+                    .frame(maxWidth: .infinity)
                 }
-                .frame(maxWidth: .infinity)
-                .listRowBackground(Color.clear)
+                .padding(.vertical, 20.0)
             }
         }
     }
