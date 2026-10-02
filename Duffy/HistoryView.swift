@@ -260,7 +260,7 @@ struct HistoryView: View {
             Button {
                 changeDataType(dataType)
             } label: {
-                Label(isSelected ? viewModel.dataTypeName : dataType.displayName(), systemImage: isSelected ? "checkmark" : dataType.symbolName())
+                Label(viewModel.dataTypeName(for: dataType), systemImage: isSelected ? "checkmark" : dataType.symbolName())
             }
         }
     }

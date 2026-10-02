@@ -54,6 +54,10 @@ class HistoryViewModel {
     }
     
     var dataTypeName: String {
+        return dataTypeName(for: dataType)
+    }
+    
+    func dataTypeName(for dataType: HistoryDataType) -> String {
         return dataType.displayName(in: unit)
     }
     
@@ -109,7 +113,6 @@ class HistoryViewModel {
         pastValues.removeAll()
         filteredDates.removeAll()
         fetchedFromDate = nil
-        unit = nil
         canLoadMore = true
         
         await filterValues(since: filterDate)
@@ -117,6 +120,10 @@ class HistoryViewModel {
     
     private func filterValues(since startDate: Date) async {
         filterDate = startDate
+        
+        if unit == nil {
+            unit = await HistoryDataType.distance.preferredUnit()
+        }
         
         guard startDate < (fetchedFromDate ?? lastDateInCache) else {
             refresh()
@@ -127,10 +134,9 @@ class HistoryViewModel {
         
         guard let fetched = await dataType.values(from: startDate, to: fetchedFromDate ?? lastDateInCache) else { return }
         
-        pastValues.merge(fetched.values, uniquingKeysWith: { $1 })
-        unit = fetched.unit
+        pastValues.merge(fetched, uniquingKeysWith: { $1 })
         fetchedFromDate = startDate
-        canLoadMore = !(fetched.values.isEmpty || lastDateInCache == previousLastCacheDate)
+        canLoadMore = !(fetched.isEmpty || lastDateInCache == previousLastCacheDate)
         refresh()
     }
     

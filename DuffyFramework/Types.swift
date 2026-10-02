@@ -21,3 +21,4 @@ public typealias FlightsForDayResult = Result<(day: Date, flights: FlightsClimbe
 public typealias DistanceForDayResult = Result<(day: Date, formatter: LengthFormatter.Unit, distance: DistanceTravelled), HealthKitError>
 public typealias FlightsByDateResult = Result<[Date : FlightsClimbed], HealthKitError>
 public typealias DistanceByDateResult = Result<(values: [Date : DistanceTravelled], formatter: LengthFormatter.Unit), HealthKitError>
+public typealias DistanceUnitResult = Result<LengthFormatter.Unit, HealthKitError>

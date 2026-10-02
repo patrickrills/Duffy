@@ -259,6 +259,45 @@ public class HealthKitService
     
     public func getDistanceCovered(from startDate: Date, to endDate: Date, completionHandler: @escaping (DistanceByDateResult) -> ()) {
         guard HKHealthStore.isHealthDataAvailable(),
+            let distanceType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.distanceWalkingRunning)
+        else {
+            completionHandler(.failure(.unsupported))
+            return
+        }
+        
+        preferredDistanceUnit { [weak self] unitResult in
+            switch unitResult {
+            case .success(let distanceUnits):
+                self?.get(quantityType: distanceType, measuredIn: distanceUnits, from: startDate, to: endDate) { result in
+                    switch result {
+                    case .success(let values):
+                        let mapped: [Date : DistanceTravelled] = values.reduce(into: [:]) { (map, entry) in
+                            map[entry.key] = DistanceTravelled(entry.value)
+                        }
+                        completionHandler(.success((values: mapped, formatter: HKUnit.lengthFormatterUnit(from: distanceUnits))))
+                    case .failure(let error):
+                        completionHandler(.failure(error))
+                    }
+                }
+            case .failure(let error):
+                completionHandler(.failure(error))
+            }
+        }
+    }
+    
+    public func getPreferredDistanceUnit(completionHandler: @escaping (DistanceUnitResult) -> ()) {
+        preferredDistanceUnit { result in
+            switch result {
+            case .success(let distanceUnits):
+                completionHandler(.success(HKUnit.lengthFormatterUnit(from: distanceUnits)))
+            case .failure(let error):
+                completionHandler(.failure(error))
+            }
+        }
+    }
+    
+    private func preferredDistanceUnit(completionHandler: @escaping (Result<HKUnit, HealthKitError>) -> ()) {
+        guard HKHealthStore.isHealthDataAvailable(),
             let store = healthStore,
             let distanceType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.distanceWalkingRunning)
         else {
@@ -266,28 +305,13 @@ public class HealthKitService
             return
         }
         
-        store.preferredUnits(for: [distanceType]) { [weak self] units, error in
+        store.preferredUnits(for: [distanceType]) { units, error in
             if let error = error {
                 completionHandler(.failure(.wrapped(error)))
                 return
             }
             
-            var distanceUnits = HKUnit.mile()
-            if let preferred = units[distanceType] {
-                distanceUnits = preferred
-            }
-            
-            self?.get(quantityType: distanceType, measuredIn: distanceUnits, from: startDate, to: endDate) { result in
-                switch result {
-                case .success(let values):
-                    let mapped: [Date : DistanceTravelled] = values.reduce(into: [:]) { (map, entry) in
-                        map[entry.key] = DistanceTravelled(entry.value)
-                    }
-                    completionHandler(.success((values: mapped, formatter: HKUnit.lengthFormatterUnit(from: distanceUnits))))
-                case .failure(let error):
-                    completionHandler(.failure(error))
-                }
-            }
+            completionHandler(.success(units[distanceType] ?? HKUnit.mile()))
         }
     }
     

@@ -9,8 +9,6 @@
 import Foundation
 import DuffyFramework
 
-typealias HistoryValues = (values: [Date : Double], unit: LengthFormatter.Unit?)
-
 enum HistoryDataType: String, CaseIterable {
     case steps = "steps"
     case flightsClimbed = "flightsClimbed"
@@ -83,14 +81,29 @@ enum HistoryDataType: String, CaseIterable {
     
     //MARK: Data fetching
     
-    func values(from startDate: Date, to endDate: Date) async -> HistoryValues? {
+    func preferredUnit() async -> LengthFormatter.Unit? {
+        guard self == .distance else { return nil }
+        
+        return await withCheckedContinuation { continuation in
+            HealthKitService.getInstance().getPreferredDistanceUnit { result in
+                switch result {
+                case .success(let unit):
+                    continuation.resume(returning: unit)
+                case .failure(_):
+                    continuation.resume(returning: nil)
+                }
+            }
+        }
+    }
+    
+    func values(from startDate: Date, to endDate: Date) async -> [Date : Double]? {
         switch self {
         case .steps:
             return await withCheckedContinuation { continuation in
                 HealthKitService.getInstance().getSteps(from: startDate, to: endDate) { result in
                     switch result {
                     case .success(let steps):
-                        continuation.resume(returning: (values: steps.mapValues({ Double($0) }), unit: nil))
+                        continuation.resume(returning: steps.mapValues({ Double($0) }))
                     case .failure(_):
                         continuation.resume(returning: nil)
                     }
@@ -102,7 +115,7 @@ enum HistoryDataType: String, CaseIterable {
                 HealthKitService.getInstance().getFlightsClimbed(from: startDate, to: endDate) { result in
                     switch result {
                     case .success(let flights):
-                        continuation.resume(returning: (values: flights.mapValues({ Double($0) }), unit: nil))
+                        continuation.resume(returning: flights.mapValues({ Double($0) }))
                     case .failure(_):
                         continuation.resume(returning: nil)
                     }
@@ -114,7 +127,7 @@ enum HistoryDataType: String, CaseIterable {
                 HealthKitService.getInstance().getDistanceCovered(from: startDate, to: endDate) { result in
                     switch result {
                     case .success(let distance):
-                        continuation.resume(returning: (values: distance.values, unit: distance.formatter))
+                        continuation.resume(returning: distance.values)
                     case .failure(_):
                         continuation.resume(returning: nil)
                     }
