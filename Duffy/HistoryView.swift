@@ -16,6 +16,7 @@ struct HistoryView: View {
         static let CHART_MARGIN: CGFloat = 11.0
         static let HEADER_FONT_SIZE: CGFloat = 22.0
         static let CLOSE_SYMBOL_SIZE: CGFloat = 24.0
+        static let DROPDOWN_SPACING: CGFloat = 4.0
     }
     
     //MARK: Properties and State
@@ -32,14 +33,20 @@ struct HistoryView: View {
     
     var body: some View {
         NavigationStack {
-            List {
-                chartSection
-                summarySection
-                detailsSection
-            }
+            historyList
+        }
+        .tint(navigationTint)
+    }
+    
+    private var historyList: some View {
+        List {
+            chartSection
+            summarySection
+            detailsSection
+        }
             .listStyle(.insetGrouped)
-            .navigationTitle(isLoading ? viewModel.loadingTitle : viewModel.title)
-            .navigationBarTitleDisplayMode(.large)
+            .navigationTitle("")
+            .navigationBarTitleDisplayMode(.inline)
             .navigationDestination(item: $filterDate) { selectedDate in
                 HistoryFilterView(selectedDate: selectedDate) { updatedDate in
                     filterDate = nil
@@ -51,10 +58,8 @@ struct HistoryView: View {
                     closeButton
                 }
                 
-                if DebugService.isDebugModeEnabled() {
-                    ToolbarItem(placement: .topBarTrailing) {
-                        dataTypeMenu
-                    }
+                ToolbarItem(placement: .principal) {
+                    dropdownHeader
                 }
                 
                 ToolbarItem(placement: .topBarTrailing) {
@@ -67,8 +72,6 @@ struct HistoryView: View {
             .task {
                 await initialLoad()
             }
-        }
-        .tint(navigationTint)
     }
     
     //The navigation controller this screen used to be presented in only tinted itself before iOS 26
@@ -209,19 +212,56 @@ struct HistoryView: View {
         }
     }
     
-    private var dataTypeMenu: some View {
-        Menu {
-            ForEach(HistoryDataType.allCases, id: \.self) { dataType in
-                let isSelected = dataType == viewModel.dataType
-                Button {
-                    changeDataType(dataType)
+    //MARK: Data type selection
+    
+    private var isDataTypeSelectable: Bool {
+        return DebugService.isDebugModeEnabled()
+    }
+    
+    private var headerSubtitle: String {
+        return isLoading ? viewModel.loadingTitle : viewModel.title
+    }
+    
+    @ViewBuilder
+    private var dropdownHeader: some View {
+        VStack(spacing: 0.0) {
+            if isDataTypeSelectable {
+                Menu {
+                    dataTypeOptions
                 } label: {
-                    Label(isSelected ? viewModel.dataTypeName : dataType.displayName(), systemImage: isSelected ? "checkmark" : dataType.symbolName())
+                    HStack(spacing: Constants.DROPDOWN_SPACING) {
+                        Text(viewModel.dataTypeName)
+                            .font(.headline)
+                            .foregroundStyle(Color(uiColor: .label))
+                        
+                        Image(systemName: "chevron.down.circle.fill")
+                            .font(.subheadline)
+                            .fontWeight(.bold)
+                            .symbolRenderingMode(.palette)
+                            .foregroundStyle(Color(uiColor: Globals.secondaryColor()), Color(.systemGray5))
+                    }
                 }
+            } else {
+                Text(viewModel.dataTypeName)
+                    .font(.headline)
+                    .foregroundStyle(Color(uiColor: .label))
             }
-        } label: {
-            Image(systemName: viewModel.dataType.symbolName())
-                .fontWeight(.medium)
+            
+            Text(headerSubtitle)
+                .font(.subheadline)
+                .foregroundStyle(Color(uiColor: .secondaryLabel))
+        }
+    }
+    
+    @ViewBuilder
+    private var dataTypeOptions: some View {
+        ForEach(HistoryDataType.allCases, id: \.self) { dataType in
+            let isSelected = dataType == viewModel.dataType
+            Button {
+                changeDataType(dataType)
+            } label: {
+                Label(isSelected ? viewModel.dataTypeName : dataType.displayName(), systemImage: isSelected ? "checkmark" : dataType.symbolName())
+            }
         }
     }
     
