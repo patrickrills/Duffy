@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftUI
 import DuffyFramework
 
 enum HistoryDataType: String, CaseIterable {
@@ -46,6 +47,18 @@ enum HistoryDataType: String, CaseIterable {
             default:
                 return NSLocalizedString("Distance", comment: "")
             }
+        }
+    }
+    
+    //Steps uses an SF Symbol, flights and distance use the same assets as the today card on the main screen
+    func image() -> Image {
+        switch self {
+        case .steps:
+            return Image(systemName: symbolName())
+        case .flightsClimbed:
+            return Image("Flights")
+        case .distance:
+            return Image("Distance")
         }
     }
     

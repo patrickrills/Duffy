@@ -253,16 +253,24 @@ struct HistoryView: View {
         }
     }
     
-    @ViewBuilder
     private var dataTypeOptions: some View {
-        ForEach(HistoryDataType.allCases, id: \.self) { dataType in
-            let isSelected = dataType == viewModel.dataType
-            Button {
-                changeDataType(dataType)
-            } label: {
-                Label(viewModel.dataTypeName(for: dataType), systemImage: isSelected ? "checkmark" : dataType.symbolName())
+        Picker(selection: dataTypeBinding) {
+            ForEach(HistoryDataType.allCases, id: \.self) { dataType in
+                Label {
+                    Text(viewModel.dataTypeName(for: dataType))
+                } icon: {
+                    dataType.image()
+                }
+                .tag(dataType)
             }
+        } label: {
+            EmptyView()
         }
+        .pickerStyle(.inline)
+    }
+    
+    private var dataTypeBinding: Binding<HistoryDataType> {
+        return Binding(get: { viewModel.dataType }, set: { changeDataType($0) })
     }
     
     //MARK: Event handlers
