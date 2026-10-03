@@ -18,14 +18,20 @@ class HistoryTrendChartView: UIView
         static let GRAPH_INSETS = UIEdgeInsets(top: 0.0, left: PADDING + 15.0, bottom: 0.0, right: PADDING + 15.0)
     }
     
-    var dataSet : [Date : Steps] = [:] {
+    var dataSet : [Date : Double] = [:] {
+        didSet {
+            setNeedsDisplay()
+        }
+    }
+    
+    var goal : Double? {
         didSet {
             setNeedsDisplay()
         }
     }
     
     override func draw(_ rect: CGRect) {
-        let graphPlot = Plot.generate(for: dataSet, in: rect, with: DrawingConstants.GRAPH_INSETS)
+        let graphPlot = Plot.generate(for: dataSet, goal: goal, in: rect, with: DrawingConstants.GRAPH_INSETS)
         drawDataLine(with: graphPlot, in: rect)
         drawTrendLine(with: graphPlot, in: rect)
         drawGoalLine(with: graphPlot, in: rect)
@@ -88,8 +94,12 @@ class HistoryTrendChartView: UIView
     }
     
     private func drawGoalLine(with plot: Plot, in rect: CGRect) {
-        guard HistoryTrendChartOption.goalIndicator.isEnabled() else { return }
-        let goalY = plot.goalY
+        guard HistoryTrendChartOption.goalIndicator.isEnabled(),
+              let goalY = plot.goalY
+        else {
+            return
+        }
+        
         let shoe = NSAttributedString(string: Trophy.shoe.symbol(), attributes: [.font : UIFont.systemFont(ofSize: UIFont.systemFontSize)])
         let shoeSize = shoe.size()
         let shoeOrigin = CGPoint(x: DrawingConstants.PADDING, y: goalY - (shoeSize.height / 2.0))

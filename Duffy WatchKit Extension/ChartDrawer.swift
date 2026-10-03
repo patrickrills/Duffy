@@ -50,18 +50,19 @@ class ChartDrawer {
         let textFormatter = Globals.summaryDateFormatter
         let textY = size.height - textHeight + DrawingConstants.TEXT_PADDING
         let plot = Plot.generate(for: data, in: CGRect(x: 0.0, y: 0.0, width: size.width, height: size.height), with: insets)
+        let goalY = plot.goalY ?? .zero //The watch chart always plots steps, which always has a goal
         
         if plot.points.count > 0 {
             let barFloor = size.height - insets.bottom
             let onlyOnePoint = plot.points.count == 1
             
             plot.points.forEach {
-                let goalMet = $0.point.y <= plot.goalY
+                let goalMet = $0.point.y <= goalY
                 let rawX = onlyOnePoint ? size.width / 2.0 : $0.point.x
                 let barX = rawX - (barWidth / 2.0)
                 
                 if !goalMet {
-                    let ghostBar = UIBezierPath(roundedRect: CGRect(x: barX, y: plot.goalY, width: barWidth, height: barFloor - plot.goalY), cornerRadius: barWidth / 4.0)
+                    let ghostBar = UIBezierPath(roundedRect: CGRect(x: barX, y: goalY, width: barWidth, height: barFloor - goalY), cornerRadius: barWidth / 4.0)
                     unmetGoalColor.withAlphaComponent(0.15).setFill()
                     ghostBar.fill()
                 }
@@ -86,8 +87,8 @@ class ChartDrawer {
         let line = UIBezierPath()
         line.setLineDash(pattern, count: pattern.count, phase: 0.0)
         line.lineWidth = lineWidth
-        line.move(to: CGPoint(x: horizontalMargin, y: plot.goalY))
-        line.addLine(to: CGPoint(x: size.width - horizontalMargin, y: plot.goalY))
+        line.move(to: CGPoint(x: horizontalMargin, y: goalY))
+        line.addLine(to: CGPoint(x: size.width - horizontalMargin, y: goalY))
         line.stroke()
         
         let cgimage = context!.makeImage()

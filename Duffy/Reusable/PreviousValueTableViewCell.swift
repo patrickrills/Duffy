@@ -20,9 +20,11 @@ class PreviousValueTableViewCell: UITableViewCell
     }
     
     func bind(to date: Date, steps: Steps, goal: Steps) {
-        let trophy = Trophy.trophy(for: steps)
-        let stepsFormatted = Globals.stepsFormatter().string(for: steps)!
-        let primaryText = String(format: "%@ %@", stepsFormatted, trophy.symbol()).trimmingCharacters(in: .whitespaces)
+        bind(to: date, value: Globals.stepsFormatter().string(for: steps)!, trophy: Trophy.trophy(for: steps))
+    }
+    
+    func bind(to date: Date, value: String, trophy: Trophy) {
+        let primaryText = String(format: "%@ %@", value, trophy.symbol()).trimmingCharacters(in: .whitespaces)
         let secondaryText = Globals.dayFormatter().string(from: date)
         let primaryFont = font(for: trophy)
         
