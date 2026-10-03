@@ -102,7 +102,12 @@ class MainTableViewController: UITableViewController {
         }
         
         if let header = header {
-            header.frame = CGRect(x: header.frame.origin.x, y: header.frame.origin.y, width: tableView.frame.size.width, height: header.suggestedHeight)
+            let frame = CGRect(x: header.frame.origin.x, y: header.frame.origin.y, width: tableView.frame.size.width, height: header.suggestedHeight)
+            
+            if header.frame.size != frame.size {
+                header.frame = frame
+                tableView.tableHeaderView = header
+            }
         }
     }
     
@@ -118,7 +123,12 @@ class MainTableViewController: UITableViewController {
 
     private func layoutFooter() {
         if let footer = tableView.tableFooterView {
-            footer.frame = CGRect(x: footer.frame.origin.x, y: footer.frame.origin.y, width: tableView.frame.size.width, height: Constants.FOOTER_HEIGHT)
+            let frame = CGRect(x: footer.frame.origin.x, y: footer.frame.origin.y, width: tableView.frame.size.width, height: Constants.FOOTER_HEIGHT)
+            
+            if footer.frame.size != frame.size {
+                footer.frame = frame
+                tableView.tableFooterView = footer
+            }
         }
     }
     
