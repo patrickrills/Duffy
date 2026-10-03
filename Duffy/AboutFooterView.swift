@@ -59,8 +59,8 @@ class AboutFooterView: UIView {
         tipButton.backgroundColor = .tertiarySystemBackground
         
         NSLayoutConstraint.activate([
-            horizontalStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20.0),
-            horizontalStack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20.0),
+            horizontalStack.leadingAnchor.constraint(equalTo: layoutMarginsGuide.leadingAnchor),
+            horizontalStack.trailingAnchor.constraint(equalTo: layoutMarginsGuide.trailingAnchor),
             horizontalStack.topAnchor.constraint(equalTo: topAnchor, constant: 32.0),
             horizontalStack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -18.0)
         ])
