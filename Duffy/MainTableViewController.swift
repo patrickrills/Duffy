@@ -103,6 +103,7 @@ class MainTableViewController: UITableViewController {
         
         if let header = header {
             let frame = CGRect(x: header.frame.origin.x, y: header.frame.origin.y, width: tableView.frame.size.width, height: header.suggestedHeight)
+            matchSectionInsets(header)
             
             if header.frame.size != frame.size {
                 header.frame = frame
@@ -124,12 +125,25 @@ class MainTableViewController: UITableViewController {
     private func layoutFooter() {
         if let footer = tableView.tableFooterView {
             let frame = CGRect(x: footer.frame.origin.x, y: footer.frame.origin.y, width: tableView.frame.size.width, height: Constants.FOOTER_HEIGHT)
+            matchSectionInsets(footer)
             
             if footer.frame.size != frame.size {
                 footer.frame = frame
                 tableView.tableFooterView = footer
             }
         }
+    }
+    
+    // insetGrouped sections are inset by the table's layout margins (which already include the safe area),
+    // so the full-width table header/footer adopt the same horizontal margins to line up with the rows
+    private func matchSectionInsets(_ view: UIView) {
+        view.insetsLayoutMarginsFromSafeArea = false
+        view.directionalLayoutMargins = NSDirectionalEdgeInsets(
+            top: view.directionalLayoutMargins.top,
+            leading: tableView.directionalLayoutMargins.leading,
+            bottom: view.directionalLayoutMargins.bottom,
+            trailing: tableView.directionalLayoutMargins.trailing
+        )
     }
     
     private func getHeader() -> MainTableViewHeader? {

@@ -69,9 +69,9 @@ class MainTableViewHeader: UIView {
             logo.heightAnchor.constraint(equalToConstant: Constants.IMAGE_SIZE),
             logo.widthAnchor.constraint(equalTo: logo.heightAnchor),
             logo.topAnchor.constraint(equalTo: topAnchor, constant: Constants.TOP_MARGIN),
-            logo.centerXAnchor.constraint(equalTo: centerXAnchor),
+            logo.centerXAnchor.constraint(equalTo: layoutMarginsGuide.centerXAnchor),
             spinner.centerYAnchor.constraint(equalTo: logo.centerYAnchor),
-            spinner.centerXAnchor.constraint(equalTo: centerXAnchor)
+            spinner.centerXAnchor.constraint(equalTo: layoutMarginsGuide.centerXAnchor)
         ])
 
         loadLogo()
