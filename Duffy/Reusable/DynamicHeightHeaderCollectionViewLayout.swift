@@ -13,6 +13,11 @@ class DynamicHeightHeaderCollectionViewLayout: UICollectionViewFlowLayout {
     
     private var cachedHeaderHeight: CGFloat = 0.0
     
+    var safeAreaWidth: CGFloat {
+        guard let collectionView = collectionView else { return 0.0 }
+        return collectionView.bounds.width - collectionView.safeAreaInsets.left - collectionView.safeAreaInsets.right
+    }
+    
     init(estimatedHeaderHeight: CGFloat) {
         super.init()
         cachedHeaderHeight = estimatedHeaderHeight
@@ -25,11 +30,8 @@ class DynamicHeightHeaderCollectionViewLayout: UICollectionViewFlowLayout {
     override func prepare() {
         super.prepare()
         
-        guard let collectionView = collectionView else { return }
-        
-        let availableWidth = collectionView.bounds.size.width
-        
-        headerReferenceSize = CGSize(width: availableWidth, height: cachedHeaderHeight)
+        sectionInsetReference = .fromSafeArea
+        headerReferenceSize = CGSize(width: safeAreaWidth, height: cachedHeaderHeight)
     }
         
     override func shouldInvalidateLayout(forPreferredLayoutAttributes preferredAttributes: UICollectionViewLayoutAttributes, withOriginalAttributes originalAttributes: UICollectionViewLayoutAttributes) -> Bool {

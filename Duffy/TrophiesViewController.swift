@@ -132,14 +132,12 @@ fileprivate class TrophyLayout: DynamicHeightHeaderCollectionViewLayout {
     override func prepare() {
         super.prepare()
         
-        guard let collectionView = collectionView else { return }
-        
         let margin = Constants.SPACING
         sectionInset = UIEdgeInsets(top: margin, left:margin, bottom: margin, right: margin)
         minimumLineSpacing = margin
         minimumInteritemSpacing = margin
         
-        let availableWidth = collectionView.bounds.inset(by: sectionInset).size.width
+        let availableWidth = safeAreaWidth - sectionInset.left - sectionInset.right
         let cellWidth = ((availableWidth - margin) / 2.0).rounded(.down)
         itemSize = CGSize(width: cellWidth, height: Constants.CELL_HEIGHT)
         firstItemSize = CGSize(width: availableWidth, height: Constants.CELL_HEIGHT * 2.0)
