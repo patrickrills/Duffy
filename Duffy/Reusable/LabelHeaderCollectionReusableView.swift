@@ -36,8 +36,8 @@ class LabelHeaderCollectionReusableView: UICollectionReusableView {
         NSLayoutConstraint.activate([
             headerLabel.topAnchor.constraint(equalTo: topAnchor, constant: SPACING),
             headerLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
-            headerLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: SPACING),
-            headerLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -SPACING)
+            headerLabel.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor, constant: SPACING),
+            headerLabel.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor, constant: -SPACING)
         ])
     }
     
