@@ -47,7 +47,7 @@ class BoldActionSectionHeaderView: UITableViewHeaderFooterView {
         createConstraints()
     }
     
-    typealias BoldActionSectionHeaderViewLayoutOptions = (labelHeight: CGFloat, useHorizontalLayoutMargins: Bool, horizontalInset: CGFloat, topInset: CGFloat, actionCenterOffset: CGFloat)
+    typealias BoldActionSectionHeaderViewLayoutOptions = (labelHeight: CGFloat, useHorizontalLayoutMargins: Bool, horizontalInset: CGFloat, topInset: CGFloat, bottomInset: CGFloat, actionCenterOffset: CGFloat)
     
     private func createConstraints() {
         let options = layoutOptions()
@@ -59,8 +59,8 @@ class BoldActionSectionHeaderView: UITableViewHeaderFooterView {
         
         NSLayoutConstraint.activate([
             height,
-            headerLabel.topAnchor.constraint(equalTo: contentView.layoutMarginsGuide.topAnchor, constant: options.topInset),
-            contentView.layoutMarginsGuide.bottomAnchor.constraint(equalTo: headerLabel.bottomAnchor),
+            headerLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: options.topInset),
+            contentView.bottomAnchor.constraint(equalTo: headerLabel.bottomAnchor, constant: options.bottomInset),
             headerLabel.leadingAnchor.constraint(equalTo: superLeadingAnchor, constant: options.horizontalInset),
             button.trailingAnchor.constraint(equalTo: superTrailingAnchor, constant: -options.horizontalInset),
             button.centerYAnchor.constraint(equalTo: contentView.centerYAnchor, constant: options.actionCenterOffset)
@@ -68,7 +68,7 @@ class BoldActionSectionHeaderView: UITableViewHeaderFooterView {
     }
     
     func layoutOptions() -> BoldActionSectionHeaderViewLayoutOptions {
-        return BoldActionSectionHeaderViewLayoutOptions(labelHeight: 26.0, useHorizontalLayoutMargins: false, horizontalInset: 2.0, topInset: 8.0, actionCenterOffset: 6.0)
+        return BoldActionSectionHeaderViewLayoutOptions(labelHeight: 26.0, useHorizontalLayoutMargins: false, horizontalInset: 2.0, topInset: 16.0, bottomInset: 8.0, actionCenterOffset: 6.0)
     }
     
     @objc private func onTouchUpInside() {
