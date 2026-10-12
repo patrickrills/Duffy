@@ -10,11 +10,13 @@ import WatchKit
 import DuffyWatchFramework
 import UserNotifications
 import HealthKit
+import WatchConnectivity
 
 class ExtensionDelegate: NSObject, WKExtensionDelegate, UNUserNotificationCenterDelegate
 {
-    var currentBackgroundTasks: [String : AnyObject] = [:]
-        
+    private var pendingConnectivityTasks: [WKWatchConnectivityRefreshBackgroundTask] = []
+    private var connectivityObservations: [NSKeyValueObservation] = []
+
     override init()
     {
         super.init()
@@ -72,42 +74,67 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, UNUserNotificationCenter
     {
         for t in backgroundTasks
         {
-            if WKExtension.shared().applicationState == .background
-            {
-                let dictKey = String(describing: type(of: t))
-                currentBackgroundTasks[dictKey] = t
-                
-                if t is WKSnapshotRefreshBackgroundTask
-                {
+            switch t {
+                case let snapshot as WKSnapshotRefreshBackgroundTask:
                     LoggingService.log("Snapshot task handled")
-                    
+
                     if let c = WKExtension.shared().rootInterfaceController as? MainInterfaceController {
                         c.updateInterfaceFromSnapshot()
                     }
-                    
-                    complete(task: t)
-                }
-                else
-                {
+
+                    snapshot.setTaskCompleted(restoredDefaultState: true, estimatedSnapshotExpiration: Date(timeIntervalSinceNow: 60*30), userInfo: nil)
+
+                case let refresh as WKApplicationRefreshBackgroundTask:
                     LoggingService.log("Background update task handled")
-                    
-                    StepsProcessingService.triggerUpdate(from: "WKRefreshBackgroundTask") { [weak self] in
-                        self?.complete(task: t)
+
+                    StepsProcessingService.triggerUpdate(from: "WKRefreshBackgroundTask") {
+                        DispatchQueue.main.async {
+                            refresh.setTaskCompletedWithSnapshot(true)
+                        }
                     }
-                }
+
+                case let connectivity as WKWatchConnectivityRefreshBackgroundTask:
+                    LoggingService.log("Connectivity task handled")
+                    handleConnectivityTask(connectivity)
+
+                default:
+                    t.setTaskCompletedWithSnapshot(false)
             }
         }
     }
-    
-    func complete(task: WKRefreshBackgroundTask)
-    {
-        let dictKey = String(describing: type(of: task))
-        currentBackgroundTasks.removeValue(forKey: dictKey)
-        if let snapshot = task as? WKSnapshotRefreshBackgroundTask {
-            snapshot.setTaskCompleted(restoredDefaultState: true, estimatedSnapshotExpiration: Date(timeIntervalSinceNow: 60*30), userInfo: nil)
-        } else {
-            task.setTaskCompletedWithSnapshot(true)
+
+    private func handleConnectivityTask(_ task: WKWatchConnectivityRefreshBackgroundTask) {
+        pendingConnectivityTasks.append(task)
+
+        if connectivityObservations.isEmpty {
+            let session = WCSession.default
+            connectivityObservations = [
+                session.observe(\.activationState) { [weak self] _, _ in
+                    DispatchQueue.main.async { self?.completeConnectivityTasksIfIdle() }
+                },
+                session.observe(\.hasContentPending) { [weak self] _, _ in
+                    DispatchQueue.main.async { self?.completeConnectivityTasksIfIdle() }
+                }
+            ]
         }
+
+        //Never hold a connectivity task long enough to hit the watchdog
+        DispatchQueue.main.asyncAfter(deadline: .now() + 10) { [weak self] in
+            self?.completeConnectivityTasks()
+        }
+
+        completeConnectivityTasksIfIdle()
+    }
+
+    private func completeConnectivityTasksIfIdle() {
+        let session = WCSession.default
+        guard session.activationState == .activated, !session.hasContentPending else { return }
+        completeConnectivityTasks()
+    }
+
+    private func completeConnectivityTasks() {
+        pendingConnectivityTasks.forEach { $0.setTaskCompletedWithSnapshot(false) }
+        pendingConnectivityTasks.removeAll()
     }
     
     func scheduleNextBackgroundRefresh()
