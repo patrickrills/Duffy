@@ -16,28 +16,28 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, UNUserNotificationCenter
 {
     private var pendingConnectivityTasks: [WKWatchConnectivityRefreshBackgroundTask] = []
     private var connectivityObservations: [NSKeyValueObservation] = []
+    private var didPerformForegroundSetup = false
 
     override init()
     {
         super.init()
         WCSessionService.getInstance().activate(with: self)
     }
-    
+
     func applicationDidFinishLaunching() {
         LoggingService.log("App did finish launching")
+
+        UNUserNotificationCenter.current().delegate = self
+
         startHealthKitBackgroundQueries()
-        NotificationService.maybeAskForNotificationPermission(self)
-        if CoreMotionService.getInstance().shouldAskPermission() {
-            CoreMotionService.getInstance().askForPermission()
-        } else {
+
+        if !CoreMotionService.getInstance().shouldAskPermission() {
             CoreMotionService.getInstance().initializeBackgroundUpdates()
         }
-        
+
         if (HealthCache.cacheIsForADifferentDay(than: Date())) {
-            complicationUpdateRequested()
+            ComplicationController.refreshComplication()
         }
-        
-        TipService.getInstance().initialize()
     }
     
     func applicationWillEnterForeground() {
@@ -54,6 +54,21 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, UNUserNotificationCenter
     
     func applicationDidBecomeActive() {
         LoggingService.log("App did become active")
+        performForegroundSetup()
+    }
+
+    private func performForegroundSetup() {
+        guard !didPerformForegroundSetup,
+              WKExtension.shared().applicationState == .active
+        else { return }
+
+        didPerformForegroundSetup = true
+
+        if CoreMotionService.getInstance().shouldAskPermission() {
+            CoreMotionService.getInstance().askForPermission()
+        }
+        NotificationService.maybeAskForNotificationPermission(self)
+        TipService.getInstance().initialize()
     }
 
     func applicationWillResignActive() {
