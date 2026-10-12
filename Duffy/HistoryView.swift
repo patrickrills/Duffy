@@ -251,6 +251,7 @@ struct HistoryView: View {
                 .font(.subheadline)
                 .foregroundStyle(Color(uiColor: .secondaryLabel))
         }
+        .fixedSize()
     }
     
     private var dataTypeOptions: some View {
