@@ -59,8 +59,11 @@ public class HealthKitService
     {
         guard HKHealthStore.isHealthDataAvailable(),
             let stepType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.stepCount)
-        else { return }
-        
+        else {
+            completionHandler(.failure(.unsupported))
+            return
+        }
+
         get(quantityType: stepType, measuredIn: HKUnit.count(), on: date) { result in
             switch result {
             case .success(let sumValue):
@@ -333,8 +336,11 @@ public class HealthKitService
     }
     
     private func get(quantityType: HKQuantityType, measuredIn: HKUnit, from startDate: Date, to endDate: Date, completionHandler: @escaping (Result<([Date : Double]), HealthKitError>) -> ()) {
-        guard HKHealthStore.isHealthDataAvailable(), let store = healthStore else { return }
-        
+        guard HKHealthStore.isHealthDataAvailable(), let store = healthStore else {
+            completionHandler(.failure(.unsupported))
+            return
+        }
+
         let queryStartDate = startDate.stripTime()
         let queryEndDate = endDate.stripTime().nextDay()
         
