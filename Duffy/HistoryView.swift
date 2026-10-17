@@ -17,34 +17,93 @@ struct HistoryView: View {
         static let HEADER_FONT_SIZE: CGFloat = 22.0
         static let CLOSE_SYMBOL_SIZE: CGFloat = 24.0
         static let DROPDOWN_SPACING: CGFloat = 4.0
+        static let PANE_MIN_WIDTH: CGFloat = 360.0
+        static let ARRANGED_MIN_WIDTH: CGFloat = PANE_MIN_WIDTH * 2.0
+        static let PANE_INNER_MARGIN: CGFloat = 20.0
     }
     
     //MARK: Properties and State
     
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     
     @State private var viewModel = HistoryViewModel()
     @State private var isLoading: Bool = false
     @State private var hasLoaded: Bool = false
     @State private var chartOptionsVersion: Int = 0
     @State private var filterDate: Date?
+    @State private var sheetFilterDate: Date?
+    @State private var availableWidth: CGFloat = 0.0
     
     //MARK: Body
     
     var body: some View {
-        NavigationStack {
-            historyList
-        }
-        .tint(navigationTint)
+        arrangedHistory
+            .tint(navigationTint)
+            .onGeometryChange(for: CGFloat.self) { proxy in
+                proxy.size.width
+            } action: { width in
+                availableWidth = width
+            }
     }
     
-    private var historyList: some View {
-        List {
-            chartSection
-            summarySection
-            detailsSection
+    //Puts the trend and summary next to the details when there's room for both (unfolded Duo)
+    @ViewBuilder
+    private var arrangedHistory: some View {
+        if #available(iOS 27.1, *) {
+            if isArranged {
+                NavigationStack {
+                    historyNavigation(
+                        ArrangementView {
+                            List {
+                                chartSection
+                                summarySection
+                            }
+                            .listStyle(.insetGrouped)
+                            .safeAreaPadding(.trailing, Constants.PANE_INNER_MARGIN)
+                        } secondary: {
+                            List {
+                                detailsSection
+                            }
+                            .listStyle(.insetGrouped)
+                            .safeAreaPadding(.leading, Constants.PANE_INNER_MARGIN)
+                        }
+                        .arrangementViewStyle(.split.axes(.horizontal))
+                        .toolbarBackground(Color(uiColor: .systemGroupedBackground), for: .navigationBar)
+                        .toolbarBackgroundVisibility(.visible, for: .navigationBar)
+                    )
+                }
+            } else {
+                historyStack
+            }
+        } else {
+            historyStack
         }
-            .listStyle(.insetGrouped)
+    }
+    
+    private var isArranged: Bool {
+        if #available(iOS 27.1, *) {
+            return availableWidth >= Constants.ARRANGED_MIN_WIDTH
+        }
+        
+        return false
+    }
+    
+    private var historyStack: some View {
+        NavigationStack {
+            historyNavigation(
+                List {
+                    chartSection
+                    summarySection
+                    detailsSection
+                }
+                .listStyle(.insetGrouped)
+            )
+        }
+    }
+    
+    private func historyNavigation<Content: View>(_ content: Content) -> some View {
+        content
             .navigationTitle("")
             .navigationBarTitleDisplayMode(.inline)
             .navigationDestination(item: $filterDate) { selectedDate in
@@ -53,9 +112,28 @@ struct HistoryView: View {
                     load { await viewModel.updateDateFilter(updatedDate) }
                 }
             }
+            .sheet(isPresented: isFilterSheetPresented) {
+                if let sheetFilterDate {
+                    NavigationStack {
+                        HistoryFilterView(selectedDate: sheetFilterDate) { updatedDate in
+                            self.sheetFilterDate = nil
+                            load { await viewModel.updateDateFilter(updatedDate) }
+                        }
+                        .toolbar {
+                            ToolbarItem(placement: .topBarLeading) {
+                                closeButton(label: NSLocalizedString("Cancel", comment: "")) {
+                                    self.sheetFilterDate = nil
+                                }
+                            }
+                        }
+                    }
+                }
+            }
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    closeButton
+                    closeButton {
+                        dismiss()
+                    }
                 }
                 
                 ToolbarItem(placement: .principal) {
@@ -74,7 +152,7 @@ struct HistoryView: View {
             }
     }
     
-    //The navigation controller this screen used to be presented in only tinted itself before iOS 26
+    //Matches ModalNavigationController, which the other screens use: the app's blue for buttons before iOS 26, and the system style from iOS 26
     private var navigationTint: Color? {
         if #available(iOS 26.0, *) {
             return nil
@@ -84,10 +162,8 @@ struct HistoryView: View {
     }
     
     @ViewBuilder
-    private var closeButton: some View {
-        Button {
-            dismiss()
-        } label: {
+    private func closeButton(label: String? = nil, action: @escaping () -> ()) -> some View {
+        let button = Button(action: action) {
             if #available(iOS 26.0, *) {
                 Image(systemName: "xmark")
             } else {
@@ -96,6 +172,12 @@ struct HistoryView: View {
                     .symbolRenderingMode(.palette)
                     .foregroundStyle(Color(uiColor: Globals.secondaryColor()), Color(uiColor: .tertiarySystemFill))
             }
+        }
+        
+        if let label {
+            button.accessibilityLabel(label)
+        } else {
+            button
         }
     }
     
@@ -251,6 +333,7 @@ struct HistoryView: View {
                 .font(.subheadline)
                 .foregroundStyle(Color(uiColor: .secondaryLabel))
         }
+        .fixedSize()
     }
     
     private var dataTypeOptions: some View {
@@ -288,8 +371,21 @@ struct HistoryView: View {
         isLoading = false
     }
     
+    //In a regular width window the filter opens as a sheet over the history instead of replacing it
     private func showFilter() {
-        filterDate = viewModel.currentFilterDate
+        if horizontalSizeClass == .regular {
+            sheetFilterDate = viewModel.currentFilterDate
+        } else {
+            filterDate = viewModel.currentFilterDate
+        }
+    }
+    
+    private var isFilterSheetPresented: Binding<Bool> {
+        return Binding(get: { sheetFilterDate != nil }, set: { isPresented in
+            if !isPresented {
+                sheetFilterDate = nil
+            }
+        })
     }
     
     private func loadNextPage() {
