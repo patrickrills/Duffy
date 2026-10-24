@@ -144,6 +144,9 @@
                                                 <action selector="openDebug" destination="AgC-eL-Hgc" id="sSf-Sf-Yui"/>
                                             </connections>
                                         </button>
+                                        <label alignment="center" text="Version" textAlignment="center" minimumScaleFactor="0.69999999999999996" id="Vrs-Lb-WtA">
+                                            <fontDescription key="font" type="system" pointSize="14"/>
+                                        </label>
                                     </items>
                                     <edgeInsets key="margins" left="0.0" right="0.0" top="8" bottom="0.0"/>
                                     <variation key="device=watch44mm">
@@ -176,6 +179,7 @@
                         <outlet property="todayGroup" destination="JsD-K4-SSk" id="Gl9-6T-45X"/>
                         <outlet property="topSeparator" destination="vgs-x6-YKE" id="Twt-sy-xsM"/>
                         <outlet property="trophyLabel" destination="EZT-72-tht" id="FEo-6Z-psd"/>
+                        <outlet property="versionLabel" destination="Vrs-Lb-WtA" id="Vrs-Ot-WtB"/>
                     </connections>
                 </controller>
             </objects>

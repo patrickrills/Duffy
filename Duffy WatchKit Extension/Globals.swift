@@ -72,4 +72,15 @@ enum Globals
         
         return goalColor
     }
+    
+    static func appVersion() -> String {
+        guard let infoDict = Bundle.main.infoDictionary,
+              let ver1 = infoDict["CFBundleShortVersionString"] as? String,
+              let ver2 = infoDict["CFBundleVersion"] as? String
+        else {
+            return "Unknown"
+        }
+        
+        return String(format: "%@.%@", ver1, ver2)
+    }
 }

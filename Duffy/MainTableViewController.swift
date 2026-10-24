@@ -18,6 +18,7 @@ class MainTableViewController: UITableViewController {
     private var distanceUnit: LengthFormatter.Unit = .mile
     private var stepsByHour: [Hour : Steps] = [:]
     private var sortedKeys: [Date] = []
+    private var rowWidthInset: CGFloat = -1
     
     private var steps: [Date : Steps] = [:] {
         didSet {
@@ -47,6 +48,7 @@ class MainTableViewController: UITableViewController {
         static let FOOTER_MARGIN: CGFloat = 16.0
         static let MINIMUM_HEIGHT: CGFloat = 0.1
         static let HOURLY_CELL_MARGIN: CGFloat = 10.0
+        static let MAXIMUM_ROW_WIDTH: CGFloat = 500.0
     }
     
     override func viewDidLoad() {
@@ -85,9 +87,20 @@ class MainTableViewController: UITableViewController {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        
+
+        limitRowWidth()
         layoutHeader()
         layoutFooter()
+    }
+
+    private func limitRowWidth() { // For the unfolded Duo
+        let availableWidth = tableView.bounds.inset(by: tableView.safeAreaInsets).width
+        let inset = max(0, ((availableWidth - Constants.MAXIMUM_ROW_WIDTH) / 2).rounded(.down))
+        guard inset != rowWidthInset else { return }
+
+        rowWidthInset = inset
+        
+        tableView.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 0, leading: inset, bottom: 0, trailing: inset)
     }
     
     private func layoutHeader() {
@@ -103,6 +116,7 @@ class MainTableViewController: UITableViewController {
         
         if let header = header {
             let frame = CGRect(x: header.frame.origin.x, y: header.frame.origin.y, width: tableView.frame.size.width, height: header.suggestedHeight)
+            matchSectionInsets(header)
             
             if header.frame.size != frame.size {
                 header.frame = frame
@@ -124,12 +138,25 @@ class MainTableViewController: UITableViewController {
     private func layoutFooter() {
         if let footer = tableView.tableFooterView {
             let frame = CGRect(x: footer.frame.origin.x, y: footer.frame.origin.y, width: tableView.frame.size.width, height: Constants.FOOTER_HEIGHT)
+            matchSectionInsets(footer)
             
             if footer.frame.size != frame.size {
                 footer.frame = frame
                 tableView.tableFooterView = footer
             }
         }
+    }
+    
+    // insetGrouped sections are inset by the table's layout margins (which already include the safe area),
+    // so the full-width table header/footer adopt the same horizontal margins to line up with the rows
+    private func matchSectionInsets(_ view: UIView) {
+        view.insetsLayoutMarginsFromSafeArea = false
+        view.directionalLayoutMargins = NSDirectionalEdgeInsets(
+            top: view.directionalLayoutMargins.top,
+            leading: tableView.directionalLayoutMargins.leading,
+            bottom: view.directionalLayoutMargins.bottom,
+            trailing: tableView.directionalLayoutMargins.trailing
+        )
     }
     
     private func getHeader() -> MainTableViewHeader? {

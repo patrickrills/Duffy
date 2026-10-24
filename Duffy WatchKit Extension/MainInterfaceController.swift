@@ -34,6 +34,7 @@ class MainInterfaceController: WKInterfaceController
     @IBOutlet weak var topSeparator: WKInterfaceGroup!
     @IBOutlet weak var bottomSeparator: WKInterfaceGroup!
     @IBOutlet weak var todayGroup: WKInterfaceGroup!
+    @IBOutlet weak var versionLabel: WKInterfaceLabel!
     
     private var isQueryInProgress = false
     
@@ -355,6 +356,9 @@ class MainInterfaceController: WKInterfaceController
         setRoundedText(goalTitle, for: stepsGoalTitleLabel, in: .white)
         setRoundedText(flightsTitle, for: flightsTitleLabel)
         setRoundedText(distanceTitle, for: distanceTitleLabel)
+        
+        let versionText = String(format: NSLocalizedString("Version: %@", comment: ""), Globals.appVersion())
+        versionLabel.setAttributedText(NSAttributedString(string: versionText, attributes: [.font : Globals.roundedFont(of: 13, weight: .regular), .foregroundColor: UIColor.lightGray]))
     }
     
     private func initializeSeparator(_ separator: WKInterfaceGroup) {

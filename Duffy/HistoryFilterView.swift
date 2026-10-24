@@ -15,10 +15,8 @@ struct HistoryFilterView: View {
     
     private enum Constants {
         static let EARLIEST_DAYS_AGO: Int = -7
-        static let HEADER_HEIGHT: CGFloat = 16.0
         static let SAVE_SYMBOL_SIZE: CGFloat = 24.0
-        static let PICKER_HEIGHT: CGFloat = 352.0
-        static let PICKER_H_MARGIN: CGFloat = 16.0
+        static let DATE_PICKER_SECTION_SPACING: CGFloat = 24.0
     }
     
     //MARK: Properties and State
@@ -43,23 +41,22 @@ struct HistoryFilterView: View {
             Section {
                 LabeledContent {
                     Text(Globals.fullDateFormatter().string(from: sinceDateFilter))
-                        .foregroundStyle(Color(uiColor: .label))
+                        .foregroundStyle(Color(.label))
                 } label: {
                     Text(NSLocalizedString("Since", comment: ""))
-                        .foregroundStyle(Color(uiColor: .secondaryLabel))
+                        .foregroundStyle(Color(.secondaryLabel))
                 }
-            } header: {
-                Color.clear
-                    .frame(height: Constants.HEADER_HEIGHT)
             } footer: {
                 Text(String.localizedStringWithFormat(NSLocalizedString("Last %d days", comment: "Placeholder is a number of days"), sinceDateFilter.differenceInDays(from: Date())))
             }
+            
+            Section {
+                DatePickerRepresentable(date: $sinceDateFilter, maximumDate: maximumDate)
+            }
+            .listSectionSpacing(.custom(Constants.DATE_PICKER_SECTION_SPACING))
         }
-        .listStyle(.grouped)
-        .scrollDisabled(true)
-        .safeAreaInset(edge: .bottom, spacing: 0.0) {
-            datePicker
-        }
+        .listStyle(.insetGrouped)
+        .scrollBounceBehavior(.basedOnSize)
         .navigationTitle(NSLocalizedString("Select Date", comment: ""))
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
@@ -69,15 +66,6 @@ struct HistoryFilterView: View {
     }
     
     //MARK: Date picker and save button
-    
-    private var datePicker: some View {
-        DatePickerRepresentable(date: $sinceDateFilter,
-                                maximumDate: maximumDate,
-                                height: Constants.PICKER_HEIGHT)
-        .padding(.horizontal, Constants.PICKER_H_MARGIN)
-            .frame(maxWidth: .infinity)
-            .background(Color(.secondarySystemGroupedBackground).ignoresSafeArea(edges: .bottom))
-    }
     
     @ViewBuilder
     private var saveButton: some View {
@@ -104,13 +92,12 @@ struct HistoryFilterView: View {
     }
 }
 
-//MARK: UIKit date picker
-
+//SwiftUI's graphical DatePicker reports its height before it's laid out at the width of its row and only corrects it after
+//the first tap, which made the row jump. UIKit's picker is measured here at the width the row offers instead.
 private struct DatePickerRepresentable: UIViewRepresentable {
     
     @Binding var date: Date
     let maximumDate: Date
-    let height: CGFloat
     
     func makeUIView(context: Context) -> UIDatePicker {
         let picker = UIDatePicker()
@@ -131,9 +118,13 @@ private struct DatePickerRepresentable: UIViewRepresentable {
         }
     }
     
-    func sizeThatFits(_ proposal: ProposedViewSize, uiView: UIDatePicker, context: Context) -> CGSize? {
-        guard let width = proposal.width else { return nil }
-        return CGSize(width: width, height: height)
+    func sizeThatFits(_ proposal: ProposedViewSize, uiView picker: UIDatePicker, context: Context) -> CGSize? {
+        guard let width = proposal.width, width.isFinite else { return nil }
+        
+        let size = picker.systemLayoutSizeFitting(CGSize(width: width, height: UIView.layoutFittingCompressedSize.height),
+                                                  withHorizontalFittingPriority: .required,
+                                                  verticalFittingPriority: .fittingSizeLevel)
+        return CGSize(width: width, height: size.height)
     }
     
     func makeCoordinator() -> Coordinator {

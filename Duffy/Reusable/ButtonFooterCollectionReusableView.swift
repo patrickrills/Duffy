@@ -40,8 +40,8 @@ class ButtonFooterCollectionReusableView: UICollectionReusableView {
         addSubview(buttonFooterView)
         NSLayoutConstraint.activate([
             buttonFooterView.topAnchor.constraint(equalTo: topAnchor),
-            buttonFooterView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            buttonFooterView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            buttonFooterView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
+            buttonFooterView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
             buttonFooterView.heightAnchor.constraint(equalToConstant: FOOTER_BUTTON_HEIGHT)
         ])
     }
