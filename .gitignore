@@ -40,3 +40,12 @@ DerivedData/
 *.DS_Store
 
 # End of https://www.toptal.com/developers/gitignore/api/xcode
+
+# goldie output
+goldie/out/
+
+# argent screen recordings
+.argent/recordings/
+
+# Claude Code dev server config
+.claude/launch.json
