@@ -1,0 +1,10 @@
+executionPrerequisite: >-
+  App on the Today screen, scrolled down to the Previous Week summary.
+steps:
+  - tap: { id: viewHistoryButton }
+  - echo: The History sheet is SwiftUI and its text is not visible to await, so pause on the trend chart
+  - wait: 3000
+  - echo: Scroll the History sheet to the Summary and Details sections
+  - tool: gesture-swipe
+    args: { fromX: 0.5, fromY: 0.75, toX: 0.5, toY: 0.4, durationMs: 900 }
+  - wait: 1800

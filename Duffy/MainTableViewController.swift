@@ -381,7 +381,7 @@ class MainTableViewController: UITableViewController {
             return super.tableView(tableView, viewForHeaderInSection: section)
         }
         
-        header.set(headerText: title, actionText: NSLocalizedString("VIEW HISTORY", comment: ""), action: { [weak self] in self?.openHistory() })
+        header.set(headerText: title, actionText: NSLocalizedString("VIEW HISTORY", comment: ""), action: { [weak self] in self?.openHistory() }, actionIdentifier: "viewHistoryButton")
         return header
     }
 

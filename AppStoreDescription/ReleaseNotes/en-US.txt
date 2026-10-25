@@ -1,0 +1,4 @@
+- Support for iPhone Duo!
+- Now view history and trends for Flights and Distance in addition to Steps
+- Fix several background crashes for more reliable complication updates
+- Translated to French, Spanish, German, and Korean

@@ -1,0 +1,4 @@
+- Unterstützung für das iPhone Duo!
+- Zusätzlich zu den Schritten kannst du jetzt auch Verlauf und Trends für Etagen und Distanz ansehen
+- Mehrere Abstürze im Hintergrund behoben, damit die Komplikation zuverlässiger aktualisiert wird
+- Jetzt auf Französisch, Spanisch, Deutsch und Koreanisch verfügbar

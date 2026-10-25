@@ -1,0 +1,7 @@
+steps:
+  - launch: com.bigbluefly.Duffy
+  - await: { visible: { id: viewHistoryButton } }
+  - tap: { id: viewHistoryButton }
+  - echo: The History sheet is SwiftUI and its text is not visible to await, so pause for it to present and load
+  - wait: 2000
+  - await: { idle: true }

@@ -1,0 +1,9 @@
+Duffy vous donne un accès rapide à votre nombre de pas, directement sur le cadran de votre Apple Watch, sous forme de complication.
+
+J’ai été surpris de constater que l’Apple Watch ne proposait pas de complication pour les pas par défaut. En tant que développeur iOS chevronné, j’ai décidé d’en créer une sur mon temps libre. J’ai adoré mon prototype et je me suis dit que d’autres personnes l’adoreraient aussi. J’ai donc fait l’effort supplémentaire de la publier sur l’App Store pour tout le monde ! Duffy est entièrement gratuite, sans publicité, et même open source : si vous êtes aussi développeur, vous pouvez m’aider à l’améliorer.
+
+Duffy est une app toute simple, mais elle deviendra probablement l’app que vous utiliserez le plus sur votre Apple Watch. Plus besoin d’ouvrir l’app Activité et de faire défiler l’écran pour trouver vos pas : ils sont désormais visibles d’un simple coup d’œil.
+
+Duffy est bien plus qu’une élégante complication pour Apple Watch. Utilisez l’app complète sur votre montre pour consulter facilement vos pas, vos étages montés et la distance parcourue aujourd’hui et au cours de la semaine passée. Définissez un objectif quotidien de pas et recevez une notification sur votre montre lorsque vous l’atteignez. L’app iPhone associée vous offre le même accès à vos pas, étages et distance sur un écran bien plus grand et plus lisible, tout en vous permettant d’explorer vos données plus en détail pour découvrir tendances et statistiques au fil du temps.
+
+Duffy lit les pas, les étages montés, la distance parcourue et l’énergie active de votre iPhone et de votre Apple Watch depuis l’app Santé (via l’API HealthKit).

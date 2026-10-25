@@ -1,0 +1,4 @@
+steps:
+  - launch: com.bigbluefly.Duffy
+  - await: { visible: { id: viewHistoryButton } }
+  - await: { idle: true }

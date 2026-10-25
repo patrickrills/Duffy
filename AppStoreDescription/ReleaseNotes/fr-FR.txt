@@ -1,0 +1,4 @@
+- Prise en charge de l’iPhone Duo !
+- Consultez désormais l’historique et les tendances des Étages et de la Distance, en plus des Pas
+- Correction de plusieurs plantages en arrière-plan pour des mises à jour plus fiables de la complication
+- Traduit en français, espagnol, allemand et coréen

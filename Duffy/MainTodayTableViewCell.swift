@@ -32,6 +32,7 @@ class MainTodayTableViewCell: UITableViewCell {
         titleLabel.textColor = .secondaryLabel
         goalLabel.textColor = .secondaryLabel
         goalInfoButton.setImage(UIImage(systemName: "questionmark.circle"), for: .normal)
+        goalInfoButton.accessibilityIdentifier = "goalInfoButton"
         
         bind(steps: 0, flights: 0, distance: 0, distanceUnit: .mile)
     }

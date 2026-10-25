@@ -1,0 +1,16 @@
+executionPrerequisite: >-
+  App with the History sheet open over the Today screen, which is scrolled to the Previous Week summary.
+steps:
+  - echo: Close (X) button, top left of the History sheet. Its id "xmark" is SwiftUI and not reliably visible to tap, so the centre of its describe frame (0.065, 0.069, 0.061, 0.038)
+  - tap: { x: 0.095, y: 0.088 }
+  - await: { visible: { id: aboutButton } }
+  - await: { idle: true }
+  - wait: 800
+  - tap: { id: aboutButton }
+  - await: { visible: { id: aboutRow-trophies } }
+  - await: { idle: true }
+  - wait: 1000
+  - tap: { id: aboutRow-trophies }
+  - await: { visible: { id: trophiesScreen } }
+  - await: { idle: true }
+  - wait: 2500

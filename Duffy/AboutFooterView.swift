@@ -39,6 +39,7 @@ class AboutFooterView: UIView {
         aboutButton.layer.cornerRadius = 8.0
         aboutButton.setAttributedTitle(attributedButtonLabel(text: NSLocalizedString("About Duffy", comment: ""), imageSystemName: "info.circle.fill", color: Globals.secondaryColor()), for: .normal)
         aboutButton.addTarget(self, action: #selector(openAbout), for: .touchUpInside)
+        aboutButton.accessibilityIdentifier = "aboutButton"
         aboutButton.titleLabel?.adjustsFontSizeToFitWidth = true
         aboutButton.titleLabel?.minimumScaleFactor = 0.75
         horizontalStack.addArrangedSubview(aboutButton)

@@ -1,0 +1,10 @@
+executionPrerequisite: >-
+  App freshly restarted by goldie, settled on the Today screen at the top.
+steps:
+  - await: { visible: { id: viewHistoryButton } }
+  - wait: 2500
+  - echo: Scroll slowly down to the Previous Week summary
+  - tool: gesture-swipe
+    args: { fromX: 0.5, fromY: 0.75, toX: 0.5, toY: 0.3, durationMs: 900 }
+  - await: { idle: true }
+  - wait: 1500

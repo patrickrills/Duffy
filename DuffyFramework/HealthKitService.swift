@@ -36,6 +36,11 @@ public class HealthKitService
     //MARK: Authorize HealthKit
     
     public func authorize(completionHandler: @escaping (Bool) -> ()) {
+        if demoData != nil {
+            completionHandler(true)
+            return
+        }
+
         guard HKHealthStore.isHealthDataAvailable(),
             let store = healthStore,
             let stepType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.stepCount),
@@ -77,6 +82,11 @@ public class HealthKitService
     }
     
     public func getStepsByHour(for date: Date, completionHandler: @escaping (StepsByHourResult) -> ()) {
+        if let demoData {
+            completionHandler(.success((day: date.stripTime(), stepsByHour: demoData.stepsByHour(on: date))))
+            return
+        }
+
         guard HKHealthStore.isHealthDataAvailable(), let store = healthStore else {
             completionHandler(.failure(.unsupported))
             return
@@ -162,6 +172,12 @@ public class HealthKitService
         }
         
         let queryStartDate = Date().dateByAdding(days: -730).stripTime() //Cap to previous 2 years
+
+        if let demoData {
+            completionHandler(.success(demoData.lastTrophiesAwarded(since: queryStartDate)))
+            return
+        }
+
         let pred = HKQuery.predicateForSamples(withStart: queryStartDate, end: Date().nextDay().stripTime(), options: .strictEndDate)
         
         var interval = DateComponents()
@@ -300,6 +316,11 @@ public class HealthKitService
     }
     
     private func preferredDistanceUnit(completionHandler: @escaping (Result<HKUnit, HealthKitError>) -> ()) {
+        if demoData != nil {
+            completionHandler(.success(Locale.current.measurementSystem == .metric ? HKUnit.meterUnit(with: .kilo) : HKUnit.mile()))
+            return
+        }
+
         guard HKHealthStore.isHealthDataAvailable(),
             let store = healthStore,
             let distanceType = HKQuantityType.quantityType(forIdentifier: HKQuantityTypeIdentifier.distanceWalkingRunning)
@@ -336,6 +357,11 @@ public class HealthKitService
     }
     
     private func get(quantityType: HKQuantityType, measuredIn: HKUnit, from startDate: Date, to endDate: Date, completionHandler: @escaping (Result<([Date : Double]), HealthKitError>) -> ()) {
+        if let demoData {
+            completionHandler(.success(demoData.sums(of: quantityType, measuredIn: measuredIn, from: startDate, to: endDate)))
+            return
+        }
+
         guard HKHealthStore.isHealthDataAvailable(), let store = healthStore else {
             completionHandler(.failure(.unsupported))
             return
@@ -389,7 +415,141 @@ public class HealthKitService
     }
     
     public func earliestQueryDate() -> Date? {
+        if demoData != nil {
+            return Date().dateByAdding(days: -730).stripTime()
+        }
+
         return healthStore?.earliestPermittedSampleDate()
+    }
+}
+
+//MARK: Demo Data
+
+// Simulator builds only: made-up Health data for App Store screenshots (goldie).
+// Enable it on a simulator with:
+//   xcrun simctl spawn <udid> defaults write -g DuffyDemoHealthData -bool YES
+// The global domain survives app reinstalls, so a fresh install still shows the demo data.
+extension HealthKitService {
+
+    var demoData: DemoHealthData? {
+        #if targetEnvironment(simulator)
+            return UserDefaults.standard.bool(forKey: DemoHealthData.enabledKey) ? DemoHealthData() : nil
+        #else
+            return nil
+        #endif
+    }
+}
+
+struct DemoHealthData {
+
+    static let enabledKey = "DuffyDemoHealthData"
+    // Optional override for today's total, e.g. to show a gauge short of the goal:
+    //   xcrun simctl spawn <udid> defaults write -g DuffyDemoTodaySteps -int 5000
+    static let todayStepsKey = "DuffyDemoTodaySteps"
+
+    // Share of a day's steps walked in each hour: a morning walk, a lunch walk and an evening walk.
+    private static let hourlyWeights: [Double] = [
+        0, 0, 0, 0, 0, 0, 2, 9, 7, 4, 4, 5,
+        10, 6, 4, 4, 5, 8, 12, 9, 5, 2, 1, 0
+    ]
+
+    private static let metersPerStep = 0.76
+
+    func steps(on date: Date) -> Steps {
+        let day = date.stripTime()
+        if day.isToday() {
+            let override = UserDefaults.standard.integer(forKey: Self.todayStepsKey)
+            return override > 0 ? Steps(override) : 13_284
+        }
+
+        let seed = dayNumber(day)
+        let weekend = Calendar.current.isDateInWeekend(day)
+        let base = weekend ? 11_500.0 : 9_000.0
+        let variation = (unitRandom(seed) - 0.4) * 7_000.0
+        var steps = base + variation
+
+        // A few standout days so every trophy has been won recently
+        switch seed % 23 {
+        case 3: steps = 20_412
+        case 11: steps = 17_906
+        case 17: steps = 15_230
+        default: break
+        }
+
+        return Steps(max(steps, 2_400).rounded())
+    }
+
+    func stepsByHour(on date: Date) -> [Hour : Steps] {
+        let total = Double(steps(on: date))
+        let weightSum = Self.hourlyWeights.reduce(0, +)
+        var stepsByHour = [Hour : Steps]()
+        var remaining = Steps(total)
+
+        for (hour, weight) in Self.hourlyWeights.enumerated() where weight > 0 {
+            let jitter = 0.85 + unitRandom(dayNumber(date.stripTime()) * 31 + hour) * 0.3
+            let hourSteps = min(remaining, Steps((total * weight / weightSum * jitter).rounded()))
+            stepsByHour[Hour(hour)] = hourSteps
+            remaining -= hourSteps
+        }
+
+        stepsByHour[18, default: 0] += remaining
+        return stepsByHour
+    }
+
+    func sums(of quantityType: HKQuantityType, measuredIn unit: HKUnit, from startDate: Date, to endDate: Date) -> [Date : Double] {
+        var sums = [Date : Double]()
+        let today = Date().stripTime()
+        var day = startDate.stripTime()
+        let lastDay = min(endDate.stripTime(), today)
+
+        while day <= lastDay {
+            let steps = Double(steps(on: day))
+
+            switch quantityType.identifier {
+            case HKQuantityTypeIdentifier.stepCount.rawValue:
+                sums[day] = steps
+            case HKQuantityTypeIdentifier.distanceWalkingRunning.rawValue:
+                sums[day] = HKQuantity(unit: .meter(), doubleValue: steps * Self.metersPerStep).doubleValue(for: unit)
+            case HKQuantityTypeIdentifier.flightsClimbed.rawValue:
+                sums[day] = (4 + unitRandom(dayNumber(day) + 7) * 14).rounded()
+            default:
+                break
+            }
+
+            day = day.nextDay()
+        }
+
+        return sums
+    }
+
+    func lastTrophiesAwarded(since startDate: Date) -> [Trophy : LastAward] {
+        let max = Trophy.allCases.filter { $0 != .none }.count
+        var awards = [Trophy : LastAward]()
+        var day = Date().stripTime()
+
+        while day > startDate, awards.count < max {
+            let sum = steps(on: day)
+            let trophy = Trophy.trophy(for: sum)
+            if trophy != .none, !awards.keys.contains(trophy) {
+                awards[trophy] = (day: day, steps: sum)
+            }
+            day = day.dateByAdding(days: -1)
+        }
+
+        return awards
+    }
+
+    private func dayNumber(_ day: Date) -> Int {
+        return Int(day.timeIntervalSinceReferenceDate / 86_400)
+    }
+
+    // Deterministic value in 0..<1, so a day shows the same numbers on every launch
+    private func unitRandom(_ seed: Int) -> Double {
+        var x = UInt64(bitPattern: Int64(seed)) &+ 0x9E37_79B9_7F4A_7C15
+        x = (x ^ (x >> 30)) &* 0xBF58_476D_1CE4_E5B9
+        x = (x ^ (x >> 27)) &* 0x94D0_49BB_1331_11EB
+        x = x ^ (x >> 31)
+        return Double(x % 10_000) / 10_000.0
     }
 }
 
@@ -400,6 +560,10 @@ extension HealthKitService {
     private static let stepsKey = "steps"
     
     public func initializeBackgroundQueries() {
+        if demoData != nil {
+            return
+        }
+
         if let store = healthStore,
             let stepsType = HKQuantityType.quantityType(forIdentifier: .stepCount)
         {
@@ -438,7 +602,8 @@ extension HealthKitService {
     }
     
     private func startUIUpdatingQueries() {
-        guard let healthStore = healthStore,
+        guard demoData == nil,
+              let healthStore = healthStore,
               let stepsType = HKQuantityType.quantityType(forIdentifier: .stepCount)
         else {
             return

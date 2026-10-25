@@ -1,0 +1,9 @@
+Duffy zeigt dir deine Schrittzahl direkt auf dem Zifferblatt deiner Apple Watch an – als Komplikation.
+
+Ich war überrascht, dass die Apple Watch ab Werk keine Komplikation für Schritte mitbringt. Als erfahrener iOS-Entwickler habe ich mir in meiner Freizeit selbst eine gebaut. Mein Prototyp hat mir so gut gefallen, dass ich dachte, es gibt bestimmt noch mehr Leute, denen er gefallen würde. Also habe ich mir die zusätzliche Mühe gemacht, ihn für alle im App Store zu veröffentlichen! Duffy ist komplett kostenlos, werbefrei und sogar Open Source – wenn du also auch Entwickler bist, kannst du mir helfen, die App zu verbessern.
+
+Duffy ist eine einfache App, wird aber wahrscheinlich zur meistgenutzten App auf deiner Apple Watch. Nie mehr die Aktivität-App öffnen und herumscrollen, um deine Schritte zu finden. Jetzt siehst du sie auf einen Blick.
+
+Duffy ist mehr als nur eine elegante Komplikation für die Apple Watch. Mit der vollständigen Watch-App hast du deine Schritte, gestiegenen Etagen und zurückgelegte Distanz für heute und die vergangene Woche immer griffbereit. Lege ein tägliches Schrittziel fest und lass dich auf deiner Watch benachrichtigen, sobald du es erreichst. Die begleitende iPhone-App bietet dir denselben Zugriff auf deine Schritte, Etagen und Distanz auf einem viel größeren, besser lesbaren Bildschirm – und ermöglicht dir außerdem, tiefer in deine Daten einzutauchen und Trends und Statistiken im Zeitverlauf zu sehen.
+
+Duffy liest die Schritte, gestiegenen Etagen, zurückgelegte Distanz und aktive Energie deines iPhone und deiner Apple Watch aus der Health-App (über die HealthKit-API).

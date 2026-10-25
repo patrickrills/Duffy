@@ -1,0 +1,15 @@
+steps:
+  - launch: com.bigbluefly.Duffy
+  - await: { visible: { id: viewHistoryButton } }
+  - await: { idle: true }
+  - echo: Open About Duffy through the goal help alert, so the Today screen behind the sheet stays scrolled to the top
+  - tap: { id: goalInfoButton }
+  - echo: Alert actions take no accessibility id, so match "View More Help Topics" in every language Duffy ships (Localizable.strings)
+  - await: { visible: { text: { matches: '^(View More Help Topics|Weitere Hilfethemen anzeigen|Voir plus de rubriques d’aide|Ver más temas de ayuda|その他のヘルプのトピックを見る|도움말 항목 더 보기|Дивитися інші питання)$' } } }
+  - await: { idle: true }
+  - tap: { text: { matches: '^(View More Help Topics|Weitere Hilfethemen anzeigen|Voir plus de rubriques d’aide|Ver más temas de ayuda|その他のヘルプのトピックを見る|도움말 항목 더 보기|Дивитися інші питання)$' } }
+  - await: { visible: { id: aboutRow-trophies } }
+  - await: { idle: true }
+  - tap: { id: aboutRow-trophies }
+  - await: { visible: { id: trophiesScreen } }
+  - await: { idle: true }

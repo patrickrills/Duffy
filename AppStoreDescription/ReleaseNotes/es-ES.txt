@@ -1,0 +1,4 @@
+- ¡Compatibilidad con el iPhone Duo!
+- Ahora puedes ver el historial y las tendencias de Pisos y Distancia, además de Pasos
+- Se han corregido varios cierres inesperados en segundo plano para que la complicación se actualice de forma más fiable
+- Traducido al francés, español, alemán y coreano

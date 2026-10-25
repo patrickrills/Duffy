@@ -37,6 +37,7 @@ class TrophiesViewController: UICollectionViewController, UICollectionViewDelega
         title = NSLocalizedString("Trophies", comment: "")
         
         collectionView.backgroundColor = .systemGroupedBackground
+        collectionView.accessibilityIdentifier = "trophiesScreen"
                 
         collectionView.register(UINib(nibName: String(describing: TrophyCollectionViewCell.self), bundle: Bundle.main), forCellWithReuseIdentifier: String(describing: TrophyCollectionViewCell.self))
         collectionView.register(ButtonFooterCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: String(describing: ButtonFooterCollectionReusableView.self))

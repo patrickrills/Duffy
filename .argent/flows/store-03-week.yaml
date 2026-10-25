@@ -1,0 +1,6 @@
+steps:
+  - launch: com.bigbluefly.Duffy
+  - await: { visible: { id: viewHistoryButton } }
+  - echo: Scroll the Today screen down to the About Duffy button at its end, so the Previous Week summary and daily trophies fill the screen
+  - scroll-to: { target: { id: aboutButton } }
+  - await: { idle: true }

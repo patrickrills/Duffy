@@ -178,6 +178,7 @@ class AboutTableViewController: UITableViewController {
         tableView.register(AboutTableViewFooter.self, forHeaderFooterViewReuseIdentifier: String(describing: AboutTableViewFooter.self))
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: Constants.CELL_ID)
         tableView.estimatedRowHeight = Constants.ESTIMATED_ROW_HEIGHT
+        tableView.accessibilityIdentifier = "aboutScreen"
     }
 
     // MARK: - Table view data source
@@ -195,6 +196,7 @@ class AboutTableViewController: UITableViewController {
         let option = AboutCategory.option(for: indexPath)
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.CELL_ID, for: indexPath)
         cell.accessoryType = .disclosureIndicator
+        cell.accessibilityIdentifier = "aboutRow-\(option)"
         
         var contentConfig = UIListContentConfiguration.cell()
         contentConfig.text = option.localizedTitle()

@@ -75,16 +75,17 @@ class BoldActionSectionHeaderView: UITableViewHeaderFooterView {
         action?()
     }
     
-    func set(headerText: String, actionText: String?, action: (() -> ())?) {
+    func set(headerText: String, actionText: String?, action: (() -> ())?, actionIdentifier: String? = nil) {
         var att: NSAttributedString?
         if let actionText = actionText {
             att = NSAttributedString(string: actionText)
         }
-        set(headerText: headerText, actionAttributedText: att, action: action)
+        set(headerText: headerText, actionAttributedText: att, action: action, actionIdentifier: actionIdentifier)
     }
     
-    func set(headerText: String, actionAttributedText: NSAttributedString?, action: (() -> ())? = nil, menu: UIMenu? = nil) {
+    func set(headerText: String, actionAttributedText: NSAttributedString?, action: (() -> ())? = nil, menu: UIMenu? = nil, actionIdentifier: String? = nil) {
         headerLabel.text = headerText
+        button.accessibilityIdentifier = actionIdentifier
         
         if let actionAttributedText = actionAttributedText {
             let mutable = NSMutableAttributedString(attributedString: actionAttributedText)

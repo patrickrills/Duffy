@@ -1,0 +1,9 @@
+Duffy provides quick access to your step count directly on your Apple Watch face as a complication.
+
+I was surprised to find that a steps complication wasn’t included on Apple Watches out of the box. Being a veteran iOS developer, I decided to build one in my spare time. I really loved my prototype version and thought there were more people who would love it too. So I put in the extra effort to release it to the App Store for everyone! Duffy is completely free, has no ads, and is even open source so if you’re also a developer, you can help me enhance it.
+
+Duffy is a simple app, but it will probably turn into the most used app on your Apple Watch. No more opening the Activity app and scrolling around to find your steps. It’s now available at a glance.
+
+Duffy is more than just an elegant Apple Watch complication. Use the full watch app for easy access to your steps, flights climbed and distance travelled for today and the past week. Set a daily steps goal and be notified on your watch when you reach it. The companion iPhone app provides the same access to your steps, flights and distance on a much larger, easier-to-read surface while also allowing you to dig deeper into your data to see trends and statistics over time.
+
+Duffy reads the steps, flights climbed, distance travelled, and activity energy from your iPhone and Apple Watch from the Health app (via the HealthKit API).
