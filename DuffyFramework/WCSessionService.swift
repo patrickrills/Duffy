@@ -46,6 +46,15 @@ public class WCSessionService : NSObject
             delegate.sessionWasNotActivated()
         }
     }
+    
+    public func isActivated() -> Bool {
+        return WCSession.isSupported() && WCSession.default.activationState == .activated
+    }
+    
+    @available(watchOS, unavailable)
+    public func isComplicationEnabled() -> Bool {
+        return WCSession.isSupported() && WCSession.default.isComplicationEnabled
+    }
    
     //MARK: Transfer functions
     
@@ -66,12 +75,14 @@ public class WCSessionService : NSObject
                 return
             }
         
+            let complicationData = WCSessionMessage.complicationUpdate(steps: steps, day: day)
+
             if WCSession.default.isComplicationEnabled {
-                let complicationData = WCSessionMessage.complicationUpdate(steps: steps, day: day)
                 WCSession.default.transferCurrentComplicationUserInfo(complicationData.message())
                 LoggingService.log("Requested to send data to watch, remaining transfers", with: transfersRemaining().description)
             } else {
                 LoggingService.log("Complication NOT enabled", at: .debug)
+                WCSession.default.transferUserInfo(complicationData.message())
             }
         #endif
     }

@@ -30,6 +30,8 @@ class MainInterfaceController: WKInterfaceController
     @IBOutlet weak var tipButton: WKInterfaceButton!
     @IBOutlet weak var tipButtonImage : WKInterfaceImage!
     @IBOutlet weak var tipButtonLabel : WKInterfaceLabel!
+    @IBOutlet weak var debugButtonImage : WKInterfaceImage!
+    @IBOutlet weak var debugButtonLabel : WKInterfaceLabel!
     @IBOutlet weak var debugButton: WKInterfaceButton!
     @IBOutlet weak var topSeparator: WKInterfaceGroup!
     @IBOutlet weak var bottomSeparator: WKInterfaceGroup!
@@ -351,6 +353,9 @@ class MainInterfaceController: WKInterfaceController
         
         goalButtonImage.setImage(UIImage(systemName: "figure.walk", withConfiguration: symbolConfiguration)?.withRenderingMode(.alwaysTemplate))
         goalButtonLabel.setAttributedText(NSAttributedString(string: goalButtonText, attributes: [.font : buttonFont]))
+
+        debugButtonImage.setImage((UIImage(systemName: "ladybug.fill", withConfiguration: symbolConfiguration)?.withRenderingMode(.alwaysTemplate)))
+        debugButtonLabel.setAttributedText(NSAttributedString(string: "Debug", attributes: [.font : buttonFont]))
         
         setRoundedText(stepsTitle, for: stepsTitleLabel)
         setRoundedText(goalTitle, for: stepsGoalTitleLabel, in: .white)
@@ -472,11 +477,15 @@ class MainInterfaceController: WKInterfaceController
             actions.append(contentsOf: [
                 WKAlertAction(title: "Send Entire Log", style: .default, handler: {
                     [weak self] in
-                    self?.sendDebugLogToPhone(LoggingService.getFullDebugLog())
+                    self?.sendDebugLogToPhone(LoggingService.getMergedDebugLog())
                 }),
                 WKAlertAction(title: "Clear Log", style: .destructive, handler: {
                     [weak self] in
                     self?.clearDebugLog()
+                }),
+                WKAlertAction(title: "Refresh Complication", style: .default, handler: {
+                    [weak self] in
+                    self?.refreshDebug()
                 }),
                 WKAlertAction(title: "Dismiss", style: .cancel, handler: {})
             ])
@@ -498,5 +507,9 @@ class MainInterfaceController: WKInterfaceController
     
     private func clearDebugLog() {
         LoggingService.clearLog()
+    }
+    
+    private func refreshDebug() {
+        ComplicationController.refreshComplication()
     }
 }
