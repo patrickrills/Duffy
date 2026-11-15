@@ -246,7 +246,7 @@ class MainInterfaceController: WKInterfaceController
         
         HealthKitService.getInstance().subscribe(to: HKQuantityTypeIdentifier.stepCount, on: { [weak self] in
             DispatchQueue.main.async {
-                if WKExtension.shared().applicationState != .active {
+                if WKApplication.shared().applicationState != .active {
                     return
                 }
                 
@@ -269,7 +269,7 @@ class MainInterfaceController: WKInterfaceController
     //MARK: Snapshot and Complication Updating
     
     private func scheduleSnapshot() {
-        if let d = WKExtension.shared().delegate as? ExtensionDelegate {
+        if let d = WKApplication.shared().delegate as? ExtensionDelegate {
             d.scheduleNextBackgroundRefresh()
             d.scheduleSnapshotNow()
         }
