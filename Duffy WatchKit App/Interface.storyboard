@@ -188,7 +188,7 @@
         <!--SetGoalInterfaceController-->
         <scene sceneID="ROL-wV-fnb">
             <objects>
-                <controller identifier="SetGoalInterfaceController" spacing="0.0" fullBounds="YES" id="4xO-Gf-sN4" customClass="SetGoalInterfaceController" customModule="Duffy_WatchKit_Extension">
+                <controller identifier="SetGoalInterfaceController" spacing="0.0" fullBounds="YES" id="4xO-Gf-sN4" customClass="SetGoalInterfaceController" customModule="Duffy_WatchKit_App" customModuleProvider="target">
                     <items>
                         <picker height="2" alignment="left" id="lxQ-31-QF5">
                             <connections>
@@ -277,7 +277,7 @@
         <!--summaryInterfaceController-->
         <scene sceneID="LZl-Pd-feh">
             <objects>
-                <controller identifier="summaryInterfaceController" id="jZc-PD-Him" customClass="SummaryInterfaceController" customModule="Duffy_WatchKit_Extension">
+                <controller identifier="summaryInterfaceController" id="jZc-PD-Him" customClass="SummaryInterfaceController" customModule="Duffy_WatchKit_App" customModuleProvider="target">
                     <items>
                         <group width="1" alignment="center" layout="vertical" spacing="8" id="oQJ-rS-Ame">
                             <items>
@@ -289,7 +289,7 @@
                                 </group>
                                 <table alignment="left" id="Xkh-TU-BTJ">
                                     <items>
-                                        <tableRow identifier="WeekRowController" selectable="NO" id="I9v-3l-d5r" customClass="WeekRowController" customModule="Duffy_WatchKit_Extension">
+                                        <tableRow identifier="WeekRowController" selectable="NO" id="I9v-3l-d5r" customClass="WeekRowController" customModule="Duffy_WatchKit_App" customModuleProvider="target">
                                             <group key="rootItem" width="1" alignment="left" id="fva-XT-2Zw">
                                                 <items>
                                                     <label alignment="right" verticalAlignment="center" text="XXX" id="tNq-At-nqT">
@@ -324,7 +324,7 @@
         <!--Goal Notification Interface Controller-->
         <scene sceneID="Khe-dC-FsF">
             <objects>
-                <controller id="2aJ-93-JYN" customClass="GoalNotificationInterfaceController" customModule="Duffy_WatchKit_Extension">
+                <controller id="2aJ-93-JYN" customClass="GoalNotificationInterfaceController" customModule="Duffy_WatchKit_App" customModuleProvider="target">
                     <items>
                         <group width="1" alignment="left" layout="vertical" id="bT5-bZ-eq4">
                             <items>
