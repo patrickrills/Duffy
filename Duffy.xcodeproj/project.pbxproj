@@ -1116,14 +1116,14 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = "Duffy WatchKit Extension/Duffy WatchKit Extension.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = 2ZMUDMBY38;
 				INFOPLIST_FILE = "Duffy WatchKit App/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 4.4.4;
+				MARKETING_VERSION = 4.4.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bigbluefly.Duffy.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -1142,14 +1142,14 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_ENTITLEMENTS = "Duffy WatchKit Extension/Duffy WatchKit Extension.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = 2ZMUDMBY38;
 				INFOPLIST_FILE = "Duffy WatchKit App/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 4.4.4;
+				MARKETING_VERSION = 4.4.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bigbluefly.Duffy.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
@@ -1167,7 +1167,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Duffy/Duffy.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = 2ZMUDMBY38;
 				INFOPLIST_FILE = Duffy/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
@@ -1175,7 +1175,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.4.4;
+				MARKETING_VERSION = 4.4.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bigbluefly.Duffy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -1189,7 +1189,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ENTITLEMENTS = Duffy/Duffy.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 5;
+				CURRENT_PROJECT_VERSION = 0;
 				DEVELOPMENT_TEAM = 2ZMUDMBY38;
 				INFOPLIST_FILE = Duffy/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.6;
@@ -1197,7 +1197,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 4.4.4;
+				MARKETING_VERSION = 4.4.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.bigbluefly.Duffy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
