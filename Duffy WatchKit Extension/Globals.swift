@@ -81,6 +81,6 @@ enum Globals
             return "Unknown"
         }
         
-        return String(format: "%@.%@", ver1, ver2)
+        return String(format: "%@ (%@)", ver1, ver2)
     }
 }
