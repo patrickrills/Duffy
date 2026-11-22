@@ -36,6 +36,8 @@ class ExtensionDelegate: NSObject, WKApplicationDelegate, UNUserNotificationCent
             CoreMotionService.getInstance().initializeBackgroundUpdates()
         }
 
+        ComplicationController.reloadDescriptorsIfNeeded()
+
         if (HealthCache.cacheIsForADifferentDay(than: Date())) {
             ComplicationController.refreshComplication()
         }
