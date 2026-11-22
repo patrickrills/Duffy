@@ -97,7 +97,7 @@ class SetGoalInterfaceController: WKInterfaceController
         dismiss()
         
         if #available(watchOS 10.0, *) {
-            if let mainController = WKExtension.shared().rootInterfaceController as? MainInterfaceController {
+            if let mainController = WKApplication.shared().rootInterfaceController as? MainInterfaceController {
                 mainController.refresh()
             }
         }

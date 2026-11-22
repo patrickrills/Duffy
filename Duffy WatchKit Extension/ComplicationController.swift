@@ -41,6 +41,21 @@ class ComplicationController: NSObject, CLKComplicationDataSource {
         }
     }
     
+    private static let DESCRIPTORS_RELOADED_KEY = "complicationDescriptorsReloadedForSingleTarget"
+
+    //Complications added while the watch app was a WatchKit extension may not be
+    //connected to the single target app. Reload descriptors once to try to reconnect them.
+    class func reloadDescriptorsIfNeeded() {
+        guard !UserDefaults.standard.bool(forKey: DESCRIPTORS_RELOADED_KEY) else { return }
+
+        let server = CLKComplicationServer.sharedInstance()
+        LoggingService.log("Complication reloadComplicationDescriptors", with: String(format: "%d active", server.activeComplications?.count ?? 0))
+        server.reloadComplicationDescriptors()
+        UserDefaults.standard.set(true, forKey: DESCRIPTORS_RELOADED_KEY)
+
+        refreshComplication()
+    }
+
     func getTimelineEndDate(for complication: CLKComplication, withHandler handler: @escaping (Date?) -> Void) {
         if let oneMinuteAfterMidnight = Date().nextDay().changeTime(hour: 0, minute: 1, second: 0) {
             handler(oneMinuteAfterMidnight)

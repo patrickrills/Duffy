@@ -12,7 +12,8 @@ import UserNotifications
 import HealthKit
 import WatchConnectivity
 
-class ExtensionDelegate: NSObject, WKExtensionDelegate, UNUserNotificationCenterDelegate
+@main
+class ExtensionDelegate: NSObject, WKApplicationDelegate, UNUserNotificationCenterDelegate
 {
     private var pendingConnectivityTasks: [WKWatchConnectivityRefreshBackgroundTask] = []
     private var connectivityObservations: [NSKeyValueObservation] = []
@@ -35,6 +36,8 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, UNUserNotificationCenter
             CoreMotionService.getInstance().initializeBackgroundUpdates()
         }
 
+        ComplicationController.reloadDescriptorsIfNeeded()
+
         if (HealthCache.cacheIsForADifferentDay(than: Date())) {
             ComplicationController.refreshComplication()
         }
@@ -43,8 +46,8 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, UNUserNotificationCenter
     func applicationWillEnterForeground() {
         LoggingService.log("App will enter foreground")
         
-        if let c = WKExtension.shared().rootInterfaceController as? MainInterfaceController {
-            if WKExtension.shared().isApplicationRunningInDock {
+        if let c = WKApplication.shared().rootInterfaceController as? MainInterfaceController {
+            if WKApplication.shared().isApplicationRunningInDock {
                 c.refresh()
             }
             
@@ -59,7 +62,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, UNUserNotificationCenter
 
     private func performForegroundSetup() {
         guard !didPerformForegroundSetup,
-              WKExtension.shared().applicationState == .active
+              WKApplication.shared().applicationState == .active
         else { return }
 
         didPerformForegroundSetup = true
@@ -80,7 +83,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, UNUserNotificationCenter
     func applicationDidEnterBackground() {
         LoggingService.log("App will enter background")
         
-        if let c = WKExtension.shared().rootInterfaceController as? MainInterfaceController {
+        if let c = WKApplication.shared().rootInterfaceController as? MainInterfaceController {
             c.unsubscribeToHealthKitUpdates()
         }
     }
@@ -93,7 +96,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, UNUserNotificationCenter
                 case let snapshot as WKSnapshotRefreshBackgroundTask:
                     LoggingService.log("Snapshot task handled")
 
-                    if let c = WKExtension.shared().rootInterfaceController as? MainInterfaceController {
+                    if let c = WKApplication.shared().rootInterfaceController as? MainInterfaceController {
                         c.updateInterfaceFromSnapshot()
                     }
 
@@ -157,7 +160,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, UNUserNotificationCenter
         let userInfo = ["reason" : "background update"] as NSDictionary
         let refreshDate = Date(timeIntervalSinceNow: 60*30)
         
-        WKExtension.shared().scheduleBackgroundRefresh(withPreferredDate: refreshDate, userInfo: userInfo, scheduledCompletion: {
+        WKApplication.shared().scheduleBackgroundRefresh(withPreferredDate: refreshDate, userInfo: userInfo, scheduledCompletion: {
             (err: Error?) in
             if let e = err {
                 LoggingService.log(error: e)
@@ -167,7 +170,7 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate, UNUserNotificationCenter
     
     func scheduleSnapshotNow()
     {
-        WKExtension.shared().scheduleSnapshotRefresh(withPreferredDate: Date(), userInfo: nil, scheduledCompletion: {
+        WKApplication.shared().scheduleSnapshotRefresh(withPreferredDate: Date(), userInfo: nil, scheduledCompletion: {
             (err: Error?) in
             if let e = err {
                 LoggingService.log(error: e)
