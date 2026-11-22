@@ -326,11 +326,12 @@ public class HealthKitService
                 case .failure(let error):
                 completionHandler(.failure(error))
             case .success(let values):
-                guard let first = values.first else {
+                let day = on.stripTime()
+                guard let sum = values[day] else {
                     completionHandler(.failure(.invalidResults))
                     return
                 }
-                completionHandler(.success((day: first.key, sum: first.value)))
+                completionHandler(.success((day: day, sum: sum)))
             }
         }
     }
@@ -344,7 +345,10 @@ public class HealthKitService
         let queryStartDate = startDate.stripTime()
         let queryEndDate = endDate.stripTime().nextDay()
         
-        let forSpecificDay = HKQuery.predicateForSamples(withStart: queryStartDate, end: queryEndDate, options: .strictStartDate)
+        //No strict options: a sample straddling midnight at either end of the range needs to be
+        //included so the collection query can apportion it across the days it actually covers.
+        //Excluding it would drop that share from the first or last day's total.
+        let forSpecificDay = HKQuery.predicateForSamples(withStart: queryStartDate, end: queryEndDate, options: [])
         var interval = DateComponents()
         interval.day = 1
         
@@ -360,7 +364,13 @@ public class HealthKitService
                 
                 r.enumerateStatistics(from: queryStartDate, to: queryEndDate) {
                     statistics, stop in
-                    
+
+                    //The enumeration yields a bucket starting at queryEndDate, which is a day
+                    //the caller never asked for. A sample straddling that midnight gets split
+                    //across the boundary, so the bucket holds a partial value that would
+                    //otherwise be mistaken for that day's total.
+                    guard statistics.startDate < queryEndDate else { return }
+
                     if let quantity = statistics.sumQuantity() {
                         
                         var sumForDate: Double = 0.0
