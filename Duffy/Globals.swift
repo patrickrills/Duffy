@@ -168,7 +168,7 @@ enum Globals
             if let ver1 = infoDict["CFBundleShortVersionString"] as? String,
                 let ver2 = infoDict["CFBundleVersion"] as? String
             {
-                return String(format: "%@.%@", ver1, ver2)
+                return String(format: "%@ (%@)", ver1, ver2)
             }
         }
         
