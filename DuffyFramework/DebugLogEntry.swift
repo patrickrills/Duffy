@@ -47,13 +47,15 @@ public class DebugLogEntry: NSObject {
         #if os(iOS)
             let isOpen = self.message.contains("App will enter foreground") || self.message.contains("App did finish launching")
             let isClose = self.message.contains("App will resign active")
+            let noComp = self.message.contains("NOT enabled")
             let isSendComplication = self.message.contains("updateWatchFaceComplication")
-            let isReloadComplication = self.message.contains("reloadTimeline")
+            let isReloadComplication = self.message.contains("reload") && self.message.contains("Timeline")
             let isCoreMotion = self.message.contains("CMPedometer")
-        
+            let isWidget = self.message.contains(LogLevel.widgetPrefix)
+            
             if isOpen {
                 return .systemGreen
-            } else if isClose {
+            } else if isClose || noComp {
                 return .systemRed
             } else if isSendComplication {
                 return .systemPurple
@@ -61,6 +63,8 @@ public class DebugLogEntry: NSObject {
                 return .systemTeal
             } else if isCoreMotion {
                 return .systemOrange
+            } else if isWidget {
+                return .systemIndigo
             } else {
                 return .label
             }

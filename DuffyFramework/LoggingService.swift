@@ -31,6 +31,7 @@ public class LoggingService {
     private static let MAX_DAYS_WATCH = 1
     private static let MAX_DAYS_PHONE = 3
     private static var LOGGING_PREFIX = "Duffy"
+    private static let DEBUG_LOG_KEY = "debugLog"
     private static let logger = OSLog(subsystem: "com.bigbluefly.Duffy", category: LOGGING_PREFIX)
     
     private class func log(level: LogLevel, message: String, extra: String?) {
@@ -43,6 +44,12 @@ public class LoggingService {
             platform = "Phone"
         #endif
         
+        var isWidget = false
+        if message.starts(with: LogLevel.widgetPrefix) {
+            platform += " Widget"
+            isWidget = true
+        }
+        
         if let extra = extra {
             os_log("%{public}@ %{public}@: %{public}@", log: logger, platform, message, extra)
         } else {
@@ -50,11 +57,11 @@ public class LoggingService {
         }
         
         if DebugService.isDebugModeEnabled() {
-            logDebug(message: message, extra: extra)
+            logDebug(message: message, extra: extra, shared: isWidget)
         }
     }
     
-    private class func logDebug(message: String, extra: String?) {
+    private class func logDebug(message: String, extra: String?, shared: Bool = false) {
         var platform = "Watch"
         #if os(iOS)
             platform = "Phone"
@@ -68,10 +75,16 @@ public class LoggingService {
             formattedMessage = prefix
         }
         
-        var log = purge(log: getFullDebugLog())
+        let defaults: UserDefaults
+        if shared, let shared = UserDefaults(suiteName: Constants.sharedGroupName) {
+            defaults = shared
+        } else {
+            defaults = .standard
+        }
+
+        var log = purge(log: getDebugLog(from: defaults))
         log.append(DebugLogEntry(message: formattedMessage, timestampInterval: Date().timeIntervalSinceReferenceDate))
-        let serialized = log.map({ $0.serialize() })
-        UserDefaults.standard.set(serialized, forKey: "debugLog")
+        defaults.set(log.map({ $0.serialize() }), forKey: DEBUG_LOG_KEY)
     }
     
     private class func purge(log: [DebugLogEntry]) -> [DebugLogEntry] {
@@ -84,17 +97,16 @@ public class LoggingService {
         return log.filter({ $0.timestamp > filterDate })
     }
     
-    public class func getFullDebugLog() -> [DebugLogEntry] {
-        if let logDict = UserDefaults.standard.object(forKey: "debugLog") as? [[String : Any]]
-        {
-            return logDict.map({dict in
-                return DebugLogEntry(deseralized: dict)
-            }).sorted(by: {
-                return $0.timestamp > $1.timestamp
-            })
+    public class func getMergedDebugLog() -> [DebugLogEntry] {
+        let sharedEntries = getSharedDebugLog()
+        if sharedEntries.count > 0 {
+            mergeLog(newEntries: sharedEntries)
         }
-        
-        return []
+        return getFullDebugLog()
+    }
+    
+    public class func getFullDebugLog() -> [DebugLogEntry] {
+        return getDebugLog(from: .standard)
     }
     
     public class func getPartialDebugLog(from startDate: Date, to endDate: Date) -> [DebugLogEntry] {
@@ -108,7 +120,7 @@ public class LoggingService {
             return []
         }
        
-        return getFullDebugLog().filter({
+        return getMergedDebugLog().filter({
             $0.timestamp >= filterStartDate && $0.timestamp < filterEndDate
         })
     }
@@ -121,15 +133,36 @@ public class LoggingService {
         return Array(Set(allDates)).sorted(by: >)
     }
     
+    private class func getSharedDebugLog() -> [DebugLogEntry] {
+        guard let shared = UserDefaults(suiteName: Constants.sharedGroupName) else {
+            return []
+        }
+
+        return getDebugLog(from: shared)
+    }
+
+    private class func getDebugLog(from defaults: UserDefaults) -> [DebugLogEntry] {
+        guard let logDict = defaults.object(forKey: DEBUG_LOG_KEY) as? [[String : Any]] else {
+            return []
+        }
+
+        return logDict.map({ DebugLogEntry(deseralized: $0) }).sorted(by: {
+            return $0.timestamp > $1.timestamp
+        })
+    }
+    
     public class func mergeLog(newEntries: [DebugLogEntry]) {
         var log = getFullDebugLog()
         let deltas = newEntries.filter({ !log.contains($0) })
         log.append(contentsOf: deltas)
         let serialized = log.map({ $0.serialize() })
-        UserDefaults.standard.set(serialized, forKey: "debugLog")
+        UserDefaults.standard.set(serialized, forKey: DEBUG_LOG_KEY)
     }
     
     public class func clearLog() {
-        UserDefaults.standard.removeObject(forKey: "debugLog")
+        UserDefaults.standard.removeObject(forKey: DEBUG_LOG_KEY)
+        if let shared = UserDefaults(suiteName: Constants.sharedGroupName) {
+            shared.removeObject(forKey: DEBUG_LOG_KEY)
+        }
     }
 }

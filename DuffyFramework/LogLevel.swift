@@ -19,4 +19,6 @@ public enum LogLevel {
             return DebugService.isDebugModeEnabled()
         }
     }
+    
+    public static let widgetPrefix: String = "Widget |"
 }
